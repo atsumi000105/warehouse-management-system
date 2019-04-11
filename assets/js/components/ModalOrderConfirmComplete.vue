@@ -1,0 +1,17 @@
+<template>
+    <hb-modal :confirmAction="action" classes="modal-info" id="confirmCommitModal">
+        <template slot="header">Complete Order</template>
+        <p>Are you sure you want to finalize <strong>{{orderTitle}}</strong>?</p>
+        <p>By completing this order you will not be able to make changes and inventory transactions will be committed.</p>
+        <template slot="confirmButton">Complete Order</template>
+    </hb-modal>
+</template>
+
+<script>
+    export default {
+        props: {
+            action: { type: Function },
+            orderTitle: {type: String },
+        },
+    }
+</script>

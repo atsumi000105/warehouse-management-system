@@ -1,0 +1,64 @@
+<template>
+    <div class="form-group">
+        <label v-text="label"></label>
+        <template v-if="chosen && loaded">
+            <select class="form-control" v-model="value[property]" v-chosen>
+                <option value="" v-text="emptyOption"></option>
+                <option v-for="item in options" :selected="value[property] == item.id" :value="item.id" v-text="displayText(item)"></option>
+            </select>
+        </template>
+        <template v-else-if="!chosen && loaded">
+            <select class="form-control" v-model="value[property]">
+                <option value="" v-text="emptyOption"></option>
+                <option v-for="item in options" :selected="value[property] == item.id" :value="item.id" v-text="displayText(item)"></option>
+            </select>
+        </template>
+        <select class="form-control" v-else disabled>
+            <option selected>Loading...</option>
+        </select>
+    </div>
+</template>
+
+<script>
+    export default {
+        props: {
+            value: { type: Object },
+            property: { type: String },
+            label: { type: String },
+            preloadedOptions: { type: Array, default: function() {return []}},
+            displayProperty: { type: String, default: 'name'},
+            displayTextFn: { type: Function },
+            emptyString: { type: String },
+            alphabetize: { type: Boolean, default: true },
+            chosen: { type: Boolean, default: true }
+        },
+
+        data() {
+            return {
+                listOptions: [],
+            }
+        },
+
+        computed: {
+            loaded: function() { return this.options.length > 0 },
+            options: function() { return this.listOptions.length > 0 ? this.listOptions : this.preloadedOptions },
+            emptyOption: function() { return this.emptyString ? this.emptyString : '-- Select Item --'}
+        },
+
+        methods: {
+            displayText: function(item) {
+                if (this.displayTextFn) {
+                    return this.displayTextFn(item);
+                } else {
+                    return item[this.displayProperty];
+                }
+            }
+        },
+
+        created() {
+            var self = this;
+
+            self.listOptions = self.preloadedOptions;
+        },
+    }
+</script>
