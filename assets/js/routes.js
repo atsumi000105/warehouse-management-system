@@ -52,9 +52,9 @@ let routes = [
     { path: '/orders/partner/:id', component: require('./views/order/partner/PartnerOrderEdit.vue').default},
     { path: '/orders/partner/:id/fill-sheet', component: require('./views/order/partner/SingleFillSheet.vue').default},
 
-    { path: '/orders/bulk-distribution', component: require('./views/order/bulk-distribution/BulkDistributionOrderList.vue').default},
-    { path: '/orders/bulk-distribution/new', component: require('./views/order/bulk-distribution/BulkDistributionOrderEdit.vue').default, props: { new: true }},
-    { path: '/orders/bulk-distribution/:id', component: require('./views/order/bulk-distribution/BulkDistributionOrderEdit.vue').default},
+    { path: '/orders/distribution', component: require('./views/order/distribution/BulkDistributionOrderList.vue').default},
+    { path: '/orders/distribution/new', component: require('./views/order/distribution/BulkDistributionOrderEdit.vue').default, props: { new: true }},
+    { path: '/orders/distribution/:id', component: require('./views/order/distribution/BulkDistributionOrderEdit.vue').default},
 
     { path: '/orders/adjustment', component: require('./views/order/adjustment/AdjustmentOrderList.vue').default},
     { path: '/orders/adjustment/new', component: require('./views/order/adjustment/AdjustmentOrderEdit.vue').default, props: { new: true }},

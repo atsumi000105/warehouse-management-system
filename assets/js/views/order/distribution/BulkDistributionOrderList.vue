@@ -1,6 +1,6 @@
 <template>
     <section class="content">
-        <router-link to="/orders/bulk-distribution/new" class="btn btn-success btn-flat pull-right"><i class="fa fa-plus-circle fa-fw"></i>Create Partner Distribution</router-link>
+        <router-link to="/orders/distribution/new" class="btn btn-success btn-flat pull-right"><i class="fa fa-plus-circle fa-fw"></i>Create Partner Distribution</router-link>
         <h3 class="box-title">Partner Distributions List</h3>
 
         <div class="row">
@@ -28,8 +28,8 @@
                         <hb-tablepaged
                                 :columns="columns"
                                 ref="hbtable"
-                                apiUrl="/api/orders/bulk-distribution"
-                                editRoute="/orders/bulk-distribution/"
+                                apiUrl="/api/orders/distribution"
+                                editRoute="/orders/distribution/"
                                 :sortOrder="[{ field: 'id', direction: 'desc'}]"
                                 :perPage="50"
                         ></hb-tablepaged>

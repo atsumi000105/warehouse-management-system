@@ -110,14 +110,14 @@
             save: function () {
                 var self = this;
                 if(this.new) {
-                    axios.post('/api/orders/bulk-distribution', this.order)
-                        .then(response => self.$router.push('/orders/bulk-distribution'))
+                    axios.post('/api/orders/distribution', this.order)
+                        .then(response => self.$router.push('/orders/distribution'))
                         .catch(function (error) {
                             console.log(error);
                         });
                 } else {
-                    axios.patch('/api/orders/bulk-distribution/' + this.$route.params.id, this.order)
-                        .then(response => self.$router.push('/orders/bulk-distribution'))
+                    axios.patch('/api/orders/distribution/' + this.$route.params.id, this.order)
+                        .then(response => self.$router.push('/orders/distribution'))
                         .catch(function (error) {
                             console.log(error);
                         });
@@ -128,7 +128,7 @@
             },
             deleteOrder: function() {
                 var self = this;
-                axios.delete('/api/orders/bulk-distribution/' + this.$route.params.id).then(self.$router.push('/orders/bulk-distribution'));
+                axios.delete('/api/orders/distribution/' + this.$route.params.id).then(self.$router.push('/orders/distribution'));
             }
         },
         created() {
@@ -136,7 +136,7 @@
             axios.get('/api/products', {params: { partnerOrderable: 1}}).then(response => this.products = response.data.data);
             if(this.new) {
             } else {
-                axios.get('/api/orders/bulk-distribution/' + this.$route.params.id, {
+                axios.get('/api/orders/distribution/' + this.$route.params.id, {
                     params: { include: ['lineItems', 'lineItems.product', 'lineItems.transactions', 'partner.addresses']}
                 }).then(response => self.order = response.data.data);
 

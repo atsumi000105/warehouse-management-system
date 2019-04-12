@@ -44,7 +44,7 @@
                         icon: "shopping-cart",
                         links: [
                             { title: "Partner Orders", route: "/orders/partner", icon: "child" },
-                            { title: "Partner Distributions", route: "/orders/bulk-distribution", icon: "check-square-o" },
+                            { title: "Partner Distributions", route: "/orders/distribution", icon: "check-square-o" },
                             { title: "Partner Management", route: "/partners", icon: "sitemap" },
                             { title: "Partner Order Totals Report", route: "/reports/partner-order-totals", icon: "print" },
                             { title: "Partner Inventory Report", route: "/reports/partner-inventory", icon: "print" },
