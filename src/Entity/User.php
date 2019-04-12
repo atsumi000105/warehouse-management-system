@@ -11,6 +11,7 @@ use Symfony\Component\Routing\Exception\MissingMandatoryParametersException;
 
 /**
  * @ORM\Entity()
+ * @ORM\Table(name="users")
  */
 class User extends BaseUser
 {

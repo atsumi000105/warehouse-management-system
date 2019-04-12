@@ -83,6 +83,9 @@
     "egulias/email-validator": {
         "version": "2.1.6"
     },
+    "fig/link-util": {
+        "version": "1.0.0"
+    },
     "fightbulc/moment": {
         "version": "1.26.10"
     },
@@ -126,6 +129,9 @@
         "version": "1.0.1"
     },
     "psr/container": {
+        "version": "1.0.0"
+    },
+    "psr/link": {
         "version": "1.0.0"
     },
     "psr/log": {
@@ -175,6 +181,9 @@
             "version": "3.3",
             "ref": "e3868d2f4a5104f19f844fe551099a00c6562527"
         }
+    },
+    "symfony/contracts": {
+        "version": "v1.0.2"
     },
     "symfony/debug": {
         "version": "v4.1.6"
@@ -251,8 +260,14 @@
     "symfony/polyfill-intl-icu": {
         "version": "v1.9.0"
     },
+    "symfony/polyfill-intl-idn": {
+        "version": "v1.11.0"
+    },
     "symfony/polyfill-mbstring": {
         "version": "v1.9.0"
+    },
+    "symfony/polyfill-php72": {
+        "version": "v1.11.0"
     },
     "symfony/process": {
         "version": "v4.1.6"
@@ -328,6 +343,9 @@
             "version": "4.1",
             "ref": "0cdc982334f45d554957a6167e030482795bf9d7"
         }
+    },
+    "symfony/web-link": {
+        "version": "v4.1.11"
     },
     "symfony/web-server-bundle": {
         "version": "3.3",
