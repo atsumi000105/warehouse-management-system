@@ -5,7 +5,6 @@
         "php": "^7.3.1",
         "ext-ctype": "*",
         "ext-iconv": "*",
-        "api-platform/api-pack": "^1.1",
         "fightbulc/moment": "^1.26",
         "friendsofsymfony/user-bundle": "^2.1",
         "samj/fractal-bundle": "^2.1",
