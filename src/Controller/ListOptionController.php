@@ -24,7 +24,7 @@ abstract class ListOptionController extends BaseController
     /**
      * Get a list of ListOptions
      *
-     * @Route(path="/", methods={"GET"})
+     * @Route(path="", methods={"GET"})
      * @param Request $request
      * @return JsonResponse
      */
@@ -53,19 +53,20 @@ abstract class ListOptionController extends BaseController
     /**
      * Save a new listOption
      *
-     * @Route(path="/", methods={"POST"})
+     * @Route(path="", methods={"POST"})
      * @param Request $request
      * @return JsonResponse
      */
     public function store(Request $request) {
-        $this->validate($request, [
-            'name' => 'required',
-        ]);
+        // TODO: Get validation working (#2)
+//        $this->validate($request, [
+//            'name' => 'required',
+//        ]);
 
         $listOption = $this->getListOptionEntityInstance();
         $listOption->setName($request->get('name'));
 
-        $params = $request->request->all();
+        $params = $this->getParams($request);
         $listOption->applyChangesFromArray($params);
 
         $this->getEm()->persist($listOption);

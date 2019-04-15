@@ -24,7 +24,7 @@ class SupplierController extends BaseController
     /**
      * Get a list of Suppliers
      *
-     * @Route(path="/", methods={"GET"})
+     * @Route(path="", methods={"GET"})
      *
      * @return JsonResponse
      */
@@ -85,24 +85,26 @@ class SupplierController extends BaseController
     /**
      * Save a new supplier
      *
-     * @Route(path="/", methods={"POST"})
+     * @Route(path="", methods={"POST"})
      *
      * @param Request $request
      * @return JsonResponse
      */
     public function store(Request $request) {
-        $this->validate($request, [
-            'title' => 'required',
-            'contacts' => 'array',
-            'addresses' => 'array',
-        ]);
+        // TODO: Get validation working (#2)
+//        $this->validate($request, [
+//            'title' => 'required',
+//            'contacts' => 'array',
+//            'addresses' => 'array',
+//        ]);
 
         $supplier = new Supplier($request->get('title'));
 
-        $params = $request->request->all();
+        $params = $this->getParams($request);
         $supplier->applyChangesFromArray($params);
 
-        $this->checkEditPermissions($supplier);
+        // TODO: get permissions working (#1)
+        // $this->checkEditPermissions($supplier);
 
         $this->getEm()->persist($supplier);
         $this->getEm()->flush();
@@ -121,11 +123,13 @@ class SupplierController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        $params = $request->request->all();
+        $params = $this->getParams($request);
         /** @var Supplier $supplier */
         $supplier = $this->getSupplier($id);
 
-        $this->checkEditPermissions($supplier);
+        // TODO: get permissions working (#1)
+        // // TODO: get permissions working (#1)
+        // $this->checkEditPermissions($supplier);
 
         $supplier->applyChangesFromArray($params);
 
@@ -147,7 +151,8 @@ class SupplierController extends BaseController
     {
         $supplier = $this->getSupplier($id);
 
-        $this->checkEditPermissions($supplier);
+        // TODO: get permissions working (#1)
+        // $this->checkEditPermissions($supplier);
 
         $this->getEm()->remove($supplier);
 

@@ -28,7 +28,7 @@ class OrderController extends BaseController
     /**
      * Get a list of Sub-classed orders
      *
-     * @Route(path="/", methods={"GET"})
+     * @Route(path="", methods={"GET"})
      *
      * @return JsonResponse
      */
@@ -107,11 +107,12 @@ class OrderController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        $params = $request->request->all();
+        $params = $this->getParams($request);
         /** @var Order $order */
         $order = $this->getOrder($id);
 
-        $this->checkEditPermissions($order);
+        // TODO: get permissions working (#1)
+        // $this->checkEditPermissions($order);
 
         $this->processLineItems($order, $params['lineItems']);
 
@@ -138,7 +139,8 @@ class OrderController extends BaseController
             throw new \Exception('Order has been committed and cannot be deleted.');
         }
 
-        $this->checkEditPermissions($order);
+        // TODO: get permissions working (#1)
+        // $this->checkEditPermissions($order);
 
         $this->getEm()->remove($order);
 
@@ -162,7 +164,8 @@ class OrderController extends BaseController
         $orders = $this->getRepository()->findBy(['id' => $ids]);
 
         foreach ($orders as $order) {
-            $this->checkEditPermissions($order);
+            // TODO: get permissions working (#1)
+            // $this->checkEditPermissions($order);
             $this->checkEditable($order);
 
             $order->applyChangesFromArray($changes);

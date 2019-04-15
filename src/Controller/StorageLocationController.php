@@ -23,7 +23,7 @@ class StorageLocationController extends BaseController
     /**
      * Get a list of Sub-classed storage locations
      *
-     * @Route(path="/", methods={})
+     * @Route(path="", methods={})
      * @return JsonResponse
      */
     public function index(Request $request)
@@ -68,11 +68,12 @@ class StorageLocationController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        $params = $request->request->all();
+        $params = $this->getParams($request);
         /** @var StorageLocation $storageLocation */
         $storageLocation = $this->getStorageLocation($id);
 
-        $this->checkEditPermissions($storageLocation);
+        // TODO: get permissions working (#1)
+        // $this->checkEditPermissions($storageLocation);
 
         $storageLocation->applyChangesFromArray($params);
 
@@ -93,7 +94,8 @@ class StorageLocationController extends BaseController
     {
         $storageLocation = $this->getStorageLocation($id);
 
-        $this->checkEditPermissions($storageLocation);
+        // TODO: get permissions working (#1)
+        // $this->checkEditPermissions($storageLocation);
 
         $this->getEm()->remove($storageLocation);
 

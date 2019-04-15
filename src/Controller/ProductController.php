@@ -23,7 +23,7 @@ class ProductController extends BaseController
     /**
      * Get a list of Products
      *
-     * @Route(path="/", methods={"GET"})
+     * @Route(path="", methods={"GET"})
      *
      * @return JsonResponse
      */
@@ -58,17 +58,19 @@ class ProductController extends BaseController
     /**
      * Save a new product
      *
-     * @Route(path="/", methods={"POST"})
+     * @Route(path="", methods={"POST"})
      *
      * @param Request $request
      * @return JsonResponse
      */
     public function store(Request $request) {
-        $params = $request->request->all();
+        $params = $this->getParams($request);
 
-        $this->validate($request, [
-            'name' => 'required',
-        ]);
+        // TODO: Get validation working (#2)
+//        $this->validate($request, [
+//            'name' => 'required',
+//        ]);
+
 
         $product = new Product($request->get('name'));
 
@@ -79,7 +81,8 @@ class ProductController extends BaseController
             $product->setProductCategory($newCategory);
         }
 
-        $this->checkEditPermissions($product);
+        // TODO: get permissions working (#1)
+        // $this->checkEditPermissions($product);
 
         $this->getEm()->persist($product);
         $this->getEm()->flush();
@@ -98,11 +101,12 @@ class ProductController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        $params = $request->request->all();
+        $params = $this->getParams($request);
         /** @var Product $product */
         $product = $this->getProduct($id);
 
-        $this->checkEditPermissions($product);
+        // TODO: get permissions working (#1)
+        // $this->checkEditPermissions($product);
 
         $product->applyChangesFromArray($params);
 
@@ -129,7 +133,8 @@ class ProductController extends BaseController
     {
         $product = $this->getProduct($id);
 
-        $this->checkEditPermissions($product);
+        // TODO: get permissions working (#1)
+        // $this->checkEditPermissions($product);
 
         $this->getEm()->remove($product);
 

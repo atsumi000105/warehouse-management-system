@@ -2,29 +2,30 @@
 
 namespace App\Controller;
 
-use App\Entity\Orders\SupplyOrder;
-use App\Entity\Orders\SupplyOrderLineItem;
-use App\Entity\Supplier;
-use App\Entity\SupplierAddress;
+use App\Entity\Orders\MerchandiseOrder;
+use App\Entity\Orders\MerchandiseOrderLineItem;
 use App\Entity\Warehouse;
-use App\Transformers\SupplyOrderTransformer;
+use App\Transformers\MerchandiseOrderTransformer;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route(path="/api/orders/supply")
+ * Class PartnerOrderController
+ * @package App\Controller
+ *
+ * @Route(path="/api/orders/merchandise")
  */
-class SupplyOrderController extends OrderController
+class MerchandiseOrderController extends OrderController
 {
-    protected $defaultEntityName = SupplyOrder::class;
+    protected $defaultEntityName = MerchandiseOrder::class;
 
     /**
-     * @return \App\Entity\Orders\SupplyOrderLineItem
+     * @return MerchandiseOrderLineItem
      */
     protected function createLineItem()
     {
-        return new SupplyOrderLineItem();
+        return new MerchandiseOrderLineItem();
     }
 
     /**
@@ -37,31 +38,17 @@ class SupplyOrderController extends OrderController
      */
     public function store(Request $request) {
         $params = $this->getParams($request);
-
-        $order = new SupplyOrder();
+        $order = new MerchandiseOrder();
 
         if($params['warehouse']['id']) {
             $newWarehouse = $this->getEm()->find(Warehouse::class, $params['warehouse']['id']);
             $order->setWarehouse($newWarehouse);
         }
 
-        if($params['supplier']['id']) {
-            $newSupplier = $this->getEm()->find(Supplier::class, $params['supplier']['id']);
-            $order->setSupplier($newSupplier);
-        }
-
-        if($params['supplierAddress']['id']) {
-            $newSupplierAddress = $this->getEm()->find(SupplierAddress::class, $params['supplierAddress']['id']);
-            $order->setSupplierAddress($newSupplierAddress);
-        }
-
         $this->processLineItems($order, $params['lineItems']);
         unset($params['lineItems']);
 
         $order->applyChangesFromArray($params);
-
-        // TODO: get permissions working (#1)
-        // $this->checkEditPermissions($order);
 
         $this->getEm()->persist($order);
         $this->getEm()->flush();
@@ -81,27 +68,14 @@ class SupplyOrderController extends OrderController
     public function update(Request $request, $id)
     {
         $params = $this->getParams($request);
-        /** @var \App\Entity\Orders\SupplyOrder $order */
+        /** @var MerchandiseOrder $order */
         $order = $this->getOrder($id);
-
-        // TODO: get permissions working (#1)
-        // $this->checkEditPermissions($order);
 
         $this->checkEditable($order);
         
         if($params['warehouse']['id']) {
-            $newWarehouse = $this->getEm()->find('App\Entity\Warehouse', $params['warehouse']['id']);
+            $newWarehouse = $this->getEm()->find(Warehouse::class, $params['warehouse']['id']);
             $order->setWarehouse($newWarehouse);
-        }
-
-        if($params['supplier']['id']) {
-            $newSupplier = $this->getEm()->find('App\Entity\Supplier', $params['supplier']['id']);
-            $order->setSupplier($newSupplier);
-        }
-
-        if($params['supplierAddress']['id']) {
-            $newSupplierAddress = $this->getEm()->find('App\Entity\SupplierAddress', $params['supplierAddress']['id']);
-            $order->setSupplierAddress($newSupplierAddress);
         }
 
         $this->processLineItems($order, $params['lineItems']);
@@ -118,6 +92,6 @@ class SupplyOrderController extends OrderController
 
     protected function getDefaultTransformer()
     {
-        return new SupplyOrderTransformer;
+        return new MerchandiseOrderTransformer;
     }
 }

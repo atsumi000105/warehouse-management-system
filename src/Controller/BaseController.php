@@ -82,6 +82,21 @@ abstract class BaseController extends AbstractController
         return new JsonResponse($meta);
     }
 
+    /**
+     * Gets the parameters from the request including any json in the content
+     *
+     * @param Request $request
+     * @return array
+     */
+    protected function getParams(Request $request) : array {
+        $params = $request->request->all();
+
+        if ($request->getContentType() == 'json') {
+            $params += json_decode($request->getContent(), true);
+        }
+
+        return $params;
+    }
 
     protected function getDefaultTransformer()
     {
