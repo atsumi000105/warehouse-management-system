@@ -26,6 +26,7 @@
         "doctrine/doctrine-fixtures-bundle": "^3.0",
         "fzaninotto/faker": "^1.8",
         "symfony/dotenv": "*",
+        "symfony/profiler-pack": "^1.0",
         "symfony/web-server-bundle": "*"
     },
     "config": {
