@@ -128,7 +128,6 @@ class SupplierController extends BaseController
         $supplier = $this->getSupplier($id);
 
         // TODO: get permissions working (#1)
-        // // TODO: get permissions working (#1)
         // $this->checkEditPermissions($supplier);
 
         $supplier->applyChangesFromArray($params);
