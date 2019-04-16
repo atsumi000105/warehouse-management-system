@@ -12,11 +12,12 @@ class ProductRepository extends EntityRepository
     {
         $dql = "SELECT SUM(t.delta) AS balance FROM App\Entity\InventoryTransaction t
             WHERE t.product = ?1
-              and t.committed = 1
+              and t.committed = ?2
               and t.storageLocation in (SELECT w FROM App\Entity\Warehouse as w)";
 
         $inventory = $this->getEntityManager()->createQuery($dql)
             ->setParameter(1, $product)
+            ->setParameter(2, true)
             ->getSingleScalarResult();
 
         return $inventory;
@@ -26,10 +27,11 @@ class ProductRepository extends EntityRepository
     {
         $dql = "SELECT SUM(t.delta) AS balance FROM App\Entity\InventoryTransaction t
             WHERE t.product = ?1
-              and t.committed = 1";
+              and t.committed = ?2";
 
         $inventory = $this->getEntityManager()->createQuery($dql)
             ->setParameter(1, $product)
+            ->setParameter(2, true)
             ->getSingleScalarResult();
 
         return $inventory;
@@ -39,11 +41,12 @@ class ProductRepository extends EntityRepository
     {
         $dql = "SELECT SUM(t.delta) AS balance FROM App\Entity\InventoryTransaction t
             WHERE t.product = ?1
-              and t.committed = 1
+              and t.committed = ?2
               and t.storageLocation in (SELECT w FROM App\Entity\Partner as w)";
 
         $inventory = $this->getEntityManager()->createQuery($dql)
             ->setParameter(1, $product)
+            ->setParameter(2, true)
             ->getSingleScalarResult();
 
         return $inventory;

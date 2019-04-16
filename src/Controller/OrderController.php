@@ -16,7 +16,7 @@ class OrderController extends BaseController
     protected $defaultEntityName =  Order::class;
 
     /**
-     * @return LineItemPartnerOrdersController.php
+     * @return LineItem
      * @throws \Exception
      */
     protected function createLineItem()

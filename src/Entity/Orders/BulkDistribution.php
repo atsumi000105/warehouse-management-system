@@ -121,7 +121,7 @@ class BulkDistribution extends Order
     /**
      * @param int $portalOrderId
      */
-    public function setPortalOrderId(int $portalOrderId)
+    public function setPortalOrderId(?int $portalOrderId)
     {
         $this->portalOrderId = $portalOrderId;
     }
