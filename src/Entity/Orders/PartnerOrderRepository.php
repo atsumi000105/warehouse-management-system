@@ -15,7 +15,7 @@ class PartnerOrderRepository extends OrderRepository
             ->leftJoin('o.warehouse', 'warehouse');
     }
 
-    public function partnerOrderTotals($sortField = null, $sortDirection = 'ASC', ParameterBag $params)
+    public function partnerOrderTotals($sortField = null, $sortDirection = 'ASC', ParameterBag $params = null)
     {
         $qb = $this->createQueryBuilder('o')
             ->leftJoin('o.lineItems', 'l')

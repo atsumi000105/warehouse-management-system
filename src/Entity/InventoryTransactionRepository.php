@@ -11,7 +11,7 @@ class InventoryTransactionRepository extends EntityRepository
 {
 //    protected $_entityName = 'App\Entity\InventoryTransaction';
 
-    public function getStockLevels($includeAllocated = false, ParameterBag $params)
+    public function getStockLevels($includeAllocated = false, ParameterBag $params = null)
     {
         $qb = $this->createQueryBuilder('t')
             ->select('p.id, p.name, c.name as category, SUM(t.delta) as balance')
@@ -124,7 +124,7 @@ class InventoryTransactionRepository extends EntityRepository
         return $inventory;
     }
 
-    public function getReportTransactions($includeAllocated = false, ParameterBag $params)
+    public function getReportTransactions($includeAllocated = false, ParameterBag $params = null)
     {
         $qb = $this->createQueryBuilder('t');
 
@@ -149,7 +149,7 @@ class InventoryTransactionRepository extends EntityRepository
         return $results;
     }
 
-    public function findAllPaged($page = null, $limit = null, $sortField = null, $sortDirection = 'ASC', ParameterBag $params)
+    public function findAllPaged($page = null, $limit = null, $sortField = null, $sortDirection = 'ASC', ParameterBag $params = null)
     {
         $qb = $this->createQueryBuilder('t')
             ->join('t.product', 'p')

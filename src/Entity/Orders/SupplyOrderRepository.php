@@ -15,7 +15,7 @@ class SupplyOrderRepository extends OrderRepository
             ->leftJoin('o.warehouse', 'warehouse');
     }
 
-    public function supplierTotals($sortField = null, $sortDirection = 'ASC', ParameterBag $params)
+    public function supplierTotals($sortField = null, $sortDirection = 'ASC', ParameterBag $params = null)
     {
         $qb = $this->createQueryBuilder('o')
             ->leftJoin('o.lineItems', 'l')

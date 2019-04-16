@@ -15,7 +15,7 @@ class BulkDistributionOrderRepository extends OrderRepository
         $qb->leftJoin('o.partner', 'partner');
     }
 
-    public function distributionTotals($sortField = null, $sortDirection = 'ASC', ParameterBag $params)
+    public function distributionTotals($sortField = null, $sortDirection = 'ASC', ParameterBag $params = null)
     {
         $qb = $this->createQueryBuilder('o')
             ->leftJoin('o.lineItems', 'l')

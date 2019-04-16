@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 
 class OrderRepository extends EntityRepository
 {
-    public function findAllPaged($page = null, $limit = null, $sortField = null, $sortDirection = 'ASC', ParameterBag $params)
+    public function findAllPaged($page = null, $limit = null, $sortField = null, $sortDirection = 'ASC', ParameterBag $params = null)
     {
         $qb = $this->createQueryBuilder('o');
 
