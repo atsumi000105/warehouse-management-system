@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-
 use App\Entity\Warehouse;
 use App\Transformers\StorageLocationTransformer;
 use Symfony\Component\HttpFoundation\JsonResponse;

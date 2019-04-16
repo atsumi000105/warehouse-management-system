@@ -59,7 +59,7 @@ abstract class Order extends CoreEntity
      *
      * @return string
      */
-    abstract function getOrderTypeName() : string ;
+    abstract function getOrderTypeName() : string;
 
     /**
      * @return int
@@ -80,7 +80,7 @@ abstract class Order extends CoreEntity
      */
     public function getLineItem($id)
     {
-        $found = $this->lineItems->filter(function(LineItem $line) use ($id) {
+        $found = $this->lineItems->filter(function (LineItem $line) use ($id) {
             return $id == $line->getId();
         })->first();
 
@@ -96,47 +96,44 @@ abstract class Order extends CoreEntity
     public function removeLineItem(LineItem $lineItem)
     {
         //If the line item has an ID then look it up by that, otherwise look it up by product
-        if($lineItem->getId()){
-            $found = $this->lineItems->filter(function(LineItem $line) use ($lineItem) {
+        if ($lineItem->getId()) {
+            $found = $this->lineItems->filter(function (LineItem $line) use ($lineItem) {
                 return $line->getId() == $lineItem->getId();
             })->first();
         } else {
-            $found = $this->lineItems->filter(function(LineItem $line) use ($lineItem) {
+            $found = $this->lineItems->filter(function (LineItem $line) use ($lineItem) {
                 return $line->getProduct()->getId() == $lineItem->getProduct()->getId();
             })->first();
         }
 
-        if($found) {
+        if ($found) {
             $this->lineItems->removeElement($found);
         }
     }
 
     public function generateTransactions()
     {
-        $this->getLineItems()->map(function(LineItem $lineItem) {
+        $this->getLineItems()->map(function (LineItem $lineItem) {
             $lineItem->generateTransactions();
         });
-
     }
 
     public function updateTransactions()
     {
-        $this->getLineItems()->map(function(LineItem $lineItem) {
+        $this->getLineItems()->map(function (LineItem $lineItem) {
             $lineItem->updateTransactions();
         });
-
     }
 
     public function commitTransactions()
     {
-        $this->getLineItems()->map(function(LineItem $lineItem) {
+        $this->getLineItems()->map(function (LineItem $lineItem) {
             $lineItem->commitTransactions();
         });
     }
 
     public function completeOrder()
     {
-        
     }
     
     /**

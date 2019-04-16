@@ -6,7 +6,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
-
 /**
  * Abstract class for warehouses and partners
  * @package App\Entity
@@ -174,7 +173,9 @@ abstract class StorageLocation extends CoreEntity
 
     public function addContact(StorageLocationContact $contact)
     {
-        if(!isset($this->contacts)) $this->contacts = new ArrayCollection();
+        if (!isset($this->contacts)) {
+            $this->contacts = new ArrayCollection();
+        }
         $this->contacts->add($contact);
         $contact->setStorageLocation($this);
     }
@@ -182,7 +183,7 @@ abstract class StorageLocation extends CoreEntity
     public function removeContact(StorageLocationContact $contact)
     {
         /** @var StorageLocationContact $found */
-        $found = $this->contacts->filter(function(StorageLocationContact $c) use ($contact) {
+        $found = $this->contacts->filter(function (StorageLocationContact $c) use ($contact) {
             return $c->getId() === $contact->getId();
         })->first();
 
@@ -197,8 +198,8 @@ abstract class StorageLocation extends CoreEntity
      */
     public function applyChangesFromArray($changes)
     {
-        if(isset($changes['address'])) {
-            if(isset($changes['address']['id'])) {
+        if (isset($changes['address'])) {
+            if (isset($changes['address']['id'])) {
                 $address = $this->getAddress();
             } else {
                 $address = new StorageLocationAddress();
@@ -208,9 +209,9 @@ abstract class StorageLocation extends CoreEntity
             unset($changes['address']);
         }
 
-        if(isset($changes['contacts'])) {
+        if (isset($changes['contacts'])) {
             foreach ($changes['contacts'] as $changedContact) {
-                if(isset($changedContact['id'])) {
+                if (isset($changedContact['id'])) {
                     $contact = $this->getContact($changedContact['id']);
                 } elseif (!isset($changedContact['isDeleted']) || !$changedContact['isDeleted']) {
                     $contact = new StorageLocationContact();
@@ -220,7 +221,7 @@ abstract class StorageLocation extends CoreEntity
                 }
                 $contact->applyChangesFromArray($changedContact);
 
-                if((isset($changedContact['isDeleted']) && $changedContact['isDeleted']) || !$contact->isValid()) {
+                if ((isset($changedContact['isDeleted']) && $changedContact['isDeleted']) || !$contact->isValid()) {
                     $this->removeContact($contact);
                 }
             }

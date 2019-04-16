@@ -63,7 +63,8 @@ class ProductController extends BaseController
      * @param Request $request
      * @return JsonResponse
      */
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $params = $this->getParams($request);
 
         // TODO: Get validation working (#2)
@@ -76,7 +77,7 @@ class ProductController extends BaseController
 
         $product->applyChangesFromArray($params);
 
-        if($params['productCategory']['id']) {
+        if ($params['productCategory']['id']) {
             $newCategory = $this->getEm()->find(ProductCategory::class, $params['productCategory']['id']);
             $product->setProductCategory($newCategory);
         }
@@ -110,7 +111,7 @@ class ProductController extends BaseController
 
         $product->applyChangesFromArray($params);
 
-        if($params['productCategory']['id'] != $product->getProductCategory()->getId()) {
+        if ($params['productCategory']['id'] != $product->getProductCategory()->getId()) {
             $newCategory = $this->getEm()->find(ProductCategory::class, $params['productCategory']['id']);
             $product->setProductCategory($newCategory);
         }
@@ -184,7 +185,7 @@ class ProductController extends BaseController
         /** @var Product $product */
         $product = $this->getRepository()->find($id);
 
-        if(!$product) {
+        if (!$product) {
             throw new NotFoundHttpException(sprintf('Unknown Product ID: %d', $id));
         }
 

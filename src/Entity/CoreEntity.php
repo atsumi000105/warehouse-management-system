@@ -44,7 +44,7 @@ abstract class CoreEntity
 
         try {
             foreach ($changes as $property => $value) {
-                if(is_array($value) && $this->isPropertyChildRelationship($property)) {
+                if (is_array($value) && $this->isPropertyChildRelationship($property)) {
                     $this->processChildren($property, $value);
                 } elseif ($this->isPropertyParentRelationship($property)) {
                     // TODO: Make this check the ID, load the referenced entity and set it. But this would break MVC.
@@ -72,13 +72,15 @@ abstract class CoreEntity
     private function processChildren($property, $children)
     {
         $getter = 'get' . ucfirst($property);
-        if(!method_exists($this, $getter)) return;
+        if (!method_exists($this, $getter)) {
+            return;
+        }
 
         /** @var ArrayCollection $collection */
         $collection = $this->$getter();
         foreach ($children as $childEl) {
             // Search the collection for the right child
-            $childEntity = $collection->filter(function(CoreEntity $entity) use ($childEl) {
+            $childEntity = $collection->filter(function (CoreEntity $entity) use ($childEl) {
                 return $entity->getId() == $childEl['id'];
             })->first();
 
@@ -100,7 +102,9 @@ abstract class CoreEntity
         $reader = new AnnotationReader();
         $reflClass = new \ReflectionClass(get_class($this));
 
-        if(!$reflClass->hasProperty($property)) return false;
+        if (!$reflClass->hasProperty($property)) {
+            return false;
+        }
 
         return $reader->getPropertyAnnotations($reflClass->getProperty($property));
     }
@@ -116,11 +120,12 @@ abstract class CoreEntity
     private function isPropertyChildRelationship($property)
     {
         $annotations = $this->getPropertyAnnotations($property);
-        if (!$annotations) return false;
+        if (!$annotations) {
+            return false;
+        }
 
         return array_reduce($annotations, function ($carry, $annotation) {
-            if (
-                $annotation instanceof OneToMany ||
+            if ($annotation instanceof OneToMany ||
                 $annotation instanceof OneToOne
             ) {
                 return true;
@@ -133,11 +138,12 @@ abstract class CoreEntity
     private function isPropertyParentRelationship($property)
     {
         $annotations = $this->getPropertyAnnotations($property);
-        if (!$annotations) return false;
+        if (!$annotations) {
+            return false;
+        }
 
         return array_reduce($annotations, function ($carry, $annotation) {
-            if (
-                $annotation instanceof ManyToMany ||
+            if ($annotation instanceof ManyToMany ||
                 $annotation instanceof ManyToOne
             ) {
                 return true;

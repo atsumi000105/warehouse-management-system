@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Moment\Moment;
@@ -20,17 +19,17 @@ class InventoryTransactionRepository extends EntityRepository
             ->join('p.productCategory', 'c')
             ->groupBy('p.id');
 
-        if(!$includeAllocated) {
+        if (!$includeAllocated) {
             $qb->andWhere('t.committed = 1');
         }
 
-        if($params->has('location')) {
+        if ($params->has('location')) {
             $qb->andWhere('t.storageLocation = :location');
             $qb->setParameter('location', $params->get('location'));
         }
 
-        if($params->has('endingAt')) {
-            if(!$includeAllocated) {
+        if ($params->has('endingAt')) {
+            if (!$includeAllocated) {
                 $qb->andWhere('t.committedAt < :endingAt');
             } else {
                 $qb->andWhere('t.createdAt < :endingAt');
@@ -47,7 +46,7 @@ class InventoryTransactionRepository extends EntityRepository
             $qb->andWhere('s INSTANCE OF :locationType');
             if ($params->get('locationType') == StorageLocation::TYPE_WAREHOUSE) {
                 $qb->setParameter('locationType', 'warehouse');
-            } else if ($params->get('locationType') == StorageLocation::TYPE_PARTNER) {
+            } elseif ($params->get('locationType') == StorageLocation::TYPE_PARTNER) {
                 $qb->setParameter('locationType', 'partner');
             }
         }
@@ -80,7 +79,6 @@ class InventoryTransactionRepository extends EntityRepository
             ->setParameters(["startAt" => $startAt, "endAt" => $endAt]);
 
         return $qb->getQuery()->getArrayResult();
-
     }
 
     public function getStorageLocationInventory(StorageLocation $location)
@@ -165,7 +163,7 @@ class InventoryTransactionRepository extends EntityRepository
         }
 
         if ($sortField) {
-            if(!str_contains($sortField,'.')) {
+            if (!str_contains($sortField, '.')) {
                 $sortField = 't.' . $sortField;
             }
             $qb->orderBy($sortField, $sortDirection);
@@ -177,7 +175,8 @@ class InventoryTransactionRepository extends EntityRepository
         return $results;
     }
 
-    public function findAllCount(ParameterBag $params) {
+    public function findAllCount(ParameterBag $params)
+    {
         $qb = $this->createQueryBuilder('t')
             ->join('t.product', 'p')
             ->join('t.lineItem', 'l')
@@ -220,6 +219,4 @@ class InventoryTransactionRepository extends EntityRepository
                 ->setParameter('endingAt', new \DateTime($params->get('endingAt')));
         }
     }
-
-
 }

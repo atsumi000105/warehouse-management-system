@@ -2,7 +2,6 @@
 
 namespace App\Transformers;
 
-
 use App\Helpers\Bag;
 use League\Fractal\TransformerAbstract;
 

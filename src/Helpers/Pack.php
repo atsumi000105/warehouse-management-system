@@ -2,7 +2,6 @@
 
 namespace App\Helpers;
 
-
 use App\Entity\Partner;
 use App\Entity\Product;
 

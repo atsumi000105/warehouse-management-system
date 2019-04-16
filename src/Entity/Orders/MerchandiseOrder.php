@@ -26,7 +26,9 @@ class MerchandiseOrder extends Order
 
         $this->setStatus(self::STATUS_COMPLETED);
 
-        if ($warehouse) $this->setWarehouse($warehouse);
+        if ($warehouse) {
+            $this->setWarehouse($warehouse);
+        }
     }
 
     function getOrderTypeName() : string

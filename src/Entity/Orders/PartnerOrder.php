@@ -57,8 +57,12 @@ class PartnerOrder extends Order
 
         $this->setStatus(self::STATUS_IN_PROCESS);
 
-        if ($partner) $this->setPartner($partner);
-        if ($warehouse) $this->setWarehouse($warehouse);
+        if ($partner) {
+            $this->setPartner($partner);
+        }
+        if ($warehouse) {
+            $this->setWarehouse($warehouse);
+        }
     }
 
     function getOrderTypeName() : string
@@ -141,7 +145,7 @@ class PartnerOrder extends Order
             // Done with this product, if the current bag isn't full move all the packs to the current remainder bag we have going.
             if (!$bag->isFull()) {
                 if (count($remainderBags) == 0 && !$currentRemainderBag) {
-                   $currentRemainderBag = new Bag();
+                    $currentRemainderBag = new Bag();
                 }
                 foreach ($bag->packs as $pack) {
                     if (!$currentRemainderBag->addPack($pack)) {
@@ -159,7 +163,7 @@ class PartnerOrder extends Order
             $bags[] = $bag;
         }
 
-        if($currentRemainderBag) {
+        if ($currentRemainderBag) {
             $remainderBags[] = $currentRemainderBag;
         }
         return array_merge($bags, $remainderBags);
@@ -178,7 +182,7 @@ class PartnerOrder extends Order
      */
     public function setOrderPeriod($orderPeriod)
     {
-        if(is_string($orderPeriod)) {
+        if (is_string($orderPeriod)) {
             $period = new Moment($orderPeriod);
         } else {
             //TODO: This can be simplified with a ::fromDateTime in the next release of Moment.php
@@ -206,5 +210,4 @@ class PartnerOrder extends Order
     {
         $this->portalOrderId = $portalOrderId;
     }
-
 }

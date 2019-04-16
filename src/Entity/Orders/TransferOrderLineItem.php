@@ -7,7 +7,6 @@ use App\Entity\LineItem;
 use App\Entity\Orders\TransferOrder;
 use Doctrine\ORM\Mapping as ORM;
 
-
 /**
  * Class TransferOrderLineItem
  *
@@ -24,7 +23,7 @@ class TransferOrderLineItem extends LineItem
         // Wipe out any existing transactions
         $this->clearTransactions();
 
-        if($this->getQuantity() <> 0) {
+        if ($this->getQuantity() <> 0) {
             /** @var TransferOrder $order */
             $order = $this->getOrder();
             $sourceTransaction = new InventoryTransaction($order->getSourceLocation(), $this, 0 - $this->getQuantity());

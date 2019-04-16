@@ -209,7 +209,7 @@ class OrderController extends BaseController
         /** @var Order $order */
         $order = $this->getRepository()->find($id);
 
-        if(!$order) {
+        if (!$order) {
             throw new NotFoundHttpException(sprintf('Unknown Order ID: %d', $id));
         }
 
@@ -237,32 +237,30 @@ class OrderController extends BaseController
     protected function processLineItems(Order $order, $lineItemsArray)
     {
         foreach ($lineItemsArray as $lineItemArray) {
-
-            if(isset($lineItemArray['id'])) {
+            if (isset($lineItemArray['id'])) {
                 $line = $order->getLineItem($lineItemArray['id']);
             } else {
                 $line = $this->createLineItem();
                 $order->addLineItem($line);
             }
 
-            if(!$line->getProduct() || $line->getProduct()->getId() != $lineItemArray['product']['id']) {
+            if (!$line->getProduct() || $line->getProduct()->getId() != $lineItemArray['product']['id']) {
                 $product = $this->getEm()->getReference('App\Entity\Product', $lineItemArray['product']['id']);
                 $line->setProduct($product);
             }
 
             $line->applyChangesFromArray($lineItemArray);
 
-            if(!$line->getQuantity()) {
+            if (!$line->getQuantity()) {
                 $order->removeLineItem($line);
                 continue;
             }
         }
-
     }
 
     protected function checkEditable(Order $order)
     {
-        if(!$order->isEditable()) {
+        if (!$order->isEditable()) {
             throw new PermissionDeniedException(sprintf('Order %d has committed transactions and cannot be edited. Please enter a correction order.', $order->getId()));
         }
     }
@@ -275,8 +273,12 @@ class OrderController extends BaseController
     {
         $params = new ParameterBag();
 
-        if ($request->get('status')) $params->set('status', $request->get('status'));
-        if ($request->get('fulfillmentPeriod')) $params->set('fulfillmentPeriod', $request->get('fulfillmentPeriod'));
+        if ($request->get('status')) {
+            $params->set('status', $request->get('status'));
+        }
+        if ($request->get('fulfillmentPeriod')) {
+            $params->set('fulfillmentPeriod', $request->get('fulfillmentPeriod'));
+        }
 
         return $params;
     }

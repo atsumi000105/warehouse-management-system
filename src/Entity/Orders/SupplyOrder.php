@@ -57,8 +57,12 @@ class SupplyOrder extends Order
 
         $this->setStatus(self::STATUS_ORDERED);
 
-        if ($supplier) $this->setSupplier($supplier);
-        if ($warehouse) $this->setWarehouse($warehouse);
+        if ($supplier) {
+            $this->setSupplier($supplier);
+        }
+        if ($warehouse) {
+            $this->setWarehouse($warehouse);
+        }
     }
 
     function getOrderTypeName() : string

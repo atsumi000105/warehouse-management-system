@@ -1,7 +1,6 @@
 <?php
 namespace App\Controller;
 
-
 use App\Entity\PartnerDistributionMethod;
 use App\Entity\ProductCategory;
 use App\Transformers\ListOptionTransformer;
@@ -27,5 +26,4 @@ class ProductCategoryController extends ListOptionController
     {
         return new ListOptionTransformer();
     }
-
 }

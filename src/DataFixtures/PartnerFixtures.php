@@ -2,7 +2,6 @@
 
 namespace App\DataFixtures;
 
-
 use App\Entity\PartnerDistributionMethod;
 use App\Entity\PartnerFulfillmentPeriod;
 use App\Entity\StorageLocationAddress;

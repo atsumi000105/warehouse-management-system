@@ -90,7 +90,8 @@ class SupplierController extends BaseController
      * @param Request $request
      * @return JsonResponse
      */
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         // TODO: Get validation working (#2)
 //        $this->validate($request, [
 //            'title' => 'required',
@@ -223,7 +224,7 @@ class SupplierController extends BaseController
         /** @var Supplier $supplier */
         $supplier = $this->getRepository()->find($id);
 
-        if(!$supplier) {
+        if (!$supplier) {
             throw new NotFoundHttpException(sprintf('Unknown Supplier ID: %d', $id));
         }
 
@@ -238,9 +239,15 @@ class SupplierController extends BaseController
     {
         $params = new ParameterBag();
 
-        if ($request->get('status')) $params->set('status', $request->get('status'));
-        if ($request->get('supplierType')) $params->set('supplierType', $request->get('supplierType'));
-        if ($request->get('keyword')) $params->set('keyword', $request->get('keyword'));
+        if ($request->get('status')) {
+            $params->set('status', $request->get('status'));
+        }
+        if ($request->get('supplierType')) {
+            $params->set('supplierType', $request->get('supplierType'));
+        }
+        if ($request->get('keyword')) {
+            $params->set('keyword', $request->get('keyword'));
+        }
 
 
         return $params;

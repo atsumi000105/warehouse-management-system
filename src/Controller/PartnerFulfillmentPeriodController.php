@@ -1,7 +1,6 @@
 <?php
 namespace App\Controller;
 
-
 use App\Entity\PartnerFulfillmentPeriod;
 use App\Transformers\ListOptionTransformer;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,5 +25,4 @@ class PartnerFulfillmentPeriodController extends ListOptionController
     {
         return new ListOptionTransformer();
     }
-
 }

@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
@@ -22,7 +21,7 @@ class SupplierRepository extends EntityRepository
         }
 
         if ($sortField) {
-            if(!strstr($sortField,'.')) {
+            if (!strstr($sortField, '.')) {
                 $sortField = 's.' . $sortField;
             }
             $qb->orderBy($sortField, $sortDirection);
@@ -34,7 +33,8 @@ class SupplierRepository extends EntityRepository
         return $results;
     }
 
-    public function findAllCount(ParameterBag $params) {
+    public function findAllCount(ParameterBag $params)
+    {
         $qb = $this->createQueryBuilder('s')
             ->select('count(s)');
 
@@ -63,6 +63,5 @@ class SupplierRepository extends EntityRepository
 
     protected function joinRelatedTables(QueryBuilder $qb)
     {
-
     }
 }

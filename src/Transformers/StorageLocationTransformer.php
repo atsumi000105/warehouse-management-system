@@ -2,7 +2,6 @@
 
 namespace App\Transformers;
 
-
 use App\Entity\StorageLocation;
 use League\Fractal\TransformerAbstract;
 
@@ -34,7 +33,9 @@ class StorageLocationTransformer extends TransformerAbstract
     {
         $address = $storageLocation->getAddress();
 
-        if(!$address) return;
+        if (!$address) {
+            return;
+        }
 
         return $this->item($address, new StorageLocationAddressTransformer);
     }
@@ -45,5 +46,4 @@ class StorageLocationTransformer extends TransformerAbstract
 
         return $this->collection($contacts, new StorageLocationContactTransformer);
     }
-
 }

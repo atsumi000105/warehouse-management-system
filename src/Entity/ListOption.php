@@ -88,5 +88,4 @@ abstract class ListOption extends CoreEntity
     {
         $this->status = $status;
     }
-
 }

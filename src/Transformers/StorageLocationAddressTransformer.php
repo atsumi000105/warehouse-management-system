@@ -2,7 +2,6 @@
 
 namespace App\Transformers;
 
-
 use App\Entity\StorageLocationAddress;
 use League\Fractal\TransformerAbstract;
 
@@ -21,5 +20,4 @@ class StorageLocationAddressTransformer extends TransformerAbstract
             'postalCode' => $address->getPostalCode(),
         ];
     }
-
 }

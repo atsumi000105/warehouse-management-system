@@ -2,7 +2,6 @@
 
 namespace App\Transformers\Report;
 
-
 use App\Entity\InventoryTransaction;
 use App\Entity\Orders\AdjustmentOrder;
 use League\Fractal\TransformerAbstract;

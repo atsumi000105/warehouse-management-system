@@ -68,9 +68,15 @@ abstract class LineItem extends CoreEntity
     {
         $this->transactions = new ArrayCollection();
 
-        if ($product) $this->setProduct($product);
-        if ($quantity) $this->setQuantity($quantity);
-        if ($cost) $this->setCost($cost);
+        if ($product) {
+            $this->setProduct($product);
+        }
+        if ($quantity) {
+            $this->setQuantity($quantity);
+        }
+        if ($cost) {
+            $this->setCost($cost);
+        }
     }
 
     /**
@@ -121,11 +127,11 @@ abstract class LineItem extends CoreEntity
 
     public function removeTransaction(InventoryTransaction $transaction)
     {
-        $found = $this->transactions->filter(function(InventoryTransaction $element) use ($transaction) {
+        $found = $this->transactions->filter(function (InventoryTransaction $element) use ($transaction) {
             return $element->getId() == $transaction->getId();
         })->first();
 
-        if($found) {
+        if ($found) {
             $this->transactions->remove($found);
         }
     }
@@ -189,7 +195,7 @@ abstract class LineItem extends CoreEntity
      */
     public function hasCommittedTransactions()
     {
-        $committedTransactions = $this->getTransactions()->filter(function(InventoryTransaction $transaction) {
+        $committedTransactions = $this->getTransactions()->filter(function (InventoryTransaction $transaction) {
             return $transaction->isCommitted();
         });
         return !$committedTransactions->isEmpty();
@@ -207,7 +213,7 @@ abstract class LineItem extends CoreEntity
      */
     protected function clearTransactions()
     {
-        if($this->hasCommittedTransactions()) {
+        if ($this->hasCommittedTransactions()) {
             throw new \Exception('Line Item has committed transactions, cannot clear.');
         }
         $this->getTransactions()->clear();
@@ -239,7 +245,8 @@ abstract class LineItem extends CoreEntity
      *
      * @return void
      */
-    public function updateTransactions() {
+    public function updateTransactions()
+    {
         if ($this->getTransactions()->isEmpty()) {
             $this->generateTransactions();
         }

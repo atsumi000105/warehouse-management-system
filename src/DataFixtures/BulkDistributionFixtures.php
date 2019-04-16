@@ -2,7 +2,6 @@
 
 namespace App\DataFixtures;
 
-
 use App\Entity\Orders\BulkDistribution;
 use App\Entity\Orders\BulkDistributionLineItem;
 use App\Entity\Orders\PartnerOrder;
@@ -40,7 +39,8 @@ class BulkDistributionFixtures extends BaseFixture implements DependentFixtureIn
 
             $order->setCreatedAt($this->faker->dateTimeBetween('-1 year', 'now'));
 
-            $period = new \Moment\Moment($order->getCreatedAt()->format('U'));$period->setTimezone($order->getCreatedAt()->getTimezone()->getName());
+            $period = new \Moment\Moment($order->getCreatedAt()->format('U'));
+            $period->setTimezone($order->getCreatedAt()->getTimezone()->getName());
             $period->startOf('month');
             $order->setDistributionPeriod($period);
 

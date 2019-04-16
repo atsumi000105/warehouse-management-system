@@ -46,7 +46,9 @@ class BulkDistribution extends Order
 
         $this->setStatus(self::STATUS_COMPLETED);
 
-        if ($partner) $this->setPartner($partner);
+        if ($partner) {
+            $this->setPartner($partner);
+        }
     }
 
     function getOrderTypeName() : string
@@ -96,7 +98,7 @@ class BulkDistribution extends Order
      */
     public function setDistributionPeriod($distributionPeriod)
     {
-        if(is_string($distributionPeriod)) {
+        if (is_string($distributionPeriod)) {
             $period = new Moment($distributionPeriod);
         } else {
             //TODO: This can be simplified with a ::fromDateTime in the next release of Moment.php

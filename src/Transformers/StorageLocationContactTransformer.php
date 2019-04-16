@@ -2,7 +2,6 @@
 
 namespace App\Transformers;
 
-
 use App\Entity\StorageLocationContact;
 use League\Fractal\TransformerAbstract;
 
@@ -21,5 +20,4 @@ class StorageLocationContactTransformer extends TransformerAbstract
             'isDeleted' => $contact->isDeleted(),
         ];
     }
-
 }

@@ -6,7 +6,6 @@ use App\Entity\InventoryTransaction;
 use App\Entity\LineItem;
 use Doctrine\ORM\Mapping as ORM;
 
-
 /**
  * Class BulkDistributionLineItem
  *
@@ -23,7 +22,7 @@ class BulkDistributionLineItem extends LineItem
         // Wipe out any existing transactions
         $this->clearTransactions();
 
-        if($this->getQuantity() <> 0) {
+        if ($this->getQuantity() <> 0) {
             /** @var BulkDistribution $order */
             $order = $this->getOrder();
             $partnerTransaction = new InventoryTransaction($order->getPartner(), $this, 0 - $this->getQuantity());

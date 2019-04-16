@@ -2,7 +2,6 @@
 
 namespace App\Transformers;
 
-
 use App\Entity\Order;
 use League\Fractal\TransformerAbstract;
 

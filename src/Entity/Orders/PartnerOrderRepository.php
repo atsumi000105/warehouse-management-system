@@ -2,7 +2,6 @@
 
 namespace App\Entity\Orders;
 
-
 use App\Entity\OrderRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -10,7 +9,8 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 
 class PartnerOrderRepository extends OrderRepository
 {
-    protected function joinRelatedTables(QueryBuilder $qb) {
+    protected function joinRelatedTables(QueryBuilder $qb)
+    {
         $qb->leftJoin('o.partner', 'partner')
             ->leftJoin('o.warehouse', 'warehouse');
     }
@@ -22,7 +22,7 @@ class PartnerOrderRepository extends OrderRepository
             ->join('o.partner', 'p');
 
         if ($sortField && $sortField != 'total') {
-            if(!str_contains($sortField,'.')) {
+            if (!str_contains($sortField, '.')) {
                 $sortField = 'o.' . $sortField;
             }
             $qb->orderBy($sortField, $sortDirection);
@@ -34,7 +34,8 @@ class PartnerOrderRepository extends OrderRepository
         return $results;
     }
 
-    public function findPartnerOrderTotalsCount(ParameterBag $params) {
+    public function findPartnerOrderTotalsCount(ParameterBag $params)
+    {
 
         $qb = $this->createQueryBuilder('o')
             ->leftJoin('o.lineItems', 'l')

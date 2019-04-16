@@ -31,7 +31,9 @@ class AdjustmentOrder extends Order
     {
         parent::__construct();
 
-        if ($storageLocation) $this->setStorageLocation($storageLocation);
+        if ($storageLocation) {
+            $this->setStorageLocation($storageLocation);
+        }
     }
 
     function getOrderTypeName() : string
@@ -70,6 +72,4 @@ class AdjustmentOrder extends Order
     {
         $this->reason = $reason;
     }
-
-
 }
