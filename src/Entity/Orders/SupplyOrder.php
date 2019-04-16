@@ -65,7 +65,7 @@ class SupplyOrder extends Order
         }
     }
 
-    function getOrderTypeName() : string
+    public function getOrderTypeName() : string
     {
         return "Supply Order";
     }

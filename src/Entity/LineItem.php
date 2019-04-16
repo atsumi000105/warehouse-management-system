@@ -64,7 +64,7 @@ abstract class LineItem extends CoreEntity
      */
     protected $cost;
 
-    function __construct(Product $product = null, $quantity = null, $cost = null)
+    public function __construct(Product $product = null, $quantity = null, $cost = null)
     {
         $this->transactions = new ArrayCollection();
 

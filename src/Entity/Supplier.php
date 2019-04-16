@@ -89,7 +89,7 @@ class Supplier extends CoreEntity
      * Supplier constructor.
      * @param string $title
      */
-    function __construct($title = null)
+    public function __construct($title = null)
     {
         $this->setTitle($title);
         $this->status = self::STATUS_ACTIVE;

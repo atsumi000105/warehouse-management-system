@@ -116,7 +116,7 @@ class Product extends CoreEntity
     protected $status;
 
 
-    function __construct($name, ProductCategory $category = null)
+    public function __construct($name, ProductCategory $category = null)
     {
         $this->setName($name);
         $this->setProductCategory($category);

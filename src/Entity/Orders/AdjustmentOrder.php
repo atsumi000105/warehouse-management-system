@@ -36,7 +36,7 @@ class AdjustmentOrder extends Order
         }
     }
 
-    function getOrderTypeName() : string
+    public function getOrderTypeName() : string
     {
         return "Stock Change";
     }

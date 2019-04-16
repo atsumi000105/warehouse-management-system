@@ -59,7 +59,7 @@ abstract class Order extends CoreEntity
      *
      * @return string
      */
-    abstract function getOrderTypeName() : string;
+    abstract public function getOrderTypeName() : string;
 
     /**
      * @return int

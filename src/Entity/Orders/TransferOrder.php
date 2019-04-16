@@ -41,7 +41,7 @@ class TransferOrder extends Order
         }
     }
 
-    function getOrderTypeName() : string
+    public function getOrderTypeName() : string
     {
         return "Stock Transfer";
     }
