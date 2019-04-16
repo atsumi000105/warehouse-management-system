@@ -34,13 +34,13 @@ class PartnerOrderController extends OrderController
     /**
      * Save a new partner order
      *
-     * @Route(path="/", methods={"POST"})
+     * @Route(path="", methods={"POST"})
      *
      * @param Request $request
      * @return JsonResponse
      */
     public function store(Request $request) {
-        $params = $request->request->all();
+        $params = $this->getParams($request);
 
         $order = new PartnerOrder();
 
@@ -59,7 +59,8 @@ class PartnerOrderController extends OrderController
 
         $order->applyChangesFromArray($params);
 
-        $this->checkEditPermissions($order);
+        // TODO: get permissions working (#1)
+        // $this->checkEditPermissions($order);
 
         $this->getEm()->persist($order);
         $this->getEm()->flush();
@@ -78,11 +79,12 @@ class PartnerOrderController extends OrderController
      */
     public function update(Request $request, $id)
     {
-        $params = $request->request->all();
+        $params = $this->getParams($request);
         /** @var \App\Entity\Orders\PartnerOrder $order */
         $order = $this->getOrder($id);
 
-        $this->checkEditPermissions($order);
+        // TODO: get permissions working (#1)
+        // $this->checkEditPermissions($order);
 
         $this->checkEditable($order);
 
@@ -118,7 +120,8 @@ class PartnerOrderController extends OrderController
         /** @var \App\Entity\Orders\PartnerOrder $order */
         $order = $this->getOrder($id);
 
-        $this->checkEditPermissions($order);
+        // TODO: get permissions working (#1)
+        // $this->checkEditPermissions($order);
 
         return $this->serialize($request, $order->buildBags(), new BagTransformer());
 

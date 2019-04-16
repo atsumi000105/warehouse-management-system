@@ -32,13 +32,13 @@ class PartnerDistributionController extends OrderController
     /**
      * Save a new partner distribution
      *
-     * @Route(path="/", methods={"POST"})
+     * @Route(path="", methods={"POST"})
      *
      * @param Request $request
      * @return JsonResponse
      */
     public function store(Request $request) {
-        $params = $request->request->all();
+        $params = $this->getParams($request);
 
         $order = new BulkDistribution();
 
@@ -52,7 +52,8 @@ class PartnerDistributionController extends OrderController
 
         $order->applyChangesFromArray($params);
 
-        $this->checkEditPermissions($order);
+        // TODO: get permissions working (#1)
+        // $this->checkEditPermissions($order);
 
         $this->getEm()->persist($order);
         $this->getEm()->flush();
@@ -63,17 +64,20 @@ class PartnerDistributionController extends OrderController
     /**
      * Whole or partial update of a order
      *
+     * @Route(path="/{id<\d+>}", methods={"PATCH"}, defaults={"_format": "json"})
+     *
      * @param Request $request
      * @param $id
      * @return JsonResponse
      */
     public function update(Request $request, $id)
     {
-        $params = $request->request->all();
+        $params = $this->getParams($request);
         /** @var BulkDistribution $order */
         $order = $this->getOrder($id);
 
-        $this->checkEditPermissions($order);
+        // TODO: get permissions working (#1)
+        // $this->checkEditPermissions($order);
 
         if (!$request->get('reason')) {
             $this->checkEditable($order);
