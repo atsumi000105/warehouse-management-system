@@ -7,6 +7,8 @@
         "bootstrap-tooltip": "^3.1.1",
         "chosen-js": "^1.8.0",
         "eonasdan-bootstrap-datetimepicker": "Eonasdan/bootstrap-datetimepicker",
+        "eslint": "^5.16.0",
+        "eslint-plugin-vue": "^5.2.2",
         "gulp": "^3.9.1",
         "inputmask": "^3.3.9",
         "jquery": "^3.3.1",
@@ -39,6 +41,7 @@
     "license": "GPL-3.0",
     "private": true,
     "scripts": {
+        "lint": "eslint 'assets/js/**/*.{js,vue}'",
         "dev-server": "encore dev-server",
         "dev": "encore dev",
         "watch": "encore dev --watch",
