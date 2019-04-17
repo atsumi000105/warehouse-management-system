@@ -12,4 +12,9 @@
 
     <file>src/</file>
 
+    <rule ref="Generic.Debug.ESLint">
+        <properties>
+            <property name="configFile" value=".eslintrc.json"/>
+        </properties>
+    </rule>
 </ruleset>
