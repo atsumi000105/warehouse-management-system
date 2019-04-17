@@ -22,7 +22,7 @@ class SupplyOrderRepository extends OrderRepository
             ->join('o.supplier', 's');
 
         if ($sortField && $sortField != 'total') {
-            if(!str_contains($sortField,'.')) {
+            if(strstr($sortField,'.') === false) {
                 $sortField = 'o.' . $sortField;
             }
             $qb->orderBy($sortField, $sortDirection);
@@ -37,9 +37,9 @@ class SupplyOrderRepository extends OrderRepository
     public function findSupplierTotalsCount(ParameterBag $params) {
 
         $qb = $this->createQueryBuilder('o')
-            ->leftJoin('o.lineItems', 'l')
+            ->select('s.id')
             ->join('o.supplier', 's')
-            ->groupBy('o.supplier');
+            ->groupBy('s.id');
 
         $this->addCriteria($qb, $params);
 

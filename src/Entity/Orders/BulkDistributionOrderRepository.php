@@ -22,7 +22,7 @@ class BulkDistributionOrderRepository extends OrderRepository
             ->join('o.partner', 'p');
 
         if ($sortField && $sortField != 'total') {
-            if(!str_contains($sortField,'.')) {
+            if(strstr($sortField,'.') === false) {
                 $sortField = 'o.' . $sortField;
             }
             $qb->orderBy($sortField, $sortDirection);
@@ -37,9 +37,9 @@ class BulkDistributionOrderRepository extends OrderRepository
     public function findDistributionTotalsCount(ParameterBag $params) {
 
         $qb = $this->createQueryBuilder('o')
-            ->leftJoin('o.lineItems', 'l')
+            ->select('p.id')
             ->join('o.partner', 'p')
-            ->groupBy('o.partner');
+            ->groupBy('p.id');
 
         $this->addCriteria($qb, $params);
 

@@ -166,7 +166,7 @@ class InventoryTransactionRepository extends EntityRepository
         }
 
         if ($sortField) {
-            if(!str_contains($sortField,'.')) {
+            if(strstr($sortField,'.') === false) {
                 $sortField = 't.' . $sortField;
             }
             $qb->orderBy($sortField, $sortDirection);
