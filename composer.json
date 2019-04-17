@@ -67,7 +67,9 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
-        ]
+        ],
+        "lint": "vendor/bin/phpcs",
+        "lint-fix": "vendor/bin/phpcbf"
     },
     "conflict": {
         "symfony/symfony": "*"
