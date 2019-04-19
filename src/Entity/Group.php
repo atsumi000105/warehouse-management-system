@@ -4,16 +4,13 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use FOS\UserBundle\Model\Group as BaseGroup;
 
 /**
  * @ORM\Entity()
- * Doing the following because purging broke the DB since table names aren't back-ticked
- * @ORM\Table("`group`")
+ * @ORM\Table(name="groups")
  */
-class Group extends BaseGroup
+class Group extends CoreEntity
 {
-
     /**
      * @ORM\Id()
      * @ORM\Column(type="integer")
@@ -23,7 +20,14 @@ class Group extends BaseGroup
     protected $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity="User", mappedBy="groups")
+     * @ORM\Column(type="string")
+     *
+     * @var string
+     */
+    protected $name;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="User", mappedBy="roles")
      *
      * @var User $users
      */
@@ -34,37 +38,61 @@ class Group extends BaseGroup
      *
      * @var array
      */
-    protected $permissions;
+    protected $roles;
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName(string $name)
+    {
+        $this->name = $name;
+    }
 
     /**
      * @return mixed
      */
-    public function getPermissions()
+    public function getRoles()
     {
-        return $this->permissions;
+        return $this->roles;
     }
 
     /**
-     * @param array $permissions
+     * @param array $roles
      */
-    public function setPermissions(array $permissions)
+    public function setRoles(array $roles)
     {
-        $this->permissions = $permissions;
+        $this->roles = $roles;
     }
 
-    public function addPermission(string $permission)
+    public function addRole(string $role)
     {
-        $perms = new ArrayCollection($this->permissions);
-        if (!$perms->contains($permission)) {
-            $perms->add($permission);
+        $roles = new ArrayCollection($this->roles);
+        if (!$roles->contains($role)) {
+            $roles->add($role);
         }
-        $this->setPermissions($perms->toArray());
+        $this->setRoles($roles->toArray());
     }
 
-    public function removePermission(string $permission)
+    public function removeRole(string $role)
     {
-        $perms = new ArrayCollection($this->permissions);
-        $perms->removeElement($permission);
-        $this->setPermissions($perms->toArray());
+        $roles = new ArrayCollection($this->roles);
+        $roles->removeElement($role);
+        $this->setRoles($roles->toArray());
     }
 }
