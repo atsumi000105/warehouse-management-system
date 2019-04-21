@@ -1,9 +1,16 @@
 <template>
     <div class="form-group">
         <label>Country</label>
-        <select class="form-control" v-model="address.country" v-chosen>
+        <select
+            v-model="address.country"
+            v-chosen
+            class="form-control"
+        >
             <template v-for="c in countries">
-                <option :value="c" v-text="c"></option>
+                <option
+                    :value="c"
+                    v-text="c"
+                />
             </template>
         </select>
     </div>

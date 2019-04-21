@@ -8,7 +8,6 @@
             <th>Inventory Change</th>
             <th>Cost</th>
             <th>Status</th>
-
         </tr>
         </thead>
         <tbody>

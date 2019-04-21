@@ -27,9 +27,12 @@ const getters = {
 // actions
 const actions = {
     loadStorageLocations ({ commit }) {
-        axios.get('/api/storage-locations').then((response) => {
-            commit('setStorageLocations', { list: response.data.data });
-        }, (err) => {
+        axios
+            .get('/api/storage-locations')
+            .then((response) => {
+                commit('setStorageLocations', { list: response.data.data });
+            },
+                (err) => {
             console.log(err);
         });
     }

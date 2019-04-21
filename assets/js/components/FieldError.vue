@@ -1,5 +1,9 @@
 <template>
-    <span class="help-block" :class="classes"><i class="icon fa fa-warning fa-fw"></i><slot></slot></span>
+    <span
+        class="help-block"
+        :class="classes"
+    >
+        <i class="icon fa fa-warning fa-fw" /><slot /></span>
 </template>
 
 <script>

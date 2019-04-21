@@ -1,9 +1,23 @@
 <template>
     <div class="form-group">
-        <label v-text="label"></label>
-        <select class="form-control" v-bind:class="{'loaded': loaded}" v-model="value.id" v-chosen @change="onChange">
-            <option value="" v-text="emptyOption"></option>
-            <option v-for="item in options" :selected="value.id == item.id" :value="item.id" v-text="item[displayProperty]"></option>
+        <label v-text="label" />
+        <select
+            v-model="value.id"
+            v-chosen
+            class="form-control"
+            :class="{'loaded': loaded}"
+            @change="onChange"
+        >
+            <option
+                value=""
+                v-text="emptyOption"
+            />
+            <option
+                v-for="item in options"
+                :selected="value.id == item.id"
+                :value="item.id"
+                v-text="item[displayProperty]"
+            />
         </select>
     </div>
 </template>
@@ -35,12 +49,14 @@
         created() {
             var self = this;
 
-            if(!self.value.id) self.value.id = null;
+            if (!self.value.id) self.value.id = null;
 
-            if(this.apiPath) {
-                axios.get('/api/' + this.apiPath).then(response => {
-                    self.listOptions = response.data.data;
-                    self.$emit('loaded');
+            if (this.apiPath) {
+                axios
+                    .get('/api/' + this.apiPath)
+                    .then(response => {
+                        self.listOptions = response.data.data;
+                        self.$emit('loaded');
                 });
             } else {
                 self.listOptions = self.preloadedOptions;

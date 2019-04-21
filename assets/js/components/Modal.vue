@@ -1,18 +1,47 @@
 <template>
-    <div :class="'modal fade ' + this.classes" :id="this.id">
+    <div
+        :id="this.id"
+        :class="'modal fade ' + this.classes"
+    >
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title"><slot name="header"></slot></h4>
+                    <button
+                        type="button"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="Close"
+                    >
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title">
+                        <slot name="header" />
+                    </h4>
                 </div>
                 <div class="modal-body">
-                    <slot></slot>
+                    <slot />
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline" v-bind:class="{ 'pull-left': hasAction}" data-dismiss="modal"><slot name="cancelButton">Cancel</slot></button>
-                    <button type="button" class="btn btn-outline" v-bind:class="{ 'disabled': !confirmEnabled }" v-on:click.prevent="onConfirm" v-if="hasAction" :disabled="!confirmEnabled"><strong><slot name="confirmButton"></slot></strong></button>
+                    <button
+                        type="button"
+                        class="btn btn-outline"
+                        :class="{ 'pull-left': hasAction}"
+                        data-dismiss="modal"
+                    >
+                        <slot name="cancelButton">
+                            Cancel
+                        </slot>
+                    </button>
+                    <button
+                        v-if="hasAction"
+                        type="button"
+                        class="btn btn-outline"
+                        :class="{ 'disabled': !confirmEnabled }"
+                        :disabled="!confirmEnabled"
+                        @click.prevent="onConfirm"
+                    >
+                        <strong><slot name="confirmButton" /></strong>
+                    </button>
                 </div>
             </div>
             <!-- /.modal-content -->

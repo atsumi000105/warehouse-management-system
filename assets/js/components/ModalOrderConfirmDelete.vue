@@ -1,8 +1,16 @@
 <template>
-    <hb-modal :confirmAction="action" classes="modal-danger" id="confirmModal">
-        <template slot="header">Delete Order</template>
-        <p>Are you sure you want to delete <strong>{{orderTitle}}</strong>?</p>
-        <template slot="confirmButton">Delete Order</template>
+    <hb-modal
+        id="confirmModal"
+        :confirm-action="action"
+        classes="modal-danger"
+    >
+        <template slot="header">
+            Delete Order
+        </template>
+        <p>Are you sure you want to delete <strong>{{ orderTitle }}</strong>?</p>
+        <template slot="confirmButton">
+            Delete Order
+        </template>
     </hb-modal>
 </template>
 

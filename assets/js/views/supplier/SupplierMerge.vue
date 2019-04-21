@@ -2,44 +2,83 @@
     <hb-modal
         id="supplierMergeModal"
         classes="modal-info"
-        :confirmAction="mergeSuppliers"
-        :confirmEnabled="isTargetSet()"
+        :confirm-action="mergeSuppliers"
+        :confirm-enabled="isTargetSet()"
     >
-        <template slot="header">Merge Suppliers</template>
+        <template slot="header">
+            Merge Suppliers
+        </template>
 
         <hb-optionliststatic
-                label="Merge suppliers in to"
-                v-model="targetSupplier"
-                displayProperty="title"
-                :displayTextFn="item => item.id + ': ' + item.title"
-                property="id"
-                :preloadedOptions="selectedSuppliers"
-                emptyString="-- Select a Destination Supplier --"
-                :chosen="false"
-        ></hb-optionliststatic>
+            v-model="targetSupplier"
+            label="Merge suppliers in to"
+            display-property="title"
+            :display-text-fn="item => item.id + ': ' + item.title"
+            property="id"
+            :preloaded-options="selectedSuppliers"
+            empty-string="-- Select a Destination Supplier --"
+            :chosen="false"
+        />
 
         <template v-if="isTargetSet()">
             <div class="form-group">
                 <div class="checkbox">
-                    <label for="addresses"><input type="checkbox" v-model="mergeContext" value="addresses" id="addresses">Merge Addresses</label>
+                    <label for="addresses">
+                        <input
+                            id="addresses"
+                            v-model="mergeContext"
+                            type="checkbox"
+                            value="addresses"
+                        >
+                        Merge Addresses
+                    </label>
                 </div>
                 <div class="checkbox">
-                    <label for="contacts"><input type="checkbox" v-model="mergeContext" value="contacts" id="contacts">Merge Contacts</label>
+                    <label for="contacts">
+                        <input
+                            id="contacts"
+                            v-model="mergeContext"
+                            type="checkbox"
+                            value="contacts"
+                        >
+                        Merge Contacts
+                    </label>
                 </div>
                 <div class="checkbox">
-                    <label for="orders"><input type="checkbox" v-model="mergeContext" value="orders" id="orders">Merge Supply Orders</label>
+                    <label for="orders">
+                        <input
+                            id="orders"
+                            v-model="mergeContext"
+                            type="checkbox"
+                            value="orders"
+                        >
+                        Merge Supply Orders
+                    </label>
                 </div>
                 <div class="checkbox">
-                    <label for="orders"><input type="checkbox" v-model="mergeContext" value="deactivate" id="deactivate">Deactivate the merged {{selectedSupplierList.length}} supplier(s)</label>
+                    <label for="orders">
+                        <input
+                            id="deactivate"
+                            v-model="mergeContext"
+                            type="checkbox"
+                            value="deactivate"
+                        >
+                        Deactivate the merged {{ selectedSupplierList.length }} supplier(s)
+                    </label>
                 </div>
             </div>
-            Merge the following suppliers in to <strong>{{targetSupplier.id}} - {{targetSupplierTitle}}</strong>
+            Merge the following suppliers in to <strong>{{ targetSupplier.id }} - {{ targetSupplierTitle }}</strong>
             <ul>
-                <li v-for="supplier in selectedSupplierList" v-text="supplier"></li>
+                <li
+                    v-for="supplier in selectedSupplierList"
+                    v-text="supplier"
+                />
             </ul>
         </template>
 
-        <template slot="confirmButton">Merge</template>
+        <template slot="confirmButton">
+            Merge
+        </template>
     </hb-modal>
 </template>
 
@@ -77,14 +116,21 @@
                 return suppliers.map(supplier => supplier.id + ": " + supplier.title)
             },
         },
+        created() {
+            console.log('Component mounted.')
+        },
+        mounted() {
+            this.$store.dispatch('loadSuppliers');
+        },
         methods: {
             mergeSuppliers: function() {
                 let me = this;
-                axios.post('/api/suppliers/merge', {
-                    targetSupplier: this.targetSupplier.id,
-                    sourceSuppliers: this.getSourcesSupplierIds(),
-                    context: this.mergeContext,
-                })
+                axios
+                    .post('/api/suppliers/merge', {
+                            targetSupplier: this.targetSupplier.id,
+                            sourceSuppliers: this.getSourcesSupplierIds(),
+                            context: this.mergeContext,
+                    })
                     .then(response => me.$parent.refreshTable())
                     .catch(function (error) {
                         console.log(error);
@@ -110,12 +156,6 @@
                 this.targetSupplier = {};
                 this.mergeContext = ['orders', 'deactivate'];
             }
-        },
-        created() {
-            console.log('Component mounted.')
-        },
-        mounted() {
-            this.$store.dispatch('loadSuppliers');
         }
     }
 </script>

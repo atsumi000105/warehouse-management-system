@@ -1,17 +1,26 @@
 <template>
     <section class="content">
         <div class="row">
-            <h3 class="box-title col-lg-10">Transactions Report</h3>
+            <h3 class="box-title col-lg-10">
+                Transactions Report
+            </h3>
             <div class="col-lg-2 text-right">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-info btn-flat dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-fw fa-download"></i>Export
-                        <span class="caret"></span>
+                    <button
+                        type="button"
+                        class="btn btn-info btn-flat dropdown-toggle"
+                        data-toggle="dropdown"
+                    >
+                        <i class="fa fa-fw fa-download" />Export
+                        <span class="caret" />
                         <span class="sr-only">Toggle Dropdown</span>
                     </button>
-                    <ul class="dropdown-menu" role="menu">
+                    <ul
+                        class="dropdown-menu"
+                        role="menu"
+                    >
                         <li>
-                            <a @click="downloadExcel"><i class="fa fa-fw fa-file-excel-o"></i>Excel</a>
+                            <a @click="downloadExcel"><i class="fa fa-fw fa-file-excel-o" />Excel</a>
                         </li>
                     </ul>
                 </div>
@@ -23,50 +32,60 @@
             <div class="col-lg-3 col-sm-6">
                 <hb-storagelocationselectionform
                     v-model="filters.location"
-                ></hb-storagelocationselectionform>
+                />
             </div>
             <div class="col-lg-2 col-sm-4">
                 <hb-productselection
                     v-model="filters.product"
-                ></hb-productselection>
+                />
             </div>
             <div class="col-lg-2 col-sm-4">
                 <hb-optionlist
                     v-model="filters.orderType"
                     label="Order Type"
-                    :preloadedOptions="[
+                    :preloaded-options="[
                         { id: 'PartnerOrder', name: 'Partner Order' },
                         { id: 'TransferOrder', name: 'Transfer' },
                         { id: 'AdjustmentOrder', name: 'Stock Change' },
                         { id: 'BulkDistribution', name: 'Partner Distribution' },
                         { id: 'SupplyOrder', name: 'Supply Order' },
                     ]"
-                ></hb-optionlist>
+                />
             </div>
 
             <div class="form-group col-lg-2 col-sm-4">
-                <hb-date v-model="filters.startingAt" label="Start Date Created"></hb-date>
+                <hb-date
+                    v-model="filters.startingAt"
+                    label="Start Date Created"
+                />
             </div>
             <div class="form-group col-lg-2 col-sm-4">
-                <hb-date v-model="filters.endingAt" label="End Date Created"></hb-date>
+                <hb-date
+                    v-model="filters.endingAt"
+                    label="End Date Created"
+                />
             </div>
 
             <div class="col-xs-1">
-                <button class="btn btn-success btn-flat" @click="doFilter"><i class="fa fa-fw fa-filter"></i>Filter</button>
+                <button
+                    class="btn btn-success btn-flat"
+                    @click="doFilter"
+                >
+                    <i class="fa fa-fw fa-filter" />Filter
+                </button>
             </div>
-
         </div>
         <div class="row">
             <div class="col-xs-12">
                 <div class="box">
                     <hb-tablepaged
-                        :columns="columns"
-                        :sortOrder="[{ field: 'id', direction: 'desc'}]"
-                        :params="requestParams()"
                         ref="hbtable"
-                        :perPage="50"
-                        apiUrl="/api/reports/transactions"
-                    ></hb-tablepaged>
+                        :columns="columns"
+                        :sort-order="[{ field: 'id', direction: 'desc'}]"
+                        :params="requestParams()"
+                        :per-page="50"
+                        api-url="/api/reports/transactions"
+                    />
                     <!-- /.box-body -->
                 </div>
                 <!-- /.box -->
@@ -103,6 +122,9 @@
                 },
             };
         },
+        created() {
+            console.log('Component mounted.')
+        },
         methods: {
             requestParams: function () {
                 return {
@@ -119,15 +141,13 @@
             downloadExcel () {
                 let params = this.requestParams();
                 params.download = 'xlsx';
-                axios.get('/api/reports/transactions', { params: params, responseType: 'blob' })
+                axios
+                    .get('/api/reports/transactions', { params: params, responseType: 'blob' })
                     .then(response => {
                         let filename = response.headers['content-disposition'].match(/filename="(.*)"/)[1]
                         fileDownload(response.data, filename, response.headers['content-type'])
                     });
             }
-        },
-        created() {
-            console.log('Component mounted.')
         }
     }
 </script>

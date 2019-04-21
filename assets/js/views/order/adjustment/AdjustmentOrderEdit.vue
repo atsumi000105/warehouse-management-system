@@ -1,65 +1,128 @@
 <template>
     <section class="content">
         <div class="pull-right">
-            <button class="btn btn-success btn-flat" v-on:click.prevent="saveVerify" :disabled="!order.isEditable"><i class="fa fa-save fa-fw"></i>Save Order</button>
+            <button
+                class="btn btn-success btn-flat"
+                :disabled="!order.isEditable"
+                @click.prevent="saveVerify"
+            >
+                <i class="fa fa-save fa-fw" />Save Order
+            </button>
             <div class="btn-group">
-                <button type="button" class="btn btn-default dropdown-toggle dropdown btn-flat" data-toggle="dropdown">
-                    <span class="fa fa-ellipsis-v"></span>
+                <button
+                    type="button"
+                    class="btn btn-default dropdown-toggle dropdown btn-flat"
+                    data-toggle="dropdown"
+                >
+                    <span class="fa fa-ellipsis-v" />
                 </button>
                 <ul class="dropdown-menu dropdown-menu-right">
-                    <li v-if="order.isDeletable"><a href="#" v-on:click.prevent="askDelete"><i class="fa fa-trash fa-fw"></i>Delete Order</a></li>
+                    <li v-if="order.isDeletable">
+                        <a
+                        href="#"
+                        @click.prevent="askDelete"
+                        >
+                            <i class="fa fa-trash fa-fw" />Delete Order
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
-        <h3 class="box-title">Edit Stock Change</h3>
+        <h3 class="box-title">
+            Edit Stock Change
+        </h3>
 
         <form role="form">
             <div class="row">
-
                 <div class="col-md-4">
-                    <hb-ordermetadatabox :order="order" :statuses="statuses" :editable="order.isEditable" orderType="Stock Change" :v="$v.order"></hb-ordermetadatabox>
+                    <hb-ordermetadatabox
+                        :order="order"
+                        :statuses="statuses"
+                        :editable="order.isEditable"
+                        order-type="Stock Change"
+                        :v="$v.order"
+                    />
                 </div>
 
                 <div class="col-md-8">
                     <div class="box box-info">
                         <div class="box-body">
-                            <div class="col-md-6" v-bind:class="{ 'has-error': $v.order.storageLocation.$error }">
-                                <h3 class="box-title"><i class="icon fa fa-industry fa-fw"></i>Adjustment Location</h3>
-                                <hb-storagelocationselectionform v-model="order.storageLocation"  :editable="order.isEditable"></hb-storagelocationselectionform>
-                                <hb-fielderror v-if="$v.order.storageLocation.$error">Field is required</hb-fielderror>
+                            <div
+                                class="col-md-6"
+                                :class="{ 'has-error': $v.order.storageLocation.$error }"
+                            >
+                                <h3 class="box-title">
+                                    <i class="icon fa fa-industry fa-fw" />Adjustment Location
+                                </h3>
+                                <hb-storagelocationselectionform
+                                    v-model="order.storageLocation"
+                                    :editable="order.isEditable"
+                                />
+                                <hb-fielderror v-if="$v.order.storageLocation.$error">
+                                    Field is required
+                                </hb-fielderror>
                             </div>
-                            <div class="col-md-6" v-bind:class="{ 'has-error': $v.order.reason.$error }">
-                                <h3 class="box-title"><i class="icon fa fa-question-circle fa-fw"></i>Adjustment Reason</h3>
+                            <div
+                                class="col-md-6"
+                                :class="{ 'has-error': $v.order.reason.$error }"
+                            >
+                                <h3 class="box-title">
+                                    <i class="icon fa fa-question-circle fa-fw" />Adjustment Reason
+                                </h3>
                                 <textarea
-                                        v-model="order.reason"
-                                        v-if="order.isEditable"
-                                        class="form-control"
-                                        rows="5"
-                                        placeholder="Enter reason for adjustment"
-                                ></textarea>
-                                <div v-else v-text="order.reason"></div>
-                                <hb-fielderror v-if="$v.order.reason.$error">Field is required</hb-fielderror>
+                                    v-if="order.isEditable"
+                                    v-model="order.reason"
+                                    class="form-control"
+                                    rows="5"
+                                    placeholder="Enter reason for adjustment"
+                                />
+                                <div
+                                    v-else
+                                    v-text="order.reason"
+                                />
+                                <hb-fielderror v-if="$v.order.reason.$error">
+                                    Field is required
+                                </hb-fielderror>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <div class="box box-info" v-bind:class="{ 'has-error': $v.order.lineItems.$error }">
+                    <div
+                        class="box box-info"
+                        :class="{ 'has-error': $v.order.lineItems.$error }"
+                    >
                         <div class="box-header with-border">
-                            <hb-fielderror classes="pull-right" v-if="$v.order.lineItems.$error">At least one line item must have a quantity</hb-fielderror>
-                            <h3 class="box-title"><i class="icon fa fa-list fa-fw"></i>Line Items</h3>
+                            <hb-fielderror
+                                v-if="$v.order.lineItems.$error"
+                                classes="pull-right"
+                            >
+                                At least one line item must have a quantity
+                            </hb-fielderror>
+                            <h3 class="box-title">
+                                <i class="icon fa fa-list fa-fw" />Line Items
+                            </h3>
                         </div>
-                        <hb-lineitemform :products="products" :line-items="order.lineItems" :editable="order.isEditable"></hb-lineitemform>
+                        <hb-lineitemform
+                            :products="products"
+                            :line-items="order.lineItems"
+                            :editable="order.isEditable"
+                        />
                     </div>
                 </div>
             </div>
         </form>
-        <hb-modalinvalid></hb-modalinvalid>
-        <hb-modaldelete :action="this.deleteOrder" :orderTitle="order.title"></hb-modaldelete>
-        <hb-modalcomplete :action="this.save" :orderTitle="order.title"></hb-modalcomplete>
+        <hb-modalinvalid />
+        <hb-modaldelete
+            :action="this.deleteOrder"
+            :order-title="order.title"
+        />
+        <hb-modalcomplete
+            :action="this.save"
+            :order-title="order.title"
+        />
     </section>
 </template>
 
@@ -111,6 +174,21 @@
                 return status[0].commit === true;
             }
         },
+        created() {
+            var self = this;
+            axios
+                .get('/api/products')
+                .then(response => this.products = response.data.data);
+            if (this.new) {
+            } else {
+                axios
+                    .get('/api/orders/adjustment/' + this.$route.params.id, {
+                        params: { include: ['lineItems', 'lineItems.product', 'lineItems.transactions', 'storageLocation.addresses']}
+                })
+                    .then(response => self.order = response.data.data);
+            }
+            console.log('Component mounted.')
+        },
         methods: {
             saveVerify: function () {
                 this.$v.$touch();
@@ -126,14 +204,16 @@
             },
             save: function () {
                 var self = this;
-                if(this.new) {
-                    axios.post('/api/orders/adjustment', this.order)
+                if (this.new) {
+                    axios
+                        .post('/api/orders/adjustment', this.order)
                         .then(response => self.$router.push('/orders/adjustment'))
                         .catch(function (error) {
                             console.log(error);
                         });
                 } else {
-                    axios.patch('/api/orders/adjustment/' + this.$route.params.id, this.order)
+                    axios
+                        .patch('/api/orders/adjustment/' + this.$route.params.id, this.order)
                         .then(response => self.$router.push('/orders/adjustment'))
                         .catch(function (error) {
                             console.log(error);
@@ -145,20 +225,10 @@
             },
             deleteOrder: function() {
                 var self = this;
-                axios.delete('/api/orders/adjustment/' + this.$route.params.id).then(self.$router.push('/orders/adjustment'));
+                axios
+                    .delete('/api/orders/adjustment/' + this.$route.params.id)
+                    .then(self.$router.push('/orders/adjustment'));
             }
-        },
-        created() {
-            var self = this;
-            axios.get('/api/products').then(response => this.products = response.data.data);
-            if(this.new) {
-            } else {
-                axios.get('/api/orders/adjustment/' + this.$route.params.id, {
-                    params: { include: ['lineItems', 'lineItems.product', 'lineItems.transactions', 'storageLocation.addresses']}
-                }).then(response => self.order = response.data.data);
-
-            }
-            console.log('Component mounted.')
         }
     }
 </script>

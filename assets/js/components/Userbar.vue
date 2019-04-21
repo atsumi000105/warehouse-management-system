@@ -2,13 +2,32 @@
     <ul class="nav navbar-nav">
         <!-- Authentication Links -->
         <li class="dropdown user admin-menu">
-            <a href="#" class="dropdown-toggle" id="admin-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fa fa-gear"></i> Administration
+            <a
+                id="admin-dropdown"
+                href="#"
+                class="dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+            >
+                <i class="fa fa-gear" /> Administration
             </a>
 
-            <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="admin-dropdown">
-                <li v-for="link in links">
-                    <router-link :to="link.route"><i class="fa" :class="'fa-' + link.icon"></i>{{ link.title }}</router-link>
+            <ul
+                class="dropdown-menu dropdown-menu-right"
+                role="menu"
+                aria-labelledby="admin-dropdown"
+            >
+                <li
+                    v-for="link in links"
+                >
+                    <router-link :to="link.route">
+                        <i
+                        class="fa"
+                        :class="'fa-' + link.icon"
+                        />
+                        {{ link.title }}
+                    </router-link>
                 </li>
             </ul>
         </li>

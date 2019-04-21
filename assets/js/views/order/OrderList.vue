@@ -1,14 +1,20 @@
 <template>
     <section class="content">
-        <router-link to="/orders/new" class="btn btn-success btn-flat pull-right"><i class="fa fa-plus-circle fa-fw"></i>Create Order</router-link>
-        <h3 class="box-title">Orders List</h3>
+        <router-link
+            to="/orders/new"
+            class="btn btn-success btn-flat pull-right"
+        >
+            <i class="fa fa-plus-circle fa-fw" />Create Order
+        </router-link>
+        <h3 class="box-title">
+            Orders List
+        </h3>
 
         <div class="row">
             <div class="col-xs-12">
                 <div class="box">
                     <div class="box-header">
-
-    <!--
+                        <!--
                         <div class="box-tools">
                             <div class="input-group input-group-sm" style="width: 150px;">
                                 <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
@@ -18,7 +24,7 @@
                                 </div>
                             </div>
                         </div>
-    -->
+                        -->
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body table-responsive no-padding">
@@ -34,10 +40,14 @@
                             </thead>
                             <tbody>
                                 <tr v-for="order in orders.data">
-                                    <td><router-link :to="'/orders/' + order.id"><i class="fa fa-edit"></i>{{ order.id }}</router-link></td>
-                                    <td v-text="order.name"></td>
-                                    <td v-text="order.orderCategory.name"></td>
-                                    <td v-text="order.status"></td>
+                                    <td>
+                                        <router-link :to="'/orders/' + order.id">
+                                            <i class="fa fa-edit" />{{ order.id }}
+                                        </router-link>
+                                    </td>
+                                    <td v-text="order.name" />
+                                    <td v-text="order.orderCategory.name" />
+                                    <td v-text="order.status" />
                                     <td>{{ order.updatedAt | dateTimeFormat }}</td>
                                 </tr>
                             </tbody>
@@ -60,7 +70,9 @@
             };
         },
         created() {
-            axios.get('/api/orders').then(response => this.orders = response.data);
+            axios
+                .get('/api/orders')
+                .then(response => this.orders = response.data);
             console.log('Component mounted.')
         }
     }
