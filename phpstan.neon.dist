@@ -7,6 +7,7 @@ parameters:
     		objectManagerLoader: %rootDir%/../../../tests/object-manager.php
     symfony:
         container_xml_path: %rootDir%/../../../var/cache/dev/srcDevDebugProjectContainer.xml
+        console_application_loader: %rootDir%/../../../tests/console-application.php
     paths:
         - %rootDir%/../../../src
         - %rootDir%/../../../tests
