@@ -2,7 +2,6 @@
 
 namespace App\Entity\Orders;
 
-
 use Doctrine\ORM\EntityRepository;
 use Moment\Moment;
 use Symfony\Component\HttpFoundation\ParameterBag;

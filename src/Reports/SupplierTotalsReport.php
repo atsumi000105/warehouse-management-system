@@ -2,7 +2,6 @@
 
 namespace App\Reports;
 
-
 use App\Entity\Supplier;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -20,7 +19,7 @@ class SupplierTotalsReport
 
     public function getRow(Supplier $supplier)
     {
-        $row = $this->rows->filter(function (SupplierTotalsRow $row) use ($supplier){
+        $row = $this->rows->filter(function (SupplierTotalsRow $row) use ($supplier) {
             return $row->getSupplier()->getId() == $supplier->getId();
         })->first();
 

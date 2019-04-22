@@ -2,7 +2,6 @@
 
 namespace App\Reports;
 
-
 use App\Entity\Partner;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -20,7 +19,7 @@ class PartnerOrderTotalsReport
 
     public function getRow(Partner $partner)
     {
-        $row = $this->rows->filter(function (PartnerOrderTotalsRow $row) use ($partner){
+        $row = $this->rows->filter(function (PartnerOrderTotalsRow $row) use ($partner) {
             return $row->getPartner()->getId() == $partner->getId();
         })->first();
 

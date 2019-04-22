@@ -33,7 +33,6 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-
 /**
  * Class ReportController
  *
@@ -49,7 +48,7 @@ class ReportController extends BaseController
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    public function TransactionsReport (Request $request)
+    public function TransactionsReport(Request $request)
     {
         $sort = $request->get('sort') ? explode('|', $request->get('sort')) : null;
         $page = $request->get('download') ? null : $request->get('page', 1);
@@ -115,7 +114,7 @@ class ReportController extends BaseController
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    public function SupplierTotalsReport (Request $request)
+    public function SupplierTotalsReport(Request $request)
     {
         $sort = $request->get('sort') ? explode('|', $request->get('sort')) : null;
         $page = $request->get('page', 1);
@@ -192,7 +191,7 @@ class ReportController extends BaseController
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    public function DistributionTotalsReport (Request $request)
+    public function DistributionTotalsReport(Request $request)
     {
         $sort = $request->get('sort') ? explode('|', $request->get('sort')) : null;
         $page = $request->get('page', 1);
@@ -269,7 +268,7 @@ class ReportController extends BaseController
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    public function PartnerOrderTotalsReport (Request $request)
+    public function PartnerOrderTotalsReport(Request $request)
     {
         $sort = $request->get('sort') ? explode('|', $request->get('sort')) : null;
         $page = $request->get('page', 1);
@@ -346,7 +345,7 @@ class ReportController extends BaseController
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    public function PartnerInventoryReport (Request $request)
+    public function PartnerInventoryReport(Request $request)
     {
         $sort = $request->get('sort') ? explode('|', $request->get('sort')) : null;
         $page = $request->get('page', 1);
@@ -371,7 +370,7 @@ class ReportController extends BaseController
 
         $report = new PartnerInventoryReport();
 
-        foreach($partners as $partner) {
+        foreach ($partners as $partner) {
             $params->set('location', $partner);
             $inventory = $transactionRepo->getStockLevels(false, $params);
             $row = $report->getRow($partner);

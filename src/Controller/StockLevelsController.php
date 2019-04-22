@@ -47,13 +47,13 @@ class StockLevelsController extends BaseController
         // Build a list based on the product list
         $stockLevels = array_map(function (Product $product) use ($availableLevels, $levels) {
             // Get the current level for the product
-            $level = array_filter($levels, function($item) use ($product) {
+            $level = array_filter($levels, function ($item) use ($product) {
                 return $item['id'] == $product->getId();
             });
             $level = reset($level);
 
             // Get the available level for the product
-            $available = array_filter($availableLevels, function($item) use ($product) {
+            $available = array_filter($availableLevels, function ($item) use ($product) {
                 return $item['id'] == $product->getId();
             });
             $available = reset($available);

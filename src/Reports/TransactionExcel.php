@@ -2,7 +2,6 @@
 
 namespace App\Reports;
 
-
 use App\Entity\InventoryTransaction;
 use App\Entity\Orders\AdjustmentOrder;
 use PhpOffice\PhpSpreadsheet\IOFactory;

@@ -34,12 +34,13 @@ class AdjustmentOrderController extends OrderController
      * @param Request $request
      * @return JsonResponse
      */
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $params = $this->getParams($request);
 
         $order = new AdjustmentOrder();
 
-        if($params['storageLocation']['id']) {
+        if ($params['storageLocation']['id']) {
             $newLocation = $this->getEm()->find(StorageLocation::class, $params['storageLocation']['id']);
             $order->setStorageLocation($newLocation);
         }
@@ -75,7 +76,7 @@ class AdjustmentOrderController extends OrderController
 
         $this->checkEditable($order);
 
-        if($params['storageLocation']['id']) {
+        if ($params['storageLocation']['id']) {
             $newLocation = $this->getEm()->find(StorageLocation::class, $params['storageLocation']['id']);
             $order->setStorageLocation($newLocation);
         }

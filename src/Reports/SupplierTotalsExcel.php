@@ -2,7 +2,6 @@
 
 namespace App\Reports;
 
-
 use App\Entity\Product;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;

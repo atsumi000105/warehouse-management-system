@@ -12,7 +12,8 @@ use App\Entity\Partner;
  *
  * @package App\Helpers
  */
-class DistributionTotalsRow {
+class DistributionTotalsRow
+{
 
     /**
      * @var Partner
@@ -68,7 +69,8 @@ class DistributionTotalsRow {
      * @param Product $product
      * @param integer$add
      */
-    public function addProductTotal(Product $product, int $add) {
+    public function addProductTotal(Product $product, int $add)
+    {
         if (!isset($this->productTotals[$product->getSku()])) {
             $this->productTotals[$product->getSku()] = $add;
         } else {

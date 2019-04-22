@@ -12,7 +12,8 @@ use App\Entity\Supplier;
  *
  * @package App\Helpers
  */
-class SupplierTotalsRow {
+class SupplierTotalsRow
+{
 
     /**
      * @var Supplier
@@ -68,7 +69,8 @@ class SupplierTotalsRow {
      * @param Product $product
      * @param integer$add
      */
-    public function addProductTotal(Product $product, int $add) {
+    public function addProductTotal(Product $product, int $add)
+    {
         if (!isset($this->productTotals[$product->getSku()])) {
             $this->productTotals[$product->getSku()] = $add;
         } else {
