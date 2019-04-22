@@ -58,7 +58,12 @@ abstract class StorageLocation extends CoreEntity
     /**
      * @var ArrayCollection|StorageLocationContact[]
      *
-     * @ORM\OneToMany(targetEntity="StorageLocationContact", mappedBy="storageLocation", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(
+     *     targetEntity="StorageLocationContact",
+     *     mappedBy="storageLocation",
+     *     cascade={"persist", "remove"},
+     *     orphanRemoval=true
+     * )
      */
     protected $contacts;
 

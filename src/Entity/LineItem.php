@@ -37,7 +37,12 @@ abstract class LineItem extends CoreEntity
     /**
      * @var ArrayCollection|InventoryTransaction[]
      *
-     * @ORM\OneToMany(targetEntity="InventoryTransaction", mappedBy="lineItem", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(
+     *     targetEntity="InventoryTransaction",
+     *     mappedBy="lineItem",
+     *     cascade={"persist", "remove"},
+     *     orphanRemoval=true
+     * )
      */
     protected $transactions;
 

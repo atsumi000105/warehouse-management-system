@@ -45,7 +45,10 @@ class BulkDistributionFixtures extends BaseFixture implements DependentFixtureIn
             $order->setDistributionPeriod($period);
 
             foreach ($products as $product) {
-                $lineItem = new BulkDistributionLineItem($product, $this->faker->numberBetween(1, 100) * $product->getSmallestPackSize());
+                $lineItem = new BulkDistributionLineItem(
+                    $product,
+                    $this->faker->numberBetween(1, 100) * $product->getSmallestPackSize()
+                );
                 $order->addLineItem($lineItem);
             }
 

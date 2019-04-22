@@ -9,8 +9,13 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 
 class SupplierRepository extends EntityRepository
 {
-    public function findAllPaged($page = null, $limit = null, $sortField = null, $sortDirection = 'ASC', ParameterBag $params = null)
-    {
+    public function findAllPaged(
+        $page = null,
+        $limit = null,
+        $sortField = null,
+        $sortDirection = 'ASC',
+        ParameterBag $params = null
+    ) {
         $qb = $this->createQueryBuilder('s');
 
         $this->joinRelatedTables($qb);

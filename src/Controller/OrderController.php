@@ -261,7 +261,12 @@ class OrderController extends BaseController
     protected function checkEditable(Order $order)
     {
         if (!$order->isEditable()) {
-            throw new PermissionDeniedException(sprintf('Order %d has committed transactions and cannot be edited. Please enter a correction order.', $order->getId()));
+            throw new PermissionDeniedException(
+                sprintf(
+                    'Order %d has committed transactions and cannot be edited. Please enter a correction order.',
+                    $order->getId()
+                )
+            );
         }
     }
 

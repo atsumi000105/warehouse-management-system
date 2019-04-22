@@ -26,7 +26,9 @@ abstract class BaseController extends AbstractController
     protected function getRepository($entityName = null)
     {
         if (!isset($entityName) && !isset($this->defaultEntityName)) {
-            throw new \InvalidArgumentException('Controller is missing a default entity name and none specified when fetching the repository');
+            throw new \InvalidArgumentException(
+                'Controller is missing a default entity name and none specified when fetching the repository'
+            );
         }
 
         $entityName = $entityName ?: $this->defaultEntityName;

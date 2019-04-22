@@ -47,7 +47,9 @@ class TransactionExcel
             $rowArr[] = $transaction->getLineItem()->getOrder()->getOrderTypeName();
             $rowArr[] = $transaction->getLineItem()->getOrder()->getId();
             $rowArr[] = $transaction->getCreatedAt();
-            $rowArr[] = $transaction->getLineItem()->getOrder() instanceof AdjustmentOrder ? $transaction->getLineItem()->getOrder()->getReason() : '';
+            $rowArr[] = $transaction->getLineItem()->getOrder() instanceof AdjustmentOrder
+                ? $transaction->getLineItem()->getOrder()->getReason()
+                : '';
             $rowArr[] = $transaction->isCommitted() ? "Yes" : "No";
             $rowArr[] = $transaction->getCommittedAt();
 

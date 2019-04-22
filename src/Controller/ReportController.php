@@ -103,7 +103,12 @@ class ReportController extends BaseController
             ]
         ];
 
-        return $this->serialize($request, $transactions, new InventoryTransactionReportTransformer(), $meta);
+        return $this->serialize(
+            $request,
+            $transactions,
+            new InventoryTransactionReportTransformer(),
+            $meta
+        );
     }
 
     /**
@@ -180,7 +185,12 @@ class ReportController extends BaseController
             ]
         ];
 
-        return $this->serialize($request, $results->getRows()->slice($page - 1 * $limit, $limit), new SupplierTotalsReportTransformer(), $meta);
+        return $this->serialize(
+            $request,
+            $results->getRows()->slice($page - 1 * $limit, $limit),
+            new SupplierTotalsReportTransformer(),
+            $meta
+        );
     }
 
     /**
@@ -257,7 +267,12 @@ class ReportController extends BaseController
             ]
         ];
 
-        return $this->serialize($request, $results->getRows()->slice($page - 1 * $limit, $limit), new DistributionTotalsReportTransformer(), $meta);
+        return $this->serialize(
+            $request,
+            $results->getRows()->slice($page - 1 * $limit, $limit),
+            new DistributionTotalsReportTransformer(),
+            $meta
+        );
     }
 
     /**
@@ -334,7 +349,12 @@ class ReportController extends BaseController
             ]
         ];
 
-        return $this->serialize($request, $results->getRows()->slice($page - 1 * $limit, $limit), new PartnerOrderTotalsReportTransformer(), $meta);
+        return $this->serialize(
+            $request,
+            $results->getRows()->slice($page - 1 * $limit, $limit),
+            new PartnerOrderTotalsReportTransformer(),
+            $meta
+        );
     }
 
     /**
@@ -410,6 +430,11 @@ class ReportController extends BaseController
             ]
         ];
 
-        return $this->serialize($request, $report->getRows()->slice($page - 1 * $limit, $limit), new PartnerInventoryReportTransformer(), $meta);
+        return $this->serialize(
+            $request,
+            $report->getRows()->slice($page - 1 * $limit, $limit),
+            new PartnerInventoryReportTransformer(),
+            $meta
+        );
     }
 }

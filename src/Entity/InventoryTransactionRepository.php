@@ -150,8 +150,13 @@ class InventoryTransactionRepository extends EntityRepository
         return $results;
     }
 
-    public function findAllPaged($page = null, $limit = null, $sortField = null, $sortDirection = 'ASC', ParameterBag $params = null)
-    {
+    public function findAllPaged(
+        $page = null,
+        $limit = null,
+        $sortField = null,
+        $sortDirection = 'ASC',
+        ParameterBag $params = null
+    ) {
         $qb = $this->createQueryBuilder('t')
             ->join('t.product', 'p')
             ->join('t.lineItem', 'l')
@@ -207,7 +212,13 @@ class InventoryTransactionRepository extends EntityRepository
         }
 
         if ($params->has('orderType')) {
-            $qb->andWhere($qb->expr()->isInstanceOf('o', "App\\Domain\\Entities\\Orders\\" . $params->get('orderType')));
+            $qb->andWhere(
+                $qb->expr()
+                    ->isInstanceOf(
+                        'o',
+                        "App\\Domain\\Entities\\Orders\\" . $params->get('orderType')
+                    )
+            );
         }
 
         if ($params->has('startingAt')) {

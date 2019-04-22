@@ -142,7 +142,8 @@ class PartnerOrder extends Order
                 $quantity -= $pack->quantity;
             }
 
-            // Done with this product, if the current bag isn't full move all the packs to the current remainder bag we have going.
+            // Done with this product.
+            //If the current bag isn't full move all the packs to the current remainder bag we have going.
             if (!$bag->isFull()) {
                 if (count($remainderBags) == 0 && !$currentRemainderBag) {
                     $currentRemainderBag = new Bag();

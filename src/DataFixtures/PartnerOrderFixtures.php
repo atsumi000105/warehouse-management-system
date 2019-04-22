@@ -49,7 +49,10 @@ class PartnerOrderFixtures extends BaseFixture implements DependentFixtureInterf
             $order->setOrderPeriod($period);
 
             foreach ($products as $product) {
-                $lineItem = new PartnerOrderLineItem($product, $this->faker->numberBetween(1, 100) * $product->getSmallestPackSize());
+                $lineItem = new PartnerOrderLineItem(
+                    $product,
+                    $this->faker->numberBetween(1, 100) * $product->getSmallestPackSize()
+                );
                 $order->addLineItem($lineItem);
             }
 

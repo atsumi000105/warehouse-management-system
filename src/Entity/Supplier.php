@@ -46,7 +46,12 @@ class Supplier extends CoreEntity
     /**
      * @var ArrayCollection|SupplierAddress[]
      *
-     * @ORM\OneToMany(targetEntity="SupplierAddress", mappedBy="supplier", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(
+     *     targetEntity="SupplierAddress",
+     *     mappedBy="supplier",
+     *     cascade={"persist", "remove"},
+     *     orphanRemoval=true
+     * )
      */
     protected $addresses;
 
@@ -60,14 +65,24 @@ class Supplier extends CoreEntity
     /**
      * @var ArrayCollection|SupplierContact[]
      *
-     * @ORM\OneToMany(targetEntity="SupplierContact", mappedBy="supplier", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(
+     *     targetEntity="SupplierContact",
+     *     mappedBy="supplier",
+     *     cascade={"persist", "remove"},
+     *     orphanRemoval=true
+     * )
      */
     protected $contacts;
 
     /**
      * @var ArrayCollection|SupplyOrder[] $supplyOrders
      *
-     * @ORM\OneToMany(targetEntity="App\Entity\Orders\SupplyOrder", mappedBy="supplier", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(
+     *     targetEntity="App\Entity\Orders\SupplyOrder",
+     *     mappedBy="supplier",
+     *     cascade={"persist", "remove"},
+     *     orphanRemoval=true
+     * )
      */
     protected $supplyOrders;
 
