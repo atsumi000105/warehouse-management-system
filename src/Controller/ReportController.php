@@ -48,7 +48,7 @@ class ReportController extends BaseController
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    public function TransactionsReport(Request $request)
+    public function transactionsReport(Request $request)
     {
         $sort = $request->get('sort') ? explode('|', $request->get('sort')) : null;
         $page = $request->get('download') ? null : $request->get('page', 1);
@@ -114,7 +114,7 @@ class ReportController extends BaseController
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    public function SupplierTotalsReport(Request $request)
+    public function supplierTotalsReport(Request $request)
     {
         $sort = $request->get('sort') ? explode('|', $request->get('sort')) : null;
         $page = $request->get('page', 1);
@@ -191,7 +191,7 @@ class ReportController extends BaseController
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    public function DistributionTotalsReport(Request $request)
+    public function distributionTotalsReport(Request $request)
     {
         $sort = $request->get('sort') ? explode('|', $request->get('sort')) : null;
         $page = $request->get('page', 1);
@@ -268,7 +268,7 @@ class ReportController extends BaseController
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    public function PartnerOrderTotalsReport(Request $request)
+    public function partnerOrderTotalsReport(Request $request)
     {
         $sort = $request->get('sort') ? explode('|', $request->get('sort')) : null;
         $page = $request->get('page', 1);
@@ -345,7 +345,7 @@ class ReportController extends BaseController
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    public function PartnerInventoryReport(Request $request)
+    public function partnerInventoryReport(Request $request)
     {
         $sort = $request->get('sort') ? explode('|', $request->get('sort')) : null;
         $page = $request->get('page', 1);
