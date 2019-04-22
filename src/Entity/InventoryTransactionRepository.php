@@ -17,10 +17,11 @@ class InventoryTransactionRepository extends EntityRepository
             ->select('p.id, p.name, c.name as category, SUM(t.delta) as balance')
             ->join('t.product', 'p')
             ->join('p.productCategory', 'c')
-            ->groupBy('p.id');
+            ->groupBy('c.name', 'p.id');
 
         if (!$includeAllocated) {
-            $qb->andWhere('t.committed = 1');
+            $qb->andWhere('t.committed = :committed')
+                ->setParameter('committed', true);
         }
 
         if ($params->has('location')) {
@@ -163,7 +164,7 @@ class InventoryTransactionRepository extends EntityRepository
         }
 
         if ($sortField) {
-            if (!str_contains($sortField, '.')) {
+            if (strstr($sortField, '.') === false) {
                 $sortField = 't.' . $sortField;
             }
             $qb->orderBy($sortField, $sortDirection);

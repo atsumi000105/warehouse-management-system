@@ -28,7 +28,7 @@ class SupplyOrderController extends OrderController
     }
 
     /**
-     * Save a new product
+     * Save a new Supply Order
      *
      * @Route(path="", methods={"POST"})
      *
