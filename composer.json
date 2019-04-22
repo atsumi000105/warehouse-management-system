@@ -70,7 +70,7 @@
         "post-update-cmd": [
             "@auto-scripts"
         ],
-        "analyze": "vendor/bin/phpstan analyse src",
+        "analyze": "vendor/bin/phpstan analyse",
         "lint": "vendor/bin/phpcs",
         "lint-fix": "vendor/bin/phpcbf"
     },

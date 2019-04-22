@@ -1,0 +1,4 @@
+parameters:
+    paths:
+        - %rootDir%/../../../src
+    level: 0
