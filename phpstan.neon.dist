@@ -3,8 +3,11 @@ includes:
     - vendor/phpstan/phpstan-symfony/extension.neon
 
 parameters:
+    doctrine:
+    		objectManagerLoader: %rootDir%/../../../tests/object-manager.php
     symfony:
         container_xml_path: %rootDir%/../../../var/cache/dev/srcDevDebugProjectContainer.xml
     paths:
         - %rootDir%/../../../src
+        - %rootDir%/../../../tests
     level: 0
