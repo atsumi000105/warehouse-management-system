@@ -1,7 +1,7 @@
 <template>
     <section class="content">
-        <router-link to="/admin/roles/new" class="btn btn-success btn-flat pull-right"><i class="fa fa-plus-circle fa-fw"></i>Create Role</router-link>
-        <h3 class="box-title">Roles List</h3>
+        <router-link to="/admin/groups/new" class="btn btn-success btn-flat pull-right"><i class="fa fa-plus-circle fa-fw"></i>Create Role</router-link>
+        <h3 class="box-title">Groups List</h3>
 
         <div class="row">
             <div class="col-xs-12">
@@ -31,8 +31,8 @@
                             </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="role in roles.data">
-                                    <td><router-link :to="'/admin/roles/' + role.id"><i class="fa fa-edit"></i>{{ role.id }}</router-link></td>
+                                <tr v-for="role in groups.data">
+                                    <td><router-link :to="'/admin/groups/' + role.id"><i class="fa fa-edit"></i>{{ role.id }}</router-link></td>
                                     <td v-text="role.name"></td>
                                     <td>{{ role.updatedAt | dateTimeFormat }}</td>
                                 </tr>
@@ -52,11 +52,11 @@
         props:[],
         data() {
             return {
-                roles: {}
+                groups: {}
             };
         },
         created() {
-            axios.get('/api/roles').then(response => this.roles = response.data);
+            axios.get('/api/groups').then(response => this.groups = response.data);
             console.log('Component mounted.')
         }
     }

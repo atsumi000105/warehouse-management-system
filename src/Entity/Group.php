@@ -11,6 +11,28 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Group extends CoreEntity
 {
+    const AVAILABLE_ROLES = [
+        'ROLE_ORDER_VIEW_OWN',
+        'ROLE_ORDER_VIEW_ALL',
+        'ROLE_ORDER_EDIT',
+
+        'ROLE_SUPPLIER_VIEW',
+        'ROLE_SUPPLIER_EDIT',
+
+        'ROLE_WAREHOUSE_VIEW',
+        'ROLE_WAREHOUSE_EDIT',
+
+        'ROLE_PARTNER_VIEW_ALL',
+        'ROLE_PARTNER_VIEW_SELF',
+        'ROLE_PARTNER_EDIT',
+
+        'ROLE_PRODUCT_VIEW',
+        'ROLE_PRODUCT_EDIT',
+
+        'ROLE_USER_VIEW',
+        'ROLE_USER_EDIT',
+    ];
+
     /**
      * @ORM\Id()
      * @ORM\Column(type="integer")

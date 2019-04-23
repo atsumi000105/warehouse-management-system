@@ -21,7 +21,7 @@
         data() {
             return {
                 links: [
-                    { title: "Manage Roles", route: "/admin/roles", icon: "list" },
+                    { title: "Manage Roles", route: "/admin/groups", icon: "list" },
                     { title: "Manage Users", route: "/admin/users", icon: "user" },
                     { title: "Manage Fulfillment Periods", route: "/partners/fulfillment-periods", icon: "calendar" },
                     { title: "Manage Distribution Methods", route: "/partners/distribution-methods", icon: "archive" },
