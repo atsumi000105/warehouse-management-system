@@ -93,11 +93,11 @@ class User implements UserInterface
     }
 
     /**
-     * @return Group[]|Collection
+     * @return Group[]
      */
-    public function getGroups()
+    public function getGroups() : array
     {
-        return $this->groups;
+        return $this->groups->toArray();
     }
 
     /**

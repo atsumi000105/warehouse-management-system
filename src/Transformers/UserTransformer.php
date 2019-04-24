@@ -26,6 +26,6 @@ class UserTransformer extends TransformerAbstract
 
     public function includeGroups(User $user)
     {
-        return $this->collection($user->getGroups()->toArray(), new GroupTransformer());
+        return $this->collection($user->getGroups(), new GroupTransformer());
     }
 }
