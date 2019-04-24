@@ -2,7 +2,6 @@
 
 namespace App\Listener;
 
-
 use App\Entity\Order;
 use Doctrine\ORM\Event\PreFlushEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;

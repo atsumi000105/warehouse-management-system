@@ -1,17 +1,41 @@
 <template>
     <section class="sidebar">
-        <ul class="sidebar-menu tree" data-widget="tree">
-            <li v-for="menu in navigation" :class="{treeview: menu.hasOwnProperty('links')}">
+        <ul
+            class="sidebar-menu tree"
+            data-widget="tree"
+        >
+            <li
+                v-for="menu in navigation"
+                :class="{treeview: menu.hasOwnProperty('links')}"
+            >
                 <router-link :to="menu.route || '#'">
-                    <i v-if="menu.icon" class="fa" :class="'fa-' + menu.icon"></i>
+                    <i
+                        v-if="menu.icon"
+                        class="fa"
+                        :class="'fa-' + menu.icon"
+                    />
                     <span>{{ menu.header }}</span>
-                    <span class="pull-right-container" v-if="menu.hasOwnProperty('links')">
-                      <i class="fa fa-angle-left pull-right"></i>
+                    <span
+                        v-if="menu.hasOwnProperty('links')"
+                        class="pull-right-container"
+                    >
+                      <i class="fa fa-angle-left pull-right" />
                     </span>
                 </router-link>
-                <ul class="treeview-menu" v-if="menu.hasOwnProperty('links')">
-                    <li v-for="link in menu.links">
-                        <router-link :to="link.route"><i class="fa" :class="'fa-' + link.icon"></i>{{ link.title }}</router-link>
+                <ul
+                    v-if="menu.hasOwnProperty('links')"
+                    class="treeview-menu"
+                >
+                    <li
+                        v-for="link in menu.links"
+                    >
+                        <router-link :to="link.route">
+                            <i
+                            class="fa"
+                            :class="'fa-' + link.icon"
+                            />
+                            {{ link.title }}
+                        </router-link>
                     </li>
                 </ul>
             </li>

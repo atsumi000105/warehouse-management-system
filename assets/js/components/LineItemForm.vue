@@ -1,18 +1,39 @@
 <template>
     <div class="box-body form-horizontal">
         <div class="form-group">
-            <h4 v-bind:class="{'col-xs-8': showCost || showPacks, 'col-xs-10': !showCost && !showPacks }">Product</h4>
-            <h4 class="col-xs-2" v-if="showPacks">Packs</h4>
-            <h4 class="col-xs-2">Quantity</h4>
-            <h4 class="col-xs-2" v-if="showCost">Cost</h4>
+            <h4 :class="{'col-xs-8': showCost || showPacks, 'col-xs-10': !showCost && !showPacks }">
+                Product
+            </h4>
+            <h4
+                v-if="showPacks"
+                class="col-xs-2"
+            >
+                Packs
+            </h4>
+            <h4 class="col-xs-2">
+                Quantity
+            </h4>
+            <h4
+                v-if="showCost"
+                class="col-xs-2"
+            >
+                Cost
+            </h4>
         </div>
-        <template  v-for="product in products" v-if="findLineItem(product)">
+        <template
+            v-for="product in products"
+            v-if="findLineItem(product)"
+        >
             <hr>
-            <hb-lineitemformrow :lineItem="findLineItem(product)" :showCost="showCost" :editable="editable" :showPacks="showPacks" :partnerType="partnerType"></hb-lineitemformrow>
+            <hb-lineitemformrow
+                :line-item="findLineItem(product)"
+                :show-cost="showCost"
+                :editable="editable"
+                :show-packs="showPacks"
+                :partner-type="partnerType"
+            />
         </template>
     </div>
-
-
 </template>
 
 <script>

@@ -2,7 +2,6 @@
 
 namespace App\Transformers;
 
-
 use App\Entity\ListOption;
 use App\Entity\ProductCategory;
 use League\Fractal\TransformerAbstract;

@@ -2,7 +2,6 @@
 
 namespace App\Transformers\Report;
 
-
 use App\Entity\Supplier;
 use App\Reports\SupplierTotalsRow;
 use League\Fractal\TransformerAbstract;

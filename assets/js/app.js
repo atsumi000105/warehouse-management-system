@@ -76,7 +76,7 @@ Vue.directive('datepicker', {
         let format = binding.value.format || 'YYYY-MM-DD';
         let value = moment($(el).val(), format);
 
-        if(binding.value.tz || false) {
+        if (binding.value.tz || false) {
             value.tz(binding.value.tz);
         }
         jQuery(el).datetimepicker({
@@ -90,7 +90,7 @@ Vue.directive('datepicker', {
         binding.value = binding.value || {};
         let format = binding.value.format || 'YYYY-MM-DD';
         let value = moment(el.value, format);
-        if(binding.value.tz || false) {
+        if (binding.value.tz || false) {
             value.tz(binding.value.tz);
         }
         jQuery(el).data("DateTimePicker").date(value);
@@ -112,10 +112,10 @@ Vue.directive('colorpicker', {
 });
 
 window.App = new Vue({
+    el: '#app',
     data: {
         exceptions: []
     },
     router,
-    store,
-    el: '#app'
+    store
 });

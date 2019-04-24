@@ -35,22 +35,23 @@ class SupplyOrderController extends OrderController
      * @param Request $request
      * @return JsonResponse
      */
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $params = $this->getParams($request);
 
         $order = new SupplyOrder();
 
-        if($params['warehouse']['id']) {
+        if ($params['warehouse']['id']) {
             $newWarehouse = $this->getEm()->find(Warehouse::class, $params['warehouse']['id']);
             $order->setWarehouse($newWarehouse);
         }
 
-        if($params['supplier']['id']) {
+        if ($params['supplier']['id']) {
             $newSupplier = $this->getEm()->find(Supplier::class, $params['supplier']['id']);
             $order->setSupplier($newSupplier);
         }
 
-        if($params['supplierAddress']['id']) {
+        if ($params['supplierAddress']['id']) {
             $newSupplierAddress = $this->getEm()->find(SupplierAddress::class, $params['supplierAddress']['id']);
             $order->setSupplierAddress($newSupplierAddress);
         }
@@ -89,17 +90,17 @@ class SupplyOrderController extends OrderController
 
         $this->checkEditable($order);
         
-        if($params['warehouse']['id']) {
+        if ($params['warehouse']['id']) {
             $newWarehouse = $this->getEm()->find('App\Entity\Warehouse', $params['warehouse']['id']);
             $order->setWarehouse($newWarehouse);
         }
 
-        if($params['supplier']['id']) {
+        if ($params['supplier']['id']) {
             $newSupplier = $this->getEm()->find('App\Entity\Supplier', $params['supplier']['id']);
             $order->setSupplier($newSupplier);
         }
 
-        if($params['supplierAddress']['id']) {
+        if ($params['supplierAddress']['id']) {
             $newSupplierAddress = $this->getEm()->find('App\Entity\SupplierAddress', $params['supplierAddress']['id']);
             $order->setSupplierAddress($newSupplierAddress);
         }

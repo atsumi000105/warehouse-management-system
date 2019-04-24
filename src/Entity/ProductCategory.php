@@ -47,6 +47,4 @@ class ProductCategory extends ListOption
     {
         $this->isPartnerOrderable = $isPartnerOrderable;
     }
-
-
 }

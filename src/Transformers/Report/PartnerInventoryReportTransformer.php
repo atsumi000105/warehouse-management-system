@@ -2,7 +2,6 @@
 
 namespace App\Transformers\Report;
 
-
 use App\Entity\Partner;
 use App\Reports\PartnerInventoryRow;
 use League\Fractal\TransformerAbstract;

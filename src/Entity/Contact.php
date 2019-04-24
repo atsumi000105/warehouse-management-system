@@ -6,7 +6,6 @@ use App\Entity\ValueObjects\Name;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
-
 /**
  * @ORM\Entity()
  * @ORM\InheritanceType("JOINED")

@@ -34,17 +34,18 @@ class TransferOrdersController extends OrderController
      * @return JsonResponse
      * @throws \Exception
      */
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $params = $this->getParams($request);
 
         $order = new TransferOrder();
 
-        if($params['sourceLocation']['id']) {
+        if ($params['sourceLocation']['id']) {
             $newLocation = $this->getEm()->find(StorageLocation::class, $params['sourceLocation']['id']);
             $order->setSourceLocation($newLocation);
         }
 
-        if($params['targetLocation']['id']) {
+        if ($params['targetLocation']['id']) {
             $newLocation = $this->getEm()->find(StorageLocation::class, $params['targetLocation']['id']);
             $order->setTargetLocation($newLocation);
         }
@@ -87,12 +88,12 @@ class TransferOrdersController extends OrderController
         // $this->checkEditPermissions($order);
 
 
-        if($params['sourceLocation']['id']) {
+        if ($params['sourceLocation']['id']) {
             $newLocation = $this->getEm()->find(StorageLocation::class, $params['sourceLocation']['id']);
             $order->setSourceLocation($newLocation);
         }
 
-        if($params['targetLocation']['id']) {
+        if ($params['targetLocation']['id']) {
             $newLocation = $this->getEm()->find(StorageLocation::class, $params['targetLocation']['id']);
             $order->setTargetLocation($newLocation);
         }

@@ -6,7 +6,6 @@ use App\Entity\InventoryTransaction;
 use App\Entity\LineItem;
 use Doctrine\ORM\Mapping as ORM;
 
-
 /**
  * Class MerchandiseOrderLineItem
  *
@@ -23,7 +22,7 @@ class MerchandiseOrderLineItem extends LineItem
         // Wipe out any existing transactions
         $this->clearTransactions();
 
-        if($this->getQuantity() <> 0) {
+        if ($this->getQuantity() <> 0) {
             /** @var MerchandiseOrder $order */
             $order = $this->getOrder();
             $transaction = new InventoryTransaction($order->getWarehouse(), $this, 0 - $this->getQuantity());

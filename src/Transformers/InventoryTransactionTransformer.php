@@ -2,7 +2,6 @@
 
 namespace App\Transformers;
 
-
 use App\Entity\InventoryTransaction;
 use League\Fractal\TransformerAbstract;
 

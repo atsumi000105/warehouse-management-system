@@ -33,11 +33,15 @@ class TransferOrder extends Order
     {
         parent::__construct();
 
-        if ($sourceLocation) $this->setSourceLocation($sourceLocation);
-        if ($targetLocation) $this->setTargetLocation($targetLocation);
+        if ($sourceLocation) {
+            $this->setSourceLocation($sourceLocation);
+        }
+        if ($targetLocation) {
+            $this->setTargetLocation($targetLocation);
+        }
     }
 
-    function getOrderTypeName() : string
+    public function getOrderTypeName() : string
     {
         return "Stock Transfer";
     }

@@ -2,7 +2,6 @@
 
 namespace App\DataFixtures;
 
-
 use App\Entity\StorageLocationAddress;
 use App\Entity\StorageLocationContact;
 use Doctrine\Common\Persistence\ObjectManager;

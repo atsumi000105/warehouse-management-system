@@ -2,7 +2,6 @@
 
 namespace App\Transformers;
 
-
 use App\Entity\SupplierContact;
 use League\Fractal\TransformerAbstract;
 
@@ -21,5 +20,4 @@ class SupplierContactTransformer extends TransformerAbstract
             'isDeleted' => $contact->isDeleted(),
         ];
     }
-
 }

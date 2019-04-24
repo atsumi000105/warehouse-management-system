@@ -11,7 +11,6 @@ use Faker\Factory;
 use Faker\Generator;
 
 abstract class BaseFixture extends Fixture
-
 {
     /** @var ObjectManager */
     private $manager;

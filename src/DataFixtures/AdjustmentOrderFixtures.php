@@ -2,7 +2,6 @@
 
 namespace App\DataFixtures;
 
-
 use App\Entity\Orders\AdjustmentOrder;
 use App\Entity\Orders\AdjustmentOrderLineItem;
 use App\Entity\Product;

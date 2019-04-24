@@ -1,44 +1,72 @@
 <template>
     <div class="hb-addressform">
-        <div v-if="hasTitle" class="form-group">
+        <div
+                v-if="hasTitle"
+                class="form-group"
+        >
             <label>Title</label>
-            <input type="text" class="form-control" placeholder="Enter address name" v-model="address.title">
+            <input
+                v-model="address.title"
+                type="text"
+                class="form-control"
+                placeholder="Enter address name"
+            >
         </div>
         <div class="form-group">
             <label>Street 1</label>
-            <input type="text" class="form-control" placeholder="Enter address name" v-model="address.street1">
+            <input
+                v-model="address.street1"
+                type="text"
+                class="form-control"
+                placeholder="Enter address name"
+            >
         </div>
         <div class="form-group">
             <label>Street 2</label>
-            <input type="text" class="form-control" placeholder="Enter address name" v-model="address.street2">
+            <input
+                v-model="address.street2"
+                type="text"
+                class="form-control"
+                placeholder="Enter address name"
+            >
         </div>
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
                     <label>City</label>
-                    <input type="text" class="form-control" placeholder="Enter address name" v-model="address.city">
+                    <input
+                        v-model="address.city"
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter address name"
+                    >
                 </div>
             </div>
             <div class="col-sm-3">
-                <hb-state :address="address"></hb-state>
+                <hb-state :address="address" />
             </div>
             <div class="col-sm-3">
                 <div class="form-group">
                     <label>Zip/Postal Code</label>
-                    <input type="text" class="form-control" placeholder="Enter address name" v-model="address.postalCode">
+                    <input
+                        v-model="address.postalCode"
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter address name"
+                    >
                 </div>
             </div>
         </div>
-        <hb-country :address="address"></hb-country>
+        <hb-country :address="address" />
     </div>
 </template>
 
 <script>
-    export default {
-        props: {
-            address: { type: Object, required: true },
-            hasTitle: { type: Boolean, default: true },
-            v: { type: Object },
-        }
-    }
+export default {
+    props: {
+        address: { type: Object, required: true },
+        hasTitle: { type: Boolean, default: true },
+        v: { type: Object },
+    },
+};
 </script>

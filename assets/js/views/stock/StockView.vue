@@ -1,29 +1,49 @@
 <template>
     <section class="content">
-        <h3 class="box-title">Stock Levels</h3>
+        <h3 class="box-title">
+            Stock Levels
+        </h3>
 
         <div class="row">
             <div class="col-xs-4">
                 <hb-storagelocationselectionform
-                        v-model="filters.location"
-                ></hb-storagelocationselectionform>
+                    v-model="filters.location"
+                />
             </div>
             <div class="col-xs-2">
                 <div class="form-group">
                     <label>Location Type</label>
-                    <select class="form-control" v-model="filters.locationType" v-chosen>
-                        <option value="">--All Location Types--</option>
-                        <option value="WAREHOUSE">Warehouses</option>
-                        <option value="PARTNER">Partners</option>
+                    <select
+                        v-model="filters.locationType"
+                        v-chosen
+                        class="form-control"
+                    >
+                        <option value="">
+                            --All Location Types--
+                        </option>
+                        <option value="WAREHOUSE">
+                            Warehouses
+                        </option>
+                        <option value="PARTNER">
+                            Partners
+                        </option>
                     </select>
                 </div>
             </div>
 
             <div class="form-group col-xs-4">
-                <hb-date v-model="filters.endingAt" label="Date" ></hb-date>
+                <hb-date
+                    v-model="filters.endingAt"
+                    label="Date"
+                />
             </div>
             <div class="col-xs-1 text-right">
-                <button class="btn btn-success btn-flat" @click="doFilter"><i class="fa fa-fw fa-filter"></i>Filter</button>
+                <button
+                    class="btn btn-success btn-flat"
+                    @click="doFilter"
+                >
+                    <i class="fa fa-fw fa-filter" />Filter
+                </button>
             </div>
         </div>
         <div class="row">
@@ -36,23 +56,41 @@
                                 <th>Product ID</th>
                                 <th>Name</th>
                                 <th>Category</th>
-                                <th class="text-right">All Stock
-                                    <i class="fa fa-question-circle"
-                                       title="This level represents all stock physically located on-site"
-                                       v-tooltip="'bottom'"></i></th>
-                                <th class="text-right">Stock (including pending orders)
-                                    <i class="fa fa-question-circle"
-                                       title="This level represents stock on-site including any pending partner orders where products are allocated but not shipped"
-                                       v-tooltip="'bottom'"></i></th>
+                                <th class="text-right">
+                                    All Stock
+                                    <i
+                                        v-tooltip="'bottom'"
+                                        class="fa fa-question-circle"
+                                        title="This level represents all stock physically located on-site"
+                                    />
+                                </th>
+                                <th class="text-right">
+                                    Stock (including pending orders)
+                                    <i
+                                        v-tooltip="'bottom'"
+                                        class="fa fa-question-circle"
+                                        title="This level represents stock on-site including any pending partner orders where products are allocated but not shipped"
+                                    />
+                                </th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr v-for="product in products">
-                                <td><router-link :to="'/products/' + product.id"><i class="fa fa-edit"></i>{{ product.id }}</router-link></td>
-                                <td v-text="product.name"></td>
-                                <td v-text="product.category"></td>
-                                <td v-text="product.balance.toLocaleString()" class="text-right"></td>
-                                <td v-text="product.availableBalance.toLocaleString()" class="text-right"></td>
+                                <td>
+                                    <router-link :to="'/products/' + product.id">
+                                        <i class="fa fa-edit" />{{ product.id }}
+                                    </router-link>
+                                    </td>
+                                    <td v-text="product.name" />
+                                    <td v-text="product.category" />
+                                    <td
+                                        class="text-right"
+                                        v-text="product.balance.toLocaleString()"
+                                    />
+                                    <td
+                                        class="text-right"
+                                        v-text="product.availableBalance.toLocaleString()"
+                                    />
                             </tr>
                             </tbody>
                         </table>
@@ -79,13 +117,19 @@
                 },
             };
         },
+        created() {
+            this.getLevels();
+            console.log('Component mounted.')
+        },
         methods: {
             doFilter: function(event) {
                 this.products = {};
                 this.getLevels();
             },
             getLevels: function() {
-                axios.get('/api/stock-levels', { params: this.buildParams() }).then(response => this.products = response.data);
+                axios
+                    .get('/api/stock-levels', { params: this.buildParams() })
+                    .then(response => this.products = response.data);
             },
             buildParams: function () {
                 return {
@@ -94,10 +138,6 @@
                     endingAt: moment(this.filters.endingAt).endOf('day').toISOString()
                 }
             }
-        },
-        created() {
-            this.getLevels();
-            console.log('Component mounted.')
         }
     }
 </script>

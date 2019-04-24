@@ -2,7 +2,6 @@
 
 namespace App\DataFixtures;
 
-
 use App\Entity\Supplier;
 use App\Entity\SupplierAddress;
 use App\Entity\SupplierContact;

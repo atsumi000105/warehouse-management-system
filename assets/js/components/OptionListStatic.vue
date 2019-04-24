@@ -1,20 +1,49 @@
 <template>
     <div class="form-group">
-        <label v-text="label"></label>
+        <label v-text="label" />
         <template v-if="chosen && loaded">
-            <select class="form-control" v-model="value[property]" v-chosen>
-                <option value="" v-text="emptyOption"></option>
-                <option v-for="item in options" :selected="value[property] == item.id" :value="item.id" v-text="displayText(item)"></option>
+            <select
+                v-model="value[property]"
+                v-chosen
+                class="form-control"
+            >
+                <option
+                    value=""
+                    v-text="emptyOption"
+                />
+                <option
+                    v-for="item in options"
+                    :selected="value[property] == item.id"
+                    :value="item.id"
+                    v-text="displayText(item)"
+                />
             </select>
         </template>
         <template v-else-if="!chosen && loaded">
-            <select class="form-control" v-model="value[property]">
-                <option value="" v-text="emptyOption"></option>
-                <option v-for="item in options" :selected="value[property] == item.id" :value="item.id" v-text="displayText(item)"></option>
+            <select
+                v-model="value[property]"
+                class="form-control"
+            >
+                <option
+                    value=""
+                    v-text="emptyOption"
+                />
+                <option
+                    v-for="item in options"
+                    :selected="value[property] == item.id"
+                    :value="item.id"
+                    v-text="displayText(item)"
+                />
             </select>
         </template>
-        <select class="form-control" v-else disabled>
-            <option selected>Loading...</option>
+        <select
+            v-else
+            class="form-control"
+            disabled
+        >
+            <option selected>
+                Loading...
+            </option>
         </select>
     </div>
 </template>
@@ -45,6 +74,12 @@
             emptyOption: function() { return this.emptyString ? this.emptyString : '-- Select Item --'}
         },
 
+        created() {
+            var self = this;
+
+            self.listOptions = self.preloadedOptions;
+        },
+
         methods: {
             displayText: function(item) {
                 if (this.displayTextFn) {
@@ -53,12 +88,6 @@
                     return item[this.displayProperty];
                 }
             }
-        },
-
-        created() {
-            var self = this;
-
-            self.listOptions = self.preloadedOptions;
         },
     }
 </script>

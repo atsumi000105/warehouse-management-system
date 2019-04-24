@@ -2,7 +2,6 @@
 
 namespace App\DataFixtures;
 
-
 use App\Entity\Orders\SupplyOrder;
 use App\Entity\Orders\SupplyOrderLineItem;
 use App\Entity\Product;

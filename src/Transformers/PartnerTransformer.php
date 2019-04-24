@@ -2,7 +2,6 @@
 
 namespace App\Transformers;
 
-
 use App\Entity\Partner;
 use App\Entity\PartnerDistributionMethod;
 use App\Entity\StorageLocation;
@@ -47,5 +46,4 @@ class PartnerTransformer extends StorageLocationTransformer
     {
         return $this->item($partner->getDistributionMethod(), new ListOptionTransformer());
     }
-
 }

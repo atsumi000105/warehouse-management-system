@@ -1,11 +1,16 @@
 <template>
     <section class="content">
-        <h3 class="box-title">Fill Worksheet</h3>
+        <h3 class="box-title">
+            Fill Worksheet
+        </h3>
         <div class="row">
             <div class="col-sm-12">
                 <div class="box">
                     <div class="box-body">
-                        <h2 class="box-title" v-text="order.partner.title"></h2>
+                        <h2
+                            class="box-title"
+                            v-text="order.partner.title"
+                        />
                         <div>
                             <strong>Order Month:</strong> {{ order.orderPeriod | dateTimeMonthFormat }}
                         </div>
@@ -26,13 +31,13 @@
                         <table class="table table-bordered table-responsive">
                             <thead>
                             <tr>
-                                <th></th>
-                                <template v-for="product in products" >
+                                <th />
+                                <template v-for="product in products">
                                     <th
-                                            v-text="product.name"
-                                            v-bind:class="{'text-black': isLight(product.color), 'text-white': !isLight(product.color)}"
+                                            :class="{'text-black': isLight(product.color), 'text-white': !isLight(product.color)}"
                                             :style="'background-color:'+product.color+' !important;'"
-                                    ></th>
+                                            v-text="product.name"
+                                    />
                                 </template>
                                 <th>Total Packs</th>
                             </tr>
@@ -40,8 +45,11 @@
                             <tbody>
                             <tr>
                                 <td>Packs</td>
-                                <td  v-for="product in products" v-text="productTotals[product.name]"></td>
-                                <td v-text="totalPacks"></td>
+                                <td
+                                    v-for="product in products"
+                                    v-text="productTotals[product.name]"
+                                />
+                                <td v-text="totalPacks" />
                             </tr>
                             </tbody>
                         </table>
@@ -58,25 +66,33 @@
                         <table class="table table-bordered table-responsive">
                             <thead>
                                 <tr>
-                                    <th :colspan="products.length + 2" v-text="order.partner.title"></th>
+                                    <th
+                                        :colspan="products.length + 2"
+                                        v-text="order.partner.title"
+                                    />
                                 </tr>
                                 <tr>
-                                    <th></th>
-                                    <template v-for="product in products" >
+                                    <th />
+                                    <template v-for="product in products">
                                         <th
-                                                v-text="product.name"
-                                                v-bind:class="{'text-black': isLight(product.color), 'text-white': !isLight(product.color)}"
-                                                :style="'background-color:'+product.color+' !important;'"
-                                        ></th>
+                                            :class="{'text-black': isLight(product.color), 'text-white': !isLight(product.color)}"
+                                            :style="'background-color:'+product.color+' !important;'"
+                                            v-text="product.name"
+                                        />
                                     </template>
                                     <th>Total Packs</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(bag, index) in order.bags">
-                                    <th>Bag {{ index + 1}}</th>
-                                    <td v-for="product in products" v-text="packCountFromProduct(bag, product.name)"></td>
-                                    <td v-text="bag.totalPacks"></td>
+                                <tr
+                                    v-for="(bag, index) in order.bags"
+                                >
+                                    <th>Bag {{ index + 1 }}</th>
+                                    <td
+                                        v-for="product in products"
+                                        v-text="packCountFromProduct(bag, product.name)"
+                                    />
+                                    <td v-text="bag.totalPacks" />
                                 </tr>
                             </tbody>
                         </table>
@@ -100,9 +116,9 @@
                     packTotals[product.name] = 0;
                 });
 
-                this.order.bags.forEach(function(bag){
+                this.order.bags.forEach(function(bag) {
                     for (name in packTotals) {
-                        if(bag.packCounts[name]) {
+                        if (bag.packCounts[name]) {
                             packTotals[name] += bag.packCounts[name];
                         }
                     }
@@ -112,7 +128,7 @@
             },
             totalPacks() {
                 let total = 0;
-                this.order.bags.forEach(function(bag){
+                this.order.bags.forEach(function(bag) {
                     for (name in bag.packCounts) {
                         total += bag.packCounts[name];
                     }
@@ -123,7 +139,7 @@
         methods: {
             packCountFromProduct(bag, name) {
                 let count = null;
-                if(bag.packCounts[name]) {
+                if (bag.packCounts[name]) {
                     count = bag.packCounts[name];
                 }
                 return count;

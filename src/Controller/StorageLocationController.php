@@ -54,7 +54,8 @@ class StorageLocationController extends BaseController
      * @param Request $request
      * @return array
      */
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         throw new \Exception('Not implemented for generic storage location');
     }
 
@@ -135,7 +136,7 @@ class StorageLocationController extends BaseController
         /** @var StorageLocation $storageLocation */
         $storageLocation = $this->getRepository()->find($id);
 
-        if(!$storageLocation) {
+        if (!$storageLocation) {
             throw new NotFoundApiException(sprintf('Unknown StorageLocation ID: %d', $id));
         }
 

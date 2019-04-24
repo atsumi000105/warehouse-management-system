@@ -1,14 +1,47 @@
 <template>
     <div class="form-group">
-        <label v-text="label"></label>
-        <select class="form-control" v-bind:class="{'loaded': loaded}" v-if="!groupProperty" v-model="value[property]" v-chosen @change="onChange">
-            <option value="" v-text="emptyOption"></option>
-            <option v-for="item in options" :selected="value.id == item.id" :value="item.id" v-text="item[displayProperty]"></option>
+        <label v-text="label" />
+        <select
+            v-if="!groupProperty"
+            v-model="value[property]"
+            v-chosen
+            class="form-control"
+            :class="{'loaded': loaded}"
+            @change="onChange"
+        >
+            <option
+                value=""
+                v-text="emptyOption"
+            />
+            <option
+                v-for="item in options"
+                :selected="value.id == item.id"
+                :value="item.id"
+                v-text="item[displayProperty]"
+            />
         </select>
-        <select v-else class="form-control" v-bind:class="{'loaded': loaded}" v-model="value[property]" v-chosen @change="onChange">
-            <option value="" v-text="emptyOption"></option>
-            <optgroup v-for="(group, label) in options" :label="label">
-                <option v-for="item in group" :selected="value[property] == item.id" :value="item.id" v-text="item[displayProperty]"></option>
+        <select
+            v-else
+            v-model="value[property]"
+            v-chosen
+            class="form-control"
+            :class="{'loaded': loaded}"
+            @change="onChange"
+        >
+            <option
+                value=""
+                v-text="emptyOption"
+            />
+            <optgroup
+                v-for="(group, label) in options"
+                :label="label"
+            >
+                <option
+                    v-for="item in group"
+                    :selected="value[property] == item.id"
+                    :value="item.id"
+                    v-text="item[displayProperty]"
+                />
             </optgroup>
         </select>
     </div>
@@ -40,7 +73,7 @@
                 var self = this;
                 let list = self.listOptions.length > 0 ? self.listOptions : self.preloadedOptions;
 
-                if(this.alphabetize) {
+                if (this.alphabetize) {
                     list = list.sort(function(a, b) {
                         return a[self.displayProperty] > b[self.displayProperty] ? 1 : -1;
                     })
@@ -49,7 +82,7 @@
                 if (this.groupProperty) {
                     let groupings = {};
                     list.forEach( function(item) {
-                        if(!groupings[item[self.groupProperty]]) {
+                        if (!groupings[item[self.groupProperty]]) {
                             groupings[item[self.groupProperty]] = [];
                         }
                         groupings[item[self.groupProperty]].push(item);
@@ -64,12 +97,14 @@
         created() {
             var self = this;
 
-            if(!self.value.id) self.value.id = null;
+            if (!self.value.id) self.value.id = null;
 
-            if(this.apiPath) {
-                axios.get('/api/' + this.apiPath).then(response => {
-                    self.listOptions = response.data.data;
-                    self.$emit('loaded');
+            if (this.apiPath) {
+                axios
+                    .get('/api/' + this.apiPath)
+                    .then(response => {
+                        self.listOptions = response.data.data;
+                        self.$emit('loaded');
                 });
             } else {
                 self.listOptions = self.preloadedOptions;

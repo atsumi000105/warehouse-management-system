@@ -2,7 +2,6 @@
 
 namespace App\Reports;
 
-
 use App\Entity\Product;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -66,7 +65,7 @@ class PartnerInventoryExcel
         }
         $sheet->fromArray($dataArr, null, 'A2');
 
-        $sheet->freezePaneByColumnAndRow(3,2);
+        $sheet->freezePaneByColumnAndRow(3, 2);
 
         return IOFactory::createWriter($spreadsheet, 'Xlsx');
     }
