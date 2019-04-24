@@ -39,17 +39,18 @@ class PartnerOrderController extends OrderController
      * @param Request $request
      * @return JsonResponse
      */
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $params = $this->getParams($request);
 
         $order = new PartnerOrder();
 
-        if($params['warehouse']['id']) {
+        if ($params['warehouse']['id']) {
             $newWarehouse = $this->getEm()->find(Warehouse::class, $params['warehouse']['id']);
             $order->setWarehouse($newWarehouse);
         }
 
-        if($params['partner']['id']) {
+        if ($params['partner']['id']) {
             $newPartner = $this->getEm()->find(Partner::class, $params['partner']['id']);
             $order->setPartner($newPartner);
         }
@@ -88,12 +89,12 @@ class PartnerOrderController extends OrderController
 
         $this->checkEditable($order);
 
-        if($params['warehouse']['id']) {
+        if ($params['warehouse']['id']) {
             $newWarehouse = $this->getEm()->find(Warehouse::class, $params['warehouse']['id']);
             $order->setWarehouse($newWarehouse);
         }
 
-        if($params['partner']['id']) {
+        if ($params['partner']['id']) {
             $newPartner = $this->getEm()->find(Partner::class, $params['partner']['id']);
             $order->setPartner($newPartner);
         }
@@ -124,7 +125,6 @@ class PartnerOrderController extends OrderController
         // $this->checkEditPermissions($order);
 
         return $this->serialize($request, $order->buildBags(), new BagTransformer());
-
     }
 
 
@@ -137,8 +137,12 @@ class PartnerOrderController extends OrderController
     {
         $params = parent::buildFilterParams($request);
 
-        if ($request->get('orderPeriod')) $params->set('orderPeriod', new \DateTime($request->get('orderPeriod')));
-        if ($request->get('partner')) $params->set('partner', $this->getRepository(Partner::class)->find($request->get('partner')));
+        if ($request->get('orderPeriod')) {
+            $params->set('orderPeriod', new \DateTime($request->get('orderPeriod')));
+        }
+        if ($request->get('partner')) {
+            $params->set('partner', $this->getRepository(Partner::class)->find($request->get('partner')));
+        }
 
         return $params;
     }

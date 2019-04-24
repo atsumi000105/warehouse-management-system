@@ -1,5 +1,8 @@
 <template>
-    <hb-fillsheet :order="order" :products="products"></hb-fillsheet>
+    <hb-fillsheet
+        :order="order"
+        :products="products"
+    />
 </template>
 
 <script>
@@ -14,10 +17,14 @@
             };
         },
         created() {
-            axios.get('/api/orders/partner/' + this.$route.params.id, {
-                params: { include: ['bags', 'lineItems', 'lineItems.product']}
-            }).then(response => this.order = response.data.data);
-            axios.get('/api/products', {params: { partnerOrderable: 1}}).then(response => this.products = response.data.data);
+            axios
+                .get('/api/orders/partner/' + this.$route.params.id, {
+                    params: { include: ['bags', 'lineItems', 'lineItems.product']}
+                })
+                .then(response => this.order = response.data.data);
+            axios
+                .get('/api/products', {params: { partnerOrderable: 1}})
+                .then(response => this.products = response.data.data);
         }
     }
 </script>

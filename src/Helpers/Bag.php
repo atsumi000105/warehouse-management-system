@@ -2,7 +2,6 @@
 
 namespace App\Helpers;
 
-
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -39,12 +38,11 @@ class Bag
         $this->packs->add($pack);
         $this->updatePercentFull();
         return true;
-
     }
 
     private function updatePercentFull()
     {
-        $this->percentFull = array_reduce($this->packs->toArray(), function($carry, Pack $pack) {
+        $this->percentFull = array_reduce($this->packs->toArray(), function ($carry, Pack $pack) {
             return $carry + $pack->bagPercent();
         }, 0);
     }
@@ -64,7 +62,7 @@ class Bag
         $counts = [];
 
         foreach ($this->packs as $pack) {
-            if(isset($counts[$pack->product->getName()])) {
+            if (isset($counts[$pack->product->getName()])) {
                 $counts[$pack->product->getName()] += 1;
             } else {
                 $counts[$pack->product->getName()] = 1;

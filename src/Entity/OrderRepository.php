@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
@@ -10,8 +9,13 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 
 class OrderRepository extends EntityRepository
 {
-    public function findAllPaged($page = null, $limit = null, $sortField = null, $sortDirection = 'ASC', ParameterBag $params)
-    {
+    public function findAllPaged(
+        $page = null,
+        $limit = null,
+        $sortField = null,
+        $sortDirection = 'ASC',
+        ParameterBag $params = null
+    ) {
         $qb = $this->createQueryBuilder('o');
 
         $this->joinRelatedTables($qb);
@@ -22,7 +26,7 @@ class OrderRepository extends EntityRepository
         }
 
         if ($sortField) {
-            if(!strstr($sortField,'.')) {
+            if (!strstr($sortField, '.')) {
                 $sortField = 'o.' . $sortField;
             }
             $qb->orderBy($sortField, $sortDirection);
@@ -34,7 +38,8 @@ class OrderRepository extends EntityRepository
         return $results;
     }
 
-    public function findAllCount(ParameterBag $params) {
+    public function findAllCount(ParameterBag $params)
+    {
         $qb = $this->createQueryBuilder('o')
             ->select('count(o)');
 
@@ -51,7 +56,7 @@ class OrderRepository extends EntityRepository
         }
 
         if ($params->has('fulfillmentPeriod') && $params->get('fulfillmentPeriod')) {
-            $qb->join('o.partner','p');
+            $qb->join('o.partner', 'p');
             $qb->join('p.fulfillmentPeriod', 'f');
             $qb->andWhere('f.id = :fulfillmentPeriod')
                 ->setParameter('fulfillmentPeriod', $params->get('fulfillmentPeriod'));
@@ -60,6 +65,5 @@ class OrderRepository extends EntityRepository
 
     protected function joinRelatedTables(QueryBuilder $qb)
     {
-
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\DataFixtures;
 
-
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use App\Entity\Product;
@@ -88,5 +87,4 @@ class ProductFixtures extends BaseFixture implements DependentFixtureInterface
 
         return $training_pants;
     }
-
 }

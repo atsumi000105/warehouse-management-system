@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-
 use App\Entity\Partner;
 use App\Transformers\PartnerTransformer;
 use Symfony\Component\HttpFoundation\JsonResponse;

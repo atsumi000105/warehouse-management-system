@@ -1,26 +1,57 @@
 <template>
     <div>
-        <label v-if="label" v-text="label"></label>
-        <button type="button" class="btn btn-sm btn-success pull-right" title="Add" @click="value.push(null)"><i class="fa fa-plus"></i></button>
+        <label
+            v-if="label"
+            v-text="label"
+        />
+        <button
+            type="button"
+            class="btn btn-sm btn-success pull-right"
+            title="Add"
+            @click="value.push(null)"
+        >
+            <i class="fa fa-plus" />
+        </button>
         <table class="table table-hover table-condensed">
             <thead>
-            <th v-if="keyName" v-text="keyName"></th>
-            <th v-if="valueName" v-text="valueName"></th>
+            <th
+                v-if="keyName"
+                v-text="keyName"
+            />
+            <th
+                v-if="valueName"
+                v-text="valueName"
+            />
             </thead>
             <tbody>
-            <tr v-for="(val, key) in value">
-                <td v-if="keyName" v-text="key"></td>
+            <tr
+                v-for="(val, key) in value"
+            >
+                <td
+                    v-if="keyName"
+                    v-text="key"
+                />
                 <td class="input-group input-group-sm">
-                    <input type="text" class="form-control" v-model="value[key]"/>
+                    <input
+                        v-model="value[key]"
+                        type="text"
+                        class="form-control"
+                    >
                     <span class="input-group-btn">
-                      <button type="button" class="btn btn-danger" title="Delete" @click="value.splice(key, 1)"><i class="fa fa-times"></i></button>
+                        <button
+                            type="button"
+                            class="btn btn-danger"
+                            title="Delete"
+                            @click="value.splice(key, 1)"
+                        >
+                            <i class="fa fa-times" />
+                        </button>
                     </span>
                 </td>
             </tr>
             </tbody>
         </table>
     </div>
-
 </template>
 
 <script>

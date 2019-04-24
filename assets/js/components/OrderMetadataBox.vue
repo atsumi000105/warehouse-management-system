@@ -2,16 +2,21 @@
     <div class="box box-info">
         <div class="box-body">
             <h2>{{ orderType }} {{ order.id }}</h2>
-            <div class="form-group"  v-bind:class="{ 'has-error': statusError }">
+            <div
+                class="form-group"
+                :class="{ 'has-error': statusError }"
+            >
                 <template v-if="editable">
                     <hb-optionliststatic
-                            label="Status:"
                             v-model="order"
+                            label="Status:"
                             property="status"
-                            :preloadedOptions="statuses"
-                            emptyString="-- Select Status --"
-                    ></hb-optionliststatic>
-                    <hb-fielderror v-if="statusError">Field is required</hb-fielderror>
+                            :preloaded-options="statuses"
+                            empty-string="-- Select Status --"
+                    />
+                    <hb-fielderror v-if="statusError">
+                        Field is required
+                    </hb-fielderror>
                 </template>
 
                 <template v-else>
@@ -20,15 +25,23 @@
                 </template>
             </div>
 
-            <div class="form-group"  v-if="order.hasOwnProperty('orderPeriod')">
+            <div
+                v-if="order.hasOwnProperty('orderPeriod')"
+                class="form-group"
+            >
                 <template v-if="editable">
                     <label>Order Period:</label>
 
                     <div class="input-group date">
                         <div class="input-group-addon">
-                            <i class="fa fa-calendar"></i>
+                            <i class="fa fa-calendar" />
                         </div>
-                        <input type="text" class="form-control pull-right" v-datepicker="{format: 'YYYY-MM-DD', tz:'Etc/UTC'}" v-model="order.orderPeriod">
+                        <input
+                            v-model="order.orderPeriod"
+                            v-datepicker="{format: 'YYYY-MM-DD', tz:'Etc/UTC'}"
+                            type="text"
+                            class="form-control pull-right"
+                        >
                     </div>
                 </template>
 
@@ -38,15 +51,23 @@
                 </template>
             </div>
 
-            <div class="form-group"  v-if="order.hasOwnProperty('distributionPeriod')">
+            <div
+                v-if="order.hasOwnProperty('distributionPeriod')"
+                class="form-group"
+            >
                 <template v-if="editable">
                     <label>Distribution Period:</label>
 
                     <div class="input-group date">
                         <div class="input-group-addon">
-                            <i class="fa fa-calendar"></i>
+                            <i class="fa fa-calendar" />
                         </div>
-                        <input type="text" class="form-control pull-right" v-datepicker="{format: 'YYYY-MM-DD', tz:'Etc/UTC'}" v-model="order.distributionPeriod">
+                        <input
+                            v-model="order.distributionPeriod"
+                            v-datepicker="{format: 'YYYY-MM-DD', tz:'Etc/UTC'}"
+                            type="text"
+                            class="form-control pull-right"
+                        >
                     </div>
                 </template>
 
@@ -56,9 +77,15 @@
                 </template>
             </div>
 
-            <div class="form-group"  v-if="order.hasOwnProperty('receivedAt')">
+            <div
+                v-if="order.hasOwnProperty('receivedAt')"
+                class="form-group"
+            >
                 <template v-if="editable">
-                    <hb-date label="Received Date:" v-model="order.receivedAt"></hb-date>
+                    <hb-date
+                        v-model="order.receivedAt"
+                        label="Received Date:"
+                    />
                 </template>
 
                 <template v-else>
@@ -66,11 +93,14 @@
                     <span>{{ order.receivedAt | dateFormat }}</span>
                 </template>
             </div>
-            <div class="form-group"  v-if="order.hasOwnProperty('portalOrderId')">
+            <div
+                v-if="order.hasOwnProperty('portalOrderId')"
+                class="form-group"
+            >
                 <strong>Portal Order ID:</strong>
                 <span>{{ order.portalOrderId }}</span>
             </div>
-            <strong>Created:</strong> {{ order.createdAt | dateTimeFormat }}<br/>
+            <strong>Created:</strong> {{ order.createdAt | dateTimeFormat }}<br>
             <strong>Last Updated:</strong> {{ order.updatedAt | dateTimeFormat }}
         </div>
         <!-- /.box-body -->

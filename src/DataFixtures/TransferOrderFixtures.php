@@ -2,7 +2,6 @@
 
 namespace App\DataFixtures;
 
-
 use App\Entity\Orders\TransferOrder;
 use App\Entity\Orders\TransferOrderLineItem;
 use App\Entity\Product;

@@ -2,7 +2,6 @@
 
 namespace App\Listener;
 
-
 use App\Entity\LineItem;
 use Doctrine\ORM\Event\PreFlushEventArgs;
 

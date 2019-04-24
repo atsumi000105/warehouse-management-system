@@ -2,7 +2,6 @@
 
 namespace App\Transformers;
 
-
 use App\Entity\Orders\MerchandiseOrder;
 
 class MerchandiseOrderTransformer extends OrderTransformer

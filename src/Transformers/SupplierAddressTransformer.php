@@ -2,7 +2,6 @@
 
 namespace App\Transformers;
 
-
 use App\Entity\SupplierAddress;
 use League\Fractal\TransformerAbstract;
 
@@ -24,5 +23,4 @@ class SupplierAddressTransformer extends TransformerAbstract
             'isDeleted' => $address->isDeleted(),
         ];
     }
-
 }

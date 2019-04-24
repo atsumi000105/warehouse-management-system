@@ -36,11 +36,12 @@ class MerchandiseOrderController extends OrderController
      * @param Request $request
      * @return JsonResponse
      */
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $params = $this->getParams($request);
         $order = new MerchandiseOrder();
 
-        if($params['warehouse']['id']) {
+        if ($params['warehouse']['id']) {
             $newWarehouse = $this->getEm()->find(Warehouse::class, $params['warehouse']['id']);
             $order->setWarehouse($newWarehouse);
         }
@@ -73,7 +74,7 @@ class MerchandiseOrderController extends OrderController
 
         $this->checkEditable($order);
         
-        if($params['warehouse']['id']) {
+        if ($params['warehouse']['id']) {
             $newWarehouse = $this->getEm()->find(Warehouse::class, $params['warehouse']['id']);
             $order->setWarehouse($newWarehouse);
         }

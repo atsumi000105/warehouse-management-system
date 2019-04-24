@@ -2,7 +2,6 @@
 
 namespace App\Transformers;
 
-
 use App\Entity\Role;
 use League\Fractal\TransformerAbstract;
 
@@ -23,5 +22,4 @@ class RoleTransformer extends TransformerAbstract
             'updatedAt' => $role->getUpdatedAt()->format('c'),
         ];
     }
-
 }

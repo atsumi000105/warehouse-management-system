@@ -1,66 +1,91 @@
 <template>
     <section class="content">
-        <router-link to="/orders/partner/new" class="btn btn-success btn-flat pull-right"><i class="fa fa-plus-circle fa-fw"></i>Create Partner Order</router-link>
-        <h3 class="box-title">Partner Orders List</h3>
+        <router-link
+            to="/orders/partner/new"
+            class="btn btn-success btn-flat pull-right"
+        >
+            <i class="fa fa-plus-circle fa-fw" />Create Partner Order
+        </router-link>
+        <h3 class="box-title">
+            Partner Orders List
+        </h3>
 
         <div class="row">
             <div class="col-xs-2">
-                <hb-date v-model="filters.orderPeriod" label="Order Month" format="YYYY-MM-01" timezone="Etc/UTC"></hb-date>
+                <hb-date
+                    v-model="filters.orderPeriod"
+                    label="Order Month"
+                    format="YYYY-MM-01"
+                    timezone="Etc/UTC"
+                />
             </div>
             <div class="col-xs-3">
                 <hb-partnerselectionform
                         v-model="filters.partner"
                         label="Partner"
-                ></hb-partnerselectionform>
+                />
             </div>
             <div class="col-xs-2">
                 <hb-optionlist
-                        label="Partner Fulfillment Period"
-                        apiPath="partners/fulfillment-periods"
                         v-model="filters"
+                        label="Partner Fulfillment Period"
+                        api-path="partners/fulfillment-periods"
                         property="fulfillmentPeriod"
-                        displayProperty="name"
-                        emptyString="-- All Periods --"
-                ></hb-optionlist>
+                        display-property="name"
+                        empty-string="-- All Periods --"
+                />
             </div>
 
             <div class="col-xs-2">
                 <hb-optionliststatic
-                        label="Status"
                         v-model="filters"
+                        label="Status"
                         property="status"
-                        :preloadedOptions="statuses"
-                        emptyString="-- All Statuses --"
-                ></hb-optionliststatic>
+                        :preloaded-options="statuses"
+                        empty-string="-- All Statuses --"
+                />
                 <!-- /.input group -->
             </div>
             <div class="col-xs-3">
-                <button class="btn btn-success btn-flat" @click="doFilter"><i class="fa fa-fw fa-filter"></i>Filter</button>
+                <button
+                    class="btn btn-success btn-flat"
+                    @click="doFilter"
+                >
+                    <i class="fa fa-fw fa-filter" />Filter
+                </button>
             </div>
         </div>
 
-        <div class="row">
-        </div>
+        <div class="row" />
         <div class="row">
             <div class="col-xs-12">
                 <div class="box">
                     <div class="box-header">
                         <div class="col-xs-12">
                             <div class="btn-group">
-                                <button type="button" class="btn btn-info btn-flat dropdown-toggle" data-toggle="dropdown" :disabled="selection.length == 0">
-                                    <i class="fa fa-fw fa-wrench"></i>
-                                    Bulk Operations ({{selection.length}})
-                                    <span class="caret"></span>
+                                <button
+                                    type="button"
+                                    class="btn btn-info btn-flat dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    :disabled="selection.length == 0"
+                                >
+                                    <i class="fa fa-fw fa-wrench" />
+                                    Bulk Operations ({{ selection.length }})
+                                    <span class="caret" />
                                     <span class="sr-only">Toggle Dropdown</span>
                                 </button>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li v-for="status in statuses"><a @click="bulkStatusChange(status.id)">Change Status to <strong>{{status.name}}</strong></a></li>
-                                    <li class="divider"></li>
+                                <ul
+                                    class="dropdown-menu"
+                                    role="menu"
+                                >
+                                    <li v-for="status in statuses">
+                                        <a @click="bulkStatusChange(status.id)">Change Status to <strong>{{ status.name }}</strong></a>
+                                    </li>
+                                    <li class="divider" />
                                     <li>
-                                        <router-link :to='"/orders/partner/bulk-fill-sheet/" + selection.join(",")'>
-                                            <i class="fa fa-print fa-fw"></i>Print Fill Sheets
+                                        <router-link :to="&quot;/orders/partner/bulk-fill-sheet/&quot; + selection.join(&quot;,&quot;)">
+                                            <i class="fa fa-print fa-fw" />Print Fill Sheets
                                         </router-link>
-
                                     </li>
                                     <!--<li><a href="#">Separated link</a></li>-->
                                 </ul>
@@ -70,14 +95,14 @@
                     <!-- /.box-header -->
                     <div class="box-body table-responsive no-padding">
                         <hb-tablepaged
-                                :columns="columns"
-                                apiUrl="/api/orders/partner"
-                                editRoute="/orders/partner/"
-                                ref="hbtable"
-                                :sortOrder="[{ field: 'id', direction: 'desc'}]"
-                                :params="requestParams()"
-                                :perPage="50"
-                        ></hb-tablepaged>
+                            ref="hbtable"
+                            :columns="columns"
+                            api-url="/api/orders/partner"
+                            edit-route="/orders/partner/"
+                            :sort-order="[{ field: 'id', direction: 'desc'}]"
+                            :params="requestParams()"
+                            :per-page="50"
+                        />
                     </div>
                     <!-- /.box-body -->
                 </div>
@@ -86,9 +111,9 @@
         </div>
         <hb-modalbulkchange
             :items="selection"
-            itemType="Orders"
+            item-type="Orders"
             :action="this.doBulkChange"
-        ></hb-modalbulkchange>
+        />
     </section>
 </template>
 
@@ -98,11 +123,11 @@
     import VuetablePagination from 'vuetable-2/src/components/VuetablePagination.vue'
 
     export default {
-        props:[],
         components: {
             Vuetable,
             VuetablePagination
         },
+        props:[],
         data() {
             return {
                 orders: {},
@@ -131,6 +156,9 @@
                 bulkChange: {},
             };
         },
+        mounted() {
+            this.$events.$on('selection-change', eventData => this.onSelectionChange(eventData));
+        },
         methods: {
             routerLink: function (id) {
                 return "<router-link to=\"/orders/partner/" + id + "\"><i class=\"fa fa-edit\"></i>" + id + "</router-link>";
@@ -156,10 +184,11 @@
             },
             doBulkChange () {
                 let self = this;
-                axios.patch('/api/orders/partner/bulk-change', {
-                    ids: self.selection,
-                    changes: self.bulkChange,
-                })
+                axios
+                    .patch('/api/orders/partner/bulk-change', {
+                        ids: self.selection,
+                        changes: self.bulkChange,
+                    })
                     .then(response => self.$refs.hbtable.refresh())
                     .catch(function (error) {
                         console.log(error);
@@ -175,9 +204,6 @@
                 }
             },
 
-        },
-        mounted() {
-            this.$events.$on('selection-change', eventData => this.onSelectionChange(eventData));
         }
     }
 </script>

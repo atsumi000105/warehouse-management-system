@@ -2,7 +2,6 @@
 
 namespace App\Transformers;
 
-
 use App\Entity\Product;
 use League\Fractal\TransformerAbstract;
 
@@ -35,7 +34,9 @@ class ProductTransformer extends TransformerAbstract
     {
         $category = $product->getProductCategory();
 
-        if(!$category) return;
+        if (!$category) {
+            return;
+        }
 
         return $this->item($category, new ProductCategoryTransformer());
     }

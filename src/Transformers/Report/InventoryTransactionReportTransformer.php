@@ -2,7 +2,6 @@
 
 namespace App\Transformers\Report;
 
-
 use App\Entity\InventoryTransaction;
 use App\Entity\Orders\AdjustmentOrder;
 use League\Fractal\TransformerAbstract;
@@ -18,7 +17,9 @@ class InventoryTransactionReportTransformer extends TransformerAbstract
             'id' => (int) $inventoryTransaction->getId(),
             'delta' => (int) $inventoryTransaction->getDelta(),
             'cost' => (float) $inventoryTransaction->getCost(),
-            'committedAt' => $inventoryTransaction->getCommittedAt() ? $inventoryTransaction->getCommittedAt()->format('c') : null,
+            'committedAt' => $inventoryTransaction->getCommittedAt()
+                ? $inventoryTransaction->getCommittedAt()->format('c')
+                : null,
             'createdAt' => $inventoryTransaction->getCreatedAt()->format('c'),
             'isCommitted' => (bool) $inventoryTransaction->isCommitted(),
             'product' => $inventoryTransaction->getProduct()->getName(),

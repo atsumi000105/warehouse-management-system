@@ -7,7 +7,6 @@ use App\Entity\LineItem;
 use App\Entity\Orders\SupplyOrder;
 use Doctrine\ORM\Mapping as ORM;
 
-
 /**
  * Class SupplyOrderLineItem
  *
@@ -24,8 +23,9 @@ class SupplyOrderLineItem extends LineItem
         // Wipe out any existing transactions
         $this->clearTransactions();
 
-        // Don't actually create the transactions unless the order is complete. This is so stock levels report makes sense.
-        if($this->getQuantity() <> 0 && $this->getOrder()->isComplete()) {
+        // Don't actually create the transactions unless the order is complete.
+        // This is so stock levels report makes sense.
+        if ($this->getQuantity() <> 0 && $this->getOrder()->isComplete()) {
             /** @var SupplyOrder $order */
             $order = $this->getOrder();
             $transaction = new InventoryTransaction($order->getWarehouse(), $this, $this->getQuantity());

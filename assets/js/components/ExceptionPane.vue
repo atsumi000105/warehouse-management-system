@@ -1,12 +1,31 @@
 <template>
     <div>
-        <aside  v-for="(exception, key) in exceptions" class="alert alert-danger alert-dismissible">
-            <button type="button" class="close" @click="exceptions.splice(key, 1)"><i class="fa fa-fw fa-close"></i></button>
-            <button type="button" class="close" @click="showTrace = !showTrace"><i class="fa fa-fw fa-search"></i></button>
-            <h4><i class="icon fa fa-ban"></i> Exception: {{ exception.message }}</h4>
+        <aside
+            v-for="(exception, key) in exceptions"
+            class="alert alert-danger alert-dismissible"
+        >
+            <button
+                type="button"
+                class="close"
+                @click="exceptions.splice(key, 1)"
+            >
+            <i class="fa fa-fw fa-close" />
+        </button>
+        <button
+            type="button"
+            class="close"
+            @click="showTrace = !showTrace"
+        >
+        <i class="fa fa-fw fa-search" />
+    </button>
+        <h4><i class="icon fa fa-ban" /> Exception: {{ exception.message }}</h4>
             <div v-show="showTrace">
                 <ol>
-                    <li v-for="line in exception.trace">{{line.file}}:{{line.line}}</li>
+                    <li
+                        v-for="line in exception.trace"
+                    >
+                        {{ line.file }}:{{ line.line }}
+                    </li>
                 </ol>
             </div>
         </aside>

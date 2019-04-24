@@ -1,23 +1,29 @@
 <template>
     <section class="content">
-        <router-link to="/admin/users/new" class="btn btn-success btn-flat pull-right"><i class="fa fa-plus-circle fa-fw"></i>Create User</router-link>
-        <h3 class="box-title">Users List</h3>
+        <router-link
+            to="/admin/users/new"
+            class="btn btn-success btn-flat pull-right"
+        >
+            <i class="fa fa-plus-circle fa-fw" />Create User
+        </router-link>
+        <h3 class="box-title">
+            Users List
+        </h3>
 
         <div class="row">
             <div class="col-xs-12">
                 <div class="box">
                     <div class="box-header">
-
                         <!--
-                                            <div class="box-tools">
-                                                <div class="input-group input-group-sm" style="width: 150px;">
-                                                    <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+                        <div class="box-tools">
+                            <div class="input-group input-group-sm" style="width: 150px;">
+                                <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
 
-                                                    <div class="input-group-btn">
-                                                        <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                <div class="input-group-btn">
+                                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
                         -->
                     </div>
                     <!-- /.box-header -->
@@ -34,20 +40,24 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr v-for="user in users.data">
-                                <td><router-link :to="'/admin/users/' + user.id"><i class="fa fa-edit"></i>{{ user.id }}</router-link></td>
-                                <td v-text="user.email"></td>
-                                <td v-text="user.name.firstName"></td>
-                                <td v-text="user.name.lastName"></td>
-                                <td>
-                                    <ul class="bulletless-list">
-                                        <li v-for="role in user.roles">
-                                            {{ role.name }}
-                                        </li>
-                                    </ul>
-                                </td>
-                                <td>{{ user.updatedAt | dateTimeFormat }}</td>
-                            </tr>
+                                <tr v-for="user in users.data">
+                                    <td>
+                                        <router-link :to="'/admin/users/' + user.id">
+                                            <i class="fa fa-edit" />{{ user.id }}
+                                        </router-link>
+                                    </td>
+                                    <td v-text="user.email" />
+                                    <td v-text="user.name.firstName" />
+                                    <td v-text="user.name.lastName" />
+                                    <td>
+                                        <ul class="bulletless-list">
+                                            <li v-for="role in user.roles">
+                                                {{ role.name }}
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td>{{ user.updatedAt | dateTimeFormat }}</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -71,7 +81,8 @@
             };
         },
         created() {
-            axios.get('/api/users', {params: {include: ['roles']}})
+            axios
+                .get('/api/users', {params: {include: ['roles']}})
                 .then(response => {
                     this.users = response.data;
                 });

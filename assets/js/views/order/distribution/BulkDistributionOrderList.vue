@@ -1,7 +1,14 @@
 <template>
     <section class="content">
-        <router-link to="/orders/distribution/new" class="btn btn-success btn-flat pull-right"><i class="fa fa-plus-circle fa-fw"></i>Create Partner Distribution</router-link>
-        <h3 class="box-title">Partner Distributions List</h3>
+        <router-link
+            to="/orders/distribution/new"
+            class="btn btn-success btn-flat pull-right"
+        >
+            <i class="fa fa-plus-circle fa-fw" />Create Partner Distribution
+        </router-link>
+        <h3 class="box-title">
+            Partner Distributions List
+        </h3>
 
         <div class="row">
             <div class="col-xs-12">
@@ -9,16 +16,26 @@
                     <div class="box-header">
                         <div class="col-xs-12">
                             <div class="btn-group">
-                                <button type="button" class="btn btn-info btn-flat dropdown-toggle" data-toggle="dropdown" :disabled="selection.length == 0">
-                                    <i class="fa fa-fw fa-wrench"></i>
-                                    Bulk Operations ({{selection.length}})
-                                    <span class="caret"></span>
+                                <button
+                                    type="button"
+                                    class="btn btn-info btn-flat dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    :disabled="selection.length == 0"
+                                >
+                                    <i class="fa fa-fw fa-wrench" />
+                                    Bulk Operations ({{ selection.length }})
+                                    <span class="caret" />
                                     <span class="sr-only">Toggle Dropdown</span>
                                 </button>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li v-for="status in statuses"><a @click="bulkStatusChange(status.id)">Change Status to <strong>{{status.name}}</strong></a></li>
-                                    <li class="divider"></li>
-                                    <li><a @click="bulkDelete()"><i class="fa fa-fw fa-trash"></i>Delete Distributions</a></li>
+                                <ul
+                                    class="dropdown-menu"
+                                    role="menu"
+                                >
+                                    <li v-for="status in statuses">
+                                        <a @click="bulkStatusChange(status.id)">Change Status to <strong>{{ status.name }}</strong></a>
+                                    </li>
+                                    <li class="divider" />
+                                    <li><a @click="bulkDelete()"><i class="fa fa-fw fa-trash" />Delete Distributions</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -26,13 +43,13 @@
                     <!-- /.box-header -->
                     <div class="box-body table-responsive no-padding">
                         <hb-tablepaged
-                                :columns="columns"
-                                ref="hbtable"
-                                apiUrl="/api/orders/distribution"
-                                editRoute="/orders/distribution/"
-                                :sortOrder="[{ field: 'id', direction: 'desc'}]"
-                                :perPage="50"
-                        ></hb-tablepaged>
+                            ref="hbtable"
+                            :columns="columns"
+                            api-url="/api/orders/distribution"
+                            edit-route="/orders/distribution/"
+                            :sort-order="[{ field: 'id', direction: 'desc'}]"
+                            :per-page="50"
+                        />
                     </div>
                     <!-- /.box-body -->
                 </div>
@@ -40,16 +57,16 @@
             </div>
         </div>
         <hb-modalbulkchange
-                :items="selection"
-                itemType="Distributions"
-                :action="this.doBulkChange"
-        ></hb-modalbulkchange>
+            :items="selection"
+            item-type="Distributions"
+            :action="this.doBulkChange"
+        />
         <hb-modalbulkdelete
-                :items="selection"
-                itemType="Distributions"
-                :action="this.doBulkDelete"
-                bulkChangeType="delete"
-        ></hb-modalbulkdelete>
+            :items="selection"
+            item-type="Distributions"
+            :action="this.doBulkDelete"
+            bulk-change-type="delete"
+        />
     </section>
 </template>
 
@@ -73,6 +90,9 @@
                 selection: [],
             };
         },
+        mounted() {
+            this.$events.$on('selection-change', eventData => this.onSelectionChange(eventData));
+        },
         methods: {
             onSelectionChange (selection) {
                 this.selection = selection;
@@ -85,10 +105,11 @@
             },
             doBulkChange () {
                 let self = this;
-                axios.patch('/api/orders/bulk-distribution/bulk-change', {
-                    ids: self.selection,
-                    changes: self.bulkChange,
-                })
+                axios
+                    .patch('/api/orders/bulk-distribution/bulk-change', {
+                        ids: self.selection,
+                        changes: self.bulkChange,
+                    })
                     .then(response => self.$refs.hbtable.refresh())
                     .catch(function (error) {
                         console.log(error);
@@ -103,9 +124,10 @@
             },
             doBulkDelete () {
                 let self = this;
-                axios.patch('/api/orders/bulk-distribution/bulk-delete', {
-                    ids: self.selection,
-                })
+                axios
+                    .patch('/api/orders/bulk-distribution/bulk-delete', {
+                        ids: self.selection,
+                    })
                     .then(response => {
                         self.$refs.hbtable.refresh(),
                         self.$refs.hbtable.clearSelected()
@@ -113,11 +135,7 @@
                     .catch(function (error) {
                         console.log(error);
                     });
-
             },
-        },
-        mounted() {
-            this.$events.$on('selection-change', eventData => this.onSelectionChange(eventData));
         },
     }
 </script>

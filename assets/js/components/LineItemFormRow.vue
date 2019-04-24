@@ -1,46 +1,85 @@
 <template>
     <div>
         <div class="form-group">
-            <label v-bind:class="{'col-xs-8': showCost || showPacks, 'col-xs-10': !showCost && !showPacks }" >
-                <i class="fa fa-plus-circle text-gray fa-fw" @click="showTransactions = !showTransactions" title="Show/Hide Transactions"></i>
+            <label :class="{'col-xs-8': showCost || showPacks, 'col-xs-10': !showCost && !showPacks }">
+                <i
+                    class="fa fa-plus-circle text-gray fa-fw"
+                    title="Show/Hide Transactions"
+                    @click="showTransactions = !showTransactions"
+                />
                 {{ lineItem.product.name }}
-                <small class="label bg-red" v-if="lineItem.product.status == 'OUTOFSTOCK'">Currently Out of Stock</small>
+                <small
+                    v-if="lineItem.product.status == 'OUTOFSTOCK'"
+                    class="label bg-red"
+                >Currently Out of Stock</small>
             </label>
-            <div class="col-xs-2" v-if="showPacks">
-                <strong v-text="packs"></strong> <small v-text="packs == 1 ? 'pack' : 'packs'"></small>
+            <div
+                v-if="showPacks"
+                class="col-xs-2"
+            >
+                <strong v-text="packs" /> <small v-text="packs == 1 ? 'pack' : 'packs'" />
             </div>
-            <div class="col-xs-2" v-bind:class="{'has-error': showPacks && lineItem.quantity % packSize != 0}">
-                <input v-if="editable" type="text" class="form-control"  v-model="lineItem.quantity" />
-                <span v-else v-text="lineItem.quantity"></span>
-                <span class="help-block" v-show="showPacks && lineItem.quantity % packSize != 0">Must be a multiple of {{ packSize }}</span>
+            <div
+                class="col-xs-2"
+                :class="{'has-error': showPacks && lineItem.quantity % packSize != 0}"
+            >
+                <input
+                    v-if="editable"
+                    v-model="lineItem.quantity"
+                    type="text"
+                    class="form-control"
+                >
+                <span
+                    v-else
+                    v-text="lineItem.quantity"
+                />
+                <span
+                    v-show="showPacks && lineItem.quantity % packSize != 0"
+                    class="help-block"
+                >
+                    Must be a multiple of {{ packSize }}
+                </span>
             </div>
-            <div class="col-xs-2" v-if="showCost">
-                <input v-if="editable" type="text" class="form-control" v-model="lineItem.cost" />
-                <span v-else v-text="lineItem.cost"></span>
+            <div
+                v-if="showCost"
+                class="col-xs-2"
+            >
+                <input
+                    v-if="editable"
+                    v-model="lineItem.cost"
+                    type="text"
+                    class="form-control"
+                >
+                <span
+                    v-else
+                    v-text="lineItem.cost"
+                />
             </div>
         </div>
-        <div class="form-group" v-show="showTransactions">
+        <div
+            v-show="showTransactions"
+            class="form-group"
+        >
             <div class="col-xs-12">
-                <hb-lineitemtransactions :transactions="lineItem.transactions"></hb-lineitemtransactions>
+                <hb-lineitemtransactions :transactions="lineItem.transactions" />
             </div>
         </div>
     </div>
-
 </template>
 
 <script>
     export default {
-        data() {
-            return {
-                showTransactions: false
-            };
-        },
         props: {
             lineItem: { type: Object, required: true },
             editable: { type: Boolean, default: true },
             showCost: { type: Boolean, default: false },
             showPacks: { type: Boolean, default: false },
             partnerType: { type: String, default: 'AGENCY' },
+        },
+        data() {
+            return {
+                showTransactions: false
+            };
         },
         computed: {
             packSize: function () {

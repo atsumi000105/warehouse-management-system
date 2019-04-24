@@ -26,6 +26,10 @@
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.0",
         "fzaninotto/faker": "^1.8",
+        "phpstan/phpstan": "^0.11.5",
+        "phpstan/phpstan-doctrine": "^0.11.2",
+        "phpstan/phpstan-symfony": "^0.11.5",
+        "squizlabs/php_codesniffer": "^3.4",
         "symfony/dotenv": "*",
         "symfony/profiler-pack": "^1.0",
         "symfony/web-server-bundle": "*"
@@ -67,7 +71,10 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
-        ]
+        ],
+        "analyze": "vendor/bin/phpstan analyse",
+        "lint": "vendor/bin/phpcs",
+        "lint-fix": "vendor/bin/phpcbf"
     },
     "conflict": {
         "symfony/symfony": "*"

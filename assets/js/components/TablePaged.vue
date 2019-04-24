@@ -1,52 +1,60 @@
 <template>
     <div class="box-body table-responsive no-padding">
         <vuetable
-                ref="vuetable"
-                :api-url="apiUrl"
-                data-path="data"
-                pagination-path="meta.pagination"
-                :fields="columns"
-                :per-page="perPage"
-                :css="{
-                    tableClass: 'table table-hover',
-                    ascendingIcon: 'fa fa-sort-amount-asc',
-                    descendingIcon: 'fa fa-sort-amount-desc'
-                }"
-                :sortOrder="sortOrder"
-                :append-params="params"
-                track-by="id"
-                @vuetable:pagination-data="onPaginationData"
-                @vuetable:checkbox-toggled="onCheckboxToggled"
-                @vuetable:checkbox-toggled-all="onCheckboxToggled"
+            ref="vuetable"
+            :api-url="apiUrl"
+            data-path="data"
+            pagination-path="meta.pagination"
+            :fields="columns"
+            :per-page="perPage"
+            :css="{
+                tableClass: 'table table-hover',
+                ascendingIcon: 'fa fa-sort-amount-asc',
+                descendingIcon: 'fa fa-sort-amount-desc'
+            }"
+            :sort-order="sortOrder"
+            :append-params="params"
+            track-by="id"
+            @vuetable:pagination-data="onPaginationData"
+            @vuetable:checkbox-toggled="onCheckboxToggled"
+            @vuetable:checkbox-toggled-all="onCheckboxToggled"
         >
-            <template slot="link" slot-scope="props">
-                <router-link :to="editRoute + props.rowData.id"><i class="fa fa-edit"></i>{{ props.rowData.id }}</router-link>
+            <template
+                slot="link"
+                slot-scope="props"
+                >
+                <router-link :to="editRoute + props.rowData.id">
+                    <i class="fa fa-edit" />{{ props.rowData.id }}
+                </router-link>
             </template>
         </vuetable>
         <div class="box-footer">
-            <vuetable-pagination-info ref="paginationInfo"
+            <vuetable-pagination-info
+                ref="paginationInfo"
                 :css="{
                     infoClass: 'pull-left'
-                }"></vuetable-pagination-info>
-            <vuetable-pagination ref="pagination"
-                                 @vuetable-pagination:change-page="onChangePage"
-                                 :css="{
-                                  wrapperClass: 'pagination pull-right',
-                                  activeClass: 'active large',
-                                  disabledClass: 'disabled',
-                                  pageClass: 'item',
-                                  linkClass: 'icon item',
-                                  paginationClass: 'ui bottom attached segment grid',
-                                  paginationInfoClass: 'left floated left aligned six wide column',
-                                  dropdownClass: 'ui search dropdown',
-                                  icons: {
-                                    first: 'fa fa-angle-double-left',
-                                    prev: 'fa fa-angle-left',
-                                    next: 'fa fa-angle-right',
-                                    last: 'fa fa-angle-double-right',
-                                  }
-                                }"
-            ></vuetable-pagination>
+                }"
+            />
+            <vuetable-pagination
+                ref="pagination"
+                :css="{
+                    wrapperClass: 'pagination pull-right',
+                    activeClass: 'active large',
+                    disabledClass: 'disabled',
+                    pageClass: 'item',
+                    linkClass: 'icon item',
+                    paginationClass: 'ui bottom attached segment grid',
+                    paginationInfoClass: 'left floated left aligned six wide column',
+                    dropdownClass: 'ui search dropdown',
+                    icons: {
+                        first: 'fa fa-angle-double-left',
+                        prev: 'fa fa-angle-left',
+                        next: 'fa fa-angle-right',
+                        last: 'fa fa-angle-double-right',
+                     }
+                }"
+                @vuetable-pagination:change-page="onChangePage"
+            />
         </div>
     </div>
 </template>
@@ -57,6 +65,11 @@
     import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo.vue'
 
     export default {
+        components: {
+            Vuetable,
+            VuetablePagination,
+            VuetablePaginationInfo
+        },
         props:{
             columns: { type: Array, required: true },
             apiUrl: { type: String, required: true },
@@ -64,11 +77,6 @@
             sortOrder: { type: Array },
             params: { type: Object },
             perPage: { type: Number, default: 10 },
-        },
-        components: {
-            Vuetable,
-            VuetablePagination,
-            VuetablePaginationInfo
         },
         mounted() {
             this.$events.$on('filter-set', eventData => this.onFilterSet(eventData));

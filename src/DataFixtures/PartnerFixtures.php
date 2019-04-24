@@ -2,7 +2,6 @@
 
 namespace App\DataFixtures;
 
-
 use App\Entity\PartnerDistributionMethod;
 use App\Entity\PartnerFulfillmentPeriod;
 use App\Entity\StorageLocationAddress;
@@ -37,8 +36,8 @@ class PartnerFixtures extends BaseFixture
         for ($i = 0; $i < 50; $i++) {
             $partner = new Partner($this->faker->company . ' Partner');
             $partner->setPartnerType(Partner::TYPE_AGENCY);
-            $partner->setDistributionMethod($this->rand_value($distributionMethods));
-            $partner->setFulfillmentPeriod($this->rand_value($periods));
+            $partner->setDistributionMethod($this->randValue($distributionMethods));
+            $partner->setFulfillmentPeriod($this->randValue($periods));
             $partner->addContact($this->createContact(StorageLocationContact::class));
             $partner->setAddress($this->createAddress(StorageLocationAddress::class));
 
@@ -48,8 +47,8 @@ class PartnerFixtures extends BaseFixture
         for ($i = 0; $i < 4; $i++) {
             $hospital = new Partner($this->faker->company . ' Hospital');
             $hospital->setPartnerType(Partner::TYPE_HOSPITAL);
-            $hospital->setDistributionMethod($this->rand_value($distributionMethods));
-            $hospital->setFulfillmentPeriod($this->rand_value($periods));
+            $hospital->setDistributionMethod($this->randValue($distributionMethods));
+            $hospital->setFulfillmentPeriod($this->randValue($periods));
             $hospital->addContact($this->createContact(StorageLocationContact::class));
             $hospital->setAddress($this->createAddress(StorageLocationAddress::class));
 
@@ -59,7 +58,7 @@ class PartnerFixtures extends BaseFixture
         $manager->flush();
     }
 
-    private function rand_value($array)
+    private function randValue($array)
     {
         shuffle($array);
         return reset($array);

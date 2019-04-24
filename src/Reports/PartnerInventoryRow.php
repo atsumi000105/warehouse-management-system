@@ -13,7 +13,8 @@ use App\Entity\Partner;
  *
  * @package App\Helpers
  */
-class PartnerInventoryRow {
+class PartnerInventoryRow
+{
 
     /**
      * @var Partner
@@ -82,7 +83,8 @@ class PartnerInventoryRow {
      * @param Product $product
      * @param integer $inventory
      */
-    public function setProductInventory(Product $product, int $inventory) {
+    public function setProductInventory(Product $product, int $inventory)
+    {
         $this->productInventory[$product->getSku()] = $inventory;
     }
 
@@ -91,15 +93,18 @@ class PartnerInventoryRow {
      */
     public function getProductForecasts(): array
     {
-        if (!empty($this->productForecast)) return $this->productForecast;
+        if (!empty($this->productForecast)) {
+            return $this->productForecast;
+        }
 
         $distributionOrderCount = count($this->forecastDistributions);
 
         foreach ($this->forecastDistributions as $distribution) {
             foreach ($distribution->getLineItems() as $lineItem) {
                 $product = $lineItem->getProduct();
-                if (!key_exists($product->getSku(), $this->productForecast))
+                if (!key_exists($product->getSku(), $this->productForecast)) {
                     $this->productForecast[$product->getSku()] = 0;
+                }
 
                 $this->productForecast[$product->getSku()] += $lineItem->getQuantity();
             }
@@ -122,7 +127,8 @@ class PartnerInventoryRow {
      * @param Product $product
      * @param integer $forecast
      */
-    public function setForecastDistributions($distributions) {
+    public function setForecastDistributions($distributions)
+    {
         $this->forecastDistributions = $distributions;
     }
 

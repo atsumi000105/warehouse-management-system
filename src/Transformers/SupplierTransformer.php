@@ -2,7 +2,6 @@
 
 namespace App\Transformers;
 
-
 use App\Entity\Supplier;
 use League\Fractal\TransformerAbstract;
 
@@ -40,5 +39,4 @@ class SupplierTransformer extends TransformerAbstract
 
         return $this->collection($contacts, new SupplierContactTransformer);
     }
-
 }

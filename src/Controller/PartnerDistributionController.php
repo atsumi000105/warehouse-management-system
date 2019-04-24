@@ -37,12 +37,13 @@ class PartnerDistributionController extends OrderController
      * @param Request $request
      * @return JsonResponse
      */
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $params = $this->getParams($request);
 
         $order = new BulkDistribution();
 
-        if($params['partner']['id']) {
+        if ($params['partner']['id']) {
             $newPartner = $this->getEm()->find(Partner::class, $params['partner']['id']);
             $order->setPartner($newPartner);
         }
@@ -83,7 +84,7 @@ class PartnerDistributionController extends OrderController
             $this->checkEditable($order);
         }
 
-        if($params['partner']['id']) {
+        if ($params['partner']['id']) {
             $newPartner = $this->getEm()->find(Partner::class, $params['partner']['id']);
             $order->setPartner($newPartner);
         }

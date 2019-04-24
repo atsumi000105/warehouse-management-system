@@ -46,7 +46,12 @@ class Supplier extends CoreEntity
     /**
      * @var ArrayCollection|SupplierAddress[]
      *
-     * @ORM\OneToMany(targetEntity="SupplierAddress", mappedBy="supplier", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(
+     *     targetEntity="SupplierAddress",
+     *     mappedBy="supplier",
+     *     cascade={"persist", "remove"},
+     *     orphanRemoval=true
+     * )
      */
     protected $addresses;
 
@@ -60,14 +65,24 @@ class Supplier extends CoreEntity
     /**
      * @var ArrayCollection|SupplierContact[]
      *
-     * @ORM\OneToMany(targetEntity="SupplierContact", mappedBy="supplier", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(
+     *     targetEntity="SupplierContact",
+     *     mappedBy="supplier",
+     *     cascade={"persist", "remove"},
+     *     orphanRemoval=true
+     * )
      */
     protected $contacts;
 
     /**
      * @var ArrayCollection|SupplyOrder[] $supplyOrders
      *
-     * @ORM\OneToMany(targetEntity="App\Entity\Orders\SupplyOrder", mappedBy="supplier", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(
+     *     targetEntity="App\Entity\Orders\SupplyOrder",
+     *     mappedBy="supplier",
+     *     cascade={"persist", "remove"},
+     *     orphanRemoval=true
+     * )
      */
     protected $supplyOrders;
 
@@ -89,7 +104,7 @@ class Supplier extends CoreEntity
      * Supplier constructor.
      * @param string $title
      */
-    function __construct($title = null)
+    public function __construct($title = null)
     {
         $this->setTitle($title);
         $this->status = self::STATUS_ACTIVE;
@@ -155,7 +170,9 @@ class Supplier extends CoreEntity
      */
     public function addAddress(SupplierAddress $address)
     {
-        if(!isset($this->addresses)) $this->addresses = new ArrayCollection();
+        if (!isset($this->addresses)) {
+            $this->addresses = new ArrayCollection();
+        }
         $this->addresses->add($address);
         $address->setSupplier($this);
     }
@@ -163,7 +180,7 @@ class Supplier extends CoreEntity
     public function removeAddress(SupplierAddress $address)
     {
         /** @var SupplierContact $found */
-        $found = $this->addresses->filter(function(SupplierAddress $a) use ($address) {
+        $found = $this->addresses->filter(function (SupplierAddress $a) use ($address) {
             return $a->getId() === $address->getId();
         })->first();
 
@@ -217,7 +234,9 @@ class Supplier extends CoreEntity
 
     public function addContact(SupplierContact $contact)
     {
-        if(!isset($this->contacts)) $this->contacts = new ArrayCollection();
+        if (!isset($this->contacts)) {
+            $this->contacts = new ArrayCollection();
+        }
         $this->contacts->add($contact);
         $contact->setSupplier($this);
     }
@@ -225,7 +244,7 @@ class Supplier extends CoreEntity
     public function removeContact(SupplierContact $contact)
     {
         /** @var SupplierContact $found */
-        $found = $this->contacts->filter(function(SupplierContact $c) use ($contact) {
+        $found = $this->contacts->filter(function (SupplierContact $c) use ($contact) {
             return $c->getId() === $contact->getId();
         })->first();
 
@@ -280,9 +299,9 @@ class Supplier extends CoreEntity
      */
     public function applyChangesFromArray($changes)
     {
-        if(isset($changes['addresses'])) {
+        if (isset($changes['addresses'])) {
             foreach ($changes['addresses'] as $changedAddress) {
-                if(isset($changedAddress['id'])) {
+                if (isset($changedAddress['id'])) {
                     $address = $this->getAddress($changedAddress['id']);
                 } elseif (!isset($changedAddress['isDeleted']) || !$changedAddress['isDeleted']) {
                     $address = new SupplierAddress();
@@ -292,16 +311,16 @@ class Supplier extends CoreEntity
                 }
                 $address->applyChangesFromArray($changedAddress);
 
-                if((isset($changedAddress['isDeleted']) && $changedAddress['isDeleted']) || !$address->isValid()) {
+                if ((isset($changedAddress['isDeleted']) && $changedAddress['isDeleted']) || !$address->isValid()) {
                     $this->removeAddress($address);
                 }
             }
             unset($changes['addresses']);
         }
 
-        if(isset($changes['contacts'])) {
+        if (isset($changes['contacts'])) {
             foreach ($changes['contacts'] as $changedContact) {
-                if(isset($changedContact['id'])) {
+                if (isset($changedContact['id'])) {
                     $contact = $this->getContact($changedContact['id']);
                 } elseif (!isset($changedContact['isDeleted']) || !$changedContact['isDeleted']) {
                     $contact = new SupplierContact();
@@ -311,7 +330,7 @@ class Supplier extends CoreEntity
                 }
                 $contact->applyChangesFromArray($changedContact);
 
-                if((isset($changedContact['isDeleted']) && $changedContact['isDeleted']) || !$contact->isValid()) {
+                if ((isset($changedContact['isDeleted']) && $changedContact['isDeleted']) || !$contact->isValid()) {
                     $this->removeContact($contact);
                 }
             }
@@ -320,5 +339,4 @@ class Supplier extends CoreEntity
 
         parent::applyChangesFromArray($changes);
     }
-
 }

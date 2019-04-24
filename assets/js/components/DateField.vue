@@ -1,17 +1,18 @@
 <template>
     <div class="form-group">
-        <label v-text="label"></label>
+        <label v-text="label" />
 
         <div class="input-group date">
             <div class="input-group-addon">
-                <i class="fa fa-calendar"></i>
+                <i class="fa fa-calendar" />
             </div>
             <input
-                    type="text"
-                    class="form-control pull-right"
-                    v-datepicker="{format: format, tz: timezone}"
-                    v-model.lazy="humanReadable"
-                    v-on:change="$emit('input', dateValue)">
+                v-model.lazy="humanReadable"
+                v-datepicker="{format: format, tz: timezone}"
+                type="text"
+                class="form-control pull-right"
+                @change="$emit('input', dateValue)"
+            >
         </div>
     </div>
 </template>

@@ -72,7 +72,7 @@ class InventoryTransaction extends CoreEntity
      */
     protected $committedAt;
 
-    function __construct(StorageLocation $storageLocation, LineItem $lineItem, $delta)
+    public function __construct(StorageLocation $storageLocation, LineItem $lineItem, $delta)
     {
         $this->setStorageLocation($storageLocation);
         $this->setLineItem($lineItem);

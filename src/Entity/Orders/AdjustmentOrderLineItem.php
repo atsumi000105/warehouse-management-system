@@ -8,7 +8,6 @@ use App\Entity\Orders\AdjustmentOrder;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
-
 /**
  * Class AdjustmentOrderLineItem
  *
@@ -26,7 +25,7 @@ class AdjustmentOrderLineItem extends LineItem
         // Wipe out any existing transactions
         $this->clearTransactions();
 
-        if($this->getQuantity() <> 0) {
+        if ($this->getQuantity() <> 0) {
             /** @var AdjustmentOrder $order */
             $order = $this->getOrder();
             $transaction = new InventoryTransaction($order->getStorageLocation(), $this, $this->getQuantity());

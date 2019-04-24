@@ -3,17 +3,26 @@
         <div class="form-group">
             <hb-optionlist
                     v-if="editable"
-                    apiPath="partners/list-options"
-                    v-model="value"
-                    displayProperty="title"
-                    emptyString="-- Select Partner --"
                     ref="partnerSelect"
+                    v-model="value"
+                    api-path="partners/list-options"
+                    display-property="title"
+                    empty-string="-- Select Partner --"
                     :label="label"
-            ></hb-optionlist>
-            <span v-else v-text="value.title"></span>
+            />
+            <span
+                v-else
+                v-text="value.title"
+            />
         </div>
-        <div class="form-group" v-if="!editable">
-            <hb-address v-model="value.address" v="v.address"></hb-address>
+        <div
+            v-if="!editable"
+            class="form-group"
+        >
+            <hb-address
+                v-model="value.address"
+                v="v.address"
+            />
         </div>
     </div>
 </template>
@@ -30,15 +39,15 @@
         computed: mapGetters([
             'allActiveStorageLocations'
         ]),
+        mounted: function () {
+            this.$store.dispatch('loadStorageLocations');
+            this.$refs.partnerSelect.$on('change', eventData => this.onSelectionChange(eventData))
+        },
         methods: {
             onSelectionChange: function (eventData) {
                 let currentPartner = this.$store.getters.getStorageLocationById(eventData.currentTarget.value);
                 this.$emit('partner-change', currentPartner);
             }
-        },
-        mounted: function () {
-            this.$store.dispatch('loadStorageLocations');
-            this.$refs.partnerSelect.$on('change', eventData => this.onSelectionChange(eventData))
         }
     }
 </script>

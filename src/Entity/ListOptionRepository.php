@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-
 use Doctrine\ORM\EntityRepository;
 
 class ListOptionRepository extends EntityRepository

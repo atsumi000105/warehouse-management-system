@@ -2,15 +2,18 @@
     <div>
         <div class="form-group">
             <hb-optionlist
-                    label="Product:"
                     v-if="editable"
-                    :preloadedOptions="allActiveProducts"
-                    v-model="value"
-                    displayProperty="name"
-                    emptyString="-- Select Product --"
                     ref="productSelect"
-            ></hb-optionlist>
-            <span v-else v-text="value.title"></span>
+                    v-model="value"
+                    label="Product:"
+                    :preloaded-options="allActiveProducts"
+                    display-property="name"
+                    empty-string="-- Select Product --"
+            />
+            <span
+                v-else
+                v-text="value.title"
+            />
         </div>
     </div>
 </template>
@@ -27,14 +30,14 @@
         computed: mapGetters([
             'allActiveProducts'
         ]),
+        mounted: function () {
+            this.$store.dispatch('loadProducts');
+            this.$refs.productSelect.$on('change', eventData => this.onSelectionChange(eventData))
+        },
         methods: {
             onSelectionChange: function (eventData) {
                 this.$emit('change', eventData);
             }
-        },
-        mounted: function () {
-            this.$store.dispatch('loadProducts');
-            this.$refs.productSelect.$on('change', eventData => this.onSelectionChange(eventData))
         }
     }
 </script>

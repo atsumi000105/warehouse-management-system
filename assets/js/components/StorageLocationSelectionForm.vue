@@ -2,21 +2,27 @@
     <div>
         <div class="form-group">
             <hb-optionlist
-                    label="Storage Location:"
                     v-if="editable"
-                    :preloadedOptions="allActiveStorageLocations"
-                    v-model="value"
-                    displayProperty="title"
-                    groupProperty="type"
-                    emptyString="-- Select Storage Location --"
                     ref="storageLocationSelect"
-                    @change="onSelectionChange"
+                    v-model="value"
+                    label="Storage Location:"
+                    :preloaded-options="allActiveStorageLocations"
+                    display-property="title"
+                    group-property="type"
+                    empty-string="-- Select Storage Location --"
                     :alphabetize="false"
-            ></hb-optionlist>
-            <span v-else v-text="value.title"></span>
+                    @change="onSelectionChange"
+            />
+            <span
+                v-else
+                v-text="value.title"
+            />
         </div>
-        <div class="form-group" v-if="!editable">
-            <hb-address v-model="value.address"></hb-address>
+        <div
+            v-if="!editable"
+            class="form-group"
+        >
+            <hb-address v-model="value.address" />
         </div>
     </div>
 </template>
@@ -33,15 +39,15 @@
         computed: mapGetters([
             'allActiveStorageLocations'
         ]),
+        mounted: function () {
+            this.$store.dispatch('loadStorageLocations');
+            this.$refs.storageLocationSelect.$on('change', eventData => this.onSelectionChange(eventData))
+        },
         methods: {
             onSelectionChange: function (eventData) {
                 let currentPartner = this.$store.getters.getStorageLocationById(eventData.currentTarget.value);
                 this.$emit('change', eventData);
             }
-        },
-        mounted: function () {
-            this.$store.dispatch('loadStorageLocations');
-            this.$refs.storageLocationSelect.$on('change', eventData => this.onSelectionChange(eventData))
         }
     }
 </script>

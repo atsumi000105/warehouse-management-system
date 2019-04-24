@@ -33,7 +33,6 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-
 /**
  * Class ReportController
  *
@@ -49,7 +48,7 @@ class ReportController extends BaseController
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    public function TransactionsReport (Request $request)
+    public function transactionsReport(Request $request)
     {
         $sort = $request->get('sort') ? explode('|', $request->get('sort')) : null;
         $page = $request->get('download') ? null : $request->get('page', 1);
@@ -104,7 +103,12 @@ class ReportController extends BaseController
             ]
         ];
 
-        return $this->serialize($request, $transactions, new InventoryTransactionReportTransformer(), $meta);
+        return $this->serialize(
+            $request,
+            $transactions,
+            new InventoryTransactionReportTransformer(),
+            $meta
+        );
     }
 
     /**
@@ -115,7 +119,7 @@ class ReportController extends BaseController
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    public function SupplierTotalsReport (Request $request)
+    public function supplierTotalsReport(Request $request)
     {
         $sort = $request->get('sort') ? explode('|', $request->get('sort')) : null;
         $page = $request->get('page', 1);
@@ -181,7 +185,12 @@ class ReportController extends BaseController
             ]
         ];
 
-        return $this->serialize($request, $results->getRows()->slice($page - 1 * $limit, $limit), new SupplierTotalsReportTransformer(), $meta);
+        return $this->serialize(
+            $request,
+            $results->getRows()->slice($page - 1 * $limit, $limit),
+            new SupplierTotalsReportTransformer(),
+            $meta
+        );
     }
 
     /**
@@ -192,7 +201,7 @@ class ReportController extends BaseController
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    public function DistributionTotalsReport (Request $request)
+    public function distributionTotalsReport(Request $request)
     {
         $sort = $request->get('sort') ? explode('|', $request->get('sort')) : null;
         $page = $request->get('page', 1);
@@ -258,7 +267,12 @@ class ReportController extends BaseController
             ]
         ];
 
-        return $this->serialize($request, $results->getRows()->slice($page - 1 * $limit, $limit), new DistributionTotalsReportTransformer(), $meta);
+        return $this->serialize(
+            $request,
+            $results->getRows()->slice($page - 1 * $limit, $limit),
+            new DistributionTotalsReportTransformer(),
+            $meta
+        );
     }
 
     /**
@@ -269,7 +283,7 @@ class ReportController extends BaseController
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    public function PartnerOrderTotalsReport (Request $request)
+    public function partnerOrderTotalsReport(Request $request)
     {
         $sort = $request->get('sort') ? explode('|', $request->get('sort')) : null;
         $page = $request->get('page', 1);
@@ -335,7 +349,12 @@ class ReportController extends BaseController
             ]
         ];
 
-        return $this->serialize($request, $results->getRows()->slice($page - 1 * $limit, $limit), new PartnerOrderTotalsReportTransformer(), $meta);
+        return $this->serialize(
+            $request,
+            $results->getRows()->slice($page - 1 * $limit, $limit),
+            new PartnerOrderTotalsReportTransformer(),
+            $meta
+        );
     }
 
     /**
@@ -346,7 +365,7 @@ class ReportController extends BaseController
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    public function PartnerInventoryReport (Request $request)
+    public function partnerInventoryReport(Request $request)
     {
         $sort = $request->get('sort') ? explode('|', $request->get('sort')) : null;
         $page = $request->get('page', 1);
@@ -371,7 +390,7 @@ class ReportController extends BaseController
 
         $report = new PartnerInventoryReport();
 
-        foreach($partners as $partner) {
+        foreach ($partners as $partner) {
             $params->set('location', $partner);
             $inventory = $transactionRepo->getStockLevels(false, $params);
             $row = $report->getRow($partner);
@@ -411,6 +430,11 @@ class ReportController extends BaseController
             ]
         ];
 
-        return $this->serialize($request, $report->getRows()->slice($page - 1 * $limit, $limit), new PartnerInventoryReportTransformer(), $meta);
+        return $this->serialize(
+            $request,
+            $report->getRows()->slice($page - 1 * $limit, $limit),
+            new PartnerInventoryReportTransformer(),
+            $meta
+        );
     }
 }

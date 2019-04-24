@@ -1,11 +1,22 @@
 <template>
-    <hb-modal :confirmAction="action" classes="modal-danger" id="bulkDeleteModal">
-        <template slot="header">Bulk {{ bulkDeleteType }}</template>
-        <p>Are you sure you want to bulk {{ bulkDeleteType }} the following <strong>{{items.length}}</strong> <strong>{{itemType}}</strong>?</p>
+    <hb-modal
+        id="bulkDeleteModal"
+        :confirm-action="action"
+        classes="modal-danger"
+    >
+        <template slot="header">
+            Bulk {{ bulkDeleteType }}
+        </template>
+        <p>Are you sure you want to bulk {{ bulkDeleteType }} the following <strong>{{ items.length }}</strong> <strong>{{ itemType }}</strong>?</p>
         <ul>
-            <li v-for="item in items" v-text="item"></li>
+            <li
+                v-for="item in items"
+                v-text="item"
+            />
         </ul>
-        <template slot="confirmButton">Bulk {{ bulkDeleteType }}</template>
+        <template slot="confirmButton">
+            Bulk {{ bulkDeleteType }}
+        </template>
     </hb-modal>
 </template>
 

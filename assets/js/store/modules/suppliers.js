@@ -22,13 +22,16 @@ const getters = {
 const actions = {
     loadSuppliers ({ commit }) {
         return new Promise((resolve, reject) => {
-            axios.get('/api/suppliers',  {
-                params: { include: ['addresses']}
-            }).then((response) => {
-                commit('setSuppliers', { list: response.data.data });
-                resolve(response);
-            }, (err) => {
-                reject(err);
+            axios
+                .get('/api/suppliers',  {
+                    params: { include: ['addresses']}
+            })
+                .then((response) => {
+                    commit('setSuppliers', { list: response.data.data });
+                    resolve(response);
+                },
+                    (err) => {
+                    reject(err);
             });
         });
     }

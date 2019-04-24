@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query\Expr;
 
@@ -65,5 +64,4 @@ class ProductRepository extends EntityRepository
 
         return $results;
     }
-
 }

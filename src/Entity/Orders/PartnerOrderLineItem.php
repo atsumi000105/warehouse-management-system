@@ -9,7 +9,6 @@ use App\Entity\Partner;
 use App\Entity\Warehouse;
 use Doctrine\ORM\Mapping as ORM;
 
-
 /**
  * Class PartnerOrderLineItem
  *
@@ -26,7 +25,7 @@ class PartnerOrderLineItem extends LineItem
         // Wipe out any existing transactions
         $this->clearTransactions();
 
-        if($this->getQuantity() <> 0) {
+        if ($this->getQuantity() <> 0) {
             /** @var PartnerOrder $order */
             $order = $this->getOrder();
             $warehouseTransaction = new InventoryTransaction($order->getWarehouse(), $this, 0 - $this->getQuantity());

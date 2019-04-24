@@ -2,7 +2,6 @@
 
 namespace App\Transformers;
 
-
 use App\Entity\LineItem;
 use App\Entity\Product;
 use League\Fractal\TransformerAbstract;

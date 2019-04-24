@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-
 use App\Serializer\ApiSerializer;
 use League\Fractal\Manager;
 use League\Fractal\Resource\Collection;
@@ -26,8 +25,11 @@ abstract class BaseController extends AbstractController
      */
     protected function getRepository($entityName = null)
     {
-        if(!isset($entityName) && !isset($this->defaultEntityName))
-            throw new \InvalidArgumentException('Controller is missing a default entity name and none specified when fetching the repository');
+        if (!isset($entityName) && !isset($this->defaultEntityName)) {
+            throw new \InvalidArgumentException(
+                'Controller is missing a default entity name and none specified when fetching the repository'
+            );
+        }
 
         $entityName = $entityName ?: $this->defaultEntityName;
 
@@ -40,10 +42,11 @@ abstract class BaseController extends AbstractController
      * @param array $meta
      * @return JsonResponse
      */
-    protected function serialize(Request $request, $entities, TransformerAbstract $transformer = null, $meta = []) {
+    protected function serialize(Request $request, $entities, TransformerAbstract $transformer = null, $meta = [])
+    {
         $transformer = $transformer ?: $this->getDefaultTransformer();
 
-        if($entities instanceof \Iterator || is_array($entities)) {
+        if ($entities instanceof \Iterator || is_array($entities)) {
             $resource = new Collection($entities, $transformer, 'data');
         } else {
             $resource = new Item($entities, $transformer, 'data');
@@ -88,7 +91,8 @@ abstract class BaseController extends AbstractController
      * @param Request $request
      * @return array
      */
-    protected function getParams(Request $request) : array {
+    protected function getParams(Request $request) : array
+    {
         // TODO: This needs to redone to check the type of request and only give back the right params for that method
         $params = $request->request->all();
         $params += $request->query->all();

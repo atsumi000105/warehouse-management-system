@@ -41,18 +41,18 @@ abstract class ListOption extends CoreEntity
      */
     protected $status;
 
-    function __construct($name = null, $status = self::STATUS_ACTIVE)
+    public function __construct($name = null, $status = self::STATUS_ACTIVE)
     {
         $this->name = $name;
         $this->status = $status;
     }
 
-    function __toString()
+    public function __toString()
     {
         return $this->getName();
     }
 
-    function getId()
+    public function getId()
     {
         return $this->id;
     }
@@ -88,5 +88,4 @@ abstract class ListOption extends CoreEntity
     {
         $this->status = $status;
     }
-
 }

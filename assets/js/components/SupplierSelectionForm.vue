@@ -3,25 +3,34 @@
         <div class="form-group">
             <hb-optionlist
                     v-if="editable"
-                    v-model="value"
-                    :preloadedOptions="allActiveSuppliers"
-                    displayProperty="title"
-                    emptyString="-- Select Supplier --"
                     ref="supplierSelect"
+                    v-model="value"
+                    :preloaded-options="allActiveSuppliers"
+                    display-property="title"
+                    empty-string="-- Select Supplier --"
                     :label="label"
-            ></hb-optionlist>
-            <span v-else v-text="value.title"></span>
+            />
+            <span
+                v-else
+                v-text="value.title"
+            />
         </div>
-        <div class="form-group" v-if="address">
+        <div
+            v-if="address"
+            class="form-group"
+        >
             <hb-optionlist
                     v-if="editable"
-                    :preloadedOptions="supplierAddresses"
                     v-model="addressValue"
-                    displayProperty="optionList"
-                    emptyString="-- Select Supplier Address --"
-            ></hb-optionlist>
+                    :preloaded-options="supplierAddresses"
+                    display-property="optionList"
+                    empty-string="-- Select Supplier Address --"
+            />
             <!-- text input -->
-            <hb-address v-else v-model="addressValue"></hb-address>
+            <hb-address
+                v-else
+                v-model="addressValue"
+            />
         </div>
     </div>
 </template>
@@ -50,18 +59,18 @@
                'allActiveSuppliers'
             ])
         },
+        mounted: function () {
+            this.$store.dispatch('loadSuppliers');
+            this.$refs.supplierSelect.$on('change', eventData => this.onSelectionChange(eventData));
+        },
         methods: {
             onSelectionChange(event) {
                 let found = this.$store.getters.getSupplierById(event.target.value);
                 this.supplierAddresses.length = 0;
-                if(found){
+                if (found) {
                     this.supplierAddresses.push(...found.addresses);
                 }
             },
-        },
-        mounted: function () {
-            this.$store.dispatch('loadSuppliers');
-            this.$refs.supplierSelect.$on('change', eventData => this.onSelectionChange(eventData));
         }
     }
 </script>

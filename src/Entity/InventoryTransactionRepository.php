@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Moment\Moment;
@@ -12,7 +11,7 @@ class InventoryTransactionRepository extends EntityRepository
 {
 //    protected $_entityName = 'App\Entity\InventoryTransaction';
 
-    public function getStockLevels($includeAllocated = false, ParameterBag $params)
+    public function getStockLevels($includeAllocated = false, ParameterBag $params = null)
     {
         $qb = $this->createQueryBuilder('t')
             ->select('p.id, p.name, c.name as category, SUM(t.delta) as balance')
@@ -20,18 +19,18 @@ class InventoryTransactionRepository extends EntityRepository
             ->join('p.productCategory', 'c')
             ->groupBy('c.name', 'p.id');
 
-        if(!$includeAllocated) {
+        if (!$includeAllocated) {
             $qb->andWhere('t.committed = :committed')
                 ->setParameter('committed', true);
         }
 
-        if($params->has('location')) {
+        if ($params->has('location')) {
             $qb->andWhere('t.storageLocation = :location');
             $qb->setParameter('location', $params->get('location'));
         }
 
-        if($params->has('endingAt')) {
-            if(!$includeAllocated) {
+        if ($params->has('endingAt')) {
+            if (!$includeAllocated) {
                 $qb->andWhere('t.committedAt < :endingAt');
             } else {
                 $qb->andWhere('t.createdAt < :endingAt');
@@ -48,7 +47,7 @@ class InventoryTransactionRepository extends EntityRepository
             $qb->andWhere('s INSTANCE OF :locationType');
             if ($params->get('locationType') == StorageLocation::TYPE_WAREHOUSE) {
                 $qb->setParameter('locationType', 'warehouse');
-            } else if ($params->get('locationType') == StorageLocation::TYPE_PARTNER) {
+            } elseif ($params->get('locationType') == StorageLocation::TYPE_PARTNER) {
                 $qb->setParameter('locationType', 'partner');
             }
         }
@@ -81,7 +80,6 @@ class InventoryTransactionRepository extends EntityRepository
             ->setParameters(["startAt" => $startAt, "endAt" => $endAt]);
 
         return $qb->getQuery()->getArrayResult();
-
     }
 
     public function getStorageLocationInventory(StorageLocation $location)
@@ -127,7 +125,7 @@ class InventoryTransactionRepository extends EntityRepository
         return $inventory;
     }
 
-    public function getReportTransactions($includeAllocated = false, ParameterBag $params)
+    public function getReportTransactions($includeAllocated = false, ParameterBag $params = null)
     {
         $qb = $this->createQueryBuilder('t');
 
@@ -152,8 +150,13 @@ class InventoryTransactionRepository extends EntityRepository
         return $results;
     }
 
-    public function findAllPaged($page = null, $limit = null, $sortField = null, $sortDirection = 'ASC', ParameterBag $params)
-    {
+    public function findAllPaged(
+        $page = null,
+        $limit = null,
+        $sortField = null,
+        $sortDirection = 'ASC',
+        ParameterBag $params = null
+    ) {
         $qb = $this->createQueryBuilder('t')
             ->join('t.product', 'p')
             ->join('t.lineItem', 'l')
@@ -166,7 +169,7 @@ class InventoryTransactionRepository extends EntityRepository
         }
 
         if ($sortField) {
-            if(strstr($sortField,'.') === false) {
+            if (strstr($sortField, '.') === false) {
                 $sortField = 't.' . $sortField;
             }
             $qb->orderBy($sortField, $sortDirection);
@@ -178,7 +181,8 @@ class InventoryTransactionRepository extends EntityRepository
         return $results;
     }
 
-    public function findAllCount(ParameterBag $params) {
+    public function findAllCount(ParameterBag $params)
+    {
         $qb = $this->createQueryBuilder('t')
             ->join('t.product', 'p')
             ->join('t.lineItem', 'l')
@@ -208,7 +212,13 @@ class InventoryTransactionRepository extends EntityRepository
         }
 
         if ($params->has('orderType')) {
-            $qb->andWhere($qb->expr()->isInstanceOf('o', "App\\Domain\\Entities\\Orders\\" . $params->get('orderType')));
+            $qb->andWhere(
+                $qb->expr()
+                    ->isInstanceOf(
+                        'o',
+                        "App\\Domain\\Entities\\Orders\\" . $params->get('orderType')
+                    )
+            );
         }
 
         if ($params->has('startingAt')) {
@@ -221,6 +231,4 @@ class InventoryTransactionRepository extends EntityRepository
                 ->setParameter('endingAt', new \DateTime($params->get('endingAt')));
         }
     }
-
-
 }

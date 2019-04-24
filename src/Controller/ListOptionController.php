@@ -57,7 +57,8 @@ abstract class ListOptionController extends BaseController
      * @param Request $request
      * @return JsonResponse
      */
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         // TODO: Get validation working (#2)
 //        $this->validate($request, [
 //            'name' => 'required',
@@ -123,7 +124,7 @@ abstract class ListOptionController extends BaseController
         /** @var ListOption $listOption */
         $listOption = $this->getRepository()->find($id);
 
-        if(!$listOption) {
+        if (!$listOption) {
             throw new NotFoundHttpException(sprintf('Unknown ListOption ID: %d', $id));
         }
 
