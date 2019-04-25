@@ -67,9 +67,9 @@
                                 <i class="icon fa fa-lock fa-fw" />Roles
                             </h3>
                             <div class="box-body">
-                                <div v-for="group in groups">
+                                <div v-for="role in roles">
                                     <input
-                                        :id="group"
+                                        :id="role"
                                         v-model="group.roles"
                                         type="checkbox"
                                         name="role[]"
@@ -123,8 +123,8 @@
             }
 
             axios
-                .get('/api/roles/list-roles')
-                .then(response => self.roles = role.data);
+                .get('/api/groups/list-roles')
+                .then(response => self.roles = response.data);
 
             console.log('Component mounted.')
         },
