@@ -14,6 +14,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface
 {
+    const ROLE_VIEW = "ROLE_USER_VIEW";
+    const ROLE_EDIT = "ROLE_USER_EDIT";
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

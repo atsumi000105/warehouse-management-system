@@ -17,6 +17,10 @@ class Partner extends StorageLocation
     const TYPE_AGENCY = "AGENCY";
     const TYPE_HOSPITAL = "HOSPITAL";
 
+    const ROLE_VIEW_ALL = "ROLE_PARTNER_VIEW_ALL";
+    const ROLE_VIEW_SELF = "ROLE_PARTNER_VIEW_SELF";
+    const ROLE_EDIT = "ROLE_PARTNER_EDIT";
+
     /**
      * @var string
      *

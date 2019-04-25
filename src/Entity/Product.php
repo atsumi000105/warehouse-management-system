@@ -18,6 +18,9 @@ class Product extends CoreEntity
     const STATUS_INACTIVE = "INACTIVE";
     const STATUS_OUT_OF_STOCK = "OUT_OF_STOCK";
 
+    const ROLE_VIEW = "ROLE_PRODUCT_VIEW";
+    const ROLE_EDIT = "ROLE_PRODUCT_EDIT";
+
     /**
      * @var int
      *

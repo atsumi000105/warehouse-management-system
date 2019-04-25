@@ -12,5 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Warehouse extends StorageLocation
 {
-
+    const ROLE_VIEW = "ROLE_WAREHOUSE_VIEW";
+    const ROLE_EDIT = "ROLE_WAREHOUSE_EDIT";
 }
