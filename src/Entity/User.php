@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table(name="users")
  */
-class User implements UserInterface
+class User extends CoreEntity implements UserInterface
 {
     const ROLE_VIEW = "ROLE_USER_VIEW";
     const ROLE_EDIT = "ROLE_USER_EDIT";
@@ -50,6 +50,11 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    public function __construct($email)
+    {
+        $this->email = $email;
+    }
 
     public function getId(): ?int
     {

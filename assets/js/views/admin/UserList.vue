@@ -35,7 +35,7 @@
                                 <th>User Email</th>
                                 <th>First Name</th>
                                 <th>Last Name</th>
-                                <th>Roles</th>
+                                <th>Groups</th>
                                 <th>Last Updated</th>
                             </tr>
                             </thead>
@@ -51,8 +51,8 @@
                                     <td v-text="user.name.lastName" />
                                     <td>
                                         <ul class="bulletless-list">
-                                            <li v-for="role in user.roles">
-                                                {{ role.name }}
+                                            <li v-for="group in user.groups">
+                                                {{ group.name }}
                                             </li>
                                         </ul>
                                     </td>
@@ -75,14 +75,14 @@
         data() {
             return {
                 users: {
-                    roles: []
+                    groups: []
                 },
-                roles: []
+                groups: []
             };
         },
         created() {
             axios
-                .get('/api/users', {params: {include: ['roles']}})
+                .get('/api/users', {params: {include: ['groups']}})
                 .then(response => {
                     this.users = response.data;
                 });

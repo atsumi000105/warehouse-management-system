@@ -19,7 +19,7 @@ class WarehouseController extends StorageLocationController
     protected $defaultEntityName = Warehouse::class;
 
     /**
-     * @Route("/")
+     * @Route("/", methods={"GET"})
      */
     public function index(Request $request)
     {
@@ -29,7 +29,7 @@ class WarehouseController extends StorageLocationController
     }
 
     /**
-     * @Route("/{id<\d+>}")
+     * @Route("/{id<\d+>}", methods={"GET"})
      *
      * @param Request $request
      * @return JsonResponse

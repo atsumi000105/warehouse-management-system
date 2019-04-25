@@ -15,7 +15,6 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @Route(path="/api/groups")
  */
-
 class GroupController extends BaseController
 {
     protected $defaultEntityName = Group::class;
@@ -23,7 +22,7 @@ class GroupController extends BaseController
     /**
      * Get a list of Groups
      *
-     * @Route(path="")
+     * @Route(path="", methods={"GET"})
      *
      * @return JsonResponse
      */

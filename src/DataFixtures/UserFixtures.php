@@ -19,8 +19,7 @@ class UserFixtures extends BaseFixture
     public function loadData(ObjectManager $manager)
     {
         foreach ($this->getData() as $userArr) {
-            $user = new User();
-            $user->setEmail($userArr['email']);
+            $user = new User($userArr['email']);
             $user->setName($userArr['name']);
             $user->setGroups($userArr['groups']);
             $user->setPassword('password');

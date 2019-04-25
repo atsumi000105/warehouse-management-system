@@ -19,7 +19,7 @@ class PartnerController extends StorageLocationController
     protected $defaultEntityName = Partner::class;
 
     /**
-     * @Route("/")
+     * @Route("/", methods={"GET"})
      */
     public function index(Request $request)
     {
@@ -29,7 +29,7 @@ class PartnerController extends StorageLocationController
     }
 
     /**
-     * @Route("/{id<\d+>}")
+     * @Route("/{id<\d+>}", methods={"GET"})
      *
      * @param Request $request
      * @return JsonResponse
