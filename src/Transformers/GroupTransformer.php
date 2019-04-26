@@ -2,7 +2,6 @@
 
 namespace App\Transformers;
 
-
 use App\Entity\Group;
 use League\Fractal\TransformerAbstract;
 
@@ -23,5 +22,4 @@ class GroupTransformer extends TransformerAbstract
             'updatedAt' => $group->getUpdatedAt()->format('c'),
         ];
     }
-
 }
