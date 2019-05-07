@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\ValueObjects\Name;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Routing\Exception\MissingMandatoryParametersException;
@@ -113,6 +114,10 @@ class User extends CoreEntity implements UserInterface
      */
     public function setGroups($groups): void
     {
+        if (is_array($groups)) {
+            $groups = new ArrayCollection($groups);
+        }
+
         $this->groups = $groups;
     }
 
