@@ -86,18 +86,18 @@
                     <div class="box box-info">
                         <div class="box-header with-border">
                             <h3 class="box-title">
-                                <i class="icon fa fa-lock fa-fw" />Roles
+                                <i class="icon fa fa-lock fa-fw" />Groups
                             </h3>
                             <div class="box-body">
-                                <div v-for="sysRole in sysRoles">
+                                <div v-for="sysGroup in sysGroups">
                                     <input
-                                        :id="sysRole.id"
-                                        v-model="user.roles"
+                                        :id="sysGroup.id"
+                                        v-model="user.groups"
                                         type="checkbox"
-                                        name="role[]"
-                                        :value="sysRole"
+                                        name="group[]"
+                                        :value="sysGroup"
                                     >
-                                    <label :for="sysRole">{{ sysRole.name }}</label>
+                                    <label :for="sysGroup.id">{{ sysGroup.name }}</label>
                                 </div>
                             </div>
                         </div>
@@ -129,9 +129,9 @@
             return {
                 user: {
                     name: {},
-                    roles: []
+                    groups: []
                 },
-                sysRoles: {},
+                sysGroups: {},
             };
         },
         created() {
@@ -139,7 +139,7 @@
 
             if (!this.new) {
                 axios
-                    .get('/api/users/' + this.$route.params.id, {params: {include: ['roles']}})
+                    .get('/api/users/' + this.$route.params.id, {params: {include: ['groups']}})
                     .then(response => {
                         self.user = response.data.data;
                     })
@@ -147,11 +147,11 @@
             }
 
             axios
-                .get('/api/roles')
+                .get('/api/groups')
                 .then(response => {
-                    self.sysRoles = response.data.data;
+                    self.sysGroups = response.data.data;
                 })
-                .catch(error => console.log("Error receiving roles %o", error));
+                .catch(error => console.log("Error receiving groups %o", error));
 
             console.log('UserEdit Component mounted.');
         },

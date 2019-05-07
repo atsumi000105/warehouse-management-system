@@ -23,6 +23,10 @@ abstract class Order extends CoreEntity
 {
     const STATUS_COMPLETED = "COMPLETED";
 
+    const ROLE_VIEW_OWN = "ROLE_ORDER_VIEW_OWN";
+    const ROLE_VIEW_ALL = "ROLE_ORDER_VIEW_ALL";
+    const ROLE_EDIT = "ROLE_ORDER_EDIT";
+
     /**
      * @var int
      *

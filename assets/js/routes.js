@@ -6,9 +6,9 @@ let routes = [
         component: require('./views/Dashboard.vue')
     },
 
-    { path: '/admin/roles', component: require('./views/admin/RoleList.vue').default },
-    { path: '/admin/roles/new', component: require('./views/admin/RoleEdit.vue').default, props: { new: true } },
-    { path: '/admin/roles/:id', component: require('./views/admin/RoleEdit.vue').default },
+    { path: '/admin/groups', component: require('./views/admin/RoleList.vue').default },
+    { path: '/admin/groups/new', component: require('./views/admin/RoleEdit.vue').default, props: { new: true } },
+    { path: '/admin/groups/:id', component: require('./views/admin/RoleEdit.vue').default },
 
     { path: '/admin/users', component: require('./views/admin/UserList.vue').default },
     { path: '/admin/users/new', component: require('./views/admin/UserEdit.vue').default, props: { new: true } },

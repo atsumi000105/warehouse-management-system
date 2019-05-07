@@ -23,7 +23,7 @@ class StorageLocationController extends BaseController
     /**
      * Get a list of Sub-classed storage locations
      *
-     * @Route(path="", methods={})
+     * @Route(path="", methods={"GET"})
      * @return JsonResponse
      */
     public function index(Request $request)

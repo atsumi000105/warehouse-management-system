@@ -1,14 +1,14 @@
 <template>
     <section class="content">
         <router-link
-            to="/admin/roles/new"
+            to="/admin/groups/new"
             class="btn btn-success btn-flat pull-right"
         >
             <i class="fa fa-plus-circle fa-fw" />
             Create Role
         </router-link>
         <h3 class="box-title">
-            Roles List
+            Groups List
         </h3>
 
         <div class="row">
@@ -38,9 +38,9 @@
                             </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="role in roles.data">
+                                <tr v-for="role in groups.data">
                                     <td>
-                                        <router-link :to="'/admin/roles/' + role.id">
+                                        <router-link :to="'/admin/groups/' + role.id">
                                             <i class="fa fa-edit" />{{ role.id }}
                                         </router-link>
                                     </td>
@@ -63,14 +63,13 @@
         props:[],
         data() {
             return {
-                roles: {}
+                groups: {}
             };
         },
         created() {
             axios
-                .get('/api/roles')
-                .then(response => this.roles = response.data);
-
+                .get('/api/groups')
+                .then(response => this.groups = response.data);
             console.log('Component mounted.')
         }
     }

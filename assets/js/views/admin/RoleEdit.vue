@@ -6,7 +6,7 @@
                 @click.prevent="save"
             >
             <i class="fa fa-save fa-fw" />
-                Save Role
+                Save Group
             </button>
             <div class="btn-group">
                 <button
@@ -23,14 +23,14 @@
                             @click.prevent="askDelete"
                         >
                             <i class="fa fa-trash fa-fw" />
-                            Delete Role
+                            Delete Group
                         </a>
                     </li>
                 </ul>
             </div>
         </div>
         <h3 class="box-title">
-            Edit Role
+            Edit Group
         </h3>
 
         <div class="row">
@@ -39,16 +39,16 @@
                     <div class="box box-info">
                         <div class="box-header with-border">
                             <h3 class="box-title">
-                                <i class="icon fa fa-group fa-fw" />Role Info
+                                <i class="icon fa fa-group fa-fw" />Group Info
                             </h3>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
                             <!-- text input -->
                             <div class="form-group">
-                                <label>Role Name</label>
+                                <label>Group Name</label>
                                 <input
-                                    v-model="role.name"
+                                    v-model="group.name"
                                     type="text"
                                     class="form-control"
                                     placeholder="Enter role name"
@@ -64,19 +64,19 @@
                     <div class="box box-info">
                         <div class="box-header with-border">
                             <h3 class="box-title">
-                                <i class="icon fa fa-lock fa-fw" />Permissions
+                                <i class="icon fa fa-lock fa-fw" />Roles
                             </h3>
                             <div class="box-body">
-                                <div v-for="permission in permissions">
+                                <div v-for="role in roles">
                                     <input
-                                        :id="permission"
-                                        v-model="role.permissions"
+                                        :id="role"
+                                        v-model="group.roles"
                                         type="checkbox"
-                                        name="permission[]"
-                                        :value="permission"
+                                        name="role[]"
+                                        :value="role"
                                     >
-                                    <label :for="permission">
-                                        {{ permission }}
+                                    <label :for="role">
+                                        {{ role }}
                                     </label>
                                 </div>
                             </div>
@@ -87,15 +87,15 @@
         </div>
         <hb-modal
             id="confirmModal"
-            :confirm-action="this.deleteRole"
+            :confirm-action="this.deleteGroup"
             classes="modal-danger"
         >
             <template slot="header">
-                Delete Role
+                Delete Group
             </template>
-            <p>Are you sure you want to delete <strong>{{ role.name }}</strong>?</p>
+            <p>Are you sure you want to delete <strong>{{ group.name }}</strong>?</p>
             <template slot="confirmButton">
-                Delete Role
+                Delete Group
             </template>
         </hb-modal>
     </section>
@@ -107,10 +107,10 @@
         props: ['new'],
         data() {
             return {
-                role: {
-                    permissions: [],
+                group: {
+                    roles: [],
                 },
-                permissions: [],
+                roles: [],
             };
         },
         created() {
@@ -118,13 +118,13 @@
 
             if (!this.new) {
                 axios
-                    .get('/api/roles/' + this.$route.params.id)
-                    .then(response => self.role = response.data.data);
+                    .get('/api/groups/' + this.$route.params.id)
+                    .then(response => self.group = response.data.data);
             }
 
             axios
-                .get('/api/roles/list-permissions')
-                .then(response => self.permissions = response.data);
+                .get('/api/groups/list-roles')
+                .then(response => self.roles = response.data);
 
             console.log('Component mounted.')
         },
@@ -133,15 +133,15 @@
                 var self = this;
                 if (this.new) {
                     axios
-                        .post('/api/roles', this.role)
-                        .then(response => self.$router.push('/admin/roles'))
+                        .post('/api/groups', this.group)
+                        .then(response => self.$router.push('/admin/groups'))
                         .catch(function (error) {
                             console.log(error);
                         });
                 } else {
                     axios
-                        .patch('/api/roles/' + this.$route.params.id, this.role)
-                        .then(response => self.$router.push('/admin/roles'))
+                        .patch('/api/groups/' + this.$route.params.id, this.group)
+                        .then(response => self.$router.push('/admin/groups'))
                         .catch(function (error) {
                             console.log(error);
                         });
@@ -150,11 +150,11 @@
             askDelete: function() {
                 $('#confirmModal').modal('show');
             },
-            deleteRole: function() {
+            deleteGroup: function() {
                 var self = this;
                 axios
-                    .delete('/api/roles/' + this.$route.params.id)
-                    .then(self.$router.push('/admin/roles'));
+                    .delete('/api/groups/' + this.$route.params.id)
+                    .then(self.$router.push('/admin/groups'));
             }
         }
     }
