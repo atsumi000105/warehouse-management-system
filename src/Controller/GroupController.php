@@ -56,7 +56,8 @@ class GroupController extends BaseController
      * @param Request $request
      * @return JsonResponse
      */
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         // TODO: Get validation working (#2)
 //        $this->validate($request, [
 //            'name' => 'required',
@@ -141,7 +142,7 @@ class GroupController extends BaseController
         /** @var Group $group */
         $group = $this->getRepository()->find($id);
 
-        if(!$group) {
+        if (!$group) {
             throw new NotFoundHttpException(sprintf('Unknown Group ID: %d', $id));
         }
 
