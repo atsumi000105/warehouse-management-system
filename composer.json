@@ -5,6 +5,7 @@
         "php": "^7.3.1",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "doctrine/annotations": "^1.6",
         "fightbulc/moment": "^1.26",
         "nelmio/cors-bundle": "^1.5",
         "phpoffice/phpspreadsheet": "^1.6",
@@ -21,6 +22,7 @@
         "symfony/swiftmailer-bundle": "^3.2",
         "symfony/templating": "4.1.*",
         "symfony/twig-bundle": "*",
+        "symfony/validator": "4.1.*",
         "symfony/webpack-encore-bundle": "^1.0",
         "symfony/yaml": "*"
     },

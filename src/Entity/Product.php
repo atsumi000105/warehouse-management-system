@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Product
@@ -43,6 +44,7 @@ class Product extends CoreEntity
      *
      * @ORM\Column(type="string", nullable=false)
      * @Gedmo\Versioned
+     * @Assert\NotBlank
      */
     protected $name;
 

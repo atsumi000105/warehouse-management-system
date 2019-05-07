@@ -11,6 +11,8 @@ use SamJ\FractalBundle\ContainerAwareManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class BaseController extends AbstractController
 {
@@ -102,6 +104,23 @@ abstract class BaseController extends AbstractController
         }
 
         return $params;
+    }
+
+    /**
+     * @param $entity
+     * @param ValidatorInterface $validator
+     *
+     * @throws BadRequestHttpException
+     */
+    protected function validate($entity, ValidatorInterface $validator)
+    {
+        $errors = $validator->validate($entity);
+
+        if (count($errors) > 0) {
+            $errorsString = (string) $errors;
+
+            throw new BadRequestHttpException($errorsString);
+        }
     }
 
     protected function getDefaultTransformer()
