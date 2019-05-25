@@ -14,6 +14,9 @@ use Symfony\Component\HttpFoundation\Request;
 
 abstract class BaseController extends AbstractController
 {
+    /** @var string */
+    protected $defaultEntityName;
+
     protected function getEm()
     {
         return $this->getDoctrine()->getManager();
