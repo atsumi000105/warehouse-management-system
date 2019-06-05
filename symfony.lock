@@ -90,6 +90,9 @@
     "egulias/email-validator": {
         "version": "2.1.6"
     },
+    "facebook/webdriver": {
+        "version": "1.6.0"
+    },
     "fightbulc/moment": {
         "version": "1.26.10"
     },
@@ -237,6 +240,9 @@
     "symfony/asset": {
         "version": "v4.1.6"
     },
+    "symfony/browser-kit": {
+        "version": "v4.1.12"
+    },
     "symfony/cache": {
         "version": "v4.1.6"
     },
@@ -255,6 +261,9 @@
     "symfony/contracts": {
         "version": "v1.0.2"
     },
+    "symfony/css-selector": {
+        "version": "v4.1.12"
+    },
     "symfony/debug": {
         "version": "v4.1.6"
     },
@@ -263,6 +272,9 @@
     },
     "symfony/doctrine-bridge": {
         "version": "v4.1.6"
+    },
+    "symfony/dom-crawler": {
+        "version": "v4.1.12"
     },
     "symfony/dotenv": {
         "version": "v4.1.6"
@@ -326,6 +338,25 @@
     },
     "symfony/orm-pack": {
         "version": "v1.0.6"
+    },
+    "symfony/panther": {
+        "version": "v0.3.0"
+    },
+    "symfony/phpunit-bridge": {
+        "version": "4.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.3",
+            "ref": "b0582341f1df39aaf3a9a866cdbe49937da35984"
+        },
+        "files": [
+            ".env.test",
+            "bin/phpunit",
+            "config/bootstrap.php",
+            "phpunit.xml.dist",
+            "tests/.gitignore"
+        ]
     },
     "symfony/polyfill-intl-idn": {
         "version": "v1.11.0"
@@ -392,6 +423,9 @@
     },
     "symfony/templating": {
         "version": "v4.1.12"
+    },
+    "symfony/test-pack": {
+        "version": "v1.0.5"
     },
     "symfony/twig-bridge": {
         "version": "v4.1.6"
