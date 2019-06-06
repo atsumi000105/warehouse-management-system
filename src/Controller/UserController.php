@@ -4,8 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Group;
 use App\Entity\User;
-use App\Transformers\UserTransformer;
 use App\Entity\ValueObjects\Name;
+use App\Transformers\UserTransformer;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -76,7 +76,7 @@ class UserController extends BaseController
 
         $user = new User($params["email"]);
         $user->setName($name);
-        $user->setPassword($params['password']);
+        $user->setPlainTextPassword($params['plainTextPassword']);
         $user->setGroups($groups);
 
 //        $this->checkEditPermissions($user);

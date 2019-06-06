@@ -4,25 +4,24 @@ namespace App\DataFixtures;
 
 use App\Entity\User;
 use App\Entity\ValueObjects\Name;
-use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
 class UserFixtures extends BaseFixture
 {
-    public function getDependencies()
+    public function getDependencies(): array
     {
         return [
             GroupFixtures::class,
         ];
     }
 
-    public function loadData(ObjectManager $manager)
+    public function loadData(ObjectManager $manager): void
     {
         foreach ($this->getData() as $userArr) {
             $user = new User($userArr['email']);
             $user->setName($userArr['name']);
             $user->setGroups($userArr['groups']);
-            $user->setPassword('password');
+            $user->setPlainTextPassword('password');
 
             $manager->persist($user);
         }
@@ -30,7 +29,7 @@ class UserFixtures extends BaseFixture
         $manager->flush();
     }
 
-    private function getData()
+    private function getData(): array
     {
         return [
             [
