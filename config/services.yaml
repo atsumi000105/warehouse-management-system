@@ -33,3 +33,8 @@ services:
     sam_j_fractal.manager:
         class: SamJ\FractalBundle\ContainerAwareManager
         public: true
+
+    user_interface.listener:
+        class: App\Listener\ExceptionListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }

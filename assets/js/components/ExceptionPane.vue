@@ -24,6 +24,7 @@
                     <li
                         v-for="line in exception.trace"
                     >
+                        {{ line.class}}{{ line.type }}{{line.function}}()<br/>
                         {{ line.file }}:{{ line.line }}
                     </li>
                 </ol>

@@ -6,6 +6,7 @@ use App\Entity\Order;
 use App\Entity\Partner;
 use App\Entity\StorageLocation;
 use App\Entity\Warehouse;
+use App\Exception\UserInterfaceException;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -81,11 +82,11 @@ class TransferOrder extends Order
     public function validate()
     {
         if ($this->getSourceLocation() instanceof Warehouse && $this->getTargetLocation() instanceof Partner) {
-            throw new \Exception('Transferring from a Warehouse to a Partner must be handled in a Partner Order');
+            throw new UserInterfaceException('Transferring from a Warehouse to a Partner must be handled in a Partner Order');
         }
 
         if ($this->getTargetLocation()->getId() == $this->getSourceLocation()->getId()) {
-            throw new \Exception('Cannot transfer from a location to itself');
+            throw new UserInterfaceException('Cannot transfer from a location to itself');
         }
     }
 }
