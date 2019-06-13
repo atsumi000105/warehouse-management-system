@@ -1,4 +1,5 @@
 <?php
+// Required by phpunit and phpstan
 
 use Symfony\Component\Dotenv\Dotenv;
 
