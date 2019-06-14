@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table(name="users")
  */
-class User extends CoreEntity implements UserInterface
+final class User extends CoreEntity implements UserInterface
 {
     public const ROLE_VIEW = 'ROLE_USER_VIEW';
     public const ROLE_EDIT = 'ROLE_USER_EDIT';
