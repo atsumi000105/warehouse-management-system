@@ -35,12 +35,22 @@ class UserFixtures extends BaseFixture
             [
                 'email' => 'andrew@koebbe.com',
                 'name' => new Name('Andrew', 'Koebbe'),
-                'groups' => [$this->getReference('group_system_administrator')]
+                'groups' => [$this->getReference('group_system_administrator')],
             ],
             [
                 'email' => 'admin@example.com',
-                'name' => new Name('System', 'Admin'),
-                'groups' => [$this->getReference('group_system_administrator')]
+                'name' => new Name('Sysadmin', 'User'),
+                'groups' => [$this->getReference('group_system_administrator')],
+            ],
+            [
+                'email' => 'manager@example.com',
+                'name' => new Name('Manager', 'User'),
+                'groups' => [$this->getReference('group_manager')],
+            ],
+            [
+                'email' => 'volunteer@example.com',
+                'name' => new Name('Volunteer', 'User'),
+                'groups' => [$this->getReference('group_volunteer')],
             ],
         ];
     }
