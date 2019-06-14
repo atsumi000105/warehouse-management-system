@@ -19,9 +19,9 @@ class UserFixtures extends BaseFixture
     {
         foreach ($this->getData() as $userArr) {
             $user = new User($userArr['email']);
-            $user->setName($userArr['name']);
-            $user->setGroups($userArr['groups']);
-            $user->setPlainTextPassword('password');
+            $user->setName($userArr['name'])
+                ->setGroups($userArr['groups'])
+                ->setPlainTextPassword('password');
 
             $manager->persist($user);
         }

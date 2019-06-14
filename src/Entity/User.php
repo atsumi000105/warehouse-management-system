@@ -87,13 +87,15 @@ class User extends CoreEntity implements UserInterface
     /**
      * @throws MissingMandatoryParametersException
      */
-    public function setName(Name $name): void
+    public function setName(Name $name): self
     {
         if (!$name->isValid()) {
             throw new MissingMandatoryParametersException("Missing first and/or last name");
         }
 
         $this->name = $name;
+
+        return $this;
     }
 
     /**
@@ -117,13 +119,15 @@ class User extends CoreEntity implements UserInterface
     /**
      * @param Group[]|Collection $groups
      */
-    public function setGroups($groups): void
+    public function setGroups($groups): self
     {
         if (is_array($groups)) {
             $groups = new ArrayCollection($groups);
         }
 
         $this->groups = $groups;
+
+        return $this;
     }
 
     /**
@@ -171,10 +175,12 @@ class User extends CoreEntity implements UserInterface
     {
         return $this->plainTextPassword;
     }
-    public function setPlainTextPassword(string $plainTextPassword): void
+    public function setPlainTextPassword(string $plainTextPassword): self
     {
         $this->plainTextPassword = $plainTextPassword;
         $this->password = null;
+
+        return $this;
     }
 
     /**
