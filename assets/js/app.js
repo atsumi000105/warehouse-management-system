@@ -103,6 +103,17 @@ Vue.directive('colorpicker', {
         jQuery(el).colorpicker({
             format: 'hex',
             color: '#3c8dbc',
+            colorSelectors: {
+                'black': '#000',
+                'white': '#fff',
+                'red': '#d10000',
+                'orange': '#f62',
+                'yellow': '#ffda21',
+                'green': '#3d0',
+                'blue': '#13c',
+                'indigo': '#206',
+                'violet': '#304',
+            },
         }).on('changeColor', function(e) {
             vnode.data.on.input(e, e.value);
         });
