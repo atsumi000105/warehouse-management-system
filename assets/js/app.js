@@ -82,7 +82,7 @@ Vue.directive('datepicker', {
         jQuery(el).datetimepicker({
             format: format
         }).on('dp.change', function (e) {
-            vnode.data.on.change(e, e.date);
+            vnode.data.on.input(e, e.date);
         });
         $(el).data('DateTimePicker').date(value);
     },
