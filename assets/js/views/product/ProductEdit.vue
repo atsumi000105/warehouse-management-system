@@ -89,15 +89,18 @@
                                     </p>
                             </div>
                             <div class="form-group">
-                                <label>Label Color</label>
-
+                                    <label>Label Color</label>
+                                <div
+                                    v-colorpicker
+                                    class="input-group"
+                                >
                                     <input
                                         v-model="product.color"
-                                        v-colorpicker
                                         type="text"
-                                        class="form-control colorpicker-element"
+                                        class="form-control"
                                     >
-
+                                    <span class="input-group-addon"><i></i></span>
+                                </div>
                                 <p class="help-block">
                                     Click the color swatch on the right for a color picker.
                                 </p>

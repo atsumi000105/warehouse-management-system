@@ -5,6 +5,7 @@ import store from './store';
 require('../sass/bootstrap.scss');
 require('admin-lte/dist/css/AdminLTE.css');
 require('admin-lte/dist/css/skins/skin-blue.css');
+require('bootstrap-colorpicker/dist/css/bootstrap-colorpicker.css');
 require('chosen-js/chosen.css');
 require('chosen-bootstrap-theme/dist/chosen-bootstrap-theme.css');
 require('eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css');
@@ -104,7 +105,7 @@ Vue.directive('colorpicker', {
             color: '#3c8dbc',
         }).on('changeColor', function(e) {
             vnode.data.on.input(e, e.value);
-        })
+        });
     },
     componentUpdated: function(el, binding) {
         jQuery(el).trigger('change');
