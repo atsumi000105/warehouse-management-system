@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class ListOptionController extends BaseController
 {
@@ -55,20 +56,19 @@ abstract class ListOptionController extends BaseController
      *
      * @Route(path="", methods={"POST"})
      * @param Request $request
+     * @param ValidatorInterface $validator
+     *
      * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request, ValidatorInterface $validator)
     {
-        // TODO: Get validation working (#2)
-//        $this->validate($request, [
-//            'name' => 'required',
-//        ]);
-
         $listOption = $this->getListOptionEntityInstance();
         $listOption->setName($request->get('name'));
 
         $params = $this->getParams($request);
         $listOption->applyChangesFromArray($params);
+
+        $this->validate($listOption, $validator);
 
         $this->getEm()->persist($listOption);
         $this->getEm()->flush();
