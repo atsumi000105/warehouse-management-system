@@ -70,7 +70,7 @@
 
                                 <label>Password</label>
                                 <input
-                                    v-model="user.password"
+                                    v-model="user.plainTextPassword"
                                     type="password"
                                     class="form-control"
                                     placeholder="Enter new password"

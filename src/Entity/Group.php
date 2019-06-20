@@ -53,7 +53,7 @@ class Group extends CoreEntity
     protected $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="User", mappedBy="roles")
+     * @ORM\ManyToMany(targetEntity="User", mappedBy="groups")
      *
      * @var User $users
      */

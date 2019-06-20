@@ -24,3 +24,7 @@ yarn-error.log
 ###< squizlabs/php_codesniffer ###
 
 phpstan.neon
+###> symfony/phpunit-bridge ###
+.phpunit
+/phpunit.xml
+###< symfony/phpunit-bridge ###
