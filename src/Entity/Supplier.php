@@ -6,6 +6,7 @@ use App\Entity\Orders\SupplyOrder;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Supplier class for suppliers of products
@@ -43,6 +44,7 @@ class Supplier extends CoreEntity
      *
      * @ORM\Column(type="string")
      * @Gedmo\Versioned
+     * @Assert\NotBlank
      */
     protected $title;
 
@@ -55,6 +57,8 @@ class Supplier extends CoreEntity
      *     cascade={"persist", "remove"},
      *     orphanRemoval=true
      * )
+     *
+     * @Assert\Type(type="array")
      */
     protected $addresses;
 
@@ -74,6 +78,8 @@ class Supplier extends CoreEntity
      *     cascade={"persist", "remove"},
      *     orphanRemoval=true
      * )
+     *
+     * @Assert\Type(type="array")
      */
     protected $contacts;
 
