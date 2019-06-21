@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * Class SupplierController
@@ -90,15 +91,8 @@ class SupplierController extends BaseController
      * @param Request $request
      * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request, ValidatorInterface $validator)
     {
-        // TODO: Get validation working (#2)
-//        $this->validate($request, [
-//            'title' => 'required',
-//            'contacts' => 'array',
-//            'addresses' => 'array',
-//        ]);
-
         $supplier = new Supplier($request->get('title'));
 
         $params = $this->getParams($request);
@@ -106,6 +100,8 @@ class SupplierController extends BaseController
 
         // TODO: get permissions working (#1)
         // $this->checkEditPermissions($supplier);
+
+        $this->validate($supplier, $validator);
 
         $this->getEm()->persist($supplier);
         $this->getEm()->flush();

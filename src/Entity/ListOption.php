@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Product
@@ -31,6 +32,7 @@ abstract class ListOption extends CoreEntity
      * @var string $name
      *
      * @ORM\Column(type="string", nullable=false)
+     * @Assert\NotBlank
      */
     protected $name;
 
