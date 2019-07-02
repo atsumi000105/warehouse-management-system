@@ -9,7 +9,6 @@ window._ = require('lodash');
 
 window.$ = window.jQuery = require('jquery');
 require('bootstrap');
-require('bootstrap-colorpicker');
 require('bootstrap-tooltip');
 require('admin-lte');
 require('chosen-js');
@@ -28,7 +27,6 @@ import VueEvents from 'vue-events';
 import VueRouter from 'vue-router';
 import Vuelidate from 'vuelidate';
 import Vuetable from 'vuetable-2';
-import VuetablePagination from 'vuetable-2';
 import axios from 'axios';
 import moment from 'moment-timezone';
 

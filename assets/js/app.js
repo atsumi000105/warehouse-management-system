@@ -5,7 +5,7 @@ import store from './store';
 require('../sass/bootstrap.scss');
 require('admin-lte/dist/css/AdminLTE.css');
 require('admin-lte/dist/css/skins/skin-blue.css');
-require('bootstrap-colorpicker/dist/css/bootstrap-colorpicker.css');
+require('verte/dist/verte.css');
 require('chosen-js/chosen.css');
 require('chosen-bootstrap-theme/dist/chosen-bootstrap-theme.css');
 require('eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css');
@@ -13,6 +13,7 @@ require('../sass/app.scss');
 
 // Vue.component('vuetable', require('vuetable-2/src/components/Vuetable.vue'));
 // Vue.component('vuetable-pagination', require('vuetable-2/src/components/VuetablePagination.vue'));
+Vue.component('verte', require('verte/dist/verte'));
 
 Vue.component('hb-sidebar', require('./components/Sidebar.vue').default);
 Vue.component('hb-userbar', require('./components/Userbar.vue').default);
@@ -95,31 +96,6 @@ Vue.directive('datepicker', {
             value.tz(binding.value.tz);
         }
         jQuery(el).data("DateTimePicker").date(value);
-    }
-});
-
-Vue.directive('colorpicker', {
-    inserted: function(el, binding, vnode) {
-        jQuery(el).colorpicker({
-            format: 'hex',
-            color: '#3c8dbc',
-            colorSelectors: {
-                'black': '#000',
-                'white': '#fff',
-                'red': '#d10000',
-                'orange': '#f62',
-                'yellow': '#ffda21',
-                'green': '#3d0',
-                'blue': '#13c',
-                'indigo': '#206',
-                'violet': '#304',
-            },
-        }).on('changeColor', function(e) {
-            vnode.data.on.input(e, e.value);
-        });
-    },
-    componentUpdated: function(el, binding) {
-        jQuery(el).trigger('change');
     }
 });
 

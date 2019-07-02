@@ -2,7 +2,6 @@
     "devDependencies": {
         "@symfony/webpack-encore": "^0.22.0",
         "axios": "^0.15.3",
-        "bootstrap-colorpicker": "^2.5.2",
         "bootstrap-sass": "^3.3.7",
         "bootstrap-tooltip": "^3.1.1",
         "chosen-js": "^1.8.0",
@@ -36,6 +35,7 @@
         "admin-lte": "^2.3.11",
         "chosen-bootstrap-theme": "^1.0.5",
         "normalize-scss": "^6.0.0",
+        "verte": "^0.0.12",
         "vuex": "^3.1.1"
     },
     "license": "GPL-3.0",
