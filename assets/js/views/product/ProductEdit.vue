@@ -267,8 +267,8 @@
             var self = this;
 
             if (this.create) {
-                this.product.contacts.push({isDeleted: false});
-                this.product.addresses.push({isDeleted: false});
+                // this.product.contacts.push({isDeleted: false});
+                // this.product.addresses.push({isDeleted: false});
             } else {
                 axios
                     .get('/api/products/' + this.$route.params.id)
