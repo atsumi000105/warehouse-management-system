@@ -1,11 +1,12 @@
 {
     "devDependencies": {
-        "@symfony/webpack-encore": "^0.22.0",
+        "@symfony/webpack-encore": "^0.27.0",
         "axios": "^0.15.3",
         "bootstrap-colorpicker": "^2.5.2",
         "bootstrap-sass": "^3.3.7",
         "bootstrap-tooltip": "^3.1.1",
         "chosen-js": "^1.8.0",
+        "core-js": "^3.0.0",
         "eonasdan-bootstrap-datetimepicker": "Eonasdan/bootstrap-datetimepicker",
         "eslint": "^5.16.0",
         "eslint-plugin-vue": "^5.2.2",
