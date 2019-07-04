@@ -132,9 +132,6 @@
             "config/packages/nelmio_cors.yaml"
         ]
     },
-    "nikic/php-parser": {
-        "version": "v4.2.1"
-    },
     "ocramius/package-versions": {
         "version": "1.4.0"
     },
