@@ -89,17 +89,16 @@
                                     </p>
                             </div>
                             <div class="form-group">
-                                <label>Label Color</label>
-
-                                    <input
+                                <label>Product Color</label>
+                                <verte
                                         v-model="product.color"
-                                        v-colorpicker
-                                        type="text"
-                                        class="form-control colorpicker-element"
-                                    >
-
+                                        :enable-alpha="false"
+                                        :picker="'square'"
+                                        model="hex"
+                                        value="#3c8dbc"
+                                />
                                 <p class="help-block">
-                                    Click the color swatch on the right for a color picker.
+                                    Click the color swatch above for a color picker.
                                 </p>
                             </div>
                         </div>
@@ -250,12 +249,16 @@
 
 
 <script>
+    import Verte from "verte";
+
     export default {
+        components: {Verte},
         props: ['create'],
         data() {
             return {
                 product: {
                     productCategory: {},
+                    color: '#3c8dbc'
                 },
                 inventory: {}
             };
@@ -264,8 +267,8 @@
             var self = this;
 
             if (this.create) {
-                this.product.contacts.push({isDeleted: false});
-                this.product.addresses.push({isDeleted: false});
+                // this.product.contacts.push({isDeleted: false});
+                // this.product.addresses.push({isDeleted: false});
             } else {
                 axios
                     .get('/api/products/' + this.$route.params.id)
@@ -310,3 +313,7 @@
         }
     }
 </script>
+
+<style scoped>
+    .verte {justify-content: left;}
+</style>
