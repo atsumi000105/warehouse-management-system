@@ -8,14 +8,16 @@
     <!-- CSRF Token -->
     {#<meta name="csrf-token" content="{{ csrf_token() }}">#}
 
-    <title>Donation Bank Hub</title>
+    <title>coverd.io</title>
+
+    {% block stylesheets %}
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Styles -->
-
-    <link href="{{ asset('build/app.css') }}" rel="stylesheet">
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
 
 </head>
 <body class="skin-blue sidebar-mini">
@@ -24,8 +26,8 @@
 
         <!-- Branding Image -->
         <a class="logo" href="{{ url('app_home_home') }}">
-            <span class="logo-lg"><strong>Donation Bank Hub</strong></span>
-            <span class="logo-mini"><strong>HBi</strong></span>
+            <span class="logo-lg"><strong>COVERd</strong></span>
+            <span class="logo-mini"><strong>CVRd</strong></span>
         </a>
 
         <div class="navbar navbar-static-top">
@@ -37,19 +39,16 @@
             </a>
             <!-- Right Side Of Navbar -->
             <div class="navbar-custom-menu">
-                @if (!Auth::guest())
+                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                 <hb-userbar></hb-userbar>
-                @endif
+                {% endif %}
                 <ul class="nav navbar-nav">
                     <!-- Authentication Links -->
-                    @if (Auth::guest())
-                    <li><a href="{{ url('app_login_login') }}">Login</a></li>
-                    <!--<li><a href="{{ url('app_login_register') }}">Register</a></li>!-->
-                    @else
+                    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" id="user-dropdown" data-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false">
-                            {#{{ Auth::user()->getName() }}#}
+                            {{ app.user.email }}
                         </a>
 
                         <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="user-dropdown">
@@ -68,8 +67,11 @@
                                 {#{{ csrf_field() }}#}
                             </form>
                         </ul>
+                        {% else %}
+                            <li><a href="{{ url('app_login_login') }}">Login</a></li>
+                            <!--<li><a href="{{ url('app_login_register') }}">Register</a></li>!-->
+                        {% endif %}
                     </li>
-                    @endif
                 </ul>
             </div>
         </div>
@@ -78,8 +80,10 @@
         <hb-sidebar></hb-sidebar>
     </nav>
     <main class="content-wrapper">
+        {% block content %}
         <hb-exceptionpane :exceptions="exceptions"></hb-exceptionpane>
         <router-view></router-view>
+        {% endblock %}
     </main>
     <footer class="main-footer no-print">
         <strong>Copyright © <a href="https://happybottoms.org">HappyBottoms</a>.</strong> All rights

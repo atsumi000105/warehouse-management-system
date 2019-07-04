@@ -13,10 +13,10 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table(name="users")
  */
-class User extends CoreEntity implements UserInterface
+final class User extends CoreEntity implements UserInterface
 {
-    const ROLE_VIEW = "ROLE_USER_VIEW";
-    const ROLE_EDIT = "ROLE_USER_EDIT";
+    public const ROLE_VIEW = 'ROLE_USER_VIEW';
+    public const ROLE_EDIT = 'ROLE_USER_EDIT';
 
     /**
      * @ORM\Id()
@@ -52,6 +52,11 @@ class User extends CoreEntity implements UserInterface
      */
     private $password;
 
+    /**
+     * @var string The unhashed password
+     */
+    private $plainTextPassword;
+
     public function __construct($email)
     {
         $this->email = $email;
@@ -74,7 +79,7 @@ class User extends CoreEntity implements UserInterface
         return $this;
     }
 
-    public function getName() : Name
+    public function getName(): Name
     {
         return $this->name;
     }
@@ -82,13 +87,15 @@ class User extends CoreEntity implements UserInterface
     /**
      * @throws MissingMandatoryParametersException
      */
-    public function setName(Name $name) : void
+    public function setName(Name $name): self
     {
         if (!$name->isValid()) {
             throw new MissingMandatoryParametersException("Missing first and/or last name");
         }
 
         $this->name = $name;
+
+        return $this;
     }
 
     /**
@@ -104,7 +111,7 @@ class User extends CoreEntity implements UserInterface
     /**
      * @return Group[]
      */
-    public function getGroups() : array
+    public function getGroups(): array
     {
         return $this->groups->toArray();
     }
@@ -112,13 +119,15 @@ class User extends CoreEntity implements UserInterface
     /**
      * @param Group[]|Collection $groups
      */
-    public function setGroups($groups): void
+    public function setGroups($groups): self
     {
         if (is_array($groups)) {
             $groups = new ArrayCollection($groups);
         }
 
         $this->groups = $groups;
+
+        return $this;
     }
 
     /**
@@ -142,12 +151,34 @@ class User extends CoreEntity implements UserInterface
      */
     public function getPassword(): string
     {
-        return (string) $this->password;
+        return $this->password;
     }
 
-    public function setPassword(string $password): self
+    /**
+     * This method assumes that the $password is already encoded
+     *
+     * Once set, the plainTextPassword will be deleted.
+     *
+     * {@internal use self::setPlainTextPassword instead}
+     * @param string $encryptedPassword
+     * @return User
+     */
+    public function setPasswordFromEncrypted(string $encryptedPassword): self
     {
-        $this->password = $password;
+        $this->password = $encryptedPassword;
+        $this->plainTextPassword = null;
+
+        return $this;
+    }
+
+    public function getPlainTextPassword(): ?string
+    {
+        return $this->plainTextPassword;
+    }
+    public function setPlainTextPassword(string $plainTextPassword): self
+    {
+        $this->plainTextPassword = $plainTextPassword;
+        $this->password = null;
 
         return $this;
     }
@@ -155,17 +186,17 @@ class User extends CoreEntity implements UserInterface
     /**
      * @see UserInterface
      */
-    public function getSalt()
+    public function getSalt(): ?string
     {
-        // not needed when using the "bcrypt" algorithm in security.yaml
+        // not needed when using the "bcrypt" or "argon2i" algorithm in security.yaml
+        return null;
     }
 
     /**
      * @see UserInterface
      */
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+        $this->plainTextPassword = null;
     }
 }

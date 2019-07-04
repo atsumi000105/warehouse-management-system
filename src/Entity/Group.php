@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User Groups
@@ -45,13 +46,14 @@ class Group extends CoreEntity
 
     /**
      * @ORM\Column(type="string")
+     * @Assert\NotBlank
      *
      * @var string
      */
     protected $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="User", mappedBy="roles")
+     * @ORM\ManyToMany(targetEntity="User", mappedBy="groups")
      *
      * @var User $users
      */
@@ -59,6 +61,7 @@ class Group extends CoreEntity
 
     /**
      * @ORM\Column(type="json_array")
+     * @Assert\NotBlank
      *
      * @var array
      */

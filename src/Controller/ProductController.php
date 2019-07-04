@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * Class ProductController
@@ -63,15 +64,9 @@ class ProductController extends BaseController
      * @param Request $request
      * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request, ValidatorInterface $validator)
     {
         $params = $this->getParams($request);
-
-        // TODO: Get validation working (#2)
-//        $this->validate($request, [
-//            'name' => 'required',
-//        ]);
-
 
         $product = new Product($request->get('name'));
 
@@ -84,6 +79,8 @@ class ProductController extends BaseController
 
         // TODO: get permissions working (#1)
         // $this->checkEditPermissions($product);
+
+        $this->validate($product, $validator);
 
         $this->getEm()->persist($product);
         $this->getEm()->flush();

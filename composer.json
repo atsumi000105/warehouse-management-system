@@ -5,6 +5,7 @@
         "php": "^7.3.1",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "doctrine/annotations": "^1.6",
         "fightbulc/moment": "^1.26",
         "nelmio/cors-bundle": "^1.5",
         "phpoffice/phpspreadsheet": "^1.6",
@@ -16,24 +17,26 @@
         "symfony/framework-bundle": "*",
         "symfony/monolog-bundle": "^3.3",
         "symfony/orm-pack": "^1.0",
-        "symfony/security-bundle": "4.1.*",
+        "symfony/security-bundle": "*",
         "symfony/serializer-pack": "^1.0",
         "symfony/swiftmailer-bundle": "^3.2",
-        "symfony/templating": "4.1.*",
+        "symfony/templating": "*",
         "symfony/twig-bundle": "*",
+        "symfony/validator": "*",
         "symfony/webpack-encore-bundle": "^1.0",
         "symfony/yaml": "*"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.0",
         "fzaninotto/faker": "^1.8",
-        "phpstan/phpstan": "^0.11.5",
-        "phpstan/phpstan-doctrine": "^0.11.2",
-        "phpstan/phpstan-symfony": "^0.11.5",
+        "phpstan/phpstan-doctrine": "^0.11.5",
+        "phpstan/phpstan-shim": "^0.11.8",
+        "phpstan/phpstan-symfony": "^0.11.6",
         "squizlabs/php_codesniffer": "^3.4",
         "symfony/dotenv": "*",
         "symfony/maker-bundle": "^1.11",
         "symfony/profiler-pack": "^1.0",
+        "symfony/test-pack": "^1.0",
         "symfony/web-server-bundle": "*"
     },
     "config": {
@@ -84,7 +87,7 @@
     "extra": {
         "symfony": {
             "allow-contrib": false,
-            "require": "4.1.*"
+            "require": "4.3.*"
         }
     }
 }

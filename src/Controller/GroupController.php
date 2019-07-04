@@ -6,8 +6,11 @@ use App\Entity\Group;
 use App\Transformers\GroupTransformer;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * Class GroupController
@@ -54,20 +57,17 @@ class GroupController extends BaseController
      * @Route(path="", methods={"POST"})
      *
      * @param Request $request
+     * @param ValidatorInterface $validator
      * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request, ValidatorInterface $validator)
     {
-        // TODO: Get validation working (#2)
-//        $this->validate($request, [
-//            'name' => 'required',
-//            'permissions' => 'array',
-//        ]);
-
         $group = new Group();
 
         $params = $this->getParams($request);
         $group->applyChangesFromArray($params);
+
+        $this->validate($group, $validator);
 
         $this->getEm()->persist($group);
         $this->getEm()->flush();
@@ -126,7 +126,6 @@ class GroupController extends BaseController
      */
     public function listRoles()
     {
-
         $roles = Group::AVAILABLE_ROLES;
 
         return new JsonResponse($roles);
