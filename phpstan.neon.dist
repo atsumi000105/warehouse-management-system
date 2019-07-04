@@ -14,7 +14,7 @@ parameters:
           path: %rootDir%/../../../tests/
     level: 0
     symfony:
-        container_xml_path: %rootDir%/../../../var/cache/dev/srcDevDebugProjectContainer.xml
+        container_xml_path: %rootDir%/../../../var/cache/dev/srcApp_KernelDevDebugContainer.xml
         console_application_loader: %rootDir%/../../../tests/console-application.php
     paths:
         - %rootDir%/../../../src

@@ -6178,16 +6178,16 @@
         },
         {
             "name": "phpstan/phpstan-shim",
-            "version": "0.11.8",
+            "version": "0.11.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-shim.git",
-                "reference": "f71f7bc73849191e1d044e69f99046b58253054e"
+                "reference": "4504ed5bbf9e626ce62e9c426e6d6ea5f3f250d8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-shim/zipball/f71f7bc73849191e1d044e69f99046b58253054e",
-                "reference": "f71f7bc73849191e1d044e69f99046b58253054e",
+                "url": "https://api.github.com/repos/phpstan/phpstan-shim/zipball/4504ed5bbf9e626ce62e9c426e6d6ea5f3f250d8",
+                "reference": "4504ed5bbf9e626ce62e9c426e6d6ea5f3f250d8",
                 "shasum": ""
             },
             "require": {
@@ -6218,7 +6218,7 @@
                 "MIT"
             ],
             "description": "PHPStan Phar distribution",
-            "time": "2019-05-28T20:19:02+00:00"
+            "time": "2019-07-03T22:27:01+00:00"
         },
         {
             "name": "phpstan/phpstan-symfony",
