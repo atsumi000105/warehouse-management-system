@@ -8,11 +8,11 @@
             >
                 <template v-if="editable">
                     <hb-optionliststatic
-                            v-model="order"
-                            label="Status:"
-                            property="status"
-                            :preloaded-options="statuses"
-                            empty-string="-- Select Status --"
+                        v-model="order"
+                        label="Status:"
+                        property="status"
+                        :preloaded-options="statuses"
+                        empty-string="-- Select Status --"
                     />
                     <hb-fielderror v-if="statusError">
                         Field is required

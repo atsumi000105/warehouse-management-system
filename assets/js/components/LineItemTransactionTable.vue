@@ -1,38 +1,38 @@
 <template>
     <table class="table table-condensed table-bordered">
         <thead>
-        <tr class="bg-gray-light">
-            <th>Transaction ID</th>
-            <th>Storage Location</th>
-            <th>Product</th>
-            <th>Inventory Change</th>
-            <th>Cost</th>
-            <th>Status</th>
-        </tr>
+            <tr class="bg-gray-light">
+                <th>Transaction ID</th>
+                <th>Storage Location</th>
+                <th>Product</th>
+                <th>Inventory Change</th>
+                <th>Cost</th>
+                <th>Status</th>
+            </tr>
         </thead>
         <tbody>
-        <template v-for="transaction in transactions">
-            <tr>
-                <td>
-                    {{ transaction.id }}
-                </td>
-                <td>
-                    {{ transaction.storageLocation.title }}
-                </td>
-                <td>
-                    {{ transaction.product.name }}
-                </td>
-                <td>
-                    {{ transaction.delta }}
-                </td>
-                <td>
-                    {{ transaction.cost }}
-                </td>
-                <td>
-                    {{ transaction.isCommitted ? 'Committed' : "Pending" }}
-                </td>
-            </tr>
-        </template>
+            <template v-for="transaction in transactions">
+                <tr>
+                    <td>
+                        {{ transaction.id }}
+                    </td>
+                    <td>
+                        {{ transaction.storageLocation.title }}
+                    </td>
+                    <td>
+                        {{ transaction.product.name }}
+                    </td>
+                    <td>
+                        {{ transaction.delta }}
+                    </td>
+                    <td>
+                        {{ transaction.cost }}
+                    </td>
+                    <td>
+                        {{ transaction.isCommitted ? 'Committed' : "Pending" }}
+                    </td>
+                </tr>
+            </template>
         </tbody>
     </table>
 </template>

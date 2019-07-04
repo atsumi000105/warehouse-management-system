@@ -30,27 +30,27 @@
                     <div class="box-body no-padding">
                         <table class="table table-bordered table-responsive">
                             <thead>
-                            <tr>
-                                <th />
-                                <template v-for="product in products">
-                                    <th
+                                <tr>
+                                    <th />
+                                    <template v-for="product in products">
+                                        <th
                                             :class="{'text-black': isLight(product.color), 'text-white': !isLight(product.color)}"
                                             :style="'background-color:'+product.color+' !important;'"
                                             v-text="product.name"
-                                    />
-                                </template>
-                                <th>Total Packs</th>
-                            </tr>
+                                        />
+                                    </template>
+                                    <th>Total Packs</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>Packs</td>
-                                <td
-                                    v-for="product in products"
-                                    v-text="productTotals[product.name]"
-                                />
-                                <td v-text="totalPacks" />
-                            </tr>
+                                <tr>
+                                    <td>Packs</td>
+                                    <td
+                                        v-for="product in products"
+                                        v-text="productTotals[product.name]"
+                                    />
+                                    <td v-text="totalPacks" />
+                                </tr>
                             </tbody>
                         </table>
                     </div>

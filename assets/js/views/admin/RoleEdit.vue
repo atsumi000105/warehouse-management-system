@@ -5,7 +5,7 @@
                 class="btn btn-success btn-flat"
                 @click.prevent="save"
             >
-            <i class="fa fa-save fa-fw" />
+                <i class="fa fa-save fa-fw" />
                 Save Group
             </button>
             <div class="btn-group">

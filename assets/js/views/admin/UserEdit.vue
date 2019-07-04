@@ -23,7 +23,7 @@
                             @click.prevent="askDelete"
                         >
                             <i class="fa fa-trash fa-fw" />Delete User</a>
-                        </li>
+                    </li>
                 </ul>
             </div>
         </div>

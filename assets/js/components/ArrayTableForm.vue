@@ -14,41 +14,41 @@
         </button>
         <table class="table table-hover table-condensed">
             <thead>
-            <th
-                v-if="keyName"
-                v-text="keyName"
-            />
-            <th
-                v-if="valueName"
-                v-text="valueName"
-            />
+                <th
+                    v-if="keyName"
+                    v-text="keyName"
+                />
+                <th
+                    v-if="valueName"
+                    v-text="valueName"
+                />
             </thead>
             <tbody>
-            <tr
-                v-for="(val, key) in value"
-            >
-                <td
-                    v-if="keyName"
-                    v-text="key"
-                />
-                <td class="input-group input-group-sm">
-                    <input
-                        v-model="value[key]"
-                        type="text"
-                        class="form-control"
-                    >
-                    <span class="input-group-btn">
-                        <button
-                            type="button"
-                            class="btn btn-danger"
-                            title="Delete"
-                            @click="value.splice(key, 1)"
+                <tr
+                    v-for="(val, key) in value"
+                >
+                    <td
+                        v-if="keyName"
+                        v-text="key"
+                    />
+                    <td class="input-group input-group-sm">
+                        <input
+                            v-model="value[key]"
+                            type="text"
+                            class="form-control"
                         >
-                            <i class="fa fa-times" />
-                        </button>
-                    </span>
-                </td>
-            </tr>
+                        <span class="input-group-btn">
+                            <button
+                                type="button"
+                                class="btn btn-danger"
+                                title="Delete"
+                                @click="value.splice(key, 1)"
+                            >
+                                <i class="fa fa-times" />
+                            </button>
+                        </span>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>

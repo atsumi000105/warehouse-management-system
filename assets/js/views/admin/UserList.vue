@@ -30,14 +30,14 @@
                     <div class="box-body table-responsive no-padding">
                         <table class="table table-hover">
                             <thead>
-                            <tr>
-                                <th>User ID</th>
-                                <th>User Email</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Groups</th>
-                                <th>Last Updated</th>
-                            </tr>
+                                <tr>
+                                    <th>User ID</th>
+                                    <th>User Email</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Groups</th>
+                                    <th>Last Updated</th>
+                                </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="user in users.data">

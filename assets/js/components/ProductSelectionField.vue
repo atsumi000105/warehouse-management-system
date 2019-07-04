@@ -2,13 +2,13 @@
     <div>
         <div class="form-group">
             <hb-optionlist
-                    v-if="editable"
-                    ref="productSelect"
-                    v-model="value"
-                    label="Product:"
-                    :preloaded-options="allActiveProducts"
-                    display-property="name"
-                    empty-string="-- Select Product --"
+                v-if="editable"
+                ref="productSelect"
+                v-model="value"
+                label="Product:"
+                :preloaded-options="allActiveProducts"
+                display-property="name"
+                empty-string="-- Select Product --"
             />
             <span
                 v-else

@@ -21,28 +21,28 @@
             </div>
             <div class="col-xs-3">
                 <hb-partnerselectionform
-                        v-model="filters.partner"
-                        label="Partner"
+                    v-model="filters.partner"
+                    label="Partner"
                 />
             </div>
             <div class="col-xs-2">
                 <hb-optionlist
-                        v-model="filters"
-                        label="Partner Fulfillment Period"
-                        api-path="partners/fulfillment-periods"
-                        property="fulfillmentPeriod"
-                        display-property="name"
-                        empty-string="-- All Periods --"
+                    v-model="filters"
+                    label="Partner Fulfillment Period"
+                    api-path="partners/fulfillment-periods"
+                    property="fulfillmentPeriod"
+                    display-property="name"
+                    empty-string="-- All Periods --"
                 />
             </div>
 
             <div class="col-xs-2">
                 <hb-optionliststatic
-                        v-model="filters"
-                        label="Status"
-                        property="status"
-                        :preloaded-options="statuses"
-                        empty-string="-- All Statuses --"
+                    v-model="filters"
+                    label="Status"
+                    property="status"
+                    :preloaded-options="statuses"
+                    empty-string="-- All Statuses --"
                 />
                 <!-- /.input group -->
             </div>

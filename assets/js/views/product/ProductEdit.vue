@@ -64,7 +64,7 @@
                                 <select
                                     v-model="product.status"
                                     class="form-control"
-                                    >
+                                >
                                     <option value="ACTIVE">
                                         Active
                                     </option>
@@ -84,19 +84,19 @@
                                     class="form-control"
                                     placeholder="Enter product SKU"
                                 >
-                                    <p class="help-block">
-                                        This should match the SKU from the portal.
-                                    </p>
+                                <p class="help-block">
+                                    This should match the SKU from the portal.
+                                </p>
                             </div>
                             <div class="form-group">
                                 <label>Label Color</label>
 
-                                    <input
-                                        v-model="product.color"
-                                        v-colorpicker
-                                        type="text"
-                                        class="form-control colorpicker-element"
-                                    >
+                                <input
+                                    v-model="product.color"
+                                    v-colorpicker
+                                    type="text"
+                                    class="form-control colorpicker-element"
+                                >
 
                                 <p class="help-block">
                                     Click the color swatch on the right for a color picker.
@@ -232,19 +232,19 @@
                 </div>
             </div>
         </div>
-            <hb-modal
-                id="confirmModal"
-                :confirm-action="this.deleteProduct"
-                classes="modal-danger"
-            >
-                <template slot="header">
-                    Delete Product
-                </template>
-                <p>Are you sure you want to delete <strong>{{ product.title }}</strong>?</p>
-                <template slot="confirmButton">
-                    Delete Product
-                </template>
-            </hb-modal>
+        <hb-modal
+            id="confirmModal"
+            :confirm-action="this.deleteProduct"
+            classes="modal-danger"
+        >
+            <template slot="header">
+                Delete Product
+            </template>
+            <p>Are you sure you want to delete <strong>{{ product.title }}</strong>?</p>
+            <template slot="confirmButton">
+                Delete Product
+            </template>
+        </hb-modal>
     </section>
 </template>
 

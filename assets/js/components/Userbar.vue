@@ -23,8 +23,8 @@
                 >
                     <router-link :to="link.route">
                         <i
-                        class="fa"
-                        :class="'fa-' + link.icon"
+                            class="fa"
+                            :class="'fa-' + link.icon"
                         />
                         {{ link.title }}
                     </router-link>

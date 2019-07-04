@@ -19,7 +19,7 @@
                         v-if="menu.hasOwnProperty('links')"
                         class="pull-right-container"
                     >
-                      <i class="fa fa-angle-left pull-right" />
+                        <i class="fa fa-angle-left pull-right" />
                     </span>
                 </router-link>
                 <ul
@@ -31,8 +31,8 @@
                     >
                         <router-link :to="link.route">
                             <i
-                            class="fa"
-                            :class="'fa-' + link.icon"
+                                class="fa"
+                                :class="'fa-' + link.icon"
                             />
                             {{ link.title }}
                         </router-link>
