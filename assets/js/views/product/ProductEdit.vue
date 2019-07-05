@@ -91,11 +91,11 @@
                             <div class="form-group">
                                 <label>Product Color</label>
                                 <verte
-                                        v-model="product.color"
-                                        :enable-alpha="false"
-                                        :picker="'square'"
-                                        model="hex"
-                                        value="#3c8dbc"
+                                    v-model="product.color"
+                                    :enable-alpha="false"
+                                    :picker="'square'"
+                                    model="hex"
+                                    value="#3c8dbc"
                                 />
                                 <p class="help-block">
                                     Click the color swatch above for a color picker.
