@@ -2,6 +2,7 @@
     <div>
         <aside
             v-for="(exception, key) in exceptions"
+            :key="exception.id"
             class="alert alert-danger alert-dismissible"
         >
             <button
@@ -23,6 +24,7 @@
                 <ol>
                     <li
                         v-for="line in exception.trace"
+                        :key="line.id"
                     >
                         {{ line.file }}:{{ line.line }}
                     </li>

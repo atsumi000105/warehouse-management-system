@@ -32,12 +32,17 @@
                             <thead>
                                 <tr>
                                     <th />
-                                    <template v-for="product in products">
-                                        <th
-                                            :class="{'text-black': isLight(product.color), 'text-white': !isLight(product.color)}"
-                                            :style="'background-color:'+product.color+' !important;'"
-                                            v-text="product.name"
-                                        />
+                                    <template>
+                                        <div
+                                            v-for="product in products"
+                                            :key="product.id"
+                                        >
+                                            <th
+                                                :class="{'text-black': isLight(product.color), 'text-white': !isLight(product.color)}"
+                                                :style="'background-color:'+product.color+' !important;'"
+                                                v-text="product.name"
+                                            />
+                                        </div>
                                     </template>
                                     <th>Total Packs</th>
                                 </tr>
@@ -47,6 +52,7 @@
                                     <td>Packs</td>
                                     <td
                                         v-for="product in products"
+                                        :key="product.id"
                                         v-text="productTotals[product.name]"
                                     />
                                     <td v-text="totalPacks" />
@@ -73,12 +79,17 @@
                                 </tr>
                                 <tr>
                                     <th />
-                                    <template v-for="product in products">
-                                        <th
-                                            :class="{'text-black': isLight(product.color), 'text-white': !isLight(product.color)}"
-                                            :style="'background-color:'+product.color+' !important;'"
-                                            v-text="product.name"
-                                        />
+                                    <template>
+                                        <div
+                                            v-for="product in products"
+                                            :key="product.id"
+                                        >
+                                            <th
+                                                :class="{'text-black': isLight(product.color), 'text-white': !isLight(product.color)}"
+                                                :style="'background-color:'+product.color+' !important;'"
+                                                v-text="product.name"
+                                            />
+                                        </div>
                                     </template>
                                     <th>Total Packs</th>
                                 </tr>
@@ -86,10 +97,12 @@
                             <tbody>
                                 <tr
                                     v-for="(bag, index) in order.bags"
+                                    :key="bag.id"
                                 >
                                     <th>Bag {{ index + 1 }}</th>
                                     <td
                                         v-for="product in products"
+                                        :key="product.id"
                                         v-text="packCountFromProduct(bag, product.name)"
                                     />
                                     <td v-text="bag.totalPacks" />

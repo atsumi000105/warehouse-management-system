@@ -38,7 +38,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="role in groups.data">
+                                <tr
+                                    v-for="role in groups.data"
+                                    :key="role.id"
+                                >
                                     <td>
                                         <router-link :to="'/admin/groups/' + role.id">
                                             <i class="fa fa-edit" />{{ role.id }}

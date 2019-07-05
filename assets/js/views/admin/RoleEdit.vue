@@ -67,7 +67,10 @@
                                 <i class="icon fa fa-lock fa-fw" />Roles
                             </h3>
                             <div class="box-body">
-                                <div v-for="role in roles">
+                                <div
+                                    v-for="role in roles"
+                                    :key="role.id"
+                                >
                                     <input
                                         :id="role"
                                         v-model="group.roles"

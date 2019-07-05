@@ -38,7 +38,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="listOption in listOptions.data">
+                                <tr
+                                    v-for="listOption in listOptions.data"
+                                    :key="listOption.id"
+                                >
                                     <td>
                                         <router-link :to="'/' + apiPath + '/' + listOption.id">
                                             <i class="fa fa-edit" />{{ listOption.id }}

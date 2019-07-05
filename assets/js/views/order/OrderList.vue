@@ -39,7 +39,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="order in orders.data">
+                                <tr
+                                    v-for="order in orders.data"
+                                    :key="order.id"
+                                >
                                     <td>
                                         <router-link :to="'/orders/' + order.id">
                                             <i class="fa fa-edit" />{{ order.id }}

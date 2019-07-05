@@ -26,6 +26,7 @@
             <tbody>
                 <tr
                     v-for="(val, key) in value"
+                    :key="val.id"
                 >
                     <td
                         v-if="keyName"

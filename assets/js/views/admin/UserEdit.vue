@@ -89,7 +89,10 @@
                                 <i class="icon fa fa-lock fa-fw" />Groups
                             </h3>
                             <div class="box-body">
-                                <div v-for="sysGroup in sysGroups">
+                                <div
+                                    v-for="sysGroup in sysGroups"
+                                    :key="sysGroup.id"
+                                >
                                     <input
                                         :id="sysGroup.id"
                                         v-model="user.groups"

@@ -1,11 +1,16 @@
 <template>
     <section class="content">
-        <template v-for="order in orders">
-            <hb-fillsheet
-                :order="order"
-                :products="products"
-            />
-            <div class="page-break-after" />
+        <template>
+            <div
+                v-for="order in orders"
+                :key="order.id"
+            >
+                <hb-fillsheet
+                    :order="order"
+                    :products="products"
+                />
+                <div class="page-break-after" />
+            </div>
         </template>
     </section>
 </template>

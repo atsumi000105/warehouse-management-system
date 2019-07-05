@@ -41,7 +41,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="partner in partners.data">
+                                <tr
+                                    v-for="partner in partners.data"
+                                    :key="partner.id"
+                                >
                                     <td>
                                         <router-link :to="'/partners/' + partner.id">
                                             <i class="fa fa-edit" />{{ partner.id }}

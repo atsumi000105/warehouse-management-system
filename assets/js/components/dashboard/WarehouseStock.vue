@@ -27,6 +27,7 @@
             <tbody>
                 <tr
                     v-for="product in products"
+                    :key="product.id"
                 >
                     <td>
                         <router-link

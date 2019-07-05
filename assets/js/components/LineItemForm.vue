@@ -20,18 +20,21 @@
                 Cost
             </h4>
         </div>
-        <template
-            v-for="product in products"
-            v-if="findLineItem(product)"
-        >
-            <hr>
-            <hb-lineitemformrow
-                :line-item="findLineItem(product)"
-                :show-cost="showCost"
-                :editable="editable"
-                :show-packs="showPacks"
-                :partner-type="partnerType"
-            />
+        <template>
+            <div
+                v-for="product in products"
+                v-if="findLineItem(product)"
+                :key="product.id"
+            >
+                <hr>
+                <hb-lineitemformrow
+                    :line-item="findLineItem(product)"
+                    :show-cost="showCost"
+                    :editable="editable"
+                    :show-packs="showPacks"
+                    :partner-type="partnerType"
+                />
+            </div>
         </template>
     </div>
 </template>

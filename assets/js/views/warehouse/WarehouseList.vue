@@ -38,7 +38,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="warehouse in warehouses.data">
+                                <tr
+                                    v-for="warehouse in warehouses.data"
+                                    :key="warehouse.id"
+                                >
                                     <td>
                                         <router-link :to="'/warehouses/' + warehouse.id">
                                             <i class="fa fa-edit" />{{ warehouse.id }}

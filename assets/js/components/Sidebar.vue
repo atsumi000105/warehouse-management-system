@@ -6,6 +6,7 @@
         >
             <li
                 v-for="menu in navigation"
+                :key="menu.id"
                 :class="{treeview: menu.hasOwnProperty('links')}"
             >
                 <router-link :to="menu.route || '#'">
@@ -28,6 +29,7 @@
                 >
                     <li
                         v-for="link in menu.links"
+                        :key="link.id"
                     >
                         <router-link :to="link.route">
                             <i

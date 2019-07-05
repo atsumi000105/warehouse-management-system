@@ -78,7 +78,10 @@
                                     class="dropdown-menu"
                                     role="menu"
                                 >
-                                    <li v-for="status in statuses">
+                                    <li
+                                        v-for="status in statuses"
+                                        :key="status.id"
+                                    >
                                         <a @click="bulkStatusChange(status.id)">Change Status to <strong>{{ status.name }}</strong></a>
                                     </li>
                                     <li class="divider" />

@@ -20,6 +20,7 @@
             >
                 <li
                     v-for="link in links"
+                    :key="link.id"
                 >
                     <router-link :to="link.route">
                         <i
