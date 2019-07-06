@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\LineItem;
 use App\Entity\Order;
+use App\Exception\CommittedTransactionException;
 use App\Transformers\OrderTransformer;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\ParameterBag;
@@ -262,7 +263,7 @@ class OrderController extends BaseController
     protected function checkEditable(Order $order)
     {
         if (!$order->isEditable()) {
-            throw new PermissionDeniedException(
+            throw new CommittedTransactionException(
                 sprintf(
                     'Order %d has committed transactions and cannot be edited. Please enter a correction order.',
                     $order->getId()
