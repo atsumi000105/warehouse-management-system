@@ -23,17 +23,18 @@
         <template>
             <div
                 v-for="product in products"
-                v-if="findLineItem(product)"
                 :key="product.id"
             >
-                <hr>
-                <hb-lineitemformrow
-                    :line-item="findLineItem(product)"
-                    :show-cost="showCost"
-                    :editable="editable"
-                    :show-packs="showPacks"
-                    :partner-type="partnerType"
-                />
+                <div v-if="findLineItem(product)">
+                    <hr>
+                    <hb-lineitemformrow
+                        :line-item="findLineItem(product)"
+                        :show-cost="showCost"
+                        :editable="editable"
+                        :show-packs="showPacks"
+                        :partner-type="partnerType"
+                    />
+                </div>
             </div>
         </template>
     </div>
