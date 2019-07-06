@@ -132,8 +132,8 @@
                         ids: self.selection,
                     })
                     .then(response => {
-                        self.$refs.hbtable.refresh(),
-                        self.$refs.hbtable.clearSelected()
+                        self.$refs.hbtable.clearSelected();
+                        self.$refs.hbtable.refresh();
                     })
                     .catch(function (error) {
                         console.log(error);
