@@ -1,5 +1,3 @@
-<template />
-
 <script>
 export default {
     name: 'InventoryChangeChart',
@@ -87,5 +85,3 @@ export default {
     },
 };
 </script>
-
-<style scoped></style>
