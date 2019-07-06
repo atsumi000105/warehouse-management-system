@@ -185,7 +185,8 @@ class OrderController extends BaseController
      */
     public function bulkDelete(Request $request)
     {
-        $ids = $request->get('ids');
+        $params = $this->getParams($request);
+        $ids = $params['ids'] ?? null;
 
         /** @var Order[] $orders */
         $orders = $this->getRepository()->findBy(['id' => $ids]);

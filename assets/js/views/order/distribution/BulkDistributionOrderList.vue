@@ -128,7 +128,7 @@
             doBulkDelete () {
                 let self = this;
                 axios
-                    .patch('/api/orders/bulk-distribution/bulk-delete', {
+                    .patch('/api/orders/distribution/bulk-delete', {
                         ids: self.selection,
                     })
                     .then(response => {
