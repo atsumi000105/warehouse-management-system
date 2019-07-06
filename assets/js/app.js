@@ -41,8 +41,6 @@ Vue.component('hb-lineitemformrow', require('./components/LineItemFormRow.vue').
 Vue.component('hb-lineitemtransactions', require('./components/LineItemTransactionTable.vue').default);
 Vue.component('hb-productselection', require('./components/ProductSelectionField.vue').default);
 Vue.component('hb-storagelocationselectionform', require('./components/StorageLocationSelectionForm.vue').default);
-Vue.component('hb-warehouseselectionform', require('./components/WarehouseSelectionForm.vue').default);
-Vue.component('hb-partnerselectionform', require('./components/PartnerSelectionForm.vue').default);
 Vue.component('hb-supplierselectionform', require('./components/SupplierSelectionForm.vue').default);
 Vue.component('hb-tablepaged', require('./components/TablePaged.vue').default);
 Vue.component('hb-fillsheet', require('./components/FillSheet.vue').default);
