@@ -121,15 +121,8 @@
 </template>
 
 <script>
-    import moment from 'moment';
-    import Vuetable from 'vuetable-2/src/components/Vuetable.vue'
-    import VuetablePagination from 'vuetable-2/src/components/VuetablePagination.vue'
 
     export default {
-        components: {
-            Vuetable,
-            VuetablePagination
-        },
         props:[],
         data() {
             return {
