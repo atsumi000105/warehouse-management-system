@@ -26,7 +26,7 @@
                         </a>
                     </li>
                     <li>
-                        <router-link :to="&quot;/orders/partner/&quot; + order.id + &quot;/fill-sheet&quot;">
+                        <router-link :to="'/orders/partner/' + order.id + '/fill-sheet'">
                             <i class="fa fa-print fa-fw" />Print Fill Sheet
                         </router-link>
                     </li>

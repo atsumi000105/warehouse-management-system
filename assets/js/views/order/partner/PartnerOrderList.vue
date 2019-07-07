@@ -86,7 +86,7 @@
                                     </li>
                                     <li class="divider" />
                                     <li>
-                                        <router-link :to="&quot;/orders/partner/bulk-fill-sheet/&quot; + selection.join(&quot;,&quot;)">
+                                        <router-link :to="'/orders/partner/bulk-fill-sheet/' + selection.join(',')">
                                             <i class="fa fa-print fa-fw" />Print Fill Sheets
                                         </router-link>
                                     </li>
