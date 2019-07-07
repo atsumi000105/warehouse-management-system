@@ -142,6 +142,17 @@ class ProductController extends BaseController
     }
 
     /**
+     * @Route(path="/list-options", methods={"GET"})
+     * @return JsonResponse
+     */
+    public function listOptions(Request $request)
+    {
+        $products = $this->getRepository()->findAll();
+
+        return $this->serialize($request, $products, new ProductOptionTransformer());
+    }
+
+    /**
      * Get current inventory stats for the give product
      *
      * @Route(path="/{id<\d+>}/inventory")
