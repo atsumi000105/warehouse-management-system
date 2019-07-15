@@ -93,7 +93,6 @@
                         >
                             <div
                                 v-if="!contact.isDeleted"
-                                :key="contact.id"
                                 class="box box-info"
                             >
                                 <div class="box-header with-border">
@@ -116,7 +115,6 @@
                             </div>
                             <div
                                 v-else=""
-                                :key="contact.id"
                                 class="box box-danger bg-gray"
                             >
                                 <div class="box-header">
