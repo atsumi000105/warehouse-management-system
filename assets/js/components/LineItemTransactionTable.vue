@@ -11,8 +11,11 @@
             </tr>
         </thead>
         <tbody>
-            <template v-for="transaction in transactions">
-                <tr :key="transaction.id">
+            <template>
+                <tr
+                    v-for="transaction in transactions"
+                    :key="transaction.id"
+                >
                     <td>
                         {{ transaction.id }}
                     </td>
