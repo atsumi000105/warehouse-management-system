@@ -32,18 +32,13 @@
                             <thead>
                                 <tr>
                                     <th />
-                                    <template>
-                                        <div
-                                            v-for="product in products"
-                                            :key="product.id"
-                                        >
-                                            <th
-                                                :class="{'text-black': isLight(product.color), 'text-white': !isLight(product.color)}"
-                                                :style="'background-color:'+product.color+' !important;'"
-                                                v-text="product.name"
-                                            />
-                                        </div>
-                                    </template>
+                                    <th
+                                        v-for="product in products"
+                                        :key="product.id"
+                                        :class="{'text-black': isLight(product.color), 'text-white': !isLight(product.color)}"
+                                        :style="'background-color:'+product.color+' !important;'"
+                                        v-text="product.name"
+                                    />
                                     <th>Total Packs</th>
                                 </tr>
                             </thead>
@@ -79,18 +74,13 @@
                                 </tr>
                                 <tr>
                                     <th />
-                                    <template>
-                                        <div
-                                            v-for="product in products"
-                                            :key="product.id"
-                                        >
-                                            <th
-                                                :class="{'text-black': isLight(product.color), 'text-white': !isLight(product.color)}"
-                                                :style="'background-color:'+product.color+' !important;'"
-                                                v-text="product.name"
-                                            />
-                                        </div>
-                                    </template>
+                                    <th
+                                        v-for="product in products"
+                                        :key="product.id"
+                                        :class="{'text-black': isLight(product.color), 'text-white': !isLight(product.color)}"
+                                        :style="'background-color:'+product.color+' !important;'"
+                                        v-text="product.name"
+                                    />
                                     <th>Total Packs</th>
                                 </tr>
                             </thead>

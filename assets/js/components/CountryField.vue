@@ -6,17 +6,12 @@
             v-chosen
             class="form-control"
         >
-            <template>
-                <div
-                    v-for="c in countries"
-                    :key="c.id"
-                >
-                    <option
-                        :value="c"
-                        v-text="c"
-                    />
-                </div>
-            </template>
+            <option
+                v-for="c in countries"
+                :key="c.id"
+                :value="c"
+                v-text="c"
+            />
         </select>
     </div>
 </template>

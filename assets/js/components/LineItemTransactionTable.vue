@@ -11,31 +11,29 @@
             </tr>
         </thead>
         <tbody>
-            <template>
-                <tr
-                    v-for="transaction in transactions"
-                    :key="transaction.id"
-                >
-                    <td>
-                        {{ transaction.id }}
-                    </td>
-                    <td>
-                        {{ transaction.storageLocation.title }}
-                    </td>
-                    <td>
-                        {{ transaction.product.name }}
-                    </td>
-                    <td>
-                        {{ transaction.delta }}
-                    </td>
-                    <td>
-                        {{ transaction.cost }}
-                    </td>
-                    <td>
-                        {{ transaction.isCommitted ? 'Committed' : "Pending" }}
-                    </td>
-                </tr>
-            </template>
+            <tr
+                v-for="transaction in transactions"
+                :key="transaction.id"
+            >
+                <td>
+                    {{ transaction.id }}
+                </td>
+                <td>
+                    {{ transaction.storageLocation.title }}
+                </td>
+                <td>
+                    {{ transaction.product.name }}
+                </td>
+                <td>
+                    {{ transaction.delta }}
+                </td>
+                <td>
+                    {{ transaction.cost }}
+                </td>
+                <td>
+                    {{ transaction.isCommitted ? 'Committed' : "Pending" }}
+                </td>
+            </tr>
         </tbody>
     </table>
 </template>
