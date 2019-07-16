@@ -4,15 +4,15 @@ namespace App\Listener;
 
 use App\Exception\UserInterfaceException;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
+use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 
 class ExceptionListener
 {
-    public function onKernelException(GetResponseForExceptionEvent $event)
+    public function onKernelException(ExceptionEvent $event)
     {
         $exception = $event->getException();
 
-        if (!$exception instanceof UserInterfaceException) {
+        if (!in_array('application/json', $event->getRequest()->getAcceptableContentTypes())) {
             return;
         }
 
