@@ -19,11 +19,9 @@ class ExceptionListener
         $code = $exception instanceof UserInterfaceException ? 400 : 500;
 
         $responseData = [
-//            'error' => [
-                'code' => $code,
-                'message' => $exception->getMessage(),
-                'trace' => $exception->getTrace(),
-//            ]
+            'code' => $code,
+            'message' => $exception->getMessage(),
+            'trace' => $exception->getTrace(),
         ];
 
         $event->setResponse(new JsonResponse($responseData, $code));
