@@ -2,9 +2,9 @@
     <div class="form-group">
         <label>State/Province</label>
         <select
-                v-model="address.state"
-                v-chosen
-                class="form-control"
+            v-model="address.state"
+            v-chosen
+            class="form-control"
         >
             <option value="AL">
                 Alabama

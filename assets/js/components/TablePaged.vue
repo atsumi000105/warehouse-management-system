@@ -22,7 +22,7 @@
             <template
                 slot="link"
                 slot-scope="props"
-                >
+            >
                 <router-link :to="editRoute + props.rowData.id">
                     <i class="fa fa-edit" />{{ props.rowData.id }}
                 </router-link>
@@ -51,7 +51,7 @@
                         prev: 'fa fa-angle-left',
                         next: 'fa fa-angle-right',
                         last: 'fa fa-angle-double-right',
-                     }
+                    }
                 }"
                 @vuetable-pagination:change-page="onChangePage"
             />

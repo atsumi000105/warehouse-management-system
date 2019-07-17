@@ -6,6 +6,7 @@
         >
             <li
                 v-for="menu in navigation"
+                :key="menu.id"
                 :class="{treeview: menu.hasOwnProperty('links')}"
             >
                 <router-link :to="menu.route || '#'">
@@ -19,7 +20,7 @@
                         v-if="menu.hasOwnProperty('links')"
                         class="pull-right-container"
                     >
-                      <i class="fa fa-angle-left pull-right" />
+                        <i class="fa fa-angle-left pull-right" />
                     </span>
                 </router-link>
                 <ul
@@ -28,11 +29,12 @@
                 >
                     <li
                         v-for="link in menu.links"
+                        :key="link.id"
                     >
                         <router-link :to="link.route">
                             <i
-                            class="fa"
-                            :class="'fa-' + link.icon"
+                                class="fa"
+                                :class="'fa-' + link.icon"
                             />
                             {{ link.title }}
                         </router-link>

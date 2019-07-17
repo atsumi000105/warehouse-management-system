@@ -15,6 +15,7 @@
             />
             <option
                 v-for="item in options"
+                :key="item.id"
                 :selected="value.id == item.id"
                 :value="item.id"
                 v-text="item[displayProperty]"
@@ -33,11 +34,13 @@
                 v-text="emptyOption"
             />
             <optgroup
-                v-for="(group, label) in options"
+                v-for="group in options"
+                :key="group.id"
                 :label="label"
             >
                 <option
                     v-for="item in group"
+                    :key="item.id"
                     :selected="value[property] == item.id"
                     :value="item.id"
                     v-text="item[displayProperty]"

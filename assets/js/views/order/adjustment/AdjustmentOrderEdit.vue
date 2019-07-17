@@ -19,8 +19,8 @@
                 <ul class="dropdown-menu dropdown-menu-right">
                     <li v-if="order.isDeletable">
                         <a
-                        href="#"
-                        @click.prevent="askDelete"
+                            href="#"
+                            @click.prevent="askDelete"
                         >
                             <i class="fa fa-trash fa-fw" />Delete Order
                         </a>

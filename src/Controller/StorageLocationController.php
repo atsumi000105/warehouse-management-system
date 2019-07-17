@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\InventoryTransaction;
 use App\Entity\StorageLocation;
+use App\Exception\NotFoundApiException;
 use App\Transformers\StorageLocationOptionTransformer;
 use App\Transformers\StorageLocationTransformer;
 use Symfony\Component\HttpFoundation\JsonResponse;

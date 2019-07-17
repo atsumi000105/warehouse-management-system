@@ -30,17 +30,20 @@
                     <div class="box-body table-responsive no-padding">
                         <table class="table table-hover">
                             <thead>
-                            <tr>
-                                <th>User ID</th>
-                                <th>User Email</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Groups</th>
-                                <th>Last Updated</th>
-                            </tr>
+                                <tr>
+                                    <th>User ID</th>
+                                    <th>User Email</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Groups</th>
+                                    <th>Last Updated</th>
+                                </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="user in users.data">
+                                <tr
+                                    v-for="user in users.data"
+                                    :key="user.id"
+                                >
                                     <td>
                                         <router-link :to="'/admin/users/' + user.id">
                                             <i class="fa fa-edit" />{{ user.id }}
@@ -51,7 +54,10 @@
                                     <td v-text="user.name.lastName" />
                                     <td>
                                         <ul class="bulletless-list">
-                                            <li v-for="group in user.groups">
+                                            <li
+                                                v-for="group in user.groups"
+                                                :key="group.id"
+                                            >
                                                 {{ group.name }}
                                             </li>
                                         </ul>

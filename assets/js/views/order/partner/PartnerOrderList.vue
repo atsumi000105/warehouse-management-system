@@ -21,28 +21,28 @@
             </div>
             <div class="col-xs-3">
                 <hb-partnerselectionform
-                        v-model="filters.partner"
-                        label="Partner"
+                    v-model="filters.partner"
+                    label="Partner"
                 />
             </div>
             <div class="col-xs-2">
                 <hb-optionlist
-                        v-model="filters"
-                        label="Partner Fulfillment Period"
-                        api-path="partners/fulfillment-periods"
-                        property="fulfillmentPeriod"
-                        display-property="name"
-                        empty-string="-- All Periods --"
+                    v-model="filters"
+                    label="Partner Fulfillment Period"
+                    api-path="partners/fulfillment-periods"
+                    property="fulfillmentPeriod"
+                    display-property="name"
+                    empty-string="-- All Periods --"
                 />
             </div>
 
             <div class="col-xs-2">
                 <hb-optionliststatic
-                        v-model="filters"
-                        label="Status"
-                        property="status"
-                        :preloaded-options="statuses"
-                        empty-string="-- All Statuses --"
+                    v-model="filters"
+                    label="Status"
+                    property="status"
+                    :preloaded-options="statuses"
+                    empty-string="-- All Statuses --"
                 />
                 <!-- /.input group -->
             </div>
@@ -78,12 +78,15 @@
                                     class="dropdown-menu"
                                     role="menu"
                                 >
-                                    <li v-for="status in statuses">
+                                    <li
+                                        v-for="status in statuses"
+                                        :key="status.id"
+                                    >
                                         <a @click="bulkStatusChange(status.id)">Change Status to <strong>{{ status.name }}</strong></a>
                                     </li>
                                     <li class="divider" />
                                     <li>
-                                        <router-link :to="&quot;/orders/partner/bulk-fill-sheet/&quot; + selection.join(&quot;,&quot;)">
+                                        <router-link :to="'/orders/partner/bulk-fill-sheet/' + selection.join(',')">
                                             <i class="fa fa-print fa-fw" />Print Fill Sheets
                                         </router-link>
                                     </li>
@@ -118,15 +121,8 @@
 </template>
 
 <script>
-    import moment from 'moment';
-    import Vuetable from 'vuetable-2/src/components/Vuetable.vue'
-    import VuetablePagination from 'vuetable-2/src/components/VuetablePagination.vue'
 
     export default {
-        components: {
-            Vuetable,
-            VuetablePagination
-        },
         props:[],
         data() {
             return {

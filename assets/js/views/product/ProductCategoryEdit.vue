@@ -18,8 +18,8 @@
                 <ul class="dropdown-menu dropdown-menu-right">
                     <li>
                         <a
-                        href="#"
-                        @click.prevent="askDelete"
+                            href="#"
+                            @click.prevent="askDelete"
                         >
                             <i class="fa fa-trash fa-fw" />Delete {{ name }}
                         </a>

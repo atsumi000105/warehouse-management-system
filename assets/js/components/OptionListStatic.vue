@@ -13,6 +13,7 @@
                 />
                 <option
                     v-for="item in options"
+                    :key="item.id"
                     :selected="value[property] == item.id"
                     :value="item.id"
                     v-text="displayText(item)"
@@ -30,6 +31,7 @@
                 />
                 <option
                     v-for="item in options"
+                    :key="item.id"
                     :selected="value[property] == item.id"
                     :value="item.id"
                     v-text="displayText(item)"

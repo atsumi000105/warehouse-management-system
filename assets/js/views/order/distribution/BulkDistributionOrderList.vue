@@ -31,7 +31,10 @@
                                     class="dropdown-menu"
                                     role="menu"
                                 >
-                                    <li v-for="status in statuses">
+                                    <li
+                                        v-for="status in statuses"
+                                        :key="status.id"
+                                    >
                                         <a @click="bulkStatusChange(status.id)">Change Status to <strong>{{ status.name }}</strong></a>
                                     </li>
                                     <li class="divider" />
@@ -125,12 +128,12 @@
             doBulkDelete () {
                 let self = this;
                 axios
-                    .patch('/api/orders/bulk-distribution/bulk-delete', {
+                    .patch('/api/orders/distribution/bulk-delete', {
                         ids: self.selection,
                     })
                     .then(response => {
-                        self.$refs.hbtable.refresh(),
-                        self.$refs.hbtable.clearSelected()
+                        self.$refs.hbtable.clearSelected();
+                        self.$refs.hbtable.refresh();
                     })
                     .catch(function (error) {
                         console.log(error);
