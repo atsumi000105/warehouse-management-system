@@ -39,13 +39,10 @@ class UserController extends BaseController
      * Get a single User
      *
      * @Route(path="/{id<\d+>}", methods={"GET"})
-     *
-     * @param $id
-     * @return JsonResponse
      */
-    public function show(Request $request, string $id) : JsonResponse
+    public function show(Request $request, string $id): JsonResponse
     {
-        $user = $this->getRepository()->find($id);
+        $user = $this->getUserById($id);
 
 //        $this->checkViewPermissions($user);
 
@@ -145,12 +142,7 @@ class UserController extends BaseController
         return new UserTransformer;
     }
 
-    /**
-     * @param $id
-     * @return null|User
-     * @throws NotFoundHttpException
-     */
-    protected function getUserById($id) : ?User
+    protected function getUserById($id): User
     {
         /** @var User $user */
         $user = $this->getRepository()->find($id);

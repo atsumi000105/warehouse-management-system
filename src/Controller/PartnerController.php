@@ -6,6 +6,7 @@ use App\Entity\Partner;
 use App\Transformers\PartnerTransformer;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -30,13 +31,10 @@ class PartnerController extends StorageLocationController
 
     /**
      * @Route("/{id<\d+>}", methods={"GET"})
-     *
-     * @param Request $request
-     * @return JsonResponse
      */
-    public function show(Request $request, int $id)
+    public function show(Request $request, int $id): JsonResponse
     {
-        $partner = $this->getRepository(Partner::class)->find($id);
+        $partner = $this->getPartnerById($id);
 
         return $this->serialize($request, $partner);
     }
@@ -44,5 +42,17 @@ class PartnerController extends StorageLocationController
     protected function getDefaultTransformer()
     {
         return new PartnerTransformer;
+    }
+
+    protected function getPartnerById($id): Partner
+    {
+        /** @var Partner $partner */
+        $partner = $this->getRepository()->find($id);
+
+        if (!$partner) {
+            throw new NotFoundHttpException(sprintf('Unknown Partner ID: %d', $id));
+        }
+
+        return $partner;
     }
 }
