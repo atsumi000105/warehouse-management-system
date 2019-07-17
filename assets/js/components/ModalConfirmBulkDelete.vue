@@ -11,6 +11,7 @@
         <ul>
             <li
                 v-for="item in items"
+                :key="item.id"
                 v-text="item"
             />
         </ul>

@@ -2,13 +2,13 @@
     <div>
         <div class="form-group">
             <hb-optionlist
-                    v-if="editable"
-                    ref="supplierSelect"
-                    v-model="value"
-                    :preloaded-options="allActiveSuppliers"
-                    display-property="title"
-                    empty-string="-- Select Supplier --"
-                    :label="label"
+                v-if="editable"
+                ref="supplierSelect"
+                v-model="value"
+                :preloaded-options="allActiveSuppliers"
+                display-property="title"
+                empty-string="-- Select Supplier --"
+                :label="label"
             />
             <span
                 v-else
@@ -20,11 +20,11 @@
             class="form-group"
         >
             <hb-optionlist
-                    v-if="editable"
-                    v-model="addressValue"
-                    :preloaded-options="supplierAddresses"
-                    display-property="optionList"
-                    empty-string="-- Select Supplier Address --"
+                v-if="editable"
+                v-model="addressValue"
+                :preloaded-options="supplierAddresses"
+                display-property="optionList"
+                empty-string="-- Select Supplier Address --"
             />
             <!-- text input -->
             <hb-address

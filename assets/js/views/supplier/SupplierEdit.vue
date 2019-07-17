@@ -90,48 +90,53 @@
                         <!-- /.box-body -->
                     </div>
 
-                    <template v-for="(address, key) in supplier.addresses">
+                    <template>
                         <div
-                            v-if="!address.isDeleted"
-                            class="box box-info"
+                            v-for="address in supplier.addresses"
+                            :key="address.id"
                         >
-                            <div class="box-header with-border">
-                                <button
-                                    class="btn btn-xs btn-danger btn-flat pull-right"
-                                    title="Remove Address"
-                                    @click.prevent="address.isDeleted = true"
-                                >
-                                    <i class="fa fa-trash fa-fw" />
-                                </button>
-                                <h3 class="box-title">
-                                    <i class="icon fa fa-map-marker fa-fw" />{{ address.title }}
-                                </h3>
-                            </div>
-                            <!-- /.box-header -->
-                            <div class="box-body">
-                                <!-- text input -->
-                                <hb-addressform
-                                    :address="address"
-                                    :has-title="true"
-                                />
-                            </div>
+                            <div
+                                v-if="!address.isDeleted"
+                                class="box box-info"
+                            >
+                                <div class="box-header with-border">
+                                    <button
+                                        class="btn btn-xs btn-danger btn-flat pull-right"
+                                        title="Remove Address"
+                                        @click.prevent="address.isDeleted = true"
+                                    >
+                                        <i class="fa fa-trash fa-fw" />
+                                    </button>
+                                    <h3 class="box-title">
+                                        <i class="icon fa fa-map-marker fa-fw" />{{ address.title }}
+                                    </h3>
+                                </div>
+                                <!-- /.box-header -->
+                                <div class="box-body">
+                                    <!-- text input -->
+                                    <hb-addressform
+                                        :address="address"
+                                        :has-title="true"
+                                    />
+                                </div>
                             <!-- /.box-body -->
-                        </div>
-                        <div
-                            v-else=""
-                            class="box box-danger bg-gray"
-                        >
-                            <div class="box-header">
-                                <button
-                                    class="btn btn-xs btn-info btn-flat pull-right"
-                                    title="Undo Delete"
-                                    @click.prevent="address.isDeleted = false"
-                                >
-                                    <i class="fa fa-undo fa-fw" />
-                                </button>
-                                <h3 class="box-title">
-                                    <i class="icon fa fa-trash fa-fw" />Marked for deletion: {{ address.title }}
-                                </h3>
+                            </div>
+                            <div
+                                v-else=""
+                                class="box box-danger bg-gray"
+                            >
+                                <div class="box-header">
+                                    <button
+                                        class="btn btn-xs btn-info btn-flat pull-right"
+                                        title="Undo Delete"
+                                        @click.prevent="address.isDeleted = false"
+                                    >
+                                        <i class="fa fa-undo fa-fw" />
+                                    </button>
+                                    <h3 class="box-title">
+                                        <i class="icon fa fa-trash fa-fw" />Marked for deletion: {{ address.title }}
+                                    </h3>
+                                </div>
                             </div>
                         </div>
                     </template>
@@ -144,44 +149,49 @@
                 </div>
 
                 <div class="col-md-6">
-                    <template v-for="(contact, key) in supplier.contacts">
+                    <template>
                         <div
-                            v-if="!contact.isDeleted"
-                            class="box box-info"
+                            v-for="contact in supplier.contacts"
+                            :key="contact.id"
                         >
-                            <div class="box-header with-border">
-                                <button
-                                    class="btn btn-xs btn-danger btn-flat pull-right"
-                                    title="Remove Contact"
-                                    @click.prevent="contact.isDeleted = true"
-                                >
-                                    <i class="fa fa-trash fa-fw" />
-                                </button>
-                                <h3 class="box-title">
-                                    <i class="icon fa fa-user fa-fw" />{{ contact.firstName }} {{ contact.lastName }}
-                                </h3>
-                            </div>
-                            <!-- /.box-header -->
-                            <div class="box-body">
-                                <hb-contact :contact="contact" />
-                            </div>
+                            <div
+                                v-if="!contact.isDeleted"
+                                class="box box-info"
+                            >
+                                <div class="box-header with-border">
+                                    <button
+                                        class="btn btn-xs btn-danger btn-flat pull-right"
+                                        title="Remove Contact"
+                                        @click.prevent="contact.isDeleted = true"
+                                    >
+                                        <i class="fa fa-trash fa-fw" />
+                                    </button>
+                                    <h3 class="box-title">
+                                        <i class="icon fa fa-user fa-fw" />{{ contact.firstName }} {{ contact.lastName }}
+                                    </h3>
+                                </div>
+                                <!-- /.box-header -->
+                                <div class="box-body">
+                                    <hb-contact :contact="contact" />
+                                </div>
                             <!-- /.box-body -->
-                        </div>
-                        <div
-                            v-else=""
-                            class="box box-danger bg-gray"
-                        >
-                            <div class="box-header">
-                                <button
-                                    class="btn btn-xs btn-info btn-flat pull-right"
-                                    title="Undo Delete"
-                                    @click.prevent="contact.isDeleted = false"
-                                >
-                                    <i class="fa fa-undo fa-fw" />
-                                </button>
-                                <h3 class="box-title">
-                                    <i class="icon fa fa-trash fa-fw" />Marked for deletion: {{ contact.firstName }} {{ contact.lastName }}
-                                </h3>
+                            </div>
+                            <div
+                                v-else=""
+                                class="box box-danger bg-gray"
+                            >
+                                <div class="box-header">
+                                    <button
+                                        class="btn btn-xs btn-info btn-flat pull-right"
+                                        title="Undo Delete"
+                                        @click.prevent="contact.isDeleted = false"
+                                    >
+                                        <i class="fa fa-undo fa-fw" />
+                                    </button>
+                                    <h3 class="box-title">
+                                        <i class="icon fa fa-trash fa-fw" />Marked for deletion: {{ contact.firstName }} {{ contact.lastName }}
+                                    </h3>
+                                </div>
                             </div>
                         </div>
                     </template>

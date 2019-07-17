@@ -2,16 +2,16 @@
     <div>
         <div class="form-group">
             <hb-optionlist
-                    v-if="editable"
-                    ref="storageLocationSelect"
-                    v-model="value"
-                    label="Storage Location:"
-                    :preloaded-options="allActiveStorageLocations"
-                    display-property="title"
-                    group-property="type"
-                    empty-string="-- Select Storage Location --"
-                    :alphabetize="false"
-                    @change="onSelectionChange"
+                v-if="editable"
+                ref="storageLocationSelect"
+                v-model="value"
+                label="Storage Location:"
+                :preloaded-options="allActiveStorageLocations"
+                display-property="title"
+                group-property="type"
+                empty-string="-- Select Storage Location --"
+                :alphabetize="false"
+                @change="onSelectionChange"
             />
             <span
                 v-else

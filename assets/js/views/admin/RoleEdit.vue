@@ -5,7 +5,7 @@
                 class="btn btn-success btn-flat"
                 @click.prevent="save"
             >
-            <i class="fa fa-save fa-fw" />
+                <i class="fa fa-save fa-fw" />
                 Save Group
             </button>
             <div class="btn-group">
@@ -67,7 +67,10 @@
                                 <i class="icon fa fa-lock fa-fw" />Roles
                             </h3>
                             <div class="box-body">
-                                <div v-for="role in roles">
+                                <div
+                                    v-for="role in roles"
+                                    :key="role.id"
+                                >
                                     <input
                                         :id="role"
                                         v-model="group.roles"

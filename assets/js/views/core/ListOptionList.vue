@@ -30,15 +30,18 @@
                     <div class="box-body table-responsive no-padding">
                         <table class="table table-hover">
                             <thead>
-                            <tr>
-                                <th>{{ name }} ID</th>
-                                <th>Name</th>
-                                <th>Status</th>
-                                <th>Last Updated</th>
-                            </tr>
+                                <tr>
+                                    <th>{{ name }} ID</th>
+                                    <th>Name</th>
+                                    <th>Status</th>
+                                    <th>Last Updated</th>
+                                </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="listOption in listOptions.data">
+                                <tr
+                                    v-for="listOption in listOptions.data"
+                                    :key="listOption.id"
+                                >
                                     <td>
                                         <router-link :to="'/' + apiPath + '/' + listOption.id">
                                             <i class="fa fa-edit" />{{ listOption.id }}

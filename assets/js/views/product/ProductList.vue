@@ -30,16 +30,19 @@
                     <div class="box-body table-responsive no-padding">
                         <table class="table table-hover">
                             <thead>
-                            <tr>
-                                <th>Product ID</th>
-                                <th>Name</th>
-                                <th>Category</th>
-                                <th>Status</th>
-                                <th>Last Updated</th>
-                            </tr>
+                                <tr>
+                                    <th>Product ID</th>
+                                    <th>Name</th>
+                                    <th>Category</th>
+                                    <th>Status</th>
+                                    <th>Last Updated</th>
+                                </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="product in products.data">
+                                <tr
+                                    v-for="product in products.data"
+                                    :key="product.id"
+                                >
                                     <td>
                                         <router-link :to="'/products/' + product.id">
                                             <i class="fa fa-edit" />{{ product.id }}

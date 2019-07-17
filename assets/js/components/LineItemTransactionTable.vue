@@ -1,18 +1,20 @@
 <template>
     <table class="table table-condensed table-bordered">
         <thead>
-        <tr class="bg-gray-light">
-            <th>Transaction ID</th>
-            <th>Storage Location</th>
-            <th>Product</th>
-            <th>Inventory Change</th>
-            <th>Cost</th>
-            <th>Status</th>
-        </tr>
+            <tr class="bg-gray-light">
+                <th>Transaction ID</th>
+                <th>Storage Location</th>
+                <th>Product</th>
+                <th>Inventory Change</th>
+                <th>Cost</th>
+                <th>Status</th>
+            </tr>
         </thead>
         <tbody>
-        <template v-for="transaction in transactions">
-            <tr>
+            <tr
+                v-for="transaction in transactions"
+                :key="transaction.id"
+            >
                 <td>
                     {{ transaction.id }}
                 </td>
@@ -32,7 +34,6 @@
                     {{ transaction.isCommitted ? 'Committed' : "Pending" }}
                 </td>
             </tr>
-        </template>
         </tbody>
     </table>
 </template>

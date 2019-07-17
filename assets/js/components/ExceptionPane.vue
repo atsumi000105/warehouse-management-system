@@ -2,6 +2,7 @@
     <div>
         <aside
             v-for="(exception, key) in exceptions"
+            :key="exception.id"
             class="alert alert-danger alert-dismissible"
         >
             <button
@@ -9,20 +10,21 @@
                 class="close"
                 @click="exceptions.splice(key, 1)"
             >
-            <i class="fa fa-fw fa-close" />
-        </button>
-        <button
-            type="button"
-            class="close"
-            @click="showTrace = !showTrace"
-        >
-        <i class="fa fa-fw fa-search" />
-    </button>
-        <h4><i class="icon fa fa-ban" /> Exception: {{ exception.message }}</h4>
+                <i class="fa fa-fw fa-close" />
+            </button>
+            <button
+                type="button"
+                class="close"
+                @click="showTrace = !showTrace"
+            >
+                <i class="fa fa-fw fa-search" />
+            </button>
+            <h4><i class="icon fa fa-ban" /> Exception: {{ exception.message }}</h4>
             <div v-show="showTrace">
                 <ol>
                     <li
                         v-for="line in exception.trace"
+                        :key="line.id"
                     >
                         {{ line.file }}:{{ line.line }}
                     </li>

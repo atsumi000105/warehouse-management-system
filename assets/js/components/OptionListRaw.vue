@@ -14,6 +14,7 @@
             />
             <option
                 v-for="item in options"
+                :key="item.id"
                 :selected="value.id == item.id"
                 :value="item.id"
                 v-text="item[displayProperty]"

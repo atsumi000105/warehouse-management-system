@@ -2,13 +2,13 @@
     <div>
         <div class="form-group">
             <hb-optionlist
-                    v-if="editable"
-                    ref="partnerSelect"
-                    v-model="value"
-                    api-path="partners/list-options"
-                    display-property="title"
-                    empty-string="-- Select Partner --"
-                    :label="label"
+                v-if="editable"
+                ref="partnerSelect"
+                v-model="value"
+                api-path="partners/list-options"
+                display-property="title"
+                empty-string="-- Select Partner --"
+                :label="label"
             />
             <span
                 v-else

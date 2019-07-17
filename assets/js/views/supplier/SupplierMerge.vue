@@ -71,6 +71,7 @@
             <ul>
                 <li
                     v-for="supplier in selectedSupplierList"
+                    :key="supplier.id"
                     v-text="supplier"
                 />
             </ul>

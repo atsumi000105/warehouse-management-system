@@ -30,18 +30,21 @@
                     <div class="box-body table-responsive no-padding">
                         <table class="table table-hover">
                             <thead>
-                            <tr>
-                                <th>Partner ID</th>
-                                <th>Title</th>
-                                <th>Type</th>
-                                <th>Status</th>
-                                <th>Fulfillment Period</th>
-                                <th>Distribution Method</th>
-                                <th>Last Updated</th>
-                            </tr>
+                                <tr>
+                                    <th>Partner ID</th>
+                                    <th>Title</th>
+                                    <th>Type</th>
+                                    <th>Status</th>
+                                    <th>Fulfillment Period</th>
+                                    <th>Distribution Method</th>
+                                    <th>Last Updated</th>
+                                </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="partner in partners.data">
+                                <tr
+                                    v-for="partner in partners.data"
+                                    :key="partner.id"
+                                >
                                     <td>
                                         <router-link :to="'/partners/' + partner.id">
                                             <i class="fa fa-edit" />{{ partner.id }}

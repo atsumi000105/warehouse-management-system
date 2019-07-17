@@ -1,8 +1,8 @@
 <template>
     <div class="hb-addressform">
         <div
-                v-if="hasTitle"
-                class="form-group"
+            v-if="hasTitle"
+            class="form-group"
         >
             <label>Title</label>
             <input

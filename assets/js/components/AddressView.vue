@@ -1,7 +1,7 @@
 <template>
     <div
-            v-if="value"
-            class="hb-addressform"
+        v-if="value"
+        class="hb-addressform"
     >
         <div v-if="hasTitle">
             <strong>{{ value.title }}</strong><br>

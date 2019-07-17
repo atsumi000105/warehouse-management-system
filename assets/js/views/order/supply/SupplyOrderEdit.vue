@@ -19,8 +19,8 @@
                 <ul class="dropdown-menu dropdown-menu-right">
                     <li v-if="order.isDeletable">
                         <a
-                        href="#"
-                        @click.prevent="askDelete"
+                            href="#"
+                            @click.prevent="askDelete"
                         >
                             <i class="fa fa-trash fa-fw" />Delete Order
                         </a>
@@ -32,85 +32,85 @@
             Edit Supply Order
         </h3>
 
-            <form role="form">
-                <div class="row">
-                    <div class="col-md-4">
-                        <hb-ordermetadatabox
-                            :order="order"
-                            order-type="Supply Order"
-                            :statuses="statuses"
+        <form role="form">
+            <div class="row">
+                <div class="col-md-4">
+                    <hb-ordermetadatabox
+                        :order="order"
+                        order-type="Supply Order"
+                        :statuses="statuses"
+                        :editable="order.isEditable"
+                        :v="$v.order"
+                    />
+                </div>
+
+                <div class="col-md-8">
+                    <div class="box box-info">
+                        <div class="box-body">
+                            <div
+                                class="col-md-6"
+                                :class="{ 'has-error': $v.order.supplier.$error }"
+                            >
+                                <h3 class="box-title">
+                                    <i class="icon fa fa-group fa-fw" />Supplier
+                                </h3>
+                                <hb-supplierselectionform
+                                    v-model="order.supplier"
+                                    :address-value="order.supplierAddress"
+                                    :editable="order.isEditable"
+                                />
+                                <hb-fielderror v-if="$v.order.supplier.$error">
+                                    Field is required
+                                </hb-fielderror>
+                            </div>
+
+                            <div
+                                class="col-md-6"
+                                :class="{ 'has-error': $v.order.warehouse.$error}"
+                            >
+                                <h3 class="box-title">
+                                    <i class="icon fa fa-industry fa-fw" />Destination Warehouse
+                                </h3>
+                                <hb-warehouseselectionform
+                                    v-model="order.warehouse"
+                                    :editable="order.isEditable"
+                                />
+                                <hb-fielderror v-if="$v.order.warehouse.$error">
+                                    Field is required
+                                </hb-fielderror>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div
+                        class="box box-info"
+                        :class="{ 'has-error': $v.order.lineItems.$error }"
+                    >
+                        <div class="box-header with-border">
+                            <hb-fielderror
+                                v-if="$v.order.lineItems.$error"
+                                classes="pull-right"
+                            >
+                                At least one line item must have a quantity
+                            </hb-fielderror>
+                            <h3 class="box-title">
+                                <i class="icon fa fa-list fa-fw" />Line Items
+                            </h3>
+                        </div>
+                        <hb-lineitemform
+                            :products="products"
+                            :show-cost="true"
+                            :line-items="order.lineItems"
                             :editable="order.isEditable"
-                            :v="$v.order"
                         />
                     </div>
-
-                    <div class="col-md-8">
-                        <div class="box box-info">
-                            <div class="box-body">
-                                <div
-                                    class="col-md-6"
-                                    :class="{ 'has-error': $v.order.supplier.$error }"
-                                >
-                                    <h3 class="box-title">
-                                        <i class="icon fa fa-group fa-fw" />Supplier
-                                    </h3>
-                                    <hb-supplierselectionform
-                                        v-model="order.supplier"
-                                        :address-value="order.supplierAddress"
-                                        :editable="order.isEditable"
-                                    />
-                                    <hb-fielderror v-if="$v.order.supplier.$error">
-                                        Field is required
-                                    </hb-fielderror>
-                                </div>
-
-                                <div
-                                    class="col-md-6"
-                                    :class="{ 'has-error': $v.order.warehouse.$error}"
-                                >
-                                    <h3 class="box-title">
-                                        <i class="icon fa fa-industry fa-fw" />Destination Warehouse
-                                    </h3>
-                                    <hb-warehouseselectionform
-                                        v-model="order.warehouse"
-                                        :editable="order.isEditable"
-                                    />
-                                    <hb-fielderror v-if="$v.order.warehouse.$error">
-                                        Field is required
-                                    </hb-fielderror>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <div
-                            class="box box-info"
-                            :class="{ 'has-error': $v.order.lineItems.$error }"
-                        >
-                            <div class="box-header with-border">
-                                <hb-fielderror
-                                    v-if="$v.order.lineItems.$error"
-                                    classes="pull-right"
-                                >
-                                    At least one line item must have a quantity
-                                </hb-fielderror>
-                                <h3 class="box-title">
-                                    <i class="icon fa fa-list fa-fw" />Line Items
-                                </h3>
-                            </div>
-                            <hb-lineitemform
-                                :products="products"
-                                :show-cost="true"
-                                :line-items="order.lineItems"
-                                :editable="order.isEditable"
-                            />
-                        </div>
-                    </div>
-                </div>
-            </form>
+            </div>
+        </form>
         <hb-modalinvalid />
         <hb-modaldelete
             :action="this.deleteOrder"

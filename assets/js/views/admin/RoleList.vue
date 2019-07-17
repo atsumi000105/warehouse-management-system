@@ -31,14 +31,17 @@
                     <div class="box-body table-responsive no-padding">
                         <table class="table table-hover">
                             <thead>
-                            <tr>
-                                <th>Role ID</th>
-                                <th>Name</th>
-                                <th>Last Updated</th>
-                            </tr>
+                                <tr>
+                                    <th>Role ID</th>
+                                    <th>Name</th>
+                                    <th>Last Updated</th>
+                                </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="role in groups.data">
+                                <tr
+                                    v-for="role in groups.data"
+                                    :key="role.id"
+                                >
                                     <td>
                                         <router-link :to="'/admin/groups/' + role.id">
                                             <i class="fa fa-edit" />{{ role.id }}
