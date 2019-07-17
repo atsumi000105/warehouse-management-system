@@ -82,7 +82,9 @@ class TransferOrder extends Order
     public function validate()
     {
         if ($this->getSourceLocation() instanceof Warehouse && $this->getTargetLocation() instanceof Partner) {
-            throw new UserInterfaceException('Transferring from a Warehouse to a Partner must be handled in a Partner Order');
+            throw new UserInterfaceException(
+                'Transferring from a Warehouse to a Partner must be handled in a Partner Order'
+            );
         }
 
         if ($this->getTargetLocation()->getId() == $this->getSourceLocation()->getId()) {
