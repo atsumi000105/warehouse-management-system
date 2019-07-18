@@ -1,6 +1,14 @@
 {
+    "name": "happybottoms/coverd",
+    "description": "Coverd Donation Bank Management App",
     "type": "project",
-    "license": "GPL-3.0",
+    "keywords": [
+        "inventory",
+        "charity",
+        "donation",
+        "diapers"
+    ],
+    "license": "GPL-3.0-or-later",
     "require": {
         "php": "^7.3.1",
         "ext-ctype": "*",
