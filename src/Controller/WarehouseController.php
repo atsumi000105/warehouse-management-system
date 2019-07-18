@@ -6,6 +6,7 @@ use App\Entity\Warehouse;
 use App\Transformers\StorageLocationTransformer;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -21,7 +22,7 @@ class WarehouseController extends StorageLocationController
     /**
      * @Route("/", methods={"GET"})
      */
-    public function index(Request $request)
+    public function index(Request $request): JsonResponse
     {
         $partners = $this->getRepository(Warehouse::class)->findAll();
 
@@ -31,12 +32,10 @@ class WarehouseController extends StorageLocationController
     /**
      * @Route("/{id<\d+>}", methods={"GET"})
      *
-     * @param Request $request
-     * @return JsonResponse
      */
-    public function show(Request $request, int $id)
+    public function show(Request $request, int $id): JsonResponse
     {
-        $partner = $this->getRepository(Warehouse::class)->find($id);
+        $partner = $this->getWarehouseById($id);
 
         return $this->serialize($request, $partner);
     }
@@ -44,5 +43,17 @@ class WarehouseController extends StorageLocationController
     protected function getDefaultTransformer()
     {
         return new StorageLocationTransformer();
+    }
+
+    protected function getWarehouseById($id): Warehouse
+    {
+        /** @var Warehouse $warehouse */
+        $warehouse = $this->getRepository()->find($id);
+
+        if (!$warehouse) {
+            throw new NotFoundHttpException(sprintf('Unknown Warehouse ID: %d', $id));
+        }
+
+        return $warehouse;
     }
 }

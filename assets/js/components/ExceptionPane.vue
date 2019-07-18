@@ -26,6 +26,7 @@
                         v-for="line in exception.trace"
                         :key="line.id"
                     >
+                        {{ line.class }}{{ line.type }}{{ line.function }}()<br>
                         {{ line.file }}:{{ line.line }}
                     </li>
                 </ol>

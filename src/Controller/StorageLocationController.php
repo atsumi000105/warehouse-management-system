@@ -4,11 +4,11 @@ namespace App\Controller;
 
 use App\Entity\InventoryTransaction;
 use App\Entity\StorageLocation;
-use App\Exception\NotFoundApiException;
 use App\Transformers\StorageLocationOptionTransformer;
 use App\Transformers\StorageLocationTransformer;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -38,10 +38,8 @@ class StorageLocationController extends BaseController
      * Get a single StorageLocation
      *
      * @Route(path="/api/storage-locations/{id}", methods={"GET"})
-     * @param $id
-     * @return JsonResponse
      */
-    public function show(Request $request, int $id)
+    public function show(Request $request, int $id): JsonResponse
     {
         $storageLocation = $this->getStorageLocation($id);
 
@@ -127,18 +125,13 @@ class StorageLocationController extends BaseController
         return $this->serialize($request, $storageLocations, new StorageLocationOptionTransformer());
     }
 
-    /**
-     * @param $id
-     * @return null|StorageLocation
-     * @throws NotFoundApiException
-     */
-    protected function getStorageLocation($id)
+    protected function getStorageLocation($id): StorageLocation
     {
         /** @var StorageLocation $storageLocation */
         $storageLocation = $this->getRepository()->find($id);
 
         if (!$storageLocation) {
-            throw new NotFoundApiException(sprintf('Unknown StorageLocation ID: %d', $id));
+            throw new NotFoundHttpException(sprintf('Unknown StorageLocation ID: %d', $id));
         }
 
         return $storageLocation;
