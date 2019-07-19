@@ -39,7 +39,7 @@
         "verte": "^0.0.12",
         "vuex": "^3.1.1"
     },
-    "license": "GPL-3.0",
+    "license": "GPL-3.0-or-later",
     "private": true,
     "scripts": {
         "lint": "eslint 'assets/js/**/*.{js,vue}'",

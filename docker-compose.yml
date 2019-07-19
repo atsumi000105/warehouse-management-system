@@ -5,7 +5,7 @@ services:
     db:
         image: postgres
         environment:
-            POSTGRES_PASSWORD: dobaman
-            POSTGRES_DB: dobaman
+            POSTGRES_PASSWORD: coverd
+            POSTGRES_DB: coverd
         ports:
             - 5432:5432
