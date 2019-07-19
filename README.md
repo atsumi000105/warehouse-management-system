@@ -21,7 +21,7 @@ Covered offers the following features.
 
 ## History
 
-Coverd comes out of the need of HappyBottoms to manage their diaper inventory and partner distribution. This app started as a Drupal (Commerce module) ordering system for distribution partners to record their distributions and place new orders. This worked for 6+ years, but due to HappyBottoms growth, the system proved unable to effectively handle the volume and lacked desired features. Additionally, HappyBottom was able to fund the development of a warehouse inventory management App. This was developed in Laravel, Doctrine, and Vue.js and was designed to be a platform to rebuild the existing partner ordering system once complete.
+Coverd comes out of the need of HappyBottoms to manage their diaper inventory and partner distribution. This app started as a Drupal (Commerce module) ordering system for distribution partners to record their distributions and place new orders. This worked for 6+ years, but due to HappyBottoms growth, the system proved unable to effectively handle the volume and lacked desired features. Additionally, HappyBottoms was able to fund the development of a warehouse inventory management app. This was developed in Laravel, Doctrine, and Vue.js and was designed to be a platform to rebuild the existing partner ordering system once complete.
 
 Since Laravel with Doctrine is not a typical combination, a rewrite of the backend in Symfony was done for a shallower developer curve.
 
