@@ -44,7 +44,7 @@ Learn More at https://www.happybottoms.org
 1. `yarn install`
 1. Create a database (mysql, postgres, sqlite)
     - There is a docker compose file that will give you a Postgres DB by running `docker-compose up` in the repository root (this should only be used for development and testing purposes, not for Production)
-1. Copy `.env` to `.env.localhost` and set the database connection
+1. Copy `.env` to `.env.local` and set the database connection
     - Example: `DATABASE_URL=postgres://postgres:coverd@127.0.0.1:5432/coverd?charset=UTF-8`
 1. `bin/console doctrine:database:create`
 1. `bin/console doctrine:schema:create`
