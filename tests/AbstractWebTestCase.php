@@ -10,7 +10,10 @@ class AbstractWebTestCase extends WebTestCase
     /** @var ObjectManager|object */
     protected $objectManager;
 
-    public function setUp(): void
+    /**
+     * {@inheritDoc}
+     */
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -18,5 +21,16 @@ class AbstractWebTestCase extends WebTestCase
             ->getContainer()
             ->get('doctrine')
             ->getManager();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+
+        $this->objectManager->close();
+        $this->objectManager = null; // avoid memory leaks
     }
 }
