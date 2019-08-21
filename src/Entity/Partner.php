@@ -62,6 +62,13 @@ class Partner extends StorageLocation
     protected $legacyId;
 
     /**
+     * @var PartnerProfile
+     *
+     * @ORM\OneToOne(targetEntity="PartnerProfile", inversedBy="partner")
+     */
+    protected $profile;
+
+    /**
      * @return string
      */
     public function getPartnerType()
@@ -139,5 +146,15 @@ class Partner extends StorageLocation
     public function setLegacyId(int $legacyId = null)
     {
         $this->legacyId = $legacyId;
+    }
+
+    public function getProfile(): PartnerProfile
+    {
+        return $this->profile;
+    }
+
+    public function setProfile(PartnerProfile $profile): void
+    {
+        $this->profile = $profile;
     }
 }
