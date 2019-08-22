@@ -64,7 +64,11 @@ class Partner extends StorageLocation
     /**
      * @var PartnerProfile
      *
-     * @ORM\OneToOne(targetEntity="PartnerProfile", inversedBy="partner")
+     * @ORM\OneToOne(
+     *     targetEntity="PartnerProfile",
+     *     inversedBy="partner",
+     *     cascade={"persist", "remove"}
+     * )
      */
     protected $profile;
 

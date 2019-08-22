@@ -2,13 +2,14 @@
 
 namespace App\Entity\EAV;
 
+use App\Entity\CoreEntity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity()
- * @ORM\Table("attribute")
+ * @ORM\InheritanceType(value="SINGLE_TABLE")
  */
-class Attribute
+abstract class Attribute
 {
     /**
      * @var int
@@ -18,13 +19,6 @@ class Attribute
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $value;
 
     /**
      * @var Definition
@@ -39,7 +33,7 @@ class Attribute
      */
     public function __toString()
     {
-        return $this->getDefinition()->getName();
+        return $this->getDefinition()->getLabel();
     }
 
     /**
@@ -50,25 +44,9 @@ class Attribute
         return $this->id;
     }
 
-    /**
-     * @param string $value
-     *
-     * @return Attribute
-     */
-    public function setValue($value)
-    {
-        $this->value = $value;
+    abstract public function setValue($value);
 
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getValue()
-    {
-        return $this->value;
-    }
+    abstract public function getValue();
 
     /**
      * @param Definition $definition
@@ -89,4 +67,6 @@ class Attribute
     {
         return $this->definition;
     }
+
+    abstract public function fixtureData();
 }

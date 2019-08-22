@@ -30,9 +30,7 @@ class PartnerProfile extends CoreEntity
      *
      * @ORM\OneToOne(
      *     targetEntity="Partner",
-     *     inversedBy="profile",
-     *     cascade={"persist", "remove"},
-     *     orphanRemoval=true
+     *     inversedBy="profile"
      * )
      */
     protected $partner;
@@ -56,6 +54,7 @@ class PartnerProfile extends CoreEntity
     public function setPartner(Partner $partner): void
     {
         $this->partner = $partner;
+        $this->partner->setProfile($this);
     }
 
 
