@@ -2,16 +2,28 @@
 
 namespace App\Entity\EAV;
 
+use App\Entity\EAV\Type\DatetimeAttribute;
+use App\Entity\EAV\Type\FloatAttribute;
+use App\Entity\EAV\Type\IntegerAttribute;
+use App\Entity\EAV\Type\StringAttribute;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="attribute_definition")
- * @ORM\InheritanceType(value="SINGLE_TABLE")
+ * @ORM\Table(name="attribute_definition", indexes={
+ *      @ORM\Index(name="name_idx", columns={"name"})
+ * })
+ * @ORM\InheritanceType("SINGLE_TABLE")
  */
 abstract class Definition
 {
+    const TYPE_STRING = "STRING";
+    const TYPE_INTEGER = "INTEGER";
+    const TYPE_FLOAT = "FLOAT";
+    const TYPE_DATETIME = "DATETIME";
+
     /**
      * @var int
      *
@@ -22,11 +34,20 @@ abstract class Definition
     private $id;
 
     /**
+     * Machine name for the field. Must be lowercase letters, numbers, or underscores.
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255)
+     * @Assert\Regex("/^[a-z0-9_]+$/")
+     */
+    private $name;
+
+    /**
      * @var string
      *
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private $label;
 
     /**
      * @var string
@@ -134,6 +155,22 @@ abstract class Definition
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLabel(): string
+    {
+        return $this->label;
+    }
+
+    /**
+     * @param string $label
+     */
+    public function setLabel(string $label): void
+    {
+        $this->label = $label;
     }
 
     /**
@@ -291,5 +328,30 @@ abstract class Definition
     public function getAttributes()
     {
         return $this->attributes;
+    }
+
+    public function createAttribute($value = null) : Attribute
+    {
+        $attribute = null;
+
+        switch ($this->type) {
+            case self::TYPE_STRING:
+                $attribute = new StringAttribute();
+                break;
+            case self::TYPE_INTEGER:
+                $attribute = new IntegerAttribute();
+                break;
+            case self::TYPE_FLOAT:
+                $attribute = new FloatAttribute();
+                break;
+            case self::TYPE_DATETIME:
+                $attribute = new DatetimeAttribute();
+                break;
+        }
+
+        $attribute->setDefinition($this);
+        $attribute->setValue($value);
+
+        return $attribute;
     }
 }
