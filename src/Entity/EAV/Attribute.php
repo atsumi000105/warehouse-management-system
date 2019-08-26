@@ -49,6 +49,15 @@ abstract class Attribute
     abstract public function getValue();
 
     /**
+     * Returns a value suitable for json responses.
+     * @return string
+     */
+    public function getJsonValue() : string
+    {
+        return $this->getValue();
+    }
+
+    /**
      * @param Definition $definition
      *
      * @return Attribute

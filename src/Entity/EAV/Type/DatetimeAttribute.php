@@ -41,6 +41,11 @@ class DatetimeAttribute extends Attribute
         return $this->value;
     }
 
+    public function getJsonValue(): string
+    {
+        return $this->value->format('c');
+    }
+
     public function fixtureData()
     {
         return new \DateTimeImmutable();
