@@ -2,10 +2,7 @@
 
 namespace App\Transformers;
 
-use App\Entity\Partner;
-use App\Entity\PartnerDistributionMethod;
 use App\Entity\PartnerProfile;
-use App\Entity\StorageLocation;
 use League\Fractal\TransformerAbstract;
 
 class PartnerProfileTransformer extends TransformerAbstract
