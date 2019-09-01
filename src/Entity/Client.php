@@ -4,13 +4,16 @@ namespace App\Entity;
 
 use App\Entity\ValueObjects\Name;
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\Routing\Exception\MissingMandatoryParametersException;
 
 /**
  * @ORM\Entity(repositoryClass="Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository")
  */
-class Client extends UuidCoreEntity
+class Client extends CoreEntity
 {
+    use Uuidable;
+
     /**
      * The name value object which holds the
      * first and last name of the Client
@@ -19,6 +22,11 @@ class Client extends UuidCoreEntity
      * @var Name
      */
     protected $name;
+
+    public function __construct()
+    {
+        $this->uuid = Uuid::uuid4();
+    }
 
     public function getName(): Name
     {

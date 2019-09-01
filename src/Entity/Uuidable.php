@@ -2,18 +2,9 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-/**
- * Class UuidCoreEntity
- *
- * Adds UUID capability to CoreEntity.
- *
- * @package App
- */
-abstract class UuidCoreEntity extends CoreEntity
+trait Uuidable
 {
     /**
      * The unique auto incremented primary key.
@@ -34,11 +25,6 @@ abstract class UuidCoreEntity extends CoreEntity
      * @ORM\Column(type="uuid", unique=true)
      */
     protected $uuid;
-
-    public function __construct()
-    {
-        $this->uuid = Uuid::uuid4();
-    }
 
     public function getId(): int
     {
