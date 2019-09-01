@@ -11,20 +11,18 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class ClientController
- * @package App\Controller
- *
  * @Route(path="/api/clients")
  */
 class ClientController extends BaseController
 {
     protected $defaultEntityName = Client::class;
+
     /**
      * Get a list of Clients
      *
      * @Route(path="/", methods={"GET"})
      */
-    public function index(Request $request) : JsonResponse
+    public function index(Request $request): JsonResponse
     {
         $clients = $this->getRepository()->findAll();
 
@@ -36,11 +34,11 @@ class ClientController extends BaseController
     /**
      * Get a single Client
      *
-     * @Route(path="/{id<\d+>}", methods={"GET"})
+     * @Route(path="/{uuid}", methods={"GET"})
      */
-    public function show(Request $request, string $id): JsonResponse
+    public function show(Request $request, string $uuid): JsonResponse
     {
-        $client = $this->getClientById($id);
+        $client = $this->getClientById($uuid);
 
 //        $this->checkViewPermissions($client);
 
@@ -52,7 +50,7 @@ class ClientController extends BaseController
      *
      * @Route(path="", methods={"POST"})
      */
-    public function store(Request $request) : JsonResponse
+    public function store(Request $request): JsonResponse
     {
         $params = $this->getParams($request);
 
@@ -75,9 +73,9 @@ class ClientController extends BaseController
     /**
      * Whole or partial update of a client
      *
-     * @Route(path="/{id<\d+>}", methods={"PATCH"})
+     * @Route(path="/{id}", methods={"PATCH"})
      */
-    public function update(Request $request, string $id) : JsonResponse
+    public function update(Request $request, string $id): JsonResponse
     {
         $params = $this->getParams($request);
         /** @var Client $client */
@@ -102,9 +100,9 @@ class ClientController extends BaseController
     /**
      * Delete a client
      *
-     * @Route(path="/{id<\d+>}", methods={"DELETE"})
+     * @Route(path="/{id}", methods={"DELETE"})
      */
-    public function destroy(Request $request, string $id)
+    public function destroy(Request $request, string $id): JsonResponse
     {
         $client = $this->getClientById($id);
 
@@ -117,18 +115,18 @@ class ClientController extends BaseController
         return $this->success(sprintf('Client "%s" deleted.', $client->getName()));
     }
 
-    protected function getDefaultTransformer()
+    protected function getDefaultTransformer(): ClientTransformer
     {
         return new ClientTransformer();
     }
 
-    protected function getClientById($id): Client
+    protected function getClientById(string $id): Client
     {
         /** @var Client $client */
-        $client = $this->getRepository()->find($id);
+        $client = $this->getRepository()->findOneByUuid($id);
 
         if (!$client) {
-            throw new NotFoundHttpException(sprintf('Unknown Client ID: %d', $id));
+            throw new NotFoundHttpException(sprintf('Unknown Client ID: %s', $id));
         }
 
         return $client;

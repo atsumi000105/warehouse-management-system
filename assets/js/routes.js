@@ -7,6 +7,7 @@ let routes = [
     },
 
     { path: '/admin/clients', component: require('./views/admin/ClientList').default },
+    { path: '/admin/clients/:id', component: require('./views/admin/ClientEdit').default },
 
     { path: '/admin/groups', component: require('./views/admin/RoleList.vue').default },
     { path: '/admin/groups/new', component: require('./views/admin/RoleEdit.vue').default, props: { new: true } },
