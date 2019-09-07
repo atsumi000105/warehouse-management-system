@@ -43,7 +43,6 @@
                 links: [
                     { title: "Manage Users", route: "/admin/users", icon: "user" },
                     { title: "Manage Groups", route: "/admin/groups", icon: "list" },
-                    { title: "Manage Clients", route: "/admin/clients", icon: "group" },
                     { title: "Manage Fulfillment Periods", route: "/partners/fulfillment-periods", icon: "calendar" },
                     { title: "Manage Distribution Methods", route: "/partners/distribution-methods", icon: "archive" },
                     { title: "Configuration", route: "/admin/configuration", icon: "wrench" },

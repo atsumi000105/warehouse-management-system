@@ -6,9 +6,6 @@ let routes = [
         component: require('./views/Dashboard.vue')
     },
 
-    { path: '/admin/clients', component: require('./views/admin/ClientList').default },
-    { path: '/admin/clients/:id', component: require('./views/admin/ClientEdit').default },
-
     { path: '/admin/groups', component: require('./views/admin/RoleList.vue').default },
     { path: '/admin/groups/new', component: require('./views/admin/RoleEdit.vue').default, props: { new: true } },
     { path: '/admin/groups/:id', component: require('./views/admin/RoleEdit.vue').default },
@@ -16,6 +13,9 @@ let routes = [
     { path: '/admin/users', component: require('./views/admin/UserList.vue').default },
     { path: '/admin/users/new', component: require('./views/admin/UserEdit.vue').default, props: { new: true } },
     { path: '/admin/users/:id', component: require('./views/admin/UserEdit.vue').default },
+
+    { path: '/clients', component: require('./views/client/ClientList').default },
+    { path: '/clients/:id', component: require('./views/client/ClientEdit').default },
 
     { path: '/partners/fulfillment-periods', component: require('./views/core/ListOptionList.vue').default, props: { name: 'Fulfillment Period', apiPath: 'partners/fulfillment-periods' } },
     { path: '/partners/fulfillment-periods/new', component: require('./views/core/ListOptionEdit.vue').default, props: { new: true, name: 'Fulfillment Period', apiPath: 'partners/fulfillment-periods' } },

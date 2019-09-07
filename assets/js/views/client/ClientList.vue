@@ -1,14 +1,14 @@
 <template>
     <section class="content">
         <router-link
-            to="/admin/clients/new"
+            to="/clients/new"
             class="btn btn-success btn-flat pull-right"
         >
             <i class="fa fa-plus-circle fa-fw" />
             Create Client
         </router-link>
         <h3 class="box-title">
-            Clients List
+            Client List
         </h3>
 
         <div class="row">
@@ -44,7 +44,7 @@
                                     :key="client.id"
                                 >
                                     <td>
-                                        <router-link :to="'/admin/clients/' + client.id">
+                                        <router-link :to="'/clients/' + client.id">
                                             <i class="fa fa-edit" />{{ client.id }}
                                         </router-link>
                                     </td>
