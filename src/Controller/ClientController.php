@@ -73,13 +73,13 @@ class ClientController extends BaseController
     /**
      * Whole or partial update of a client
      *
-     * @Route(path="/{id}", methods={"PATCH"})
+     * @Route(path="/{uuid}", methods={"PATCH"})
      */
-    public function update(Request $request, string $id): JsonResponse
+    public function update(Request $request, string $uuid): JsonResponse
     {
         $params = $this->getParams($request);
         /** @var Client $client */
-        $client = $this->getClientById($id);
+        $client = $this->getClientById($uuid);
 
 //        $this->checkEditPermissions($client);
 
@@ -100,11 +100,11 @@ class ClientController extends BaseController
     /**
      * Delete a client
      *
-     * @Route(path="/{id}", methods={"DELETE"})
+     * @Route(path="/{uuid}", methods={"DELETE"})
      */
-    public function destroy(Request $request, string $id): JsonResponse
+    public function destroy(Request $request, string $uuid): JsonResponse
     {
-        $client = $this->getClientById($id);
+        $client = $this->getClientById($uuid);
 
 //        $this->checkEditPermissions($client);
 
