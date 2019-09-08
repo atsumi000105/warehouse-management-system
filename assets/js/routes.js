@@ -15,6 +15,7 @@ let routes = [
     { path: '/admin/users/:id', component: require('./views/admin/UserEdit.vue').default },
 
     { path: '/clients', component: require('./views/client/ClientList').default },
+    { path: '/clients/new', component: require('./views/client/ClientEdit').default, props: { new: true } },
     { path: '/clients/:id', component: require('./views/client/ClientEdit').default },
 
     { path: '/partners/fulfillment-periods', component: require('./views/core/ListOptionList.vue').default, props: { name: 'Fulfillment Period', apiPath: 'partners/fulfillment-periods' } },
