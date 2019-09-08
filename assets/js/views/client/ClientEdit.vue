@@ -140,7 +140,7 @@
                 let self = this;
                 axios
                     .delete('/api/clients/' + this.$route.params.id)
-                    .then(self.$router.push('/admin/clients'));
+                    .then(response => self.$router.push('/clients'));
             }
         }
     }
