@@ -23,24 +23,13 @@ class ClientFixtures extends BaseFixture
 
     private function getData(): array
     {
-        /** @var Factory */
-        $faker = Factory::create();
-        return [
-            [
-                'name' => Name::fromString($faker->name)
-            ],
-            [
-                'name' => Name::fromString($faker->name)
-            ],
-            [
-                'name' => Name::fromString($faker->name)
-            ],
-            [
-                'name' => Name::fromString($faker->name)
-            ],
-            [
-                'name' => Name::fromString($faker->name)
-            ],
-        ];
+        $clientsToCreate = 10;
+        return array_map(
+            static function () {
+                $faker = Factory::create();
+                return ['name' => Name::fromString($faker->name)];
+            },
+            range(1, $clientsToCreate)
+        );
     }
 }
