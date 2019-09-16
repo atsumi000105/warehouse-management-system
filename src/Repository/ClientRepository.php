@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Entity;
+namespace App\Repository;
 
+use App\Entity\Client;
 use Doctrine\ORM\EntityRepository;
 use Ramsey\Uuid\Exception\InvalidUuidStringException;
 use Ramsey\Uuid\Uuid;
