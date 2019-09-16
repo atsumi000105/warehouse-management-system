@@ -2,8 +2,8 @@
 
 namespace App\Entity\Orders;
 
-use App\Entity\OrderRepository;
 use App\Entity\Partner;
+use App\Repository\OrderRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Component\HttpFoundation\ParameterBag;
