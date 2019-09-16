@@ -10,7 +10,7 @@ use Moment\Moment;
 /**
  * Class Partner Distribution
  *
- * @ORM\Entity(repositoryClass="App\Entity\Orders\BulkDistributionOrderRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\Repository\BulkDistributionOrderRepository")
  */
 class BulkDistribution extends Order
 {
