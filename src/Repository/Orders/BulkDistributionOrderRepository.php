@@ -2,6 +2,7 @@
 
 namespace App\Repository\Orders;
 
+use App\Entity\Orders\BulkDistribution;
 use App\Entity\Partner;
 use App\Repository\OrderRepository;
 use Doctrine\ORM\QueryBuilder;
