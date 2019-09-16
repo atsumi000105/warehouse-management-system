@@ -8,7 +8,7 @@ use Ramsey\Uuid\Uuid;
 use Symfony\Component\Routing\Exception\MissingMandatoryParametersException;
 
 /**
- * @ORM\Entity(repositoryClass="Doctrine\ORM\EntityRepository")
+ * @ORM\Entity(repositoryClass="App\Entity\ClientRepository")
  */
 class Client extends CoreEntity
 {
