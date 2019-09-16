@@ -13,7 +13,7 @@ use Moment\Moment;
 /**
  * Class Partner Order
  *
- * @ORM\Entity(repositoryClass="App\Entity\Orders\PartnerOrderRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\Orders\PartnerOrderRepository")
  */
 class PartnerOrder extends Order
 {
