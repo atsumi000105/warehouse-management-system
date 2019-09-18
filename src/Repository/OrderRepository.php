@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Entity;
+namespace App\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\HttpFoundation\ParameterBag;
 

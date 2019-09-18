@@ -1,21 +1,21 @@
 <?php
 
-namespace App\Entity\Orders;
+namespace App\Repository\Orders;
 
-use App\Entity\OrderRepository;
-use App\Entity\Partner;
+use App\Repository\OrderRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
-class BulkDistributionOrderRepository extends OrderRepository
+class PartnerOrderRepository extends OrderRepository
 {
     protected function joinRelatedTables(QueryBuilder $qb)
     {
-        $qb->leftJoin('o.partner', 'partner');
+        $qb->leftJoin('o.partner', 'partner')
+            ->leftJoin('o.warehouse', 'warehouse');
     }
 
-    public function distributionTotals($sortField = null, $sortDirection = 'ASC', ParameterBag $params = null)
+    public function partnerOrderTotals($sortField = null, $sortDirection = 'ASC', ParameterBag $params = null)
     {
         $qb = $this->createQueryBuilder('o')
             ->leftJoin('o.lineItems', 'l')
@@ -34,7 +34,7 @@ class BulkDistributionOrderRepository extends OrderRepository
         return $results;
     }
 
-    public function findDistributionTotalsCount(ParameterBag $params)
+    public function findPartnerOrderTotalsCount(ParameterBag $params)
     {
 
         $qb = $this->createQueryBuilder('o')
@@ -46,24 +46,6 @@ class BulkDistributionOrderRepository extends OrderRepository
 
         $paginator = new Paginator($qb->getQuery());
         return $paginator->count();
-    }
-
-    /**
-     * @param Partner $partner
-     * @return BulkDistribution[]
-     */
-    public function getDistributionsForForcasting(Partner $partner)
-    {
-        $monthsBack = $partner->getForecastAverageMonths() ?: 3;
-
-        $qb = $this->createQueryBuilder('o')
-            ->andWhere('o.partner = :partner')
-            ->setParameter('partner', $partner)
-            ->orderBy('o.distributionPeriod', 'DESC')
-            ->setMaxResults($monthsBack);
-
-        $results = $qb->getQuery()->execute();
-        return $results;
     }
 
     protected function addCriteria(QueryBuilder $qb, ParameterBag $params)
@@ -85,13 +67,18 @@ class BulkDistributionOrderRepository extends OrderRepository
                 ->setParameter('partnerType', $params->get('partnerType'));
         }
 
+        if ($params->has('orderPeriod')) {
+            $qb->andWhere('o.orderPeriod = :orderPeriod')
+                ->setParameter('orderPeriod', $params->get('orderPeriod'));
+        }
+
         if ($params->has('startingAt')) {
-            $qb->andWhere('o.distributionPeriod >= :startingAt')
+            $qb->andWhere('o.orderPeriod >= :startingAt')
                 ->setParameter('startingAt', new \DateTime($params->get('startingAt')));
         }
 
         if ($params->has('endingAt')) {
-            $qb->andWhere('o.distributionPeriod <= :endingAt')
+            $qb->andWhere('o.orderPeriod <= :endingAt')
                 ->setParameter('endingAt', new \DateTime($params->get('endingAt')));
         }
     }

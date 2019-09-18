@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Entity\Orders;
+namespace App\Repository\Orders;
 
-use App\Entity\OrderRepository;
+use App\Repository\OrderRepository;
 use Doctrine\ORM\QueryBuilder;
 
 class AdjustmentOrderRepository extends OrderRepository

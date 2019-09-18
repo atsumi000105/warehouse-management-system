@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class Transfer Order
  *
- * @ORM\Entity(repositoryClass="App\Entity\Orders\TransferOrderRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\Orders\TransferOrderRepository")
  */
 class TransferOrder extends Order
 {
