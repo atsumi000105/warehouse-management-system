@@ -1,7 +1,9 @@
 <?php
 
-namespace App\Entity;
+namespace App\Repository;
 
+use App\Entity\Product;
+use App\Entity\StorageLocation;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Moment\Moment;

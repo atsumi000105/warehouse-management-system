@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class Merchandise Order
  *
- * @ORM\Entity(repositoryClass="App\Entity\Orders\MerchandiseOrderRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\Orders\MerchandiseOrderRepository")
  */
 class MerchandiseOrder extends Order
 {

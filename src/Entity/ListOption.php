@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Class Product
  *
- * @ORM\Entity(repositoryClass="ListOptionRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\ListOptionRepository")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="string")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)

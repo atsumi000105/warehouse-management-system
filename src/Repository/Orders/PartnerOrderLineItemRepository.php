@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity\Orders;
+namespace App\Repository\Orders;
 
 use Doctrine\ORM\EntityRepository;
 use Moment\Moment;
