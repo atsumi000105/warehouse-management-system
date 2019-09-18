@@ -44,7 +44,7 @@
                     { title: "Manage Users", route: "/admin/users", icon: "user" },
                     { title: "Manage Groups", route: "/admin/groups", icon: "list" },
                     { title: "Manage Fulfillment Periods", route: "/partners/fulfillment-periods", icon: "calendar" },
-                    { title: "Manage Distribution Methods", route: "/partners/distribution-methods", icon: "archive" },
+                    { title: "Manage Partner Profile Attributes", route: "/admin/attributes/partner", icon: "form" },
                     { title: "Configuration", route: "/admin/configuration", icon: "wrench" },
                 ]
             }

@@ -28,9 +28,10 @@ const actions = {
                     commit('setProducts', { list: response.data.data });
                     resolve(response);
                 },
-                    (err) => {
+                (err) => {
                     reject(err);
-            });
+                }
+            );
         });
     }
 };
