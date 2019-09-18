@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Supplier class for suppliers of products
  * @package App\Entity
  *
- * @ORM\Entity(repositoryClass="App\Entity\SupplierRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\SupplierRepository")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @Gedmo\Loggable()
  */

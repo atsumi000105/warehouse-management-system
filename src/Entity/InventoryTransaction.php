@@ -8,7 +8,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * Class InventoryTransaction
  *
- * @ORM\Entity(repositoryClass="App\Entity\InventoryTransactionRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\InventoryTransactionRepository")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  */
 class InventoryTransaction extends CoreEntity

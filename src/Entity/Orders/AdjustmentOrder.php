@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class Adjustment Order
  *
- * @ORM\Entity(repositoryClass="App\Entity\Orders\AdjustmentOrderRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\Orders\AdjustmentOrderRepository")
  */
 class AdjustmentOrder extends Order
 {

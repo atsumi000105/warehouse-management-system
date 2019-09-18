@@ -12,7 +12,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * Class Supply Order
  *
- * @ORM\Entity(repositoryClass="App\Entity\Orders\SupplyOrderRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\Orders\SupplyOrderRepository")
  * @Gedmo\Loggable()
  *
  */
