@@ -8,6 +8,20 @@ matrix:
         - yarn lint
       cache:
         yarn: true
+    - language: php
+      php:
+        - '7.3'
+        - nightly
+      before_script:
+        - composer self-update
+        - composer install --prefer-source --no-interaction --dev
+      script:
+        - vendor/bin/simple-phpunit
+        - vendor/bin/phpstan analyse
+        - vendor/bin/phpcs
+  fast_finish: true
+  allow_failures:
+    - php: nightly
 
 notifications:
   email: false
