@@ -2,6 +2,7 @@
 
 namespace App\Entity\EAV;
 
+use App\Entity\CoreEntity;
 use App\Entity\EAV\Type\DatetimeAttribute;
 use App\Entity\EAV\Type\FloatAttribute;
 use App\Entity\EAV\Type\IntegerAttribute;
@@ -17,7 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * })
  * @ORM\InheritanceType("SINGLE_TABLE")
  */
-abstract class Definition
+abstract class Definition extends CoreEntity
 {
     const TYPE_STRING = "STRING";
     const TYPE_INTEGER = "INTEGER";
