@@ -9,7 +9,7 @@ trait Uuidable
     /**
      * The unique auto incremented primary key.
      *
-     * @var int|null
+     * @var int
      *
      * @ORM\Id
      * @ORM\Column(type="integer", options={"unsigned": true})
@@ -26,7 +26,7 @@ trait Uuidable
      */
     protected $uuid;
 
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
