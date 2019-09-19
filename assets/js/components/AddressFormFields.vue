@@ -63,8 +63,9 @@
 
 <script>
 import StateField from '../components/StateField';
+import CountryField from '../components/CountryField';
 export default {
-    components: { StateField },
+    components: { StateField, CountryField},
     props: {
         address: { type: Object, required: true },
         hasTitle: { type: Boolean, default: true },
