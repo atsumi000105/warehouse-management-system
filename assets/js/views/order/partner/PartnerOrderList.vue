@@ -121,8 +121,9 @@
 </template>
 
 <script>
-
+    import ModalConfirmBulkChange from '../../../components/ModalConfirmBulkChange.vue';
     export default {
+        components: {ModalConfirmBulkChange},
         props:[],
         data() {
             return {
