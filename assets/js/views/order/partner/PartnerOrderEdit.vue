@@ -135,8 +135,9 @@
 <script>
     import { required } from 'vuelidate/lib/validators';
     import { linesRequired, mod } from '../../../validators';
-
+    import ModalOrderConfirmComplete from '../../../components/ModalOrderConfirmComplete';
     export default {
+        components: {ModalOrderConfirmComplete},
         props: ['new'],
         data() {
             return {
