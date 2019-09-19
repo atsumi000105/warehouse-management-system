@@ -62,7 +62,9 @@
 </template>
 
 <script>
+import StateField from '../components/StateField';
 export default {
+    components: { StateField },
     props: {
         address: { type: Object, required: true },
         hasTitle: { type: Boolean, default: true },
