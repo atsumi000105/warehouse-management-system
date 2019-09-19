@@ -137,6 +137,7 @@
     import { linesRequired, mod } from '../../../validators';
     import ModalOrderConfirmComplete from '../../../components/ModalOrderConfirmComplete';
     import ModalOrderConfirmDelete from '../../../components/ModalOrderConfirmDelete';
+    import ModalOrderInvalid from '../../../components/ModalOrderInvalid';
     export default {
         components: {ModalOrderConfirmComplete, ModalOrderConfirmDelete},
         props: ['new'],
