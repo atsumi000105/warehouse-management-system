@@ -188,8 +188,9 @@
 <script>
     import { Modal } from '../../components/Modal.vue';
     import AddressForm from '../../components/AddressFormFields.vue';
+    import ContactFormFields from '../../components/ContactFormFields.vue';
     export default {
-        components: {AddressForm},
+        components: {AddressForm, ContactFormFields},
         props: ['new'],
         data() {
             return {
