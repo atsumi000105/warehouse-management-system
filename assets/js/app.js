@@ -29,7 +29,7 @@ Vue.component('hb-exceptionpane', require('./components/ExceptionPane.vue').defa
 //Vue.component('hb-modalcomplete', require('./components/ModalOrderConfirmComplete.vue').default);
 //Vue.component('hb-modaldelete', require('./components/ModalOrderConfirmDelete.vue').default);
 //Vue.component('hb-modalinvalid', require('./components/ModalOrderInvalid.vue').default);
-Vue.component('hb-fielderror', require('./components/FieldError.vue').default);
+//Vue.component('hb-fielderror', require('./components/FieldError.vue').default);
 Vue.component('hb-date', require('./components/DateField.vue').default);
 Vue.component('hb-optionlist', require('./components/OptionList.vue').default);
 Vue.component('hb-optionlistraw', require('./components/OptionListRaw.vue').default);
