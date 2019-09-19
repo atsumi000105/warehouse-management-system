@@ -5,7 +5,7 @@ services:
     app:
         build:
           context: ./docker
-          dockerfile: app.Dockerfile
+          dockerfile: Dockerfile
         volumes:
             - ./:/app
         depends_on:
