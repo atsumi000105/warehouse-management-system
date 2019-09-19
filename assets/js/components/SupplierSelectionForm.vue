@@ -38,8 +38,12 @@
 <script>
     import { mapGetters } from 'vuex'
     import Address from '../components/AddressView.vue';
+    import OptionList from '../components/OptionList.vue';
     export default {
-        components: { Address },
+        components: {
+            Address,
+            OptionList
+        },
         props: {
             value: { required: true, type: Object },
             addressValue: { required: false, type: Object },

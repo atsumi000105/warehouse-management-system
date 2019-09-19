@@ -189,8 +189,13 @@
     import { Modal } from '../../components/Modal.vue';
     import AddressForm from '../../components/AddressFormFields.vue';
     import ContactFormFields from '../../components/ContactFormFields.vue';
+    import OptionList from '../../components/OptionList.vue';
     export default {
-        components: {AddressForm, ContactFormFields},
+        components: {
+            AddressForm,
+            ContactFormFields,
+            OptionList
+        },
         props: ['new'],
         data() {
             return {

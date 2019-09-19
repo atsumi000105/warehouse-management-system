@@ -95,9 +95,13 @@
 </template>
 
 <script>
-    import DateField from '../../components/DateField';
+    import DateField from '../../components/DateField.vue';
+    import OptionList from '../../components/OptionList.vue';
     export default {
-        components: { DateField },
+        components: {
+            DateField,
+            OptionList
+        },
         props:[],
         data() {
             return {

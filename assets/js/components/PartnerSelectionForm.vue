@@ -30,7 +30,12 @@
 <script>
     import { mapGetters } from 'vuex'
     import Address from '../components/AddressView.vue';
+    import OptionList from '../components/OptionList.vue';
     export default {
+        components:{
+            Address,
+            OptionList
+        },
         props: {
             value: { required: true, type: Object },
             editable: { type: Boolean, default: true },
