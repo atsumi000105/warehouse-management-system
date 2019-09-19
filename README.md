@@ -42,7 +42,7 @@ Learn More at https://www.happybottoms.org
 - VMLY&R for originally sponsoring the development of the Drupal project
 - William T. Kemper Foundation for sponsoring the development of the inventory system.
 
-## Development Installation
+## Development Installation - On existing environment (with PHP and Database)
 
 1. `composer install`
 1. `yarn install`
@@ -54,9 +54,24 @@ Learn More at https://www.happybottoms.org
 1. `bin/console doctrine:schema:create`
 1. `bin/console doctrine:fixtures:load`
 
-## Run Development Server and Build JS App
+### Run Development Server and Build JS App
 
 1. `bin/console server:run` or `bin/console server:start` (to run in background)
 1. `yarn watch`
+
+
+## Development Installation - Docker Compose
+
+1. `docker-compose up --build`
+1. Copy `.env.docker` to `.env.localhost` and set the database connection
+1. `docker/composer install`
+1. `docker/yarn install`
+1. `docker/app bin/console doctrine:database:create`
+1. `docker/app bin/console doctrine:schema:create`
+1. `docker/app bin/console doctrine:fixtures:load`
+
+### Run Development Server and Build JS App
+
+1. `docker/yarn watch`
 
 You should now be able to connect to your the dev server at the address reported by `console server:run`
