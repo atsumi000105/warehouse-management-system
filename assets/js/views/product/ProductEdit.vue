@@ -250,9 +250,9 @@
 
 <script>
     import Verte from "verte";
-
+    import Modal from '../../components/Modal';
     export default {
-        components: {Verte},
+        components: {Verte, Modal},
         props: ['create'],
         data() {
             return {

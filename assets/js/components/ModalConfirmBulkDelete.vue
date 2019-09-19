@@ -22,7 +22,9 @@
 </template>
 
 <script>
+    import Modal from '../components/Modal.vue';
     export default {
+        components: {Modal},
         props: {
             action: { type: Function },
             itemType: { type: String, default: 'orders' },

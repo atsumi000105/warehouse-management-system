@@ -133,19 +133,10 @@
 
                 <div class="col-md-6">
                     <template>
-                        <div
-                            v-for="contact in partner.contacts"
-                            :key="contact.id"
-                        >
-                            <div
-                                v-if="!contact.isDeleted"
-                                class="box box-info"
-                            >
+                        <div v-for="contact in partner.contacts" :key="contact.id">
+                            <div v-if="!contact.isDeleted" class="box box-info">
                                 <div class="box-header with-border">
-                                    <button
-                                        class="btn btn-xs btn-danger btn-flat pull-right"
-                                        title="Remove Contact"
-                                        @click.prevent="contact.isDeleted = true"
+                                    <button class="btn btn-xs btn-danger btn-flat pull-right" title="Remove Contact" @click.prevent="contact.isDeleted = true"
                                     >
                                         <i class="fa fa-trash fa-fw" />
                                     </button>
@@ -159,10 +150,7 @@
                                 </div>
                             <!-- /.box-body -->
                             </div>
-                            <div
-                                v-else=""
-                                class="box box-danger bg-gray"
-                            >
+                            <div v-else="" class="box box-danger bg-gray">
                                 <div class="box-header">
                                     <button
                                         class="btn btn-xs btn-info btn-flat pull-right"
@@ -178,20 +166,13 @@
                             </div>
                         </div>
                     </template>
-                    <button
-                        class="btn btn-info btn-flat pull-right"
-                        @click.prevent="partner.contacts.push({isDeleted: false})"
-                    >
+                    <button class="btn btn-info btn-flat pull-right" @click.prevent="partner.contacts.push({isDeleted: false})">
                         <i class="fa fa-plus fa-fw" />New contact
                     </button>
                 </div>
             </form>
         </div>
-        <hb-modal
-            id="confirmModal"
-            :confirm-action="this.deletePartner"
-            classes="modal-danger"
-        >
+        <hb-modal id="confirmModal" :confirm-action="this.deletePartner" classes="modal-danger">
             <template slot="header">
                 Delete Partner
             </template>
@@ -205,6 +186,7 @@
 
 
 <script>
+    import { Modal } from '../../components/Modal.vue';
     export default {
         props: ['new'],
         data() {

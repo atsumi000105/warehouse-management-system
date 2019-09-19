@@ -85,7 +85,9 @@
 
 
 <script>
+    import Modal from '../../components/Modal.vue';
     export default {
+        components: {Modal},
         name: 'SupplierMerge',
         props: {
             selectedSupplierIds: { type: Array, required: true }

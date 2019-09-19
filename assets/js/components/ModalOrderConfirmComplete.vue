@@ -2,8 +2,7 @@
     <hb-modal
         id="confirmCommitModal"
         :confirm-action="action"
-        classes="modal-info"
-    >
+        classes="modal-info">
         <template slot="header">
             Complete Order
         </template>
@@ -16,7 +15,9 @@
 </template>
 
 <script>
+    import Modal from '../components/Modal.vue';
     export default {
+        components: {Modal},
         props: {
             action: { type: Function },
             orderTitle: {type: String },

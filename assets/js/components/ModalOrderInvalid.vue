@@ -1,9 +1,5 @@
 <template>
-    <hb-modal
-        id="invalidModal"
-        classes="modal-danger"
-        :has-action="false"
-    >
+    <hb-modal id="invalidModal" classes="modal-danger" :has-action="false">
         <template slot="header">
             Invalid Values
         </template>

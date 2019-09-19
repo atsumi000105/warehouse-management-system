@@ -130,6 +130,7 @@
 <script>
     import { required } from 'vuelidate/lib/validators';
     import { linesRequired, mod } from '../../../validators';
+    import { Modal } from '../../../components/Modal.vue';
 
     export default {
         props: ['new'],

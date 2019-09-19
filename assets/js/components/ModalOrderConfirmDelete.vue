@@ -1,9 +1,5 @@
 <template>
-    <hb-modal
-        id="confirmModal"
-        :confirm-action="action"
-        classes="modal-danger"
-    >
+    <hb-modal id="confirmModal" :confirm-action="action" classes="modal-danger">
         <template slot="header">
             Delete Order
         </template>
@@ -15,7 +11,9 @@
 </template>
 
 <script>
+    import Modal from '../components/Modal.vue';
     export default {
+        components: {Modal},
         props: {
             action: { type: Function },
             orderTitle: {type: String },

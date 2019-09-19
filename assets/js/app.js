@@ -23,7 +23,7 @@ Vue.component('hb-address', require('./components/AddressView.vue').default);
 Vue.component('hb-contact', require('./components/ContactFormFields.vue').default);
 Vue.component('hb-state', require('./components/StateField.vue').default);
 Vue.component('hb-country', require('./components/CountryField.vue').default);
-Vue.component('hb-modal', require('./components/Modal.vue').default);
+//Vue.component('hb-modal', require('./components/Modal.vue').default);
 Vue.component('hb-modalbulkchange', require('./components/ModalConfirmBulkChange.vue').default);
 Vue.component('hb-modalbulkdelete', require('./components/ModalConfirmBulkDelete.vue').default);
 Vue.component('hb-modalcomplete', require('./components/ModalOrderConfirmComplete.vue').default);

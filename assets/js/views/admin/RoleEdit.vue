@@ -1,27 +1,17 @@
 <template>
     <section class="content">
         <div class="pull-right">
-            <button
-                class="btn btn-success btn-flat"
-                @click.prevent="save"
-            >
+            <button class="btn btn-success btn-flat" @click.prevent="save">
                 <i class="fa fa-save fa-fw" />
                 Save Group
             </button>
             <div class="btn-group">
-                <button
-                    type="button"
-                    class="btn btn-default dropdown-toggle dropdown btn-flat"
-                    data-toggle="dropdown"
-                >
+                <button type="button" class="btn btn-default dropdown-toggle dropdown btn-flat" data-toggle="dropdown">
                     <span class="fa fa-ellipsis-v" />
                 </button>
                 <ul class="dropdown-menu dropdown-menu-right">
                     <li>
-                        <a
-                            href="#"
-                            @click.prevent="askDelete"
-                        >
+                        <a href="#" @click.prevent="askDelete">
                             <i class="fa fa-trash fa-fw" />
                             Delete Group
                         </a>
@@ -47,11 +37,7 @@
                             <!-- text input -->
                             <div class="form-group">
                                 <label>Group Name</label>
-                                <input
-                                    v-model="group.name"
-                                    type="text"
-                                    class="form-control"
-                                    placeholder="Enter role name"
+                                <input v-model="group.name" type="text" class="form-control" placeholder="Enter role name"
                                 >
                             </div>
                         </div>
@@ -67,17 +53,8 @@
                                 <i class="icon fa fa-lock fa-fw" />Roles
                             </h3>
                             <div class="box-body">
-                                <div
-                                    v-for="role in roles"
-                                    :key="role.id"
-                                >
-                                    <input
-                                        :id="role"
-                                        v-model="group.roles"
-                                        type="checkbox"
-                                        name="role[]"
-                                        :value="role"
-                                    >
+                                <div v-for="role in roles" :key="role.id">
+                                    <input :id="role" v-model="group.roles" type="checkbox" name="role[]" :value="role">
                                     <label :for="role">
                                         {{ role }}
                                     </label>
@@ -88,11 +65,7 @@
                 </div>
             </form>
         </div>
-        <hb-modal
-            id="confirmModal"
-            :confirm-action="this.deleteGroup"
-            classes="modal-danger"
-        >
+        <hb-modal id="confirmModal" :confirm-action="this.deleteGroup" classes="modal-danger">
             <template slot="header">
                 Delete Group
             </template>
@@ -106,7 +79,9 @@
 
 
 <script>
+    import Modal from '../../components/Modal.vue';
     export default {
+        components: {Modal},
         props: ['new'],
         data() {
             return {
