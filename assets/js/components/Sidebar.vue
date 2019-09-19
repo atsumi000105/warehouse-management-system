@@ -103,6 +103,13 @@
                             { title: "Product Categories", route: "/product-categories", icon: "folder-open" }
                         ]
                     },
+                    {
+                        header: "Clients",
+                        icon: "group",
+                        links: [
+                            { title: "Client Management", route: "/clients", icon: "group" },
+                        ]
+                    },
                 ]
             }
         },

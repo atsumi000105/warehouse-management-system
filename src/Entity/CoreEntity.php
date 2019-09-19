@@ -22,7 +22,6 @@ abstract class CoreEntity
 {
     use TimestampableEntity, SoftDeleteableEntity;
 
-
     /**
      * Every entity will have an id
      *

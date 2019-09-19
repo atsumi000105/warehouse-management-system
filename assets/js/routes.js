@@ -14,6 +14,10 @@ let routes = [
     { path: '/admin/users/new', component: require('./views/admin/UserEdit.vue').default, props: { new: true } },
     { path: '/admin/users/:id', component: require('./views/admin/UserEdit.vue').default },
 
+    { path: '/clients', component: require('./views/client/ClientList').default },
+    { path: '/clients/new', component: require('./views/client/ClientEdit').default, props: { new: true } },
+    { path: '/clients/:id', component: require('./views/client/ClientEdit').default },
+
     { path: '/partners/fulfillment-periods', component: require('./views/core/ListOptionList.vue').default, props: { name: 'Fulfillment Period', apiPath: 'partners/fulfillment-periods' } },
     { path: '/partners/fulfillment-periods/new', component: require('./views/core/ListOptionEdit.vue').default, props: { new: true, name: 'Fulfillment Period', apiPath: 'partners/fulfillment-periods' } },
     { path: '/partners/fulfillment-periods/:id', component: require('./views/core/ListOptionEdit.vue').default, props: { name: 'Fulfillment Period', apiPath: 'partners/fulfillment-periods' } },
