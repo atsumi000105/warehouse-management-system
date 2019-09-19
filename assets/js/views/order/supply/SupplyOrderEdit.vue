@@ -128,8 +128,9 @@
     import { required } from 'vuelidate/lib/validators';
     import { linesRequired, mod } from '../../../validators';
     import ModalOrderConfirmComplete from '../../../components/ModalOrderConfirmComplete.vue';
+    import ModalOrderConfirmDelete from '../../../components/ModalOrderConfirmDelete.vue';
     export default {
-        components: { ModalOrderConfirmComplete },
+        components: { ModalOrderConfirmComplete, ModalOrderConfirmDelete },
         props: ['new'],
         data() {
             return {
