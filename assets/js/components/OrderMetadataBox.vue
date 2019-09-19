@@ -108,7 +108,9 @@
 </template>
 
 <script>
+    import FieldError from '../components/FieldError.vue';
     export default {
+        components: { FieldError },
         props: {
             order: { type: Object, required: true },
             orderType: { type: String, required: true, },

@@ -127,8 +127,14 @@
     import ModalOrderConfirmComplete from '../../../components/ModalOrderConfirmComplete.vue';
     import ModalOrderConfirmDelete from '../../../components/ModalOrderConfirmDelete.vue';
     import ModalOrderInvalid from '../../../components/ModalOrderInvalid.vue';
+    import FieldError from '../../../components/FieldError.vue';
     export default {
-        components: { ModalOrderConfirmComplete, ModalOrderConfirmDelete, ModalOrderInvalid },
+        components: {
+            ModalOrderConfirmComplete,
+            ModalOrderConfirmDelete,
+            ModalOrderInvalid,
+            FieldError
+        },
         props: ['new'],
         data() {
             return {

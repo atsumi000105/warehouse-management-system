@@ -139,7 +139,11 @@
     import ModalOrderConfirmDelete from '../../../components/ModalOrderConfirmDelete';
     import ModalOrderInvalid from '../../../components/ModalOrderInvalid';
     export default {
-        components: {ModalOrderConfirmComplete, ModalOrderConfirmDelete},
+        components: {
+            ModalOrderConfirmComplete,
+            ModalOrderConfirmDelete,
+            FieldError
+        },
         props: ['new'],
         data() {
             return {
