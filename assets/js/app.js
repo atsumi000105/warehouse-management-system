@@ -24,7 +24,7 @@ Vue.component('hb-exceptionpane', require('./components/ExceptionPane.vue').defa
 //Vue.component('hb-state', require('./components/StateField.vue').default);
 //Vue.component('hb-country', require('./components/CountryField.vue').default);
 //Vue.component('hb-modal', require('./components/Modal.vue').default);
-Vue.component('hb-modalbulkchange', require('./components/ModalConfirmBulkChange.vue').default);
+//Vue.component('hb-modalbulkchange', require('./components/ModalConfirmBulkChange.vue').default);
 Vue.component('hb-modalbulkdelete', require('./components/ModalConfirmBulkDelete.vue').default);
 Vue.component('hb-modalcomplete', require('./components/ModalOrderConfirmComplete.vue').default);
 Vue.component('hb-modaldelete', require('./components/ModalOrderConfirmDelete.vue').default);
