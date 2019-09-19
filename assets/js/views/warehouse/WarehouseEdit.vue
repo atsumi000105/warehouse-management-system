@@ -141,11 +141,8 @@
                 </div>
             </form>
         </div>
-        <hb-modal
-            id="confirmModal"
-            :confirm-action="this.deleteWarehouse"
-            classes="modal-danger"
-        >
+        <hb-modal id="confirmModal" :confirm-action="this.deleteWarehouse"
+            classes="modal-danger">
             <template slot="header">
                 Delete Warehouse
             </template>
@@ -160,8 +157,9 @@
 
 <script>
     import Modal from '../../components/Modal.vue';
+    import AddressForm from '../../components/AddressFormFields.vue';
     export default {
-        components: {Modal},
+        components: { Modal, AddressForm },
         props: ['new'],
         data() {
             return {
