@@ -138,6 +138,7 @@
     import ModalOrderConfirmComplete from '../../../components/ModalOrderConfirmComplete';
     import ModalOrderConfirmDelete from '../../../components/ModalOrderConfirmDelete';
     import ModalOrderInvalid from '../../../components/ModalOrderInvalid';
+    import FieldError from '../../../components/FieldError';
     export default {
         components: {
             ModalOrderConfirmComplete,
