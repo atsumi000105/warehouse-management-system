@@ -37,8 +37,9 @@
 
 <script>
     import { mapGetters } from 'vuex'
-
+    import Address from '../components/AddressView.vue';
     export default {
+        components: { Address },
         props: {
             value: { required: true, type: Object },
             addressValue: { required: false, type: Object },

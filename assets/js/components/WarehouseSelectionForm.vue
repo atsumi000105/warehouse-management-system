@@ -24,7 +24,9 @@
 </template>
 
 <script>
+    import Address from '../components/AddressView.vue';
     export default {
+        components: { Address }, 
         props: {
             value: { required: true, type: Object },
             editable: { type: Boolean, default: true },

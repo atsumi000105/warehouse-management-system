@@ -29,7 +29,7 @@
 
 <script>
     import { mapGetters } from 'vuex'
-
+    import Address from '../components/AddressView.vue';
     export default {
         props: {
             value: { required: true, type: Object },
