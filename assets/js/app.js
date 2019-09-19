@@ -21,7 +21,7 @@ Vue.component('hb-exceptionpane', require('./components/ExceptionPane.vue').defa
 //Vue.component('hb-addressform', require('./components/AddressFormFields.vue').default);
 //Vue.component('hb-address', require('./components/AddressView.vue').default);
 //Vue.component('hb-contact', require('./components/ContactFormFields.vue').default);
-Vue.component('hb-state', require('./components/StateField.vue').default);
+//Vue.component('hb-state', require('./components/StateField.vue').default);
 Vue.component('hb-country', require('./components/CountryField.vue').default);
 //Vue.component('hb-modal', require('./components/Modal.vue').default);
 Vue.component('hb-modalbulkchange', require('./components/ModalConfirmBulkChange.vue').default);
