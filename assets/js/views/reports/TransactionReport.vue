@@ -95,7 +95,9 @@
 </template>
 
 <script>
+    import DateField from '../../components/DateField';
     export default {
+        components: { DateField },
         props:[],
         data() {
             return {

@@ -107,7 +107,9 @@
 </template>
 
 <script>
+    import DateField from '../../components/DateField.vue';
     export default {
+        components: { DateField },
         props:[],
         data() {
             return {

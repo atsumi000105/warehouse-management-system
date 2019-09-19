@@ -109,8 +109,12 @@
 
 <script>
     import FieldError from '../components/FieldError.vue';
+    import DateField from '../components/DateField.vue';
     export default {
-        components: { FieldError },
+        components: {
+            FieldError,
+            DateField
+        },
         props: {
             order: { type: Object, required: true },
             orderType: { type: String, required: true, },

@@ -122,8 +122,12 @@
 
 <script>
     import ModalConfirmBulkChange from '../../../components/ModalConfirmBulkChange.vue';
+    import DateField from '../../../components/DateField.vue';
     export default {
-        components: {ModalConfirmBulkChange},
+        components: {
+            ModalConfirmBulkChange,
+            DateField
+        },
         props:[],
         data() {
             return {
