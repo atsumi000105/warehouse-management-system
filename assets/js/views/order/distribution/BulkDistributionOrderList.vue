@@ -75,8 +75,9 @@
 
 <script>
     import ModalConfirmBulkChange from '../../../components/ModalConfirmBulkChange.vue';
+    import ModalConfirmBulkDelete from '../../../components/ModalConfirmBulkDelete.vue';
     export default {
-        components: {ModalConfirmBulkChange},
+        components: { ModalConfirmBulkChange, ModalConfirmBulkDelete },
         props:[],
         data() {
             return {
