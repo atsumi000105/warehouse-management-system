@@ -20,7 +20,7 @@ Vue.component('hb-userbar', require('./components/Userbar.vue').default);
 Vue.component('hb-exceptionpane', require('./components/ExceptionPane.vue').default);
 //Vue.component('hb-addressform', require('./components/AddressFormFields.vue').default);
 //Vue.component('hb-address', require('./components/AddressView.vue').default);
-Vue.component('hb-contact', require('./components/ContactFormFields.vue').default);
+//Vue.component('hb-contact', require('./components/ContactFormFields.vue').default);
 Vue.component('hb-state', require('./components/StateField.vue').default);
 Vue.component('hb-country', require('./components/CountryField.vue').default);
 //Vue.component('hb-modal', require('./components/Modal.vue').default);
