@@ -14,11 +14,8 @@
             />
             <!-- text input -->
         </div>
-        <div
-            v-if="!editable"
-            class="form-group"
-        >
-            <hb-address v-model="value.address" />
+        <div v-if="!editable" class="form-group">
+            <address-view v-model="value.address" />
         </div>
     </div>
 </template>

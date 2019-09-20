@@ -22,7 +22,7 @@
             v-if="!editable"
             class="form-group"
         >
-            <hb-address v-model="value.address" />
+            <address-view v-model="value.address" />
         </div>
     </div>
 </template>
