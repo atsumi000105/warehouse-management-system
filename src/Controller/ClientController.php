@@ -155,7 +155,6 @@ class ClientController extends BaseController
             $params->set('keyword', $request->get('keyword'));
         }
 
-
         return $params;
     }
 
