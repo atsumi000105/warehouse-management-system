@@ -66,6 +66,6 @@ class ClientRepository extends EntityRepository
         if ($params->has('keyword') && $params->get('keyword')) {
             $qb->andWhere('c.name.lastname LIKE :keyword OR c.name.firstname LIKE :keyword')
                 ->setParameter('keyword', '%' . $params->get('keyword') . '%');
-        }   
+        }
     }
 }
