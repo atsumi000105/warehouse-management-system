@@ -53,7 +53,7 @@
                 </div>
             </form>
         </div>
-        <hb-modal id="confirmModal" :confirm-action="this.deleteListOption" classes="modal-danger">
+        <modal id="confirmModal" :confirm-action="this.deleteListOption" classes="modal-danger">
             <template slot="header">
                 Delete {{ name }}
             </template>
@@ -61,7 +61,7 @@
             <template slot="confirmButton">
                 Delete {{ name }}
             </template>
-        </hb-modal>
+        </modal>
     </section>
 </template>
 

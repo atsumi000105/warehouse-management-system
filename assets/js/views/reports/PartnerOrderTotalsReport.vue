@@ -49,14 +49,14 @@
                 </div>
             </div>
             <div class="col-lg-3 col-sm-6">
-                <hb-partnerselectionform
+                <partnerselectionform
                     v-model="filters.partner"
                     label="Partner"
                 />
             </div>
 
             <div class="form-group col-lg-3 col-sm-6">
-                <hb-date
+                <datefield
                     v-model="filters.startingAt"
                     label="Start Order Month"
                     format="YYYY-MM-01"
@@ -64,7 +64,7 @@
                 />
             </div>
             <div class="form-group col-lg-3 col-sm-6">
-                <hb-date
+                <datefield
                     v-model="filters.endingAt"
                     label="End Order Month"
                     format="YYYY-MM-01"
@@ -84,7 +84,7 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="box">
-                    <hb-tablepaged
+                    <tablepaged
                         ref="hbtable"
                         :columns="columns"
                         :sort-order="[{ field: 'p.id', direction: 'asc' }]"
@@ -102,8 +102,14 @@
 
 <script>
     import DateField from '../../components/DateField.vue';
+    import PartnerSelectionForm from '../../components/PartnerSelectionForm.vue';
+    import TablePaged from '../../components/TablePaged.vue';
     export default {
-        components: { DateField },
+        components: { 
+            'datefield' : DateField,
+            'partnerselectionform' : PartnerSelectionForm,
+            'tablepaged' : TablePaged
+        },
         props:[],
         data() {
             let columns = [

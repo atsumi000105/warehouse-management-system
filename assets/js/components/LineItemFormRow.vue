@@ -61,14 +61,18 @@
             class="form-group"
         >
             <div class="col-xs-12">
-                <hb-lineitemtransactions :transactions="lineItem.transactions" />
+                <lineitemtransactions :transactions="lineItem.transactions" />
             </div>
         </div>
     </div>
 </template>
 
 <script>
+    import LineItemTransactionTable from '../components/LineItemTransactionTable.vue';
     export default {
+        components: {
+            'lineitemtransactions' : LineItemTransactionTable
+        },
         props: {
             lineItem: { type: Object, required: true },
             editable: { type: Boolean, default: true },

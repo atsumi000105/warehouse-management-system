@@ -7,16 +7,16 @@
                 :class="{ 'has-error': statusError }"
             >
                 <template v-if="editable">
-                    <hb-optionliststatic
+                    <optionliststatic
                         v-model="order"
                         label="Status:"
                         property="status"
                         :preloaded-options="statuses"
                         empty-string="-- Select Status --"
                     />
-                    <hb-fielderror v-if="statusError">
+                    <fielderror v-if="statusError">
                         Field is required
-                    </hb-fielderror>
+                    </fielderror>
                 </template>
 
                 <template v-else>
@@ -82,7 +82,7 @@
                 class="form-group"
             >
                 <template v-if="editable">
-                    <hb-date
+                    <datefield
                         v-model="order.receivedAt"
                         label="Received Date:"
                     />
@@ -110,10 +110,12 @@
 <script>
     import FieldError from '../components/FieldError.vue';
     import DateField from '../components/DateField.vue';
+    import OptionListStatic from '../components/OptionListStatic.vue';
     export default {
         components: {
-            FieldError,
-            DateField
+            'fielderror': FieldError,
+            'datefield': DateField,
+            'optionliststatic' : OptionListStatic
         },
         props: {
             order: { type: Object, required: true },

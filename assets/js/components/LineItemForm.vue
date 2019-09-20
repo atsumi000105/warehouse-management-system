@@ -27,7 +27,7 @@
             >
                 <div v-if="findLineItem(product)">
                     <hr>
-                    <hb-lineitemformrow
+                    <lineitemformrow
                         :line-item="findLineItem(product)"
                         :show-cost="showCost"
                         :editable="editable"
@@ -41,7 +41,11 @@
 </template>
 
 <script>
+    import LineItemFormRow from '../components/LineItemFormRow.vue';
     export default {
+        components: {
+            'lineitemformrow' : LineItemFormRow
+        },
         props: {
             products: { type: Array, required: true },
             lineItems: { type: Array, required: true },

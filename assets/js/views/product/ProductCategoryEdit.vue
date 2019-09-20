@@ -83,7 +83,7 @@
                 </div>
             </form>
         </div>
-        <hb-modal
+        <modal
             id="confirmModal"
             :confirm-action="this.deleteListOption"
             classes="modal-danger"
@@ -95,14 +95,17 @@
             <template slot="confirmButton">
                 Delete {{ name }}
             </template>
-        </hb-modal>
+        </modal>
     </section>
 </template>
 
 
 <script>
-    import { Modal } from '../../components/Modal.vue';
+    import Modal from '../../components/Modal.vue';
     export default {
+        components : {
+            'modal' : Modal
+        },
         props: ['new', 'name', 'apiPath'],
         data() {
             return {

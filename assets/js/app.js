@@ -15,37 +15,17 @@ require('../sass/app.scss');
 // Vue.component('vuetable-pagination', require('vuetable-2/src/components/VuetablePagination.vue'));
 Vue.component('verte', require('verte/dist/verte'));
 
-Vue.component('hb-sidebar', require('./components/Sidebar.vue').default);
-Vue.component('hb-userbar', require('./components/Userbar.vue').default);
-Vue.component('hb-exceptionpane', require('./components/ExceptionPane.vue').default);
-//Vue.component('hb-addressform', require('./components/AddressFormFields.vue').default);
-//Vue.component('hb-address', require('./components/AddressView.vue').default);
-//Vue.component('hb-contact', require('./components/ContactFormFields.vue').default);
-//Vue.component('hb-state', require('./components/StateField.vue').default);
-//Vue.component('hb-country', require('./components/CountryField.vue').default);
-//Vue.component('hb-modal', require('./components/Modal.vue').default);
-//Vue.component('hb-modalbulkchange', require('./components/ModalConfirmBulkChange.vue').default);
-//Vue.component('hb-modalbulkdelete', require('./components/ModalConfirmBulkDelete.vue').default);
-//Vue.component('hb-modalcomplete', require('./components/ModalOrderConfirmComplete.vue').default);
-//Vue.component('hb-modaldelete', require('./components/ModalOrderConfirmDelete.vue').default);
-//Vue.component('hb-modalinvalid', require('./components/ModalOrderInvalid.vue').default);
-//Vue.component('hb-fielderror', require('./components/FieldError.vue').default);
-//Vue.component('hb-date', require('./components/DateField.vue').default);
-//Vue.component('hb-optionlist', require('./components/OptionList.vue').default);
-Vue.component('hb-optionlistraw', require('./components/OptionListRaw.vue').default);
-Vue.component('hb-optionliststatic', require('./components/OptionListStatic.vue').default);
-Vue.component('hb-arraytableform', require('./components/ArrayTableForm.vue').default);
-Vue.component('hb-ordermetadatabox', require('./components/OrderMetadataBox.vue').default);
-Vue.component('hb-lineitemform', require('./components/LineItemForm.vue').default);
-Vue.component('hb-lineitemformrow', require('./components/LineItemFormRow.vue').default);
-Vue.component('hb-lineitemtransactions', require('./components/LineItemTransactionTable.vue').default);
-Vue.component('hb-productselection', require('./components/ProductSelectionField.vue').default);
-Vue.component('hb-storagelocationselectionform', require('./components/StorageLocationSelectionForm.vue').default);
-Vue.component('hb-warehouseselectionform', require('./components/WarehouseSelectionForm.vue').default);
-Vue.component('hb-partnerselectionform', require('./components/PartnerSelectionForm.vue').default);
-Vue.component('hb-supplierselectionform', require('./components/SupplierSelectionForm.vue').default);
-Vue.component('hb-tablepaged', require('./components/TablePaged.vue').default);
-Vue.component('hb-fillsheet', require('./components/FillSheet.vue').default);
+// These components are being used directly in twig templates
+Vue.component('sidebar', require('./components/Sidebar.vue').default);
+Vue.component('userbar', require('./components/Userbar.vue').default);
+Vue.component('exceptionpane', require('./components/ExceptionPane.vue').default);
+
+/** Are you using these components below? I can't find any use of them throughout the application **/
+Vue.component('optionlistraw', require('./components/OptionListRaw.vue').default);
+Vue.component('arraytableform', require('./components/ArrayTableForm.vue').default);
+/*****/
+
+
 Vue.filter('dateFormat', require('./filters/dateFormat'));
 Vue.filter('dateTimeFormat', require('./filters/dateTimeFormat'));
 Vue.filter('dateTimeMonthFormat', require('./filters/dateTimeMonthFormat'));

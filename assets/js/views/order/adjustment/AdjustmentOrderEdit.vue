@@ -35,7 +35,7 @@
         <form role="form">
             <div class="row">
                 <div class="col-md-4">
-                    <hb-ordermetadatabox
+                    <ordermetadatabox
                         :order="order"
                         :statuses="statuses"
                         :editable="order.isEditable"
@@ -54,13 +54,13 @@
                                 <h3 class="box-title">
                                     <i class="icon fa fa-industry fa-fw" />Adjustment Location
                                 </h3>
-                                <hb-storagelocationselectionform
+                                <storagelocationselectionform
                                     v-model="order.storageLocation"
                                     :editable="order.isEditable"
                                 />
-                                <hb-fielderror v-if="$v.order.storageLocation.$error">
+                                <fielderror v-if="$v.order.storageLocation.$error">
                                     Field is required
-                                </hb-fielderror>
+                                </fielderror>
                             </div>
                             <div
                                 class="col-md-6"
@@ -80,9 +80,9 @@
                                     v-else
                                     v-text="order.reason"
                                 />
-                                <hb-fielderror v-if="$v.order.reason.$error">
+                                <fielderror v-if="$v.order.reason.$error">
                                     Field is required
-                                </hb-fielderror>
+                                </fielderror>
                             </div>
                         </div>
                     </div>
@@ -95,17 +95,17 @@
                         :class="{ 'has-error': $v.order.lineItems.$error }"
                     >
                         <div class="box-header with-border">
-                            <hb-fielderror
+                            <fielderror
                                 v-if="$v.order.lineItems.$error"
                                 classes="pull-right"
                             >
                                 At least one line item must have a quantity
-                            </hb-fielderror>
+                            </fielderror>
                             <h3 class="box-title">
                                 <i class="icon fa fa-list fa-fw" />Line Items
                             </h3>
                         </div>
-                        <hb-lineitemform
+                        <lineitemform
                             :products="products"
                             :line-items="order.lineItems"
                             :editable="order.isEditable"
@@ -114,12 +114,12 @@
                 </div>
             </div>
         </form>
-        <hb-modalinvalid />
-        <hb-modaldelete
+        <modalinvalid />
+        <modaldelete
             :action="this.deleteOrder"
             :order-title="order.title"
         />
-        <hb-modalcomplete
+        <modalcomplete
             :action="this.save"
             :order-title="order.title"
         />
@@ -134,12 +134,18 @@
     import ModalOrderConfirmDelete from '../../../components/ModalOrderConfirmDelete.vue';
     import ModalOrderInvalid from '../../../components/ModalOrderInvalid.vue';
     import FieldError from '../../../components/FieldError.vue';
+    import OrderMetadataBox from '../../../components/OrderMetadataBox.vue';
+    import LineItemForm from '../../../components/LineItemForm.vue';
+    import StorageLocationSelectionForm from '../../../components/StorageLocationSelectionForm.vue';
     export default {
         components: {
-            ModalOrderConfirmComplete,
-            ModalOrderConfirmDelete,
-            ModalOrderInvalid,
-            FieldError
+            'modalcomplete' : ModalOrderConfirmComplete,
+            'modaldelete' : ModalOrderConfirmDelete,
+            'modalinvalid' : ModalOrderInvalid,
+            'fielderror' : FieldError,
+            'ordermetadatabox' : OrderMetadataBox,
+            'lineitemform' : LineItemForm,
+            'storagelocationselectionform' : StorageLocationSelectionForm
         },
         props: ['new'],
         data() {

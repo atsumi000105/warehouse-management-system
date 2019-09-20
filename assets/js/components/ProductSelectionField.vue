@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="form-group">
-            <hb-optionlist
+            <optionlist
                 v-if="editable"
                 ref="productSelect"
                 v-model="value"
@@ -23,7 +23,7 @@
     import OptionList from '../components/OptionList';
     export default {
         components: {
-            OptionList
+            'optionlist' : OptionList
         },
         props: {
             value: { required: true, type: Object },

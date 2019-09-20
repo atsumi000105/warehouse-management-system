@@ -1,5 +1,5 @@
 <template>
-    <hb-modal
+    <modal
         id="supplierMergeModal"
         classes="modal-info"
         :confirm-action="mergeSuppliers"
@@ -9,7 +9,7 @@
             Merge Suppliers
         </template>
 
-        <hb-optionliststatic
+        <optionliststatic
             v-model="targetSupplier"
             label="Merge suppliers in to"
             display-property="title"
@@ -80,14 +80,18 @@
         <template slot="confirmButton">
             Merge
         </template>
-    </hb-modal>
+    </modal>
 </template>
 
 
 <script>
     import Modal from '../../components/Modal.vue';
+    import OptionListStatic from '../../components/OptionListStatic.vue';
     export default {
-        components: {Modal},
+        components: {
+            'modal' : Modal,
+            'optionliststatic' : OptionListStatic
+        },
         name: 'SupplierMerge',
         props: {
             selectedSupplierIds: { type: Array, required: true }

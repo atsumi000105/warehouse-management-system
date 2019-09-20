@@ -100,7 +100,7 @@
                 </div>
             </form>
         </div>
-        <hb-modal
+        <modal
             id="confirmModal"
             :confirm-action="this.deleteUser"
             classes="modal-danger">
@@ -111,7 +111,7 @@
             <template slot="confirmButton">
                 Delete User
             </template>
-        </hb-modal>
+        </modal>
     </section>
 </template>
 
@@ -119,7 +119,9 @@
 <script>
     import Modal from '../../components/Modal.vue';
     export default {
-        components: {Modal},
+        components: {
+            'modal' : Modal
+        },
         props: ['new'],
         data() {
             return {

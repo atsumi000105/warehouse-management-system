@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="form-group">
-            <hb-optionlist
+            <optionlist
                 v-if="editable"
                 ref="supplierSelect"
                 v-model="value"
@@ -19,7 +19,7 @@
             v-if="address"
             class="form-group"
         >
-            <hb-optionlist
+            <optionlist
                 v-if="editable"
                 v-model="addressValue"
                 :preloaded-options="supplierAddresses"
@@ -27,7 +27,7 @@
                 empty-string="-- Select Supplier Address --"
             />
             <!-- text input -->
-            <hb-address
+            <address-view
                 v-else
                 v-model="addressValue"
             />
@@ -41,8 +41,8 @@
     import OptionList from '../components/OptionList.vue';
     export default {
         components: {
-            Address,
-            OptionList
+            'address-view' : Address,
+            'optionlist' : OptionList
         },
         props: {
             value: { required: true, type: Object },

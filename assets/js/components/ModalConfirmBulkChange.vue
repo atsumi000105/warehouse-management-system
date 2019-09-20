@@ -1,5 +1,5 @@
 <template>
-    <hb-modal id="bulkChangeModal" :confirm-action="action" classes="modal-danger">
+    <modal id="bulkChangeModal" :confirm-action="action" classes="modal-danger">
         <template slot="header">
             Bulk {{ bulkChangeType }}
         </template>
@@ -10,7 +10,7 @@
         <template slot="confirmButton">
             Bulk {{ bulkChangeType }}
         </template>
-    </hb-modal>
+    </modal>
 </template>
 
 <script>

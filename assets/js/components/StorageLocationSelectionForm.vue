@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="form-group">
-            <hb-optionlist
+            <optionlist
                 v-if="editable"
                 ref="storageLocationSelect"
                 v-model="value"
@@ -33,8 +33,8 @@
     import OptionList from '../components/OptionList.vue';
     export default {
         components: {
-            Address,
-            OptionList
+            'address-view': Address,
+            'optionlist': OptionList
         },
         props: {
             value: { required: true, type: Object },
