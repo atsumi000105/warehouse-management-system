@@ -63,14 +63,11 @@ Learn More at https://www.happybottoms.org
 ## Development Installation - Docker Compose
 
 1. `docker-compose up --build`
-1. Copy `.env.docker` to `.env.local` and set the database connection
-1. `docker/composer install`
-1. `docker/yarn install`
-1. `docker/app bin/console doctrine:schema:create`
-1. `docker/app bin/console doctrine:fixtures:load`
+1. `docker-compose exec app docker/install`
 
-### Run Development Server and Build JS App
+You should now be able to connect to your the dev server at http://localhost:8080/
 
-1. `docker/yarn watch`
+### Build and watch the Vue JS app
 
-You should now be able to connect to your the dev server at the address reported by `console server:run`
+1. `docker/yarn`
+
