@@ -40,7 +40,9 @@ class AdjustmentOrderFixtures extends BaseFixture implements DependentFixtureInt
 
             foreach ($products as $product) {
                 $lineItem = new AdjustmentOrderLineItem($product, $this->faker->numberBetween(-1000, 1000));
-                $order->addLineItem($lineItem);
+                if ($lineItem->getQuantity()) {
+                    $order->addLineItem($lineItem);
+                }
             }
 
             $order->generateTransactions();

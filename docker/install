@@ -1,0 +1,10 @@
+#!/bin/bash
+rm .env.local
+cp .env.docker .env.local
+
+composer install
+bin/console doctrine:schema:create
+bin/console doctrine:fixtures:load -n
+
+yarn install
+yarn dev

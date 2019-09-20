@@ -7,7 +7,7 @@ services:
           context: ./docker
           dockerfile: Dockerfile
         volumes:
-            - ./:/app
+            - ./:/app:cached
         depends_on:
           - db
     nginx:
@@ -15,8 +15,8 @@ services:
         ports:
           - 8080:80
         volumes:
-          - ./:/app:ro
-          - ./docker/app.nginx.conf:/etc/nginx/conf.d/site.conf
+          - ./:/app:ro,cached
+          - ./docker/app.nginx.conf:/etc/nginx/conf.d/default.conf
         depends_on:
           - app
     db:
