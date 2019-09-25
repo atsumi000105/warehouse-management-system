@@ -87,6 +87,12 @@
                 },       
             }
         },
+        created() {
+            axios
+                .get('/api/clients')
+                .then(response => this.clients = response.data);
+            console.log('Component mounted.');
+        },
         methods: {
 
             doFilter () {
@@ -98,12 +104,6 @@
                     keyword: this.filters.keyword || null
                 }
             },
-        },
-        created() {
-            axios
-                .get('/api/clients')
-                .then(response => this.clients = response.data);
-            console.log('Component mounted.');
         },
     }
 </script>
