@@ -8,6 +8,7 @@ services:
           dockerfile: Dockerfile
         volumes:
             - ./:/app:cached
+            - var:/app/var
         depends_on:
           - db
     nginx:
@@ -26,3 +27,6 @@ services:
             POSTGRES_DB: coverd
         ports:
             - 5432:5432
+
+volumes:
+    var:
