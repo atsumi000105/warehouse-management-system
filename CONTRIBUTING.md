@@ -6,12 +6,12 @@ Thank you for showing interest in helping make this project better for all!
 
 For PHP:
 
-  * Code Style: [PSR-2](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)
-  * Name Spaces: [PSR-4](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md)
-  * Static Analysis: [PHPStan](https://github.com/phpstan/phpstan)
+* Code Style: [PSR-2](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)
+* Name Spaces: [PSR-4](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md)
+* Static Analysis: [PHPStan](https://github.com/phpstan/phpstan)
 
 For JavaScript:
-  * eslint: [plugin:vue/recommended](https://vuejs.github.io/eslint-plugin-vue/rules/)
+* eslint: [plugin:vue/recommended](https://vuejs.github.io/eslint-plugin-vue/rules/)
 
 ## Submitting Issues & Feature Requests
 
