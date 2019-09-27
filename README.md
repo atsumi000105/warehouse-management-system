@@ -71,3 +71,18 @@ You should now be able to connect to your the dev server at http://localhost:808
 
 1. `docker/yarn`
 
+## Work With the Dev Environment
+
+We have fixtures to define basic users of certain roles:
+
+  - admin (sees everything):
+    - **email:** admin@example.com
+    - **password:** password
+  - manager:
+    - **email:** manager@example.com
+    - **password:** password
+  - volunteer:
+    - **email:** volunteer@example.com
+    - **password:** password
+      
+Most of the time in development, you will probably want to log in as the admin. when needing to check access for certain types of users, log in as the appropriate role-based user.
