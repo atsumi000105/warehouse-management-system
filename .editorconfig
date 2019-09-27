@@ -13,3 +13,6 @@ tab_width = 4
 
 [*.php]
 insert_final_newline = true
+
+[*.md]
+indent_size = 2
