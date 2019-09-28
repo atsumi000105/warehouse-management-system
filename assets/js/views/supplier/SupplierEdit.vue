@@ -114,7 +114,7 @@
                                 <!-- /.box-header -->
                                 <div class="box-body">
                                     <!-- text input -->
-                                    <hb-addressform
+                                    <addressform
                                         :address="address"
                                         :has-title="true"
                                     />
@@ -225,6 +225,7 @@
     import Modal from '../../components/Modal.vue';
     import AddressForm from '../../components/AddressFormFields.vue';
     import ContactFormField from '../../components/ContactFormFields.vue';
+
     export default {
         components: {
             'modal' : Modal,
