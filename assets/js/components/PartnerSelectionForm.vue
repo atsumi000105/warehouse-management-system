@@ -19,15 +19,19 @@
             v-if="!editable"
             class="form-group"
         >
-            <address-view v-model="value.address" v="v.address"/>
+            <address-view
+                v-model="value.address"
+                v="v.address"
+            />
         </div>
     </div>
 </template>
 
 <script>
-    import { mapGetters } from 'vuex'
+    import {mapGetters} from 'vuex'
     import Address from '../components/AddressView.vue';
     import OptionList from '../components/OptionList.vue';
+
     export default {
         components:{
             'address-view' : Address,

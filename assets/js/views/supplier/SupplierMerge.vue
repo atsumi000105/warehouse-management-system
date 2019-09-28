@@ -87,12 +87,13 @@
 <script>
     import Modal from '../../components/Modal.vue';
     import OptionListStatic from '../../components/OptionListStatic.vue';
+
     export default {
+        name: 'SupplierMerge',
         components: {
             'modal' : Modal,
             'optionliststatic' : OptionListStatic
         },
-        name: 'SupplierMerge',
         props: {
             selectedSupplierIds: { type: Array, required: true }
         },

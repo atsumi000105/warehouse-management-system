@@ -14,7 +14,10 @@
             />
             <!-- text input -->
         </div>
-        <div v-if="!editable" class="form-group">
+        <div
+            v-if="!editable"
+            class="form-group"
+        >
             <address-view v-model="value.address" />
         </div>
     </div>
@@ -23,6 +26,7 @@
 <script>
     import Address from '../components/AddressView.vue';
     import OptionList from '../components/OptionList.vue';
+
     export default {
         components: {
             'address-view' : Address,

@@ -2,7 +2,8 @@
     <modal
         id="confirmCommitModal"
         :confirm-action="action"
-        classes="modal-info">
+        classes="modal-info"
+    >
         <template slot="header">
             Complete Order
         </template>
@@ -16,6 +17,7 @@
 
 <script>
     import Modal from '../components/Modal.vue';
+
     export default {
         components: {
             'modal' : Modal

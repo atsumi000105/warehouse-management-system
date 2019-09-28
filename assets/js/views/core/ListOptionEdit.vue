@@ -1,16 +1,26 @@
 <template>
     <section class="content">
         <div class="pull-right">
-            <button class="btn btn-success btn-flat" @click.prevent="save">
+            <button
+                class="btn btn-success btn-flat"
+                @click.prevent="save"
+            >
                 <i class="fa fa-save fa-fw" />Save {{ name }}
             </button>
             <div class="btn-group">
-                <button type="button" class="btn btn-default dropdown-toggle dropdown btn-flat" data-toggle="dropdown">
+                <button
+                    type="button"
+                    class="btn btn-default dropdown-toggle dropdown btn-flat"
+                    data-toggle="dropdown"
+                >
                     <span class="fa fa-ellipsis-v" />
                 </button>
                 <ul class="dropdown-menu dropdown-menu-right">
                     <li>
-                        <a href="#" @click.prevent="askDelete">
+                        <a
+                            href="#"
+                            @click.prevent="askDelete"
+                        >
                             <i class="fa fa-trash fa-fw" />Delete {{ name }}</a>
                     </li>
                 </ul>
@@ -34,11 +44,19 @@
                             <!-- text input -->
                             <div class="form-group">
                                 <label>{{ name }} Name</label>
-                                <input v-model="listOption.name" type="text" class="form-control" placeholder="Enter supplier name">
+                                <input
+                                    v-model="listOption.name"
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Enter supplier name"
+                                >
                             </div>
                             <div class="form-group">
                                 <label>Status</label>
-                                <select v-model="listOption.status" class="form-control">
+                                <select
+                                    v-model="listOption.status"
+                                    class="form-control"
+                                >
                                     <option value="ACTIVE">
                                         Active
                                     </option>
@@ -53,7 +71,11 @@
                 </div>
             </form>
         </div>
-        <modal id="confirmModal" :confirm-action="this.deleteListOption" classes="modal-danger">
+        <modal
+            id="confirmModal"
+            :confirm-action="this.deleteListOption"
+            classes="modal-danger"
+        >
             <template slot="header">
                 Delete {{ name }}
             </template>
@@ -67,7 +89,6 @@
 
 
 <script>
-    import Modal from '../../components/Modal';
     export default {
         props: ['new', 'name', 'apiPath'],
         data() {

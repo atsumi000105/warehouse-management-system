@@ -2,10 +2,13 @@
     <section class="content">
         <router-link
             :to="'/' + apiPath + '/new'"
-            class="btn btn-success btn-flat pull-right">
+            class="btn btn-success btn-flat pull-right"
+        >
             <i class="fa fa-plus-circle fa-fw" />Create {{ name }}
         </router-link>
-        <h3 class="box-title">{{ name }} List</h3>
+        <h3 class="box-title">
+            {{ name }} List
+        </h3>
 
         <div class="row">
             <div class="col-xs-12">
@@ -35,7 +38,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="listOption in listOptions.data" :key="listOption.id">
+                                <tr
+                                    v-for="listOption in listOptions.data"
+                                    :key="listOption.id"
+                                >
                                     <td>
                                         <router-link :to="'/' + apiPath + '/' + listOption.id">
                                             <i class="fa fa-edit" />{{ listOption.id }}

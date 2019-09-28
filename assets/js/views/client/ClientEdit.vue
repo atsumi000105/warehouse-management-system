@@ -69,7 +69,8 @@
         <modal
             id="confirmModal"
             :confirm-action="deleteClient"
-            classes="modal-danger">
+            classes="modal-danger"
+        >
             <template slot="header">
                 Delete Client
             </template>
@@ -83,6 +84,7 @@
 
 <script>
     import Modal from '../../components/Modal.vue';
+
     export default {
         name: 'ClientEdit',
         components: {

@@ -1,5 +1,9 @@
 <template>
-    <modal id="bulkDeleteModal" :confirm-action="action" classes="modal-danger">
+    <modal
+        id="bulkDeleteModal"
+        :confirm-action="action"
+        classes="modal-danger"
+    >
         <template slot="header">
             Bulk {{ bulkDeleteType }}
         </template>
@@ -19,6 +23,7 @@
 
 <script>
     import Modal from '../components/Modal.vue';
+
     export default {
         components: {
             'modal' : Modal
