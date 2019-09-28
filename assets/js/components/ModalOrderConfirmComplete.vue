@@ -1,5 +1,5 @@
 <template>
-    <hb-modal
+    <modal
         id="confirmCommitModal"
         :confirm-action="action"
         classes="modal-info"
@@ -12,11 +12,16 @@
         <template slot="confirmButton">
             Complete Order
         </template>
-    </hb-modal>
+    </modal>
 </template>
 
 <script>
+    import Modal from '../components/Modal.vue';
+
     export default {
+        components: {
+            'modal' : Modal
+        },
         props: {
             action: { type: Function },
             orderTitle: {type: String },

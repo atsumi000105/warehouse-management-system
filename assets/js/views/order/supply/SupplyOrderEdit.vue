@@ -35,7 +35,7 @@
         <form role="form">
             <div class="row">
                 <div class="col-md-4">
-                    <hb-ordermetadatabox
+                    <ordermetadatabox
                         :order="order"
                         order-type="Supply Order"
                         :statuses="statuses"
@@ -54,14 +54,14 @@
                                 <h3 class="box-title">
                                     <i class="icon fa fa-group fa-fw" />Supplier
                                 </h3>
-                                <hb-supplierselectionform
+                                <supplierselectionform
                                     v-model="order.supplier"
                                     :address-value="order.supplierAddress"
                                     :editable="order.isEditable"
                                 />
-                                <hb-fielderror v-if="$v.order.supplier.$error">
+                                <fielderror v-if="$v.order.supplier.$error">
                                     Field is required
-                                </hb-fielderror>
+                                </fielderror>
                             </div>
 
                             <div
@@ -71,13 +71,13 @@
                                 <h3 class="box-title">
                                     <i class="icon fa fa-industry fa-fw" />Destination Warehouse
                                 </h3>
-                                <hb-warehouseselectionform
+                                <warehouseselectionform
                                     v-model="order.warehouse"
                                     :editable="order.isEditable"
                                 />
-                                <hb-fielderror v-if="$v.order.warehouse.$error">
+                                <fielderror v-if="$v.order.warehouse.$error">
                                     Field is required
-                                </hb-fielderror>
+                                </fielderror>
                             </div>
                         </div>
                     </div>
@@ -91,17 +91,17 @@
                         :class="{ 'has-error': $v.order.lineItems.$error }"
                     >
                         <div class="box-header with-border">
-                            <hb-fielderror
+                            <fielderror
                                 v-if="$v.order.lineItems.$error"
                                 classes="pull-right"
                             >
                                 At least one line item must have a quantity
-                            </hb-fielderror>
+                            </fielderror>
                             <h3 class="box-title">
                                 <i class="icon fa fa-list fa-fw" />Line Items
                             </h3>
                         </div>
-                        <hb-lineitemform
+                        <lineitemform
                             :products="products"
                             :show-cost="true"
                             :line-items="order.lineItems"
@@ -111,12 +111,12 @@
                 </div>
             </div>
         </form>
-        <hb-modalinvalid />
-        <hb-modaldelete
+        <modalinvalid />
+        <modaldelete
             :action="this.deleteOrder"
             :order-title="order.title"
         />
-        <hb-modalcomplete
+        <modalcomplete
             :action="this.save"
             :order-title="order.title"
         />
@@ -127,8 +127,24 @@
 <script>
     import { required } from 'vuelidate/lib/validators';
     import { linesRequired, mod } from '../../../validators';
-
+    import ModalOrderConfirmComplete from '../../../components/ModalOrderConfirmComplete.vue';
+    import ModalOrderConfirmDelete from '../../../components/ModalOrderConfirmDelete.vue';
+    import ModalOrderInvalid from '../../../components/ModalOrderInvalid.vue';
+    import FieldError from '../../../components/FieldError.vue';
+    import OrderMetadataBox from '../../../components/OrderMetadataBox.vue';
+    import WarehouseSelectionForm from '../../../components/WarehouseSelectionForm.vue'
+    import LineItemForm from '../../../components/LineItemForm.vue';
+    import SupplierSelectionForm from '../../../components/SupplierSelectionForm.vue';
     export default {
+        components: {
+            'modalcomplete' : ModalOrderConfirmComplete,
+            'modaldelete' : ModalOrderConfirmDelete,
+            'fielderror' : FieldError,
+            'ordermetadatabox' : OrderMetadataBox,
+            'warehouseselectionform' : WarehouseSelectionForm,
+            'lineitemform' : LineItemForm,
+            'supplierselectionform' : SupplierSelectionForm
+        },
         props: ['new'],
         data() {
             return {

@@ -49,7 +49,7 @@
             </div>
 
             <div class="col-xs-2">
-                <hb-optionliststatic
+                <optionliststatic
                     v-model="filters"
                     label="Status"
                     property="status"
@@ -99,7 +99,7 @@
                             </div>
                         </div>
                     </div>
-                    <hb-tablepaged
+                    <tablepaged
                         ref="hbtable"
                         :columns="columns"
                         api-url="/api/suppliers"
@@ -113,7 +113,7 @@
                 <!-- /.box -->
             </div>
         </div>
-        <SupplierMerge
+        <supplier-merge
             ref="supplierMerge"
             :selected-supplier-ids="selection"
         />
@@ -122,9 +122,14 @@
 
 <script>
     import SupplierMerge from './SupplierMerge.vue';
-
+    import OptionListStatic from '../../components/OptionListStatic.vue';
+    import TablePaged from '../../components/TablePaged.vue';
     export default {
-        components: {SupplierMerge},
+        components: {
+            'supplier-merge' : SupplierMerge,
+            'optionliststatic' : OptionListStatic,
+            'tablepaged' : TablePaged
+        },
         props:[],
         data() {
             let columns = [

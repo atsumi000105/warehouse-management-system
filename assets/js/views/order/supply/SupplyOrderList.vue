@@ -28,7 +28,7 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body table-responsive no-padding">
-                        <hb-tablepaged
+                        <tablepaged
                             :columns="columns"
                             api-url="/api/orders/supply"
                             edit-route="/orders/supply"
@@ -44,7 +44,11 @@
 </template>
 
 <script>
+    import TablePaged from '../../../components/TablePaged.vue';
     export default {
+        components: {
+            'tablepaged' : TablePaged
+        },
         props:[],
         data() {
             return {

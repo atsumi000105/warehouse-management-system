@@ -30,17 +30,17 @@
 
         <div class="row">
             <div class="col-lg-3 col-sm-6">
-                <hb-storagelocationselectionform
+                <storagelocationselectionform
                     v-model="filters.location"
                 />
             </div>
             <div class="col-lg-2 col-sm-4">
-                <hb-productselection
+                <productselection
                     v-model="filters.product"
                 />
             </div>
             <div class="col-lg-2 col-sm-4">
-                <hb-optionlist
+                <optionlist
                     v-model="filters.orderType"
                     label="Order Type"
                     :preloaded-options="[
@@ -54,13 +54,13 @@
             </div>
 
             <div class="form-group col-lg-2 col-sm-4">
-                <hb-date
+                <datefield
                     v-model="filters.startingAt"
                     label="Start Date Created"
                 />
             </div>
             <div class="form-group col-lg-2 col-sm-4">
-                <hb-date
+                <datefield
                     v-model="filters.endingAt"
                     label="End Date Created"
                 />
@@ -78,7 +78,7 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="box">
-                    <hb-tablepaged
+                    <tablepaged
                         ref="hbtable"
                         :columns="columns"
                         :sort-order="[{ field: 'id', direction: 'desc'}]"
@@ -95,7 +95,19 @@
 </template>
 
 <script>
+    import DateField from '../../components/DateField.vue';
+    import OptionList from '../../components/OptionList.vue';
+    import ProductSelectionField from '../../components/ProductSelectionField.vue';
+    import StorageLocationSelectionForm from '../../components/StorageLocationSelectionForm.vue';
+    import TablePaged from '../../components/TablePaged.vue';
     export default {
+        components: {
+            'datefield' : DateField,
+            'optionlist': OptionList,
+            'productselection' : ProductSelectionField,
+            'storagelocationselectionform' : StorageLocationSelectionForm,
+            'tablepaged' : TablePaged
+        },
         props:[],
         data() {
             return {

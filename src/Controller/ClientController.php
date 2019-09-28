@@ -6,6 +6,7 @@ use App\Entity\Client;
 use App\Entity\ValueObjects\Name;
 use App\Transformers\ClientTransformer;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,11 +25,38 @@ class ClientController extends BaseController
      */
     public function index(Request $request): JsonResponse
     {
-        $clients = $this->getRepository()->findAll();
-
 //        $this->checkViewPermissions($clients);
 
-        return $this->serialize($request, $clients);
+        $sort = $request->get('sort') ? explode('|', $request->get('sort')) : null;
+        $page = $request->get('page', 1);
+        $limit = $request->get('per_page', 10);
+
+        $params = $this->buildFilterParams($request);
+
+        $clients = $this->getRepository()->findAllPaged(
+            $page,
+            $limit,
+            $sort ? $sort[0] : null,
+            $sort ? $sort[1] : null,
+            $params
+        );
+
+        $total = $this->getRepository()->findAllCount($params);
+
+        $meta = [
+            'pagination' => [
+                'total' => (int) $total,
+                'per_page' => (int) $limit,
+                'current_page' => (int) $page,
+                'last_page' => ceil($total / $limit),
+                "next_page_url" => null,
+                "prev_page_url" => null,
+                'from' => (($page - 1) * $limit) + 1,
+                'to' => ($page * $limit),
+            ]
+        ];
+
+        return $this->serialize($request, $clients, null, $meta);
     }
 
     /**
@@ -113,6 +141,21 @@ class ClientController extends BaseController
         $this->getEm()->flush();
 
         return $this->success(sprintf('Client "%s" deleted.', $client->getName()));
+    }
+
+     /**
+     * @param Request $request
+     * @return ParameterBag
+     */
+    protected function buildFilterParams(Request $request)
+    {
+        $params = new ParameterBag();
+
+        if ($request->get('keyword')) {
+            $params->set('keyword', $request->get('keyword'));
+        }
+
+        return $params;
     }
 
     protected function getDefaultTransformer(): ClientTransformer

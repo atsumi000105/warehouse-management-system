@@ -10,6 +10,27 @@
         <h3 class="box-title">
             Client List
         </h3>
+        <div class="row">
+            <div class="col-xs-2">
+                <div class="form-group">
+                    <label>Keyword</label>
+                    <input
+                        v-model="filters.keyword"
+                        type="text"
+                        class="form-control"
+                    >
+                </div>
+            </div>
+
+            <div class="col-xs-3">
+                <button
+                    class="btn btn-success btn-flat"
+                    @click="doFilter"
+                >
+                    <i class="fa fa-fw fa-filter" />Filter
+                </button>
+            </div>
+        </div>
 
         <div class="row">
             <div class="col-xs-12">
@@ -28,32 +49,16 @@
                         -->
                     </div>
                     <!-- /.box-header -->
-                    <div class="box-body table-responsive no-padding">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Client ID</th>
-                                    <th>First Name</th>
-                                    <th>Last Name</th>
-                                    <th>Last Updated</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr
-                                    v-for="client in clients.data"
-                                    :key="client.id"
-                                >
-                                    <td>
-                                        <router-link :to="{ name: 'client-edit', params: { id: client.id }}">
-                                            <i class="fa fa-edit" />{{ client.id }}
-                                        </router-link>
-                                    </td>
-                                    <td v-text="client.name.firstName" />
-                                    <td v-text="client.name.lastName" />
-                                    <td>{{ client.updatedAt | dateTimeFormat }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="box-body table-responsive no-padding">                       
+                        <hb-tablepaged
+                            ref="hbtable"
+                            :columns="columns"
+                            api-url="/api/clients/"
+                            edit-route="/clients/"
+                            :sort-order="[{ field: 'id', direction: 'desc'}]"  
+                            :params="requestParams()"                         
+                            :per-page="50"
+                        />
                     </div>
                     <!-- /.box-body -->
                 </div>
@@ -68,7 +73,18 @@
         props:[],
         data() {
             return {
-                clients: []
+                clients: [],
+                columns: [
+                    { name: '__slot:link', title: "Client Id", sortField: 'id' },
+                    //todo: find a better way to sort value objects #30
+                    { name: 'name.firstName', title: "First Name", sortField: 'c.name.firstname' },
+                    { name: 'name.lastName', title: "Last Name", sortField: 'c.name.lastname' },
+                    { name: 'createdAt', title: "Created", callback: 'dateTimeFormat', sortField: 'createdAt' },
+                    { name: 'updatedAt', title: "Last Updated", callback: 'dateTimeFormat', sortField: 'updatedAt' },
+                ],
+                filters: {
+                    keyword: null
+                },       
             }
         },
         created() {
@@ -76,6 +92,18 @@
                 .get('/api/clients')
                 .then(response => this.clients = response.data);
             console.log('Component mounted.');
-        }
+        },
+        methods: {
+
+            doFilter () {
+                console.log('doFilter:', this.requestParams());
+                this.$events.fire('filter-set', this.requestParams());
+            },
+            requestParams: function () {
+                return {
+                    keyword: this.filters.keyword || null
+                }
+            },
+        },
     }
 </script>

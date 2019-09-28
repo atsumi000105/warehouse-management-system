@@ -67,14 +67,14 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <hb-optionlist
+                                <optionlist
                                     v-model="partner.fulfillmentPeriod"
                                     label="Fulfillment Period"
                                     api-path="partners/fulfillment-periods"
                                 />
                             </div>
                             <div class="form-group">
-                                <hb-optionlist
+                                <optionlist
                                     v-model="partner.distributionMethod"
                                     label="Distribution Method"
                                     api-path="partners/distribution-methods"
@@ -124,7 +124,7 @@
                         <!-- /.box-header -->
                         <div class="box-body">
                             <!-- text input -->
-                            <hb-addressform :address="partner.address" />
+                            <addressform :address="partner.address" />
                         </div>
                         <!-- /.box-body -->
                     </div>
@@ -155,7 +155,7 @@
                                 </div>
                                 <!-- /.box-header -->
                                 <div class="box-body">
-                                    <hb-contact :contact="contact" />
+                                    <contact :contact="contact" />
                                 </div>
                             <!-- /.box-body -->
                             </div>
@@ -187,7 +187,7 @@
                 </div>
             </form>
         </div>
-        <hb-modal
+        <modal
             id="confirmModal"
             :confirm-action="this.deletePartner"
             classes="modal-danger"
@@ -199,13 +199,24 @@
             <template slot="confirmButton">
                 Delete Partner
             </template>
-        </hb-modal>
+        </modal>
     </section>
 </template>
 
 
 <script>
+    import Modal from '../../components/Modal.vue';
+    import AddressForm from '../../components/AddressFormFields.vue';
+    import ContactFormFields from '../../components/ContactFormFields.vue';
+    import OptionList from '../../components/OptionList.vue';
+
     export default {
+        components: {
+            'modal' : Modal,
+            'addressform' : AddressForm,
+            'contact' : ContactFormFields,
+            'optionlist' : OptionList
+        },
         props: ['new'],
         data() {
             return {

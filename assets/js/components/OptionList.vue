@@ -55,7 +55,7 @@
         props: {
             value: { type: Object },
             label: { type: String },
-            apiPath: {type: String },
+            apiPath: { type: String },
             preloadedOptions: { type: Array, default: function() {return []}},
             displayProperty: { type: String, default: 'name'},
             property: { type: String, default: 'id' },
@@ -63,13 +63,11 @@
             emptyString: { type: String },
             alphabetize: { type: Boolean, default: true },
         },
-
         data() {
             return {
                 listOptions: [],
             }
         },
-
         computed: {
             loaded: function() { return this.options.length > 0 },
             options: function() {

@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="form-group">
-            <hb-optionlist
+            <optionlist
                 v-if="editable"
                 ref="productSelect"
                 v-model="value"
@@ -20,8 +20,11 @@
 
 <script>
     import { mapGetters } from 'vuex'
-
+    import OptionList from '../components/OptionList';
     export default {
+        components: {
+            'optionlist' : OptionList
+        },
         props: {
             value: { required: true, type: Object },
             editable: { type: Boolean, default: true },

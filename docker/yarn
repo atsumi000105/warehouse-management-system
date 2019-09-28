@@ -1,2 +1,2 @@
-#!/bin/bash
-docker run --rm -it -v $PWD:/app -w /app node yarn $@
+#!/usr/bin/env bash
+docker-compose exec app yarn watch
