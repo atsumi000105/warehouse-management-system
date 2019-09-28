@@ -141,8 +141,7 @@
                 </div>
             </form>
         </div>
-        <modal id="confirmModal" :confirm-action="this.deleteWarehouse"
-            classes="modal-danger">
+        <modal id="confirmModal" :confirm-action="this.deleteWarehouse" classes="modal-danger">
             <template slot="header">
                 Delete Warehouse
             </template>
@@ -159,6 +158,7 @@
     import Modal from '../../components/Modal.vue';
     import AddressForm from '../../components/AddressFormFields.vue';
     import ContactFormField from '../../components/ContactFormFields.vue';
+
     export default {
         components: { 
             'modal' : Modal,
