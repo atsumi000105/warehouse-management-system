@@ -1,12 +1,16 @@
 <template>
-    <hb-fillsheet
+    <fillsheet
         :order="order"
         :products="products"
     />
 </template>
 
 <script>
+    import FillSheet from '../../../components/FillSheet.vue';
     export default {
+        components: {
+            'fillsheet' : FillSheet
+        },
         data() {
             return {
                 order: {

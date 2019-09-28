@@ -1,5 +1,5 @@
 <template>
-    <hb-modal
+    <modal
         id="bulkDeleteModal"
         :confirm-action="action"
         classes="modal-danger"
@@ -18,11 +18,16 @@
         <template slot="confirmButton">
             Bulk {{ bulkDeleteType }}
         </template>
-    </hb-modal>
+    </modal>
 </template>
 
 <script>
+    import Modal from '../components/Modal.vue';
+
     export default {
+        components: {
+            'modal' : Modal
+        },
         props: {
             action: { type: Function },
             itemType: { type: String, default: 'orders' },

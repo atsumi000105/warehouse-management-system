@@ -1,5 +1,5 @@
 <template>
-    <hb-modal
+    <modal
         id="invalidModal"
         classes="modal-danger"
         :has-action="false"
@@ -11,5 +11,5 @@
         <template slot="cancelButton">
             OK
         </template>
-    </hb-modal>
+    </modal>
 </template>

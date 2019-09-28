@@ -88,7 +88,7 @@
                 </div>
             </form>
         </div>
-        <hb-modal
+        <modal
             id="confirmModal"
             :confirm-action="this.deleteGroup"
             classes="modal-danger"
@@ -100,13 +100,18 @@
             <template slot="confirmButton">
                 Delete Group
             </template>
-        </hb-modal>
+        </modal>
     </section>
 </template>
 
 
 <script>
+    import Modal from '../../components/Modal.vue';
+
     export default {
+        components: {
+            'modal' : Modal
+        },
         props: ['new'],
         data() {
             return {
