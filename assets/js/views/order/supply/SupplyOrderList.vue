@@ -31,7 +31,7 @@
                         <hb-tablepaged
                             :columns="columns"
                             api-url="/api/orders/supply"
-                            :edit-route="{ name: 'orders-supply' }"
+                            edit-route="/orders/supply"
                             :sort-order="[{ field: 'id', direction: 'desc'}]"
                         />
                     </div>

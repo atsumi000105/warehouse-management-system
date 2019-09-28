@@ -103,7 +103,7 @@
                         ref="hbtable"
                         :columns="columns"
                         api-url="/api/suppliers"
-                        :edit-route="{ name: 'suppliers' }"
+                        edit-route="/suppliers/"
                         :sort-order="[{ field: 'title', direction: 'asc'}]"
                         :params="requestParams()"
                         :per-page="50"

@@ -86,7 +86,7 @@
                                     </li>
                                     <li class="divider" />
                                     <li>
-                                        <router-link :to="{ name: 'orders-partner-bulk-edit', params: { ids: selection.join(',') }}">
+                                        <router-link :to="'/orders/partner/bulk-fill-sheet/' + selection.join(',')">
                                             <i class="fa fa-print fa-fw" />Print Fill Sheets
                                         </router-link>
                                     </li>
@@ -101,7 +101,7 @@
                             ref="hbtable"
                             :columns="columns"
                             api-url="/api/orders/partner"
-                            :edit-route="{ name: 'orders-partner' }"
+                            edit-route="/orders/partner/"
                             :sort-order="[{ field: 'id', direction: 'desc'}]"
                             :params="requestParams()"
                             :per-page="50"
