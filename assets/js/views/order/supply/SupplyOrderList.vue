@@ -1,7 +1,7 @@
 <template>
     <section class="content">
         <router-link
-            to="/orders/supply/new"
+            :to="{ name: 'order-supply-new' }"
             class="btn btn-success btn-flat pull-right"
         >
             <i class="fa fa-plus-circle fa-fw" />Create Supply Order
@@ -31,7 +31,7 @@
                         <hb-tablepaged
                             :columns="columns"
                             api-url="/api/orders/supply"
-                            edit-route="/orders/supply/"
+                            :edit-route="{ name: 'orders-supply' }"
                             :sort-order="[{ field: 'id', direction: 'desc'}]"
                         />
                     </div>

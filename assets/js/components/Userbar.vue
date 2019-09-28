@@ -41,10 +41,10 @@
         data() {
             return {
                 links: [
-                    { title: "Manage Users", route: "/admin/users", icon: "user" },
-                    { title: "Manage Groups", route: "/admin/groups", icon: "list" },
-                    { title: "Manage Fulfillment Periods", route: "/partners/fulfillment-periods", icon: "calendar" },
-                    { title: "Manage Distribution Methods", route: "/partners/distribution-methods", icon: "archive" },
+                    { title: "Manage Users", route: { name: 'admin-users' }, icon: "user" },
+                    { title: "Manage Groups", route: { name: 'admin-groups' }, icon: "list" },
+                    { title: "Manage Fulfillment Periods", route: { name: 'partners-fulfillment' }, icon: "calendar" },
+                    { title: "Manage Distribution Methods", route: { name: 'partners-dist-methods' }, icon: "archive" },
                     { title: "Configuration", route: "/admin/configuration", icon: "wrench" },
                 ]
             }

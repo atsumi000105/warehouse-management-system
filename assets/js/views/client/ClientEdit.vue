@@ -120,14 +120,14 @@
                 if (this.new) {
                     axios
                         .post('/api/clients', this.client)
-                        .then(response => self.$router.push('/clients'))
+                        .then(response => self.$router.push({ name: 'clients' }))
                         .catch(function (error) {
                             console.log("Save this.client error %o", error);
                         });
                 } else {
                     axios
                         .patch('/api/clients/' + this.$route.params.id, this.client)
-                        .then(response => self.$router.push('/clients'))
+                        .then(response => self.$router.push({ name: 'clients' }))
                         .catch(function (error) {
                             console.log("Save this.client error with params id %o", error);
                         });
@@ -140,7 +140,7 @@
                 let self = this;
                 axios
                     .delete('/api/clients/' + this.$route.params.id)
-                    .then(response => self.$router.push('/clients'));
+                    .then(response => self.$router.push({ name: 'clients' }));
             }
         }
     }

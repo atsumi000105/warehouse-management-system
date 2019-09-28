@@ -1,7 +1,7 @@
 <template>
     <section class="content">
         <router-link
-            to="/orders/partner/new"
+            :to="{ name: 'partner-new' }"
             class="btn btn-success btn-flat pull-right"
         >
             <i class="fa fa-plus-circle fa-fw" />Create Partner Order
@@ -86,7 +86,7 @@
                                     </li>
                                     <li class="divider" />
                                     <li>
-                                        <router-link :to="'/orders/partner/bulk-fill-sheet/' + selection.join(',')">
+                                        <router-link :to="{ name: 'orders-partner-bulk-edit', params: { ids: selection.join(',') }}">
                                             <i class="fa fa-print fa-fw" />Print Fill Sheets
                                         </router-link>
                                     </li>
@@ -101,7 +101,7 @@
                             ref="hbtable"
                             :columns="columns"
                             api-url="/api/orders/partner"
-                            edit-route="/orders/partner/"
+                            :edit-route="{ name: 'orders-partner' }"
                             :sort-order="[{ field: 'id', direction: 'desc'}]"
                             :params="requestParams()"
                             :per-page="50"
@@ -157,7 +157,7 @@
         },
         methods: {
             routerLink: function (id) {
-                return "<router-link to=\"/orders/partner/" + id + "\"><i class=\"fa fa-edit\"></i>" + id + "</router-link>";
+                return "<router-link to=" + { name: 'order-partner-edit', params: { id: id }} + "><i class=\"fa fa-edit\"></i>" + id + "</router-link>";
             },
             onPaginationData (paginationData) {
                 this.$refs.pagination.setPaginationData(paginationData)

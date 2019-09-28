@@ -80,7 +80,7 @@
                                     :key="product.id"
                                 >
                                     <td>
-                                        <router-link :to="'/products/' + product.id">
+                                        <router-link :to="{ name: 'products', params: { id: product.id }}">
                                             <i class="fa fa-edit" />{{ product.id }}
                                         </router-link>
                                     </td>

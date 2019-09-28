@@ -1,7 +1,7 @@
 <template>
     <section class="content">
         <router-link
-            to="/suppliers/new"
+            :to="{ name: 'supplier-new' }"
             class="btn btn-success btn-flat pull-right"
         >
             <i class="fa fa-plus-circle fa-fw" />Create Supplier
@@ -103,7 +103,7 @@
                         ref="hbtable"
                         :columns="columns"
                         api-url="/api/suppliers"
-                        edit-route="/suppliers/"
+                        :edit-route="{ name: 'suppliers' }"
                         :sort-order="[{ field: 'title', direction: 'asc'}]"
                         :params="requestParams()"
                         :per-page="50"
@@ -162,7 +162,7 @@
         },
         methods: {
             routerLink: function (id) {
-                return "<router-link to=\"/suppliers/" + id + "\"><i class=\"fa fa-edit\"></i>" + id + "</router-link>";
+                return "<router-link :to=" + { name: 'supplier-edit', params: { id: id }} + "><i class=\"fa fa-edit\"></i>" + id + "</router-link>";
             },
             onPaginationData (paginationData) {
                 this.$refs.pagination.setPaginationData(paginationData)

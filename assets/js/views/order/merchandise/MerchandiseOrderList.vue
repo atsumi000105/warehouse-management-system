@@ -1,7 +1,7 @@
 <template>
     <section class="content">
         <router-link
-            to="/orders/merchandise/new"
+            :to="{ name: 'order-merchandise-new' }"
             class="btn btn-success btn-flat pull-right"
         >
             <i class="fa fa-plus-circle fa-fw" />Create Merchandise Order
@@ -31,7 +31,7 @@
                         <hb-tablepaged
                             :columns="columns"
                             api-url="/api/orders/merchandise"
-                            edit-route="/orders/merchandise/"
+                            :edit-route="{ name: 'orders-merchandise' }"
                             :sort-order="[{ field: 'id', direction: 'desc'}]"
                         />
                     </div>

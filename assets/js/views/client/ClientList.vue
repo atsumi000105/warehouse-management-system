@@ -1,7 +1,7 @@
 <template>
     <section class="content">
         <router-link
-            to="/clients/new"
+            :to="{ name: 'client-new' }"
             class="btn btn-success btn-flat pull-right"
         >
             <i class="fa fa-plus-circle fa-fw" />
@@ -44,7 +44,7 @@
                                     :key="client.id"
                                 >
                                     <td>
-                                        <router-link :to="'/clients/' + client.id">
+                                        <router-link :to="{ name: 'client-edit', params: { id: client.id }}">
                                             <i class="fa fa-edit" />{{ client.id }}
                                         </router-link>
                                     </td>
