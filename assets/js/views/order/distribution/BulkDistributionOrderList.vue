@@ -45,7 +45,7 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body table-responsive no-padding">
-                        <hb-tablepaged
+                        <tablepaged
                             ref="hbtable"
                             :columns="columns"
                             api-url="/api/orders/distribution"
@@ -59,12 +59,12 @@
                 <!-- /.box -->
             </div>
         </div>
-        <hb-modalbulkchange
+        <modalbulkchange
             :items="selection"
             item-type="Distributions"
             :action="this.doBulkChange"
         />
-        <hb-modalbulkdelete
+        <modalbulkdelete
             :items="selection"
             item-type="Distributions"
             :action="this.doBulkDelete"
@@ -74,7 +74,15 @@
 </template>
 
 <script>
+    import ModalConfirmBulkChange from '../../../components/ModalConfirmBulkChange.vue';
+    import ModalConfirmBulkDelete from '../../../components/ModalConfirmBulkDelete.vue';
+    import TablePaged from '../../../components/TablePaged.vue';
     export default {
+        components: { 
+            'modalbulkchange' : ModalConfirmBulkChange,
+            'modalbulkdelete' : ModalConfirmBulkDelete,
+            'tablepaged' : TablePaged
+        },
         props:[],
         data() {
             return {

@@ -1,5 +1,5 @@
 <template>
-    <div class="hb-contact">
+    <div class="contact">
         <div class="row">
             <div class="form-group col-xs-6">
                 <label>First Name</label>

@@ -6,7 +6,7 @@
 
         <div class="row">
             <div class="col-xs-4">
-                <hb-storagelocationselectionform
+                <storagelocationselectionform
                     v-model="filters.location"
                 />
             </div>
@@ -32,7 +32,7 @@
             </div>
 
             <div class="form-group col-xs-4">
-                <hb-date
+                <datefield
                     v-model="filters.endingAt"
                     label="Date"
                 />
@@ -107,7 +107,13 @@
 </template>
 
 <script>
+    import DateField from '../../components/DateField.vue';
+    import StorageLocationSelectionForm from '../../components/StorageLocationSelectionForm.vue';
     export default {
+        components: { 
+            'datefield' : DateField,
+            'storagelocationselectionform' : StorageLocationSelectionForm
+        },
         props:[],
         data() {
             return {

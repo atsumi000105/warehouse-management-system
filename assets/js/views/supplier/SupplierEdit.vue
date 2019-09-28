@@ -172,7 +172,7 @@
                                 </div>
                                 <!-- /.box-header -->
                                 <div class="box-body">
-                                    <hb-contact :contact="contact" />
+                                    <contact :contact="contact" />
                                 </div>
                             <!-- /.box-body -->
                             </div>
@@ -204,7 +204,7 @@
                 </div>
             </form>
         </div>
-        <hb-modal
+        <modal
             id="confirmModal"
             :confirm-action="this.deleteSupplier"
             classes="modal-danger"
@@ -216,13 +216,21 @@
             <template slot="confirmButton">
                 Delete Supplier
             </template>
-        </hb-modal>
+        </modal>
     </section>
 </template>
 
 
 <script>
+    import Modal from '../../components/Modal.vue';
+    import AddressForm from '../../components/AddressFormFields.vue';
+    import ContactFormField from '../../components/ContactFormFields.vue';
     export default {
+        components: {
+            'modal' : Modal,
+            'addressform' : AddressForm,
+            'contact' : ContactFormField
+        },
         props: ['new'],
         data() {
             return {

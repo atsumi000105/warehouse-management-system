@@ -53,7 +53,7 @@
                                 >
                             </div>
                             <div class="form-group">
-                                <hb-optionlist
+                                <optionlist
                                     v-model="product.productCategory"
                                     label="Product Category"
                                     api-path="product-categories"
@@ -231,7 +231,7 @@
                 </div>
             </div>
         </div>
-        <hb-modal
+        <modal
             id="confirmModal"
             :confirm-action="this.deleteProduct"
             classes="modal-danger"
@@ -243,16 +243,21 @@
             <template slot="confirmButton">
                 Delete Product
             </template>
-        </hb-modal>
+        </modal>
     </section>
 </template>
 
 
 <script>
     import Verte from "verte";
-
+    import Modal from '../../components/Modal';
+    import OptionList from '../../components/OptionList.vue';
     export default {
-        components: {Verte},
+        components: {
+            Verte,
+            'modal' : Modal,
+            'optionlist' : OptionList
+        },
         props: ['create'],
         data() {
             return {

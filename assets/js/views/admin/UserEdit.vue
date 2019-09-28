@@ -3,8 +3,7 @@
         <div class="pull-right">
             <button
                 class="btn btn-success btn-flat"
-                @click.prevent="save"
-            >
+                @click.prevent="save">
                 <i class="fa fa-save fa-fw" />
                 Save User
             </button>
@@ -12,16 +11,14 @@
                 <button
                     type="button"
                     class="btn btn-default dropdown-toggle dropdown btn-flat"
-                    data-toggle="dropdown"
-                >
+                    data-toggle="dropdown">
                     <span class="fa fa-ellipsis-v" />
                 </button>
                 <ul class="dropdown-menu dropdown-menu-right">
                     <li>
                         <a
                             href="#"
-                            @click.prevent="askDelete"
-                        >
+                            @click.prevent="askDelete">
                             <i class="fa fa-trash fa-fw" />Delete User</a>
                     </li>
                 </ul>
@@ -49,24 +46,21 @@
                                     v-model="user.name.firstName"
                                     type="text"
                                     class="form-control"
-                                    placeholder="Enter first name"
-                                >
+                                    placeholder="Enter first name">
 
                                 <label>Last Name</label>
                                 <input
                                     v-model="user.name.lastName"
                                     type="text"
                                     class="form-control"
-                                    placeholder="Enter last name"
-                                >
+                                    placeholder="Enter last name">
 
                                 <label>Email Address</label>
                                 <input
                                     v-model="user.email"
                                     type="email"
                                     class="form-control"
-                                    placeholder="Enter email address"
-                                >
+                                    placeholder="Enter email address">
 
                                 <label>Password</label>
                                 <input
@@ -91,15 +85,13 @@
                             <div class="box-body">
                                 <div
                                     v-for="sysGroup in sysGroups"
-                                    :key="sysGroup.id"
-                                >
+                                    :key="sysGroup.id">
                                     <input
                                         :id="sysGroup.id"
                                         v-model="user.groups"
                                         type="checkbox"
                                         name="group[]"
-                                        :value="sysGroup"
-                                    >
+                                        :value="sysGroup">
                                     <label :for="sysGroup.id">{{ sysGroup.name }}</label>
                                 </div>
                             </div>
@@ -108,11 +100,10 @@
                 </div>
             </form>
         </div>
-        <hb-modal
+        <modal
             id="confirmModal"
             :confirm-action="this.deleteUser"
-            classes="modal-danger"
-        >
+            classes="modal-danger">
             <template slot="header">
                 Delete User
             </template>
@@ -120,13 +111,17 @@
             <template slot="confirmButton">
                 Delete User
             </template>
-        </hb-modal>
+        </modal>
     </section>
 </template>
 
 
 <script>
+    import Modal from '../../components/Modal.vue';
     export default {
+        components: {
+            'modal' : Modal
+        },
         props: ['new'],
         data() {
             return {

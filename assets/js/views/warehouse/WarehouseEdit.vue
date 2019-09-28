@@ -79,7 +79,7 @@
                         <!-- /.box-header -->
                         <div class="box-body">
                             <!-- text input -->
-                            <hb-addressform :address="warehouse.address" />
+                            <addressform :address="warehouse.address" />
                         </div>
                         <!-- /.box-body -->
                     </div>
@@ -109,7 +109,7 @@
                                 </div>
                                 <!-- /.box-header -->
                                 <div class="box-body">
-                                    <hb-contact :contact="contact" />
+                                    <contact :contact="contact" />
                                 </div>
                             <!-- /.box-body -->
                             </div>
@@ -141,11 +141,8 @@
                 </div>
             </form>
         </div>
-        <hb-modal
-            id="confirmModal"
-            :confirm-action="this.deleteWarehouse"
-            classes="modal-danger"
-        >
+        <modal id="confirmModal" :confirm-action="this.deleteWarehouse"
+            classes="modal-danger">
             <template slot="header">
                 Delete Warehouse
             </template>
@@ -153,13 +150,21 @@
             <template slot="confirmButton">
                 Delete Warehouse
             </template>
-        </hb-modal>
+        </modal>
     </section>
 </template>
 
 
 <script>
+    import Modal from '../../components/Modal.vue';
+    import AddressForm from '../../components/AddressFormFields.vue';
+    import ContactFormField from '../../components/ContactFormFields.vue';
     export default {
+        components: { 
+            'modal' : Modal,
+            'addressform' : AddressForm,
+            'contact' : ContactFormField 
+        },
         props: ['new'],
         data() {
             return {

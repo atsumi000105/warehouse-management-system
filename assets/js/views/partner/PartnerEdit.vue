@@ -67,14 +67,14 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <hb-optionlist
+                                <optionlist
                                     v-model="partner.fulfillmentPeriod"
                                     label="Fulfillment Period"
                                     api-path="partners/fulfillment-periods"
                                 />
                             </div>
                             <div class="form-group">
-                                <hb-optionlist
+                                <optionlist
                                     v-model="partner.distributionMethod"
                                     label="Distribution Method"
                                     api-path="partners/distribution-methods"
@@ -124,7 +124,7 @@
                         <!-- /.box-header -->
                         <div class="box-body">
                             <!-- text input -->
-                            <hb-addressform :address="partner.address" />
+                            <addressform :address="partner.address" />
                         </div>
                         <!-- /.box-body -->
                     </div>
@@ -133,19 +133,10 @@
 
                 <div class="col-md-6">
                     <template>
-                        <div
-                            v-for="contact in partner.contacts"
-                            :key="contact.id"
-                        >
-                            <div
-                                v-if="!contact.isDeleted"
-                                class="box box-info"
-                            >
+                        <div v-for="contact in partner.contacts" :key="contact.id">
+                            <div v-if="!contact.isDeleted" class="box box-info">
                                 <div class="box-header with-border">
-                                    <button
-                                        class="btn btn-xs btn-danger btn-flat pull-right"
-                                        title="Remove Contact"
-                                        @click.prevent="contact.isDeleted = true"
+                                    <button class="btn btn-xs btn-danger btn-flat pull-right" title="Remove Contact" @click.prevent="contact.isDeleted = true"
                                     >
                                         <i class="fa fa-trash fa-fw" />
                                     </button>
@@ -155,14 +146,11 @@
                                 </div>
                                 <!-- /.box-header -->
                                 <div class="box-body">
-                                    <hb-contact :contact="contact" />
+                                    <contact :contact="contact" />
                                 </div>
                             <!-- /.box-body -->
                             </div>
-                            <div
-                                v-else=""
-                                class="box box-danger bg-gray"
-                            >
+                            <div v-else="" class="box box-danger bg-gray">
                                 <div class="box-header">
                                     <button
                                         class="btn btn-xs btn-info btn-flat pull-right"
@@ -178,20 +166,13 @@
                             </div>
                         </div>
                     </template>
-                    <button
-                        class="btn btn-info btn-flat pull-right"
-                        @click.prevent="partner.contacts.push({isDeleted: false})"
-                    >
+                    <button class="btn btn-info btn-flat pull-right" @click.prevent="partner.contacts.push({isDeleted: false})">
                         <i class="fa fa-plus fa-fw" />New contact
                     </button>
                 </div>
             </form>
         </div>
-        <hb-modal
-            id="confirmModal"
-            :confirm-action="this.deletePartner"
-            classes="modal-danger"
-        >
+        <modal id="confirmModal" :confirm-action="this.deletePartner" classes="modal-danger">
             <template slot="header">
                 Delete Partner
             </template>
@@ -199,13 +180,23 @@
             <template slot="confirmButton">
                 Delete Partner
             </template>
-        </hb-modal>
+        </modal>
     </section>
 </template>
 
 
 <script>
+    import Modal from '../../components/Modal.vue';
+    import AddressForm from '../../components/AddressFormFields.vue';
+    import ContactFormFields from '../../components/ContactFormFields.vue';
+    import OptionList from '../../components/OptionList.vue';
     export default {
+        components: {
+            'modal' : Modal,
+            'addressform' : AddressForm,
+            'contact' : ContactFormFields,
+            'optionlist' : OptionList
+        },
         props: ['new'],
         data() {
             return {

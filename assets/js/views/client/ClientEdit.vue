@@ -66,11 +66,10 @@
                 </div>
             </form>
         </div>
-        <hb-modal
+        <modal
             id="confirmModal"
             :confirm-action="deleteClient"
-            classes="modal-danger"
-        >
+            classes="modal-danger">
             <template slot="header">
                 Delete Client
             </template>
@@ -78,13 +77,17 @@
             <template slot="confirmButton">
                 Delete Client
             </template>
-        </hb-modal>
+        </modal>
     </section>
 </template>
 
 <script>
+    import Modal from '../../components/Modal.vue';
     export default {
         name: 'ClientEdit',
+        components: {
+            'modal' : Modal
+        },
         props: {
             new: {
                 type: String,
