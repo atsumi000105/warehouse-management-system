@@ -147,7 +147,7 @@
 
             if (!this.new) {
                 axios
-                    .get('/api/users/' + this.$route.params.id, {params: {include: ['groups']}})
+                    .get('/api/users/' + this.$route.params.id, { params: {include: ['groups'] }})
                     .then(response => {
                         self.user = response.data.data;
                     })
@@ -169,14 +169,14 @@
                 if (this.new) {
                     axios
                         .post('/api/users', this.user)
-                        .then(response => self.$router.push('/admin/users'))
+                        .then(response => self.$router.push({ name: 'admin-users' }))
                         .catch(function (error) {
                             console.log("Save this.user error %o", error);
                         });
                 } else {
                     axios
                         .patch('/api/users/' + this.$route.params.id, this.user)
-                        .then(response => self.$router.push('/admin/users'))
+                        .then(response => self.$router.push({ name: 'admin-users' }))
                         .catch(function (error) {
                             console.log("Save this.user error with params id %o", error);
                         });
@@ -189,7 +189,7 @@
                 let self = this;
                 axios
                     .delete('/api/users/' + this.$route.params.id)
-                    .then(self.$router.push('/admin/users'));
+                    .then(self.$router.push({ name: 'admin-users' }));
             }
         }
     }

@@ -142,14 +142,14 @@
                 if (this.new) {
                     axios
                         .post('/api/groups', this.group)
-                        .then(response => self.$router.push('/admin/groups'))
+                        .then(response => self.$router.push({ name: 'admin-groups' }))
                         .catch(function (error) {
                             console.log(error);
                         });
                 } else {
                     axios
                         .patch('/api/groups/' + this.$route.params.id, this.group)
-                        .then(response => self.$router.push('/admin/groups'))
+                        .then(response => self.$router.push({ name: 'admin-groups' }))
                         .catch(function (error) {
                             console.log(error);
                         });
@@ -162,7 +162,7 @@
                 var self = this;
                 axios
                     .delete('/api/groups/' + this.$route.params.id)
-                    .then(self.$router.push('/admin/groups'));
+                    .then(self.$router.push({ name: 'admin-groups' }));
             }
         }
     }

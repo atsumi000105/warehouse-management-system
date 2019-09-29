@@ -260,14 +260,14 @@
                 if (this.new) {
                     axios
                         .post('/api/suppliers', this.supplier)
-                        .then(response => self.$router.push('/suppliers'))
+                        .then(response => self.$router.push({ name: 'suppliers' }))
                         .catch(function (error) {
                             console.log(error);
                         });
                 } else {
                     axios
                         .patch('/api/suppliers/' + this.$route.params.id, this.supplier)
-                        .then(response => self.$router.push('/suppliers'))
+                        .then(response => self.$router.push({ name: 'suppliers' }))
                         .catch(function (error) {
                             console.log(error);
                         });
@@ -280,7 +280,7 @@
                 var self = this;
                 axios
                     .delete('/api/suppliers/' + this.$route.params.id)
-                    .then(self.$router.push('/suppliers'));
+                    .then(self.$router.push({ name: 'suppliers' }));
             }
         }
     }

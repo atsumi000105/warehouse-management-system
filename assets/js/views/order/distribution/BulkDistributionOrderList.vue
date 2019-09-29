@@ -1,7 +1,7 @@
 <template>
     <section class="content">
         <router-link
-            to="/orders/distribution/new"
+            :to="{ name: 'order-distribution-new' }"
             class="btn btn-success btn-flat pull-right"
         >
             <i class="fa fa-plus-circle fa-fw" />Create Partner Distribution
@@ -49,7 +49,7 @@
                             ref="hbtable"
                             :columns="columns"
                             api-url="/api/orders/distribution"
-                            edit-route="/orders/distribution/"
+                            edit-route="/orders/distribution"
                             :sort-order="[{ field: 'id', direction: 'desc'}]"
                             :per-page="50"
                         />

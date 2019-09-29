@@ -1,7 +1,7 @@
 <template>
     <section class="content">
         <router-link
-            to="/admin/groups/new"
+            :to="{ name: 'admin-group-new' }"
             class="btn btn-success btn-flat pull-right"
         >
             <i class="fa fa-plus-circle fa-fw" />
@@ -43,7 +43,7 @@
                                     :key="role.id"
                                 >
                                     <td>
-                                        <router-link :to="'/admin/groups/' + role.id">
+                                        <router-link :to="{ name: 'admin-group-edit', params: { id: role.id }}">
                                             <i class="fa fa-edit" />{{ role.id }}
                                         </router-link>
                                     </td>

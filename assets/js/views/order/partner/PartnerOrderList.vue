@@ -1,7 +1,7 @@
 <template>
     <section class="content">
         <router-link
-            to="/orders/partner/new"
+            :to="{ name: 'partner-new' }"
             class="btn btn-success btn-flat pull-right"
         >
             <i class="fa fa-plus-circle fa-fw" />Create Partner Order
@@ -170,7 +170,7 @@
         },
         methods: {
             routerLink: function (id) {
-                return "<router-link to=\"/orders/partner/" + id + "\"><i class=\"fa fa-edit\"></i>" + id + "</router-link>";
+                return "<router-link to=" + { name: 'order-partner-edit', params: { id: id }} + "><i class=\"fa fa-edit\"></i>" + id + "</router-link>";
             },
             onPaginationData (paginationData) {
                 this.$refs.pagination.setPaginationData(paginationData)

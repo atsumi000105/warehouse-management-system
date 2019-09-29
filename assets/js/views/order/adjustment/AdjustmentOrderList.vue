@@ -1,7 +1,7 @@
 <template>
     <section class="content">
         <router-link
-            to="/orders/adjustment/new"
+            :to="{ name: 'order-adjustment-new' }"
             class="btn btn-success btn-flat pull-right"
         >
             <i class="fa fa-plus-circle fa-fw" />Create Stock Change
@@ -31,7 +31,7 @@
                         <tablepaged
                             :columns="columns"
                             api-url="/api/orders/adjustment"
-                            edit-route="/orders/adjustment/"
+                            edit-route="/orders/adjustment"
                             :sort-order="[{ field: 'id', direction: 'desc'}]"
                         />
                     </div>

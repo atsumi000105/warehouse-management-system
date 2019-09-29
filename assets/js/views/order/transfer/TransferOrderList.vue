@@ -1,7 +1,7 @@
 <template>
     <section class="content">
         <router-link
-            to="/orders/transfer/new"
+            :to="{ name: 'order-transfer-new' }"
             class="btn btn-success btn-flat pull-right"
         >
             <i class="fa fa-plus-circle fa-fw" />Create Transfer Order

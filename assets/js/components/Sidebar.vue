@@ -7,7 +7,7 @@
             <li
                 v-for="menu in navigation"
                 :key="menu.id"
-                :class="{treeview: menu.hasOwnProperty('links')}"
+                :class="{ treeview: menu.hasOwnProperty('links') }"
             >
                 <router-link :to="menu.route || '#'">
                     <i
@@ -60,54 +60,54 @@
                         header: "Incoming Supplies",
                         icon: "truck",
                         links: [
-                            { title: "Supply Orders", route: "/orders/supply", icon: "truck" },
-                            { title: "Supplier Management", route: "/suppliers", icon: "group" },
-                            { title: "Supply Totals Report", route: "/reports/supply-totals", icon: "print" },
+                            { title: "Supply Orders", route: { name: 'orders-supply' }, icon: "truck" },
+                            { title: "Supplier Management", route: { name: 'suppliers' }, icon: "group" },
+                            { title: "Supply Totals Report", route: { name: 'reports-supply-totals'}, icon: "print" },
                         ]
                     },
                     {
                         header: "Partners",
                         icon: "shopping-cart",
                         links: [
-                            { title: "Partner Orders", route: "/orders/partner", icon: "child" },
-                            { title: "Partner Distributions", route: "/orders/distribution", icon: "check-square-o" },
-                            { title: "Partner Management", route: "/partners", icon: "sitemap" },
-                            { title: "Partner Order Totals Report", route: "/reports/partner-order-totals", icon: "print" },
-                            { title: "Partner Inventory Report", route: "/reports/partner-inventory", icon: "print" },
-                            { title: "Distribution Totals Report", route: "/reports/distribution-totals", icon: "print" },
+                            { title: "Partner Orders", route: { name: 'orders-partner' }, icon: "child" },
+                            { title: "Partner Distributions", route: { name: 'orders-distribution'}, icon: "check-square-o" },
+                            { title: "Partner Management", route: { name: 'partners' }, icon: "sitemap" },
+                            { title: "Partner Order Totals Report", route: { name: 'reports-partner-order-totals' }, icon: "print" },
+                            { title: "Partner Inventory Report", route: { name: 'reports-partner-inventory' }, icon: "print" },
+                            { title: "Distribution Totals Report", route: { name: 'reports-distribution-totals' }, icon: "print" },
                         ]
                     },
                     {
                         header: "Warehousing",
                         icon: "industry",
                         links: [
-                            { title: "Merchandise Orders", route: "/orders/merchandise", icon: "usd" },
-                            { title: "Warehouse Management", route: "/warehouses", icon: "industry" },
-                            { title: "Stock Levels", route: "/stock-levels", icon: "line-chart" },
-                            { title: "Transaction Report", route: "/reports/transactions", icon: "exchange" },
+                            { title: "Merchandise Orders", route: { name: 'orders-merchandise' }, icon: "usd" },
+                            { title: "Warehouse Management", route: { name: 'warehouses' }, icon: "industry" },
+                            { title: "Stock Levels", route: { name: 'stock-levels' }, icon: "line-chart" },
+                            { title: "Transaction Report", route: { name: 'reports-transactions'}, icon: "exchange" },
                         ]
                     },
                     {
                         header: "Adjustments",
                         icon: "wrench",
                         links: [
-                            { title: "Stock Changes", route: "/orders/adjustment", icon: "wrench" },
-                            { title: "Transfer Orders", route: "/orders/transfer", icon: "refresh" },
+                            { title: "Stock Changes", route: { name: 'orders-adjustment' }, icon: "wrench" },
+                            { title: "Transfer Orders", route: { name: 'orders-transfer' }, icon: "refresh" },
                         ]
                     },
                     {
                         header: "Products",
                         icon: "tags",
                         links: [
-                            { title: "Product Management", route: "/products", icon: "tags" },
-                            { title: "Product Categories", route: "/product-categories", icon: "folder-open" }
+                            { title: "Product Management", route: { name: 'products' }, icon: "tags" },
+                            { title: "Product Categories", route: { name: 'product-categories' }, icon: "folder-open" }
                         ]
                     },
                     {
                         header: "Clients",
                         icon: "group",
                         links: [
-                            { title: "Client Management", route: "/clients", icon: "group" },
+                            { title: "Client Management", route: { name: 'clients' }, icon: "group" },
                         ]
                     },
                 ]

@@ -1,7 +1,7 @@
 <template>
     <section class="content">
         <router-link
-            to="/clients/new"
+            :to="{ name: 'client-new' }"
             class="btn btn-success btn-flat pull-right"
         >
             <i class="fa fa-plus-circle fa-fw" />
