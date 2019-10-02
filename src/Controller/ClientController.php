@@ -49,8 +49,8 @@ class ClientController extends BaseController
                 'per_page' => (int) $limit,
                 'current_page' => (int) $page,
                 'last_page' => ceil($total / $limit),
-                "next_page_url" => null,
-                "prev_page_url" => null,
+                'next_page_url' => null,
+                'prev_page_url' => null,
                 'from' => (($page - 1) * $limit) + 1,
                 'to' => ($page * $limit),
             ]
