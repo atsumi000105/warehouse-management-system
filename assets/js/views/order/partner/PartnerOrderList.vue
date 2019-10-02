@@ -1,7 +1,7 @@
 <template>
     <section class="content">
         <router-link
-            to="/orders/partner/new"
+            :to="{ name: 'partner-new' }"
             class="btn btn-success btn-flat pull-right"
         >
             <i class="fa fa-plus-circle fa-fw" />Create Partner Order
@@ -12,7 +12,7 @@
 
         <div class="row">
             <div class="col-xs-2">
-                <hb-date
+                <datefield
                     v-model="filters.orderPeriod"
                     label="Order Month"
                     format="YYYY-MM-01"
@@ -20,13 +20,13 @@
                 />
             </div>
             <div class="col-xs-3">
-                <hb-partnerselectionform
+                <partnerselectionform
                     v-model="filters.partner"
                     label="Partner"
                 />
             </div>
             <div class="col-xs-2">
-                <hb-optionlist
+                <optionlist
                     v-model="filters"
                     label="Partner Fulfillment Period"
                     api-path="partners/fulfillment-periods"
@@ -37,7 +37,7 @@
             </div>
 
             <div class="col-xs-2">
-                <hb-optionliststatic
+                <optionliststatic
                     v-model="filters"
                     label="Status"
                     property="status"
@@ -97,7 +97,7 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body table-responsive no-padding">
-                        <hb-tablepaged
+                        <tablepaged
                             ref="hbtable"
                             :columns="columns"
                             api-url="/api/orders/partner"
@@ -112,7 +112,7 @@
                 <!-- /.box -->
             </div>
         </div>
-        <hb-modalbulkchange
+        <modalbulkchange
             :items="selection"
             item-type="Orders"
             :action="this.doBulkChange"
@@ -121,8 +121,21 @@
 </template>
 
 <script>
-
+    import ModalConfirmBulkChange from '../../../components/ModalConfirmBulkChange.vue';
+    import DateField from '../../../components/DateField.vue';
+    import OptionList from '../../../components/OptionList.vue';
+    import OptionListStatic from '../../../components/OptionListStatic.vue';
+    import PartnerSelectionForm from '../../../components/PartnerSelectionForm.vue';
+    import TablePaged from '../../../components/TablePaged.vue';
     export default {
+        components: {
+            'modalbulkchange' : ModalConfirmBulkChange,
+            'datefield' : DateField,
+            'optionlist' : OptionList,
+            'optionliststatic' : OptionListStatic,
+            'partnerselectionform' : PartnerSelectionForm,
+            'tablepaged' : TablePaged
+        },
         props:[],
         data() {
             return {
@@ -157,7 +170,7 @@
         },
         methods: {
             routerLink: function (id) {
-                return "<router-link to=\"/orders/partner/" + id + "\"><i class=\"fa fa-edit\"></i>" + id + "</router-link>";
+                return "<router-link to=" + { name: 'order-partner-edit', params: { id: id }} + "><i class=\"fa fa-edit\"></i>" + id + "</router-link>";
             },
             onPaginationData (paginationData) {
                 this.$refs.pagination.setPaginationData(paginationData)

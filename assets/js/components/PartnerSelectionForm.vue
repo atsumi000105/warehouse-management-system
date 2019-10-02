@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="form-group">
-            <hb-optionlist
+            <optionlist
                 v-if="editable"
                 ref="partnerSelect"
                 v-model="value"
@@ -19,7 +19,7 @@
             v-if="!editable"
             class="form-group"
         >
-            <hb-address
+            <address-view
                 v-model="value.address"
                 v="v.address"
             />
@@ -28,9 +28,15 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex'
+    import {mapGetters} from 'vuex'
+    import Address from '../components/AddressView.vue';
+    import OptionList from '../components/OptionList.vue';
 
     export default {
+        components:{
+            'address-view' : Address,
+            'optionlist' : OptionList
+        },
         props: {
             value: { required: true, type: Object },
             editable: { type: Boolean, default: true },

@@ -1,7 +1,7 @@
 <template>
     <section class="content">
         <router-link
-            to="/orders/supply/new"
+            :to="{ name: 'order-supply-new' }"
             class="btn btn-success btn-flat pull-right"
         >
             <i class="fa fa-plus-circle fa-fw" />Create Supply Order
@@ -28,10 +28,10 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body table-responsive no-padding">
-                        <hb-tablepaged
+                        <tablepaged
                             :columns="columns"
                             api-url="/api/orders/supply"
-                            edit-route="/orders/supply/"
+                            edit-route="/orders/supply"
                             :sort-order="[{ field: 'id', direction: 'desc'}]"
                         />
                     </div>
@@ -44,7 +44,11 @@
 </template>
 
 <script>
+    import TablePaged from '../../../components/TablePaged.vue';
     export default {
+        components: {
+            'tablepaged' : TablePaged
+        },
         props:[],
         data() {
             return {

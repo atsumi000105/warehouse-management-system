@@ -1,5 +1,5 @@
 <template>
-    <hb-modal
+    <modal
         id="bulkChangeModal"
         :confirm-action="action"
         classes="modal-danger"
@@ -18,11 +18,14 @@
         <template slot="confirmButton">
             Bulk {{ bulkChangeType }}
         </template>
-    </hb-modal>
+    </modal>
 </template>
 
 <script>
+    import Modal from '../components/Modal';
+
     export default {
+        components: {Modal},
         props: {
             action: { type: Function },
             itemType: { type: String, default: 'orders' },

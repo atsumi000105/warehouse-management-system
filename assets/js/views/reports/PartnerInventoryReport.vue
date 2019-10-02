@@ -29,7 +29,7 @@
 
         <div class="row">
             <div class="form-group col-lg-3 col-sm-6">
-                <hb-date
+                <datefield
                     v-model="filters.endingAt"
                     label="Date"
                 />
@@ -67,7 +67,7 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="box">
-                    <hb-tablepaged
+                    <tablepaged
                         ref="hbtable"
                         :columns="columns"
                         :sort-order="[{ field: 'p.id', direction: 'asc' }]"
@@ -84,7 +84,13 @@
 </template>
 
 <script>
+    import DateField from '../../components/DateField.vue';
+    import TablePaged from '../../components/TablePaged.vue';
     export default {
+        components: { 
+            'datefield' : DateField,
+            'tablepaged' : TablePaged
+        },
         props:[],
         data() {
             let columns = [

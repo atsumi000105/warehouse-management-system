@@ -23,7 +23,7 @@ class ClientFixtures extends BaseFixture
 
     private function getData(): array
     {
-        $clientsToCreate = 10;
+        $clientsToCreate = 75;
         return array_map(
             static function () {
                 $faker = Factory::create();

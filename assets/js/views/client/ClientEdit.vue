@@ -66,7 +66,7 @@
                 </div>
             </form>
         </div>
-        <hb-modal
+        <modal
             id="confirmModal"
             :confirm-action="deleteClient"
             classes="modal-danger"
@@ -78,13 +78,18 @@
             <template slot="confirmButton">
                 Delete Client
             </template>
-        </hb-modal>
+        </modal>
     </section>
 </template>
 
 <script>
+    import Modal from '../../components/Modal.vue';
+
     export default {
         name: 'ClientEdit',
+        components: {
+            'modal' : Modal
+        },
         props: {
             new: {
                 type: String,
@@ -120,14 +125,14 @@
                 if (this.new) {
                     axios
                         .post('/api/clients', this.client)
-                        .then(response => self.$router.push('/clients'))
+                        .then(response => self.$router.push({ name: 'clients' }))
                         .catch(function (error) {
                             console.log("Save this.client error %o", error);
                         });
                 } else {
                     axios
                         .patch('/api/clients/' + this.$route.params.id, this.client)
-                        .then(response => self.$router.push('/clients'))
+                        .then(response => self.$router.push({ name: 'clients' }))
                         .catch(function (error) {
                             console.log("Save this.client error with params id %o", error);
                         });
@@ -140,7 +145,7 @@
                 let self = this;
                 axios
                     .delete('/api/clients/' + this.$route.params.id)
-                    .then(response => self.$router.push('/clients'));
+                    .then(response => self.$router.push({ name: 'clients' }));
             }
         }
     }

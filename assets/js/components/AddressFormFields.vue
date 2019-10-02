@@ -1,5 +1,5 @@
 <template>
-    <div class="hb-addressform">
+    <div class="addressform">
         <div
             v-if="hasTitle"
             class="form-group"
@@ -43,7 +43,7 @@
                 </div>
             </div>
             <div class="col-sm-3">
-                <hb-state :address="address" />
+                <state :address="address" />
             </div>
             <div class="col-sm-3">
                 <div class="form-group">
@@ -57,12 +57,18 @@
                 </div>
             </div>
         </div>
-        <hb-country :address="address" />
+        <country :address="address" />
     </div>
 </template>
 
 <script>
+import StateField from '../components/StateField';
+import CountryField from '../components/CountryField';
 export default {
+    components: { 
+        'state' : StateField,
+        'country' : CountryField
+    },
     props: {
         address: { type: Object, required: true },
         hasTitle: { type: Boolean, default: true },

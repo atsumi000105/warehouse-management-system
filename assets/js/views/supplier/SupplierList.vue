@@ -1,7 +1,7 @@
 <template>
     <section class="content">
         <router-link
-            to="/suppliers/new"
+            :to="{ name: 'supplier-new' }"
             class="btn btn-success btn-flat pull-right"
         >
             <i class="fa fa-plus-circle fa-fw" />Create Supplier
@@ -49,7 +49,7 @@
             </div>
 
             <div class="col-xs-2">
-                <hb-optionliststatic
+                <optionliststatic
                     v-model="filters"
                     label="Status"
                     property="status"
@@ -99,7 +99,7 @@
                             </div>
                         </div>
                     </div>
-                    <hb-tablepaged
+                    <tablepaged
                         ref="hbtable"
                         :columns="columns"
                         api-url="/api/suppliers"
@@ -113,7 +113,7 @@
                 <!-- /.box -->
             </div>
         </div>
-        <SupplierMerge
+        <supplier-merge
             ref="supplierMerge"
             :selected-supplier-ids="selection"
         />
@@ -122,9 +122,14 @@
 
 <script>
     import SupplierMerge from './SupplierMerge.vue';
-
+    import OptionListStatic from '../../components/OptionListStatic.vue';
+    import TablePaged from '../../components/TablePaged.vue';
     export default {
-        components: {SupplierMerge},
+        components: {
+            'supplier-merge' : SupplierMerge,
+            'optionliststatic' : OptionListStatic,
+            'tablepaged' : TablePaged
+        },
         props:[],
         data() {
             let columns = [
@@ -162,7 +167,7 @@
         },
         methods: {
             routerLink: function (id) {
-                return "<router-link to=\"/suppliers/" + id + "\"><i class=\"fa fa-edit\"></i>" + id + "</router-link>";
+                return "<router-link :to=" + { name: 'supplier-edit', params: { id: id }} + "><i class=\"fa fa-edit\"></i>" + id + "</router-link>";
             },
             onPaginationData (paginationData) {
                 this.$refs.pagination.setPaginationData(paginationData)

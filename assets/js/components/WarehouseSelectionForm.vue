@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="form-group">
-            <hb-optionlist
+            <optionlist
                 v-if="editable"
                 v-model="value"
                 api-path="warehouses/list-options"
@@ -18,13 +18,20 @@
             v-if="!editable"
             class="form-group"
         >
-            <hb-address v-model="value.address" />
+            <address-view v-model="value.address" />
         </div>
     </div>
 </template>
 
 <script>
+    import Address from '../components/AddressView.vue';
+    import OptionList from '../components/OptionList.vue';
+
     export default {
+        components: {
+            'address-view' : Address,
+            'optionlist' : OptionList
+        }, 
         props: {
             value: { required: true, type: Object },
             editable: { type: Boolean, default: true },

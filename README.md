@@ -2,7 +2,7 @@
 
 Coverd is an open source Symfony/Vue.js web application that manages the inventory and distribution of donated goods in a `Bank -> Partner -> Client` model. While this app was developed for diaper banks, our intent is for Coverd to be product agnostic.
 
-![Travis (.org) branch](https://img.shields.io/travis/happybottoms/coverd/master?style=flat-square) 
+[![Build Status](https://travis-ci.org/happybottoms/coverd.svg?branch=master)](https://travis-ci.org/happybottoms/coverd)
 
 ![Coverd Screenshot](doc/screenshot.png)
 
@@ -63,15 +63,26 @@ Learn More at https://www.happybottoms.org
 ## Development Installation - Docker Compose
 
 1. `docker-compose up --build`
-1. Copy `.env.docker` to `.env.localhost` and set the database connection
-1. `docker/composer install`
-1. `docker/yarn install`
-1. `docker/app bin/console doctrine:database:create`
-1. `docker/app bin/console doctrine:schema:create`
-1. `docker/app bin/console doctrine:fixtures:load`
+1. `docker-compose exec app docker/install`
 
-### Run Development Server and Build JS App
+You should now be able to connect to your the dev server at http://localhost:8080/
 
-1. `docker/yarn watch`
+### Build and watch the Vue JS app
 
-You should now be able to connect to your the dev server at the address reported by `console server:run`
+1. `docker/yarn`
+
+## Work With the Dev Environment
+
+We have fixtures to define basic users of certain roles:
+
+  - admin (sees everything):
+    - **email:** admin@example.com
+    - **password:** password
+  - manager:
+    - **email:** manager@example.com
+    - **password:** password
+  - volunteer:
+    - **email:** volunteer@example.com
+    - **password:** password
+      
+Most of the time in development, you will probably want to log in as the admin. when needing to check access for certain types of users, log in as the appropriate role-based user.

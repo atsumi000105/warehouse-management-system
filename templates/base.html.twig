@@ -40,7 +40,7 @@
             <!-- Right Side Of Navbar -->
             <div class="navbar-custom-menu">
                 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                <hb-userbar></hb-userbar>
+                <userbar></userbar>
                 {% endif %}
                 <ul class="nav navbar-nav">
                     <!-- Authentication Links -->
@@ -77,11 +77,11 @@
         </div>
     </header>
     <nav id="sidebar" class="main-sidebar">
-        <hb-sidebar></hb-sidebar>
+        <sidebar></sidebar>
     </nav>
     <main class="content-wrapper">
         {% block content %}
-        <hb-exceptionpane :exceptions="exceptions"></hb-exceptionpane>
+        <exceptionpane :exceptions="exceptions"></exceptionpane>
         <router-view></router-view>
         {% endblock %}
     </main>

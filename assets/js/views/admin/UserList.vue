@@ -1,7 +1,7 @@
 <template>
     <section class="content">
         <router-link
-            to="/admin/users/new"
+            :to="{ name: 'admin-user-new'}"
             class="btn btn-success btn-flat pull-right"
         >
             <i class="fa fa-plus-circle fa-fw" />Create User
@@ -45,7 +45,7 @@
                                     :key="user.id"
                                 >
                                     <td>
-                                        <router-link :to="'/admin/users/' + user.id">
+                                        <router-link :to="{ name: 'admin-user-edit', params: { id: user.id }}">
                                             <i class="fa fa-edit" />{{ user.id }}
                                         </router-link>
                                     </td>
@@ -88,7 +88,7 @@
         },
         created() {
             axios
-                .get('/api/users', {params: {include: ['groups']}})
+                .get('/api/users', { params: { include: ['groups'] }})
                 .then(response => {
                     this.users = response.data;
                 });

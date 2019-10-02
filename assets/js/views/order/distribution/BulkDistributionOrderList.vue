@@ -1,7 +1,7 @@
 <template>
     <section class="content">
         <router-link
-            to="/orders/distribution/new"
+            :to="{ name: 'order-distribution-new' }"
             class="btn btn-success btn-flat pull-right"
         >
             <i class="fa fa-plus-circle fa-fw" />Create Partner Distribution
@@ -45,11 +45,11 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body table-responsive no-padding">
-                        <hb-tablepaged
+                        <tablepaged
                             ref="hbtable"
                             :columns="columns"
                             api-url="/api/orders/distribution"
-                            edit-route="/orders/distribution/"
+                            edit-route="/orders/distribution"
                             :sort-order="[{ field: 'id', direction: 'desc'}]"
                             :per-page="50"
                         />
@@ -59,12 +59,12 @@
                 <!-- /.box -->
             </div>
         </div>
-        <hb-modalbulkchange
+        <modalbulkchange
             :items="selection"
             item-type="Distributions"
             :action="this.doBulkChange"
         />
-        <hb-modalbulkdelete
+        <modalbulkdelete
             :items="selection"
             item-type="Distributions"
             :action="this.doBulkDelete"
@@ -74,7 +74,15 @@
 </template>
 
 <script>
+    import ModalConfirmBulkChange from '../../../components/ModalConfirmBulkChange.vue';
+    import ModalConfirmBulkDelete from '../../../components/ModalConfirmBulkDelete.vue';
+    import TablePaged from '../../../components/TablePaged.vue';
     export default {
+        components: { 
+            'modalbulkchange' : ModalConfirmBulkChange,
+            'modalbulkdelete' : ModalConfirmBulkDelete,
+            'tablepaged' : TablePaged
+        },
         props:[],
         data() {
             return {
