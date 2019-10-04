@@ -9,7 +9,7 @@
                 v-model="address.title"
                 type="text"
                 class="form-control"
-                placeholder="Enter address name"
+                placeholder="Enter address title"
             >
         </div>
         <div class="form-group">
@@ -18,7 +18,7 @@
                 v-model="address.street1"
                 type="text"
                 class="form-control"
-                placeholder="Enter address name"
+                placeholder="Enter address street 1"
             >
         </div>
         <div class="form-group">
@@ -27,7 +27,7 @@
                 v-model="address.street2"
                 type="text"
                 class="form-control"
-                placeholder="Enter address name"
+                placeholder="Enter address street 2"
             >
         </div>
         <div class="row">
@@ -38,7 +38,7 @@
                         v-model="address.city"
                         type="text"
                         class="form-control"
-                        placeholder="Enter address name"
+                        placeholder="Enter address city"
                     >
                 </div>
             </div>
@@ -52,7 +52,7 @@
                         v-model="address.postalCode"
                         type="text"
                         class="form-control"
-                        placeholder="Enter address name"
+                        placeholder="Enter address postal code"
                     >
                 </div>
             </div>
@@ -62,9 +62,10 @@
 </template>
 
 <script>
-import StateField from '../components/StateField';
-import CountryField from '../components/CountryField';
-export default {
+    import StateField from '../components/StateField';
+    import CountryField from '../components/CountryField';
+
+    export default {
     components: { 
         'state' : StateField,
         'country' : CountryField
