@@ -74,10 +74,7 @@ class Partner extends StorageLocation
         return $this->partnerType;
     }
 
-    /**
-     * @param string $partnerType
-     */
-    public function setPartnerType($partnerType)
+    public function setPartnerType(string $partnerType)
     {
         if (!in_array($partnerType, self::TYPES)) {
             throw new \Exception('%s is not a valid Partner Type', $partnerType);
@@ -86,66 +83,42 @@ class Partner extends StorageLocation
         $this->partnerType = $partnerType;
     }
 
-    /**
-     * @return PartnerFulfillmentPeriod
-     */
-    public function getFulfillmentPeriod()
+    public function getFulfillmentPeriod(): PartnerFulfillmentPeriod
     {
         return $this->fulfillmentPeriod;
     }
 
-    /**
-     * @param PartnerFulfillmentPeriod $fulfillmentPeriod
-     */
     public function setFulfillmentPeriod(PartnerFulfillmentPeriod $fulfillmentPeriod = null)
     {
         $this->fulfillmentPeriod = $fulfillmentPeriod;
     }
 
-    /**
-     * @return PartnerDistributionMethod
-     */
-    public function getDistributionMethod()
+    public function getDistributionMethod(): PartnerDistributionMethod
     {
         return $this->distributionMethod;
     }
 
-    /**
-     * @param PartnerDistributionMethod $distributionMethod
-     */
     public function setDistributionMethod(PartnerDistributionMethod $distributionMethod = null)
     {
         $this->distributionMethod = $distributionMethod;
     }
 
-    /**
-     * @return int|null
-     */
     public function getForecastAverageMonths(): ?int
     {
         return $this->forecastAverageMonths;
     }
 
-    /**
-     * @param int|null $forecastAverageMonths
-     */
     public function setForecastAverageMonths(?int $forecastAverageMonths): void
     {
         $this->forecastAverageMonths = $forecastAverageMonths;
     }
 
-    /**
-     * @return int|null
-     */
-    public function getLegacyId()
+    public function getLegacyId(): ?int
     {
         return $this->legacyId;
     }
 
-    /**
-     * @param int $legacyId
-     */
-    public function setLegacyId(int $legacyId = null)
+    public function setLegacyId(int $legacyId = null): void
     {
         $this->legacyId = $legacyId;
     }

@@ -140,10 +140,7 @@ abstract class StorageLocation extends CoreEntity
         return $this->status;
     }
 
-    /**
-     * @param string $status
-     */
-    public function setStatus($status)
+    public function setStatus(string $status): void
     {
         if (!in_array($status, self::STATUSES)) {
             throw new \Exception('%s is not a valid Status', $status);
