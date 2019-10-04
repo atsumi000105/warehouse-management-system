@@ -9,7 +9,7 @@
         "eonasdan-bootstrap-datetimepicker": "Eonasdan/bootstrap-datetimepicker",
         "eslint": "^6.0.1",
         "eslint-plugin-vue": "^5.2.2",
-        "gulp": "^3.9.1",
+        "gulp": "^4.0.2",
         "inputmask": "^3.3.9",
         "jquery": "^3.3.1",
         "js-file-download": "^0.4.1",
@@ -33,7 +33,7 @@
         "webpack-notifier": "^1.6.0"
     },
     "dependencies": {
-        "admin-lte": "^2.3.11",
+        "admin-lte": "^2.4.18",
         "chosen-bootstrap-theme": "^1.0.5",
         "normalize-scss": "^6.0.0",
         "verte": "^0.0.12",
