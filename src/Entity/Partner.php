@@ -14,12 +14,17 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Partner extends StorageLocation
 {
-    const TYPE_AGENCY = "AGENCY";
-    const TYPE_HOSPITAL = "HOSPITAL";
+    public const TYPE_AGENCY = 'AGENCY';
+    public const TYPE_HOSPITAL = 'HOSPITAL';
 
-    const ROLE_VIEW_ALL = "ROLE_PARTNER_VIEW_ALL";
-    const ROLE_VIEW_SELF = "ROLE_PARTNER_VIEW_SELF";
-    const ROLE_EDIT = "ROLE_PARTNER_EDIT";
+    public const TYPES = [
+        self::TYPE_AGENCY,
+        self::TYPE_HOSPITAL,
+    ];
+
+    const ROLE_VIEW_ALL = 'ROLE_PARTNER_VIEW_ALL';
+    const ROLE_VIEW_SELF = 'ROLE_PARTNER_VIEW_SELF';
+    const ROLE_EDIT = 'ROLE_PARTNER_EDIT';
 
     /**
      * @var string
@@ -74,6 +79,10 @@ class Partner extends StorageLocation
      */
     public function setPartnerType($partnerType)
     {
+        if (!in_array($partnerType, self::TYPES)) {
+            throw new \Exception('%s is not a valid Partner Type', $partnerType);
+        }
+
         $this->partnerType = $partnerType;
     }
 
