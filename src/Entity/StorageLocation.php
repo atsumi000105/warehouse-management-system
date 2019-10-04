@@ -197,11 +197,9 @@ abstract class StorageLocation extends CoreEntity
     }
 
     /**
-     * Take an associative array and apply the values to the properties of this entity
-     *
-     * @param array $changes
+     * {@inheritDoc}
      */
-    public function applyChangesFromArray($changes)
+    public function applyChangesFromArray(array $changes): void
     {
         if (isset($changes['address'])) {
             if (isset($changes['address']['id'])) {
