@@ -50,7 +50,7 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body table-responsive no-padding">                       
-                        <hb-tablepaged
+                        <tablepaged
                             ref="hbtable"
                             :columns="columns"
                             api-url="/api/clients/"
@@ -69,7 +69,13 @@
 </template>
 
 <script>
+    import TablePaged from "../../components/TablePaged";
+
     export default {
+        name: 'ClientView',
+        components: {
+            'tablepaged' : TablePaged
+        },
         props:[],
         data() {
             return {
