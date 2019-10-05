@@ -66,14 +66,14 @@
     import CountryField from '../components/CountryField';
 
     export default {
-    components: { 
-        'state' : StateField,
-        'country' : CountryField
-    },
-    props: {
-        address: { type: Object, required: true },
-        hasTitle: { type: Boolean, default: true },
-        v: { type: Object },
-    },
-};
+        components: {
+            'state' : StateField,
+            'country' : CountryField
+        },
+        props: {
+            address: { type: Object, required: true },
+            hasTitle: { type: Boolean, default: true },
+            v: { type: Object },
+        },
+    };
 </script>
