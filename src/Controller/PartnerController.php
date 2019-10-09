@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Partner;
+use App\Entity\PartnerProfile;
 use App\Transformers\PartnerTransformer;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,6 +30,26 @@ class PartnerController extends StorageLocationController
         return $this->serialize($request, $partners);
     }
 
+    /**
+     * @Route("", methods={"POST"})
+     */
+    public function store(Request $request)
+    {
+        $params = $this->getParams($request);
+
+        $partner = new Partner($params['title']);
+        $partnerProfile = new PartnerProfile();
+        $partner->setProfile($partnerProfile);
+
+        $partner->applyChangesFromArray($params);
+
+        $this->getEm()->persist($partner);
+
+        $this->getEm()->flush();
+
+        return $this->serialize($request, $partner);
+    }
+    
     /**
      * @Route("/{id<\d+>}", methods={"GET"})
      */

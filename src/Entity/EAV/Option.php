@@ -5,6 +5,8 @@ namespace App\Entity\EAV;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * Based on: https://github.com/Padam87/AttributeBundle
+ *
  * @ORM\Entity
  * @ORM\Table(name="attribute_option")
  */

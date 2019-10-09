@@ -22,12 +22,16 @@ class DatetimeAttribute extends Attribute
     private $value;
 
     /**
-     * @param \DateTime $value
+     * @param \DateTimeImmutable|string $value
      *
      * @return Attribute
      */
     public function setValue($value)
     {
+        if (is_string($value)) {
+            $value = \DateTimeImmutable::createFromFormat(\DateTime::RFC3339_EXTENDED, $value);
+        }
+
         $this->value = $value;
 
         return $this;
@@ -41,9 +45,9 @@ class DatetimeAttribute extends Attribute
         return $this->value;
     }
 
-    public function getJsonValue(): string
+    public function getJsonValue(): ?string
     {
-        return $this->value->format('c');
+        return $this->value ? $this->value->format('c') : null;
     }
 
     public function fixtureData()

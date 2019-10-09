@@ -12,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * Based on: https://github.com/Padam87/AttributeBundle
+ *
  * @ORM\Entity
  * @ORM\Table(name="attribute_definition", indexes={
  *      @ORM\Index(name="name_idx", columns={"name"})

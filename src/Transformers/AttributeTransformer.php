@@ -14,6 +14,7 @@ class AttributeTransformer extends TransformerAbstract
     {
         return [
             'id' => (int) $attribute->getId(),
+            'definition_id' => (int) $attribute->getDefinition()->getId(),
             'name' => $attribute->getDefinition()->getName(),
             'label' => $attribute->getDefinition()->getLabel(),
             'type' => $attribute->getDefinition()->getType(),

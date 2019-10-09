@@ -3,14 +3,15 @@
 
 namespace App\Entity;
 
+use App\Entity\EAV\AttributedEntity;
 use App\Entity\EAV\AttributedEntityTrait;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class PartnerProfile
  *
  * @ORM\Entity()
+ * @ORM\EntityListeners({"App\Listener\PartnerProfileListener"})
  */
 class PartnerProfile extends CoreEntity
 {
@@ -30,7 +31,7 @@ class PartnerProfile extends CoreEntity
      *
      * @ORM\OneToOne(
      *     targetEntity="Partner",
-     *     inversedBy="profile"
+     *     mappedBy="profile"
      * )
      */
     protected $partner;
@@ -57,6 +58,10 @@ class PartnerProfile extends CoreEntity
         $this->partner->setProfile($this);
     }
 
+    public function applyChangesFromArray($changes)
+    {
+        $this->processAttributeChanges($changes);
 
-
+        parent::applyChangesFromArray($changes);
+    }
 }

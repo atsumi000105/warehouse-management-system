@@ -2,13 +2,13 @@
 
 namespace App\Entity\EAV;
 
-use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 trait AttributedEntityTrait
 {
     /**
-     * @var Collection
+     * @var ArrayCollection
      *
      * @ORM\ManyToMany(
      *     targetEntity="App\Entity\EAV\Attribute",
@@ -18,16 +18,48 @@ trait AttributedEntityTrait
      */
     private $attributes;
 
+    public function __construct()
+    {
+        $this->attributes = new ArrayCollection();
+    }
+
     /**
-     * @param Attribute $attributes
+     * @param Attribute $attribute
      *
      * @return $this
      */
-    public function addAttribute(Attribute $attributes)
+    public function addAttribute(Attribute $attribute)
     {
-        $this->attributes[] = $attributes;
+        foreach ($this->attributes as $item) {
+            if ($item->getDefinition()->getId() === $attribute->getDefinition()->getId()) {
+                $this->attributes->removeElement($item);
+            }
+        }
+
+        $this->attributes->add($attribute);
 
         return $this;
+    }
+
+    public function addAttributes(iterable $attributes)
+    {
+        foreach ($attributes as $attribute) {
+            $this->addAttribute($attribute);
+        }
+    }
+
+    public function setAttribute($attributeId, $value)
+    {
+        /** @var Attribute|null $attribute */
+        $attribute = $this->attributes->filter(function(Attribute $item) use ($attributeId){
+            return $item->getDefinition()->getId() == $attributeId;
+        })->first();
+
+        if($attribute) {
+            $attribute->setValue($value);
+        } else {
+            // TODO
+        }
     }
 
     /**
@@ -39,10 +71,56 @@ trait AttributedEntityTrait
     }
 
     /**
-     * @return Collection
+     * @return ArrayCollection
      */
     public function getAttributes()
     {
         return $this->attributes;
+    }
+
+    public function processAttributeChanges($changes)
+    {
+        if (isset($changes['attributes'])) {
+            foreach ($changes['attributes'] as $attributeChange) {
+                // Attribute is new and has no value should be ignored
+                if (!$attributeChange['id'] && !$attributeChange['value']) {
+                    continue;
+                }
+
+                if ($attributeChange['id'] > 0 && $attributeChange['value']) {
+                    $this->getAttributeById($attributeChange['id'])->setValue($attributeChange['value']);
+                } else {
+                    $definition = $this->getDefinitionById($attributeChange['definition_id']);
+                    $attribute = $definition->createAttribute();
+                    $attribute->setValue($attributeChange['value']);
+                    $this->addAttribute($attribute);
+                }
+            }
+        }
+
+        unset($changes['attributes']);
+    }
+
+    private function getAttributeById(int $id): ?Attribute
+    {
+        foreach ($this->getAttributes() as $attribute) {
+            if ($attribute->getId() === $id) {
+                return $attribute;
+            }
+        }
+    }
+
+    private function getDefinitionById(int $id): ?Definition
+    {
+        /** @var Definition[] $definitions */
+        $definitions = $this->getAttributes()->map(function (Attribute $attribute) {
+            return $attribute->getDefinition();
+        });
+
+        foreach ($definitions as $definition) {
+            if ($definition->getId() === $id) {
+                return $definition;
+            }
+        }
     }
 }

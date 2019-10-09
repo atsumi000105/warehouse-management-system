@@ -22,7 +22,6 @@ class PartnerProfileTransformer extends TransformerAbstract
     {
         return [
             'id' => (int) $profile->getId(),
-            'attributes' => $profile->getAttributes(),
             'createdAt' => $profile->getCreatedAt()->format('c'),
             'updatedAt' => $profile->getUpdatedAt()->format('c'),
         ];
@@ -30,7 +29,7 @@ class PartnerProfileTransformer extends TransformerAbstract
 
     public function includeAttributes(PartnerProfile $profile)
     {
-        $attributes = $profile->getAttributes();
+        $attributes = $profile->getAttributes() ?: [];
 
         return $this->collection($attributes, new AttributeTransformer());
     }

@@ -8,6 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity()
  * @ORM\InheritanceType(value="SINGLE_TABLE")
+ * @ORM\EntityListeners({"App\Listener\AttributeListener"})
+ *
+ * Based on: https://github.com/Padam87/AttributeBundle
  */
 abstract class Attribute
 {
@@ -52,7 +55,7 @@ abstract class Attribute
      * Returns a value suitable for json responses.
      * @return string
      */
-    public function getJsonValue() : string
+    public function getJsonValue() : ?string
     {
         return $this->getValue();
     }
