@@ -14,11 +14,11 @@ let routes = [
     { path: '/admin/users/new', name: 'admin-user-new', component: require('./views/admin/UserEdit.vue').default, props: { new: true } },
     { path: '/admin/users/:id', name: 'admin-user-edit', component: require('./views/admin/UserEdit.vue').default },
 
+    { path: '/admin/attributes/partner', name: 'admin-partner-attribute', component: require('./views/admin/PartnerAttributeDefinitionList.vue').default },
+
     { path: '/clients', name: 'clients', component: require('./views/client/ClientList').default },
     { path: '/clients/new', name: 'client-new', component: require('./views/client/ClientEdit').default, props: { new: true } },
     { path: '/clients/:id', name: 'client-edit', component: require('./views/client/ClientEdit').default },
-
-    { path: '/admin/attributes/partner', component: require('./views/admin/PartnerAttributeDefinitionList.vue').default },
 
     { path: '/partners/fulfillment-periods', component: require('./views/core/ListOptionList.vue').default, props: { name: 'Fulfillment Period', apiPath: 'partners/fulfillment-periods' } },
     { path: '/partners/fulfillment-periods/new', component: require('./views/core/ListOptionEdit.vue').default, props: { new: true, name: 'Fulfillment Period', apiPath: 'partners/fulfillment-periods' } },
