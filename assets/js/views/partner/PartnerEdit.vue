@@ -79,9 +79,6 @@
 
 <script>
     import Modal from '../../components/Modal.vue';
-    import AddressForm from '../../components/AddressFormFields.vue';
-    import ContactFormFields from '../../components/ContactFormFields.vue';
-    import OptionList from '../../components/OptionList.vue';
 
     import PartnerLocationEditTab from './PartnerLocationEditTab';
     import PartnerProfileEditTab from './PartnerProfileEditTab';
@@ -90,10 +87,7 @@
         components: {
             PartnerLocationEditTab,
             PartnerProfileEditTab,
-            'modal' : Modal,
-            'addressform' : AddressForm,
-            'contact' : ContactFormFields,
-            'optionlist' : OptionList
+            'modal' : Modal
         },
         props: ['new'],
         data() {

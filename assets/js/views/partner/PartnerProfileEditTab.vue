@@ -1,33 +1,35 @@
 <template>
-    <form role="form">
-        <template
-            v-for="attribute in value.profile.attributes"
-        >
-            <DateField
-                v-if="attribute.type === 'DATETIME'"
-                :key="attribute.id"
-                v-model="attribute.value"
-                :label="attribute.label"
-            ></DateField>
-            <NumberField
-                v-else-if="attribute.type === 'INTEGER'"
-                :key="attribute.id"
-                v-model="attribute.value"
-                :label="attribute.label"
-            ></NumberField>
-            <NumberField
-                v-else-if="attribute.type === 'FLOAT'"
-                :key="attribute.id"
-                v-model="attribute.value"
-                :label="attribute.label"
-            ></NumberField>
-            <TextField
-                v-else
-                v-model="attribute.value"
-                :label="attribute.label"
-            ></TextField>
-        </template>
-    </form>
+    <div>
+        <form role="form">
+            <template
+                v-for="attribute in value.profile.attributes"
+            >
+                <DateField
+                    v-if="attribute.type === 'DATETIME'"
+                    :key="attribute.id"
+                    v-model="attribute.value"
+                    :label="attribute.label"
+                ></DateField>
+                <NumberField
+                    v-else-if="attribute.type === 'INTEGER'"
+                    :key="attribute.id"
+                    v-model="attribute.value"
+                    :label="attribute.label"
+                ></NumberField>
+                <NumberField
+                    v-else-if="attribute.type === 'FLOAT'"
+                    :key="attribute.id"
+                    v-model="attribute.value"
+                    :label="attribute.label"
+                ></NumberField>
+                <TextField
+                    v-else
+                    v-model="attribute.value"
+                    :label="attribute.label"
+                ></TextField>
+            </template>
+        </form>
+    </div>
 </template>
 
 
