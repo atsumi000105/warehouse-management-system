@@ -17,6 +17,6 @@ class PartnerProfileListener
             return $defintion->createAttribute();
         }, $definitions);
 
-        $profile->addAttributes($emptyAttributes);
+        $profile->addAttributes($emptyAttributes, false);
     }
 }

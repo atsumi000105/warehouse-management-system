@@ -37,9 +37,9 @@
                 },
                 set: function(val) {
                     let date = moment.tz(val, this.format, this.timezone);
-                    this.dateValue = val ? date.toISOString() : null;
+                    this.dateValue = val ? date.format() : null;
                 },
             }
-        },
+        }
     }
 </script>

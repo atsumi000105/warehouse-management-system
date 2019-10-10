@@ -28,11 +28,15 @@ trait AttributedEntityTrait
      *
      * @return $this
      */
-    public function addAttribute(Attribute $attribute)
+    public function addAttribute(Attribute $attribute, bool $overwrite = true)
     {
         foreach ($this->attributes as $item) {
             if ($item->getDefinition()->getId() === $attribute->getDefinition()->getId()) {
-                $this->attributes->removeElement($item);
+                if ($overwrite) {
+                    $this->attributes->removeElement($item);
+                } else {
+                    return $this;
+                }
             }
         }
 
@@ -41,10 +45,10 @@ trait AttributedEntityTrait
         return $this;
     }
 
-    public function addAttributes(iterable $attributes)
+    public function addAttributes(iterable $attributes, bool $overwrite = true)
     {
         foreach ($attributes as $attribute) {
-            $this->addAttribute($attribute);
+            $this->addAttribute($attribute, $overwrite);
         }
     }
 
