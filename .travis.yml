@@ -26,11 +26,13 @@ matrix:
               - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
               - chmod +x ./cc-test-reporter
               - ./cc-test-reporter before-build
+          install:
+              ./vendor/bin/simple-phpunit install
           before_script:
               - composer self-update
               - composer install --prefer-source --no-interaction --dev
           script:
-              - vendor/bin/simple-phpunit
+              - vendor/bin/simple-phpunit $PHPUNIT_FLAGS
               # - vendor/bin/phpstan analyse
               - vendor/bin/phpcs
               # Pipe the coverage data to Code Climate
