@@ -6,6 +6,7 @@ matrix:
               - node
           script:
               - yarn lint
+              - yarn test
           cache:
               yarn: true
         - language: php

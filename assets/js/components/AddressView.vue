@@ -14,7 +14,7 @@
             {{ value.street2 }}<br>
         </div>
 
-        <div v-if="value.city || value.state || value.postalCode">
+        <div v-if="value.city || value.state || value.postalCode" data-testid="city-state-postalcode">
             <span v-if="value.city"> {{ value.city }}, </span>
             <span v-if="value.state">
                 {{ value.state }}
