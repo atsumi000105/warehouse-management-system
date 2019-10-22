@@ -12,7 +12,7 @@ matrix:
         - language: php
           php:
               - '7.3'
-                env: COVERAGE=true PHPUNIT_FLAGS="-v --coverage-text"
+                env: COVERAGE=true PHPUNIT_FLAGS="-v --coverage-text --coverage-clover"
               - nightly
           cache:
               directories:
