@@ -4,6 +4,8 @@ namespace App\Tests;
 
 use App\Entity\User;
 use Doctrine\Common\Persistence\ObjectManager;
+use Faker\Factory;
+use Faker\Generator;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\BrowserKit\Cookie;
@@ -18,6 +20,8 @@ class AbstractWebTestCase extends WebTestCase
     /** @var ObjectManager|object */
     protected $objectManager;
 
+    /** @var Generator */
+    protected $faker;
     /**
      * {@inheritDoc}
      */
@@ -31,6 +35,8 @@ class AbstractWebTestCase extends WebTestCase
             ->getContainer()
             ->get('doctrine')
             ->getManager();
+
+        $this->faker = Factory::create();
     }
 
     /**
