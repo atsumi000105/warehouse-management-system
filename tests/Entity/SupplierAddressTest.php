@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Tests\Entity;
 
 use App\Entity\SupplierAddress;
@@ -12,10 +11,10 @@ class SupplierAddressTest extends AbstractWebTestCase
     public function testIsValidReturnsTrueWhenNotEmpty()
     {
         $address = new SupplierAddress();
-        $address->setStreet1($this->faker->streetAddress);
-        $address->setCity($this->faker->city);
-        $address->setState($this->faker->stateAbbr);
-        $address->setPostalCode($this->faker->postcode);
+        $address->setStreet1('123 Main');
+        $address->setCity('Anywhere');
+        $address->setState('Texas');
+        $address->setPostalCode('12345');
         $this->assertTrue($address->isValid());
     }
 
