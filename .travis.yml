@@ -19,7 +19,7 @@ matrix:
                   - $HOME/symfony-bridge/.phpunit
           env:
               global:
-                  - PHPUNIT_FLAGS="-v --coverage-clover clover.xml"
+                  - PHPUNIT_FLAGS="-vvv --coverage-clover clover.xml"
                   - SYMFONY_PHPUNIT_DIR="$HOME/symfony-bridge/.phpunit"
           before_install:
               - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
