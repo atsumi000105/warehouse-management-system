@@ -24,7 +24,7 @@ matrix:
           before_install:
               - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
               - chmod +x ./cc-test-reporter
-              - ./cc-test-reporter before-build
+              - ./cc-test-reporter --debug before-build
           before_script:
               - composer self-update
               - composer install --prefer-source --no-interaction --dev
@@ -35,8 +35,8 @@ matrix:
               - vendor/bin/phpcs
               # Pipe the coverage data to Code Climate
           after_script:
-              - ./cc-test-reporter format-coverage -t clover -o coverage/codeclimate.json # Backend coverage
-              - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then ./cc-test-reporter upload-coverage; fi  # Upload coverage/codeclimate.json
+              - ./cc-test-reporter --debug format-coverage -t clover -o coverage/codeclimate.json # Backend coverage
+              - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then ./cc-test-reporter --debug upload-coverage; fi  # Upload coverage/codeclimate.json
     fast_finish: true
     allow_failures:
         - php: nightly
