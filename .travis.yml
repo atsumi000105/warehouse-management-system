@@ -16,27 +16,25 @@ matrix:
           cache:
               directories:
                   - $HOME/.composer/cache/files
-                  - $HOME/symfony-bridge/.phpunit
+                  - $HOME/bin/.phpunit
           env:
               global:
-                  - PHPUNIT_FLAGS="-vvv --coverage-clover clover.xml"
                   - SYMFONY_PHPUNIT_DIR="$HOME/symfony-bridge/.phpunit"
           before_install:
               - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
               - chmod +x ./cc-test-reporter
-              - ./cc-test-reporter --debug before-build
+              - ./cc-test-reporter before-build
           before_script:
               - composer self-update
               - composer install --prefer-source --no-interaction --dev
               - ./vendor/bin/simple-phpunit install
           script:
-              - vendor/bin/simple-phpunit -vv --coverage-clover clover.xml
+              - vendor/bin/simple-phpunit -v --coverage-clover clover.xml
               # - vendor/bin/phpstan analyse
               - vendor/bin/phpcs
-              # Pipe the coverage data to Code Climate
           after_script:
-              - ./cc-test-reporter --debug format-coverage -t clover # Backend coverage
-              - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then ./cc-test-reporter --debug upload-coverage; fi  # Upload coverage/codeclimate.json
+              - ./cc-test-reporter format-coverage -t clover # Backend coverage
+              - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then ./cc-test-reporter upload-coverage; fi  # Upload coverage/codeclimate.json
     fast_finish: true
     allow_failures:
         - php: nightly
