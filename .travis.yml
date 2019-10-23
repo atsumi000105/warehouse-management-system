@@ -30,7 +30,7 @@ matrix:
               - composer install --prefer-source --no-interaction --dev
               - ./vendor/bin/simple-phpunit install
           script:
-              - vendor/bin/simple-phpunit -vvv --coverage-clover clover.xml
+              - vendor/bin/simple-phpunit -vv --coverage-clover clover.xml
               # - vendor/bin/phpstan analyse
               - vendor/bin/phpcs
               # Pipe the coverage data to Code Climate
