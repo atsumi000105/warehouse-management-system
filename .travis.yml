@@ -20,7 +20,7 @@ matrix:
               - composer install --prefer-source --no-interaction --dev
           script:
               - vendor/bin/simple-phpunit
-              # - vendor/bin/phpstan analyse
+              - vendor/bin/phpstan analyse
               - vendor/bin/phpcs
     fast_finish: true
     allow_failures:
