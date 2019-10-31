@@ -24,7 +24,7 @@ class InventoryTransactionTest extends AbstractWebTestCase
         $this->assertFalse($inventoryTransaction->isCommitted());
     }
 
-    public function testCommitSetsTimeAndCommited()
+    public function testCommitSetsTimeAndCommitted()
     {
         $storageLocation      = new Warehouse('Warehouse');
         $product              = new Product('Testing');
