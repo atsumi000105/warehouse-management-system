@@ -15,14 +15,26 @@ matrix:
               - nightly
           cache:
               directories:
-                  - $HOME/.composer/cache
+                  - $HOME/.composer/cache/files
+                  - $HOME/bin/.phpunit
+          env:
+              global:
+                  - SYMFONY_PHPUNIT_DIR="$HOME/symfony-bridge/.phpunit"
+          before_install:
+              - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+              - chmod +x ./cc-test-reporter
+              - ./cc-test-reporter before-build
           before_script:
               - composer self-update
               - composer install --prefer-source --no-interaction --dev
+              - ./vendor/bin/simple-phpunit install
           script:
-              - vendor/bin/simple-phpunit
+              - vendor/bin/simple-phpunit -v --coverage-clover clover.xml
               - vendor/bin/phpstan analyse
               - vendor/bin/phpcs
+          after_script:
+              - ./cc-test-reporter format-coverage -t clover # Backend coverage
+              - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then ./cc-test-reporter upload-coverage; fi  # Upload coverage/codeclimate.json
     fast_finish: true
     allow_failures:
         - php: nightly

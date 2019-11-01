@@ -3,6 +3,7 @@
 Coverd is an open source Symfony/Vue.js web application that manages the inventory and distribution of donated goods in a `Bank -> Partner -> Client` model. While this app was developed for diaper banks, our intent is for Coverd to be product agnostic.
 
 [![Build Status](https://travis-ci.org/happybottoms/coverd.svg?branch=master)](https://travis-ci.org/happybottoms/coverd)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/9faff8ad8d54cabb1ab8/test_coverage)](https://codeclimate.com/github/happybottoms/coverd/test_coverage)
 
 ![Coverd Screenshot](doc/screenshot.png)
 
