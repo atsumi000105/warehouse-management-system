@@ -112,12 +112,6 @@ abstract class Definition extends CoreEntity
      */
     private $attributes;
 
-    /**
-     * TODO:
-     * - Add machine name
-     * - Add attribute types
-     */
-
     public function __construct()
     {
         $this->options = new ArrayCollection();
