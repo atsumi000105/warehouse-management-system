@@ -16,6 +16,7 @@ class AttributeDefinitionTransformer extends TransformerAbstract
             'type' => $definition->getType(),
             'description' => $definition->getDescription(),
             'required' => $definition->getRequired(),
+            'orderIndex' => $definition->getOrderIndex(),
         ];
     }
 }

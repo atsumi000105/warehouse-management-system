@@ -13,7 +13,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class DatetimeAttribute extends Attribute
 {
-
     /**
      * @var \DateTime
      *
@@ -21,12 +20,17 @@ class DatetimeAttribute extends Attribute
      */
     private $value;
 
+    public function getTypeLabel(): string
+    {
+        return "Date and Time";
+    }
+
     /**
      * @param \DateTimeImmutable|string $value
      *
      * @return Attribute
      */
-    public function setValue($value)
+    public function setValue($value): Attribute
     {
         if (is_string($value)) {
             $value = \DateTimeImmutable::createFromFormat(\DateTime::RFC3339, $value);

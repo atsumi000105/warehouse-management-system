@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Based on: https://github.com/Padam87/AttributeBundle
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\DefinitionRepository")
  * @ORM\Table(name="attribute_definition", indexes={
  *      @ORM\Index(name="name_idx", columns={"name"})
  * })
@@ -333,11 +333,19 @@ abstract class Definition extends CoreEntity
         return $this->attributes;
     }
 
-    public function createAttribute($value = null) : Attribute
+    public static function getAttributeTypes() : array
     {
-        $attribute = null;
+        return [
+            self::TYPE_DATETIME,
+            self::TYPE_FLOAT,
+            self::TYPE_INTEGER,
+            self::TYPE_STRING,
+        ];
+    }
 
-        switch ($this->type) {
+    public static function createNewAttributeFromType(string $type)
+    {
+        switch ($type) {
             case self::TYPE_STRING:
                 $attribute = new StringAttribute();
                 break;
@@ -351,6 +359,15 @@ abstract class Definition extends CoreEntity
                 $attribute = new DatetimeAttribute();
                 break;
         }
+
+        return $attribute;
+    }
+
+    public function createAttribute($value = null) : Attribute
+    {
+        $attribute = null;
+
+        $attribute = self::createNewAttributeFromType($this->type);
 
         $attribute->setDefinition($this);
         $attribute->setValue($value);

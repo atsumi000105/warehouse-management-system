@@ -47,7 +47,12 @@ abstract class Attribute
         return $this->id;
     }
 
-    abstract public function setValue($value);
+    /**
+     * Returns a human readable name for this attribute type.
+     */
+    abstract public function getTypeLabel(): string;
+
+    abstract public function setValue($value): Attribute;
 
     abstract public function getValue();
 

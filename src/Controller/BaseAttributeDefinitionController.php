@@ -26,7 +26,7 @@ abstract class BaseAttributeDefinitionController extends BaseController
      */
     public function index(Request $request)
     {
-        $definitions = $this->getRepository()->findAll();
+        $definitions = $this->getRepository()->findAllSorted();
 
         return $this->serialize($request, $definitions);
     }
@@ -68,6 +68,31 @@ abstract class BaseAttributeDefinitionController extends BaseController
         $this->getEm()->flush();
 
         return $this->serialize($request, $definition);
+    }
+
+    /**
+     * Saves the order index of the definitions
+     *
+     * @Route(path="/order", methods={"POST"})
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function storeOrder(Request $request)
+    {
+        $params = $this->getParams($request);
+        $ids = $params['ids'];
+
+        /** @var Definition[] $definitions */
+        $definitions = $this->getRepository()->findAllSorted();
+
+        foreach ($definitions as $definition) {
+            $definition->setOrderIndex(array_search($definition->getId(), $ids));
+        }
+
+        $this->getEm()->flush();
+
+        return $this->serialize($request, $definitions);
     }
 
     /**

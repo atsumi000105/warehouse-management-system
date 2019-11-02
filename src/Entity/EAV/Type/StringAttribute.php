@@ -21,12 +21,17 @@ class StringAttribute extends Attribute
      */
     private $value;
 
+    public function getTypeLabel(): string
+    {
+        return "Short Text";
+    }
+
     /**
      * @param string $value
      *
      * @return Attribute
      */
-    public function setValue($value)
+    public function setValue($value): Attribute
     {
         $this->value = $value;
 

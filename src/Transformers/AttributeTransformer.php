@@ -19,6 +19,7 @@ class AttributeTransformer extends TransformerAbstract
             'label' => $attribute->getDefinition()->getLabel(),
             'type' => $attribute->getDefinition()->getType(),
             'value' => $attribute->getJsonValue(),
+            'orderIndex' => $attribute->getDefinition()->getOrderIndex(),
         ];
     }
 }

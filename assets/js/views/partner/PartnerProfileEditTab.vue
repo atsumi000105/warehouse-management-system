@@ -2,7 +2,7 @@
     <div>
         <form role="form">
             <template
-                v-for="attribute in value.profile.attributes"
+                v-for="attribute in attributes"
             >
                 <DateField
                     v-if="attribute.type === 'DATETIME'"
@@ -44,6 +44,16 @@
             new: { type: Boolean },
             value: { type: Object, required: true }
         },
+        computed: {
+            attributes: function () {
+                if (this.value.profile.attributes) {
+                    let attributes = this.value.profile.attributes;
+                    return attributes.sort((a, b) => a.orderIndex - b.orderIndex)
+                }
+
+                return []
+            }
+        },
         created() {
             if (this.new) {
                 this.value.contacts.push({ isDeleted: false });
@@ -51,7 +61,7 @@
         },
         methods: {
             save: function () {
-                var self = this;
+                let self = this;
                 if (this.new) {
                     axios
                         .post('/api/partners', this.partner)

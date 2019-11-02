@@ -97,6 +97,7 @@
                     contacts: [],
                     fulfillmentPeriod: {},
                     distributionMethod: { },
+                    profile: {},
                 }
             };
         },
@@ -113,7 +114,7 @@
         },
         methods: {
             save: function () {
-                var self = this;
+                let self = this;
                 if (this.new) {
                     axios
                         .post('/api/partners', this.partner)
@@ -134,7 +135,7 @@
                 $('#confirmModal').modal('show');
             },
             deletePartner: function() {
-                var self = this;
+                let self = this;
                 axios
                     .delete('/api/partners/' + this.$route.params.id)
                     .then(self.$router.push('/partners'));

@@ -20,12 +20,17 @@ class IntegerAttribute extends Attribute
      */
     private $value;
 
+    public function getTypeLabel(): string
+    {
+        return "Integer";
+    }
+
     /**
      * @param int $value
      *
      * @return Attribute
      */
-    public function setValue($value)
+    public function setValue($value): Attribute
     {
         $this->value = $value;
 

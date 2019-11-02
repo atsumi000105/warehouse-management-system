@@ -20,12 +20,17 @@ class FloatAttribute extends Attribute
      */
     private $value;
 
+    public function getTypeLabel(): string
+    {
+        return "Decimal";
+    }
+
     /**
      * @param float $value
      *
      * @return Attribute
      */
-    public function setValue($value)
+    public function setValue($value): Attribute
     {
         $this->value = $value;
 
