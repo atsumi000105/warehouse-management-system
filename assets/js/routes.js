@@ -22,10 +22,6 @@ let routes = [
     { path: '/clients/new', name: 'client-new', component: require('./views/client/ClientEdit').default, props: { new: true } },
     { path: '/clients/:id', name: 'client-edit', component: require('./views/client/ClientEdit').default },
 
-    { path: '/partners/fulfillment-periods', component: require('./views/core/ListOptionList.vue').default, props: { name: 'Fulfillment Period', apiPath: 'partners/fulfillment-periods' } },
-    { path: '/partners/fulfillment-periods/new', component: require('./views/core/ListOptionEdit.vue').default, props: { new: true, name: 'Fulfillment Period', apiPath: 'partners/fulfillment-periods' } },
-    { path: '/partners/fulfillment-periods/:id', component: require('./views/core/ListOptionEdit.vue').default, props: { name: 'Fulfillment Period', apiPath: 'partners/fulfillment-periods' } },
-
     { path: '/partners/fulfillment-periods', name: 'partners-fulfillment', component: require('./views/core/ListOptionList.vue').default, props: { name: 'Fulfillment Period', apiPath: 'partners/fulfillment-periods' } },
     { path: '/partners/fulfillment-periods/new', name: 'partner-fulfillment-new', component: require('./views/core/ListOptionEdit.vue').default, props: { new: true, name: 'Fulfillment Period', apiPath: 'partners/fulfillment-periods' } },
     { path: '/partners/fulfillment-periods/:id', name: 'partner-fulfillment-edit', component: require('./views/core/ListOptionEdit.vue').default, props: { name: 'Fulfillment Period', apiPath: 'partners/fulfillment-periods' } },

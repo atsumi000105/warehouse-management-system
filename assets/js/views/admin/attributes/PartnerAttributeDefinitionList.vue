@@ -1,21 +1,25 @@
 <template>
     <section class="content">
-        <div class="btn-group pull-right">
-            <button
-                type="button"
-                class="btn btn-default btn-flat"
-                @click.prevent="saveSort"
-            >
-                <i class="fa fa-save" />
-                Save Field Order
-            </button>
-            <router-link
-                :to="{ name: 'admin-partner-attribute-new' }"
-                class="btn btn-success btn-flat"
-            >
-                <i class="fa fa-plus-circle fa-fw" />
-                Create Attribute
-            </router-link>
+        <div class="pull-right">
+            <div class="btn-group">
+                <button
+                    type="button"
+                    class="btn btn-default btn-flat"
+                    @click.prevent="saveSort"
+                >
+                    <i class="fa fa-fw fa-save" />
+                    Save Field Order
+                </button>
+            </div>
+            <div class="btn-group">
+                <router-link
+                    :to="{ name: 'admin-partner-attribute-new' }"
+                    class="btn btn-success btn-flat"
+                >
+                    <i class="fa fa-plus-circle fa-fw" />
+                    Create Attribute
+                </router-link>
+            </div>
         </div>
         <h3 class="box-title">
             Partner Profile Attribute List
@@ -24,20 +28,6 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="box">
-                    <div class="box-header">
-                        <!--
-                        <div class="box-tools">
-                            <div class="input-group input-group-sm" style="width: 150px;">
-                                <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
-
-                                <div class="input-group-btn">
-                                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                        -->
-                    </div>
-                    <!-- /.box-header -->
                     <div class="box-body table-responsive no-padding">
                         <table class="table table-hover">
                             <thead>

@@ -59,10 +59,10 @@
     import OptionList from "../../../components/OptionList";
 
     export default {
-        props: ['new'],
         components: {
             OptionList
         },
+        props: ['new'],
         data() {
             return {
                 definition: {
@@ -70,22 +70,17 @@
             };
         },
         created() {
-            var self = this;
+            let self = this;
 
             if (!this.new) {
                 axios
                     .get('/api/partner/attribute/definition/' + this.$route.params.id)
                     .then(response => self.definition = response.data.data);
             }
-
-            // TODO: fetch types from backend?
-            // axios
-            //     .get('/api/groups/list-roles')
-            //     .then(response => self.roles = response.data);
         },
         methods: {
             save: function () {
-                var self = this;
+                let self = this;
                 if (this.new) {
                     axios
                         .post('/api/partner/attribute/definition', this.definition)
