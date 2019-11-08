@@ -70,6 +70,11 @@ class PartnerOrder extends Order
         return "Partner Order";
     }
 
+    public function getOrderSequencePrefix(): string
+    {
+        return "PTNR";
+    }
+
     /**
      * @return Partner
      */

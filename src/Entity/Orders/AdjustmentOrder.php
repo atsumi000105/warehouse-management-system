@@ -41,6 +41,11 @@ class AdjustmentOrder extends Order
         return "Stock Change";
     }
 
+    public function getOrderSequencePrefix(): string
+    {
+        return "SCHG";
+    }
+
     /**
      * @return StorageLocation
      */

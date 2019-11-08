@@ -47,6 +47,11 @@ class TransferOrder extends Order
         return "Stock Transfer";
     }
 
+    public function getOrderSequencePrefix(): string
+    {
+        return "TXFR";
+    }
+
     /**
      * @return StorageLocation
      */

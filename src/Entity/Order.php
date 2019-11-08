@@ -37,6 +37,13 @@ abstract class Order extends CoreEntity
     protected $id;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=11, nullable=false)
+     */
+    protected $sequenceNo;
+
+    /**
      * @var ArrayCollection|LineItem[]
      *
      * @ORM\OneToMany(targetEntity="LineItem", mappedBy="order", cascade={"persist", "remove"}, orphanRemoval=true)
@@ -65,6 +72,8 @@ abstract class Order extends CoreEntity
      */
     abstract public function getOrderTypeName() : string;
 
+    abstract public function getOrderSequencePrefix() : string;
+
     /**
      * @return int
      */
@@ -76,6 +85,19 @@ abstract class Order extends CoreEntity
     public function getLineItems()
     {
         return $this->lineItems;
+    }
+
+    public function getSequenceNo(): ?string
+    {
+        return $this->sequenceNo;
+    }
+
+    public function setSequenceNo(int $sequenceNo): string
+    {
+        $padded = str_pad($sequenceNo, 6, "0", STR_PAD_LEFT);
+        $this->sequenceNo = sprintf("%s-%s", $this->getOrderSequencePrefix(), $padded);
+
+        return $this->sequenceNo;
     }
 
     /**

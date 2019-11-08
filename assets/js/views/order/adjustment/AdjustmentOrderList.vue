@@ -31,7 +31,7 @@
                         <tablepaged
                             :columns="columns"
                             api-url="/api/orders/adjustment"
-                            edit-route="/orders/adjustment"
+                            edit-route="/orders/adjustment/"
                             :sort-order="[{ field: 'id', direction: 'desc'}]"
                         />
                     </div>
@@ -56,6 +56,7 @@
                 columns: [
                     { name: '__checkbox', title: "#" },
                     { name: '__slot:link', title: "Order Id", sortField: 'id' },
+                    { name: 'sequence', title: "Sequence", sortField: 'sequenceNo' },
                     { name: 'storageLocation.title', title: "Storage Location", sortField: 'storageLocation.title' },
                     { name: 'status', title: "Status", sortField: 'status' },
                     { name: 'createdAt', title: "Created", callback: 'dateTimeFormat', sortField: 'createdAt' },
