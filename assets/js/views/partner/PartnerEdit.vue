@@ -124,7 +124,10 @@
                         <!-- /.box-header -->
                         <div class="box-body">
                             <!-- text input -->
-                            <addressform :address="partner.address" />
+                            <addressform
+                                :address="partner.address"
+                                :has-title="hasTitle"
+                            />
                         </div>
                         <!-- /.box-body -->
                     </div>
@@ -217,7 +220,17 @@
             'contact' : ContactFormFields,
             'optionlist' : OptionList
         },
-        props: ['new'],
+        props: {
+            new: {
+                type: String,
+                default: '',
+                required: false
+            },
+            hasTitle: {
+                type: Boolean,
+                default: false
+            }
+        },
         data() {
             return {
                 partner: {

@@ -18,11 +18,16 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 abstract class StorageLocation extends CoreEntity
 {
-    const STATUS_ACTIVE = "ACTIVE";
-    const STATUS_INACTIVE = "INACTIVE";
+    public const STATUS_ACTIVE = 'ACTIVE';
+    public const STATUS_INACTIVE = 'INACTIVE';
 
-    const TYPE_WAREHOUSE = "WAREHOUSE";
-    const TYPE_PARTNER = "PARTNER";
+    public const STATUSES = [
+        self::STATUS_ACTIVE,
+        self::STATUS_INACTIVE,
+    ];
+
+    public const TYPE_WAREHOUSE = 'WAREHOUSE';
+    public const TYPE_PARTNER = 'PARTNER';
 
     /**
      * @var int
@@ -135,11 +140,11 @@ abstract class StorageLocation extends CoreEntity
         return $this->status;
     }
 
-    /**
-     * @param string $status
-     */
-    public function setStatus($status)
+    public function setStatus(string $status): void
     {
+        if (!in_array($status, self::STATUSES)) {
+            throw new \Exception('%s is not a valid Status', $status);
+        }
         $this->status = $status;
     }
 
@@ -197,11 +202,9 @@ abstract class StorageLocation extends CoreEntity
     }
 
     /**
-     * Take an associative array and apply the values to the properties of this entity
-     *
-     * @param array $changes
+     * {@inheritDoc}
      */
-    public function applyChangesFromArray($changes)
+    public function applyChangesFromArray(array $changes): void
     {
         if (isset($changes['address'])) {
             if (isset($changes['address']['id'])) {
