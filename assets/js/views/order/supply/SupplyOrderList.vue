@@ -31,8 +31,9 @@
                         <tablepaged
                             :columns="columns"
                             api-url="/api/orders/supply"
-                            edit-route="/orders/supply"
+                            edit-route="/orders/supply/"
                             :sort-order="[{ field: 'id', direction: 'desc'}]"
+                            link-display-property="sequence"
                         />
                     </div>
                     <!-- /.box-body -->
