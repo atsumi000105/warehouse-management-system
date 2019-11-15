@@ -9,7 +9,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * Class Order
  *
- * @ORM\Entity(repositoryClass="App\Entity\OrderRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\OrderRepository")
  * @ORM\EntityListeners({"App\Listener\OrderListener"})
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="type", type="string")
