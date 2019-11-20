@@ -339,6 +339,8 @@ abstract class Definition extends CoreEntity
 
     public static function createNewAttributeFromType(string $type)
     {
+        $attribute = new StringAttribute();
+
         switch ($type) {
             case self::TYPE_STRING:
                 $attribute = new StringAttribute();
