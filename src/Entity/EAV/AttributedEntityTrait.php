@@ -55,11 +55,11 @@ trait AttributedEntityTrait
     public function setAttribute($attributeId, $value)
     {
         /** @var Attribute|null $attribute */
-        $attribute = $this->attributes->filter(function(Attribute $item) use ($attributeId){
+        $attribute = $this->attributes->filter(function (Attribute $item) use ($attributeId) {
             return $item->getDefinition()->getId() == $attributeId;
         })->first();
 
-        if($attribute) {
+        if ($attribute) {
             $attribute->setValue($value);
         } else {
             // TODO

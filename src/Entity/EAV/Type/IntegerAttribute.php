@@ -47,6 +47,6 @@ class IntegerAttribute extends Attribute
 
     public function fixtureData()
     {
-        return rand(0,100);
+        return rand(0, 100);
     }
 }

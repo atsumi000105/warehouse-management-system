@@ -19,5 +19,4 @@ class PartnerProfileAttributeDefinitionController extends BaseAttributeDefinitio
     {
         return new PartnerProfileDefinition();
     }
-
 }
