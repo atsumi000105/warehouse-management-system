@@ -23,7 +23,7 @@ class AbstractWebTestCase extends WebTestCase
      */
     protected function setUp(): void
     {
-        parent::setUp();;
+        parent::setUp();
 
         $this->client = static::createClient();
 

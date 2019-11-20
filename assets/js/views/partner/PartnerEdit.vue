@@ -89,7 +89,17 @@
             PartnerProfileEditTab,
             'modal' : Modal
         },
-        props: ['new'],
+        props: {
+            new: {
+                type: String,
+                default: '',
+                required: false
+            },
+            hasTitle: {
+                type: Boolean,
+                default: false
+            }
+        },
         data() {
             return {
                 partner: {

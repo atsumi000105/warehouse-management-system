@@ -31,10 +31,8 @@ abstract class CoreEntity
 
     /**
      * Take an associative array of values and overlay them on an existing entity.
-     *
-     * @param array $changes
      */
-    public function applyChangesFromArray($changes)
+    public function applyChangesFromArray(array $changes): void
     {
         // remove id, just in case
         unset($changes['id']);
