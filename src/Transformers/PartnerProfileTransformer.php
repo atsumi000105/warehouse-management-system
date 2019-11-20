@@ -34,4 +34,3 @@ class PartnerProfileTransformer extends TransformerAbstract
         return $this->collection($attributes, new AttributeTransformer());
     }
 }
-
