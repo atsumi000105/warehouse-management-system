@@ -1,24 +1,22 @@
 <template>
     <div>
         <form role="form">
-            <template
+            <div
                 v-for="attribute in attributes"
+                :key="attribute.id"
             >
                 <DateField
                     v-if="attribute.type === 'DATETIME'"
-                    :key="attribute.id"
                     v-model="attribute.value"
                     :label="attribute.label"
                 ></DateField>
                 <NumberField
                     v-else-if="attribute.type === 'INTEGER'"
-                    :key="attribute.id"
                     v-model="attribute.value"
                     :label="attribute.label"
                 ></NumberField>
                 <NumberField
                     v-else-if="attribute.type === 'FLOAT'"
-                    :key="attribute.id"
                     v-model="attribute.value"
                     :label="attribute.label"
                 ></NumberField>
@@ -27,7 +25,7 @@
                     v-model="attribute.value"
                     :label="attribute.label"
                 ></TextField>
-            </template>
+            </div>
         </form>
     </div>
 </template>
