@@ -92,7 +92,10 @@
                     <!-- /.box-header -->
                     <div class="box-body">
                         <!-- text input -->
-                        <addressform :address="value.address" />
+                        <addressform
+                            :address="partner.address"
+                            :has-title="hasTitle"
+                        />
                     </div>
                     <!-- /.box-body -->
                 </div>

@@ -58,7 +58,7 @@ class PartnerProfile extends CoreEntity
         $this->partner->setProfile($this);
     }
 
-    public function applyChangesFromArray($changes)
+    public function applyChangesFromArray(array $changes): void
     {
         $this->processAttributeChanges($changes);
 
