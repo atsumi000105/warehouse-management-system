@@ -8,11 +8,6 @@ parameters:
 			path: src/Controller/AdjustmentOrderController.php
 
 		-
-			message: "#^Return type \\(Symfony\\\\Component\\\\HttpFoundation\\\\JsonResponse\\) of method App\\\\Controller\\\\AdjustmentOrderController\\:\\:update\\(\\) should be compatible with return type \\(array\\) of method App\\\\Controller\\\\OrderController\\:\\:update\\(\\)$#"
-			count: 1
-			path: src/Controller/AdjustmentOrderController.php
-
-		-
 			message: "#^Ternary operator condition is always false\\.$#"
 			count: 1
 			path: src/Controller/BaseController.php
@@ -128,11 +123,6 @@ parameters:
 			path: src/Controller/MerchandiseOrderController.php
 
 		-
-			message: "#^Return type \\(Symfony\\\\Component\\\\HttpFoundation\\\\JsonResponse\\) of method App\\\\Controller\\\\MerchandiseOrderController\\:\\:update\\(\\) should be compatible with return type \\(array\\) of method App\\\\Controller\\\\OrderController\\:\\:update\\(\\)$#"
-			count: 1
-			path: src/Controller/MerchandiseOrderController.php
-
-		-
 			message: "#^Call to an undefined method Doctrine\\\\ORM\\\\EntityRepository\\:\\:findAllPaged\\(\\)\\.$#"
 			count: 1
 			path: src/Controller/OrderController.php
@@ -154,11 +144,6 @@ parameters:
 
 		-
 			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected TOKEN_IDENTIFIER at offset 157$#"
-			count: 1
-			path: src/Controller/OrderController.php
-
-		-
-			message: "#^Method App\\\\Controller\\\\OrderController\\:\\:update\\(\\) should return array but returns Symfony\\\\Component\\\\HttpFoundation\\\\JsonResponse\\.$#"
 			count: 1
 			path: src/Controller/OrderController.php
 
@@ -233,17 +218,7 @@ parameters:
 			path: src/Controller/PartnerDistributionController.php
 
 		-
-			message: "#^Return type \\(Symfony\\\\Component\\\\HttpFoundation\\\\JsonResponse\\) of method App\\\\Controller\\\\PartnerDistributionController\\:\\:update\\(\\) should be compatible with return type \\(array\\) of method App\\\\Controller\\\\OrderController\\:\\:update\\(\\)$#"
-			count: 1
-			path: src/Controller/PartnerDistributionController.php
-
-		-
 			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected TOKEN_IDENTIFIER at offset 157$#"
-			count: 1
-			path: src/Controller/PartnerOrderController.php
-
-		-
-			message: "#^Return type \\(Symfony\\\\Component\\\\HttpFoundation\\\\JsonResponse\\) of method App\\\\Controller\\\\PartnerOrderController\\:\\:update\\(\\) should be compatible with return type \\(array\\) of method App\\\\Controller\\\\OrderController\\:\\:update\\(\\)$#"
 			count: 1
 			path: src/Controller/PartnerOrderController.php
 
@@ -448,17 +423,7 @@ parameters:
 			path: src/Controller/SupplyOrderController.php
 
 		-
-			message: "#^Return type \\(Symfony\\\\Component\\\\HttpFoundation\\\\JsonResponse\\) of method App\\\\Controller\\\\SupplyOrderController\\:\\:update\\(\\) should be compatible with return type \\(array\\) of method App\\\\Controller\\\\OrderController\\:\\:update\\(\\)$#"
-			count: 1
-			path: src/Controller/SupplyOrderController.php
-
-		-
 			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected TOKEN_IDENTIFIER at offset 157$#"
-			count: 1
-			path: src/Controller/TransferOrdersController.php
-
-		-
-			message: "#^Return type \\(Symfony\\\\Component\\\\HttpFoundation\\\\JsonResponse\\) of method App\\\\Controller\\\\TransferOrdersController\\:\\:update\\(\\) should be compatible with return type \\(array\\) of method App\\\\Controller\\\\OrderController\\:\\:update\\(\\)$#"
 			count: 1
 			path: src/Controller/TransferOrdersController.php
 
