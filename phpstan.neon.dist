@@ -12,7 +12,7 @@ parameters:
     ignoreErrors:
         - message: '#^Service "[^"]+" is private.$#'
           path: %rootDir%/../../../tests/
-    level: 1
+    level: max
     symfony:
         container_xml_path: %rootDir%/../../../var/cache/dev/srcApp_KernelDevDebugContainer.xml
         console_application_loader: %rootDir%/../../../tests/console-application.php
