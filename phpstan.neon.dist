@@ -13,6 +13,7 @@ parameters:
     ignoreErrors:
         - message: '#^Service "[^"]+" is private.$#'
           path: %rootDir%/../../../tests/
+    inferPrivatePropertyTypeFromConstructor: true
     level: max
     symfony:
         container_xml_path: %rootDir%/../../../var/cache/dev/srcApp_KernelDevDebugContainer.xml
