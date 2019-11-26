@@ -74,7 +74,8 @@ class TransferOrdersController extends OrderController
      * @param Request $request
      * @param $id
      * @return JsonResponse
-     * @throws \Exception
+     * @throws \App\Exception\CommittedTransactionException
+     * @throws \App\Exception\UserInterfaceException
      */
     public function update(Request $request, $id)
     {
