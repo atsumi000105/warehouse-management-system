@@ -93,8 +93,7 @@
                     <div class="box-body">
                         <!-- text input -->
                         <addressform
-                            :address="partner.address"
-                            :has-title="hasTitle"
+                            :address="value.address"
                         />
                     </div>
                     <!-- /.box-body -->
@@ -175,7 +174,14 @@
         },
         props: {
             new: { type: Boolean },
-            value: { type: Object, required: true }
+            value: { type: Object, required: true, default: function () {
+                return {
+                    address: {},
+                    contacts: [],
+                    fulfillmentPeriod: {},
+                    distributionMethod: { },
+                }
+            }}
         },
         data() {
             return {

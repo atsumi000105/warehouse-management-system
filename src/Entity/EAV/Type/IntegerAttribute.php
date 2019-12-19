@@ -18,7 +18,7 @@ class IntegerAttribute extends Attribute
      *
      * @ORM\Column(name="integer_value", type="integer", nullable=true)
      */
-    private $value;
+    protected $value;
 
     public function getTypeLabel(): string
     {

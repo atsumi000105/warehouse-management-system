@@ -18,7 +18,7 @@ class FloatAttribute extends Attribute
      *
      * @ORM\Column(name="float_value", type="float", nullable=true)
      */
-    private $value;
+    protected $value;
 
     public function getTypeLabel(): string
     {

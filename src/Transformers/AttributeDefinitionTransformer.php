@@ -7,6 +7,10 @@ use League\Fractal\TransformerAbstract;
 
 class AttributeDefinitionTransformer extends TransformerAbstract
 {
+    protected $defaultIncludes = [
+        'options'
+    ];
+
     public function transform(Definition $definition)
     {
         return [
@@ -16,7 +20,15 @@ class AttributeDefinitionTransformer extends TransformerAbstract
             'type' => $definition->getType(),
             'description' => $definition->getDescription(),
             'required' => $definition->getRequired(),
+            'options' => $definition->getOptions()->getValues(),
             'orderIndex' => $definition->getOrderIndex(),
         ];
+    }
+
+    public function includeOptions(Definition $definition)
+    {
+        $options = $definition->getOptions();
+
+        return $this->collection($options, new AttributeDefinitionOptionTransformer);
     }
 }

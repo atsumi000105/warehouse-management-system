@@ -2,6 +2,7 @@
 
 namespace App\Entity\EAV;
 
+use App\Entity\CoreEntity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="attribute_option")
  */
-class Option
+class Option extends CoreEntity
 {
     /**
      * @var int

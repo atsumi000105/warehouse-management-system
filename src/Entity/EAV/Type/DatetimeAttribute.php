@@ -18,7 +18,7 @@ class DatetimeAttribute extends Attribute
      *
      * @ORM\Column(name="datetime_value", type="datetime_immutable", nullable=true)
      */
-    private $value;
+    protected $value;
 
     public function getTypeLabel(): string
     {
@@ -32,7 +32,7 @@ class DatetimeAttribute extends Attribute
      */
     public function setValue($value): Attribute
     {
-        if (is_string($value)) {
+        if (is_string($value) && $value !== '') {
             $value = \DateTimeImmutable::createFromFormat(\DateTime::RFC3339, $value);
         }
 
@@ -51,7 +51,7 @@ class DatetimeAttribute extends Attribute
 
     public function getJsonValue(): ?string
     {
-        return $this->value ? $this->value->format('c') : null;
+        return $this->value ? $this->value->format('c') : '';
     }
 
     public function fixtureData()

@@ -29,13 +29,6 @@
                                     placeholder="Enter attribute name"
                                 >
                             </div>
-                            <OptionList
-                                v-model="definition"
-                                label="Attribute Type"
-                                api-path="system/attribute-types"
-                                display-property="label"
-                                property="type"
-                            ></OptionList>
                             <div class="form-group">
                                 <label>Attribute Machine Name</label>
                                 <input
@@ -45,6 +38,14 @@
                                     placeholder="Enter attribute name"
                                 >
                             </div>
+                            <OptionList
+                                v-model="definition"
+                                label="Attribute Type"
+                                api-path="system/attribute-types"
+                                display-property="label"
+                                property="type"
+                            ></OptionList>
+                            <KeyValueField v-model="definition.options" label="Options"></KeyValueField>
                         </div>
                         <!-- /.box-body -->
                     </div>
@@ -57,15 +58,18 @@
 
 <script>
     import OptionList from "../../../components/OptionList";
+    import KeyValueField from "../../../components/KeyValueField";
 
     export default {
         components: {
+            KeyValueField,
             OptionList
         },
         props: ['new'],
         data() {
             return {
                 definition: {
+                    options: []
                 },
             };
         },

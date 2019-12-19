@@ -117,8 +117,9 @@
                 this.partner.contacts.push({ isDeleted: false });
             } else {
                 axios
-                    .get('/api/partners/' + this.$route.params.id)
-                    .then(response => self.partner = response.data.data);
+                    .get('/api/partners/' + this.$route.params.id, {
+                        params: { include: ['profile.attributes.options']}
+                    }).then(response => self.partner = response.data.data);
             }
             console.log('Component mounted.')
         },
