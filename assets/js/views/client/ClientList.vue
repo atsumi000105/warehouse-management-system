@@ -49,8 +49,12 @@
                         -->
                     </div>
                     <!-- /.box-header -->
-                    <div class="box-body table-responsive no-padding">                       
+                    <div class="box-body table-responsive no-padding">
+                        <div v-if="loading" style="text-align: center;">
+                            <h1>Loading...</h1>
+                        </div>
                         <hb-tablepaged
+                            v-else
                             ref="hbtable"
                             :columns="columns"
                             api-url="/api/clients/"
@@ -69,11 +73,16 @@
 </template>
 
 <script>
+    import TablePaged from '../../components/TablePaged.vue';
     export default {
+        components: {
+            'hb-tablepaged' : TablePaged
+        },
         props:[],
         data() {
             return {
                 clients: [],
+                loading: true,
                 columns: [
                     { name: '__slot:link', title: "Client Id", sortField: 'id' },
                     //todo: find a better way to sort value objects #30
@@ -90,7 +99,11 @@
         created() {
             axios
                 .get('/api/clients')
-                .then(response => this.clients = response.data);
+                .then(response => this.clients = response.data)
+                .catch(error => {
+                    console.log(error)
+                })
+                .finally(() => this.loading = false);
             console.log('Component mounted.');
         },
         methods: {

@@ -28,7 +28,13 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body table-responsive no-padding">
-                        <table class="table table-hover">
+                        <div v-if="loading" style="text-align: center;">
+                            <h1>Loading...</h1>
+                        </div>
+                        <table
+                            v-else
+                            class="table table-hover"
+                        >
                             <thead>
                                 <tr>
                                     <th>User ID</th>
@@ -83,7 +89,8 @@
                 users: {
                     groups: []
                 },
-                groups: []
+                groups: [],
+                loading: true,
             };
         },
         created() {
@@ -91,7 +98,11 @@
                 .get('/api/users', { params: { include: ['groups'] }})
                 .then(response => {
                     this.users = response.data;
-                });
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+                .finally(() => this.loading = false);
         }
     }
 </script>

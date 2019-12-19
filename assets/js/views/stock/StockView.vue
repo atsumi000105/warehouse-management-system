@@ -50,7 +50,15 @@
             <div class="col-xs-12">
                 <div class="box">
                     <div class="box-body table-responsive no-padding">
-                        <table class="table table-hover">
+                        <div
+                            v-if="loading"
+                            style="text-align: center;"
+                        >
+                            <h1>Loading...</h1>
+                        </div>
+                        <table
+                            v-else
+                            class="table table-hover">
                             <thead>
                                 <tr>
                                     <th>Product ID</th>
@@ -124,6 +132,7 @@
                     location: {},
                     endingAt: moment().format('YYYY-MM-DD')
                 },
+                loading: true,
             };
         },
         created() {
@@ -138,7 +147,11 @@
             getLevels: function() {
                 axios
                     .get('/api/stock-levels', { params: this.buildParams() })
-                    .then(response => this.products = response.data);
+                    .then(response => this.products = response.data)
+                    .catch(error => {
+                        console.log(error)
+                    })
+                    .finally(() => this.loading = false);
             },
             buildParams: function () {
                 return {

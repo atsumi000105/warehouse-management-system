@@ -28,7 +28,16 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body table-responsive no-padding">
-                        <table class="table table-hover">
+                        <div
+                            v-if="loading"
+                            style="text-align: center;"
+                        >
+                            <h1>Loading...</h1>
+                        </div>
+                        <table
+                            v-else
+                            class="table table-hover"
+                        >
                             <thead>
                                 <tr>
                                     <th>Warehouse ID</th>
@@ -67,13 +76,18 @@
         props:[],
         data() {
             return {
-                warehouses: {}
+                warehouses: {},
+                loading: true,
             };
         },
         created() {
             axios
                 .get('/api/warehouses')
-                .then(response => this.warehouses = response.data);
+                .then(response => this.warehouses = response.data)
+                .catch(error => {
+                    console.log(error)
+                })
+                .finally(() => this.loading = false);
             console.log('Component mounted.')
         }
     }
