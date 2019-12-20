@@ -40,7 +40,7 @@
                         <table
                             v-else
                             class="table table-hover"
->
+                        >
                             <thead>
                                 <tr>
                                     <th>{{ name }} ID</th>
