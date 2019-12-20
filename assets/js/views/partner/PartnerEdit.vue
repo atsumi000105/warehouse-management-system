@@ -56,7 +56,7 @@
                 <PartnerProfileEditTab
                     id="profile_tab"
                     v-model="partner"
-                    class="tab-pane active"
+                    class="tab-pane"
                 ></PartnerProfileEditTab>
             </div>
         </div>
