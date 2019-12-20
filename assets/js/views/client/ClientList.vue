@@ -59,7 +59,8 @@
                                 color="#3c8dbc"
                             />
                         </div>
-                        <hb-tablepaged
+                    <div class="box-body table-responsive no-padding">                       
+                        <tablepaged
                             v-else
                             ref="hbtable"
                             :columns="columns"
@@ -82,9 +83,10 @@
     import TablePaged from '../../components/TablePaged.vue';
     import PulseLoader from "vue-spinner/src/PulseLoader";
     export default {
+        name: 'ClientView',
         components: {
-            'hb-tablepaged' : TablePaged,
-            PulseLoader,
+            'tablepaged' : TablePaged,
+            PulseLoader
         },
         props:[],
         data() {

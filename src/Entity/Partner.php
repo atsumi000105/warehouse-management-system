@@ -14,12 +14,17 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Partner extends StorageLocation
 {
-    const TYPE_AGENCY = "AGENCY";
-    const TYPE_HOSPITAL = "HOSPITAL";
+    public const TYPE_AGENCY = 'AGENCY';
+    public const TYPE_HOSPITAL = 'HOSPITAL';
 
-    const ROLE_VIEW_ALL = "ROLE_PARTNER_VIEW_ALL";
-    const ROLE_VIEW_SELF = "ROLE_PARTNER_VIEW_SELF";
-    const ROLE_EDIT = "ROLE_PARTNER_EDIT";
+    public const TYPES = [
+        self::TYPE_AGENCY,
+        self::TYPE_HOSPITAL,
+    ];
+
+    const ROLE_VIEW_ALL = 'ROLE_PARTNER_VIEW_ALL';
+    const ROLE_VIEW_SELF = 'ROLE_PARTNER_VIEW_SELF';
+    const ROLE_EDIT = 'ROLE_PARTNER_EDIT';
 
     /**
      * @var string
@@ -69,75 +74,83 @@ class Partner extends StorageLocation
         return $this->partnerType;
     }
 
-    /**
-     * @param string $partnerType
-     */
-    public function setPartnerType($partnerType)
+    public function setPartnerType(string $partnerType)
     {
+        if (!in_array($partnerType, self::TYPES)) {
+            throw new \Exception('%s is not a valid Partner Type', $partnerType);
+        }
+
         $this->partnerType = $partnerType;
     }
 
-    /**
-     * @return PartnerFulfillmentPeriod
-     */
-    public function getFulfillmentPeriod()
+    public function getFulfillmentPeriod(): PartnerFulfillmentPeriod
     {
         return $this->fulfillmentPeriod;
     }
 
-    /**
-     * @param PartnerFulfillmentPeriod $fulfillmentPeriod
-     */
     public function setFulfillmentPeriod(PartnerFulfillmentPeriod $fulfillmentPeriod = null)
     {
         $this->fulfillmentPeriod = $fulfillmentPeriod;
     }
 
-    /**
-     * @return PartnerDistributionMethod
-     */
-    public function getDistributionMethod()
+    public function getDistributionMethod(): PartnerDistributionMethod
     {
         return $this->distributionMethod;
     }
 
-    /**
-     * @param PartnerDistributionMethod $distributionMethod
-     */
     public function setDistributionMethod(PartnerDistributionMethod $distributionMethod = null)
     {
         $this->distributionMethod = $distributionMethod;
     }
 
-    /**
-     * @return int|null
-     */
     public function getForecastAverageMonths(): ?int
     {
         return $this->forecastAverageMonths;
     }
 
-    /**
-     * @param int|null $forecastAverageMonths
-     */
     public function setForecastAverageMonths(?int $forecastAverageMonths): void
     {
         $this->forecastAverageMonths = $forecastAverageMonths;
     }
 
-    /**
-     * @return int|null
-     */
-    public function getLegacyId()
+    public function getLegacyId(): ?int
     {
         return $this->legacyId;
     }
 
-    /**
-     * @param int $legacyId
-     */
-    public function setLegacyId(int $legacyId = null)
+    public function setLegacyId(int $legacyId = null): void
     {
         $this->legacyId = $legacyId;
+    }
+
+    /**
+     * {@inheritDoc}
+     * @throws \Exception
+     */
+    public function applyChangesFromArray(array $changes): void
+    {
+        if (isset($changes['legacyId'])) {
+            $this->setLegacyId($changes['legacyId']);
+            unset($changes['legacyId']);
+        }
+
+        if (isset($changes['title'])) {
+            $this->setTitle($changes['title']);
+            unset($changes['title']);
+        }
+
+        if (isset($changes['partnerType'])) {
+            $this->setPartnerType($changes['partnerType']);
+            unset($changes['partnerType']);
+        }
+
+        if (isset($changes['status'])) {
+            $this->setStatus($changes['status']);
+            unset($changes['status']);
+        }
+
+        $this->setUpdatedAt(new \DateTime());
+
+        parent::applyChangesFromArray($changes);
     }
 }

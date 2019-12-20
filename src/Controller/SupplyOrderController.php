@@ -78,6 +78,7 @@ class SupplyOrderController extends OrderController
      * @param Request $request
      * @param $id
      * @return JsonResponse
+     * @throws \App\Exception\CommittedTransactionException
      */
     public function update(Request $request, $id)
     {

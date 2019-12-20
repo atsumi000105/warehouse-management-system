@@ -34,6 +34,7 @@ For JavaScript:
 * Include screenshots and animated GIFs in your pull request whenever possible.
 * Follow the whitespace/newline styles suggested in the [.editorconfig](.editorconfig) file (see: [editorconfig.org](http://editorconfig.org/) for information about this file).
 * Run `yarn lint --fix`, `composer lint-fix`, and `composer analyze`. Fix any problems found before submitting your pull request.
+  * If you have any errors in PHPStan like ` Ignored error pattern ...  was not matched in reported errors`, make sure that those are the only errors reported and rebuild the baseline file via `composer anaylze-baseline`. 
 
 ## Git Commit Messages
 

@@ -1,0 +1,915 @@
+
+
+parameters:
+	ignoreErrors:
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected TOKEN_IDENTIFIER at offset 157$#"
+			count: 1
+			path: src/Controller/AdjustmentOrderController.php
+
+		-
+			message: "#^Ternary operator condition is always false\\.$#"
+			count: 1
+			path: src/Controller/BaseController.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$entities\\)\\: Unexpected token \"\\$entities\", expected TOKEN_IDENTIFIER at offset 18$#"
+			count: 1
+			path: src/Controller/BaseController.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$message\\)\\: Unexpected token \"\\$message\", expected TOKEN_IDENTIFIER at offset 76$#"
+			count: 1
+			path: src/Controller/BaseController.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$entity\\)\\: Unexpected token \"\\$entity\", expected TOKEN_IDENTIFIER at offset 18$#"
+			count: 1
+			path: src/Controller/BaseController.php
+
+		-
+			message: "#^Cannot cast Symfony\\\\Component\\\\Validator\\\\ConstraintViolationListInterface to string\\.$#"
+			count: 1
+			path: src/Controller/BaseController.php
+
+		-
+			message: "#^Call to an undefined method Doctrine\\\\ORM\\\\EntityRepository\\:\\:findAllPaged\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/ClientController.php
+
+		-
+			message: "#^Call to an undefined method Doctrine\\\\ORM\\\\EntityRepository\\:\\:findAllCount\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/ClientController.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: src/Controller/ClientController.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected TOKEN_IDENTIFIER at offset 108$#"
+			count: 1
+			path: src/Controller/GroupController.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected TOKEN_IDENTIFIER at offset 157$#"
+			count: 1
+			path: src/Controller/GroupController.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected TOKEN_IDENTIFIER at offset 107$#"
+			count: 1
+			path: src/Controller/GroupController.php
+
+		-
+			message: "#^Cannot call method getName\\(\\) on App\\\\Entity\\\\Group\\|null\\.$#"
+			count: 1
+			path: src/Controller/GroupController.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected TOKEN_IDENTIFIER at offset 125$#"
+			count: 1
+			path: src/Controller/GroupController.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected TOKEN_IDENTIFIER at offset 18$#"
+			count: 1
+			path: src/Controller/GroupController.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: src/Controller/GroupController.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected TOKEN_IDENTIFIER at offset 115$#"
+			count: 1
+			path: src/Controller/ListOptionController.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected TOKEN_IDENTIFIER at offset 150$#"
+			count: 1
+			path: src/Controller/ListOptionController.php
+
+		-
+			message: "#^Call to an undefined method Symfony\\\\Component\\\\HttpFoundation\\\\Request\\:\\:input\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/ListOptionController.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected TOKEN_IDENTIFIER at offset 52$#"
+			count: 1
+			path: src/Controller/ListOptionController.php
+
+		-
+			message: "#^Cannot call method getName\\(\\) on App\\\\Entity\\\\ListOption\\|null\\.$#"
+			count: 1
+			path: src/Controller/ListOptionController.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected TOKEN_IDENTIFIER at offset 18$#"
+			count: 1
+			path: src/Controller/ListOptionController.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: src/Controller/ListOptionController.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected TOKEN_IDENTIFIER at offset 157$#"
+			count: 1
+			path: src/Controller/MerchandiseOrderController.php
+
+		-
+			message: "#^Call to an undefined method Doctrine\\\\ORM\\\\EntityRepository\\:\\:findAllPaged\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/OrderController.php
+
+		-
+			message: "#^Call to an undefined method Doctrine\\\\ORM\\\\EntityRepository\\:\\:findAllCount\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/OrderController.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected TOKEN_IDENTIFIER at offset 108$#"
+			count: 1
+			path: src/Controller/OrderController.php
+
+		-
+			message: "#^Method App\\\\Controller\\\\OrderController\\:\\:show\\(\\) should return array but returns Symfony\\\\Component\\\\HttpFoundation\\\\JsonResponse\\.$#"
+			count: 1
+			path: src/Controller/OrderController.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected TOKEN_IDENTIFIER at offset 157$#"
+			count: 1
+			path: src/Controller/OrderController.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected TOKEN_IDENTIFIER at offset 107$#"
+			count: 1
+			path: src/Controller/OrderController.php
+
+		-
+			message: "#^Cannot call method isDeletable\\(\\) on App\\\\Entity\\\\Order\\|null\\.$#"
+			count: 1
+			path: src/Controller/OrderController.php
+
+		-
+			message: "#^Cannot call method getId\\(\\) on App\\\\Entity\\\\Order\\|null\\.$#"
+			count: 1
+			path: src/Controller/OrderController.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected TOKEN_IDENTIFIER at offset 18$#"
+			count: 1
+			path: src/Controller/OrderController.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 2
+			path: src/Controller/OrderController.php
+
+		-
+			message: "#^PHPDoc tag @param references unknown parameter\\: \\$id$#"
+			count: 1
+			path: src/Controller/OrderController.php
+
+		-
+			message: "#^Cannot call method getProduct\\(\\) on App\\\\Entity\\\\LineItem\\|bool\\.$#"
+			count: 2
+			path: src/Controller/OrderController.php
+
+		-
+			message: "#^Cannot call method setProduct\\(\\) on App\\\\Entity\\\\LineItem\\|bool\\.$#"
+			count: 1
+			path: src/Controller/OrderController.php
+
+		-
+			message: "#^Cannot call method applyChangesFromArray\\(\\) on App\\\\Entity\\\\LineItem\\|bool\\.$#"
+			count: 1
+			path: src/Controller/OrderController.php
+
+		-
+			message: "#^Cannot call method getQuantity\\(\\) on App\\\\Entity\\\\LineItem\\|bool\\.$#"
+			count: 1
+			path: src/Controller/OrderController.php
+
+		-
+			message: "#^Parameter \\#1 \\$lineItem of method App\\\\Entity\\\\Order\\:\\:removeLineItem\\(\\) expects App\\\\Entity\\\\LineItem, App\\\\Entity\\\\LineItem\\|bool given\\.$#"
+			count: 1
+			path: src/Controller/OrderController.php
+
+		-
+			message: "#^Parameter \\#1 \\$entityName of method App\\\\Controller\\\\BaseController\\:\\:getRepository\\(\\) expects null, string given\\.$#"
+			count: 1
+			path: src/Controller/PartnerController.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: src/Controller/PartnerController.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected TOKEN_IDENTIFIER at offset 187$#"
+			count: 1
+			path: src/Controller/PartnerDistributionController.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected TOKEN_IDENTIFIER at offset 157$#"
+			count: 1
+			path: src/Controller/PartnerOrderController.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected TOKEN_IDENTIFIER at offset 100$#"
+			count: 1
+			path: src/Controller/PartnerOrderController.php
+
+		-
+			message: "#^Parameter \\#1 \\$entityName of method App\\\\Controller\\\\BaseController\\:\\:getRepository\\(\\) expects null, string given\\.$#"
+			count: 1
+			path: src/Controller/PartnerOrderController.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected TOKEN_IDENTIFIER at offset 110$#"
+			count: 1
+			path: src/Controller/ProductController.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected TOKEN_IDENTIFIER at offset 159$#"
+			count: 1
+			path: src/Controller/ProductController.php
+
+		-
+			message: "#^Method App\\\\Controller\\\\ProductController\\:\\:update\\(\\) should return array but returns Symfony\\\\Component\\\\HttpFoundation\\\\JsonResponse\\.$#"
+			count: 1
+			path: src/Controller/ProductController.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected TOKEN_IDENTIFIER at offset 109$#"
+			count: 1
+			path: src/Controller/ProductController.php
+
+		-
+			message: "#^Cannot call method getTitle\\(\\) on App\\\\Entity\\\\Product\\|null\\.$#"
+			count: 1
+			path: src/Controller/ProductController.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected TOKEN_IDENTIFIER at offset 131$#"
+			count: 1
+			path: src/Controller/ProductController.php
+
+		-
+			message: "#^Call to an undefined method Doctrine\\\\ORM\\\\EntityRepository\\:\\:getWarehouseInventory\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/ProductController.php
+
+		-
+			message: "#^Call to an undefined method Doctrine\\\\ORM\\\\EntityRepository\\:\\:getPartnerInventory\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/ProductController.php
+
+		-
+			message: "#^Call to an undefined method Doctrine\\\\ORM\\\\EntityRepository\\:\\:getNetworkInventory\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/ProductController.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected TOKEN_IDENTIFIER at offset 18$#"
+			count: 1
+			path: src/Controller/ProductController.php
+
+		-
+			message: "#^PHPDoc tag @throws with type App\\\\Controller\\\\NotFoundApiException is not subtype of Throwable$#"
+			count: 1
+			path: src/Controller/ProductController.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: src/Controller/ProductController.php
+
+		-
+			message: "#^Parameter \\#1 \\$entityName of method App\\\\Controller\\\\BaseController\\:\\:getRepository\\(\\) expects null, string given\\.$#"
+			count: 16
+			path: src/Controller/ReportController.php
+
+		-
+			message: "#^Call to method findAllPaged\\(\\) on an unknown class App\\\\Entity\\\\InventoryTransactionRepository\\.$#"
+			count: 1
+			path: src/Controller/ReportController.php
+
+		-
+			message: "#^Call to method findAllCount\\(\\) on an unknown class App\\\\Entity\\\\InventoryTransactionRepository\\.$#"
+			count: 1
+			path: src/Controller/ReportController.php
+
+		-
+			message: "#^Call to method supplierTotals\\(\\) on an unknown class App\\\\Entity\\\\Orders\\\\SupplyOrderRepository\\.$#"
+			count: 1
+			path: src/Controller/ReportController.php
+
+		-
+			message: "#^Call to method findSupplierTotalsCount\\(\\) on an unknown class App\\\\Entity\\\\Orders\\\\SupplyOrderRepository\\.$#"
+			count: 1
+			path: src/Controller/ReportController.php
+
+		-
+			message: "#^Call to method distributionTotals\\(\\) on an unknown class App\\\\Entity\\\\Orders\\\\BulkDistributionOrderRepository\\.$#"
+			count: 1
+			path: src/Controller/ReportController.php
+
+		-
+			message: "#^Call to method findDistributionTotalsCount\\(\\) on an unknown class App\\\\Entity\\\\Orders\\\\BulkDistributionOrderRepository\\.$#"
+			count: 1
+			path: src/Controller/ReportController.php
+
+		-
+			message: "#^Call to method partnerOrderTotals\\(\\) on an unknown class App\\\\Entity\\\\Orders\\\\PartnerOrderRepository\\.$#"
+			count: 1
+			path: src/Controller/ReportController.php
+
+		-
+			message: "#^Call to method findPartnerOrderTotalsCount\\(\\) on an unknown class App\\\\Entity\\\\Orders\\\\PartnerOrderRepository\\.$#"
+			count: 1
+			path: src/Controller/ReportController.php
+
+		-
+			message: "#^Call to method getStockLevels\\(\\) on an unknown class App\\\\Entity\\\\InventoryTransactionRepository\\.$#"
+			count: 1
+			path: src/Controller/ReportController.php
+
+		-
+			message: "#^Call to method getDistributionsForForcasting\\(\\) on an unknown class App\\\\Entity\\\\Orders\\\\BulkDistributionOrderRepository\\.$#"
+			count: 1
+			path: src/Controller/ReportController.php
+
+		-
+			message: "#^Parameter \\#1 \\$entityName of method App\\\\Controller\\\\BaseController\\:\\:getRepository\\(\\) expects null, string given\\.$#"
+			count: 4
+			path: src/Controller/StockLevelsController.php
+
+		-
+			message: "#^Call to an undefined method Doctrine\\\\ORM\\\\EntityRepository\\:\\:getStockLevels\\(\\)\\.$#"
+			count: 2
+			path: src/Controller/StockLevelsController.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected TOKEN_IDENTIFIER at offset 127$#"
+			count: 1
+			path: src/Controller/StorageLocationController.php
+
+		-
+			message: "#^Call to an undefined method Doctrine\\\\ORM\\\\EntityRepository\\:\\:getStorageLocationInventory\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/StorageLocationController.php
+
+		-
+			message: "#^Parameter \\#1 \\$entityName of method App\\\\Controller\\\\BaseController\\:\\:getRepository\\(\\) expects null, string given\\.$#"
+			count: 1
+			path: src/Controller/StorageLocationController.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: src/Controller/StorageLocationController.php
+
+		-
+			message: "#^Call to an undefined method Doctrine\\\\ORM\\\\EntityRepository\\:\\:findAllPaged\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/SupplierController.php
+
+		-
+			message: "#^Call to an undefined method Doctrine\\\\ORM\\\\EntityRepository\\:\\:findAllCount\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/SupplierController.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected TOKEN_IDENTIFIER at offset 111$#"
+			count: 1
+			path: src/Controller/SupplierController.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected TOKEN_IDENTIFIER at offset 160$#"
+			count: 1
+			path: src/Controller/SupplierController.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected TOKEN_IDENTIFIER at offset 110$#"
+			count: 1
+			path: src/Controller/SupplierController.php
+
+		-
+			message: "#^Cannot call method getTitle\\(\\) on App\\\\Entity\\\\Supplier\\|null\\.$#"
+			count: 1
+			path: src/Controller/SupplierController.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected TOKEN_IDENTIFIER at offset 18$#"
+			count: 1
+			path: src/Controller/SupplierController.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: src/Controller/SupplierController.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected TOKEN_IDENTIFIER at offset 157$#"
+			count: 1
+			path: src/Controller/SupplyOrderController.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected TOKEN_IDENTIFIER at offset 157$#"
+			count: 1
+			path: src/Controller/TransferOrdersController.php
+
+		-
+			message: "#^Parameter \\#1 \\$groups of method App\\\\Entity\\\\User\\:\\:setGroups\\(\\) expects Doctrine\\\\Common\\\\Collections\\\\Collection&iterable\\<App\\\\Entity\\\\Group\\>, array\\<int, mixed\\> given\\.$#"
+			count: 1
+			path: src/Controller/UserController.php
+
+		-
+			message: "#^Parameter \\#1 \\$groups of method App\\\\Entity\\\\User\\:\\:setGroups\\(\\) expects Doctrine\\\\Common\\\\Collections\\\\Collection&iterable\\<App\\\\Entity\\\\Group\\>, array given\\.$#"
+			count: 1
+			path: src/Controller/UserController.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: src/Controller/UserController.php
+
+		-
+			message: "#^Parameter \\#1 \\$entityName of method App\\\\Controller\\\\BaseController\\:\\:getRepository\\(\\) expects null, string given\\.$#"
+			count: 1
+			path: src/Controller/WarehouseController.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: src/Controller/WarehouseController.php
+
+		-
+			message: "#^Access to an undefined property Faker\\\\Generator\\:\\:\\$stateAbbr\\.$#"
+			count: 1
+			path: src/DataFixtures/BaseFixture.php
+
+		-
+			message: "#^Parameter \\#1 \\$contact of method App\\\\Entity\\\\StorageLocation\\:\\:addContact\\(\\) expects App\\\\Entity\\\\StorageLocationContact, App\\\\Entity\\\\Contact given\\.$#"
+			count: 2
+			path: src/DataFixtures/PartnerFixtures.php
+
+		-
+			message: "#^Parameter \\#1 \\$address of method App\\\\Entity\\\\StorageLocation\\:\\:setAddress\\(\\) expects App\\\\Entity\\\\StorageLocationAddress, App\\\\Entity\\\\Address given\\.$#"
+			count: 2
+			path: src/DataFixtures/PartnerFixtures.php
+
+		-
+			message: "#^Parameter \\#2 \\$warehouse of class App\\\\Entity\\\\Orders\\\\PartnerOrder constructor expects App\\\\Entity\\\\Warehouse\\|null, object given\\.$#"
+			count: 1
+			path: src/DataFixtures/PartnerOrderFixtures.php
+
+		-
+			message: "#^Parameter \\#2 \\$category of class App\\\\Entity\\\\Product constructor expects App\\\\Entity\\\\ProductCategory\\|null, object given\\.$#"
+			count: 3
+			path: src/DataFixtures/ProductFixtures.php
+
+		-
+			message: "#^Parameter \\#1 \\$contact of method App\\\\Entity\\\\Supplier\\:\\:addContact\\(\\) expects App\\\\Entity\\\\SupplierContact, App\\\\Entity\\\\Contact given\\.$#"
+			count: 1
+			path: src/DataFixtures/SupplierFixtures.php
+
+		-
+			message: "#^Parameter \\#1 \\$address of method App\\\\Entity\\\\Supplier\\:\\:addAddress\\(\\) expects App\\\\Entity\\\\SupplierAddress, App\\\\Entity\\\\Address given\\.$#"
+			count: 1
+			path: src/DataFixtures/SupplierFixtures.php
+
+		-
+			message: "#^Parameter \\#2 \\$warehouse of class App\\\\Entity\\\\Orders\\\\SupplyOrder constructor expects App\\\\Entity\\\\Warehouse\\|null, object given\\.$#"
+			count: 1
+			path: src/DataFixtures/SupplyOrderFixtures.php
+
+		-
+			message: "#^Parameter \\#1 \\$array of method Faker\\\\Generator\\:\\:randomElement\\(\\) expects array, Doctrine\\\\Common\\\\Collections\\\\ArrayCollection&iterable\\<App\\\\Entity\\\\SupplierAddress\\> given\\.$#"
+			count: 1
+			path: src/DataFixtures/SupplyOrderFixtures.php
+
+		-
+			message: "#^Parameter \\#1 \\$address of method App\\\\Entity\\\\StorageLocation\\:\\:setAddress\\(\\) expects App\\\\Entity\\\\StorageLocationAddress, App\\\\Entity\\\\Address given\\.$#"
+			count: 2
+			path: src/DataFixtures/WarehouseFixtures.php
+
+		-
+			message: "#^Parameter \\#1 \\$contact of method App\\\\Entity\\\\StorageLocation\\:\\:addContact\\(\\) expects App\\\\Entity\\\\StorageLocationContact, App\\\\Entity\\\\Contact given\\.$#"
+			count: 2
+			path: src/DataFixtures/WarehouseFixtures.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Contact\\:\\:\\$name \\(App\\\\Entity\\\\ValueObjects\\\\Name\\) does not accept App\\\\Entity\\\\ValueObjects\\\\Name\\|string\\.$#"
+			count: 1
+			path: src/Entity/Contact.php
+
+		-
+			message: "#^Cannot call method getName\\(\\) on ReflectionClass\\|null\\.$#"
+			count: 1
+			path: src/Entity/CoreEntity.php
+
+		-
+			message: "#^Ternary operator condition is always true\\.$#"
+			count: 1
+			path: src/Entity/InventoryTransaction.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected TOKEN_IDENTIFIER at offset 18$#"
+			count: 1
+			path: src/Entity/Order.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Orders\\\\BulkDistribution\\:\\:\\$portalOrderId \\(int\\) does not accept int\\|null\\.$#"
+			count: 1
+			path: src/Entity/Orders/BulkDistribution.php
+
+		-
+			message: "#^Cannot call method addPack\\(\\) on App\\\\Helpers\\\\Bag\\|null\\.$#"
+			count: 1
+			path: src/Entity/Orders/PartnerOrder.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Orders\\\\SupplyOrder\\:\\:\\$receivedAt \\(DateTime\\) does not accept DateTime\\|null\\.$#"
+			count: 1
+			path: src/Entity/Orders/SupplyOrder.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: src/Entity/Orders/SupplyOrder.php
+
+		-
+			message: "#^Parameter \\#2 \\$code of class Exception constructor expects int, string given\\.$#"
+			count: 1
+			path: src/Entity/Partner.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Partner\\:\\:\\$fulfillmentPeriod \\(App\\\\Entity\\\\PartnerFulfillmentPeriod\\) does not accept App\\\\Entity\\\\PartnerFulfillmentPeriod\\|null\\.$#"
+			count: 1
+			path: src/Entity/Partner.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Partner\\:\\:\\$distributionMethod \\(App\\\\Entity\\\\PartnerDistributionMethod\\) does not accept App\\\\Entity\\\\PartnerDistributionMethod\\|null\\.$#"
+			count: 1
+			path: src/Entity/Partner.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Partner\\:\\:\\$forecastAverageMonths \\(int\\) does not accept int\\|null\\.$#"
+			count: 1
+			path: src/Entity/Partner.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Partner\\:\\:\\$legacyId \\(int\\) does not accept int\\|null\\.$#"
+			count: 1
+			path: src/Entity/Partner.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Product\\:\\:\\$sku \\(string\\) does not accept string\\|null\\.$#"
+			count: 1
+			path: src/Entity/Product.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Product\\:\\:\\$agencyPacksPerBag \\(int\\) does not accept int\\|null\\.$#"
+			count: 1
+			path: src/Entity/Product.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Product\\:\\:\\$agencyPackSize \\(int\\) does not accept int\\|null\\.$#"
+			count: 1
+			path: src/Entity/Product.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Product\\:\\:\\$hospitalPacksPerBag \\(int\\) does not accept int\\|null\\.$#"
+			count: 1
+			path: src/Entity/Product.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Product\\:\\:\\$hospitalPackSize \\(int\\) does not accept int\\|null\\.$#"
+			count: 1
+			path: src/Entity/Product.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Product\\:\\:\\$productCategory \\(App\\\\Entity\\\\ProductCategory\\) does not accept App\\\\Entity\\\\ProductCategory\\|null\\.$#"
+			count: 1
+			path: src/Entity/Product.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Product\\:\\:\\$color \\(string\\) does not accept string\\|null\\.$#"
+			count: 1
+			path: src/Entity/Product.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Product\\:\\:\\$defaultCost \\(float\\) does not accept float\\|null\\.$#"
+			count: 1
+			path: src/Entity/Product.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Product\\:\\:\\$retailPrice \\(float\\) does not accept float\\|null\\.$#"
+			count: 1
+			path: src/Entity/Product.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$isPartnerOrderable\\)\\: Unexpected token \"\\$isPartnerOrderable\", expected TOKEN_IDENTIFIER at offset 54$#"
+			count: 1
+			path: src/Entity/ProductCategory.php
+
+		-
+			message: "#^Parameter \\#2 \\$code of class Exception constructor expects int, string given\\.$#"
+			count: 1
+			path: src/Entity/StorageLocation.php
+
+		-
+			message: "#^Method App\\\\Entity\\\\StorageLocation\\:\\:getContacts\\(\\) should return array\\<App\\\\Entity\\\\StorageLocationContact\\> but returns Doctrine\\\\Common\\\\Collections\\\\ArrayCollection&iterable\\<App\\\\Entity\\\\StorageLocationContact\\>\\.$#"
+			count: 1
+			path: src/Entity/StorageLocation.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\StorageLocationContact\\:\\:\\$storageLocation \\(App\\\\Entity\\\\StorageLocation\\) does not accept App\\\\Entity\\\\StorageLocation\\|null\\.$#"
+			count: 1
+			path: src/Entity/StorageLocationContact.php
+
+		-
+			message: "#^Parameter \\#1 \\$title of method App\\\\Entity\\\\Supplier\\:\\:setTitle\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
+			path: src/Entity/Supplier.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\SupplierAddress\\:\\:\\$supplier \\(App\\\\Entity\\\\Supplier\\) does not accept App\\\\Entity\\\\Supplier\\|null\\.$#"
+			count: 1
+			path: src/Entity/SupplierAddress.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\SupplierContact\\:\\:\\$supplier \\(App\\\\Entity\\\\Supplier\\) does not accept App\\\\Entity\\\\Supplier\\|null\\.$#"
+			count: 1
+			path: src/Entity/SupplierContact.php
+
+		-
+			message: "#^Call to function is_array\\(\\) with Doctrine\\\\Common\\\\Collections\\\\Collection&iterable\\<App\\\\Entity\\\\Group\\> will always evaluate to false\\.$#"
+			count: 1
+			path: src/Entity/User.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\User\\:\\:\\$plainTextPassword \\(string\\) does not accept null\\.$#"
+			count: 2
+			path: src/Entity/User.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\User\\:\\:\\$password \\(string\\) does not accept null\\.$#"
+			count: 1
+			path: src/Entity/User.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\ValueObjects\\\\Name\\:\\:\\$firstname \\(string\\) does not accept string\\|null\\.$#"
+			count: 1
+			path: src/Entity/ValueObjects/Name.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\ValueObjects\\\\Name\\:\\:\\$lastname \\(string\\) does not accept string\\|null\\.$#"
+			count: 1
+			path: src/Entity/ValueObjects/Name.php
+
+		-
+			message: "#^Parameter \\#1 \\$partner of method App\\\\Reports\\\\DistributionTotalsRow\\:\\:setPartner\\(\\) expects App\\\\Entity\\\\Partner, App\\\\Entity\\\\Partner\\|null given\\.$#"
+			count: 1
+			path: src/Reports/DistributionTotalsRow.php
+
+		-
+			message: "#^Method App\\\\Reports\\\\DistributionTotalsRow\\:\\:getTotal\\(\\) should return int but returns float\\|int\\.$#"
+			count: 1
+			path: src/Reports/DistributionTotalsRow.php
+
+		-
+			message: "#^Parameter \\#1 \\$partner of method App\\\\Reports\\\\PartnerInventoryRow\\:\\:setPartner\\(\\) expects App\\\\Entity\\\\Partner, App\\\\Entity\\\\Partner\\|null given\\.$#"
+			count: 1
+			path: src/Reports/PartnerInventoryRow.php
+
+		-
+			message: "#^Method App\\\\Reports\\\\PartnerInventoryRow\\:\\:getTotal\\(\\) should return int but returns float\\|int\\.$#"
+			count: 1
+			path: src/Reports/PartnerInventoryRow.php
+
+		-
+			message: "#^Array \\(array\\<int\\>\\) does not accept float\\|int\\.$#"
+			count: 1
+			path: src/Reports/PartnerInventoryRow.php
+
+		-
+			message: "#^PHPDoc tag @param references unknown parameter\\: \\$forecast$#"
+			count: 1
+			path: src/Reports/PartnerInventoryRow.php
+
+		-
+			message: "#^PHPDoc tag @param references unknown parameter\\: \\$product$#"
+			count: 1
+			path: src/Reports/PartnerInventoryRow.php
+
+		-
+			message: "#^PHPDoc tag @param for parameter \\$reportData with type App\\\\Reports\\\\DistributionTotalsReport is incompatible with native type App\\\\Reports\\\\PartnerOrderTotalsReport\\.$#"
+			count: 1
+			path: src/Reports/PartnerOrderTotalsExcel.php
+
+		-
+			message: "#^Property App\\\\Reports\\\\PartnerOrderTotalsExcel\\:\\:\\$reportData \\(App\\\\Reports\\\\DistributionTotalsReport\\) does not accept App\\\\Reports\\\\PartnerOrderTotalsReport\\.$#"
+			count: 1
+			path: src/Reports/PartnerOrderTotalsExcel.php
+
+		-
+			message: "#^Method App\\\\Reports\\\\PartnerOrderTotalsReport\\:\\:getRows\\(\\) should return Doctrine\\\\Common\\\\Collections\\\\ArrayCollection&iterable\\<App\\\\Reports\\\\DistributionTotalsRow\\> but returns Doctrine\\\\Common\\\\Collections\\\\ArrayCollection&iterable\\<App\\\\Reports\\\\PartnerOrderTotalsRow\\>\\.$#"
+			count: 1
+			path: src/Reports/PartnerOrderTotalsReport.php
+
+		-
+			message: "#^Parameter \\#1 \\$partner of method App\\\\Reports\\\\PartnerOrderTotalsRow\\:\\:setPartner\\(\\) expects App\\\\Entity\\\\Partner, App\\\\Entity\\\\Partner\\|null given\\.$#"
+			count: 1
+			path: src/Reports/PartnerOrderTotalsRow.php
+
+		-
+			message: "#^Method App\\\\Reports\\\\PartnerOrderTotalsRow\\:\\:getTotal\\(\\) should return int but returns float\\|int\\.$#"
+			count: 1
+			path: src/Reports/PartnerOrderTotalsRow.php
+
+		-
+			message: "#^Parameter \\#1 \\$supplier of method App\\\\Reports\\\\SupplierTotalsRow\\:\\:setSupplier\\(\\) expects App\\\\Entity\\\\Supplier, App\\\\Entity\\\\Supplier\\|null given\\.$#"
+			count: 1
+			path: src/Reports/SupplierTotalsRow.php
+
+		-
+			message: "#^Method App\\\\Reports\\\\SupplierTotalsRow\\:\\:getTotal\\(\\) should return int but returns float\\|int\\.$#"
+			count: 1
+			path: src/Reports/SupplierTotalsRow.php
+
+		-
+			message: "#^Parameter \\#2 \\$params of method App\\\\Repository\\\\ClientRepository\\:\\:addCriteria\\(\\) expects Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag, Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\|null given\\.$#"
+			count: 1
+			path: src/Repository/ClientRepository.php
+
+		-
+			message: "#^Cannot call method has\\(\\) on Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\|null\\.$#"
+			count: 3
+			path: src/Repository/InventoryTransactionRepository.php
+
+		-
+			message: "#^Cannot call method get\\(\\) on Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\|null\\.$#"
+			count: 4
+			path: src/Repository/InventoryTransactionRepository.php
+
+		-
+			message: "#^Parameter \\#2 \\$params of method App\\\\Repository\\\\InventoryTransactionRepository\\:\\:addCriteria\\(\\) expects Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag, Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\|null given\\.$#"
+			count: 2
+			path: src/Repository/InventoryTransactionRepository.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$qb\\)\\: Unexpected token \"\\$qb\", expected TOKEN_IDENTIFIER at offset 18$#"
+			count: 1
+			path: src/Repository/InventoryTransactionRepository.php
+
+		-
+			message: "#^Parameter \\#2 \\$params of method App\\\\Repository\\\\OrderRepository\\:\\:addCriteria\\(\\) expects Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag, Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\|null given\\.$#"
+			count: 1
+			path: src/Repository/OrderRepository.php
+
+		-
+			message: "#^Parameter \\#2 \\$params of method App\\\\Repository\\\\Orders\\\\BulkDistributionOrderRepository\\:\\:addCriteria\\(\\) expects Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag, Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\|null given\\.$#"
+			count: 1
+			path: src/Repository/Orders/BulkDistributionOrderRepository.php
+
+		-
+			message: "#^Parameter \\#2 \\$params of method App\\\\Repository\\\\Orders\\\\PartnerOrderRepository\\:\\:addCriteria\\(\\) expects Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag, Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\|null given\\.$#"
+			count: 1
+			path: src/Repository/Orders/PartnerOrderRepository.php
+
+		-
+			message: "#^Parameter \\#2 \\$params of method App\\\\Repository\\\\Orders\\\\SupplyOrderRepository\\:\\:addCriteria\\(\\) expects Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag, Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\|null given\\.$#"
+			count: 1
+			path: src/Repository/Orders/SupplyOrderRepository.php
+
+		-
+			message: "#^Parameter \\#2 \\$params of method App\\\\Repository\\\\SupplierRepository\\:\\:addCriteria\\(\\) expects Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag, Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\|null given\\.$#"
+			count: 1
+			path: src/Repository/SupplierRepository.php
+
+		-
+			message: "#^Cannot call method set\\(\\) on Symfony\\\\Component\\\\HttpFoundation\\\\Session\\\\SessionInterface\\|null\\.$#"
+			count: 1
+			path: src/Security/LoginFormAuthenticator.php
+
+		-
+			message: "#^Parameter \\#1 \\$session of method App\\\\Security\\\\LoginFormAuthenticator\\:\\:getTargetPath\\(\\) expects Symfony\\\\Component\\\\HttpFoundation\\\\Session\\\\SessionInterface, Symfony\\\\Component\\\\HttpFoundation\\\\Session\\\\SessionInterface\\|null given\\.$#"
+			count: 1
+			path: src/Security/LoginFormAuthenticator.php
+
+		-
+			message: "#^Cannot call method getisPartnerOrderable\\(\\) on App\\\\Entity\\\\ListOption\\|null\\.$#"
+			count: 1
+			path: src/Transformers/ProductCategoryTransformer.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: src/Transformers/ProductTransformer.php
+
+		-
+			message: "#^Ternary operator condition is always true\\.$#"
+			count: 1
+			path: src/Transformers/Report/InventoryTransactionReportTransformer.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: src/Transformers/StorageLocationTransformer.php
+
+		-
+			message: "#^Ternary operator condition is always true\\.$#"
+			count: 1
+			path: src/Transformers/SupplyOrderTransformer.php
+
+		-
+			message: "#^If condition is always true\\.$#"
+			count: 1
+			path: src/Transformers/SupplyOrderTransformer.php
+
+		-
+			message: "#^Cannot call method get\\(\\) on Symfony\\\\Component\\\\DependencyInjection\\\\ContainerInterface\\|null\\.$#"
+			count: 2
+			path: tests/AbstractWebTestCase.php
+
+		-
+			message: "#^Property App\\\\Tests\\\\AbstractWebTestCase\\:\\:\\$client \\(Symfony\\\\Bundle\\\\FrameworkBundle\\\\KernelBrowser\\) does not accept null\\.$#"
+			count: 1
+			path: tests/AbstractWebTestCase.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:close\\(\\)\\.$#"
+			count: 1
+			path: tests/AbstractWebTestCase.php
+
+		-
+			message: "#^Property App\\\\Tests\\\\AbstractWebTestCase\\:\\:\\$objectManager \\(object\\) does not accept null\\.$#"
+			count: 1
+			path: tests/AbstractWebTestCase.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:getRepository\\(\\)\\.$#"
+			count: 1
+			path: tests/AbstractWebTestCase.php
+
+		-
+			message: "#^Cannot access offset 'id' on array\\|stdClass\\|null\\.$#"
+			count: 2
+			path: tests/Controller/ClientControllerTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$expectedCode of method Symfony\\\\Bundle\\\\FrameworkBundle\\\\Test\\\\WebTestCase\\:\\:assertResponseStatusCodeSame\\(\\) expects int, string given\\.$#"
+			count: 1
+			path: tests/Controller/ClientControllerTest.php
+
+		-
+			message: "#^Cannot access offset 'name' on array\\|stdClass\\|null\\.$#"
+			count: 2
+			path: tests/Controller/ClientControllerTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:getRepository\\(\\)\\.$#"
+			count: 1
+			path: tests/Controller/ClientControllerTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$street1 of method App\\\\Entity\\\\Address\\:\\:setStreet1\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
+			path: tests/Entity/SupplierAddressTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$city of method App\\\\Entity\\\\Address\\:\\:setCity\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
+			path: tests/Entity/SupplierAddressTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$state of method App\\\\Entity\\\\Address\\:\\:setState\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
+			path: tests/Entity/SupplierAddressTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$postalCode of method App\\\\Entity\\\\Address\\:\\:setPostalCode\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
+			path: tests/Entity/SupplierAddressTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:persist\\(\\)\\.$#"
+			count: 1
+			path: tests/Entity/UserTest.php
+
+		-
+			message: "#^Cannot call method get\\(\\) on Symfony\\\\Component\\\\DependencyInjection\\\\ContainerInterface\\|null\\.$#"
+			count: 1
+			path: tests/object-manager.php
+
+
