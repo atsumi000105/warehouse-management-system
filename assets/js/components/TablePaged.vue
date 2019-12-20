@@ -1,32 +1,35 @@
 <template>
     <div :class="[{'vuetable-wrapper ui basic segment': true}, 'box-body table-responsive no-padding']">
         <div class="loadingArea">
-            <pulse-loader :loading="loading" color="#3c8dbc" />
+            <pulse-loader
+                :loading="loading"
+                color="#3c8dbc"
+            />
         </div>
-            <vuetable
-                ref="vuetable"
-                :api-url="apiUrl"
-                data-path="data"
-                pagination-path="meta.pagination"
-                :fields="columns"
-                :per-page="perPage"
-                :css="{
-                    tableClass: 'table table-hover',
-                    ascendingIcon: 'fa fa-sort-amount-asc',
-                    descendingIcon: 'fa fa-sort-amount-desc'
-                }"
-                :sort-order="sortOrder"
-                :append-params="params"
-                track-by="id"
-                @vuetable:pagination-data="onPaginationData"
-                @vuetable:checkbox-toggled="onCheckboxToggled"
-                @vuetable:checkbox-toggled-all="onCheckboxToggled"
-                @vuetable:loading="showLoader"
-                @vuetable:loaded="hideLoader"
-            >
+        <vuetable
+            ref="vuetable"
+            :api-url="apiUrl"
+            data-path="data"
+            pagination-path="meta.pagination"
+            :fields="columns"
+            :per-page="perPage"
+            :css="{
+                tableClass: 'table table-hover',
+                ascendingIcon: 'fa fa-sort-amount-asc',
+                descendingIcon: 'fa fa-sort-amount-desc'
+            }"
+            :sort-order="sortOrder"
+            :append-params="params"
+            track-by="id"
+            @vuetable:pagination-data="onPaginationData"
+            @vuetable:checkbox-toggled="onCheckboxToggled"
+            @vuetable:checkbox-toggled-all="onCheckboxToggled"
+            @vuetable:loading="showLoader"
+            @vuetable:loaded="hideLoader"
+        >
             <template
-                      slot="link"
-                      slot-scope="props"
+                slot="link"
+                slot-scope="props"
             >
                 <router-link :to="editRoute + props.rowData.id">
                     <i class="fa fa-edit" />{{ props.rowData.id }}
@@ -85,14 +88,14 @@
             params: { type: Object },
             perPage: { type: Number, default: 10 },
         },
-        mounted() {
-            this.$events.$on('filter-set', eventData => this.onFilterSet(eventData));
-            console.log(this.loading);
-        },
         data () {
             return {
                 loading: false,
             }
+        },
+        mounted() {
+            this.$events.$on('filter-set', eventData => this.onFilterSet(eventData));
+            console.log(this.loading);
         },
         methods: {
             showLoader () {

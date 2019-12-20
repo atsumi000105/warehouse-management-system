@@ -50,8 +50,14 @@
             <div class="col-xs-12">
                 <div class="box">
                     <div class="box-body table-responsive no-padding">
-                        <div v-if="loading" class="loadingArea">
-                            <pulse-loader :loading="loading" color="#3c8dbc" />
+                        <div
+                            v-if="loading"
+                            class="loadingArea"
+                        >
+                            <pulse-loader
+                                :loading="loading"
+                                color="#3c8dbc"
+                            />
                         </div>
                         <table v-else class="table table-hover">
                             <thead>
