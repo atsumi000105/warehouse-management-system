@@ -58,8 +58,7 @@
                                 :loading="loading"
                                 color="#3c8dbc"
                             />
-                        </div>
-                    <div class="box-body table-responsive no-padding">                       
+                        </div>                       
                         <tablepaged
                             v-else
                             ref="hbtable"
