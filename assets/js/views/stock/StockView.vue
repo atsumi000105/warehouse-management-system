@@ -50,15 +50,10 @@
             <div class="col-xs-12">
                 <div class="box">
                     <div class="box-body table-responsive no-padding">
-                        <div
-                            v-if="loading"
-                            style="text-align: center;"
-                        >
-                            <h1>Loading...</h1>
+                        <div v-if="loading" class="loadingArea">
+                            <pulse-loader :loading="loading" color="#3c8dbc" />
                         </div>
-                        <table
-                            v-else
-                            class="table table-hover">
+                        <table v-else class="table table-hover">
                             <thead>
                                 <tr>
                                     <th>Product ID</th>
@@ -117,8 +112,10 @@
 <script>
     import DateField from '../../components/DateField.vue';
     import StorageLocationSelectionForm from '../../components/StorageLocationSelectionForm.vue';
+    import PulseLoader from "vue-spinner/src/PulseLoader";
     export default {
-        components: { 
+        components: {
+            PulseLoader,
             'datefield' : DateField,
             'storagelocationselectionform' : StorageLocationSelectionForm
         },

@@ -50,8 +50,8 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body table-responsive no-padding">
-                        <div v-if="loading" style="text-align: center;">
-                            <h1>Loading...</h1>
+                        <div v-if="loading" class="loadingArea">
+                            <pulse-loader :loading="loading" color="#3c8dbc" />
                         </div>
                         <hb-tablepaged
                             v-else
@@ -74,9 +74,11 @@
 
 <script>
     import TablePaged from '../../components/TablePaged.vue';
+    import PulseLoader from "vue-spinner/src/PulseLoader";
     export default {
         components: {
-            'hb-tablepaged' : TablePaged
+            'hb-tablepaged' : TablePaged,
+            PulseLoader,
         },
         props:[],
         data() {

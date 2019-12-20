@@ -1,27 +1,32 @@
 <template>
-    <div class="box-body table-responsive no-padding">
-        <vuetable
-            ref="vuetable"
-            :api-url="apiUrl"
-            data-path="data"
-            pagination-path="meta.pagination"
-            :fields="columns"
-            :per-page="perPage"
-            :css="{
-                tableClass: 'table table-hover',
-                ascendingIcon: 'fa fa-sort-amount-asc',
-                descendingIcon: 'fa fa-sort-amount-desc'
-            }"
-            :sort-order="sortOrder"
-            :append-params="params"
-            track-by="id"
-            @vuetable:pagination-data="onPaginationData"
-            @vuetable:checkbox-toggled="onCheckboxToggled"
-            @vuetable:checkbox-toggled-all="onCheckboxToggled"
-        >
+    <div :class="[{'vuetable-wrapper ui basic segment': true}, 'box-body table-responsive no-padding']">
+        <div class="loadingArea">
+            <pulse-loader :loading="loading" color="#3c8dbc" />
+        </div>
+            <vuetable
+                ref="vuetable"
+                :api-url="apiUrl"
+                data-path="data"
+                pagination-path="meta.pagination"
+                :fields="columns"
+                :per-page="perPage"
+                :css="{
+                    tableClass: 'table table-hover',
+                    ascendingIcon: 'fa fa-sort-amount-asc',
+                    descendingIcon: 'fa fa-sort-amount-desc'
+                }"
+                :sort-order="sortOrder"
+                :append-params="params"
+                track-by="id"
+                @vuetable:pagination-data="onPaginationData"
+                @vuetable:checkbox-toggled="onCheckboxToggled"
+                @vuetable:checkbox-toggled-all="onCheckboxToggled"
+                @vuetable:loading="showLoader"
+                @vuetable:loaded="hideLoader"
+            >
             <template
-                slot="link"
-                slot-scope="props"
+                      slot="link"
+                      slot-scope="props"
             >
                 <router-link :to="editRoute + props.rowData.id">
                     <i class="fa fa-edit" />{{ props.rowData.id }}
@@ -63,12 +68,14 @@
     import Vuetable from 'vuetable-2/src/components/Vuetable.vue'
     import VuetablePagination from 'vuetable-2/src/components/VuetablePagination.vue'
     import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo.vue'
+    import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 
     export default {
         components: {
             Vuetable,
             VuetablePagination,
-            VuetablePaginationInfo
+            VuetablePaginationInfo,
+            PulseLoader,
         },
         props:{
             columns: { type: Array, required: true },
@@ -80,8 +87,22 @@
         },
         mounted() {
             this.$events.$on('filter-set', eventData => this.onFilterSet(eventData));
+            console.log(this.loading);
+        },
+        data () {
+            return {
+                loading: false,
+            }
         },
         methods: {
+            showLoader () {
+                this.loading = true;
+                console.log('show loader');
+            },
+            hideLoader () {
+                this.loading = false;
+                console.log('hide loader');
+            },
             refresh() {
                 Vue.nextTick( () => this.$refs.vuetable.refresh() );
             },

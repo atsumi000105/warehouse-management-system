@@ -29,8 +29,8 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body table-responsive no-padding">
-                        <div v-if="loading" style="text-align: center;">
-                            <h1>Loading...</h1>
+                        <div v-if="loading" class="loadingArea">
+                            <pulse-loader :loading="loading" color="#3c8dbc" />
                         </div>
                         <table
                             v-else
@@ -68,7 +68,13 @@
 </template>
 
 <script>
+    import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
+    import VuetablePaginationInfo from "vuetable-2/src/components/VuetablePaginationInfo";
+
     export default {
+        components: {
+            PulseLoader,
+        },
         props:[],
         data() {
             return {
