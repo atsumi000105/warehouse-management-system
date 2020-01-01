@@ -31,7 +31,7 @@
                         <tablepaged
                             :columns="columns"
                             api-url="/api/orders/adjustment"
-                            edit-route="/orders/adjustment"
+                            edit-route="/orders/adjustment/"
                             :sort-order="[{ field: 'id', direction: 'desc'}]"
                         />
                     </div>

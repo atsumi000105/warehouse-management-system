@@ -49,7 +49,7 @@
                             ref="hbtable"
                             :columns="columns"
                             api-url="/api/orders/distribution"
-                            edit-route="/orders/distribution"
+                            edit-route="/orders/distribution/"
                             :sort-order="[{ field: 'id', direction: 'desc'}]"
                             :per-page="50"
                         />

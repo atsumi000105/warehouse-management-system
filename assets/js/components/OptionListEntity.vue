@@ -3,11 +3,11 @@
         <label v-text="label" />
         <select
             v-if="!groupProperty"
+            v-model="value[property]"
             v-chosen
-            :value="value"
             class="form-control"
             :class="{'loaded': loaded}"
-            @change="$emit('input', $event.target.value)"
+            @change="onChange"
         >
             <option
                 value=""
@@ -16,18 +16,18 @@
             <option
                 v-for="item in options"
                 :key="item.id"
-                :selected="value == item.id"
-                v-bind:value="item.id"
+                :selected="value.id == item.id"
+                :value="item.id"
                 v-text="item[displayProperty]"
             />
         </select>
         <select
             v-else
+            v-model="value[property]"
             v-chosen
-            :value="value"
             class="form-control"
             :class="{'loaded': loaded}"
-            @change="$emit('input', $event.target.value)"
+            @change="onChange"
         >
             <option
                 value=""
@@ -41,7 +41,7 @@
                 <option
                     v-for="item in group"
                     :key="item.id"
-                    :selected="value == item.id"
+                    :selected="value[property] == item.id"
                     :value="item.id"
                     v-text="item[displayProperty]"
                 />
@@ -52,8 +52,9 @@
 
 <script>
     export default {
+        name: 'OptionListEntity',
         props: {
-            value: { type: String, default: () => "" },
+            value: { type: Object },
             label: { type: String },
             apiPath: { type: String },
             preloadedOptions: { type: Array, default: function() {return []}},
@@ -98,6 +99,8 @@
         created() {
             var self = this;
 
+            if (!self.value.id) self.value.id = null;
+
             if (this.apiPath) {
                 axios
                     .get('/api/' + this.apiPath)
@@ -111,6 +114,9 @@
         },
 
         methods: {
+            onChange: function(event) {
+                this.$emit('change', event);
+            }
         }
     }
 </script>

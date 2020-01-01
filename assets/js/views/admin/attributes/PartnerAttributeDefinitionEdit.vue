@@ -38,13 +38,13 @@
                                     placeholder="Enter attribute name"
                                 >
                             </div>
-                            <OptionList
+                            <OptionListEntity
                                 v-model="definition"
                                 label="Attribute Type"
                                 api-path="system/attribute-types"
                                 display-property="label"
                                 property="type"
-                            ></OptionList>
+                            ></OptionListEntity>
                             <KeyValueField v-model="definition.options" label="Options"></KeyValueField>
                         </div>
                         <!-- /.box-body -->
@@ -57,13 +57,13 @@
 
 
 <script>
-    import OptionList from "../../../components/OptionList";
+    import OptionListEntity from "../../../components/OptionListEntity";
     import KeyValueField from "../../../components/KeyValueField";
 
     export default {
         components: {
-            KeyValueField,
-            OptionList
+            OptionListEntity,
+            KeyValueField
         },
         props: ['new'],
         data() {

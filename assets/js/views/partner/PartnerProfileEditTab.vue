@@ -20,12 +20,12 @@
                     v-model="attribute.value"
                     :label="attribute.label"
                 ></NumberField>
-                <OptionListNew
+                <OptionListApi
                     v-else-if="attribute.type === 'OPTION_LIST'"
                     v-model="attribute.value"
                     :label="attribute.label"
                     :preloaded-options="attribute.options"
-                ></OptionListNew>
+                ></OptionListApi>
                 <TextField
                     v-else
                     v-model="attribute.value"
@@ -41,10 +41,10 @@
     import DateField from "../../components/DateField";
     import TextField from "../../components/TextField";
     import NumberField from "../../components/NumberField";
-    import OptionListNew from "../../components/OptionListNew";
+    import OptionListApi from "../../components/OptionListApi";
     export default {
         name: 'PartnerProfileEditTab',
-        components: {OptionListNew, NumberField, TextField, DateField},
+        components: {OptionListApi, NumberField, TextField, DateField},
         props: {
             new: { type: Boolean },
             value: { type: Object, required: true }

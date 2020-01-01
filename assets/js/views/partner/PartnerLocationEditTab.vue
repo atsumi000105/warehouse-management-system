@@ -163,14 +163,14 @@
 <script>
     import AddressFormFields from '../../components/AddressFormFields.vue';
     import ContactFormFields from '../../components/ContactFormFields.vue';
-    import OptionList from '../../components/OptionList.vue';
+    import OptionListEntity from '../../components/OptionListEntity.vue';
 
     export default {
         name: 'PartnerLocationEditTab',
         components: {
             AddressFormFields,
             'contact' : ContactFormFields,
-            'optionlist' : OptionList
+            'optionlist' : OptionListEntity
         },
         props: {
             new: { type: Boolean },

@@ -204,7 +204,6 @@
                 </div>
             </form>
         </div>
-        </div>
         <Modal
             id="confirmModal"
             :confirm-action="this.deleteSupplier"
