@@ -7,14 +7,7 @@
         <template slot="header">
             Bulk {{ bulkChangeType }}
         </template>
-        <p>Are you sure you want to bulk {{ bulkChangeType }} the following <strong>{{ items.length }}</strong> <strong>{{ itemType }}</strong>?</p>
-        <ul>
-            <li
-                v-for="item in items"
-                :key="item.id"
-                v-text="item"
-            />
-        </ul>
+        <p>Are you sure you want to bulk {{ bulkChangeType }} <strong>{{ items.length }}</strong> <strong>{{ itemType }}</strong>?</p>
         <template slot="confirmButton">
             Bulk {{ bulkChangeType }}
         </template>

@@ -70,6 +70,11 @@ class SupplyOrder extends Order
         return "Supply Order";
     }
 
+    public function getOrderSequencePrefix(): string
+    {
+        return "SPLY";
+    }
+
     /**
      * @return Supplier
      */

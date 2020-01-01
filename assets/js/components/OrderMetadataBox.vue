@@ -1,7 +1,7 @@
 <template>
     <div class="box box-info">
         <div class="box-body">
-            <h2>{{ orderType }} {{ order.id }}</h2>
+            <h2>{{ order.sequence }}</h2>
             <div
                 class="form-group"
                 :class="{ 'has-error': statusError }"

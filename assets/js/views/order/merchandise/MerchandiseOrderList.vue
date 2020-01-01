@@ -33,6 +33,7 @@
                             api-url="/api/orders/merchandise"
                             edit-route="/orders/merchandise/"
                             :sort-order="[{ field: 'id', direction: 'desc'}]"
+                            link-display-property="sequence"
                         />
                     </div>
                     <!-- /.box-body -->
