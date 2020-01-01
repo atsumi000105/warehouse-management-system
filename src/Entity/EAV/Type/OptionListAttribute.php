@@ -67,6 +67,7 @@ class OptionListAttribute extends Attribute
 
     public function fixtureData()
     {
-        return null;
+        $options = $this->getDefinition()->getOptions()->getValues();
+        return $options[array_rand($options)];
     }
 }

@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\EAV\Attribute;
 use App\Entity\EAV\Definition;
+use App\Entity\EAV\Option;
 use App\Entity\EAV\PartnerProfileDefinition;
 use App\Entity\PartnerProfile;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -46,6 +47,22 @@ class PartnerProfileAttributeFixtures extends BaseFixture
         $definition->setDescription('This is the first custom field for the partner profile.');
         $definition->setRequired(false);
         $definition->setType(Definition::TYPE_DATETIME);
+
+        $manager->persist($definition);
+
+        $definition = new PartnerProfileDefinition();
+        $definition->setName('custom_option_field');
+        $definition->setLabel('Option Field');
+        $definition->setDescription('This is an option field with a dropdown selector');
+        $definition->setRequired(false);
+        $definition->setType(Definition::TYPE_OPTION_LIST);
+
+        for ($i = 1; $i < 5; $i++) {
+            $option = new Option();
+            $option->setName("Option " . $i);
+            $option->setValue('option' . $i);
+            $definition->addOption($option);
+        }
 
         $manager->persist($definition);
 

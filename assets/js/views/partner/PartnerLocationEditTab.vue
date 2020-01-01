@@ -92,8 +92,8 @@
                     <!-- /.box-header -->
                     <div class="box-body">
                         <!-- text input -->
-                        <addressform
-                            :address="value.address"
+                        <AddressFormFields
+                            v-model="value.address"
                         />
                     </div>
                     <!-- /.box-body -->
@@ -161,14 +161,14 @@
 
 
 <script>
-    import AddressForm from '../../components/AddressFormFields.vue';
+    import AddressFormFields from '../../components/AddressFormFields.vue';
     import ContactFormFields from '../../components/ContactFormFields.vue';
     import OptionList from '../../components/OptionList.vue';
 
     export default {
         name: 'PartnerLocationEditTab',
         components: {
-            'addressform' : AddressForm,
+            AddressFormFields,
             'contact' : ContactFormFields,
             'optionlist' : OptionList
         },

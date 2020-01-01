@@ -2,9 +2,10 @@
     <div class="form-group">
         <label>State/Province</label>
         <select
-            v-model="address.state"
+            v-model="value"
             v-chosen
             class="form-control"
+            @change="$emit('input', $event.target.value)"
         >
             <option value="AL">
                 Alabama
@@ -165,6 +166,11 @@
 
 <script>
     export default {
-        props: ['address']
+        name: "StateField",
+        props: {
+            value: {
+                type: String, required: true
+            }
+        }
     }
 </script>

@@ -92,7 +92,7 @@
 
                     <template>
                         <div
-                            v-for="address in supplier.addresses"
+                            v-for="(address, index) in supplier.addresses"
                             :key="address.id"
                         >
                             <div
@@ -114,8 +114,8 @@
                                 <!-- /.box-header -->
                                 <div class="box-body">
                                     <!-- text input -->
-                                    <addressform
-                                        :address="address"
+                                    <AddressFormFields
+                                        v-model="supplier.addresses[index]"
                                         :has-title="true"
                                     />
                                 </div>
@@ -172,7 +172,7 @@
                                 </div>
                                 <!-- /.box-header -->
                                 <div class="box-body">
-                                    <contact :contact="contact" />
+                                    <ContactFormFields :contact="contact" />
                                 </div>
                             <!-- /.box-body -->
                             </div>
@@ -204,7 +204,8 @@
                 </div>
             </form>
         </div>
-        <modal
+        </div>
+        <Modal
             id="confirmModal"
             :confirm-action="this.deleteSupplier"
             classes="modal-danger"
@@ -216,21 +217,21 @@
             <template slot="confirmButton">
                 Delete Supplier
             </template>
-        </modal>
+        </Modal>
     </section>
 </template>
 
 
 <script>
     import Modal from '../../components/Modal.vue';
-    import AddressForm from '../../components/AddressFormFields.vue';
-    import ContactFormField from '../../components/ContactFormFields.vue';
+    import AddressFormFields from '../../components/AddressFormFields.vue';
+    import ContactFormFields from '../../components/ContactFormFields.vue';
 
     export default {
         components: {
-            'modal' : Modal,
-            'addressform' : AddressForm,
-            'contact' : ContactFormField
+            Modal,
+            AddressFormFields,
+            ContactFormFields
         },
         props: ['new'],
         data() {
