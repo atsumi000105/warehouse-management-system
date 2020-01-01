@@ -104,7 +104,7 @@ class OrderController extends BaseController
      *
      * @param Request $request
      * @param $id
-     * @return array
+     * @return JsonResponse
      */
     public function update(Request $request, $id)
     {

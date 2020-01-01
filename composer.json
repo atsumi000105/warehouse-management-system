@@ -88,6 +88,11 @@
             "@auto-scripts"
         ],
         "analyze": "vendor/bin/phpstan analyse",
+        "analyze-baseline": [
+            "sed -e '/phpstan-baseline\\.neon/ s/^/#/' phpstan.neon.dist > phpstan-without-baseline.neon",
+            "phpstan analyze --configuration phpstan-without-baseline.neon --error-format baselineNeon > phpstan-baseline.neon  || true",
+            "rm phpstan-without-baseline.neon"
+        ],
         "lint": "vendor/bin/phpcs",
         "lint-fix": "vendor/bin/phpcbf"
     },
