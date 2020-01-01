@@ -45,6 +45,7 @@
                     { title: "Manage Groups", route: { name: 'admin-groups' }, icon: "list" },
                     { title: "Manage Fulfillment Periods", route: { name: 'partners-fulfillment' }, icon: "calendar" },
                     { title: "Manage Distribution Methods", route: { name: 'partners-dist-methods' }, icon: "archive" },
+                    { title: "Manage Partner Profile Attributes", route: { name: 'admin-partner-attribute' }, icon: "list-alt" },
                     { title: "Configuration", route: "/admin/configuration", icon: "wrench" },
                 ]
             }

@@ -14,6 +14,7 @@ class PartnerTransformer extends StorageLocationTransformer
         $defaultIncludes = parent::getDefaultIncludes();
         $defaultIncludes[] = 'fulfillmentPeriod';
         $defaultIncludes[] = 'distributionMethod';
+        $defaultIncludes[] = 'profile';
 
         return $defaultIncludes;
     }
@@ -45,5 +46,10 @@ class PartnerTransformer extends StorageLocationTransformer
     public function includeDistributionMethod(Partner $partner)
     {
         return $this->item($partner->getDistributionMethod(), new ListOptionTransformer());
+    }
+
+    public function includeProfile(Partner $partner)
+    {
+        return $this->item($partner->getProfile(), new PartnerProfileTransformer());
     }
 }

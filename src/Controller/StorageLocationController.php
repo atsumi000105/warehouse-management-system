@@ -37,7 +37,7 @@ class StorageLocationController extends BaseController
     /**
      * Get a single StorageLocation
      *
-     * @Route(path="/api/storage-locations/{id}", methods={"GET"})
+     * @Route(path="/{id}", methods={"GET"})
      */
     public function show(Request $request, int $id): JsonResponse
     {
@@ -49,7 +49,7 @@ class StorageLocationController extends BaseController
     /**
      * Save a new storageLocation
      *
-     * @Route(path="/api/storage-locations", methods={"POST"})
+     * @Route(path="/", methods={"POST"})
      * @param Request $request
      * @return array
      */
@@ -61,7 +61,7 @@ class StorageLocationController extends BaseController
     /**
      * Whole or partial update of a storageLocation
      *
-     * @Route(path="/api/storage-locations/{id}", methods={"PATCH"})
+     * @Route(path="/{id}", methods={"PATCH"})
      * @param Request $request
      * @param int $id
      * @return JsonResponse
@@ -86,7 +86,7 @@ class StorageLocationController extends BaseController
     /**
      * Delete a storageLocation
      *
-     * @Route(path="/api/storage-locations/{id}", methods={"DELETE"})
+     * @Route(path="/{id}", methods={"DELETE"})
      * @param $id
      * @return JsonResponse
      */
