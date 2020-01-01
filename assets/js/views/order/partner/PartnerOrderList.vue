@@ -102,6 +102,7 @@
                             :columns="columns"
                             api-url="/api/orders/partner"
                             edit-route="/orders/partner/"
+                            link-display-property="sequence"
                             :sort-order="[{ field: 'id', direction: 'desc'}]"
                             :params="requestParams()"
                             :per-page="50"

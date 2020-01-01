@@ -117,11 +117,11 @@
         <modalinvalid />
         <modaldelete
             :action="this.deleteOrder"
-            :order-title="order.title"
+            :order-title="order.sequence"
         />
         <modalcomplete
             :action="this.save"
-            :order-title="order.title"
+            :order-title="order.sequence"
         />
     </section>
 </template>

@@ -56,6 +56,11 @@ class BulkDistribution extends Order
         return "Partner Distribution";
     }
 
+    public function getOrderSequencePrefix(): string
+    {
+        return "DIST";
+    }
+
     /**
      * @return Partner
      */

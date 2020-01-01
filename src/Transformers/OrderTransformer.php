@@ -17,6 +17,7 @@ class OrderTransformer extends TransformerAbstract
     {
         return [
             'id' => (int) $order->getId(),
+            'sequence' => $order->getSequenceNo(),
             'status' => $order->getStatus(),
             'createdAt' => $order->getCreatedAt()->format('c'),
             'updatedAt' => $order->getUpdatedAt()->format('c'),

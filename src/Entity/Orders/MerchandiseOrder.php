@@ -36,6 +36,11 @@ class MerchandiseOrder extends Order
         return "Merchandise Order";
     }
 
+    public function getOrderSequencePrefix(): string
+    {
+        return "MRCH";
+    }
+
     /**
      * @return Warehouse
      */
