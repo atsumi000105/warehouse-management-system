@@ -338,7 +338,8 @@ abstract class Definition extends CoreEntity
             self::TYPE_FLOAT,
             self::TYPE_INTEGER,
             self::TYPE_STRING,
-            self::TYPE_OPTION_LIST
+            self::TYPE_OPTION_LIST,
+            self::TYPE_TEXT,
         ];
     }
 
