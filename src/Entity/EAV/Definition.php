@@ -8,6 +8,7 @@ use App\Entity\EAV\Type\FloatAttribute;
 use App\Entity\EAV\Type\IntegerAttribute;
 use App\Entity\EAV\Type\OptionListAttribute;
 use App\Entity\EAV\Type\StringAttribute;
+use App\Entity\EAV\Type\TextAttribute;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -28,6 +29,7 @@ abstract class Definition extends CoreEntity
     const TYPE_FLOAT = "FLOAT";
     const TYPE_DATETIME = "DATETIME";
     const TYPE_OPTION_LIST = "OPTION_LIST";
+    const TYPE_TEXT = "TEXT";
 
     /**
      * @var int
@@ -347,6 +349,9 @@ abstract class Definition extends CoreEntity
         switch ($type) {
             case self::TYPE_STRING:
                 $attribute = new StringAttribute();
+                break;
+            case self::TYPE_TEXT:
+                $attribute = new TextAttribute();
                 break;
             case self::TYPE_INTEGER:
                 $attribute = new IntegerAttribute();

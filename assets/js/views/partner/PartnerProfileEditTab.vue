@@ -9,28 +9,33 @@
                     v-if="attribute.type === 'DATETIME'"
                     v-model="attribute.value"
                     :label="attribute.label"
-                ></DateField>
+                />
                 <NumberField
                     v-else-if="attribute.type === 'INTEGER'"
                     v-model="attribute.value"
                     :label="attribute.label"
-                ></NumberField>
+                />
                 <NumberField
                     v-else-if="attribute.type === 'FLOAT'"
                     v-model="attribute.value"
                     :label="attribute.label"
-                ></NumberField>
+                />
                 <OptionListApi
                     v-else-if="attribute.type === 'OPTION_LIST'"
                     v-model="attribute.value"
                     :label="attribute.label"
                     :preloaded-options="attribute.options"
-                ></OptionListApi>
+                />
+                <TextareaField
+                    v-else-if="attribute.type === 'TEXT'"
+                    v-model="attribute.value"
+                    :label="attribute.label"
+                />
                 <TextField
                     v-else
                     v-model="attribute.value"
                     :label="attribute.label"
-                ></TextField>
+                />
             </div>
         </form>
     </div>
@@ -42,9 +47,10 @@
     import TextField from "../../components/TextField";
     import NumberField from "../../components/NumberField";
     import OptionListApi from "../../components/OptionListApi";
+    import TextareaField from "../../components/TextareaField";
     export default {
         name: 'PartnerProfileEditTab',
-        components: {OptionListApi, NumberField, TextField, DateField},
+        components: {TextareaField, OptionListApi, NumberField, TextField, DateField},
         props: {
             new: { type: Boolean },
             value: { type: Object, required: true }
