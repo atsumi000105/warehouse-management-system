@@ -13,7 +13,8 @@ trait AttributedEntityTrait
      * @ORM\ManyToMany(
      *     targetEntity="App\Entity\EAV\Attribute",
      *     fetch="EAGER",
-     *     cascade={"persist", "remove"}
+     *     cascade={"persist", "remove"},
+     *     orphanRemoval=true
      * )
      */
     private $attributes;
@@ -67,11 +68,11 @@ trait AttributedEntityTrait
     }
 
     /**
-     * @param Attribute $attributes
+     * @param Attribute $attribute
      */
-    public function removeAttribute(Attribute $attributes)
+    public function removeAttribute(Attribute $attribute)
     {
-        $this->attributes->removeElement($attributes);
+        $this->attributes->removeElement($attribute);
     }
 
     /**
@@ -86,18 +87,17 @@ trait AttributedEntityTrait
     {
         if (isset($changes['attributes'])) {
             foreach ($changes['attributes'] as $attributeChange) {
-                // Attribute is new and has no value should be ignored
-                if (!$attributeChange['id'] && !$attributeChange['value']) {
-                    continue;
-                }
-
-                if ($attributeChange['id'] > 0 && $attributeChange['value']) {
-                    $this->getAttributeById($attributeChange['id'])->setValue($attributeChange['value']);
+                if ($attributeChange['id'] > 0) {
+                    $attribute = $this->getAttributeById($attributeChange['id']);
+                    $attribute->setValue($attributeChange['value']);
                 } else {
                     $definition = $this->getDefinitionById($attributeChange['definition_id']);
                     $attribute = $definition->createAttribute();
                     $attribute->setValue($attributeChange['value']);
                     $this->addAttribute($attribute);
+                }
+                if ($attribute->isEmpty()) {
+                    $this->removeAttribute($attribute);
                 }
             }
         }

@@ -35,7 +35,10 @@ Vue.filter('orderStatusFormat', require('./filters/orderStatusFormat'));
 
 Vue.directive('chosen', {
     inserted: function(el, binding, vnode) {
-        jQuery(el).chosen({disable_search_threshold: 10}).change(function(event, change) {
+        jQuery(el).chosen({
+            disable_search_threshold: 10,
+            width: '100%' // Needed for fields that are initially hidden
+        }).change(function(event, change) {
             vnode.data.on.change(event, $(el).val());
         });
     },

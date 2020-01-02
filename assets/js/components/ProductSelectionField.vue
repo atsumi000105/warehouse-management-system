@@ -20,10 +20,10 @@
 
 <script>
     import { mapGetters } from 'vuex'
-    import OptionList from '../components/OptionList';
+    import OptionListEntity from './OptionListEntity';
     export default {
         components: {
-            'optionlist' : OptionList
+            'optionlist' : OptionListEntity
         },
         props: {
             value: { required: true, type: Object },

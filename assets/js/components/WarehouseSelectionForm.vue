@@ -25,12 +25,12 @@
 
 <script>
     import Address from '../components/AddressView.vue';
-    import OptionList from '../components/OptionList.vue';
+    import OptionListEntity from './OptionListEntity.vue';
 
     export default {
         components: {
             'address-view' : Address,
-            'optionlist' : OptionList
+            'optionlist' : OptionListEntity
         }, 
         props: {
             value: { required: true, type: Object },

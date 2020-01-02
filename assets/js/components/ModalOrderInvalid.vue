@@ -13,3 +13,13 @@
         </template>
     </modal>
 </template>
+
+<script>
+    import Modal from '../components/Modal.vue';
+
+    export default {
+        components: {
+            'modal' : Modal
+        },
+    }
+</script>

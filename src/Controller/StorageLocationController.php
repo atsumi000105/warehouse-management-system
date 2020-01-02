@@ -66,7 +66,7 @@ class StorageLocationController extends BaseController
      * @param int $id
      * @return JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id)
     {
         $params = $this->getParams($request);
         /** @var StorageLocation $storageLocation */
@@ -87,10 +87,10 @@ class StorageLocationController extends BaseController
      * Delete a storageLocation
      *
      * @Route(path="/{id}", methods={"DELETE"})
-     * @param $id
+     * @param int $id
      * @return JsonResponse
      */
-    public function destroy($id)
+    public function destroy(int $id)
     {
         $storageLocation = $this->getStorageLocation($id);
 

@@ -11,5 +11,5 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class PartnerProfileDefinition extends Definition
 {
-
+    public $defaultEntityName = PartnerProfileDefinition::class;
 }

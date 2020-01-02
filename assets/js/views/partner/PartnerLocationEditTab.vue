@@ -92,9 +92,8 @@
                     <!-- /.box-header -->
                     <div class="box-body">
                         <!-- text input -->
-                        <addressform
-                            :address="partner.address"
-                            :has-title="hasTitle"
+                        <AddressFormFields
+                            v-model="value.address"
                         />
                     </div>
                     <!-- /.box-body -->
@@ -162,20 +161,27 @@
 
 
 <script>
-    import AddressForm from '../../components/AddressFormFields.vue';
+    import AddressFormFields from '../../components/AddressFormFields.vue';
     import ContactFormFields from '../../components/ContactFormFields.vue';
-    import OptionList from '../../components/OptionList.vue';
+    import OptionListEntity from '../../components/OptionListEntity.vue';
 
     export default {
         name: 'PartnerLocationEditTab',
         components: {
-            'addressform' : AddressForm,
+            AddressFormFields,
             'contact' : ContactFormFields,
-            'optionlist' : OptionList
+            'optionlist' : OptionListEntity
         },
         props: {
             new: { type: Boolean },
-            value: { type: Object, required: true }
+            value: { type: Object, required: true, default: function () {
+                return {
+                    address: {},
+                    contacts: [],
+                    fulfillmentPeriod: {},
+                    distributionMethod: { },
+                }
+            }}
         },
         data() {
             return {

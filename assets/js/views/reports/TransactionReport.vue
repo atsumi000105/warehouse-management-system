@@ -96,14 +96,14 @@
 
 <script>
     import DateField from '../../components/DateField.vue';
-    import OptionList from '../../components/OptionList.vue';
+    import OptionListEntity from '../../components/OptionListEntity.vue';
     import ProductSelectionField from '../../components/ProductSelectionField.vue';
     import StorageLocationSelectionForm from '../../components/StorageLocationSelectionForm.vue';
     import TablePaged from '../../components/TablePaged.vue';
     export default {
         components: {
             'datefield' : DateField,
-            'optionlist': OptionList,
+            'optionlist': OptionListEntity,
             'productselection' : ProductSelectionField,
             'storagelocationselectionform' : StorageLocationSelectionForm,
             'tablepaged' : TablePaged

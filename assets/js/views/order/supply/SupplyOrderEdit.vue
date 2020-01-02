@@ -139,6 +139,7 @@
         components: {
             'modalcomplete' : ModalOrderConfirmComplete,
             'modaldelete' : ModalOrderConfirmDelete,
+            'modalinvalid' : ModalOrderInvalid,
             'fielderror' : FieldError,
             'ordermetadatabox' : OrderMetadataBox,
             'warehouseselectionform' : WarehouseSelectionForm,

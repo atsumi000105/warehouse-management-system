@@ -41,9 +41,9 @@ abstract class BaseAttributeDefinitionController extends BaseController
      */
     public function show(Request $request, $id)
     {
-        $product = $this->getDefinition($id);
+        $definition = $this->getDefinition($id);
 
-        return $this->serialize($request, $product);
+        return $this->serialize($request, $definition);
     }
 
     /**
@@ -65,6 +65,25 @@ abstract class BaseAttributeDefinitionController extends BaseController
         $this->validate($definition, $validator);
 
         $this->getEm()->persist($definition);
+        $this->getEm()->flush();
+
+        return $this->serialize($request, $definition);
+    }
+
+    /**
+     * @Route(path="/{id<\d+>}", methods={"PATCH"})
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
+     * @throws \Exception
+     */
+    public function update(Request $request, $id)
+    {
+        $params = $this->getParams($request);
+
+        $definition = $this->getDefinition($id);
+        $definition->applyChangesFromArray($params);
+
         $this->getEm()->flush();
 
         return $this->serialize($request, $definition);
@@ -97,12 +116,12 @@ abstract class BaseAttributeDefinitionController extends BaseController
 
     /**
      * @param $id
-     * @return null|Attribute
+     * @return null|Definition
      * @throws NotFoundApiException
      */
     protected function getDefinition($id)
     {
-        /** @var Attribute $definition */
+        /** @var Definition $definition */
         $definition = $this->getRepository()->find($id);
 
         if (!$definition) {

@@ -19,7 +19,7 @@ class StringAttribute extends Attribute
      *
      * @ORM\Column(name="string_value", type="string", length=255, nullable=true)
      */
-    private $value;
+    protected $value;
 
     public function getTypeLabel(): string
     {

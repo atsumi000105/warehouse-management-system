@@ -45,6 +45,16 @@ class PartnerController extends StorageLocationController
 
         $partner->applyChangesFromArray($params);
 
+        if ($params['distributionMethod']['id']) {
+            $newMethod = $this->getEm()->find(PartnerDistributionMethod::class, $params['distributionMethod']['id']);
+            $partner->setDistributionMethod($newMethod);
+        }
+
+        if ($params['fulfillmentPeriod']['id']) {
+            $newPeriod = $this->getEm()->find(PartnerFulfillmentPeriod::class, $params['fulfillmentPeriod']['id']);
+            $partner->setFulfillmentPeriod($newPeriod);
+        }
+
         $this->getEm()->persist($partner);
 
         $this->getEm()->flush();

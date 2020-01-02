@@ -3,7 +3,7 @@
         <form role="form">
             <div
                 v-for="attribute in attributes"
-                :key="attribute.id"
+                :key="attribute.definition_id"
             >
                 <DateField
                     v-if="attribute.type === 'DATETIME'"
@@ -20,6 +20,12 @@
                     v-model="attribute.value"
                     :label="attribute.label"
                 ></NumberField>
+                <OptionListApi
+                    v-else-if="attribute.type === 'OPTION_LIST'"
+                    v-model="attribute.value"
+                    :label="attribute.label"
+                    :preloaded-options="attribute.options"
+                ></OptionListApi>
                 <TextField
                     v-else
                     v-model="attribute.value"
@@ -35,9 +41,10 @@
     import DateField from "../../components/DateField";
     import TextField from "../../components/TextField";
     import NumberField from "../../components/NumberField";
+    import OptionListApi from "../../components/OptionListApi";
     export default {
         name: 'PartnerProfileEditTab',
-        components: {NumberField, TextField, DateField},
+        components: {OptionListApi, NumberField, TextField, DateField},
         props: {
             new: { type: Boolean },
             value: { type: Object, required: true }
@@ -53,9 +60,6 @@
             }
         },
         created() {
-            if (this.new) {
-                this.value.contacts.push({ isDeleted: false });
-            }
         },
         methods: {
             save: function () {

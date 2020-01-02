@@ -201,18 +201,12 @@ class PartnerOrder extends Order
         $this->orderPeriod = $period;
     }
 
-    /**
-     * @return int
-     */
     public function getPortalOrderId(): ?int
     {
         return $this->portalOrderId;
     }
 
-    /**
-     * @param int $portalOrderId
-     */
-    public function setPortalOrderId(int $portalOrderId)
+    public function setPortalOrderId(?int $portalOrderId)
     {
         $this->portalOrderId = $portalOrderId;
     }

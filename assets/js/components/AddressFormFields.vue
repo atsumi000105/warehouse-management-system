@@ -6,7 +6,7 @@
         >
             <label>Title</label>
             <input
-                v-model="address.title"
+                v-model="value.title"
                 type="text"
                 class="form-control"
                 placeholder="Enter address title"
@@ -15,7 +15,7 @@
         <div class="form-group">
             <label>Street 1</label>
             <input
-                v-model="address.street1"
+                v-model="value.street1"
                 type="text"
                 class="form-control"
                 placeholder="Enter address street 1"
@@ -24,7 +24,7 @@
         <div class="form-group">
             <label>Street 2</label>
             <input
-                v-model="address.street2"
+                v-model="value.street2"
                 type="text"
                 class="form-control"
                 placeholder="Enter address street 2"
@@ -35,7 +35,7 @@
                 <div class="form-group">
                     <label>City</label>
                     <input
-                        v-model="address.city"
+                        v-model="value.city"
                         type="text"
                         class="form-control"
                         placeholder="Enter address city"
@@ -43,13 +43,13 @@
                 </div>
             </div>
             <div class="col-sm-3">
-                <state :address="address" />
+                <StateField v-model="value.state" />
             </div>
             <div class="col-sm-3">
                 <div class="form-group">
                     <label>Zip/Postal Code</label>
                     <input
-                        v-model="address.postalCode"
+                        v-model="value.postalCode"
                         type="text"
                         class="form-control"
                         placeholder="Enter address postal code"
@@ -57,7 +57,7 @@
                 </div>
             </div>
         </div>
-        <country :address="address" />
+        <CountryField v-model="value.country" />
     </div>
 </template>
 
@@ -66,14 +66,14 @@
     import CountryField from '../components/CountryField';
 
     export default {
+        name: "AddressFormFields",
         components: {
-            'state' : StateField,
-            'country' : CountryField
+            StateField,
+            CountryField
         },
         props: {
-            address: { type: Object, required: true },
             hasTitle: { type: Boolean, default: true },
-            v: { type: Object },
+            value: { type: Object, required: true },
         },
     };
 </script>

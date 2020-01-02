@@ -2,7 +2,7 @@
     <div class="form-group">
         <label v-text="label"></label>
         <input
-            v-model="value"
+            :value="value"
             type="number"
             class="form-control"
             @input="$emit('input', $event.target.value)"

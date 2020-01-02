@@ -3,10 +3,15 @@
 namespace App\Transformers;
 
 use App\Entity\EAV\Attribute;
+use App\Entity\EAV\Definition;
 use League\Fractal\TransformerAbstract;
 
 class AttributeTransformer extends TransformerAbstract
 {
+    protected $availableIncludes = [
+        'options'
+    ];
+
     /**
      * @return array
      */
@@ -21,5 +26,12 @@ class AttributeTransformer extends TransformerAbstract
             'value' => $attribute->getJsonValue(),
             'orderIndex' => $attribute->getDefinition()->getOrderIndex(),
         ];
+    }
+
+    public function includeOptions(Attribute $attribute)
+    {
+        $options = $attribute->getDefinition()->getOptions();
+
+        return $this->collection($options, new AttributeDefinitionOptionTransformer);
     }
 }

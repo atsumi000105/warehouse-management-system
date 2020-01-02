@@ -56,13 +56,18 @@ abstract class Attribute
 
     abstract public function getValue();
 
+    public function isEmpty(): bool
+    {
+        return $this->getValue() === '' || is_null($this->getValue());
+    }
+
     /**
      * Returns a value suitable for json responses.
      * @return string
      */
     public function getJsonValue() : ?string
     {
-        return $this->getValue();
+        return $this->getValue() ?: '';
     }
 
     /**
