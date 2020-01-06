@@ -5,7 +5,6 @@
                 v-for="attribute in attributes"
                 :key="attribute.definition_id"
             >
-<!--                TODO: Change these to use the display interface rather than the field type.-->
                 <DateField
                     v-if="attribute.displayInterface === 'DATETIME'"
                     v-model="attribute.value"
