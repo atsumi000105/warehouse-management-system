@@ -23,8 +23,10 @@ class AttributeTransformer extends TransformerAbstract
             'name' => $attribute->getDefinition()->getName(),
             'label' => $attribute->getDefinition()->getLabel(),
             'type' => $attribute->getDefinition()->getType(),
+            'displayInterface' => $attribute->getDefinition()->getDisplayInterface(),
             'value' => $attribute->getJsonValue(),
             'orderIndex' => $attribute->getDefinition()->getOrderIndex(),
+            'hasOptions' => $attribute->hasOptions(),
         ];
     }
 

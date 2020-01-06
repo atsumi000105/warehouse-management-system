@@ -58,4 +58,11 @@ class DatetimeAttribute extends Attribute
     {
         return new \DateTimeImmutable();
     }
+
+    public function getDisplayInterfaces(): array
+    {
+        return [
+            self::UI_DATETIME,
+        ];
+    }
 }

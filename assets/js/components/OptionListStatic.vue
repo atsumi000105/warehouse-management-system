@@ -3,9 +3,10 @@
         <label v-text="label" />
         <template v-if="chosen && loaded">
             <select
-                v-model="value[property]"
+                v-model="value"
                 v-chosen
                 class="form-control"
+                @change="$emit('input', $event.target.value)"
             >
                 <option
                     value=""
@@ -14,7 +15,7 @@
                 <option
                     v-for="item in options"
                     :key="item.id"
-                    :selected="value[property] == item.id"
+                    :selected="value == item.id"
                     :value="item.id"
                     v-text="displayText(item)"
                 />
@@ -22,8 +23,9 @@
         </template>
         <template v-else-if="!chosen && loaded">
             <select
-                v-model="value[property]"
+                v-model="value"
                 class="form-control"
+                @change="$emit('input', $event.target.value)"
             >
                 <option
                     value=""
@@ -32,7 +34,7 @@
                 <option
                     v-for="item in options"
                     :key="item.id"
-                    :selected="value[property] == item.id"
+                    :selected="value == item.id"
                     :value="item.id"
                     v-text="displayText(item)"
                 />
@@ -52,8 +54,9 @@
 
 <script>
     export default {
+        name: 'OptionListStatic',
         props: {
-            value: { type: Object },
+            value: { type: [Number,String] },
             property: { type: String },
             label: { type: String },
             preloadedOptions: { type: Array, default: function() {return []}},
@@ -74,12 +77,6 @@
             loaded: function() { return this.options.length > 0 },
             options: function() { return this.listOptions.length > 0 ? this.listOptions : this.preloadedOptions },
             emptyOption: function() { return this.emptyString ? this.emptyString : '-- Select Item --'}
-        },
-
-        created() {
-            var self = this;
-
-            self.listOptions = self.preloadedOptions;
         },
 
         methods: {

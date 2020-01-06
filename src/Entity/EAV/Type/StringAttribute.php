@@ -50,4 +50,11 @@ class StringAttribute extends Attribute
     {
         return "This is a test";
     }
+
+    public function getDisplayInterfaces(): array
+    {
+        return [
+            self::UI_TEXT
+        ];
+    }
 }

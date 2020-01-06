@@ -70,4 +70,17 @@ class OptionListAttribute extends Attribute
         $options = $this->getDefinition()->getOptions()->getValues();
         return $options[array_rand($options)];
     }
+
+    public function getDisplayInterfaces(): array
+    {
+        return [
+            self::UI_SELECT_SINGLE,
+            self::UI_RADIO,
+        ];
+    }
+
+    public function hasOptions(): bool
+    {
+        return true;
+    }
 }

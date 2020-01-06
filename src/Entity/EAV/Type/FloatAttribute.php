@@ -49,4 +49,12 @@ class FloatAttribute extends Attribute
     {
         return rand()/mt_getrandmax() * 10;
     }
+
+    public function getDisplayInterfaces(): array
+    {
+        return [
+            self::UI_NUMBER,
+        ];
+    }
+
 }

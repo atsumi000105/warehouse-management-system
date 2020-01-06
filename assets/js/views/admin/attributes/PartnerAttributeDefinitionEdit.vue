@@ -38,14 +38,18 @@
                                     placeholder="Enter attribute name"
                                 >
                             </div>
-                            <OptionListEntity
-                                v-model="definition"
+                            <OptionListStatic
+                                v-model="definition.type"
                                 label="Attribute Type"
-                                api-path="system/attribute-types"
                                 display-property="label"
-                                property="type"
-                            ></OptionListEntity>
-                            <KeyValueField v-model="definition.options" label="Options"></KeyValueField>
+                                :preloaded-options="allTypes"
+                            ></OptionListStatic>
+                            <OptionListStatic
+                                v-model="definition.displayInterface"
+                                label="Interface Type"
+                                :preloaded-options="interfaceOptions"
+                            ></OptionListStatic>
+                            <KeyValueField v-if="selectedTypeHasOptions" v-model="definition.options" label="Options"></KeyValueField>
                         </div>
                         <!-- /.box-body -->
                     </div>
@@ -57,12 +61,13 @@
 
 
 <script>
-    import OptionListEntity from "../../../components/OptionListEntity";
     import KeyValueField from "../../../components/KeyValueField";
+    import {mapGetters} from "vuex";
+    import OptionListStatic from "../../../components/OptionListStatic";
 
     export default {
         components: {
-            OptionListEntity,
+            OptionListStatic,
             KeyValueField
         },
         props: ['new'],
@@ -80,6 +85,21 @@
                 axios
                     .get('/api/partner/attribute/definition/' + this.$route.params.id)
                     .then(response => self.definition = response.data.data);
+            }
+        },
+        computed: {
+            ...mapGetters([
+                'allTypes'
+            ]),
+            interfaceOptions: function () {
+                let attributeType = this.$store.getters.getTypeById(this.definition.type);
+                return attributeType.displayInterfaces.map(
+                    (item) => { return { id: item, name: this.getInterfaceDisplayString(item)}; }
+                );
+            },
+            selectedTypeHasOptions: function () {
+                let attributeType = this.$store.getters.getTypeById(this.definition.type);
+                return !!attributeType.hasOptions;
             }
         },
         methods: {
@@ -100,7 +120,25 @@
                             console.log(error);
                         });
                 }
+            },
+            getInterfaceDisplayString: function (uiType) {
+                let map = {
+                    TEXT: 'Single Line Text Input',
+                    TEXTAREA: 'Multiline Text Input',
+                    NUMBER: 'Number Input',
+                    DATETIME: 'Date Selector',
+                    SELECT_SINGLE: 'Dropdown',
+                    SELECT_MULTI: 'Multiple Select List',
+                    RADIO: 'Radio Button Group',
+                    CHECKBOX_GROUP: 'Checkbox Group',
+                    TOGGLE: 'Yes/No Toggle',
+                }
+
+                return map[uiType];
             }
+        },
+        mounted() {
+            this.$store.dispatch('loadTypes');
         }
     }
 </script>

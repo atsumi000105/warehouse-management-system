@@ -5,29 +5,31 @@
                 v-for="attribute in attributes"
                 :key="attribute.definition_id"
             >
+<!--                TODO: Change these to use the display interface rather than the field type.-->
                 <DateField
-                    v-if="attribute.type === 'DATETIME'"
+                    v-if="attribute.displayInterface === 'DATETIME'"
                     v-model="attribute.value"
                     :label="attribute.label"
                 />
                 <NumberField
-                    v-else-if="attribute.type === 'INTEGER'"
-                    v-model="attribute.value"
-                    :label="attribute.label"
-                />
-                <NumberField
-                    v-else-if="attribute.type === 'FLOAT'"
+                    v-else-if="attribute.displayInterface === 'NUMBER'"
                     v-model="attribute.value"
                     :label="attribute.label"
                 />
                 <OptionListApi
-                    v-else-if="attribute.type === 'OPTION_LIST'"
+                    v-else-if="attribute.displayInterface === 'SELECT_SINGLE'"
+                    v-model="attribute.value"
+                    :label="attribute.label"
+                    :preloaded-options="attribute.options"
+                />
+                <RadioField
+                    v-else-if="attribute.displayInterface === 'RADIO'"
                     v-model="attribute.value"
                     :label="attribute.label"
                     :preloaded-options="attribute.options"
                 />
                 <TextareaField
-                    v-else-if="attribute.type === 'TEXT'"
+                    v-else-if="attribute.displayInterface === 'TEXTAREA'"
                     v-model="attribute.value"
                     :label="attribute.label"
                 />
@@ -48,9 +50,10 @@
     import NumberField from "../../components/NumberField";
     import OptionListApi from "../../components/OptionListApi";
     import TextareaField from "../../components/TextareaField";
+    import RadioField from "../../components/RadioField";
     export default {
         name: 'PartnerProfileEditTab',
-        components: {TextareaField, OptionListApi, NumberField, TextField, DateField},
+        components: {RadioField, TextareaField, OptionListApi, NumberField, TextField, DateField},
         props: {
             new: { type: Boolean },
             value: { type: Object, required: true }

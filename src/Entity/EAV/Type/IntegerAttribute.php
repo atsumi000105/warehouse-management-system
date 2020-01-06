@@ -49,4 +49,11 @@ class IntegerAttribute extends Attribute
     {
         return rand(0, 100);
     }
+
+    public function getDisplayInterfaces(): array
+    {
+        return [
+            self::UI_NUMBER,
+        ];
+    }
 }

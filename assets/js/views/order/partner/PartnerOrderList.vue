@@ -38,9 +38,8 @@
 
             <div class="col-xs-2">
                 <optionliststatic
-                    v-model="filters"
+                    v-model="filters.status"
                     label="Status"
-                    property="status"
                     :preloaded-options="statuses"
                     empty-string="-- All Statuses --"
                 />
