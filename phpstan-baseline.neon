@@ -3,9 +3,19 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected TOKEN_IDENTIFIER at offset 157$#"
+			message: "#^Call to an undefined method Doctrine\\\\ORM\\\\EntityRepository\\:\\:findAllSorted\\(\\)\\.$#"
+			count: 2
+			path: src/Controller/BaseAttributeDefinitionController.php
+
+		-
+			message: "#^Parameter \\#1 \\$orderIndex of method App\\\\Entity\\\\EAV\\\\Definition\\:\\:setOrderIndex\\(\\) expects int, int\\|string\\|false given\\.$#"
 			count: 1
-			path: src/Controller/AdjustmentOrderController.php
+			path: src/Controller/BaseAttributeDefinitionController.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: src/Controller/BaseAttributeDefinitionController.php
 
 		-
 			message: "#^Ternary operator condition is always false\\.$#"
@@ -358,11 +368,6 @@ parameters:
 			path: src/Controller/StockLevelsController.php
 
 		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected TOKEN_IDENTIFIER at offset 127$#"
-			count: 1
-			path: src/Controller/StorageLocationController.php
-
-		-
 			message: "#^Call to an undefined method Doctrine\\\\ORM\\\\EntityRepository\\:\\:getStorageLocationInventory\\(\\)\\.$#"
 			count: 1
 			path: src/Controller/StorageLocationController.php
@@ -513,14 +518,134 @@ parameters:
 			path: src/Entity/Contact.php
 
 		-
+			message: "#^PHPDoc tag @param references unknown parameter\\: \\$children$#"
+			count: 1
+			path: src/Entity/CoreEntity.php
+
+		-
 			message: "#^Cannot call method getName\\(\\) on ReflectionClass\\|null\\.$#"
 			count: 1
 			path: src/Entity/CoreEntity.php
 
 		-
+			message: "#^Property App\\\\Entity\\\\EAV\\\\Attribute\\:\\:\\$definition \\(App\\\\Entity\\\\EAV\\\\Definition\\) does not accept App\\\\Entity\\\\EAV\\\\Definition\\|null\\.$#"
+			count: 1
+			path: src/Entity/EAV/Attribute.php
+
+		-
+			message: "#^Cannot call method setValue\\(\\) on App\\\\Entity\\\\EAV\\\\Attribute\\|null\\.$#"
+			count: 1
+			path: src/Entity/PartnerProfile.php
+
+		-
+			message: "#^Cannot call method createAttribute\\(\\) on App\\\\Entity\\\\EAV\\\\Definition\\|null\\.$#"
+			count: 1
+			path: src/Entity/PartnerProfile.php
+
+		-
+			message: "#^Cannot call method isEmpty\\(\\) on App\\\\Entity\\\\EAV\\\\Attribute\\|null\\.$#"
+			count: 1
+			path: src/Entity/PartnerProfile.php
+
+		-
+			message: "#^Parameter \\#1 \\$attribute of method App\\\\Entity\\\\PartnerProfile\\:\\:removeAttribute\\(\\) expects App\\\\Entity\\\\EAV\\\\Attribute, App\\\\Entity\\\\EAV\\\\Attribute\\|null given\\.$#"
+			count: 1
+			path: src/Entity/PartnerProfile.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\EAV\\\\Definition\\:\\:\\$attributes \\(App\\\\Entity\\\\EAV\\\\Attribute\\) does not accept Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\.$#"
+			count: 1
+			path: src/Entity/EAV/Definition.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\EAV\\\\Definition\\:\\:\\$orderIndex \\(string\\) does not accept int\\.$#"
+			count: 1
+			path: src/Entity/EAV/Definition.php
+
+		-
+			message: "#^Method App\\\\Entity\\\\EAV\\\\Definition\\:\\:getOrderIndex\\(\\) should return int but returns string\\.$#"
+			count: 1
+			path: src/Entity/EAV/Definition.php
+
+		-
+			message: "#^Cannot access an offset on App\\\\Entity\\\\EAV\\\\Attribute\\.$#"
+			count: 1
+			path: src/Entity/EAV/Definition.php
+
+		-
+			message: "#^Cannot assign new offset to App\\\\Entity\\\\EAV\\\\Attribute\\.$#"
+			count: 1
+			path: src/Entity/EAV/Definition.php
+
+		-
+			message: "#^Call to an undefined method App\\\\Entity\\\\EAV\\\\Attribute\\:\\:removeElement\\(\\)\\.$#"
+			count: 1
+			path: src/Entity/EAV/Definition.php
+
+		-
+			message: "#^Method App\\\\Entity\\\\EAV\\\\Definition\\:\\:getAttributes\\(\\) should return Doctrine\\\\Common\\\\Collections\\\\ArrayCollection but returns App\\\\Entity\\\\EAV\\\\Attribute\\.$#"
+			count: 1
+			path: src/Entity/EAV/Definition.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\EAV\\\\Option\\:\\:\\$definition \\(App\\\\Entity\\\\EAV\\\\Definition\\) does not accept App\\\\Entity\\\\EAV\\\\Definition\\|null\\.$#"
+			count: 1
+			path: src/Entity/EAV/Option.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\EAV\\\\Type\\\\DatetimeAttribute\\:\\:\\$value \\(DateTime\\) does not accept DateTimeImmutable\\|string\\|false\\.$#"
+			count: 1
+			path: src/Entity/EAV/Type/DatetimeAttribute.php
+
+		-
+			message: "#^Ternary operator condition is always true\\.$#"
+			count: 1
+			path: src/Entity/EAV/Type/DatetimeAttribute.php
+
+		-
+			message: "#^Call to function is_string\\(\\) with App\\\\Entity\\\\EAV\\\\Option will always evaluate to false\\.$#"
+			count: 1
+			path: src/Entity/EAV/Type/OptionListAttribute.php
+
+		-
+			message: "#^Result of && is always false\\.$#"
+			count: 1
+			path: src/Entity/EAV/Type/OptionListAttribute.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between App\\\\Entity\\\\EAV\\\\Option and false will always evaluate to false\\.$#"
+			count: 1
+			path: src/Entity/EAV/Type/OptionListAttribute.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\EAV\\\\Type\\\\OptionListAttribute\\:\\:\\$value \\(App\\\\Entity\\\\EAV\\\\Option\\) does not accept App\\\\Entity\\\\EAV\\\\Option\\|null\\.$#"
+			count: 1
+			path: src/Entity/EAV/Type/OptionListAttribute.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: src/Entity/EAV/Type/OptionListAttribute.php
+
+		-
+			message: "#^Method App\\\\Entity\\\\EAV\\\\Type\\\\OptionListAttribute\\:\\:getJsonValue\\(\\) should return string\\|null but returns int\\.$#"
+			count: 1
+			path: src/Entity/EAV/Type/OptionListAttribute.php
+
+		-
+			message: "#^Ternary operator condition is always true\\.$#"
+			count: 1
+			path: src/Entity/EAV/Type/OptionListAttribute.php
+
+		-
 			message: "#^Ternary operator condition is always true\\.$#"
 			count: 1
 			path: src/Entity/InventoryTransaction.php
+
+		-
+			message: "#^Parameter \\#1 \\$input of function str_pad expects string, int given\\.$#"
+			count: 1
+			path: src/Entity/Order.php
 
 		-
 			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected TOKEN_IDENTIFIER at offset 18$#"
@@ -534,6 +659,11 @@ parameters:
 
 		-
 			message: "#^Cannot call method addPack\\(\\) on App\\\\Helpers\\\\Bag\\|null\\.$#"
+			count: 1
+			path: src/Entity/Orders/PartnerOrder.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Orders\\\\PartnerOrder\\:\\:\\$portalOrderId \\(int\\) does not accept int\\|null\\.$#"
 			count: 1
 			path: src/Entity/Orders/PartnerOrder.php
 

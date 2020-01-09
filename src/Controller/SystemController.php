@@ -29,6 +29,8 @@ class SystemController extends BaseController
             return [
                 'id' => $type,
                 'label' => $attribute->getTypeLabel(),
+                'hasOptions' => $attribute->hasOptions(),
+                'displayInterfaces' => $attribute->getDisplayInterfaces(),
             ];
         }, $types);
 

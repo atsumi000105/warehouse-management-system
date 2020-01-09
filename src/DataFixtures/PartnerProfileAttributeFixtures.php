@@ -24,6 +24,15 @@ class PartnerProfileAttributeFixtures extends BaseFixture
         $manager->persist($definition);
 
         $definition = new PartnerProfileDefinition();
+        $definition->setName('custom_text_field');
+        $definition->setLabel('Custom Text Field');
+        $definition->setDescription('This is a long text field for the partner profile.');
+        $definition->setRequired(true);
+        $definition->setType(Definition::TYPE_TEXT);
+
+        $manager->persist($definition);
+
+        $definition = new PartnerProfileDefinition();
         $definition->setName('custom_int_field');
         $definition->setLabel('Custom Field 2');
         $definition->setDescription('This is the first custom field for the partner profile.');

@@ -26,6 +26,7 @@ abstract class BaseAttributeDefinitionController extends BaseController
      */
     public function index(Request $request)
     {
+
         $definitions = $this->getRepository()->findAllSorted();
 
         return $this->serialize($request, $definitions);
@@ -35,11 +36,8 @@ abstract class BaseAttributeDefinitionController extends BaseController
      * Get a single Attribute Definition
      *
      * @Route(path="/{id<\d+>}", methods={"GET"})
-     *
-     * @param $id
-     * @return JsonResponse
      */
-    public function show(Request $request, $id)
+    public function show(Request $request, int $id): JsonResponse
     {
         $definition = $this->getDefinition($id);
 
@@ -50,11 +48,8 @@ abstract class BaseAttributeDefinitionController extends BaseController
      * Save a new Attribute
      *
      * @Route(path="", methods={"POST"})
-     *
-     * @param Request $request
-     * @return JsonResponse
      */
-    public function store(Request $request, ValidatorInterface $validator)
+    public function store(Request $request, ValidatorInterface $validator): JsonResponse
     {
         $params = $this->getParams($request);
 
@@ -72,12 +67,9 @@ abstract class BaseAttributeDefinitionController extends BaseController
 
     /**
      * @Route(path="/{id<\d+>}", methods={"PATCH"})
-     * @param Request $request
-     * @param int $id
-     * @return JsonResponse
      * @throws \Exception
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id): JsonResponse
     {
         $params = $this->getParams($request);
 
@@ -93,11 +85,8 @@ abstract class BaseAttributeDefinitionController extends BaseController
      * Saves the order index of the definitions
      *
      * @Route(path="/order", methods={"POST"})
-     *
-     * @param Request $request
-     * @return JsonResponse
      */
-    public function storeOrder(Request $request)
+    public function storeOrder(Request $request): JsonResponse
     {
         $params = $this->getParams($request);
         $ids = $params['ids'];
@@ -115,11 +104,9 @@ abstract class BaseAttributeDefinitionController extends BaseController
     }
 
     /**
-     * @param $id
-     * @return null|Definition
-     * @throws NotFoundApiException
+     * @throws NotFoundHttpException
      */
-    protected function getDefinition($id)
+    protected function getDefinition(int $id): Definition
     {
         /** @var Definition $definition */
         $definition = $this->getRepository()->find($id);

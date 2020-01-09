@@ -9,12 +9,11 @@
             Merge Suppliers
         </template>
 
-        <optionliststatic
+        <OptionListEntity
             v-model="targetSupplier"
             label="Merge suppliers in to"
             display-property="title"
             :display-text-fn="item => item.id + ': ' + item.title"
-            property="id"
             :preloaded-options="selectedSuppliers"
             empty-string="-- Select a Destination Supplier --"
             :chosen="false"
@@ -86,13 +85,13 @@
 
 <script>
     import Modal from '../../components/Modal.vue';
-    import OptionListStatic from '../../components/OptionListStatic.vue';
+    import OptionListEntity from "../../components/OptionListEntity";
 
     export default {
         name: 'SupplierMerge',
         components: {
+            OptionListEntity,
             'modal' : Modal,
-            'optionliststatic' : OptionListStatic
         },
         props: {
             selectedSupplierIds: { type: Array, required: true }

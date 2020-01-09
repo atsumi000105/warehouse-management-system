@@ -2,9 +2,7 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\EAV\Attribute;
 use App\Entity\EAV\PartnerProfileDefinition;
-use App\Entity\EAV\Type\StringAttribute;
 use App\Entity\PartnerProfile;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;

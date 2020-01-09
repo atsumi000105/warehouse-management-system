@@ -6,31 +6,37 @@
                 :key="attribute.definition_id"
             >
                 <DateField
-                    v-if="attribute.type === 'DATETIME'"
+                    v-if="attribute.displayInterface === 'DATETIME'"
                     v-model="attribute.value"
                     :label="attribute.label"
-                ></DateField>
+                />
                 <NumberField
-                    v-else-if="attribute.type === 'INTEGER'"
+                    v-else-if="attribute.displayInterface === 'NUMBER'"
                     v-model="attribute.value"
                     :label="attribute.label"
-                ></NumberField>
-                <NumberField
-                    v-else-if="attribute.type === 'FLOAT'"
-                    v-model="attribute.value"
-                    :label="attribute.label"
-                ></NumberField>
+                />
                 <OptionListApi
-                    v-else-if="attribute.type === 'OPTION_LIST'"
+                    v-else-if="attribute.displayInterface === 'SELECT_SINGLE'"
                     v-model="attribute.value"
                     :label="attribute.label"
                     :preloaded-options="attribute.options"
-                ></OptionListApi>
+                />
+                <RadioField
+                    v-else-if="attribute.displayInterface === 'RADIO'"
+                    v-model="attribute.value"
+                    :label="attribute.label"
+                    :preloaded-options="attribute.options"
+                />
+                <TextareaField
+                    v-else-if="attribute.displayInterface === 'TEXTAREA'"
+                    v-model="attribute.value"
+                    :label="attribute.label"
+                />
                 <TextField
                     v-else
                     v-model="attribute.value"
                     :label="attribute.label"
-                ></TextField>
+                />
             </div>
         </form>
     </div>
@@ -42,9 +48,11 @@
     import TextField from "../../components/TextField";
     import NumberField from "../../components/NumberField";
     import OptionListApi from "../../components/OptionListApi";
+    import TextareaField from "../../components/TextareaField";
+    import RadioField from "../../components/RadioField";
     export default {
         name: 'PartnerProfileEditTab',
-        components: {OptionListApi, NumberField, TextField, DateField},
+        components: {RadioField, TextareaField, OptionListApi, NumberField, TextField, DateField},
         props: {
             new: { type: Boolean },
             value: { type: Object, required: true }

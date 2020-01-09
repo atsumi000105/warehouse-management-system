@@ -8,9 +8,8 @@
             >
                 <template v-if="editable">
                     <optionliststatic
-                        v-model="order"
+                        v-model="order.status"
                         label="Status:"
-                        property="status"
                         :preloaded-options="statuses"
                         empty-string="-- Select Status --"
                     />

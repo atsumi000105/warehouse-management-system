@@ -7,23 +7,23 @@ use App\Entity\EAV\Attribute;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class StringAttribute
+ * Class TextAttribute
  *
  * @ORM\Entity()
  */
-class StringAttribute extends Attribute
+class TextAttribute extends Attribute
 {
 
     /**
      * @var string
      *
-     * @ORM\Column(name="string_value", type="string", length=255, nullable=true)
+     * @ORM\Column(name="text_value", type="text", nullable=true)
      */
     protected $value;
 
     public function getTypeLabel(): string
     {
-        return "Short Text";
+        return "Long Text";
     }
 
     /**
@@ -54,7 +54,7 @@ class StringAttribute extends Attribute
     public function getDisplayInterfaces(): array
     {
         return [
-            self::UI_TEXT
+            self::UI_TEXTAREA,
         ];
     }
 }

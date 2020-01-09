@@ -14,6 +14,16 @@ use Doctrine\ORM\Mapping as ORM;
  */
 abstract class Attribute
 {
+    const UI_TEXT = "TEXT";
+    const UI_NUMBER = "NUMBER";
+    const UI_TEXTAREA = "TEXTAREA";
+    const UI_DATETIME = "DATETIME";
+    const UI_SELECT_SINGLE = "SELECT_SINGLE";
+    const UI_SELECT_MULTI = "SELECT_MULTI";
+    const UI_RADIO = "RADIO";
+    const UI_CHECKBOX_GROUP = "CHECKBOX_GROUP";
+    const UI_TOGGLE = "TOGGLE";
+
     /**
      * @var int
      *
@@ -55,6 +65,25 @@ abstract class Attribute
     abstract public function setValue($value): Attribute;
 
     abstract public function getValue();
+
+    abstract public function getDisplayInterfaces() : array;
+
+    /**
+     * By default this will just get the first interface in the list. Override as necessary.
+     */
+    public function getDefaultDisplayInterface() : string
+    {
+        $interfaces = $this->getDisplayInterfaces();
+        return reset($interfaces);
+    }
+
+    /**
+     * Whether this type supports list options (dropdown, radio, checkboxes, etc)
+     */
+    public function hasOptions() : bool
+    {
+        return false;
+    }
 
     public function isEmpty(): bool
     {
