@@ -29,8 +29,6 @@ class PartnerProfileTransformer extends TransformerAbstract
 
     public function includeAttributes(PartnerProfile $profile)
     {
-        $attributes = $profile->getAttributes() ?: [];
-
-        return $this->collection($attributes, new AttributeTransformer());
+        return $this->collection($profile->getAttributes()->toArray(), new AttributeTransformer());
     }
 }
