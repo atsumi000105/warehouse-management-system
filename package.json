@@ -44,6 +44,7 @@
         "normalize-scss": "^6.0.0",
         "verte": "^0.0.12",
         "vue-spinner": "^1.0.3",
+        "vuedraggable": "^2.23.2",
         "vuex": "^3.1.1"
     },
     "license": "GPL-3.0-or-later",

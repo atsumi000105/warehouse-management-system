@@ -67,6 +67,17 @@ class Partner extends StorageLocation
     protected $legacyId;
 
     /**
+     * @var PartnerProfile
+     *
+     * @ORM\OneToOne(
+     *     targetEntity="PartnerProfile",
+     *     inversedBy="partner",
+     *     cascade={"persist", "remove"}
+     * )
+     */
+    protected $profile;
+
+    /**
      * @return string
      */
     public function getPartnerType()
@@ -152,5 +163,15 @@ class Partner extends StorageLocation
         $this->setUpdatedAt(new \DateTime());
 
         parent::applyChangesFromArray($changes);
+    }
+
+    public function getProfile(): PartnerProfile
+    {
+        return $this->profile;
+    }
+
+    public function setProfile(PartnerProfile $profile): void
+    {
+        $this->profile = $profile;
     }
 }

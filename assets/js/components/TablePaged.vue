@@ -32,7 +32,7 @@
                 slot-scope="props"
             >
                 <router-link :to="editRoute + props.rowData.id">
-                    <i class="fa fa-edit" />{{ props.rowData.id }}
+                    <i class="fa fa-edit" />{{ props.rowData[linkDisplayProperty] }}
                 </router-link>
             </template>
         </vuetable>
@@ -87,6 +87,7 @@
             sortOrder: { type: Array },
             params: { type: Object },
             perPage: { type: Number, default: 10 },
+            linkDisplayProperty: { type: String, default: 'id' }
         },
         data () {
             return {

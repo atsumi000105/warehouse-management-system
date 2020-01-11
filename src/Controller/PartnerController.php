@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Partner;
 use App\Entity\PartnerDistributionMethod;
 use App\Entity\PartnerFulfillmentPeriod;
+use App\Entity\PartnerProfile;
 use App\Transformers\PartnerTransformer;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,6 +30,36 @@ class PartnerController extends StorageLocationController
         $partners = $this->getRepository(Partner::class)->findAll();
 
         return $this->serialize($request, $partners);
+    }
+
+    /**
+     * @Route("", methods={"POST"})
+     */
+    public function store(Request $request)
+    {
+        $params = $this->getParams($request);
+
+        $partner = new Partner($params['title']);
+        $partnerProfile = new PartnerProfile();
+        $partner->setProfile($partnerProfile);
+
+        $partner->applyChangesFromArray($params);
+
+        if ($params['distributionMethod']['id']) {
+            $newMethod = $this->getEm()->find(PartnerDistributionMethod::class, $params['distributionMethod']['id']);
+            $partner->setDistributionMethod($newMethod);
+        }
+
+        if ($params['fulfillmentPeriod']['id']) {
+            $newPeriod = $this->getEm()->find(PartnerFulfillmentPeriod::class, $params['fulfillmentPeriod']['id']);
+            $partner->setFulfillmentPeriod($newPeriod);
+        }
+
+        $this->getEm()->persist($partner);
+
+        $this->getEm()->flush();
+
+        return $this->serialize($request, $partner);
     }
 
     /**

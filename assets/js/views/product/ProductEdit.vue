@@ -251,12 +251,12 @@
 <script>
     import Verte from "verte";
     import Modal from '../../components/Modal';
-    import OptionList from '../../components/OptionList.vue';
+    import OptionListEntity from '../../components/OptionListEntity.vue';
     export default {
         components: {
             Verte,
             'modal' : Modal,
-            'optionlist' : OptionList
+            'optionlist' : OptionListEntity
         },
         props: ['create'],
         data() {

@@ -1,16 +1,15 @@
 <template>
     <div class="box box-info">
         <div class="box-body">
-            <h2>{{ orderType }} {{ order.id }}</h2>
+            <h2>{{ order.sequence }}</h2>
             <div
                 class="form-group"
                 :class="{ 'has-error': statusError }"
             >
                 <template v-if="editable">
                     <optionliststatic
-                        v-model="order"
+                        v-model="order.status"
                         label="Status:"
-                        property="status"
                         :preloaded-options="statuses"
                         empty-string="-- Select Status --"
                     />
@@ -29,21 +28,13 @@
                 v-if="order.hasOwnProperty('orderPeriod')"
                 class="form-group"
             >
-                <template v-if="editable">
-                    <label>Order Period:</label>
-
-                    <div class="input-group date">
-                        <div class="input-group-addon">
-                            <i class="fa fa-calendar" />
-                        </div>
-                        <input
-                            v-model="order.orderPeriod"
-                            v-datepicker="{format: 'YYYY-MM-DD', tz:'Etc/UTC'}"
-                            type="text"
-                            class="form-control pull-right"
-                        >
-                    </div>
-                </template>
+                <datefield
+                    v-if="editable"
+                    v-model="order.orderPeriod"
+                    label="Order Period:"
+                    format="YYYY-MM-DD"
+                    timezone="Etc/UTC"
+                />
 
                 <template v-else>
                     <strong>Order Period:</strong>

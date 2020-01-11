@@ -14,6 +14,10 @@ let routes = [
     { path: '/admin/users/new', name: 'admin-user-new', component: require('./views/admin/UserEdit.vue').default, props: { new: true } },
     { path: '/admin/users/:id', name: 'admin-user-edit', component: require('./views/admin/UserEdit.vue').default },
 
+    { path: '/admin/attributes/partner', name: 'admin-partner-attribute', component: require('./views/admin/attributes/PartnerAttributeDefinitionList.vue').default },
+    { path: '/admin/attributes/partner/new', name: 'admin-partner-attribute-new', component: require('./views/admin/attributes/PartnerAttributeDefinitionEdit.vue').default, props: { new: true } },
+    { path: '/admin/attributes/partner/:id', name: 'admin-partner-attribute-edit', component: require('./views/admin/attributes/PartnerAttributeDefinitionEdit.vue').default },
+
     { path: '/clients', name: 'clients', component: require('./views/client/ClientList').default },
     { path: '/clients/new', name: 'client-new', component: require('./views/client/ClientEdit').default, props: { new: true } },
     { path: '/clients/:id', name: 'client-edit', component: require('./views/client/ClientEdit').default },

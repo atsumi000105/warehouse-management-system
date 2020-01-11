@@ -2,9 +2,10 @@
     <div class="form-group">
         <label>Country</label>
         <select
-            v-model="address.country"
+            v-model="value"
             v-chosen
             class="form-control"
+            @change="$emit('input', $event.target.value)"
         >
             <option
                 v-for="c in countries"
@@ -18,7 +19,10 @@
 
 <script>
     export default {
-        props: ['address'],
+        name: "CountryField",
+        props: {
+            value: { type: String, required: true }
+        },
         data: function() {
             return {
                 countries: ['Afghanistan', 'Albania', 'Algeria', 'American Samoa', 'Andorra', 'Angola', 'Anguilla', 'Antarctica (the territory South of 60 deg S)', 'Antigua and Barbuda', 'Argentina', 'Armenia', 'Aruba', 'Australia', 'Austria', 'Azerbaijan',

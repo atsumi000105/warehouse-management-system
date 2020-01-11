@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Controller\BaseController;
 use App\Entity\ListOption;
 use App\Transformers\ListOptionTransformer;
 use Symfony\Component\HttpFoundation\JsonResponse;

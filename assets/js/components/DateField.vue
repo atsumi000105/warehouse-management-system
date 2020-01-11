@@ -19,9 +19,10 @@
 
 <script>
     export default {
+        name: 'DateField',
         props: {
             label: { required: false, type: String, default: 'Date:' },
-            value: { type: String },
+            value: { type: String, required: true },
             format: { type: String, default: 'MM/DD/YYYY'},
             timezone: { type: String },
         },
@@ -36,9 +37,9 @@
                 },
                 set: function(val) {
                     let date = moment.tz(val, this.format, this.timezone);
-                    this.dateValue = val ? date.toISOString() : null;
+                    this.dateValue = val ? date.format() : null;
                 },
             }
-        },
+        }
     }
 </script>

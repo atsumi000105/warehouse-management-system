@@ -65,7 +65,7 @@ class AdjustmentOrderController extends OrderController
      * @Route(path="/{id<\d+>}", methods={"PATCH"})
      *
      * @param Request $request
-     * @param $id
+     * @param int $id
      * @return JsonResponse
      * @throws \App\Exception\CommittedTransactionException
      */

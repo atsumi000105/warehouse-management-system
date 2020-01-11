@@ -79,7 +79,7 @@
                         <!-- /.box-header -->
                         <div class="box-body">
                             <!-- text input -->
-                            <addressform :address="warehouse.address" />
+                            <addressform v-model="warehouse.address" />
                         </div>
                         <!-- /.box-body -->
                     </div>

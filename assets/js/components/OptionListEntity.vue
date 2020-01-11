@@ -52,6 +52,7 @@
 
 <script>
     export default {
+        name: 'OptionListEntity',
         props: {
             value: { type: Object },
             label: { type: String },

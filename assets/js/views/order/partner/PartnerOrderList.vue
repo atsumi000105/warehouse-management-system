@@ -1,7 +1,7 @@
 <template>
     <section class="content">
         <router-link
-            :to="{ name: 'partner-new' }"
+            :to="{ name: 'order-partner-new' }"
             class="btn btn-success btn-flat pull-right"
         >
             <i class="fa fa-plus-circle fa-fw" />Create Partner Order
@@ -38,9 +38,8 @@
 
             <div class="col-xs-2">
                 <optionliststatic
-                    v-model="filters"
+                    v-model="filters.status"
                     label="Status"
-                    property="status"
                     :preloaded-options="statuses"
                     empty-string="-- All Statuses --"
                 />
@@ -102,6 +101,7 @@
                             :columns="columns"
                             api-url="/api/orders/partner"
                             edit-route="/orders/partner/"
+                            link-display-property="sequence"
                             :sort-order="[{ field: 'id', direction: 'desc'}]"
                             :params="requestParams()"
                             :per-page="50"
@@ -123,7 +123,7 @@
 <script>
     import ModalConfirmBulkChange from '../../../components/ModalConfirmBulkChange.vue';
     import DateField from '../../../components/DateField.vue';
-    import OptionList from '../../../components/OptionList.vue';
+    import OptionListEntity from '../../../components/OptionListEntity.vue';
     import OptionListStatic from '../../../components/OptionListStatic.vue';
     import PartnerSelectionForm from '../../../components/PartnerSelectionForm.vue';
     import TablePaged from '../../../components/TablePaged.vue';
@@ -131,7 +131,7 @@
         components: {
             'modalbulkchange' : ModalConfirmBulkChange,
             'datefield' : DateField,
-            'optionlist' : OptionList,
+            'optionlist' : OptionListEntity,
             'optionliststatic' : OptionListStatic,
             'partnerselectionform' : PartnerSelectionForm,
             'tablepaged' : TablePaged
