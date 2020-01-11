@@ -50,17 +50,8 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body table-responsive no-padding">
-                        <div
-                            v-if="loading"
-                            class="loadingArea"
-                        >
-                            <pulse-loader
-                                :loading="loading"
-                                color="#3c8dbc"
-                            />
                         </div>                       
                         <tablepaged
-                            v-else
                             ref="hbtable"
                             :columns="columns"
                             api-url="/api/clients/"
@@ -80,18 +71,15 @@
 
 <script>
     import TablePaged from '../../components/TablePaged.vue';
-    import PulseLoader from "vue-spinner/src/PulseLoader";
     export default {
         name: 'ClientView',
         components: {
             'tablepaged' : TablePaged,
-            PulseLoader
         },
         props:[],
         data() {
             return {
                 clients: [],
-                loading: true,
                 columns: [
                     { name: '__slot:link', title: "Client Id", sortField: 'id' },
                     //todo: find a better way to sort value objects #30

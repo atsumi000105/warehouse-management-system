@@ -75,7 +75,6 @@
 
 <script>
     import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
-    import VuetablePaginationInfo from "vuetable-2/src/components/VuetablePaginationInfo";
 
     export default {
         components: {
