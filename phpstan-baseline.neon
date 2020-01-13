@@ -1111,6 +1111,11 @@ parameters:
 			path: src/DataFixtures/WarehouseFixtures.php
 
 		-
+			message: "#^Property App\\\\Entity\\\\Address\\:\\:\\$street2 type mapping mismatch\\: database can contain string\\|null but property expects string\\.$#"
+			count: 1
+			path: src/Entity/Address.php
+
+		-
 			message: "#^Method App\\\\Entity\\\\Address\\:\\:setId\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Entity/Address.php
@@ -1149,6 +1154,21 @@ parameters:
 			message: "#^Method App\\\\Entity\\\\Address\\:\\:isValid\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Entity/Address.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Contact\\:\\:\\$title type mapping mismatch\\: database can contain string\\|null but property expects string\\.$#"
+			count: 1
+			path: src/Entity/Contact.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Contact\\:\\:\\$email type mapping mismatch\\: database can contain string\\|null but property expects string\\.$#"
+			count: 1
+			path: src/Entity/Contact.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Contact\\:\\:\\$phoneNumber type mapping mismatch\\: database can contain string\\|null but property expects string\\.$#"
+			count: 1
+			path: src/Entity/Contact.php
 
 		-
 			message: "#^Method App\\\\Entity\\\\Contact\\:\\:__construct\\(\\) has parameter \\$email with no typehint specified\\.$#"
@@ -1341,6 +1361,11 @@ parameters:
 			path: src/Entity/EAV/Attribute.php
 
 		-
+			message: "#^Property App\\\\Entity\\\\PartnerProfile\\:\\:\\$attributes type mapping mismatch\\: property can contain Doctrine\\\\Common\\\\Collections\\\\ArrayCollection but database expects Doctrine\\\\Common\\\\Collections\\\\Collection&iterable\\<App\\\\Entity\\\\EAV\\\\Attribute\\>\\.$#"
+			count: 1
+			path: src/Entity/PartnerProfile.php
+
+		-
 			message: "#^Property App\\\\Entity\\\\PartnerProfile\\:\\:\\$attributes with generic class Doctrine\\\\Common\\\\Collections\\\\ArrayCollection does not specify its types\\: TKey, T$#"
 			count: 1
 			path: src/Entity/PartnerProfile.php
@@ -1426,12 +1451,52 @@ parameters:
 			path: src/Entity/PartnerProfile.php
 
 		-
+			message: "#^Property App\\\\Entity\\\\PartnerProfile\\:\\:\\$partner type mapping mismatch\\: database can contain App\\\\Entity\\\\Partner\\|null but property expects App\\\\Entity\\\\Partner\\.$#"
+			count: 1
+			path: src/Entity/PartnerProfile.php
+
+		-
 			message: "#^Method App\\\\Entity\\\\PartnerProfile\\:\\:applyChangesFromArray\\(\\) has parameter \\$changes with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Entity/PartnerProfile.php
 
 		-
+			message: "#^Property App\\\\Entity\\\\EAV\\\\Definition\\:\\:\\$description type mapping mismatch\\: database can contain string\\|null but property expects string\\.$#"
+			count: 1
+			path: src/Entity/EAV/Definition.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\EAV\\\\Definition\\:\\:\\$unit type mapping mismatch\\: database can contain string\\|null but property expects string\\.$#"
+			count: 1
+			path: src/Entity/EAV/Definition.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\EAV\\\\Definition\\:\\:\\$orderIndex type mapping mismatch\\: database can contain int\\|null but property expects string\\.$#"
+			count: 1
+			path: src/Entity/EAV/Definition.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\EAV\\\\Definition\\:\\:\\$orderIndex type mapping mismatch\\: property can contain string but database expects int\\|null\\.$#"
+			count: 1
+			path: src/Entity/EAV/Definition.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\EAV\\\\Definition\\:\\:\\$options type mapping mismatch\\: property can contain Doctrine\\\\Common\\\\Collections\\\\ArrayCollection but database expects Doctrine\\\\Common\\\\Collections\\\\Collection&iterable\\<App\\\\Entity\\\\EAV\\\\Option\\>\\.$#"
+			count: 1
+			path: src/Entity/EAV/Definition.php
+
+		-
 			message: "#^Property App\\\\Entity\\\\EAV\\\\Definition\\:\\:\\$options with generic class Doctrine\\\\Common\\\\Collections\\\\ArrayCollection does not specify its types\\: TKey, T$#"
+			count: 1
+			path: src/Entity/EAV/Definition.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\EAV\\\\Definition\\:\\:\\$attributes type mapping mismatch\\: database can contain Doctrine\\\\Common\\\\Collections\\\\Collection&iterable\\<App\\\\Entity\\\\EAV\\\\Attribute\\> but property expects App\\\\Entity\\\\EAV\\\\Attribute\\.$#"
+			count: 1
+			path: src/Entity/EAV/Definition.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\EAV\\\\Definition\\:\\:\\$attributes type mapping mismatch\\: property can contain App\\\\Entity\\\\EAV\\\\Attribute but database expects Doctrine\\\\Common\\\\Collections\\\\Collection&iterable\\<App\\\\Entity\\\\EAV\\\\Attribute\\>\\.$#"
 			count: 1
 			path: src/Entity/EAV/Definition.php
 
@@ -1506,6 +1571,11 @@ parameters:
 			path: src/Entity/EAV/Definition.php
 
 		-
+			message: "#^Property App\\\\Entity\\\\EAV\\\\Option\\:\\:\\$definition type mapping mismatch\\: database can contain App\\\\Entity\\\\EAV\\\\Definition\\|null but property expects App\\\\Entity\\\\EAV\\\\Definition\\.$#"
+			count: 1
+			path: src/Entity/EAV/Option.php
+
+		-
 			message: "#^Property App\\\\Entity\\\\EAV\\\\Option\\:\\:\\$definition \\(App\\\\Entity\\\\EAV\\\\Definition\\) does not accept App\\\\Entity\\\\EAV\\\\Definition\\|null\\.$#"
 			count: 1
 			path: src/Entity/EAV/Option.php
@@ -1514,6 +1584,16 @@ parameters:
 			message: "#^Property App\\\\Entity\\\\EAV\\\\PartnerProfileDefinition\\:\\:\\$defaultEntityName has no typehint specified\\.$#"
 			count: 1
 			path: src/Entity/EAV/PartnerProfileDefinition.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\EAV\\\\Type\\\\DatetimeAttribute\\:\\:\\$value type mapping mismatch\\: database can contain DateTimeImmutable\\|null but property expects DateTime\\.$#"
+			count: 1
+			path: src/Entity/EAV/Type/DatetimeAttribute.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\EAV\\\\Type\\\\DatetimeAttribute\\:\\:\\$value type mapping mismatch\\: property can contain DateTime but database expects DateTimeImmutable\\|null\\.$#"
+			count: 1
+			path: src/Entity/EAV/Type/DatetimeAttribute.php
 
 		-
 			message: "#^Property App\\\\Entity\\\\EAV\\\\Type\\\\DatetimeAttribute\\:\\:\\$value \\(DateTime\\) does not accept DateTimeImmutable\\|string\\|false\\.$#"
@@ -1536,6 +1616,11 @@ parameters:
 			path: src/Entity/EAV/Type/DatetimeAttribute.php
 
 		-
+			message: "#^Property App\\\\Entity\\\\EAV\\\\Type\\\\FloatAttribute\\:\\:\\$value type mapping mismatch\\: database can contain float\\|null but property expects float\\.$#"
+			count: 1
+			path: src/Entity/EAV/Type/FloatAttribute.php
+
+		-
 			message: "#^Method App\\\\Entity\\\\EAV\\\\Type\\\\FloatAttribute\\:\\:fixtureData\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Entity/EAV/Type/FloatAttribute.php
@@ -1546,6 +1631,11 @@ parameters:
 			path: src/Entity/EAV/Type/FloatAttribute.php
 
 		-
+			message: "#^Property App\\\\Entity\\\\EAV\\\\Type\\\\IntegerAttribute\\:\\:\\$value type mapping mismatch\\: database can contain int\\|null but property expects int\\.$#"
+			count: 1
+			path: src/Entity/EAV/Type/IntegerAttribute.php
+
+		-
 			message: "#^Method App\\\\Entity\\\\EAV\\\\Type\\\\IntegerAttribute\\:\\:fixtureData\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Entity/EAV/Type/IntegerAttribute.php
@@ -1554,6 +1644,11 @@ parameters:
 			message: "#^Method App\\\\Entity\\\\EAV\\\\Type\\\\IntegerAttribute\\:\\:getDisplayInterfaces\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Entity/EAV/Type/IntegerAttribute.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\EAV\\\\Type\\\\OptionListAttribute\\:\\:\\$value type mapping mismatch\\: database can contain App\\\\Entity\\\\EAV\\\\Option\\|null but property expects App\\\\Entity\\\\EAV\\\\Option\\.$#"
+			count: 1
+			path: src/Entity/EAV/Type/OptionListAttribute.php
 
 		-
 			message: "#^Call to function is_string\\(\\) with App\\\\Entity\\\\EAV\\\\Option will always evaluate to false\\.$#"
@@ -1601,6 +1696,11 @@ parameters:
 			path: src/Entity/EAV/Type/OptionListAttribute.php
 
 		-
+			message: "#^Property App\\\\Entity\\\\EAV\\\\Type\\\\StringAttribute\\:\\:\\$value type mapping mismatch\\: database can contain string\\|null but property expects string\\.$#"
+			count: 1
+			path: src/Entity/EAV/Type/StringAttribute.php
+
+		-
 			message: "#^Method App\\\\Entity\\\\EAV\\\\Type\\\\StringAttribute\\:\\:fixtureData\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Entity/EAV/Type/StringAttribute.php
@@ -1611,6 +1711,11 @@ parameters:
 			path: src/Entity/EAV/Type/StringAttribute.php
 
 		-
+			message: "#^Property App\\\\Entity\\\\EAV\\\\Type\\\\TextAttribute\\:\\:\\$value type mapping mismatch\\: database can contain string\\|null but property expects string\\.$#"
+			count: 1
+			path: src/Entity/EAV/Type/TextAttribute.php
+
+		-
 			message: "#^Method App\\\\Entity\\\\EAV\\\\Type\\\\TextAttribute\\:\\:fixtureData\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Entity/EAV/Type/TextAttribute.php
@@ -1619,6 +1724,16 @@ parameters:
 			message: "#^Method App\\\\Entity\\\\EAV\\\\Type\\\\TextAttribute\\:\\:getDisplayInterfaces\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Entity/EAV/Type/TextAttribute.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Group\\:\\:\\$users type mapping mismatch\\: database can contain Doctrine\\\\Common\\\\Collections\\\\Collection&iterable\\<App\\\\Entity\\\\User\\> but property expects App\\\\Entity\\\\User\\.$#"
+			count: 1
+			path: src/Entity/Group.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Group\\:\\:\\$users type mapping mismatch\\: property can contain App\\\\Entity\\\\User but database expects Doctrine\\\\Common\\\\Collections\\\\Collection&iterable\\<App\\\\Entity\\\\User\\>\\.$#"
+			count: 1
+			path: src/Entity/Group.php
 
 		-
 			message: "#^Property App\\\\Entity\\\\Group\\:\\:\\$roles type has no value type specified in iterable type array\\.$#"
@@ -1654,6 +1769,31 @@ parameters:
 			message: "#^Method App\\\\Entity\\\\Group\\:\\:removeRole\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Entity/Group.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\InventoryTransaction\\:\\:\\$storageLocation type mapping mismatch\\: database can contain App\\\\Entity\\\\StorageLocation\\|null but property expects App\\\\Entity\\\\StorageLocation\\.$#"
+			count: 1
+			path: src/Entity/InventoryTransaction.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\InventoryTransaction\\:\\:\\$product type mapping mismatch\\: database can contain App\\\\Entity\\\\Product\\|null but property expects App\\\\Entity\\\\Product\\.$#"
+			count: 1
+			path: src/Entity/InventoryTransaction.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\InventoryTransaction\\:\\:\\$lineItem type mapping mismatch\\: database can contain App\\\\Entity\\\\LineItem\\|null but property expects App\\\\Entity\\\\LineItem\\.$#"
+			count: 1
+			path: src/Entity/InventoryTransaction.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\InventoryTransaction\\:\\:\\$cost type mapping mismatch\\: database can contain float\\|null but property expects float\\.$#"
+			count: 1
+			path: src/Entity/InventoryTransaction.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\InventoryTransaction\\:\\:\\$committedAt type mapping mismatch\\: database can contain DateTime\\|null but property expects DateTime\\.$#"
+			count: 1
+			path: src/Entity/InventoryTransaction.php
 
 		-
 			message: "#^Method App\\\\Entity\\\\InventoryTransaction\\:\\:__construct\\(\\) has parameter \\$delta with no typehint specified\\.$#"
@@ -1701,7 +1841,22 @@ parameters:
 			path: src/Entity/InventoryTransaction.php
 
 		-
+			message: "#^Property App\\\\Entity\\\\LineItem\\:\\:\\$order type mapping mismatch\\: database can contain App\\\\Entity\\\\Order\\|null but property expects App\\\\Entity\\\\Order\\.$#"
+			count: 1
+			path: src/Entity/LineItem.php
+
+		-
 			message: "#^Property App\\\\Entity\\\\LineItem\\:\\:\\$transactions with generic class Doctrine\\\\Common\\\\Collections\\\\ArrayCollection does not specify its types\\: TKey, T$#"
+			count: 1
+			path: src/Entity/LineItem.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\LineItem\\:\\:\\$product type mapping mismatch\\: database can contain App\\\\Entity\\\\Product\\|null but property expects App\\\\Entity\\\\Product\\.$#"
+			count: 1
+			path: src/Entity/LineItem.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\LineItem\\:\\:\\$cost type mapping mismatch\\: database can contain float\\|null but property expects float\\.$#"
 			count: 1
 			path: src/Entity/LineItem.php
 
@@ -1861,6 +2016,11 @@ parameters:
 			path: src/Entity/Order.php
 
 		-
+			message: "#^Property App\\\\Entity\\\\Orders\\\\AdjustmentOrder\\:\\:\\$storageLocation type mapping mismatch\\: database can contain App\\\\Entity\\\\StorageLocation\\|null but property expects App\\\\Entity\\\\StorageLocation\\.$#"
+			count: 1
+			path: src/Entity/Orders/AdjustmentOrder.php
+
+		-
 			message: "#^Method App\\\\Entity\\\\Orders\\\\AdjustmentOrder\\:\\:setStorageLocation\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Entity/Orders/AdjustmentOrder.php
@@ -1879,6 +2039,11 @@ parameters:
 			message: "#^Method App\\\\Entity\\\\Orders\\\\AdjustmentOrderLineItem\\:\\:validateQuantity\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Entity/Orders/AdjustmentOrderLineItem.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Orders\\\\BulkDistribution\\:\\:\\$portalOrderId type mapping mismatch\\: database can contain int\\|null but property expects int\\.$#"
+			count: 1
+			path: src/Entity/Orders/BulkDistribution.php
 
 		-
 			message: "#^Method App\\\\Entity\\\\Orders\\\\BulkDistribution\\:\\:setPartner\\(\\) has no return typehint specified\\.$#"
@@ -1911,6 +2076,11 @@ parameters:
 			path: src/Entity/Orders/BulkDistributionLineItem.php
 
 		-
+			message: "#^Property App\\\\Entity\\\\Orders\\\\MerchandiseOrder\\:\\:\\$warehouse type mapping mismatch\\: database can contain App\\\\Entity\\\\Warehouse\\|null but property expects App\\\\Entity\\\\Warehouse\\.$#"
+			count: 1
+			path: src/Entity/Orders/MerchandiseOrder.php
+
+		-
 			message: "#^Method App\\\\Entity\\\\Orders\\\\MerchandiseOrder\\:\\:setWarehouse\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Entity/Orders/MerchandiseOrder.php
@@ -1924,6 +2094,11 @@ parameters:
 			message: "#^Method App\\\\Entity\\\\Orders\\\\MerchandiseOrderLineItem\\:\\:generateTransactions\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Entity/Orders/MerchandiseOrderLineItem.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Orders\\\\PartnerOrder\\:\\:\\$portalOrderId type mapping mismatch\\: database can contain int\\|null but property expects int\\.$#"
+			count: 1
+			path: src/Entity/Orders/PartnerOrder.php
 
 		-
 			message: "#^Method App\\\\Entity\\\\Orders\\\\PartnerOrder\\:\\:setPartner\\(\\) has no return typehint specified\\.$#"
@@ -1971,6 +2146,26 @@ parameters:
 			path: src/Entity/Orders/PartnerOrderLineItem.php
 
 		-
+			message: "#^Property App\\\\Entity\\\\Orders\\\\SupplyOrder\\:\\:\\$supplier type mapping mismatch\\: database can contain App\\\\Entity\\\\Supplier\\|null but property expects App\\\\Entity\\\\Supplier\\.$#"
+			count: 1
+			path: src/Entity/Orders/SupplyOrder.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Orders\\\\SupplyOrder\\:\\:\\$supplierAddress type mapping mismatch\\: database can contain App\\\\Entity\\\\SupplierAddress\\|null but property expects App\\\\Entity\\\\SupplierAddress\\.$#"
+			count: 1
+			path: src/Entity/Orders/SupplyOrder.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Orders\\\\SupplyOrder\\:\\:\\$warehouse type mapping mismatch\\: database can contain App\\\\Entity\\\\Warehouse\\|null but property expects App\\\\Entity\\\\Warehouse\\.$#"
+			count: 1
+			path: src/Entity/Orders/SupplyOrder.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Orders\\\\SupplyOrder\\:\\:\\$receivedAt type mapping mismatch\\: database can contain DateTime\\|null but property expects DateTime\\.$#"
+			count: 1
+			path: src/Entity/Orders/SupplyOrder.php
+
+		-
 			message: "#^Method App\\\\Entity\\\\Orders\\\\SupplyOrder\\:\\:setSupplier\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Entity/Orders/SupplyOrder.php
@@ -2016,6 +2211,16 @@ parameters:
 			path: src/Entity/Orders/SupplyOrderLineItem.php
 
 		-
+			message: "#^Property App\\\\Entity\\\\Orders\\\\TransferOrder\\:\\:\\$sourceLocation type mapping mismatch\\: database can contain App\\\\Entity\\\\StorageLocation\\|null but property expects App\\\\Entity\\\\StorageLocation\\.$#"
+			count: 1
+			path: src/Entity/Orders/TransferOrder.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Orders\\\\TransferOrder\\:\\:\\$targetLocation type mapping mismatch\\: database can contain App\\\\Entity\\\\StorageLocation\\|null but property expects App\\\\Entity\\\\StorageLocation\\.$#"
+			count: 1
+			path: src/Entity/Orders/TransferOrder.php
+
+		-
 			message: "#^Method App\\\\Entity\\\\Orders\\\\TransferOrder\\:\\:setSourceLocation\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Entity/Orders/TransferOrder.php
@@ -2034,6 +2239,36 @@ parameters:
 			message: "#^Method App\\\\Entity\\\\Orders\\\\TransferOrderLineItem\\:\\:generateTransactions\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Entity/Orders/TransferOrderLineItem.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Partner\\:\\:\\$partnerType type mapping mismatch\\: database can contain string\\|null but property expects string\\.$#"
+			count: 1
+			path: src/Entity/Partner.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Partner\\:\\:\\$fulfillmentPeriod type mapping mismatch\\: database can contain App\\\\Entity\\\\PartnerFulfillmentPeriod\\|null but property expects App\\\\Entity\\\\PartnerFulfillmentPeriod\\.$#"
+			count: 1
+			path: src/Entity/Partner.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Partner\\:\\:\\$distributionMethod type mapping mismatch\\: database can contain App\\\\Entity\\\\PartnerDistributionMethod\\|null but property expects App\\\\Entity\\\\PartnerDistributionMethod\\.$#"
+			count: 1
+			path: src/Entity/Partner.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Partner\\:\\:\\$forecastAverageMonths type mapping mismatch\\: database can contain int\\|null but property expects int\\.$#"
+			count: 1
+			path: src/Entity/Partner.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Partner\\:\\:\\$legacyId type mapping mismatch\\: database can contain int\\|null but property expects int\\.$#"
+			count: 1
+			path: src/Entity/Partner.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Partner\\:\\:\\$profile type mapping mismatch\\: database can contain App\\\\Entity\\\\PartnerProfile\\|null but property expects App\\\\Entity\\\\PartnerProfile\\.$#"
+			count: 1
+			path: src/Entity/Partner.php
 
 		-
 			message: "#^Method App\\\\Entity\\\\Partner\\:\\:setPartnerType\\(\\) has no return typehint specified\\.$#"
@@ -2079,6 +2314,51 @@ parameters:
 			message: "#^Method App\\\\Entity\\\\Partner\\:\\:applyChangesFromArray\\(\\) has parameter \\$changes with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Entity/Partner.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Product\\:\\:\\$sku type mapping mismatch\\: database can contain string\\|null but property expects string\\.$#"
+			count: 1
+			path: src/Entity/Product.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Product\\:\\:\\$agencyPacksPerBag type mapping mismatch\\: database can contain int\\|null but property expects int\\.$#"
+			count: 1
+			path: src/Entity/Product.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Product\\:\\:\\$agencyPackSize type mapping mismatch\\: database can contain int\\|null but property expects int\\.$#"
+			count: 1
+			path: src/Entity/Product.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Product\\:\\:\\$hospitalPacksPerBag type mapping mismatch\\: database can contain int\\|null but property expects int\\.$#"
+			count: 1
+			path: src/Entity/Product.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Product\\:\\:\\$hospitalPackSize type mapping mismatch\\: database can contain int\\|null but property expects int\\.$#"
+			count: 1
+			path: src/Entity/Product.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Product\\:\\:\\$productCategory type mapping mismatch\\: database can contain App\\\\Entity\\\\ProductCategory\\|null but property expects App\\\\Entity\\\\ProductCategory\\.$#"
+			count: 1
+			path: src/Entity/Product.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Product\\:\\:\\$color type mapping mismatch\\: database can contain string\\|null but property expects string\\.$#"
+			count: 1
+			path: src/Entity/Product.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Product\\:\\:\\$defaultCost type mapping mismatch\\: database can contain float\\|null but property expects float\\.$#"
+			count: 1
+			path: src/Entity/Product.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Product\\:\\:\\$retailPrice type mapping mismatch\\: database can contain float\\|null but property expects float\\.$#"
+			count: 1
+			path: src/Entity/Product.php
 
 		-
 			message: "#^Method App\\\\Entity\\\\Product\\:\\:__construct\\(\\) has parameter \\$name with no typehint specified\\.$#"
@@ -2246,6 +2526,11 @@ parameters:
 			path: src/Entity/Sequence.php
 
 		-
+			message: "#^Property App\\\\Entity\\\\StorageLocation\\:\\:\\$address type mapping mismatch\\: database can contain App\\\\Entity\\\\StorageLocationAddress\\|null but property expects App\\\\Entity\\\\StorageLocationAddress\\.$#"
+			count: 1
+			path: src/Entity/StorageLocation.php
+
+		-
 			message: "#^Property App\\\\Entity\\\\StorageLocation\\:\\:\\$contacts with generic class Doctrine\\\\Common\\\\Collections\\\\ArrayCollection does not specify its types\\: TKey, T$#"
 			count: 1
 			path: src/Entity/StorageLocation.php
@@ -2301,9 +2586,19 @@ parameters:
 			path: src/Entity/StorageLocation.php
 
 		-
+			message: "#^Property App\\\\Entity\\\\StorageLocationAddress\\:\\:\\$storageLocation type mapping mismatch\\: database can contain App\\\\Entity\\\\StorageLocation\\|null but property expects App\\\\Entity\\\\StorageLocation\\.$#"
+			count: 1
+			path: src/Entity/StorageLocationAddress.php
+
+		-
 			message: "#^Method App\\\\Entity\\\\StorageLocationAddress\\:\\:setStorageLocation\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Entity/StorageLocationAddress.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\StorageLocationContact\\:\\:\\$storageLocation type mapping mismatch\\: database can contain App\\\\Entity\\\\StorageLocation\\|null but property expects App\\\\Entity\\\\StorageLocation\\.$#"
+			count: 1
+			path: src/Entity/StorageLocationContact.php
 
 		-
 			message: "#^Method App\\\\Entity\\\\StorageLocationContact\\:\\:setStorageLocation\\(\\) has no return typehint specified\\.$#"
@@ -2327,6 +2622,16 @@ parameters:
 
 		-
 			message: "#^Property App\\\\Entity\\\\Supplier\\:\\:\\$supplyOrders with generic class Doctrine\\\\Common\\\\Collections\\\\ArrayCollection does not specify its types\\: TKey, T$#"
+			count: 1
+			path: src/Entity/Supplier.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Supplier\\:\\:\\$supplierType type mapping mismatch\\: database can contain string\\|null but property expects string\\.$#"
+			count: 1
+			path: src/Entity/Supplier.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Supplier\\:\\:\\$legacyId type mapping mismatch\\: database can contain int\\|null but property expects int\\.$#"
 			count: 1
 			path: src/Entity/Supplier.php
 
@@ -2411,6 +2716,16 @@ parameters:
 			path: src/Entity/Supplier.php
 
 		-
+			message: "#^Property App\\\\Entity\\\\SupplierAddress\\:\\:\\$supplier type mapping mismatch\\: database can contain App\\\\Entity\\\\Supplier\\|null but property expects App\\\\Entity\\\\Supplier\\.$#"
+			count: 1
+			path: src/Entity/SupplierAddress.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\SupplierAddress\\:\\:\\$title type mapping mismatch\\: database can contain string\\|null but property expects string\\.$#"
+			count: 1
+			path: src/Entity/SupplierAddress.php
+
+		-
 			message: "#^Method App\\\\Entity\\\\SupplierAddress\\:\\:setSupplier\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Entity/SupplierAddress.php
@@ -2424,6 +2739,11 @@ parameters:
 			message: "#^Method App\\\\Entity\\\\SupplierAddress\\:\\:setTitle\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Entity/SupplierAddress.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\SupplierContact\\:\\:\\$supplier type mapping mismatch\\: database can contain App\\\\Entity\\\\Supplier\\|null but property expects App\\\\Entity\\\\Supplier\\.$#"
+			count: 1
+			path: src/Entity/SupplierContact.php
 
 		-
 			message: "#^Method App\\\\Entity\\\\SupplierContact\\:\\:setSupplier\\(\\) has no return typehint specified\\.$#"
