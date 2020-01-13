@@ -27,7 +27,7 @@ matrix:
           before_script:
               - composer self-update
               - composer install --prefer-source --no-interaction --dev
-              - ./vendor/bin/simple-phpunit install
+              - vendor/bin/simple-phpunit install
           script:
               - vendor/bin/simple-phpunit -v --coverage-clover clover.xml
               - vendor/bin/phpstan analyse
