@@ -30,7 +30,7 @@ matrix:
               - vendor/bin/simple-phpunit install
           script:
               - vendor/bin/simple-phpunit -v --coverage-clover clover.xml
-              - vendor/bin/phpstan analyse
+              - if [[ -d "$COMPOSER_BIN_DIR/.phpunit" ]]; then vendor/bin/phpstan analyse; fi
               - vendor/bin/phpcs
           after_script:
               - ./cc-test-reporter format-coverage -t clover # Backend coverage
