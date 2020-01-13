@@ -90,9 +90,8 @@
         ],
         "analyze": "phpstan analyse",
         "analyze-baseline": [
-            "sed -e '/phpstan-baseline\\.neon/ s/^/#/' phpstan.neon.dist > phpstan-without-baseline.neon",
-            "phpstan analyze --configuration phpstan-without-baseline.neon --error-format baselineNeon > phpstan-baseline.neon  || true",
-            "rm phpstan-without-baseline.neon"
+            "echo '' > phpstan-baseline.neon",
+            "phpstan analyze --configuration phpstan.neon.dist --error-format baselineNeon > phpstan-baseline.neon  || true"
         ],
         "lint": "phpcs",
         "lint-fix": "phpcbf"
