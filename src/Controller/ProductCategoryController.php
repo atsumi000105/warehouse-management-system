@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Entity\PartnerDistributionMethod;
 use App\Entity\ProductCategory;
 use App\Transformers\ListOptionTransformer;
+use App\Transformers\ProductCategoryTransformer;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -24,6 +25,6 @@ class ProductCategoryController extends ListOptionController
 
     protected function getDefaultTransformer()
     {
-        return new ListOptionTransformer();
+        return new ProductCategoryTransformer();
     }
 }

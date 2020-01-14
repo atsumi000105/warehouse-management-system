@@ -19,7 +19,7 @@ class ProductCategoryTransformer extends ListOptionTransformer
     {
         $properties = parent::transform($productCategory);
 
-        $properties['isPartnerOrderable'] = $productCategory->getisPartnerOrderable();
+        $properties['isPartnerOrderable'] = $productCategory->isPartnerOrderable();
 
         return $properties;
     }

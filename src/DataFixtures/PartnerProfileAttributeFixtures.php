@@ -14,7 +14,7 @@ class PartnerProfileAttributeFixtures extends BaseFixture
 {
     public function loadData(ObjectManager $manager)
     {
-        foreach ($this->getData() as $field) {
+        foreach ($this->getData() as $key => $field) {
             $definition = new PartnerProfileDefinition();
             $definition->setName($field['name']);
             $definition->setLabel($field['label']);
@@ -22,6 +22,7 @@ class PartnerProfileAttributeFixtures extends BaseFixture
             $definition->setRequired($field['required']);
             $definition->setType($field['type']);
             $definition->setDisplayInterface($field['interface']);
+            $definition->setOrderIndex($key);
             if (isset($field['options'])) {
                 foreach ($field['options'] as $value => $name) {
                     $option = new Option();
@@ -106,13 +107,13 @@ class PartnerProfileAttributeFixtures extends BaseFixture
                 'required' => true,
                 'type' => Definition::TYPE_INTEGER,
                 'interface' => Attribute::UI_NUMBER,
-            ],[ //TODO: TYPE_BOOLEAN and UI_TOGGLE
+            ],[
                 'name' => 'is_990',
                 'label' => 'Do you file an IRS Form 990? ',
                 'description' => '',
                 'required' => true,
                 'type' => Definition::TYPE_BOOLEAN,
-                'interface' => Attribute::UI_TOGGLE,
+                'interface' => Attribute::UI_YES_NO_RADIO,
             ],[
                 'name' => 'program_name',
                 'label' => 'Program Name',
@@ -134,20 +135,20 @@ class PartnerProfileAttributeFixtures extends BaseFixture
                 'required' => true,
                 'type' => Definition::TYPE_STRING,
                 'interface' => Attribute::UI_TEXT,
-            ],[ //TODO: TYPE_BOOLEAN and UI_TOGGLE
+            ],[
                 'name' => 'program_is_case_management',
                 'label' => 'Does the program include a case management component?',
                 'description' => '',
                 'required' => true,
                 'type' => Definition::TYPE_BOOLEAN,
-                'interface' => Attribute::UI_TOGGLE,
-            ],[ //TODO: TYPE_BOOLEAN and UI_TOGGLE
+                'interface' => Attribute::UI_YES_NO_RADIO,
+            ],[
                 'name' => 'program_is_evidence_based',
                 'label' => 'Is the program service model evidence-based?',
                 'description' => '',
                 'required' => false,
                 'type' => Definition::TYPE_BOOLEAN,
-                'interface' => Attribute::UI_TOGGLE,
+                'interface' => Attribute::UI_YES_NO_RADIO,
             ],[
                 'name' => 'program_improve_client',
                 'label' => 'How does this program work to improve the circumstances of the clients you serve?',
@@ -173,20 +174,20 @@ class PartnerProfileAttributeFixtures extends BaseFixture
                     'foster' => 'Foster Care',
                     'other' => 'Other',
                 ],
-            ],[ //TODO: TYPE_BOOLEAN and TYPE_BOOLEAN
+            ],[
                 'name' => 'program_already_distribute',
                 'label' => 'Do you currently distribute diapers or provide diapers as part of your regular programming?',
                 'description' => '',
                 'required' => true,
                 'type' => Definition::TYPE_BOOLEAN,
-                'interface' => Attribute::UI_TOGGLE,
-            ],[ //TODO: TYPE_BOOLEAN and TYPE_BOOLEAN
+                'interface' => Attribute::UI_YES_NO_RADIO,
+            ],[
                 'name' => 'program_turn_away',
                 'label' => 'If applying for diapers to be used in a child care program, do you turn away clients if they cannot provide their own diapers?',
                 'description' => '',
                 'required' => true,
                 'type' => Definition::TYPE_BOOLEAN,
-                'interface' => Attribute::UI_TOGGLE,
+                'interface' => Attribute::UI_YES_NO_RADIO,
             ],[
                 'name' => 'program_address',
                 'label' => 'Program Address',
@@ -208,27 +209,27 @@ class PartnerProfileAttributeFixtures extends BaseFixture
                 'required' => true,
                 'type' => Definition::TYPE_TEXT,
                 'interface' => Attribute::UI_TEXTAREA,
-            ],[ //TODO: TYPE_BOOLEAN and UI_TOGGLE
+            ],[
                 'name' => 'is_designated_staff',
                 'label' => 'Will you have a staff member designated to handle dat-to-day responsibilities of the HappyBottoms program?',
                 'description' => '',
                 'required' => true,
                 'type' => Definition::TYPE_BOOLEAN,
-                'interface' => Attribute::UI_TOGGLE,
-            ],[ //TODO: TYPE_BOOLEAN and UI_TOGGLE
+                'interface' => Attribute::UI_YES_NO_RADIO,
+            ],[
                 'name' => 'internet_access',
                 'label' => 'Does the location where you would distribute diapers have internet access?',
                 'description' => '',
                 'required' => true,
                 'type' => Definition::TYPE_BOOLEAN,
-                'interface' => Attribute::UI_TOGGLE,
-            ],[ //TODO: TYPE_BOOLEAN and UI_TOGGLE
+                'interface' => Attribute::UI_YES_NO_RADIO,
+            ],[
                 'name' => 'secure_area',
                 'label' => 'Do you have a secure, locked area of adequate size to store HappyBottoms diapers?',
                 'description' => '',
                 'required' => true,
                 'type' => Definition::TYPE_BOOLEAN,
-                'interface' => Attribute::UI_TOGGLE,
+                'interface' => Attribute::UI_YES_NO_RADIO,
             ],[
                 'name' => 'storage_space',
                 'label' => 'Please describe the storage space',
@@ -236,48 +237,48 @@ class PartnerProfileAttributeFixtures extends BaseFixture
                 'required' => true,
                 'type' => Definition::TYPE_TEXT,
                 'interface' => Attribute::UI_TEXTAREA,
-            ],[ //TODO: TYPE_BOOLEAN and UI_TOGGLE
+            ],[
                 'name' => 'can_pickup',
                 'label' => 'Will a trustworthy person (staff or volunteer) be available to pick up your agency\'s diapers from our Waldo warehouse?',
                 'description' => '',
                 'required' => true,
                 'type' => Definition::TYPE_BOOLEAN,
-                'interface' => Attribute::UI_TOGGLE,
-            ],[ //TODO: TYPE_BOOLEAN and UI_TOGGLE
+                'interface' => Attribute::UI_YES_NO_RADIO,
+            ],[
                 'name' => 'max_income_requirement',
                 'label' => 'Does your agency/program have a maximum income requirement to receive your services?',
                 'description' => '',
                 'required' => true,
                 'type' => Definition::TYPE_BOOLEAN,
-                'interface' => Attribute::UI_TOGGLE,
-            ],[ //TODO: TYPE_BOOLEAN and UI_TOGGLE
+                'interface' => Attribute::UI_YES_NO_RADIO,
+            ],[
                 'name' => 'serve_over_2x_FPL',
                 'label' => 'Do you serve clients with incomes over 200% of FPL?',
                 'description' => '',
                 'required' => true,
                 'type' => Definition::TYPE_BOOLEAN,
-                'interface' => Attribute::UI_TOGGLE,
-            ],[ //TODO: TYPE_BOOLEAN and UI_TOGGLE
+                'interface' => Attribute::UI_YES_NO_RADIO,
+            ],[
                 'name' => 'verify_income',
                 'label' => 'Do you verify income?',
                 'description' => '',
                 'required' => true,
                 'type' => Definition::TYPE_BOOLEAN,
-                'interface' => Attribute::UI_TOGGLE,
-            ],[ //TODO: TYPE_BOOLEAN and UI_TOGGLE
+                'interface' => Attribute::UI_YES_NO_RADIO,
+            ],[
                 'name' => 'has_internal_db',
                 'label' => 'Do you have an internal database to track client demographics, including household income?',
                 'description' => '',
                 'required' => true,
                 'type' => Definition::TYPE_BOOLEAN,
-                'interface' => Attribute::UI_TOGGLE,
-            ],[ //TODO: TYPE_BOOLEAN and UI_TOGGLE
+                'interface' => Attribute::UI_YES_NO_RADIO,
+            ],[
                 'name' => 'is_maac',
                 'label' => 'Are you a MAAC agency or on the MAAC Linc system?',
                 'description' => '',
                 'required' => true,
                 'type' => Definition::TYPE_BOOLEAN,
-                'interface' => Attribute::UI_TOGGLE,
+                'interface' => Attribute::UI_YES_NO_RADIO,
             ],[
                 'name' => 'ethnic_black',
                 'label' => 'Black/African American',
@@ -508,14 +509,14 @@ class PartnerProfileAttributeFixtures extends BaseFixture
                 'description' => '',
                 'required' => true,
                 'type' => Definition::TYPE_BOOLEAN,
-                'interface' => Attribute::UI_TOGGLE,
+                'interface' => Attribute::UI_YES_NO_RADIO,
             ],[
                 'name' => 'is_united_way',
                 'label' => 'Active United Way Agency?',
                 'description' => '',
                 'required' => true,
                 'type' => Definition::TYPE_BOOLEAN,
-                'interface' => Attribute::UI_TOGGLE,
+                'interface' => Attribute::UI_YES_NO_RADIO,
             ],[
                 'name' => 'current_diaper_source',
                 'label' => 'If you currently distribute diapers, what are your sources for diapers? (check all that apply)',
@@ -537,14 +538,14 @@ class PartnerProfileAttributeFixtures extends BaseFixture
                 'description' => '',
                 'required' => true,
                 'type' => Definition::TYPE_BOOLEAN,
-                'interface' => Attribute::UI_TOGGLE,
+                'interface' => Attribute::UI_YES_NO_RADIO,
             ],[
                 'name' => 'diaper_funding_source',
                 'label' => 'Do you have a specific funding source designated for diapers?',
                 'description' => '',
                 'required' => true,
                 'type' => Definition::TYPE_BOOLEAN,
-                'interface' => Attribute::UI_TOGGLE,
+                'interface' => Attribute::UI_YES_NO_RADIO,
             ],
         ];
     }

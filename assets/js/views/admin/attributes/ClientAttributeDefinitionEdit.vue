@@ -1,10 +1,10 @@
 <template>
     <AttributeDefinitionEdit
-        get-api="/api/partner/attribute/definition/"
-        post-api="/api/partner/attribute/definition"
-        patch-api="/api/partner/attribute/definition/"
-        list-route="admin-partner-attribute"
-        definition-entity="Partner"
+        get-api="/api/client/attribute/definition/"
+        post-api="/api/client/attribute/definition"
+        patch-api="/api/client/attribute/definition/"
+        list-route="admin-client-attribute"
+        definition-entity="Client"
         :newForm="newForm"
     />
 </template>

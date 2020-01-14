@@ -85,7 +85,7 @@ abstract class ListOptionController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        $params = $request->input();
+        $params = $this->getParams($request);
         /** @var ListOption $listOption */
         $listOption = $this->getListOption($id);
 

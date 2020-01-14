@@ -52,12 +52,12 @@
                     id="location_tab"
                     v-model="partner"
                     class="tab-pane active"
-                ></PartnerLocationEditTab>
-                <PartnerProfileEditTab
+                />
+                <AttributesEditForm
                     id="profile_tab"
-                    v-model="partner"
+                    v-model="partner.profile.attributes"
                     class="tab-pane"
-                ></PartnerProfileEditTab>
+                />
             </div>
         </div>
         <modal
@@ -82,9 +82,11 @@
 
     import PartnerLocationEditTab from './PartnerLocationEditTab';
     import PartnerProfileEditTab from './PartnerProfileEditTab';
+    import AttributesEditForm from "../../components/AttributesEditForm";
 
     export default {
         components: {
+            AttributesEditForm,
             PartnerLocationEditTab,
             PartnerProfileEditTab,
             'modal' : Modal

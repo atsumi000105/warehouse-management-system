@@ -34,7 +34,7 @@ class OptionListAttribute extends Attribute
      */
     public function setValue($value): Attribute
     {
-        if (is_string($value) && !empty($value)) {
+        if (!$value instanceof Option && !empty($value)) {
             $value = $this->getDefinition()->getOptions()->filter(function (Option $option) use ($value) {
                 return $option->getId() == $value;
             })->first();
@@ -60,9 +60,9 @@ class OptionListAttribute extends Attribute
         return !$this->getValue();
     }
 
-    public function getJsonValue(): ?string
+    public function getJsonValue()
     {
-        return $this->getValue() ? $this->getValue()->getId() : '';
+        return $this->getValue() ? $this->getValue()->getId() : null;
     }
 
     public function fixtureData()
