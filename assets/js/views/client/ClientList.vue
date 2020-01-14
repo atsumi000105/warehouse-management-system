@@ -55,7 +55,7 @@
                         -->
                     </div>
                     <!-- /.box-header -->
-                    <div class="box-body table-responsive no-padding">                       
+                    <div class="box-body table-responsive no-padding">
                         <tablepaged
                             ref="hbtable"
                             :columns="columns"
@@ -82,7 +82,7 @@
         name: 'ClientView',
         components: {
             PartnerSelectionForm,
-            'tablepaged' : TablePaged
+            'tablepaged' : TablePaged,
         },
         props:[],
         data() {
@@ -106,7 +106,11 @@
         created() {
             axios
                 .get('/api/clients')
-                .then(response => this.clients = response.data);
+                .then(response => this.clients = response.data)
+                .catch(error => {
+                    console.log(error)
+                })
+                .finally(() => this.loading = false);
             console.log('Component mounted.');
         },
         methods: {

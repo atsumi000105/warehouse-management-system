@@ -28,7 +28,16 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body table-responsive no-padding">
-                        <table class="table table-hover">
+                        <div
+                            v-if="loading"
+                            class="loadingArea"
+                        >
+                            <pulse-loader
+                                :loading="loading"
+                                color="#3c8dbc"
+                            />
+                        </div>
+                        <table v-else class="table table-hover">
                             <thead>
                                 <tr>
                                     <th>Partner ID</th>
@@ -69,17 +78,27 @@
 </template>
 
 <script>
+    import PulseLoader from "vue-spinner/src/PulseLoader";
+
     export default {
+        components: {
+            PulseLoader,
+        },
         props:[],
         data() {
             return {
-                partners: []
+                partners: [],
+                loading: true,
             };
         },
         created() {
             axios
                 .get('/api/partners')
-                .then(response => this.partners = response.data);
+                .then(response => this.partners = response.data)
+                .catch(error => {
+                    console.log(error)
+                })
+                .finally(() => this.loading = false);
             console.log('Component mounted.')
         }
     }

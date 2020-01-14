@@ -1,5 +1,11 @@
 <template>
-    <div class="box-body table-responsive no-padding">
+    <div :class="[{'vuetable-wrapper ui basic segment': true}, 'box-body table-responsive no-padding']">
+        <div class="loadingArea">
+            <pulse-loader
+                :loading="loading"
+                color="#3c8dbc"
+            />
+        </div>
         <vuetable
             ref="vuetable"
             :api-url="apiUrl"
@@ -18,6 +24,8 @@
             @vuetable:pagination-data="onPaginationData"
             @vuetable:checkbox-toggled="onCheckboxToggled"
             @vuetable:checkbox-toggled-all="onCheckboxToggled"
+            @vuetable:loading="showLoader"
+            @vuetable:loaded="hideLoader"
         >
             <template
                 slot="link"
@@ -63,12 +71,14 @@
     import Vuetable from 'vuetable-2/src/components/Vuetable.vue'
     import VuetablePagination from 'vuetable-2/src/components/VuetablePagination.vue'
     import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo.vue'
+    import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 
     export default {
         components: {
             Vuetable,
             VuetablePagination,
-            VuetablePaginationInfo
+            VuetablePaginationInfo,
+            PulseLoader,
         },
         props:{
             columns: { type: Array, required: true },
@@ -79,10 +89,24 @@
             perPage: { type: Number, default: 10 },
             linkDisplayProperty: { type: String, default: 'id' }
         },
+        data () {
+            return {
+                loading: false,
+            }
+        },
         mounted() {
             this.$events.$on('filter-set', eventData => this.onFilterSet(eventData));
+            console.log(this.loading);
         },
         methods: {
+            showLoader () {
+                this.loading = true;
+                console.log('show loader');
+            },
+            hideLoader () {
+                this.loading = false;
+                console.log('hide loader');
+            },
             refresh() {
                 Vue.nextTick( () => this.$refs.vuetable.refresh() );
             },
