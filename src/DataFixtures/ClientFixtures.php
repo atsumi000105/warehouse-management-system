@@ -6,7 +6,6 @@ use App\Entity\Client;
 use App\Entity\EAV\ClientDefinition;
 use App\Entity\Partner;
 use App\Entity\ValueObjects\Name;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
 
