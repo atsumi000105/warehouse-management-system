@@ -2,8 +2,12 @@
 
 namespace App\Tests\Controller;
 
+use App\DataFixtures\ClientAttributeFixtures;
 use App\DataFixtures\ClientFixtures;
 use App\DataFixtures\GroupFixtures;
+use App\DataFixtures\PartnerFixtures;
+use App\DataFixtures\PartnerProfileAttributeFixtures;
+use App\DataFixtures\PartnerProfileFixtures;
 use App\DataFixtures\UserFixtures;
 use App\Entity\Client;
 use App\Tests\AbstractWebTestCase;
@@ -21,6 +25,10 @@ class ClientControllerTest extends AbstractWebTestCase
     {
         parent::setUp();
         $this->loadFixtures([
+            PartnerFixtures::class,
+            PartnerProfileAttributeFixtures::class,
+            PartnerProfileFixtures::class,
+            ClientAttributeFixtures::class,
             ClientFixtures::class,
             GroupFixtures::class,
             UserFixtures::class,

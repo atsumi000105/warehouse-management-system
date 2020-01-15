@@ -123,7 +123,7 @@ class ClientController extends BaseController
             unset($params['name']);
         }
 
-        if ($params['partner']['id']) {
+        if (isset($params['partner']['id'])) {
             $newPartner = $this->getEm()->find(Partner::class, $params['partner']['id']);
             $client->setPartner($newPartner);
         }

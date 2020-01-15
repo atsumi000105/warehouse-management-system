@@ -79,7 +79,7 @@ class PartnerController extends StorageLocationController
      * @return JsonResponse
      * @throws \Exception
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id)
     {
         $params = $this->getParams($request);
 
