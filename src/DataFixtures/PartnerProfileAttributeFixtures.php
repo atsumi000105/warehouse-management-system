@@ -6,9 +6,7 @@ use App\Entity\EAV\Attribute;
 use App\Entity\EAV\Definition;
 use App\Entity\EAV\Option;
 use App\Entity\EAV\PartnerProfileDefinition;
-use App\Entity\PartnerProfile;
 use Doctrine\Common\Persistence\ObjectManager;
-use App\Entity\Partner;
 
 class PartnerProfileAttributeFixtures extends BaseFixture
 {
@@ -176,14 +174,16 @@ class PartnerProfileAttributeFixtures extends BaseFixture
                 ],
             ],[
                 'name' => 'program_already_distribute',
-                'label' => 'Do you currently distribute diapers or provide diapers as part of your regular programming?',
+                'label' => 'Do you currently distribute diapers or provide 
+                    diapers as part of your regular programming?',
                 'description' => '',
                 'required' => true,
                 'type' => Definition::TYPE_BOOLEAN,
                 'interface' => Attribute::UI_YES_NO_RADIO,
             ],[
                 'name' => 'program_turn_away',
-                'label' => 'If applying for diapers to be used in a child care program, do you turn away clients if they cannot provide their own diapers?',
+                'label' => 'If applying for diapers to be used in a child care program, 
+                    do you turn away clients if they cannot provide their own diapers?',
                 'description' => '',
                 'required' => true,
                 'type' => Definition::TYPE_BOOLEAN,
@@ -204,14 +204,16 @@ class PartnerProfileAttributeFixtures extends BaseFixture
                 'interface' => Attribute::UI_NUMBER,
             ],[
                 'name' => 'incorporate_services',
-                'label' => 'How do you plan to incorporate diaper distribution in to the other services you provide with this program?',
+                'label' => 'How do you plan to incorporate diaper distribution in to the other 
+                    services you provide with this program?',
                 'description' => '',
                 'required' => true,
                 'type' => Definition::TYPE_TEXT,
                 'interface' => Attribute::UI_TEXTAREA,
             ],[
                 'name' => 'is_designated_staff',
-                'label' => 'Will you have a staff member designated to handle dat-to-day responsibilities of the HappyBottoms program?',
+                'label' => 'Will you have a staff member designated to handle dat-to-day 
+                    responsibilities of the HappyBottoms program?',
                 'description' => '',
                 'required' => true,
                 'type' => Definition::TYPE_BOOLEAN,
@@ -239,7 +241,8 @@ class PartnerProfileAttributeFixtures extends BaseFixture
                 'interface' => Attribute::UI_TEXTAREA,
             ],[
                 'name' => 'can_pickup',
-                'label' => 'Will a trustworthy person (staff or volunteer) be available to pick up your agency\'s diapers from our Waldo warehouse?',
+                'label' => 'Will a trustworthy person (staff or volunteer) be available to pick up
+                    your agency\'s diapers from our Waldo warehouse?',
                 'description' => '',
                 'required' => true,
                 'type' => Definition::TYPE_BOOLEAN,
@@ -483,7 +486,8 @@ class PartnerProfileAttributeFixtures extends BaseFixture
                 'interface' => Attribute::UI_TEXTAREA,
             ],[
                 'name' => 'extra_client_documentation',
-                'label' => 'Will your agency require any extra documentation for new clients (beyond HappyBottoms\' requirements)?',
+                'label' => 'Will your agency require any extra documentation for new clients 
+                    (beyond HappyBottoms\' requirements)?',
                 'description' => '',
                 'required' => true,
                 'type' => Definition::TYPE_TEXT,
@@ -519,7 +523,8 @@ class PartnerProfileAttributeFixtures extends BaseFixture
                 'interface' => Attribute::UI_YES_NO_RADIO,
             ],[
                 'name' => 'current_diaper_source',
-                'label' => 'If you currently distribute diapers, what are your sources for diapers? (check all that apply)',
+                'label' => 'If you currently distribute diapers, what are your sources for diapers? 
+                    (check all that apply)',
                 'description' => '',
                 'required' => false,
                 'type' => Definition::TYPE_OPTION_LIST,
@@ -534,7 +539,8 @@ class PartnerProfileAttributeFixtures extends BaseFixture
                 ]
             ],[
                 'name' => 'has_diaper_budget',
-                'label' => 'If you currently purchase diapers, do you have a specific line item in your budget for diapers?',
+                'label' => 'If you currently purchase diapers, do you have a specific line item in your 
+                    budget for diapers?',
                 'description' => '',
                 'required' => true,
                 'type' => Definition::TYPE_BOOLEAN,
