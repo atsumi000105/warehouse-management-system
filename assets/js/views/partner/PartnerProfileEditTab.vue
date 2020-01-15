@@ -19,8 +19,7 @@
         name: 'PartnerProfileEditTab',
         components: {
             AttributesEditForm,
-            YesNoRadioField,
-            BooleanField, RadioField, TextareaField, OptionListApi, NumberField, TextField, DateField},
+        },
         props: {
             new: { type: Boolean },
             value: { type: Object, required: true }

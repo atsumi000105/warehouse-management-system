@@ -88,7 +88,6 @@
         components: {
             AttributesEditForm,
             PartnerLocationEditTab,
-            PartnerProfileEditTab,
             'modal' : Modal
         },
         props: {
