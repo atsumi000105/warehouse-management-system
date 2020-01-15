@@ -66,6 +66,13 @@
                         ]
                     },
                     {
+                        header: "Clients",
+                        icon: "child",
+                        links: [
+                            { title: "Client Management", route: { name: 'clients' }, icon: "child" },
+                        ]
+                    },
+                    {
                         header: "Partners",
                         icon: "shopping-cart",
                         links: [
@@ -101,13 +108,6 @@
                         links: [
                             { title: "Product Management", route: { name: 'products' }, icon: "tags" },
                             { title: "Product Categories", route: { name: 'product-categories' }, icon: "folder-open" }
-                        ]
-                    },
-                    {
-                        header: "Clients",
-                        icon: "group",
-                        links: [
-                            { title: "Client Management", route: { name: 'clients' }, icon: "group" },
                         ]
                     },
                 ]

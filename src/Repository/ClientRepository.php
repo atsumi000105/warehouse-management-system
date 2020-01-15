@@ -31,7 +31,7 @@ class ClientRepository extends EntityRepository
     ) {
         $qb = $this->createQueryBuilder('c');
 
-        // $this->joinRelatedTables($qb);
+        $this->joinRelatedTables($qb);
 
         if ($page && $limit) {
             $qb->setFirstResult(($page - 1) * $limit)
@@ -67,5 +67,15 @@ class ClientRepository extends EntityRepository
             $qb->andWhere('c.name.lastname LIKE :keyword OR c.name.firstname LIKE :keyword')
                 ->setParameter('keyword', '%' . $params->get('keyword') . '%');
         }
+
+        if ($params->has('partner')) {
+            $qb->andWhere('c.partner = :partner')
+                ->setParameter('partner', $params->get('partner'));
+        }
+    }
+
+    protected function joinRelatedTables(QueryBuilder $qb)
+    {
+        $qb->join('c.partner', 'partner');
     }
 }

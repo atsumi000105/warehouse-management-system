@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Client;
+use App\Entity\Partner;
 use App\Entity\ValueObjects\Name;
 use App\Transformers\ClientTransformer;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -90,6 +91,11 @@ class ClientController extends BaseController
         $client = new Client();
         $client->setName($name);
 
+        if ($params['partner']['id']) {
+            $newPartner = $this->getEm()->find(Partner::class, $params['partner']['id']);
+            $client->setPartner($newPartner);
+        }
+
 //        $this->checkEditPermissions($client);
 
         $this->getEm()->persist($client);
@@ -115,6 +121,11 @@ class ClientController extends BaseController
             $name = new Name($params['name']['firstName'], $params['name']['lastName']);
             $client->setName($name);
             unset($params['name']);
+        }
+
+        if (isset($params['partner']['id'])) {
+            $newPartner = $this->getEm()->find(Partner::class, $params['partner']['id']);
+            $client->setPartner($newPartner);
         }
 
         $client->applyChangesFromArray($params);
@@ -153,6 +164,11 @@ class ClientController extends BaseController
 
         if ($request->get('keyword')) {
             $params->set('keyword', $request->get('keyword'));
+        }
+
+        if ($request->get('partner')) {
+            $partner = $this->getEm()->getRepository(Partner::class)->find($request->get('partner'));
+            $params->set('partner', $partner);
         }
 
         return $params;

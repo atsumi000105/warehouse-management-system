@@ -60,12 +60,39 @@
                                     placeholder="Enter last name"
                                 >
                             </div>
+                            <PartnerSelectionForm
+                                v-model="client.partner"
+                                label="Assigned Partner"
+                            />
                         </div>
                         <!-- /.box-body -->
                     </div>
                 </div>
             </form>
         </div>
+
+
+        <div class="row">
+            <form role="form">
+                <div class="col-md-12">
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">
+                                <i class="icon fa fa-group fa-fw" />Client Attributes
+                            </h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <AttributesEditForm
+                                v-model="client.attributes"
+                            />
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+            </form>
+        </div>
+
         <modal
             id="confirmModal"
             :confirm-action="deleteClient"
@@ -84,10 +111,14 @@
 
 <script>
     import Modal from '../../components/Modal.vue';
+    import AttributesEditForm from "../../components/AttributesEditForm";
+    import PartnerSelectionForm from "../../components/PartnerSelectionForm";
 
     export default {
         name: 'ClientEdit',
         components: {
+            PartnerSelectionForm,
+            AttributesEditForm,
             'modal' : Modal
         },
         props: {
@@ -101,7 +132,9 @@
         data() {
             return {
                 client: {
-                    name: {}
+                    name: {},
+                    partner: {},
+                    attributes: []
                 },
             };
         },

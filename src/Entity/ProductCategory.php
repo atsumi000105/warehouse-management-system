@@ -22,28 +22,20 @@ class ProductCategory extends ListOption
 
     /**
      * ProductCategory constructor.
-     * @param $isPartnerOrderable
      */
-    public function __construct($name = null)
+    public function __construct(string $name = null)
     {
         parent::__construct($name);
 
         $this->isPartnerOrderable = true;
     }
 
-
-    /**
-     * @return mixed
-     */
-    public function getisPartnerOrderable()
+    public function isPartnerOrderable() : bool
     {
         return $this->isPartnerOrderable;
     }
 
-    /**
-     * @param mixed $isPartnerOrderable
-     */
-    public function setIsPartnerOrderable($isPartnerOrderable)
+    public function setIsPartnerOrderable(bool $isPartnerOrderable)
     {
         $this->isPartnerOrderable = $isPartnerOrderable;
     }

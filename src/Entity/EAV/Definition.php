@@ -3,6 +3,7 @@
 namespace App\Entity\EAV;
 
 use App\Entity\CoreEntity;
+use App\Entity\EAV\Type\BooleanAttribute;
 use App\Entity\EAV\Type\DatetimeAttribute;
 use App\Entity\EAV\Type\FloatAttribute;
 use App\Entity\EAV\Type\IntegerAttribute;
@@ -360,6 +361,10 @@ abstract class Definition extends CoreEntity
             self::TYPE_STRING,
             self::TYPE_OPTION_LIST,
             self::TYPE_TEXT,
+            self::TYPE_BOOLEAN,
+            self::TYPE_ADDRESS,
+            self::TYPE_URL,
+            self::TYPE_ZIPCODE,
         ];
     }
 
@@ -385,6 +390,9 @@ abstract class Definition extends CoreEntity
                 break;
             case self::TYPE_OPTION_LIST:
                 $attribute = new OptionListAttribute();
+                break;
+            case self::TYPE_BOOLEAN:
+                $attribute = new BooleanAttribute();
                 break;
         }
 

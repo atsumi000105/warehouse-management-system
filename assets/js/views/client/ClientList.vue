@@ -21,6 +21,12 @@
                     >
                 </div>
             </div>
+            <div class="col-xs-4">
+                <PartnerSelectionForm
+                    v-model="filters.partner"
+                    label="Assigned Partner"
+                />
+            </div>
 
             <div class="col-xs-3">
                 <button
@@ -69,10 +75,13 @@
 </template>
 
 <script>
-    import TablePaged from '../../components/TablePaged.vue';
+    import TablePaged from "../../components/TablePaged";
+    import PartnerSelectionForm from "../../components/PartnerSelectionForm";
+
     export default {
         name: 'ClientView',
         components: {
+            PartnerSelectionForm,
             'tablepaged' : TablePaged,
         },
         props:[],
@@ -84,11 +93,13 @@
                     //todo: find a better way to sort value objects #30
                     { name: 'name.firstName', title: "First Name", sortField: 'c.name.firstname' },
                     { name: 'name.lastName', title: "Last Name", sortField: 'c.name.lastname' },
+                    { name: 'partner.title', title: "Assigned Partner", sortField: 'partner.title'},
                     { name: 'createdAt', title: "Created", callback: 'dateTimeFormat', sortField: 'createdAt' },
                     { name: 'updatedAt', title: "Last Updated", callback: 'dateTimeFormat', sortField: 'updatedAt' },
                 ],
                 filters: {
-                    keyword: null
+                    keyword: null,
+                    partner: { id: null }
                 },       
             }
         },
@@ -110,7 +121,8 @@
             },
             requestParams: function () {
                 return {
-                    keyword: this.filters.keyword || null
+                    keyword: this.filters.keyword || null,
+                    partner: this.filters.partner.id || null
                 }
             },
         },

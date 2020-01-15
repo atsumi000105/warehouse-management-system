@@ -7,62 +7,64 @@ use App\Entity\EAV\Attribute;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class DateTimeAttribute
+ * Class BooleanAttribute
  *
  * @ORM\Entity()
  */
-class DatetimeAttribute extends Attribute
+class BooleanAttribute extends Attribute
 {
     /**
-     * @var \DateTime
+     * @var boolean
      *
-     * @ORM\Column(name="datetime_value", type="datetime_immutable", nullable=true)
+     * @ORM\Column(name="boolean_value", type="boolean", nullable=true)
      */
     protected $value;
 
     public function getTypeLabel(): string
     {
-        return "Date and Time";
+        return "Boolean (yes/no)";
     }
 
     /**
-     * @param \DateTimeImmutable|string $value
+     * @param boolean $value
      *
      * @return Attribute
      */
     public function setValue($value): Attribute
     {
-        if (is_string($value) && $value !== '') {
-            $value = \DateTimeImmutable::createFromFormat(\DateTime::RFC3339, $value);
-        }
-
         $this->value = $value;
 
         return $this;
     }
 
     /**
-     * @return \DateTime
+     * @return boolean
      */
     public function getValue()
     {
         return $this->value;
     }
 
-    public function getJsonValue()
-    {
-        return $this->value ? $this->value->format('c') : '';
-    }
-
     public function fixtureData()
     {
-        return new \DateTimeImmutable();
+        return rand(1, 10) > 5;
     }
 
     public function getDisplayInterfaces(): array
     {
         return [
-            self::UI_DATETIME,
+            self::UI_TOGGLE,
+            self::UI_YES_NO_RADIO,
         ];
+    }
+
+    public function getJsonValue()
+    {
+        return !!$this->value;
+    }
+
+    public function isEmpty(): bool
+    {
+        return $this->value === null;
     }
 }

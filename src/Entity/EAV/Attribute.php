@@ -24,6 +24,7 @@ abstract class Attribute
     const UI_RADIO = "RADIO";
     const UI_CHECKBOX_GROUP = "CHECKBOX_GROUP";
     const UI_TOGGLE = "TOGGLE";
+    const UI_YES_NO_RADIO = "YES_NO_RADIO";
     const UI_ADDRESS = "ADDRESS";
     const UI_URL = "URL";
     const UI_ZIPCODE = "ZIPCODE";
@@ -96,9 +97,9 @@ abstract class Attribute
 
     /**
      * Returns a value suitable for json responses.
-     * @return string
+     * @return mixed
      */
-    public function getJsonValue() : ?string
+    public function getJsonValue()
     {
         return $this->getValue() ?: '';
     }

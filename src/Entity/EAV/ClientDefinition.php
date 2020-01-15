@@ -7,9 +7,9 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class ClientDefinition
  *
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="App\Repository\DefinitionRepository")
  */
 class ClientDefinition extends Definition
 {
-
+    public $defaultEntityName = ClientDefinition::class;
 }

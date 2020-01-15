@@ -11,6 +11,8 @@ const getters = {
         return state.all
     },
     getTypeById: (state) => (id) => {
+        if (!id) return null;
+
         return state.all.find(type => type.id === id);
     }
 };

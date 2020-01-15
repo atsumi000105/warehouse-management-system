@@ -40,7 +40,7 @@
         props: {
             value: { required: true, type: Object },
             editable: { type: Boolean, default: true },
-            label: { type: String },
+            label: { type: String, default: "Partner" },
         },
         computed: mapGetters([
             'allActiveStorageLocations'

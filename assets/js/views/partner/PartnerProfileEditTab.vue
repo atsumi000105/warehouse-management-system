@@ -1,45 +1,7 @@
 <template>
-    <div>
-        <form role="form">
-            <div
-                v-for="attribute in attributes"
-                :key="attribute.definition_id"
-            >
-                <DateField
-                    v-if="attribute.displayInterface === 'DATETIME'"
-                    v-model="attribute.value"
-                    :label="attribute.label"
-                />
-                <NumberField
-                    v-else-if="attribute.displayInterface === 'NUMBER'"
-                    v-model="attribute.value"
-                    :label="attribute.label"
-                />
-                <OptionListApi
-                    v-else-if="attribute.displayInterface === 'SELECT_SINGLE'"
-                    v-model="attribute.value"
-                    :label="attribute.label"
-                    :preloaded-options="attribute.options"
-                />
-                <RadioField
-                    v-else-if="attribute.displayInterface === 'RADIO'"
-                    v-model="attribute.value"
-                    :label="attribute.label"
-                    :preloaded-options="attribute.options"
-                />
-                <TextareaField
-                    v-else-if="attribute.displayInterface === 'TEXTAREA'"
-                    v-model="attribute.value"
-                    :label="attribute.label"
-                />
-                <TextField
-                    v-else
-                    v-model="attribute.value"
-                    :label="attribute.label"
-                />
-            </div>
-        </form>
-    </div>
+    <AttributesEditForm
+        v-model="value.profile.attributes"
+    />
 </template>
 
 
@@ -50,9 +12,14 @@
     import OptionListApi from "../../components/OptionListApi";
     import TextareaField from "../../components/TextareaField";
     import RadioField from "../../components/RadioField";
+    import BooleanField from "../../components/ToggleField";
+    import YesNoRadioField from "../../components/YesNoRadioField";
+    import AttributesEditForm from "../../components/AttributesEditForm";
     export default {
         name: 'PartnerProfileEditTab',
-        components: {RadioField, TextareaField, OptionListApi, NumberField, TextField, DateField},
+        components: {
+            AttributesEditForm,
+        },
         props: {
             new: { type: Boolean },
             value: { type: Object, required: true }

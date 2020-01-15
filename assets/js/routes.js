@@ -15,8 +15,12 @@ let routes = [
     { path: '/admin/users/:id', name: 'admin-user-edit', component: require('./views/admin/UserEdit.vue').default },
 
     { path: '/admin/attributes/partner', name: 'admin-partner-attribute', component: require('./views/admin/attributes/PartnerAttributeDefinitionList.vue').default },
-    { path: '/admin/attributes/partner/new', name: 'admin-partner-attribute-new', component: require('./views/admin/attributes/PartnerAttributeDefinitionEdit.vue').default, props: { new: true } },
+    { path: '/admin/attributes/partner/new', name: 'admin-partner-attribute-new', component: require('./views/admin/attributes/PartnerAttributeDefinitionEdit.vue').default, props: { newForm: true } },
     { path: '/admin/attributes/partner/:id', name: 'admin-partner-attribute-edit', component: require('./views/admin/attributes/PartnerAttributeDefinitionEdit.vue').default },
+
+    { path: '/admin/attributes/client', name: 'admin-client-attribute', component: require('./views/admin/attributes/ClientAttributeDefinitionList.vue').default },
+    { path: '/admin/attributes/client/new', name: 'admin-client-attribute-new', component: require('./views/admin/attributes/ClientAttributeDefinitionEdit.vue').default, props: { newForm: true } },
+    { path: '/admin/attributes/client/:id', name: 'admin-client-attribute-edit', component: require('./views/admin/attributes/ClientAttributeDefinitionEdit.vue').default },
 
     { path: '/clients', name: 'clients', component: require('./views/client/ClientList').default },
     { path: '/clients/new', name: 'client-new', component: require('./views/client/ClientEdit').default, props: { new: true } },
