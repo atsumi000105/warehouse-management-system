@@ -56,5 +56,4 @@ class FloatAttribute extends Attribute
             self::UI_NUMBER,
         ];
     }
-
 }
