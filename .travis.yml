@@ -16,10 +16,10 @@ matrix:
           cache:
               directories:
                   - $HOME/.composer/cache/files
-                  - $HOME/bin/.phpunit
+                  - $COMPOSER_BIN_DIR/.phpunit
           env:
               global:
-                  - SYMFONY_PHPUNIT_DIR="$HOME/symfony-bridge/.phpunit"
+                  - SYMFONY_PHPUNIT_DIR="$COMPOSER_BIN_DIR/.phpunit"
           before_install:
               - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
               - chmod +x ./cc-test-reporter
@@ -27,10 +27,10 @@ matrix:
           before_script:
               - composer self-update
               - composer install --prefer-source --no-interaction --dev
-              - ./vendor/bin/simple-phpunit install
+              - vendor/bin/simple-phpunit install
           script:
               - vendor/bin/simple-phpunit -v --coverage-clover clover.xml
-              - vendor/bin/phpstan analyse
+              - if [[ -d "$COMPOSER_BIN_DIR/.phpunit" ]]; then vendor/bin/phpstan analyse; fi
               - vendor/bin/phpcs
           after_script:
               - ./cc-test-reporter format-coverage -t clover # Backend coverage
