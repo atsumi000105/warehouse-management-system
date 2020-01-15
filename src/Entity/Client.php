@@ -75,6 +75,4 @@ class Client extends CoreEntity
     {
         $this->partner = $partner;
     }
-
-
 }
