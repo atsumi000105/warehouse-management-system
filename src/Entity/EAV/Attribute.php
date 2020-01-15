@@ -20,9 +20,13 @@ abstract class Attribute
     const UI_DATETIME = "DATETIME";
     const UI_SELECT_SINGLE = "SELECT_SINGLE";
     const UI_SELECT_MULTI = "SELECT_MULTI";
+    const UI_FILE_UPLOAD = "FILE_UPLOAD";
     const UI_RADIO = "RADIO";
     const UI_CHECKBOX_GROUP = "CHECKBOX_GROUP";
     const UI_TOGGLE = "TOGGLE";
+    const UI_ADDRESS = "ADDRESS";
+    const UI_URL = "URL";
+    const UI_ZIPCODE = "ZIPCODE";
 
     /**
      * @var int

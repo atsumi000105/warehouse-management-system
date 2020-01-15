@@ -30,6 +30,11 @@ abstract class Definition extends CoreEntity
     const TYPE_DATETIME = "DATETIME";
     const TYPE_OPTION_LIST = "OPTION_LIST";
     const TYPE_TEXT = "TEXT";
+    const TYPE_FILE = "FILE";
+    const TYPE_ADDRESS = "ADDRESS";
+    const TYPE_URL = "URL";
+    const TYPE_BOOLEAN = "BOOLEAN";
+    const TYPE_ZIPCODE = "ZIPCODE";
 
     /**
      * @var int
