@@ -140,7 +140,7 @@
                         });
                 } else {
                     axios
-                        .patch('/api/' + this.apiPath + '/' + this.$route.params.id, this.listOption)
+                        .patch('/api' + this.$route.path, this.listOption)
                         .then(response => self.$router.push('/' + this.apiPath))
                         .catch(function (error) {
                             console.log(error);
@@ -153,7 +153,7 @@
             deleteListOption: function() {
                 let self = this;
                 axios
-                    .delete('/api/' + this.apiPath + '/' + this.$route.params.id)
+                    .delete('/api' + this.$route.path)
                     .then(response => self.$router.push('/' + this.apiPath));
             }
         }
