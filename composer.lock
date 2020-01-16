@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4c6dfa1f10691fb531ceb21ce1c486a0",
+    "content-hash": "6d07823840fbb2864b473d2d009de2b7",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -5719,6 +5719,76 @@
             ],
             "description": "Integration with your Symfony app & Webpack Encore!",
             "time": "2019-07-03T00:30:37+00:00"
+        },
+        {
+            "name": "symfony/workflow",
+            "version": "v4.3.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/workflow.git",
+                "reference": "e6521bdf7613f5f5a7567123bba3079531d12e74"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/workflow/zipball/e6521bdf7613f5f5a7567123bba3079531d12e74",
+                "reference": "e6521bdf7613f5f5a7567123bba3079531d12e74",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1.3",
+                "symfony/property-access": "^3.4|^4.3"
+            },
+            "conflict": {
+                "symfony/event-dispatcher": "<4.3"
+            },
+            "require-dev": {
+                "psr/log": "~1.0",
+                "symfony/dependency-injection": "~3.4|~4.0",
+                "symfony/event-dispatcher": "^4.3",
+                "symfony/expression-language": "~3.4|~4.0",
+                "symfony/security-core": "~3.4|~4.0",
+                "symfony/validator": "~3.4|~4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Workflow\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Grégoire Pineau",
+                    "email": "lyrixx@lyrixx.info"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Workflow Component",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "petrinet",
+                "place",
+                "state",
+                "statemachine",
+                "transition",
+                "workflow"
+            ],
+            "time": "2020-01-04T12:24:57+00:00"
         },
         {
             "name": "symfony/yaml",
