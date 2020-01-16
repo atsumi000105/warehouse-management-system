@@ -211,11 +211,6 @@ parameters:
 			path: src/Controller/ListOptionController.php
 
 		-
-			message: "#^Call to an undefined method Symfony\\\\Component\\\\HttpFoundation\\\\Request\\:\\:input\\(\\)\\.$#"
-			count: 1
-			path: src/Controller/ListOptionController.php
-
-		-
 			message: "#^Method App\\\\Controller\\\\ListOptionController\\:\\:destroy\\(\\) has parameter \\$id with no typehint specified\\.$#"
 			count: 1
 			path: src/Controller/ListOptionController.php
@@ -951,6 +946,21 @@ parameters:
 			path: src/DataFixtures/BulkDistributionFixtures.php
 
 		-
+			message: "#^Method App\\\\DataFixtures\\\\ClientAttributeFixtures\\:\\:loadData\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/DataFixtures/ClientAttributeFixtures.php
+
+		-
+			message: "#^Method App\\\\DataFixtures\\\\ClientAttributeFixtures\\:\\:getData\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/DataFixtures/ClientAttributeFixtures.php
+
+		-
+			message: "#^Method App\\\\DataFixtures\\\\ClientFixtures\\:\\:getDependencies\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/DataFixtures/ClientFixtures.php
+
+		-
 			message: "#^Method App\\\\DataFixtures\\\\ClientFixtures\\:\\:loadData\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/DataFixtures/ClientFixtures.php
@@ -1007,6 +1017,11 @@ parameters:
 
 		-
 			message: "#^Method App\\\\DataFixtures\\\\PartnerProfileAttributeFixtures\\:\\:loadData\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/DataFixtures/PartnerProfileAttributeFixtures.php
+
+		-
+			message: "#^Method App\\\\DataFixtures\\\\PartnerProfileAttributeFixtures\\:\\:getData\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/DataFixtures/PartnerProfileAttributeFixtures.php
 
@@ -1154,6 +1169,106 @@ parameters:
 			message: "#^Method App\\\\Entity\\\\Address\\:\\:isValid\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Entity/Address.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Client\\:\\:\\$partner type mapping mismatch\\: database can contain App\\\\Entity\\\\Partner\\|null but property expects App\\\\Entity\\\\Partner\\.$#"
+			count: 1
+			path: src/Entity/Client.php
+
+		-
+			message: "#^Method App\\\\Entity\\\\Client\\:\\:applyChangesFromArray\\(\\) has parameter \\$changes with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Entity/Client.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Client\\:\\:\\$attributes type mapping mismatch\\: property can contain Doctrine\\\\Common\\\\Collections\\\\ArrayCollection but database expects Doctrine\\\\Common\\\\Collections\\\\Collection&iterable\\<App\\\\Entity\\\\EAV\\\\Attribute\\>\\.$#"
+			count: 1
+			path: src/Entity/Client.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Client\\:\\:\\$attributes with generic class Doctrine\\\\Common\\\\Collections\\\\ArrayCollection does not specify its types\\: TKey, T$#"
+			count: 1
+			path: src/Entity/Client.php
+
+		-
+			message: "#^Method App\\\\Entity\\\\Client\\:\\:addAttributes\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Entity/Client.php
+
+		-
+			message: "#^Method App\\\\Entity\\\\Client\\:\\:addAttributes\\(\\) has parameter \\$attributes with no value type specified in iterable type iterable\\.$#"
+			count: 1
+			path: src/Entity/Client.php
+
+		-
+			message: "#^Method App\\\\Entity\\\\Client\\:\\:setAttribute\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Entity/Client.php
+
+		-
+			message: "#^Method App\\\\Entity\\\\Client\\:\\:setAttribute\\(\\) has parameter \\$attributeId with no typehint specified\\.$#"
+			count: 1
+			path: src/Entity/Client.php
+
+		-
+			message: "#^Method App\\\\Entity\\\\Client\\:\\:setAttribute\\(\\) has parameter \\$value with no typehint specified\\.$#"
+			count: 1
+			path: src/Entity/Client.php
+
+		-
+			message: "#^Method App\\\\Entity\\\\Client\\:\\:removeAttribute\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Entity/Client.php
+
+		-
+			message: "#^Method App\\\\Entity\\\\Client\\:\\:getAttributes\\(\\) return type with generic class Doctrine\\\\Common\\\\Collections\\\\ArrayCollection does not specify its types\\: TKey, T$#"
+			count: 1
+			path: src/Entity/Client.php
+
+		-
+			message: "#^Method App\\\\Entity\\\\Client\\:\\:processAttributeChanges\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Entity/Client.php
+
+		-
+			message: "#^Method App\\\\Entity\\\\Client\\:\\:processAttributeChanges\\(\\) has parameter \\$changes with no typehint specified\\.$#"
+			count: 1
+			path: src/Entity/Client.php
+
+		-
+			message: "#^Cannot call method setValue\\(\\) on App\\\\Entity\\\\EAV\\\\Attribute\\|null\\.$#"
+			count: 1
+			path: src/Entity/Client.php
+
+		-
+			message: "#^Cannot call method createAttribute\\(\\) on App\\\\Entity\\\\EAV\\\\Definition\\|null\\.$#"
+			count: 1
+			path: src/Entity/Client.php
+
+		-
+			message: "#^Cannot call method isEmpty\\(\\) on App\\\\Entity\\\\EAV\\\\Attribute\\|null\\.$#"
+			count: 1
+			path: src/Entity/Client.php
+
+		-
+			message: "#^Parameter \\#1 \\$attribute of method App\\\\Entity\\\\Client\\:\\:removeAttribute\\(\\) expects App\\\\Entity\\\\EAV\\\\Attribute, App\\\\Entity\\\\EAV\\\\Attribute\\|null given\\.$#"
+			count: 1
+			path: src/Entity/Client.php
+
+		-
+			message: "#^Method App\\\\Entity\\\\Client\\:\\:getAttributeById\\(\\) should return App\\\\Entity\\\\EAV\\\\Attribute\\|null but return statement is missing\\.$#"
+			count: 1
+			path: src/Entity/Client.php
+
+		-
+			message: "#^Method App\\\\Entity\\\\Client\\:\\:getDefinitionById\\(\\) never returns null so it can be removed from the return typehint\\.$#"
+			count: 1
+			path: src/Entity/Client.php
+
+		-
+			message: "#^Method App\\\\Entity\\\\Client\\:\\:getDefinitionById\\(\\) should return App\\\\Entity\\\\EAV\\\\Definition\\|null but return statement is missing\\.$#"
+			count: 1
+			path: src/Entity/Client.php
 
 		-
 			message: "#^Property App\\\\Entity\\\\Contact\\:\\:\\$title type mapping mismatch\\: database can contain string\\|null but property expects string\\.$#"
@@ -1461,6 +1576,11 @@ parameters:
 			path: src/Entity/PartnerProfile.php
 
 		-
+			message: "#^Property App\\\\Entity\\\\EAV\\\\ClientDefinition\\:\\:\\$defaultEntityName has no typehint specified\\.$#"
+			count: 1
+			path: src/Entity/EAV/ClientDefinition.php
+
+		-
 			message: "#^Property App\\\\Entity\\\\EAV\\\\Definition\\:\\:\\$description type mapping mismatch\\: database can contain string\\|null but property expects string\\.$#"
 			count: 1
 			path: src/Entity/EAV/Definition.php
@@ -1586,6 +1706,21 @@ parameters:
 			path: src/Entity/EAV/PartnerProfileDefinition.php
 
 		-
+			message: "#^Property App\\\\Entity\\\\EAV\\\\Type\\\\BooleanAttribute\\:\\:\\$value type mapping mismatch\\: database can contain bool\\|null but property expects bool\\.$#"
+			count: 1
+			path: src/Entity/EAV/Type/BooleanAttribute.php
+
+		-
+			message: "#^Method App\\\\Entity\\\\EAV\\\\Type\\\\BooleanAttribute\\:\\:fixtureData\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Entity/EAV/Type/BooleanAttribute.php
+
+		-
+			message: "#^Method App\\\\Entity\\\\EAV\\\\Type\\\\BooleanAttribute\\:\\:getDisplayInterfaces\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Entity/EAV/Type/BooleanAttribute.php
+
+		-
 			message: "#^Property App\\\\Entity\\\\EAV\\\\Type\\\\DatetimeAttribute\\:\\:\\$value type mapping mismatch\\: database can contain DateTimeImmutable\\|null but property expects DateTime\\.$#"
 			count: 1
 			path: src/Entity/EAV/Type/DatetimeAttribute.php
@@ -1651,11 +1786,6 @@ parameters:
 			path: src/Entity/EAV/Type/OptionListAttribute.php
 
 		-
-			message: "#^Call to function is_string\\(\\) with App\\\\Entity\\\\EAV\\\\Option will always evaluate to false\\.$#"
-			count: 1
-			path: src/Entity/EAV/Type/OptionListAttribute.php
-
-		-
 			message: "#^Result of && is always false\\.$#"
 			count: 1
 			path: src/Entity/EAV/Type/OptionListAttribute.php
@@ -1672,11 +1802,6 @@ parameters:
 
 		-
 			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: src/Entity/EAV/Type/OptionListAttribute.php
-
-		-
-			message: "#^Method App\\\\Entity\\\\EAV\\\\Type\\\\OptionListAttribute\\:\\:getJsonValue\\(\\) should return string\\|null but returns int\\.$#"
 			count: 1
 			path: src/Entity/EAV/Type/OptionListAttribute.php
 
@@ -2271,6 +2396,16 @@ parameters:
 			path: src/Entity/Partner.php
 
 		-
+			message: "#^Property App\\\\Entity\\\\Partner\\:\\:\\$clients type mapping mismatch\\: property can contain Doctrine\\\\Common\\\\Collections\\\\ArrayCollection but database expects Doctrine\\\\Common\\\\Collections\\\\Collection&iterable\\<App\\\\Entity\\\\Client\\>\\.$#"
+			count: 1
+			path: src/Entity/Partner.php
+
+		-
+			message: "#^Property App\\\\Entity\\\\Partner\\:\\:\\$clients with generic class Doctrine\\\\Common\\\\Collections\\\\ArrayCollection does not specify its types\\: TKey, T$#"
+			count: 1
+			path: src/Entity/Partner.php
+
+		-
 			message: "#^Method App\\\\Entity\\\\Partner\\:\\:setPartnerType\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Entity/Partner.php
@@ -2312,6 +2447,11 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Entity\\\\Partner\\:\\:applyChangesFromArray\\(\\) has parameter \\$changes with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Entity/Partner.php
+
+		-
+			message: "#^Method App\\\\Entity\\\\Partner\\:\\:getClients\\(\\) return type with generic class Doctrine\\\\Common\\\\Collections\\\\ArrayCollection does not specify its types\\: TKey, T$#"
 			count: 1
 			path: src/Entity/Partner.php
 
@@ -2472,16 +2612,6 @@ parameters:
 
 		-
 			message: "#^Property App\\\\Entity\\\\ProductCategory\\:\\:\\$isPartnerOrderable has no typehint specified\\.$#"
-			count: 1
-			path: src/Entity/ProductCategory.php
-
-		-
-			message: "#^Method App\\\\Entity\\\\ProductCategory\\:\\:__construct\\(\\) has parameter \\$name with no typehint specified\\.$#"
-			count: 1
-			path: src/Entity/ProductCategory.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$isPartnerOrderable\\)\\: Unexpected token \"\\$isPartnerOrderable\", expected type at offset 54$#"
 			count: 1
 			path: src/Entity/ProductCategory.php
 
@@ -2901,6 +3031,11 @@ parameters:
 			path: src/Listener/AttributeListener.php
 
 		-
+			message: "#^Method App\\\\Listener\\\\ClientListener\\:\\:postLoad\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Listener/ClientListener.php
+
+		-
 			message: "#^Method App\\\\Listener\\\\ExceptionListener\\:\\:onKernelException\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Listener/ExceptionListener.php
@@ -3172,6 +3307,11 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Repository\\\\ClientRepository\\:\\:addCriteria\\(\\) has parameter \\$params with no value type specified in iterable type Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\.$#"
+			count: 1
+			path: src/Repository/ClientRepository.php
+
+		-
+			message: "#^Method App\\\\Repository\\\\ClientRepository\\:\\:joinRelatedTables\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Repository/ClientRepository.php
 
@@ -3761,7 +3901,22 @@ parameters:
 			path: src/Transformers/ClientTransformer.php
 
 		-
+			message: "#^Method App\\\\Transformers\\\\ClientTransformer\\:\\:getDefaultIncludes\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Transformers/ClientTransformer.php
+
+		-
 			message: "#^Method App\\\\Transformers\\\\ClientTransformer\\:\\:transform\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Transformers/ClientTransformer.php
+
+		-
+			message: "#^Method App\\\\Transformers\\\\ClientTransformer\\:\\:includeAttributes\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Transformers/ClientTransformer.php
+
+		-
+			message: "#^Method App\\\\Transformers\\\\ClientTransformer\\:\\:includePartner\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Transformers/ClientTransformer.php
 
@@ -3956,7 +4111,7 @@ parameters:
 			path: src/Transformers/ProductCategoryTransformer.php
 
 		-
-			message: "#^Cannot call method getisPartnerOrderable\\(\\) on App\\\\Entity\\\\ListOption\\|null\\.$#"
+			message: "#^Cannot call method isPartnerOrderable\\(\\) on App\\\\Entity\\\\ListOption\\|null\\.$#"
 			count: 1
 			path: src/Transformers/ProductCategoryTransformer.php
 
