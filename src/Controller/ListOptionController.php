@@ -25,10 +25,8 @@ abstract class ListOptionController extends BaseController
      * Get a list of ListOptions
      *
      * @Route(path="", methods={"GET"})
-     * @param Request $request
-     * @return JsonResponse
      */
-    public function index(Request $request)
+    public function index(Request $request): JsonResponse
     {
         $listOptions = $this->getRepository()->findAll();
 
@@ -39,11 +37,8 @@ abstract class ListOptionController extends BaseController
      * Get a single ListOption
      *
      * @Route(path="/{id<\d+>}", methods={"GET"})
-     * @param Request $request
-     * @param $id
-     * @return JsonResponse
      */
-    public function show(Request $request, int $id)
+    public function show(Request $request, int $id): JsonResponse
     {
         $listOption = $this->getListOption($id);
 
@@ -54,12 +49,8 @@ abstract class ListOptionController extends BaseController
      * Save a new listOption
      *
      * @Route(path="", methods={"POST"})
-     * @param Request $request
-     * @param ValidatorInterface $validator
-     *
-     * @return JsonResponse
      */
-    public function store(Request $request, ValidatorInterface $validator)
+    public function store(Request $request, ValidatorInterface $validator): JsonResponse
     {
         $listOption = $this->getListOptionEntityInstance();
         $listOption->setName($request->get('name'));
@@ -78,12 +69,9 @@ abstract class ListOptionController extends BaseController
     /**
      * Whole or partial update of a listOption
      *
-     * @Route(path="/{id}", methods={"PATCH"})
-     * @param Request $request
-     * @param $id
-     * @return JsonResponse
+     * @Route(path="/{id<\d+>}", methods={"PATCH"})
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id): JsonResponse
     {
         $params = $this->getParams($request);
         /** @var ListOption $listOption */
@@ -101,10 +89,8 @@ abstract class ListOptionController extends BaseController
      * Delete a listOption
      *
      * @Route(path="/{id<\d+>}", methods={"DELETE"})
-     * @param $id
-     * @return JsonResponse
      */
-    public function destroy($id)
+    public function destroy(int $id): JsonResponse
     {
         $listOption = $this->getListOption($id);
         $this->getEm()->remove($listOption);
@@ -115,16 +101,14 @@ abstract class ListOptionController extends BaseController
     }
 
     /**
-     * @param $id
-     * @return null|ListOption
      * @throws NotFoundHttpException
      */
-    protected function getListOption($id)
+    protected function getListOption(int $id): ListOption
     {
         /** @var ListOption $listOption */
         $listOption = $this->getRepository()->find($id);
 
-        if (!$listOption) {
+        if ($listOption === null) {
             throw new NotFoundHttpException(sprintf('Unknown ListOption ID: %d', $id));
         }
 
