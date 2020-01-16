@@ -196,47 +196,7 @@ parameters:
 			path: src/Controller/HomeController.php
 
 		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected type at offset 115$#"
-			count: 1
-			path: src/Controller/ListOptionController.php
-
-		-
-			message: "#^Method App\\\\Controller\\\\ListOptionController\\:\\:update\\(\\) has parameter \\$id with no typehint specified\\.$#"
-			count: 1
-			path: src/Controller/ListOptionController.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected type at offset 150$#"
-			count: 1
-			path: src/Controller/ListOptionController.php
-
-		-
-			message: "#^Method App\\\\Controller\\\\ListOptionController\\:\\:destroy\\(\\) has parameter \\$id with no typehint specified\\.$#"
-			count: 1
-			path: src/Controller/ListOptionController.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected type at offset 52$#"
-			count: 1
-			path: src/Controller/ListOptionController.php
-
-		-
-			message: "#^Cannot call method getName\\(\\) on App\\\\Entity\\\\ListOption\\|null\\.$#"
-			count: 1
-			path: src/Controller/ListOptionController.php
-
-		-
-			message: "#^Method App\\\\Controller\\\\ListOptionController\\:\\:getListOption\\(\\) has parameter \\$id with no typehint specified\\.$#"
-			count: 1
-			path: src/Controller/ListOptionController.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected type at offset 18$#"
-			count: 1
-			path: src/Controller/ListOptionController.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
+			message: "#^Strict comparison using \\=\\=\\= between App\\\\Entity\\\\ListOption and null will always evaluate to false\\.$#"
 			count: 1
 			path: src/Controller/ListOptionController.php
 

@@ -101,12 +101,17 @@
 
 
 <script>
-    import Modal from '../../components/Modal.vue';
+    import Modal from '../../components/Modal';
+
     export default {
         components : {
             'modal' : Modal
         },
-        props: ['new', 'name', 'apiPath'],
+        props: {
+            new: { type: Boolean },
+            name: { type: String, default: '' },
+            apiPath: { type: String, default: '', required: true }
+        },
         data() {
             return {
                 listOption: {
@@ -115,7 +120,7 @@
             };
         },
         created() {
-            var self = this;
+            let self = this;
             if (!this.new) {
                 axios
                     .get('/api/' + this.apiPath + '/' + this.$route.params.id)
@@ -125,7 +130,7 @@
         },
         methods: {
             save: function () {
-                var self = this;
+                let self = this;
                 if (this.new) {
                     axios
                         .post('/api/' + this.apiPath, this.listOption)
@@ -135,7 +140,7 @@
                         });
                 } else {
                     axios
-                        .patch('/api/' + this.apiPath + '/' + this.$route.params.id, this.listOption)
+                        .patch('/api' + this.$route.path, this.listOption)
                         .then(response => self.$router.push('/' + this.apiPath))
                         .catch(function (error) {
                             console.log(error);
@@ -146,10 +151,10 @@
                 $('#confirmModal').modal('show');
             },
             deleteListOption: function() {
-                var self = this;
+                let self = this;
                 axios
-                    .delete('/api/' + this.apiPath + '/' + this.$route.params.id)
-                    .then(self.$router.push('/' + this.apiPath));
+                    .delete('/api' + this.$route.path)
+                    .then(response => self.$router.push('/' + this.apiPath));
             }
         }
     }
