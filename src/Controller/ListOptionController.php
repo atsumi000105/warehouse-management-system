@@ -38,7 +38,7 @@ abstract class ListOptionController extends BaseController
     /**
      * Get a single ListOption
      *
-     * @Route(path="/{id}")
+     * @Route(path="/{id<\d+>}", methods={"GET"})
      * @param Request $request
      * @param $id
      * @return JsonResponse
