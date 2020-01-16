@@ -100,6 +100,7 @@ abstract class ListOptionController extends BaseController
     /**
      * Delete a listOption
      *
+     * @Route(path="/{id<\d+>}", methods={"DELETE"})
      * @param $id
      * @return JsonResponse
      */
