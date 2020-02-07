@@ -1,20 +1,18 @@
 <template>
     <div>
-        <div class="form-group">
-            <optionlist
-                v-if="editable"
-                ref="productSelect"
-                v-model="value"
-                label="Product:"
-                :preloaded-options="allActiveProducts"
-                display-property="name"
-                empty-string="-- Select Product --"
-            />
-            <span
-                v-else
-                v-text="value.title"
-            />
-        </div>
+        <optionlist
+            v-if="editable"
+            ref="productSelect"
+            v-model="value"
+            :label="label"
+            :preloaded-options="allActiveProducts"
+            display-property="name"
+            empty-string="-- Select Product --"
+        />
+        <span
+            v-else
+            v-text="value.title"
+        />
     </div>
 </template>
 
@@ -28,6 +26,7 @@
         props: {
             value: { required: true, type: Object },
             editable: { type: Boolean, default: true },
+            label: { type: [String, Boolean], default: "Product:"},
             v: { type: Object }
         },
         computed: mapGetters([

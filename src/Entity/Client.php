@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\EAV\AttributedEntityTrait;
+use App\Entity\Orders\BulkDistributionLineItem;
 use App\Entity\ValueObjects\Name;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -39,9 +40,17 @@ class Client extends CoreEntity
      */
     protected $partner;
 
+    /**
+     * @var BulkDistributionLineItem[]|ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="App\Entity\Orders\BulkDistributionLineItem", mappedBy="client")
+     */
+    protected $distributionLineItems;
+
     public function __construct()
     {
         $this->attributes = new ArrayCollection();
+        $this->distributionLineItems = new ArrayCollection();
         $this->uuid = Uuid::uuid4();
     }
 
@@ -74,5 +83,13 @@ class Client extends CoreEntity
     public function setPartner(Partner $partner): void
     {
         $this->partner = $partner;
+    }
+
+    /**
+     * @return BulkDistributionLineItem[]|ArrayCollection
+     */
+    public function getDistributionLineItems()
+    {
+        return $this->distributionLineItems;
     }
 }

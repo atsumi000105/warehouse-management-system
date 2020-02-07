@@ -35,4 +35,11 @@ class BulkDistributionTransformer extends OrderTransformer
 
         return $this->item($partner, new PartnerTransformer);
     }
+
+    public function includeLineItems(Order $order)
+    {
+        $lineItems = $order->getLineItems();
+
+        return $this->collection($lineItems, new BulkDistributionLineItemTransformer());
+    }
 }

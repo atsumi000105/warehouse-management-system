@@ -21,10 +21,10 @@
     export default {
         name: 'DateField',
         props: {
-            label: { required: false, type: String, default: 'Date:' },
             value: { type: String, required: true },
+            label: { required: false, type: String, default: 'Date:' },
             format: { type: String, default: 'MM/DD/YYYY'},
-            timezone: { type: String },
+            timezone: { type: String, required: false },
         },
         data() {
             return { dateValue: null }

@@ -5,6 +5,7 @@
             :value="value"
             type="text"
             class="form-control"
+            :placeholder="placeholder"
             @input="$emit('input', $event.target.value)"
         >
     </div>
@@ -15,7 +16,8 @@
         name: 'TextField',
         props: {
             label: { required: true, type: String },
-            value: { type: String, required: true }
+            value: { type: String, required: true },
+            placeholder: { type: String, required: false, default: "" }
         }
     }
 </script>

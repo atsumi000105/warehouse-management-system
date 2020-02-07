@@ -7,26 +7,22 @@ const state = {
 
 // getters
 const getters = {
-    allProducts: state => {
+    allClients: state => {
         return state.all
     },
-    allActiveProducts: state => {
-        return state.all.filter(product => product.status == "ACTIVE")
-    },
-    allOrderableProducts: state => {
-        return state.all.filter(product => product.productCategory.isPartnerOrderable)
+    allActiveClients: state => {
+        return state.all.filter(client => client.status == "ACTIVE")
     },
 };
 
 // actions
 const actions = {
-    loadProducts ({ commit }, force = false) {
-        if (state.all.length > 0 && !force) return;
+    loadPartnerClients ({ commit }, partnerId) {
         return new Promise((resolve, reject) => {
             axios
-                .get('/api/products')
+                .get('/api/partners/' + partnerId + '/clients')
                 .then((response) => {
-                    commit('setProducts', { list: response.data.data });
+                    commit('setClients', { list: response.data.data });
                     resolve(response);
                 },
                 (err) => {
@@ -39,7 +35,7 @@ const actions = {
 
 // mutations
 const mutations = {
-    setProducts (state, { list }) {
+    setClients (state, { list }) {
         state.all = list;
     },
 };

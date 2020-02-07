@@ -1,6 +1,6 @@
 <template>
     <div class="form-group">
-        <label v-text="label" />
+        <label  v-if="label" v-text="label" />
         <select
             v-if="!groupProperty"
             v-model="value[property]"
@@ -55,7 +55,7 @@
         name: 'OptionListEntity',
         props: {
             value: { type: Object },
-            label: { type: String },
+            label: { type: [String, Boolean], default: false },
             apiPath: { type: String },
             preloadedOptions: { type: Array, default: function() {return []}},
             displayProperty: { type: String, default: 'name'},
