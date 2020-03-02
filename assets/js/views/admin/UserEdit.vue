@@ -94,13 +94,39 @@
                                     :key="sysGroup.id"
                                 >
                                     <input
-                                        :id="sysGroup.id"
+                                        :id="'group-'+sysGroup.id"
                                         v-model="user.groups"
                                         type="checkbox"
                                         name="group[]"
                                         :value="sysGroup"
                                     >
-                                    <label :for="sysGroup.id">{{ sysGroup.name }}</label>
+                                    <label :for="'group-'+sysGroup.id">{{ sysGroup.name }}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-6">
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">
+                                <i class="icon fa fa-shopping-cart fa-fw" />Partner
+                            </h3>
+                            <div class="box-body">
+                                <div
+                                    v-for="sysPartner in sysPartners"
+                                    :key="sysPartner.id"
+                                >
+                                    <input
+                                        :id="'partner-'+sysPartner.id"
+                                        v-model="user.partners"
+                                        type="checkbox"
+                                        name="partner[]"
+                                        :value="sysPartner"
+                                    >
+                                    <label :for="'partner-'+sysPartner.id">{{ sysPartner.title }}</label>
                                 </div>
                             </div>
                         </div>
@@ -137,9 +163,11 @@
             return {
                 user: {
                     name: {},
-                    groups: []
+                    groups: [],
+                    partners: []
                 },
                 sysGroups: {},
+                sysPartners: {}
             };
         },
         created() {
@@ -147,9 +175,10 @@
 
             if (!this.new) {
                 axios
-                    .get('/api/users/' + this.$route.params.id, { params: {include: ['groups'] }})
+                    .get('/api/users/' + this.$route.params.id, { params: {include: ['groups', 'partners'] }})
                     .then(response => {
                         self.user = response.data.data;
+                        console.log('user', response.data.data);
                     })
                     .catch(error => console.log("Error receiving users %o", error));
             }
@@ -160,6 +189,13 @@
                     self.sysGroups = response.data.data;
                 })
                 .catch(error => console.log("Error receiving groups %o", error));
+
+            axios
+                .get('/api/partners')
+                .then(response => {
+                    self.sysPartners = response.data.data;
+                })
+                .catch(error => console.log("Error receiving partners %o", error));
 
             console.log('UserEdit Component mounted.');
         },

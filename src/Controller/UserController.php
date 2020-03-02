@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Group;
+use App\Entity\Partner;
 use App\Entity\User;
+use App\Entity\PartnerUser;
 use App\Entity\ValueObjects\Name;
 use App\Transformers\UserTransformer;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -57,13 +59,22 @@ class UserController extends BaseController
     public function store(Request $request) : JsonResponse
     {
         $params = $this->getParams($request);
-
-        $groups = [];
+        $user = new User($params["email"]);
 
         if ($params['groups']) {
             foreach ($params['groups'] as $group) {
                 $groups[] = $this->getEm()->getReference(Group::class, $group['id']);
             }
+
+            $user->setGroups($groups);
+        }
+
+        if ($params['partners']) {
+            foreach ($params['partners'] as $partner) {
+                $partners[] = $this->getEm()->getReference(Partner::class, $partner['id']);
+            }
+
+            $user->setPartners($partners);
         }
 
         $name = new Name(
@@ -71,10 +82,8 @@ class UserController extends BaseController
             $params["name"]["lastName"]
         );
 
-        $user = new User($params["email"]);
         $user->setName($name);
         $user->setPlainTextPassword($params['plainTextPassword']);
-        $user->setGroups($groups);
 
 //        $this->checkEditPermissions($user);
 
@@ -103,6 +112,14 @@ class UserController extends BaseController
             }, $params['groups']);
 
             $user->setGroups($groups);
+        }
+
+        if ($params['partners']) {
+            $partners = array_map(function ($partner) {
+                return $this->getEm()->getReference(Partner::class, $partner['id']);
+            }, $params['partners']);
+
+            $user->setPartners($partners);
         }
 
         if ($params['name']) {
