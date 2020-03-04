@@ -240,11 +240,20 @@ class OrderController extends BaseController
     protected function processLineItems(Order $order, $lineItemsArray)
     {
         foreach ($lineItemsArray as $lineItemArray) {
+            if (!$lineItemArray['id'] && (!$lineItemArray['product']['id'] || !$lineItemArray['quantity'])) {
+                continue;
+            }
+
             if (isset($lineItemArray['id']) && !$lineItemArray['id'] == 0) {
                 $line = $order->getLineItem($lineItemArray['id']);
             } else {
                 $line = $this->createLineItem();
                 $order->addLineItem($line);
+            }
+
+            if (!$lineItemArray['product']['id']) {
+                $order->removeLineItem($line);
+                continue;
             }
 
             if (!$line->getProduct() || $line->getProduct()->getId() != $lineItemArray['product']['id']) {

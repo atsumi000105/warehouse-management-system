@@ -2,16 +2,22 @@ import axios from 'axios';
 
 // initial state
 const state = {
-    all: []
+    all: [],
 };
 
 // getters
 const getters = {
     allActiveStorageLocations: state => {
-        let active = state.all.filter(storageLocation => storageLocation.status === "ACTIVE");
+        let active = [...state.all].filter(storageLocation => storageLocation.status === "ACTIVE");
         let warehouses = active.filter(storageLocation => storageLocation.type === 'Warehouse').sort((a,b) => a.title < b.title ? -1 : 1);
         let partners = active.filter(storageLocation => storageLocation.type !== 'Warehouse').sort((a,b) => a.title.toLowerCase() < b.title.toLowerCase() ? -1 : 1);
         return [...warehouses, ...partners];
+    },
+    allActivePartners: state => {
+        let active = [...state.all]
+            .filter(storageLocation => storageLocation.status === "ACTIVE" && storageLocation.type !== 'Warehouse')
+            .sort((a,b) => a.title.toLowerCase() < b.title.toLowerCase() ? -1 : 1);
+        return active;
     },
     allAgencies: state => {
         return state.all.filter(storageLocation => storageLocation.partnerType == "AGENCY")
@@ -26,7 +32,9 @@ const getters = {
 
 // actions
 const actions = {
-    loadStorageLocations ({ commit }) {
+    loadStorageLocations ({ commit }, force = false) {
+        if ((state.all.length > 0 || state.loading) && !force) return;
+
         axios
             .get('/api/storage-locations')
             .then((response) => {

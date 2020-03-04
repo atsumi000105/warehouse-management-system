@@ -13,9 +13,9 @@
                 </h4>
             </div>
             <lineitemformrow
-                v-for="lineItem in lineItems"
+                v-for="(lineItem, index) in lineItems"
                 :key="lineItem.client.id"
-                :line-item="lineItem"
+                v-model="lineItems[index]"
                 :editable="editable"
                 :partner-type="partnerType"
                 v-show="!filterText || filterResults.includes(lineItem.client.id)"

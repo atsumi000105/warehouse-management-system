@@ -2,12 +2,12 @@
     <div>
         <optionlist
             v-if="editable"
-            ref="productSelect"
             v-model="value"
             :label="label"
             :preloaded-options="allActiveProducts"
             display-property="name"
             empty-string="-- Select Product --"
+            @change="onSelectionChange"
         />
         <span
             v-else
@@ -34,7 +34,6 @@
         ]),
         mounted: function () {
             this.$store.dispatch('loadProducts');
-            this.$refs.productSelect.$on('change', eventData => this.onSelectionChange(eventData))
         },
         methods: {
             onSelectionChange: function (eventData) {

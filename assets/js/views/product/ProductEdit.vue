@@ -210,6 +210,14 @@
                                 >
                             </div>
                             <div class="form-group">
+                                <label>Agency Max Distributable Packs per client order</label>
+                                <input
+                                    v-model="product.agencyMaxPacks"
+                                    type="text"
+                                    class="form-control"
+                                >
+                            </div>
+                            <div class="form-group">
                                 <label>Hospital Packs Per Bag</label>
                                 <input
                                     v-model="product.hospitalPacksPerBag"
@@ -221,6 +229,14 @@
                                 <label>Hospital Pack Size</label>
                                 <input
                                     v-model="product.hospitalPackSize"
+                                    type="text"
+                                    class="form-control"
+                                >
+                            </div>
+                            <div class="form-group">
+                                <label>Hospital Max Distributable Packs per client order</label>
+                                <input
+                                    v-model="product.hospitalMaxPacks"
                                     type="text"
                                     class="form-control"
                                 >

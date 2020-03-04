@@ -209,10 +209,10 @@
                     .get('/api/orders/distribution/new-line-items-for-partner/' + partner.id)
                     .then((response) => {
                             self.order.lineItems = response.data.data;
-                            resolve(response);
+                            // resolve(response);
                         },
                         (err) => {
-                            reject(err);
+                            // reject(err);
                         }
                     );
             },

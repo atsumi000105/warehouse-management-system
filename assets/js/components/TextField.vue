@@ -1,6 +1,6 @@
 <template>
     <div class="form-group">
-        <label v-text="label"></label>
+        <label v-text="label" v-if="label"></label>
         <input
             :value="value"
             type="text"
@@ -15,7 +15,7 @@
     export default {
         name: 'TextField',
         props: {
-            label: { required: true, type: String },
+            label: { type: [String, Boolean], default: false },
             value: { type: String, required: true },
             placeholder: { type: String, required: false, default: "" }
         }

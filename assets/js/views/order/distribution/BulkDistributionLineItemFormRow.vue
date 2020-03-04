@@ -7,36 +7,31 @@
                     title="Show/Hide Transactions"
                     @click="showTransactions = !showTransactions"
                 />
-                {{ lineItem.client.name.firstName }} {{ lineItem.client.name.lastName }}
+                {{ value.client.name.firstName }} {{ value.client.name.lastName }}
             </label>
             <div
                 class="col-xs-2"
             >
                 <ProductSelectionField
-                    v-model="lineItem.product"
+                    v-model="value.product"
                     :label="false"
                 />
             </div>
             <div
                 class="col-xs-2"
-                :class="{'has-error': showPacks && lineItem.quantity % packSize != 0}"
+                :class="{'has-error': showPacks && value.quantity % packSize != 0}"
             >
-                <input
-                    v-if="editable"
-                    v-model="lineItem.quantity"
-                    type="text"
-                    class="form-control"
-                >
-                <span
-                    v-else
-                    v-text="lineItem.quantity"
+                <OptionListStatic
+                    v-if="editable && selectedProduct"
+                    v-model="value.quantity"
+                    :preloaded-options="quantityOptions"
+                    empty-string="0"
+                    :v-chosen="false"
                 />
                 <span
-                    v-show="showPacks && lineItem.quantity % packSize != 0"
-                    class="help-block"
-                >
-                    Must be a multiple of {{ packSize }}
-                </span>
+                    v-else
+                    v-text="value.quantity"
+                />
             </div>
             <div
                 v-if="showCost"
@@ -44,7 +39,7 @@
             >
                 <input
                     v-if="editable"
-                    v-model="lineItem.cost"
+                    v-model="value.cost"
                     type="text"
                     class="form-control"
                 >
@@ -59,7 +54,7 @@
             class="form-group"
         >
             <div class="col-xs-12">
-                <lineitemtransactions :transactions="lineItem.transactions" />
+                <lineitemtransactions :transactions="value.transactions" />
             </div>
         </div>
     </div>
@@ -74,11 +69,12 @@
     export default {
         name: "BulkDistributionLineItemFormRow",
         components: {
+            OptionListStatic,
             ProductSelectionField,
             'lineitemtransactions' : LineItemTransactionTable
         },
         props: {
-            lineItem: { type: Object, required: true },
+            value: { type: Object, required: true },
             editable: { type: Boolean, default: true },
             showCost: { type: Boolean, default: false },
             showPacks: { type: Boolean, default: false },
@@ -86,7 +82,7 @@
         },
         data() {
             return {
-                showTransactions: false
+                showTransactions: false,
             };
         },
         computed: {
@@ -94,16 +90,44 @@
                 'allActiveProducts',
             ]),
             packSize: function () {
-                if (this.partnerType === 'HOSPITAL' && this.lineItem.product.hospitalPackSize) {
-                    return this.lineItem.product.hospitalPackSize;
+                if (!this.selectedProduct) return 0;
+
+                if (this.partnerType === 'HOSPITAL' && this.selectedProduct.hospitalPackSize) {
+                    return this.selectedProduct.hospitalPackSize;
                 }
 
-                return this.lineItem.product.agencyPackSize;
+                return this.selectedProduct.agencyPackSize;
             },
+            maxPacks: function() {
+                if (!this.selectedProduct) return 0;
 
+                if (this.partnerType === 'HOSPITAL' && this.selectedProduct.hospitalPackSize) {
+                    return this.selectedProduct.hospitalMaxPacks;
+                }
+
+                return this.selectedProduct.agencyMaxPacks;
+            },
+            quantityOptions: function () {
+                let options = [];
+
+                if (this.selectedProduct) {
+                    for (let i=1; i <= this.maxPacks; i++) {
+                        options.push({
+                            name: this.packSize * i,
+                            id: this.packSize * i
+                        })
+                    }
+                }
+
+                return options;
+            },
             packs: function () {
-                return this.lineItem.quantity / this.packSize;
+                return this.value.quantity / this.packSize;
+            },
+            selectedProduct: function () {
+                if (this.value.product.id == null) return null;
+                return this.$store.getters.getProductById(this.value.product.id);
             }
-        }
+        },
     }
 </script>

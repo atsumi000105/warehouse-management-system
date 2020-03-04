@@ -66,6 +66,7 @@ class ProductFixtures extends BaseFixture implements DependentFixtureInterface
     {
         $diaper = new Product($name, $this->getReference('product_category_diapers'));
         $diaper->setAgencyPackSize(25);
+        $diaper->setAgencyMaxPacks(2);
         $diaper->setAgencyPacksPerBag(12);
         $diaper->setHospitalPackSize(75);
         $diaper->setHospitalPacksPerBag(6);

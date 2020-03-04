@@ -36,8 +36,16 @@ class BulkDistributionTransformer extends OrderTransformer
         return $this->item($partner, new PartnerTransformer);
     }
 
+    /**
+     * @param BulkDistribution $order
+     * @return \League\Fractal\Resource\Collection
+     */
     public function includeLineItems(Order $order)
     {
+        if ($order->isEditable()) {
+            $order->addMissingClients();
+        }
+
         $lineItems = $order->getLineItems();
 
         return $this->collection($lineItems, new BulkDistributionLineItemTransformer());
