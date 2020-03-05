@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Class BulkDistributionLineItem
  *
  * @ORM\Entity()
+ * @ORM\EntityListeners({"App\Listener\DistributionLineItemListener"})
  */
 class BulkDistributionLineItem extends LineItem
 {

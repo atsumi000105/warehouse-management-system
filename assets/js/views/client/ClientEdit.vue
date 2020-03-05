@@ -62,11 +62,40 @@
                             </div>
                             <DateField
                                 v-model="client.birthdate"
+                                label="Birthdate"
                                 format="YYYY-MM-DD"
                             />
                             <PartnerSelectionForm
                                 v-model="client.partner"
                                 label="Assigned Partner"
+                            />
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">
+                                <i class="icon fa fa-clock-o fa-fw" />Expiration Info
+                            </h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <!-- text input -->
+                            <BooleanField
+                                v-model="client.isExpirationOverridden"
+                                label="Override Expirations"
+                            />
+                            <DateField
+                                v-model="client.ageExpiresAt"
+                                label="Age Expiration"
+                                format="YYYY-MM-DD"
+                            />
+                            <DateField
+                                v-model="client.distributionExpiresAt"
+                                label="Distribution Expiration"
+                                format="YYYY-MM-DD"
                             />
                         </div>
                         <!-- /.box-body -->
@@ -118,10 +147,12 @@
     import AttributesEditForm from "../../components/AttributesEditForm";
     import PartnerSelectionForm from "../../components/PartnerSelectionForm";
     import DateField from "../../components/DateField";
+    import BooleanField from "../../components/ToggleField";
 
     export default {
         name: 'ClientEdit',
         components: {
+            BooleanField,
             DateField,
             PartnerSelectionForm,
             AttributesEditForm,

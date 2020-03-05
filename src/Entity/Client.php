@@ -8,6 +8,7 @@ use App\Entity\ValueObjects\Name;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Moment\Moment;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Routing\Exception\MissingMandatoryParametersException;
 
@@ -55,11 +56,34 @@ class Client extends CoreEntity
      */
     protected $distributionLineItems;
 
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean")
+     * @Gedmo\Versioned
+     */
+    protected $isExpirationOverridden;
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(type="date", nullable=true)
+     * @Gedmo\Versioned
+     */
+    protected $ageExpiresAt;
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(type="date", nullable=true)
+     * @Gedmo\Versioned
+     */
+    protected $distributionExpiresAt;
+
     public function __construct()
     {
         $this->attributes = new ArrayCollection();
         $this->distributionLineItems = new ArrayCollection();
         $this->uuid = Uuid::uuid4();
+        $this->isExpirationOverridden = false;
     }
 
     public function getName(): Name
@@ -92,6 +116,54 @@ class Client extends CoreEntity
         $this->birthdate = $birthdate;
     }
 
+    /**
+     * @return bool
+     */
+    public function isExpirationOverridden(): bool
+    {
+        return $this->isExpirationOverridden;
+    }
+
+    /**
+     * @param bool $isExpirationOverridden
+     */
+    public function setIsExpirationOverridden(bool $isExpirationOverridden): void
+    {
+        $this->isExpirationOverridden = $isExpirationOverridden;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getAgeExpiresAt(): \DateTime
+    {
+        return $this->ageExpiresAt;
+    }
+
+    /**
+     * @param \DateTime $ageExpiresAt
+     */
+    public function setAgeExpiresAt(\DateTime $ageExpiresAt): void
+    {
+        $this->ageExpiresAt = $ageExpiresAt;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDistributionExpiresAt(): \DateTime
+    {
+        return $this->distributionExpiresAt;
+    }
+
+    /**
+     * @param \DateTime $distributionExpiresAt
+     */
+    public function setDistributionExpiresAt(\DateTime $distributionExpiresAt): void
+    {
+        $this->distributionExpiresAt = $distributionExpiresAt;
+    }
+
     public function applyChangesFromArray(array $changes): void
     {
         $this->processAttributeChanges($changes);
@@ -115,5 +187,33 @@ class Client extends CoreEntity
     public function getDistributionLineItems()
     {
         return $this->distributionLineItems;
+    }
+
+    public function calculateAgeExpiration()
+    {
+        if ($this->isExpirationOverridden) {
+            return;
+        }
+
+        $expiration = Moment::fromDateTime($this->getBirthdate());
+        $this->ageExpiresAt = $expiration->addYears(4)->addMonths(1)->startOf('month');
+    }
+
+    public function calculateDistributionExpiration()
+    {
+        if ($this->isExpirationOverridden) {
+            return;
+        }
+
+        $lines = $this->distributionLineItems->getValues();
+        $first = array_reduce($lines, function (?\DateTime $carry, BulkDistributionLineItem $line) {
+            if (is_null($carry) || $line->getOrder()->getDistributionPeriod() < $carry) {
+                return $line->getOrder()->getDistributionPeriod();
+            }
+        }, null);
+
+        $firstMoment = Moment::fromDateTime($first);
+
+        $this->distributionExpiresAt = $firstMoment->addYears(3)->addMonths(1)->startOf('month');
     }
 }
