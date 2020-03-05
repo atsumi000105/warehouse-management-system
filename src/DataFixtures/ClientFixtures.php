@@ -29,6 +29,7 @@ class ClientFixtures extends BaseFixture
             $client = new Client();
             $client->setName($clientArr['name']);
             $client->setPartner($clientArr['partner']);
+            $client->setBirthdate($this->faker->dateTimeBetween('-5 years', 'now'));
 
             foreach ($definitions as $definition) {
                 $attribute = $definition->createAttribute();

@@ -21,6 +21,7 @@ class ClientTransformer extends TransformerAbstract
                 'firstName' => $client->getName()->getFirstname(),
                 'lastName' => $client->getName()->getLastname(),
             ],
+            'birthdate' => $client->getBirthdate()->format('c'),
             'updatedAt' => $client->getUpdatedAt()->format('c'),
             'createdAt' => $client->getCreatedAt()->format('c'),
         ];

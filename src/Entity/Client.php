@@ -33,6 +33,14 @@ class Client extends CoreEntity
     protected $name;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="date")
+     * @Gedmo\Versioned
+     */
+    protected $birthdate;
+
+    /**
      * @var Partner
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\Partner")
@@ -66,6 +74,22 @@ class Client extends CoreEntity
         }
 
         $this->name = $name;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getBirthdate(): \DateTime
+    {
+        return $this->birthdate;
+    }
+
+    /**
+     * @param \DateTime $birthdate
+     */
+    public function setBirthdate(\DateTime $birthdate): void
+    {
+        $this->birthdate = $birthdate;
     }
 
     public function applyChangesFromArray(array $changes): void

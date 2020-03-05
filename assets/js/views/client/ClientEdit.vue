@@ -60,6 +60,10 @@
                                     placeholder="Enter last name"
                                 >
                             </div>
+                            <DateField
+                                v-model="client.birthdate"
+                                format="YYYY-MM-DD"
+                            />
                             <PartnerSelectionForm
                                 v-model="client.partner"
                                 label="Assigned Partner"
@@ -113,10 +117,12 @@
     import Modal from '../../components/Modal.vue';
     import AttributesEditForm from "../../components/AttributesEditForm";
     import PartnerSelectionForm from "../../components/PartnerSelectionForm";
+    import DateField from "../../components/DateField";
 
     export default {
         name: 'ClientEdit',
         components: {
+            DateField,
             PartnerSelectionForm,
             AttributesEditForm,
             'modal' : Modal
