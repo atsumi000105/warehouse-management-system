@@ -27,6 +27,9 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
     && docker-php-ext-install pdo pdo_pgsql pgsql
 
+RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
+
+
 ## install xdebug
 #RUN yes | pecl install xdebug \
 #    && echo "[xdebug]" > /usr/local/etc/php/conf.d/xdebug.ini \

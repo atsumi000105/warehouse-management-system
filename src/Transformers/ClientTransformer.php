@@ -8,16 +8,10 @@ use League\Fractal\TransformerAbstract;
 
 class ClientTransformer extends TransformerAbstract
 {
-    protected $availableIncludes = [];
-
-    public function getDefaultIncludes()
-    {
-        $defaultIncludes =  parent::getDefaultIncludes();
-        $defaultIncludes[] = 'attributes';
-        $defaultIncludes[] = 'partner';
-
-        return $defaultIncludes;
-    }
+    protected $availableIncludes = [
+        'partner',
+        'attributes',
+    ];
 
     public function transform(Client $client): array
     {

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\LineItem;
 use App\Entity\Order;
+use App\Entity\Product;
 use App\Exception\CommittedTransactionException;
 use App\Transformers\OrderTransformer;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -239,17 +240,28 @@ class OrderController extends BaseController
     protected function processLineItems(Order $order, $lineItemsArray)
     {
         foreach ($lineItemsArray as $lineItemArray) {
-            if (isset($lineItemArray['id'])) {
+            if (!$lineItemArray['id'] && (!$lineItemArray['product']['id'] || !$lineItemArray['quantity'])) {
+                continue;
+            }
+
+            if (isset($lineItemArray['id']) && !$lineItemArray['id'] == 0) {
                 $line = $order->getLineItem($lineItemArray['id']);
             } else {
                 $line = $this->createLineItem();
                 $order->addLineItem($line);
             }
 
+            if (!$lineItemArray['product']['id']) {
+                $order->removeLineItem($line);
+                continue;
+            }
+
             if (!$line->getProduct() || $line->getProduct()->getId() != $lineItemArray['product']['id']) {
-                $product = $this->getEm()->getReference('App\Entity\Product', $lineItemArray['product']['id']);
+                $product = $this->getEm()->getReference(Product::class, $lineItemArray['product']['id']);
                 $line->setProduct($product);
             }
+
+            $this->extraLineItemProcessing($line, $lineItemArray);
 
             $line->applyChangesFromArray($lineItemArray);
 
@@ -258,6 +270,11 @@ class OrderController extends BaseController
                 continue;
             }
         }
+    }
+
+    protected function extraLineItemProcessing(LineItem $line, array $lineItemArray)
+    {
+        return;
     }
 
     protected function checkEditable(Order $order)

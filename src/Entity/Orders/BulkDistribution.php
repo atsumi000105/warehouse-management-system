@@ -2,6 +2,7 @@
 
 namespace App\Entity\Orders;
 
+use App\Entity\Client;
 use App\Entity\Order;
 use App\Entity\Partner;
 use Doctrine\ORM\Mapping as ORM;
@@ -116,6 +117,23 @@ class BulkDistribution extends Order
         $this->distributionPeriod = $period;
     }
 
+    public function addMissingClients()
+    {
+        $clients = $this->getPartner()->getClients();
+        $lineItems = $this->lineItems;
+
+        $missingClients = $clients->filter(function (Client $client) use ($lineItems) {
+            return !$lineItems->exists(function ($key, BulkDistributionLineItem $lineItem) use ($client) {
+                return $lineItem->getClient()->getId() == $client->getId();
+            });
+        });
+
+        foreach ($missingClients as $client) {
+            $line = new BulkDistributionLineItem();
+            $line->setClient($client);
+            $this->addLineItem($line);
+        }
+    }
 
     /**
      * @return int

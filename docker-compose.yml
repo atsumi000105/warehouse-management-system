@@ -9,6 +9,7 @@ services:
         volumes:
             - ./:/app:cached
             - var:/app/var
+            - ./docker/config/app.php.ini:/usr/local/etc/php/conf.d/coverd-overrides.ini
         depends_on:
             - db
     nginx:
@@ -17,7 +18,7 @@ services:
             - 8080:80
         volumes:
             - ./:/app:ro,cached
-            - ./docker/app.nginx.conf:/etc/nginx/conf.d/default.conf
+            - ./docker/config/app.nginx.conf:/etc/nginx/conf.d/default.conf
         depends_on:
             - app
     db:

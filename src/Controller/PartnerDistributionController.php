@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Client;
+use App\Entity\LineItem;
 use App\Entity\Orders\BulkDistribution;
 use App\Entity\Orders\BulkDistributionLineItem;
 use App\Entity\Partner;
+use App\Transformers\BulkDistributionLineItemTransformer;
 use App\Transformers\BulkDistributionTransformer;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -100,6 +103,41 @@ class PartnerDistributionController extends OrderController
         return $this->serialize($request, $order);
     }
 
+    /**
+     * @param BulkDistributionLineItem $lineItem
+     * @param array $lineItemArray
+     */
+    protected function extraLineItemProcessing(LineItem $lineItem, array $lineItemArray)
+    {
+        if (!$lineItem->getClient() || $lineItem->getClient()->getId() != $lineItemArray['client']['id']) {
+            $client = $this->getEm()->getRepository(Client::class)->findOneByUuid($lineItemArray['client']['id']);
+            $lineItem->setClient($client);
+        }
+    }
+
+    /**
+     * Whole or partial update of a order
+     *
+     * @Route(path="/new-line-items-for-partner/{id<\d+>}", methods={"GET"})
+     *
+     * @param $id
+     * @return JsonResponse
+     * @throws \App\Exception\CommittedTransactionException
+     */
+    public function createLineItemsForPartner(Request $request, $id)
+    {
+        /** @var Partner $partner */
+        $partner = $this->getEm()->getRepository(Partner::class)->find($id);
+        $clients = $partner->getClients()->getValues();
+
+        $lineItems = array_map(function ($client) {
+            $line = new BulkDistributionLineItem();
+            $line->setClient($client);
+            return $line;
+        }, $clients);
+
+        return $this->serialize($request, $lineItems, new BulkDistributionLineItemTransformer);
+    }
 
     protected function getDefaultTransformer()
     {

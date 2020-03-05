@@ -143,7 +143,9 @@
 
             if (!this.new) {
                 axios
-                    .get('/api/clients/' + this.$route.params.id, {params: {}})
+                    .get('/api/clients/' + this.$route.params.id, {
+                        params: { include: ['partner', 'attributes']}
+                    })
                     .then(response => {
                         self.client = response.data.data;
                     })

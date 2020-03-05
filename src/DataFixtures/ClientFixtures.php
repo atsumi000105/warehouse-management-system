@@ -45,7 +45,7 @@ class ClientFixtures extends BaseFixture
 
     private function getData(): array
     {
-        $clientsToCreate = 200;
+        $clientsToCreate = 500;
         $faker = Factory::create();
         $partners = $this->manager->getRepository(Partner::class)->findAll();
 
