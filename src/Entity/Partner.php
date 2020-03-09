@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\DataFixtures\ClientAttributeFixtures;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -24,9 +23,16 @@ class Partner extends StorageLocation
         self::TYPE_HOSPITAL,
     ];
 
-    const ROLE_VIEW_ALL = 'ROLE_PARTNER_VIEW_ALL';
-    const ROLE_VIEW_SELF = 'ROLE_PARTNER_VIEW_SELF';
-    const ROLE_EDIT = 'ROLE_PARTNER_EDIT';
+    public const ROLE_VIEW_ALL = 'ROLE_PARTNER_VIEW_ALL';
+    public const ROLE_VIEW_SELF = 'ROLE_PARTNER_VIEW_SELF';
+    public const ROLE_EDIT = 'ROLE_PARTNER_EDIT';
+
+    // State Machine Statuses
+    public const STATUS_START = 'START';
+    public const STATUS_APPLICATION_PENDING = 'APPLICATION_PENDING';
+    public const STATUS_APPLICATION_PENDING_PRIORITY = 'APPLICATION_PENDING_PRIORITY';
+    public const STATUS_NEEDS_PROFILE_REVIEW = 'NEEDS_PROFILE_REVIEW';
+    public const STATUS_REVIEW_PAST_DUE = 'REVIEW_PAST_DUE';
 
     /**
      * @var string
@@ -90,6 +96,7 @@ class Partner extends StorageLocation
     {
         parent::__construct($title);
 
+        $this->status = self::STATUS_START;
         $this->clients = new ArrayCollection();
     }
 
@@ -194,5 +201,13 @@ class Partner extends StorageLocation
     public function getClients(): ArrayCollection
     {
         return $this->clients;
+    }
+
+    /**
+     * Overridden because the status is controlled by the workflow
+     */
+    public function setStatus(string $status): void
+    {
+        $this->status = $status;
     }
 }

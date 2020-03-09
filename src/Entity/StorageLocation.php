@@ -132,10 +132,7 @@ abstract class StorageLocation extends CoreEntity
         $address->setStorageLocation($this);
     }
 
-    /**
-     * @return string
-     */
-    public function getStatus()
+    public function getStatus(): string
     {
         return $this->status;
     }
