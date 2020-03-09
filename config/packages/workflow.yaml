@@ -1,7 +1,7 @@
 framework:
     workflows:
         partner_management:
-            type: 'workflow'
+            type: 'state_machine'
             audit_trail:
                 enabled: true
             marking_store:
