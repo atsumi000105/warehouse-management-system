@@ -6,16 +6,17 @@ use App\Entity\Client;
 use App\Entity\EAV\ClientDefinition;
 use App\Entity\Partner;
 use App\Entity\ValueObjects\Name;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
 
-class ClientFixtures extends BaseFixture
+class ClientFixtures extends BaseFixture implements DependentFixtureInterface
 {
     public function getDependencies()
     {
         return [
             ClientAttributeFixtures::class,
-            Partner::class
+            PartnerFixtures::class
         ];
     }
 

@@ -20,6 +20,7 @@ class BulkDistributionFixtures extends BaseFixture implements DependentFixtureIn
             ProductFixtures::class,
             PartnerFixtures::class,
             ClientFixtures::class,
+            SettingFixtures::class,
         ];
     }
 

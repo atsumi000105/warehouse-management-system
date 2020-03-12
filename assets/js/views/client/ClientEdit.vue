@@ -97,6 +97,14 @@
                                 label="Distribution Expiration"
                                 format="YYYY-MM-DD"
                             />
+                            <NumberField
+                                v-model="client.pullupDistributionMax"
+                                label="Pullup Maximum Limit"
+                            />
+                            <DisplayField
+                                v-model="client.pullupDistributionCount"
+                                label="Pullup Distributions"
+                            />
                         </div>
                         <!-- /.box-body -->
                     </div>
@@ -148,10 +156,14 @@
     import PartnerSelectionForm from "../../components/PartnerSelectionForm";
     import DateField from "../../components/DateField";
     import BooleanField from "../../components/ToggleField";
+    import NumberField from "../../components/NumberField";
+    import DisplayField from "../../components/DisplayField";
 
     export default {
         name: 'ClientEdit',
         components: {
+            DisplayField,
+            NumberField,
             BooleanField,
             DateField,
             PartnerSelectionForm,

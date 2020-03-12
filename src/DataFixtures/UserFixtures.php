@@ -4,9 +4,10 @@ namespace App\DataFixtures;
 
 use App\Entity\User;
 use App\Entity\ValueObjects\Name;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class UserFixtures extends BaseFixture
+class UserFixtures extends BaseFixture implements DependentFixtureInterface
 {
     public function getDependencies(): array
     {

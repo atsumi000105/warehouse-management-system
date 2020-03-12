@@ -78,12 +78,27 @@ class Client extends CoreEntity
      */
     protected $distributionExpiresAt;
 
+    /**
+     * @var int
+     * @ORM\Column(type="integer", nullable=true)
+     * @Gedmo\Versioned
+     */
+    protected $pullupDistributionMax;
+
+    /**
+     * @var int
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $pullupDistributionCount;
+
     public function __construct()
     {
         $this->attributes = new ArrayCollection();
         $this->distributionLineItems = new ArrayCollection();
         $this->uuid = Uuid::uuid4();
         $this->isExpirationOverridden = false;
+        $this->pullupDistributionMax = 6;
+        $this->pullupDistributionCount = 0;
     }
 
     public function getName(): Name
@@ -156,6 +171,40 @@ class Client extends CoreEntity
         return $this->distributionExpiresAt;
     }
 
+    public function getPullupDistributionMax(): ?int
+    {
+        return $this->pullupDistributionMax;
+    }
+
+    /**
+     * @param int $pullupDistributionMax
+     */
+    public function setPullupDistributionMax(?int $pullupDistributionMax): void
+    {
+        $this->pullupDistributionMax = $pullupDistributionMax;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPullupDistributionCount(): int
+    {
+        return $this->pullupDistributionCount ?: 0;
+    }
+
+    /**
+     * @param int $pullupDistributionCount
+     */
+    public function setPullupDistributionCount(int $pullupDistributionCount): void
+    {
+        $this->pullupDistributionCount = $pullupDistributionCount;
+    }
+
+    public function isPullupLimitReached(): bool
+    {
+        return $this->pullupDistributionCount >= $this->pullupDistributionMax;
+    }
+
     /**
      * @param \DateTime $distributionExpiresAt
      */
@@ -211,6 +260,10 @@ class Client extends CoreEntity
                 return $line->getOrder()->getDistributionPeriod();
             }
         }, null);
+
+        if (!$first) {
+            return null;
+        }
 
         $firstMoment = Moment::fromDateTime($first);
 
