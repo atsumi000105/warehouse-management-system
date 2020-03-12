@@ -60,6 +60,4 @@ class Setting
     {
         $this->value = $value;
     }
-
-
 }
