@@ -166,9 +166,17 @@ class Client extends CoreEntity
     /**
      * @return \DateTime
      */
-    public function getDistributionExpiresAt(): \DateTime
+    public function getDistributionExpiresAt(): ?\DateTime
     {
         return $this->distributionExpiresAt;
+    }
+
+    /**
+     * @param \DateTime $distributionExpiresAt
+     */
+    public function setDistributionExpiresAt(?\DateTime $distributionExpiresAt): void
+    {
+        $this->distributionExpiresAt = $distributionExpiresAt;
     }
 
     public function getPullupDistributionMax(): ?int
@@ -203,14 +211,6 @@ class Client extends CoreEntity
     public function isPullupLimitReached(): bool
     {
         return $this->pullupDistributionCount >= $this->pullupDistributionMax;
-    }
-
-    /**
-     * @param \DateTime $distributionExpiresAt
-     */
-    public function setDistributionExpiresAt(\DateTime $distributionExpiresAt): void
-    {
-        $this->distributionExpiresAt = $distributionExpiresAt;
     }
 
     public function applyChangesFromArray(array $changes): void
