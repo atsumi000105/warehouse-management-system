@@ -24,7 +24,8 @@ class ClientTransformer extends TransformerAbstract
             'birthdate' => $client->getBirthdate()->format('c'),
             'isExpirationOverridden' => $client->isExpirationOverridden(),
             'ageExpiresAt' => $client->getAgeExpiresAt()->format('c'),
-            'distributionExpiresAt' => $client->getDistributionExpiresAt() ? $client->getDistributionExpiresAt()->format('c') : null,
+            'distributionExpiresAt' => $client->getDistributionExpiresAt() ?
+                $client->getDistributionExpiresAt()->format('c') : null,
             'pullupDistributionMax' => $client->getPullupDistributionMax(),
             'pullupDistributionCount' => $client->getPullupDistributionCount(),
             'updatedAt' => $client->getUpdatedAt()->format('c'),
