@@ -100,7 +100,7 @@
         created() {
             var self = this;
 
-            if (!self.value.id) self.value.id = null;
+            if (!self.value || !self.value.id) self.value.id = null;
 
             if (this.apiPath) {
                 axios
