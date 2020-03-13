@@ -46,6 +46,12 @@
                         data-toggle="tab"
                     >Profile</a>
                 </li>
+                <li>
+                    <a
+                        href="#user_tab"
+                        data-toggle="tab"
+                    >Users</a>
+                </li>
             </ul>
             <div class="tab-content">
                 <PartnerLocationEditTab
@@ -56,6 +62,11 @@
                 <AttributesEditForm
                     id="profile_tab"
                     v-model="partner.profile.attributes"
+                    class="tab-pane"
+                />
+                <PartnerUserList
+                    id="user_tab"
+                    v-model="partner.users"
                     class="tab-pane"
                 />
             </div>
@@ -109,6 +120,7 @@
                     fulfillmentPeriod: {},
                     distributionMethod: { },
                     profile: {},
+                    users: [],
                 }
             };
         },
