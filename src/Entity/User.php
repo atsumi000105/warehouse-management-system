@@ -12,8 +12,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\InheritanceType("SINGLE_TABLE")
- * @ORM\DiscriminatorColumn(name="partner", type="integer", columnDefinition="INT DEFAULT 0")
- * @ORM\DiscriminatorMap({0 = "User", 1 = "PartnerUser"})
  * @ORM\Table(name="users")
  */
 class User extends CoreEntity implements UserInterface
@@ -43,18 +41,11 @@ class User extends CoreEntity implements UserInterface
     protected $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Group", inversedBy="users")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Group", inversedBy="users")
      *
      * @var Group[]|Collection
      */
     protected $groups;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="Partner", inversedBy="users")
-     *
-     * @var Partners[]|Collection
-     */
-    protected $partners;
 
     /**
      * @var string The hashed password
@@ -71,7 +62,6 @@ class User extends CoreEntity implements UserInterface
     {
         $this->email = $email;
         $this->groups = new ArrayCollection();
-        $this->partners = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -120,11 +110,6 @@ class User extends CoreEntity implements UserInterface
         return (string) $this->name;
     }
 
-    public function getType(): string
-    {
-        return (string) self::class;
-    }
-
     /**
      * @return Group[]
      */
@@ -161,28 +146,6 @@ class User extends CoreEntity implements UserInterface
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
-    }
-
-    public function addPartner($partner)
-    {
-        //$partner->addUser($this);
-        $this->partners[] = $partner;
-    }
-
-    public function getPartners(): ?array
-    {
-        return $this->partners->toArray();
-    }
-
-    public function setPartners($partners): self
-    {
-        if (is_array($partners)) {
-            $partners = new ArrayCollection($partners);
-        }
-
-        $this->partners = $partners;
-
-        return $this;
     }
 
     /**
