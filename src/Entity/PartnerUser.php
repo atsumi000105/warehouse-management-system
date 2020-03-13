@@ -11,33 +11,27 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class PartnerUser extends User
 {
-    protected $spartner = '1';
-
     /**
-     * @ORM\ManyToMany(targetEntity="Partner", inversedBy="users")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Partner", inversedBy="users")
      *
      * @var Partners[]|Collection
      */
-    protected $spartners;
+    protected $partners;
 
-    public function s__construct($email)
+    public function __construct($email)
     {
         parent::__construct($email);
         $this->partners = new ArrayCollection();
     }
 
-    public function sgetPartners(): ?array
+    public function getPartners(): ?array
     {
-        return $this->partners->toArray();
+        return $this->partners->values();
     }
 
-    public function ssetPartners($partners): self
+    public function setPartners(array $partners): self
     {
-        if (is_array($partners)) {
-            $partners = new ArrayCollection($partners);
-        }
-
-        $this->partners = $partners;
+        $this->partners = new ArrayCollection($partners);
 
         return $this;
     }
