@@ -7,7 +7,7 @@ services:
             context: ./docker
             dockerfile: Dockerfile
         volumes:
-            - ./:/app:cached
+            - ./:/app
             - var:/app/var
         depends_on:
             - db
