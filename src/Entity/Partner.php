@@ -2,8 +2,8 @@
 
 namespace App\Entity;
 
-use App\DataFixtures\ClientAttributeFixtures;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -80,9 +80,9 @@ class Partner extends StorageLocation
     protected $profile;
 
     /**
-     * @var ArrayCollection
+     * @var Collection
      *
-     * @ORM\OneToMany(targetEntity="App\Entity\Client", mappedBy="id")
+     * @ORM\OneToMany(targetEntity="App\Entity\Client", mappedBy="partner")
      */
     protected $clients;
 
@@ -199,7 +199,7 @@ class Partner extends StorageLocation
         $this->profile = $profile;
     }
 
-    public function getClients(): ArrayCollection
+    public function getClients(): Collection
     {
         return $this->clients;
     }

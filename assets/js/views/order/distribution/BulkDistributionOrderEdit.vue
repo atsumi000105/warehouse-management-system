@@ -56,7 +56,7 @@
                             <partnerselectionform
                                 v-model="order.partner"
                                 :editable="order.isEditable"
-                                @change="$v.order.partner.$touch()"
+                                @partner-change="onPartnerChange"
                                 @loaded="$v.order.partner.$reset()"
                             />
                             <fielderror v-if="$v.order.partner.$error">
@@ -82,12 +82,19 @@
                             <h3 class="box-title">
                                 <i class="icon fa fa-list fa-fw" />Line Items
                             </h3>
+                            <div class="box-tools pull-right">
+                                <TextField
+                                    v-model="filterText"
+                                    placeholder="Filter"
+                                />
+                            </div>
                         </div>
-                        <lineitemform
-                            :products="products"
+                        <BulkDistributionLineItemForm
+                            :products="allOrderableProducts"
                             :line-items="order.lineItems"
                             :editable="order.isEditable"
                             :show-packs="true"
+                            :filter-text="filterText"
                         />
                     </div>
                 </div>
@@ -109,21 +116,25 @@
 <script>
     import { required } from 'vuelidate/lib/validators';
     import { linesRequired, mod } from '../../../validators';
+    import { mapGetters, mapActions } from 'vuex';
     import ModalOrderConfirmComplete from '../../../components/ModalOrderConfirmComplete.vue';
     import ModalOrderConfirmDelete from '../../../components/ModalOrderConfirmDelete.vue';
     import ModalOrderInvalid from '../../../components/ModalOrderInvalid.vue';
     import FieldError from '../../../components/FieldError.vue';
     import OrderMetadataBox from '../../../components/OrderMetadataBox.vue';
-    import LineItemForm from '../../../components/LineItemForm.vue';
     import PartnerSelectionForm from '../../../components/PartnerSelectionForm.vue';
+    import BulkDistributionLineItemForm from "./BulkDistributionLineItemForm";
+    import axios from "axios";
+    import TextField from "../../../components/TextField";
     export default {
         components: {
+            TextField,
+            BulkDistributionLineItemForm,
             'modalcomplete' : ModalOrderConfirmComplete,
             'modaldelete' : ModalOrderConfirmDelete,
             'modalinvalid' : ModalOrderInvalid,
             'fielderror' : FieldError,
             'ordermetadatabox' : OrderMetadataBox,
-            'lineitemform' : LineItemForm,
             'partnerselectionform' : PartnerSelectionForm
         },
         props: ['new'],
@@ -134,6 +145,7 @@
                     partner: { id: null },
                     isEditable: true,
                     isDeletable: false,
+                    distributionPeriod: '',
                     status: 'COMPLETED',
                     reason: '',
                 },
@@ -141,7 +153,8 @@
                 statuses: [
                     {id: "PENDING", name: "Pending"},
                     {id: "COMPLETED", name: "Completed", commit: true },
-                ]
+                ],
+                filterText: ""
             };
         },
         validations: {
@@ -158,6 +171,9 @@
             }
         },
         computed: {
+            ...mapGetters([
+                'allOrderableProducts',
+            ]),
             statusIsCompleted: function () {
                 var self = this;
                 var status = this.statuses.filter(function(item) {
@@ -177,11 +193,29 @@
                     .get('/api/orders/distribution/' + this.$route.params.id, {
                         params: { include: ['lineItems', 'lineItems.product', 'lineItems.transactions', 'partner.addresses']}
                     })
-                    .then(response => self.order = response.data.data);
+                    .then(response => {
+                        self.order = response.data.data;
+                    });
             }
+            this.$store.dispatch('loadProducts');
+
             console.log('Component mounted.')
         },
         methods: {
+            onPartnerChange: function(partner) {
+                let self = this;
+                this.$v.order.partner.$touch();
+                axios
+                    .get('/api/orders/distribution/new-line-items-for-partner/' + partner.id)
+                    .then((response) => {
+                            self.order.lineItems = response.data.data;
+                            // resolve(response);
+                        },
+                        (err) => {
+                            // reject(err);
+                        }
+                    );
+            },
             saveVerify: function () {
                 this.$v.$touch();
                 if (this.$v.$invalid) {

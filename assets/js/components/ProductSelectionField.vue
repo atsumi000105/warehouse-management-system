@@ -1,20 +1,18 @@
 <template>
     <div>
-        <div class="form-group">
-            <optionlist
-                v-if="editable"
-                ref="productSelect"
-                v-model="value"
-                label="Product:"
-                :preloaded-options="allActiveProducts"
-                display-property="name"
-                empty-string="-- Select Product --"
-            />
-            <span
-                v-else
-                v-text="value.title"
-            />
-        </div>
+        <optionlist
+            v-if="editable"
+            v-model="value"
+            :label="label"
+            :preloaded-options="allActiveProducts"
+            display-property="name"
+            empty-string="-- Select Product --"
+            @change="onSelectionChange"
+        />
+        <span
+            v-else
+            v-text="value.title"
+        />
     </div>
 </template>
 
@@ -28,6 +26,7 @@
         props: {
             value: { required: true, type: Object },
             editable: { type: Boolean, default: true },
+            label: { type: [String, Boolean], default: "Product:"},
             v: { type: Object }
         },
         computed: mapGetters([
@@ -35,7 +34,6 @@
         ]),
         mounted: function () {
             this.$store.dispatch('loadProducts');
-            this.$refs.productSelect.$on('change', eventData => this.onSelectionChange(eventData))
         },
         methods: {
             onSelectionChange: function (eventData) {

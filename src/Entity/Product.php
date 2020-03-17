@@ -65,6 +65,14 @@ class Product extends CoreEntity
     protected $agencyPackSize;
 
     /**
+     * @var int $agencyMaxPacks
+     *
+     * @ORM\Column(type="integer", nullable=true)
+     * @Gedmo\Versioned
+     */
+    protected $agencyMaxPacks;
+
+    /**
      * @var int $hospitalPacksPerBag
      *
      * @ORM\Column(type="integer", nullable=true)
@@ -80,6 +88,13 @@ class Product extends CoreEntity
      */
     protected $hospitalPackSize;
 
+    /**
+     * @var int $hospitalMaxPacks
+     *
+     * @ORM\Column(type="integer", nullable=true)
+     * @Gedmo\Versioned
+     */
+    protected $hospitalMaxPacks;
 
     /**
      * @var ProductCategory $productCategory
@@ -126,6 +141,8 @@ class Product extends CoreEntity
         $this->setName($name);
         $this->setProductCategory($category);
         $this->setStatus(self::STATUS_ACTIVE);
+        $this->setAgencyMaxPacks(1);
+        $this->setHospitalMaxPacks(1);
     }
 
     public function getId()
@@ -200,6 +217,22 @@ class Product extends CoreEntity
     /**
      * @return int
      */
+    public function getAgencyMaxPacks(): int
+    {
+        return $this->agencyMaxPacks;
+    }
+
+    /**
+     * @param int $agencyMaxPacks
+     */
+    public function setAgencyMaxPacks(int $agencyMaxPacks): void
+    {
+        $this->agencyMaxPacks = $agencyMaxPacks;
+    }
+
+    /**
+     * @return int
+     */
     public function getHospitalPacksPerBag()
     {
         return $this->hospitalPacksPerBag;
@@ -229,6 +262,21 @@ class Product extends CoreEntity
         $this->hospitalPackSize = $hospitalPackSize;
     }
 
+    /**
+     * @return int
+     */
+    public function getHospitalMaxPacks(): int
+    {
+        return $this->hospitalMaxPacks;
+    }
+
+    /**
+     * @param int $hospitalMaxPacks
+     */
+    public function setHospitalMaxPacks(int $hospitalMaxPacks): void
+    {
+        $this->hospitalMaxPacks = $hospitalMaxPacks;
+    }
 
     public function getSmallestPackSize()
     {

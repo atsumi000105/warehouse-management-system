@@ -6,6 +6,8 @@ let routes = [
         component: require('./views/Dashboard.vue')
     },
 
+    { path: '/admin/configuration', name: 'admin-settings', component: require('./views/admin/ConfigurationEdit.vue').default },
+
     { path: '/admin/groups', name: 'admin-groups', component: require('./views/admin/RoleList.vue').default },
     { path: '/admin/groups/new', name: 'admin-group-new', component: require('./views/admin/RoleEdit.vue').default, props: { new: true } },
     { path: '/admin/groups/:id', name: 'admin-group-edit', component: require('./views/admin/RoleEdit.vue').default },

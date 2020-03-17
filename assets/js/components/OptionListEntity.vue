@@ -1,12 +1,11 @@
 <template>
     <div class="form-group">
-        <label v-text="label" />
+        <label v-if="label" v-text="label" />
         <select
             v-if="!groupProperty"
             v-model="value[property]"
             v-chosen
             class="form-control"
-            :class="{'loaded': loaded}"
             @change="onChange"
         >
             <option
@@ -26,7 +25,6 @@
             v-model="value[property]"
             v-chosen
             class="form-control"
-            :class="{'loaded': loaded}"
             @change="onChange"
         >
             <option
@@ -55,7 +53,7 @@
         name: 'OptionListEntity',
         props: {
             value: { type: Object },
-            label: { type: String },
+            label: { type: [String, Boolean], default: false },
             apiPath: { type: String },
             preloadedOptions: { type: Array, default: function() {return []}},
             displayProperty: { type: String, default: 'name'},
@@ -67,19 +65,20 @@
         data() {
             return {
                 listOptions: [],
+                loaded: false,
             }
         },
         computed: {
-            loaded: function() { return this.options.length > 0 },
             options: function() {
-                var self = this;
+                let self = this;
                 let list = self.listOptions.length > 0 ? self.listOptions : self.preloadedOptions;
 
-                if (this.alphabetize) {
-                    list = list.sort(function(a, b) {
-                        return a[self.displayProperty] > b[self.displayProperty] ? 1 : -1;
-                    })
-                }
+                // THIS IS THE PROBLEM!!!!!!!
+                // if (this.alphabetize) {
+                //     list = list.sort(function(a, b) {
+                //         return a[self.displayProperty] > b[self.displayProperty] ? 1 : -1;
+                //     })
+                // }
 
                 if (this.groupProperty) {
                     let groupings = {};
@@ -93,23 +92,28 @@
                 }
                 return list;
             },
-            emptyOption: function() { return this.emptyString ? this.emptyString : '-- Select Item --'}
+            emptyOption: function() {
+                return this.emptyString ? this.emptyString : '-- Select Item --';
+            }
         },
 
         created() {
             var self = this;
 
-            if (!self.value.id) self.value.id = null;
+            if (!self.value || !self.value.id) self.value.id = null;
 
             if (this.apiPath) {
                 axios
                     .get('/api/' + this.apiPath)
                     .then(response => {
                         self.listOptions = response.data.data;
+                        self.loaded = true;
                         self.$emit('loaded');
                 });
             } else {
                 self.listOptions = self.preloadedOptions;
+                self.loaded = true;
+                self.$emit('loaded');
             }
         },
 
