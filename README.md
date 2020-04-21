@@ -70,7 +70,7 @@ You should now be able to connect to your the dev server at http://localhost:808
 
 ### Build and watch the Vue JS app
 
-1. `docker/yarn`
+1. `docker/yarn watch`
 
 ## Work With the Dev Environment
 
