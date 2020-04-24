@@ -72,6 +72,12 @@ You should now be able to connect to your the dev server at http://localhost:808
 
 1. `docker/yarn`
 
+### Debugging with Xdebug
+
+1. In the "app" service of `docker-compose.yml`, change `WITH_XDEBUG=false` to `WITH_XDEBUG=true`
+1. Rebuild your environment: `docker-compose up --build`
+1. If using PHPStorm, make sure you set your xdebug server to have the name "coverd"
+
 ## Work With the Dev Environment
 
 We have fixtures to define basic users of certain roles:

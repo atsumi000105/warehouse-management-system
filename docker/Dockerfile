@@ -31,11 +31,19 @@ RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 
 
 # install xdebug
-#RUN yes | pecl install xdebug \
-#    && echo "[xdebug]" > /usr/local/etc/php/conf.d/xdebug.ini \
-#    && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" >> /usr/local/etc/php/conf.d/xdebug.ini \
-#    && echo "xdebug.remote_enable=0" >> /usr/local/etc/php/conf.d/xdebug.ini \
-#    && echo "xdebug.remote_port=9000" >> /usr/local/etc/php/conf.d/xdebug.ini
-
+ARG WITH_XDEBUG=false
+ARG XDEBUG_INI=/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+RUN \
+     if $WITH_XDEBUG; then \
+        pecl install xdebug; \
+        docker-php-ext-enable xdebug; \
+        echo "error_reporting = E_ALL" >> ${XDEBUG_INI}; \
+        echo "display_startup_errors = 1" >> ${XDEBUG_INI}; \
+        echo "display_errors = 1" >> ${XDEBUG_INI}; \
+        echo "xdebug.remote_enable = 1" >> ${XDEBUG_INI}; \
+        echo "xdebug.remote_autostart = 0" >> ${XDEBUG_INI}; \
+        echo "xdebug.remote_connect_back = 0" >> ${XDEBUG_INI}; \
+        echo "xdebug.max_nesting_level = 1500" >> ${XDEBUG_INI}; \
+     fi ;
 
 WORKDIR /app
