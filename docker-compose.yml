@@ -12,6 +12,7 @@ services:
             - ./:/app:cached
             - var:/app/var
             - ./docker/config/app.php.ini:/usr/local/etc/php/conf.d/coverd-overrides.ini
+        env_file: .env.local
         depends_on:
             - db
     nginx:

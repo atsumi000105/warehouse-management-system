@@ -63,6 +63,7 @@ Learn More at https://www.happybottoms.org
 
 ## Development Installation - Docker Compose
 
+1. Copy `.env.docker` to `.env.local`
 1. `docker-compose up --build`
 1. `docker-compose exec app docker/install`
 
