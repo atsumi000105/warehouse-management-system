@@ -17,7 +17,7 @@
         "inputmask": "^3.3.9",
         "jest": "^24.9.0",
         "jest-serializer-vue": "^2.0.2",
-        "jquery": "^3.3.1",
+        "jquery": "^3.5.0",
         "js-file-download": "^0.4.1",
         "json-loader": "^0.5.7",
         "lodash": "^4.17.13",
