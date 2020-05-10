@@ -39,7 +39,8 @@
                         </div>
                         <table
                             v-else
-                            class="table table-hover">
+                            class="table table-hover"
+                        >
                             <thead>
                                 <tr>
                                     <th>Product ID</th>

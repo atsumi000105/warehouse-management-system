@@ -60,9 +60,50 @@
                                     placeholder="Enter last name"
                                 >
                             </div>
+                            <DateField
+                                v-model="client.birthdate"
+                                label="Birthdate"
+                                format="YYYY-MM-DD"
+                            />
                             <PartnerSelectionForm
                                 v-model="client.partner"
                                 label="Assigned Partner"
+                            />
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">
+                                <i class="icon fa fa-clock-o fa-fw" />Expiration Info
+                            </h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <!-- text input -->
+                            <BooleanField
+                                v-model="client.isExpirationOverridden"
+                                label="Override Expirations"
+                            />
+                            <DateField
+                                v-model="client.ageExpiresAt"
+                                label="Age Expiration"
+                                format="YYYY-MM-DD"
+                            />
+                            <DateField
+                                v-model="client.distributionExpiresAt"
+                                label="Distribution Expiration"
+                                format="YYYY-MM-DD"
+                            />
+                            <NumberField
+                                v-model="client.pullupDistributionMax"
+                                label="Pullup Maximum Limit"
+                            />
+                            <DisplayField
+                                v-model="client.pullupDistributionCount"
+                                label="Pullup Distributions"
                             />
                         </div>
                         <!-- /.box-body -->
@@ -113,10 +154,18 @@
     import Modal from '../../components/Modal.vue';
     import AttributesEditForm from "../../components/AttributesEditForm";
     import PartnerSelectionForm from "../../components/PartnerSelectionForm";
+    import DateField from "../../components/DateField";
+    import BooleanField from "../../components/ToggleField";
+    import NumberField from "../../components/NumberField";
+    import DisplayField from "../../components/DisplayField";
 
     export default {
         name: 'ClientEdit',
         components: {
+            DisplayField,
+            NumberField,
+            BooleanField,
+            DateField,
             PartnerSelectionForm,
             AttributesEditForm,
             'modal' : Modal
@@ -143,7 +192,9 @@
 
             if (!this.new) {
                 axios
-                    .get('/api/clients/' + this.$route.params.id, {params: {}})
+                    .get('/api/clients/' + this.$route.params.id, {
+                        params: { include: ['partner', 'attributes']}
+                    })
                     .then(response => {
                         self.client = response.data.data;
                     })

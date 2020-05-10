@@ -59,7 +59,10 @@
                                 color="#3c8dbc"
                             />
                         </div>
-                        <table v-else class="table table-hover">
+                        <table
+                            v-else
+                            class="table table-hover"
+                        >
                             <thead>
                                 <tr>
                                     <th>Product ID</th>

@@ -87,7 +87,6 @@
         props:[],
         data() {
             return {
-                clients: [],
                 columns: [
                     { name: '__slot:link', title: "Client Id", sortField: 'id' },
                     //todo: find a better way to sort value objects #30
@@ -104,13 +103,6 @@
             }
         },
         created() {
-            axios
-                .get('/api/clients')
-                .then(response => this.clients = response.data)
-                .catch(error => {
-                    console.log(error)
-                })
-                .finally(() => this.loading = false);
             console.log('Component mounted.');
         },
         methods: {
@@ -122,7 +114,8 @@
             requestParams: function () {
                 return {
                     keyword: this.filters.keyword || null,
-                    partner: this.filters.partner.id || null
+                    partner: this.filters.partner.id || null,
+                    include: ['partner'],
                 }
             },
         },

@@ -22,6 +22,7 @@ class LineItemTransformer extends TransformerAbstract
             'id' => (int) $lineItem->getId(),
             'quantity' => (int) $lineItem->getQuantity(),
             'cost' => (float) $lineItem->getCost(),
+            'product' => ['id' => null],
         ];
     }
 
@@ -36,7 +37,7 @@ class LineItemTransformer extends TransformerAbstract
     {
         $product = $lineItem->getProduct();
 
-        return $this->item($product, new ProductTransformer);
+        return $product ? $this->item($product, new ProductTransformer) : null;
     }
 
     public function includeOrder(LineItem $lineItem)

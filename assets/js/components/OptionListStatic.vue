@@ -1,12 +1,13 @@
 <template>
     <div class="form-group">
-        <label v-text="label" />
+        <label v-if="label" v-text="label" />
         <template v-if="chosen && loaded">
             <select
-                v-model="value"
+                :value="value"
                 v-chosen
                 class="form-control"
-                @change="$emit('input', $event.target.value)"
+                :class="{'loaded': loaded}"
+                @change="onChange"
             >
                 <option
                     value=""
@@ -23,9 +24,10 @@
         </template>
         <template v-else-if="!chosen && loaded">
             <select
-                v-model="value"
+                :value="value"
                 class="form-control"
-                @change="$emit('input', $event.target.value)"
+                :class="{'loaded': loaded}"
+                @change="onChange"
             >
                 <option
                     value=""
@@ -56,9 +58,9 @@
     export default {
         name: 'OptionListStatic',
         props: {
-            value: { type: [Number,String] },
+            value: { type: [Number,String], required: true },
             property: { type: String },
-            label: { type: String },
+            label: { type: [String, Boolean], default: false },
             preloadedOptions: { type: Array, default: function() {return []}},
             displayProperty: { type: String, default: 'name'},
             displayTextFn: { type: Function },
@@ -86,6 +88,9 @@
                 } else {
                     return item[this.displayProperty];
                 }
+            },
+            onChange: function($event) {
+                this.$emit('input', $event.target.value)
             }
         },
     }

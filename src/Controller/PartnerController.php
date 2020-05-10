@@ -6,6 +6,7 @@ use App\Entity\Partner;
 use App\Entity\PartnerDistributionMethod;
 use App\Entity\PartnerFulfillmentPeriod;
 use App\Entity\PartnerProfile;
+use App\Transformers\ClientTransformer;
 use App\Transformers\PartnerTransformer;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -100,6 +101,16 @@ class PartnerController extends StorageLocationController
         $this->getEm()->flush();
 
         return $this->serialize($request, $partner);
+    }
+
+    /**
+     * @Route("/{id<\d+>}/clients", methods={"GET"})
+     */
+    public function clients(Request $request, int $id): JsonResponse
+    {
+        $partner = $this->getPartnerById($id);
+
+        return $this->serialize($request, $partner->getClients()->getValues(), new ClientTransformer);
     }
 
     protected function getDefaultTransformer()

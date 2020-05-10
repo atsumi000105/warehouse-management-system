@@ -10,6 +10,7 @@ use App\Entity\Product;
 use App\Entity\Partner;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Moment\Moment;
 
 class BulkDistributionFixtures extends BaseFixture implements DependentFixtureInterface
 {
@@ -18,6 +19,8 @@ class BulkDistributionFixtures extends BaseFixture implements DependentFixtureIn
         return [
             ProductFixtures::class,
             PartnerFixtures::class,
+            ClientFixtures::class,
+            SettingFixtures::class,
         ];
     }
 
@@ -26,39 +29,51 @@ class BulkDistributionFixtures extends BaseFixture implements DependentFixtureIn
         $partners = $manager->getRepository(Partner::class)->findAll();
         $products = $manager->getRepository(Product::class)->findByPartnerOrderable();
 
-        for ($i = 0; $i < 50; $i++) {
-            /** @var Partner $partner */
-            $partner = $this->faker->randomElement($partners);
+        // Number of distributions to make for each partner
+        $ordersPerPartner = 1;
 
-            $order = new BulkDistribution($partner);
+        foreach ($partners as $partner) {
+            $clients = $partner->getClients();
+            for ($i=0; $i < $ordersPerPartner; $i++) {
+                $order = new BulkDistribution($partner);
 
-            $order->setStatus($this->faker->randomElement([
-                BulkDistribution::STATUS_COMPLETED,
-                BulkDistribution::STATUS_PENDING,
-            ]));
+                $order->setStatus($this->faker->randomElement([
+                    BulkDistribution::STATUS_COMPLETED,
+                    BulkDistribution::STATUS_PENDING,
+                ]));
 
-            $order->setCreatedAt($this->faker->dateTimeBetween('-1 year', 'now'));
+                // If this is the current month, set the order to pending, otherwise completed
+                $status = $i == 0 ? BulkDistribution::STATUS_PENDING : BulkDistribution::STATUS_COMPLETED;
+                $order->setStatus($status);
 
-            $period = new \Moment\Moment($order->getCreatedAt()->format('U'));
-            $period->setTimezone($order->getCreatedAt()->getTimezone()->getName());
-            $period->startOf('month');
-            $order->setDistributionPeriod($period);
+                $orderDate = new Moment();
+                $orderDate->subtractMonths($i);
 
-            foreach ($products as $product) {
-                $lineItem = new BulkDistributionLineItem(
-                    $product,
-                    $this->faker->numberBetween(1, 100) * $product->getSmallestPackSize()
-                );
-                $order->addLineItem($lineItem);
+                $order->setCreatedAt($orderDate);
+
+                $period = clone $orderDate;
+                $period->setTimezone($order->getCreatedAt()->getTimezone()->getName());
+                $period->startOf('month');
+                $order->setDistributionPeriod($period);
+
+                foreach ($clients as $client) {
+                    $product = $this->faker->randomElement($products);
+                    $lineItem = new BulkDistributionLineItem(
+                        $product,
+                        $this->faker->numberBetween(1, 2) * $product->getSmallestPackSize()
+                    );
+                    $lineItem->setClient($client);
+                    $order->addLineItem($lineItem);
+                }
+
+                $order->generateTransactions();
+
+                if ($order->isComplete()) {
+                    $order->commitTransactions();
+                }
+
+                $manager->persist($order);
             }
-
-            $order->generateTransactions();
-
-            if ($order->isComplete()) {
-                $order->commitTransactions();
-            }
-
-            $manager->persist($order);
         }
 
         $manager->flush();

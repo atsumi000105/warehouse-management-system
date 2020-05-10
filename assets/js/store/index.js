@@ -13,6 +13,6 @@ export default new Vuex.Store({
         products,
         storageLocations,
         suppliers,
-        attributeTypes
+        attributeTypes,
     }
 });

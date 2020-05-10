@@ -12,14 +12,10 @@
 
         <div class="row">
             <div class="col-xs-2">
-                <div class="form-group">
-                    <label>Keyword</label>
-                    <input
-                        v-model="filters.keyword"
-                        type="text"
-                        class="form-control"
-                    >
-                </div>
+                <TextField
+                    v-model="filters.keyword"
+                    label="Keyword"
+                />
             </div>
             <div class="col-xs-2">
                 <div class="form-group">
@@ -123,8 +119,10 @@
     import SupplierMerge from './SupplierMerge.vue';
     import OptionListStatic from '../../components/OptionListStatic.vue';
     import TablePaged from '../../components/TablePaged.vue';
+    import TextField from "../../components/TextField";
     export default {
         components: {
+            TextField,
             'supplier-merge' : SupplierMerge,
             'optionliststatic' : OptionListStatic,
             'tablepaged' : TablePaged

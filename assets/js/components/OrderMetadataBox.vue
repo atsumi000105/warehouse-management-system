@@ -47,19 +47,12 @@
                 class="form-group"
             >
                 <template v-if="editable">
-                    <label>Distribution Period:</label>
-
-                    <div class="input-group date">
-                        <div class="input-group-addon">
-                            <i class="fa fa-calendar" />
-                        </div>
-                        <input
-                            v-model="order.distributionPeriod"
-                            v-datepicker="{format: 'YYYY-MM-DD', tz:'Etc/UTC'}"
-                            type="text"
-                            class="form-control pull-right"
-                        >
-                    </div>
+                    <datefield
+                        v-model="order.distributionPeriod"
+                        format="YYYY-MM"
+                        timezone="Etc/UTC"
+                        label="Distribution Period:"
+                    />
                 </template>
 
                 <template v-else>
