@@ -10,6 +10,7 @@ use App\Entity\ValueObjects\Name;
 use App\Transformers\UserTransformer;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -36,6 +37,22 @@ class UserController extends BaseController
 
         return $this->serialize($request, $users);
     }
+
+    /**
+     * Get a list of Users by partner
+     *
+     * @Route(path="/partner/{partnerId<\d+>}", methods={"GET"})
+     */
+    public function partnerIndex(Request $request, string $partnerId) : JsonResponse
+    {
+        $partner = $this->getRepository(Partner::class)->find($partnerId);
+        $users = $this->getRepository()->findByPartner($partner);
+
+//        $this->checkViewPermissions($users);
+
+        return $this->serialize($request, $users);
+    }
+
 
     /**
      * Get a single User
@@ -152,6 +169,29 @@ class UserController extends BaseController
         $this->getEm()->flush();
 
         return $this->success(sprintf('User "%s" deleted.', $user->getUsername()));
+    }
+
+    /**
+     * Set the user's active partner
+     *
+     * @Route(path="/active-partner", methods={"POST"})
+     */
+    public function setActivePartner(Request $request, SessionInterface $session)
+    {
+        $params = $this->getParams($request);
+        $partnerId = (int) $params['active_partner'];
+        $partner = $this->getRepository(Partner::class)->find($partnerId);
+        /** @var User $user */
+        $user = $this->getUser();
+
+        if (!$user->isAssignedToPartner($partner)) {
+            return $this->meta(false, "Invalid partner for this user");
+        }
+
+        $user->setActivePartner($partner);
+        $this->getEm()->flush();
+
+        return $this->meta(true, sprintf("Changed active partner to %s", $partner->getTitle()));
     }
 
     protected function getDefaultTransformer()

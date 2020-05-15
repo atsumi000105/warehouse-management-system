@@ -17,6 +17,9 @@ class BulkDistribution extends Order
 {
     const STATUS_PENDING = "PENDING";
 
+    const ROLE_VIEW = "ROLE_DISTRIBUTION_ORDER_VIEW";
+    const ROLE_EDIT = "ROLE_DISTRIBUTION_ORDER_EDIT";
+
     /**
      * @var Partner $partner
      *

@@ -64,9 +64,9 @@
                     v-model="partner.profile.attributes"
                     class="tab-pane"
                 />
-                <PartnerUserList
+                <PartnerUserListTab
                     id="user_tab"
-                    v-model="partner.users"
+                    :partner="partner"
                     class="tab-pane"
                 />
             </div>
@@ -94,9 +94,11 @@
     import PartnerLocationEditTab from './PartnerLocationEditTab';
     import PartnerProfileEditTab from './PartnerProfileEditTab';
     import AttributesEditForm from "../../components/AttributesEditForm";
+    import PartnerUserListTab from "./PartnerUserListTab";
 
     export default {
         components: {
+            PartnerUserListTab,
             AttributesEditForm,
             PartnerLocationEditTab,
             'modal' : Modal

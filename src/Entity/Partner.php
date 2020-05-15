@@ -89,7 +89,7 @@ class Partner extends StorageLocation
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="App\Entity\PartnerUser", mappedBy="partners")
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="partners")
      */
     protected $users;
 
@@ -202,5 +202,10 @@ class Partner extends StorageLocation
     public function getClients(): Collection
     {
         return $this->clients;
+    }
+
+    public function getUsers(): Collection
+    {
+        return $this->users;
     }
 }
