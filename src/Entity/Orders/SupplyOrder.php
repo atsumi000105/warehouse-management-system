@@ -21,6 +21,9 @@ class SupplyOrder extends Order
     const STATUS_ORDERED = "ORDERED";
     const STATUS_RECEIVED = "RECEIVED";
 
+    const ROLE_VIEW = "ROLE_SUPPLY_ORDER_VIEW";
+    const ROLE_EDIT = "ROLE_SUPPLY_ORDER_EDIT";
+
     /**
      * @var Supplier $supplier
      *

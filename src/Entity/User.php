@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\ValueObjects\Name;
+use App\Exception\UserInterfaceException;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -11,12 +12,14 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\Table(name="users")
  */
 class User extends CoreEntity implements UserInterface
 {
     public const ROLE_VIEW = 'ROLE_USER_VIEW';
     public const ROLE_EDIT = 'ROLE_USER_EDIT';
+    public const ROLE_ADMIN = 'ROLE_ADMIN';
 
     /**
      * @ORM\Id()
@@ -40,7 +43,7 @@ class User extends CoreEntity implements UserInterface
     protected $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Group", inversedBy="users")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Group", inversedBy="users")
      *
      * @var Group[]|Collection
      */
@@ -57,9 +60,25 @@ class User extends CoreEntity implements UserInterface
      */
     private $plainTextPassword;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Partner", inversedBy="users")
+     *
+     * @var ArrayCollection|Partner[]
+     */
+    protected $partners;
+
+    /**
+     * @var Partner
+     *
+     * @ORM\ManyToOne(targetEntity="App\Entity\Partner")
+     */
+    protected $activePartner;
+
     public function __construct($email)
     {
         $this->email = $email;
+        $this->groups = new ArrayCollection();
+        $this->partners = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -181,6 +200,54 @@ class User extends CoreEntity implements UserInterface
         $this->password = null;
 
         return $this;
+    }
+
+    public function getPartners(): ?array
+    {
+        return $this->partners->getValues();
+    }
+
+    public function setPartners(array $partners): self
+    {
+        $this->partners = new ArrayCollection($partners);
+
+        return $this;
+    }
+
+    public function isAssignedToPartner(Partner $partner)
+    {
+        foreach ($this->partners as $p) {
+            if ($p->getId() === $partner->getId()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public function getActivePartner(): ?Partner
+    {
+        if (!$this->activePartner) {
+            if ($this->isAdmin()) return null;
+
+            $this->activePartner = $this->partners->first();
+        }
+
+        return $this->activePartner ?: null;
+    }
+
+    public function setActivePartner(?Partner $activePartner): void
+    {
+        if (!$this->isAssignedToPartner($activePartner)) {
+            throw new UserInterfaceException('User is not assigned to that partner.');
+        }
+
+        $this->activePartner = $activePartner;
+    }
+
+    public function isAdmin()
+    {
+        return in_array(self::ROLE_ADMIN, $this->getRoles());
     }
 
     /**

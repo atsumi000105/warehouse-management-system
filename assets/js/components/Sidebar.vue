@@ -29,6 +29,7 @@
                 >
                     <li
                         v-for="link in menu.links"
+                        v-if="hasAccess(link.route)"
                         :key="link.id"
                     >
                         <router-link :to="link.route">
@@ -46,6 +47,8 @@
 </template>
 
 <script>
+    import store from "../store";
+
     export default {
         props:[],
         data() {
@@ -111,6 +114,19 @@
                         ]
                     },
                 ]
+            }
+        },
+        methods: {
+            hasAccess(linkRoute) {
+                if (!linkRoute) return true;
+                let self = this;
+                let resolved = this.$router.resolve({name: linkRoute.name});
+                let route = resolved.route;
+                if (route?.meta?.roles) {
+                    let hasRoles = route.meta.roles.filter((role) => self.$store.getters.userHasRole(role));
+                    return hasRoles.length > 0;
+                }
+                return true;
             }
         },
         mounted() {

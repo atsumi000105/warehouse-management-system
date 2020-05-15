@@ -91,6 +91,22 @@ abstract class BaseController extends AbstractController
     }
 
     /**
+     * Metadata only response with message
+     *
+     * @return JsonResponse
+     */
+    protected function meta(bool $success = true, ?string $message = null)
+    {
+        $meta = ['success' => $success];
+
+        if ($message) {
+            $meta['message'] = $message;
+        }
+
+        return new JsonResponse($meta);
+    }
+
+    /**
      * Gets the parameters from the request including any json in the content
      *
      * @param Request $request

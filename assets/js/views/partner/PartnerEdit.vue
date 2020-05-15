@@ -46,6 +46,12 @@
                         data-toggle="tab"
                     >Profile</a>
                 </li>
+                <li>
+                    <a
+                        href="#user_tab"
+                        data-toggle="tab"
+                    >Users</a>
+                </li>
             </ul>
             <div class="tab-content">
                 <PartnerLocationEditTab
@@ -56,6 +62,11 @@
                 <AttributesEditForm
                     id="profile_tab"
                     v-model="partner.profile.attributes"
+                    class="tab-pane"
+                />
+                <PartnerUserListTab
+                    id="user_tab"
+                    :partner="partner"
                     class="tab-pane"
                 />
             </div>
@@ -83,9 +94,11 @@
     import PartnerLocationEditTab from './PartnerLocationEditTab';
     import PartnerProfileEditTab from './PartnerProfileEditTab';
     import AttributesEditForm from "../../components/AttributesEditForm";
+    import PartnerUserListTab from "./PartnerUserListTab";
 
     export default {
         components: {
+            PartnerUserListTab,
             AttributesEditForm,
             PartnerLocationEditTab,
             'modal' : Modal
@@ -109,6 +122,7 @@
                     fulfillmentPeriod: {},
                     distributionMethod: { },
                     profile: {},
+                    users: [],
                 }
             };
         },

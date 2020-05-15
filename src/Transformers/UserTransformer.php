@@ -9,6 +9,8 @@ class UserTransformer extends TransformerAbstract
 {
     protected $availableIncludes = [
         'groups',
+        'partners',
+        'activePartner'
     ];
 
     public function transform(User $user)
@@ -27,5 +29,17 @@ class UserTransformer extends TransformerAbstract
     public function includeGroups(User $user)
     {
         return $this->collection($user->getGroups(), new GroupTransformer());
+    }
+
+    public function includePartners(User $user)
+    {
+        return $this->collection($user->getPartners(), new PartnerTransformer());
+    }
+
+    public function includeActivePartner(User $user)
+    {
+        if (!$user->getActivePartner()) return null;
+
+        return $this->item($user->getActivePartner(), new PartnerTransformer());
     }
 }

@@ -9,6 +9,14 @@ use League\Fractal\TransformerAbstract;
 
 class PartnerTransformer extends StorageLocationTransformer
 {
+    public function getAvailableIncludes()
+    {
+        $availableIncludes = parent::getAvailableIncludes();
+        $availableIncludes[] = 'users';
+
+        return $availableIncludes;
+    }
+
     public function getDefaultIncludes()
     {
         $defaultIncludes = parent::getDefaultIncludes();
@@ -51,5 +59,10 @@ class PartnerTransformer extends StorageLocationTransformer
     public function includeProfile(Partner $partner)
     {
         return $this->item($partner->getProfile(), new PartnerProfileTransformer());
+    }
+
+    public function includeUsers(Partner $partner)
+    {
+        return $this->collection($partner->getUsers(), new PartnerUserTransformer());
     }
 }
