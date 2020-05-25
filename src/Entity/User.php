@@ -20,6 +20,7 @@ class User extends CoreEntity implements UserInterface
     public const ROLE_VIEW = 'ROLE_USER_VIEW';
     public const ROLE_EDIT = 'ROLE_USER_EDIT';
     public const ROLE_ADMIN = 'ROLE_ADMIN';
+    public const ROLE_USER = 'ROLE_USER';
 
     /**
      * @ORM\Id()
@@ -160,9 +161,14 @@ class User extends CoreEntity implements UserInterface
         }
 
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        $roles[] = self::ROLE_USER;
 
         return array_unique($roles);
+    }
+
+    public function hasRole(string $role): bool
+    {
+        return in_array($role, $this->getRoles());
     }
 
     /**

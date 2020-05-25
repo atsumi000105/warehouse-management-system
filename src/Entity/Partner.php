@@ -25,8 +25,8 @@ class Partner extends StorageLocation
     ];
 
     const ROLE_VIEW_ALL = 'ROLE_PARTNER_VIEW_ALL';
-    const ROLE_VIEW_SELF = 'ROLE_PARTNER_VIEW_SELF';
-    const ROLE_EDIT = 'ROLE_PARTNER_EDIT';
+    const ROLE_EDIT_ALL = 'ROLE_PARTNER_EDIT_ALL';
+    const ROLE_MANAGE_OWN = 'ROLE_PARTNER_MANAGE_OWN';
 
     /**
      * @var string

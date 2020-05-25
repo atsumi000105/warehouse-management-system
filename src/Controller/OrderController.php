@@ -6,6 +6,7 @@ use App\Entity\LineItem;
 use App\Entity\Order;
 use App\Entity\Product;
 use App\Exception\CommittedTransactionException;
+use App\Security\PartnerOrderVoter;
 use App\Transformers\OrderTransformer;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\ParameterBag;
@@ -72,13 +73,12 @@ class OrderController extends BaseController
      * Get a single Order
      *
      * @Route(path="/{id<\d+>}", methods={"GET"})
-     *
-     * @param $id
-     * @return array
      */
     public function show(Request $request, $id)
     {
         $order = $this->getOrder($id);
+
+        $this->denyAccessUnlessGranted(PartnerOrderVoter::VIEW, $order);
 
         return $this->serialize($request, $order);
     }
