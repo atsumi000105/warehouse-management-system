@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Workflow\Registry;
+use Symfony\Component\Workflow\Transition;
 
 /**
  * Class PartnerController
@@ -21,7 +23,13 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class PartnerController extends StorageLocationController
 {
+    protected $workflowRegistry;
     protected $defaultEntityName = Partner::class;
+
+    public function __construct(Registry $workflowRegistry)
+    {
+        $this->workflowRegistry = $workflowRegistry;
+    }
 
     /**
      * @Route("/", methods={"GET"})
@@ -69,8 +77,11 @@ class PartnerController extends StorageLocationController
     public function show(Request $request, int $id): JsonResponse
     {
         $partner = $this->getPartnerById($id);
+        $meta = [
+            'enabledTransitions' => $this->getEnabledTransitions($partner),
+        ];
 
-        return $this->serialize($request, $partner);
+        return $this->serialize($request, $partner, null, $meta);
     }
 
     /**
@@ -113,6 +124,31 @@ class PartnerController extends StorageLocationController
         return $this->serialize($request, $partner->getClients()->getValues(), new ClientTransformer);
     }
 
+
+    /**
+     * @Route("/{id<\d+>}/transition", methods={"PATCH"})
+     */
+    public function transition(Request $request, int $id): JsonResponse
+    {
+        $partner = $this->getPartnerById($id);
+
+        $params = $this->getParams($request);
+
+        if ($params['transition']) {
+            $this->workflowRegistry
+                ->get($partner)
+                ->apply($partner, $params['transition']);
+
+            $this->getEm()->flush();
+        }
+
+        $meta = [
+            'enabledTransitions' => $this->getEnabledTransitions($partner),
+        ];
+
+        return $this->serialize($request, $partner, null, $meta);
+    }
+
     protected function getDefaultTransformer()
     {
         return new PartnerTransformer;
@@ -128,5 +164,16 @@ class PartnerController extends StorageLocationController
         }
 
         return $partner;
+    }
+
+    protected function getEnabledTransitions(Partner $partner): array
+    {
+        $enabledTransitions = $this->workflowRegistry
+            ->get($partner)
+            ->getEnabledTransitions($partner);
+
+        return array_map(function (Transition $transition) {
+            return $transition->getName();
+        }, $enabledTransitions);
     }
 }

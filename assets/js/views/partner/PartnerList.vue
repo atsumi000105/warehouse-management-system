@@ -61,7 +61,7 @@
                                     </td>
                                     <td v-text="partner.title" />
                                     <td v-text="partner.partnerType" />
-                                    <td v-text="partner.status" />
+                                    <td>{{ partner.status | orderStatusFormat }}</td>
                                     <td v-text="partner.fulfillmentPeriod.name" />
                                     <td v-text="partner.distributionMethod ? partner.distributionMethod.name : null" />
                                     <td>{{ partner.updatedAt | dateTimeFormat }}</td>

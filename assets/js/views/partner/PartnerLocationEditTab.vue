@@ -50,15 +50,25 @@
                         </div>
                         <div class="form-group">
                             <label>Status</label>
-                            <select
+                            <input
                                 v-model="value.status"
+                                type="text"
+                                class="form-control"
+                                readonly
+                            >
+                        </div>
+                        <div class="form-group">
+                            <label>Action</label>
+                            <select
+                                v-model="partner.transition"
                                 class="form-control"
                             >
-                                <option value="ACTIVE">
-                                    Active
-                                </option>
-                                <option value="INACTIVE">
-                                    Inactive
+                                <option
+                                    v-for="option in value.workflow.enabledTransitions"
+                                    :key="option"
+                                    :value="option"
+                                >
+                                    {{ option }}
                                 </option>
                             </select>
                         </div>
@@ -179,7 +189,7 @@
                     address: {},
                     contacts: [],
                     fulfillmentPeriod: {},
-                    distributionMethod: { },
+                    distributionMethod: {},
                 }
             }}
         },
@@ -189,7 +199,8 @@
                     address: {},
                     contacts: [],
                     fulfillmentPeriod: {},
-                    distributionMethod: { },
+                    distributionMethod: {},
+                    transition: '',
                 }
             };
         },

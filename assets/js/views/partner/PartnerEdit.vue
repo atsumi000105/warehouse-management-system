@@ -1,6 +1,25 @@
 <template>
     <section class="content">
         <div class="pull-right">
+            <label>Action</label>
+            <select
+                v-model="transition"
+                class="form-control"
+            >
+                <option
+                    v-for="option in partner.workflow.enabledTransitions"
+                    :key="option"
+                    :value="option"
+                >
+                    {{ option | orderStatusFormat }}
+                </option>
+            </select>
+            <button
+                class="btn btn-success btn-flat"
+                @click.prevent="doTransition"
+            >
+                Do Transition
+            </button>
             <button
                 class="btn btn-success btn-flat"
                 @click.prevent="save"
@@ -81,7 +100,6 @@
     import Modal from '../../components/Modal.vue';
 
     import PartnerLocationEditTab from './PartnerLocationEditTab';
-    import PartnerProfileEditTab from './PartnerProfileEditTab';
     import AttributesEditForm from "../../components/AttributesEditForm";
 
     export default {
@@ -107,9 +125,11 @@
                     address: {},
                     contacts: [],
                     fulfillmentPeriod: {},
-                    distributionMethod: { },
+                    distributionMethod: {},
                     profile: {},
-                }
+                    workflow: {},
+                },
+                transition: ''
             };
         },
         created() {
@@ -120,9 +140,11 @@
                 axios
                     .get('/api/partners/' + this.$route.params.id, {
                         params: { include: ['profile.attributes.options']}
-                    }).then(response => self.partner = response.data.data);
+                    }).then(response => {
+                        self.partner = response.data.data;
+                        self.partner.workflow = response.data.meta;
+                    });
             }
-            console.log('Component mounted.')
         },
         methods: {
             save: function () {
@@ -142,6 +164,14 @@
                             console.log(error);
                         });
                 }
+            },
+            doTransition: function() {
+                let self = this;
+                axios.patch('/api/partners/' + this.$route.params.id + '/transition', {'transition': this.transition})
+                    .then(response => {
+                        self.partner = response.data.data;
+                        self.partner.workflow = response.data.meta;
+                });
             },
             askDelete: function() {
                 $('#confirmModal').modal('show');

@@ -6,6 +6,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Workflow\Exception\LogicException;
+use Symfony\Component\Workflow\Registry;
 
 /**
  * Class Partner
@@ -34,6 +36,16 @@ class Partner extends StorageLocation
     public const STATUS_APPLICATION_PENDING_PRIORITY = 'APPLICATION_PENDING_PRIORITY';
     public const STATUS_NEEDS_PROFILE_REVIEW = 'NEEDS_PROFILE_REVIEW';
     public const STATUS_REVIEW_PAST_DUE = 'REVIEW_PAST_DUE';
+
+    public const STATUSES = [
+        self::STATUS_START,
+        self::STATUS_APPLICATION_PENDING,
+        self::STATUS_APPLICATION_PENDING_PRIORITY,
+        self::STATUS_ACTIVE,
+        self::STATUS_NEEDS_PROFILE_REVIEW,
+        self::STATUS_REVIEW_PAST_DUE,
+        self::STATUS_INACTIVE,
+    ];
 
     /**
      * @var string
@@ -93,11 +105,15 @@ class Partner extends StorageLocation
      */
     protected $clients;
 
-    public function __construct($title)
+    /** @var Registry */
+    protected $workflowRegistry;
+
+    public function __construct($title, Registry $workflowRegistry)
     {
         parent::__construct($title);
 
         $this->status = self::STATUS_START;
+        $this->workflowRegistry = $workflowRegistry;
         $this->clients = new ArrayCollection();
     }
 
@@ -179,9 +195,9 @@ class Partner extends StorageLocation
             unset($changes['partnerType']);
         }
 
-        if (isset($changes['status'])) {
-            $this->setStatus($changes['status']);
-            unset($changes['status']);
+        if (isset($changes['transition'])) {
+            $this->applyTransition($changes['transition']);
+            unset($changes['transition']);
         }
 
         $this->setUpdatedAt(new \DateTime());
@@ -204,11 +220,19 @@ class Partner extends StorageLocation
         return $this->clients;
     }
 
-    /**
-     * Overridden because the status is controlled by the workflow
-     */
-    public function setStatus(string $status): void
+    public function getStatus(): string
     {
-        $this->status = $status;
+        return strtolower(parent::getStatus());
+    }
+
+    public function applyTransition(string $transition)
+    {
+        $stateMachine = $this->workflowRegistry->get($this);
+        try {
+            $stateMachine->apply($this, $transition);
+        } catch (LogicException $ex) {
+            // TODO log this instead
+            throw new \Exception(sprintf('%s is not a valid transition at this time. Exception thrown: %s', $transition, $ex->getMessage()));
+        }
     }
 }
