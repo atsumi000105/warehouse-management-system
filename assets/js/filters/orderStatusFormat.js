@@ -1,5 +1,9 @@
 module.exports = function (status) {
     if (status == null) return null;
-    status = status.replace('_',' ').toLowerCase();
-    return status.charAt(0).toUpperCase() + status.slice(1);
+
+    return status
+        .toLowerCase()
+        .split('_')
+        .map(upperStatus => upperStatus.charAt(0).toUpperCase() + upperStatus.slice(1))
+        .join(' ');
 };
