@@ -209,25 +209,5 @@
                 this.value.contacts.push({ isDeleted: false });
             }
         },
-        methods: {
-            save: function () {
-                var self = this;
-                if (this.new) {
-                    axios
-                        .post('/api/partners', this.partner)
-                        .then(response => self.$router.push('/partners'))
-                        .catch(function (error) {
-                            console.log(error);
-                        });
-                } else {
-                    axios
-                        .patch('/api/partners/' + this.$route.params.id, this.partner)
-                        .then(response => self.$router.push('/partners'))
-                        .catch(function (error) {
-                            console.log(error);
-                        });
-                }
-            },
-        }
     }
 </script>
