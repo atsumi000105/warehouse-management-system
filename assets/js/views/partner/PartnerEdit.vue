@@ -1,25 +1,27 @@
 <template>
     <section class="content">
         <div class="pull-right">
-            <label>Action</label>
-            <select
-                v-model="transition"
-                class="form-control"
-            >
-                <option
-                    v-for="option in partner.workflow.enabledTransitions"
-                    :key="option"
-                    :value="option"
+            <div class="btn-group">
+                <button
+                    class="btn btn-info btn-flat dropdown-toggle"
+                    data-toggle="dropdown"
                 >
-                    {{ option | orderStatusFormat }}
-                </option>
-            </select>
-            <button
-                class="btn btn-success btn-flat"
-                @click.prevent="doTransition"
-            >
-                Do Transition
-            </button>
+                    <i class="fa  fa-info-circle" />{{ partner.status | orderStatusFormat }}
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li
+                        v-for="enabledTransition in partner.workflow.enabledTransitions"
+                        :key="enabledTransition"
+                        :value="enabledTransition"
+                    >
+                        <a
+                            @click.prevent="doTransition(enabledTransition)"
+                        >
+                            <i class="fa fa-arrow-circle-right" />{{ enabledTransition | orderStatusFormat }}
+                        </a>
+                    </li>
+                </ul>
+            </div>
             <button
                 class="btn btn-success btn-flat"
                 @click.prevent="save"
@@ -165,9 +167,9 @@
                         });
                 }
             },
-            doTransition: function() {
+            doTransition: function(transition) {
                 let self = this;
-                axios.patch('/api/partners/' + this.$route.params.id + '/transition', {'transition': this.transition})
+                axios.patch('/api/partners/' + this.$route.params.id + '/transition', {'transition': transition})
                     .then(response => {
                         self.partner = response.data.data;
                         self.partner.workflow = response.data.meta;
