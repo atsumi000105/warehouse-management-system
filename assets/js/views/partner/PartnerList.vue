@@ -78,9 +78,9 @@
 </template>
 
 <script>
-import PulseLoader from "vue-spinner/src/PulseLoader";
+    import PulseLoader from "vue-spinner/src/PulseLoader";
 
-export default {
+    export default {
         components: {
             PulseLoader,
         },
