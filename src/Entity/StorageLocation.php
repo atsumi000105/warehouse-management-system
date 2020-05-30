@@ -142,7 +142,7 @@ abstract class StorageLocation extends CoreEntity
         if (!in_array($status, static::STATUSES)) {
             throw new \Exception(sprintf('%s is not a valid Status', $status));
         }
-        $this->status = strtoupper($status);
+        $this->status = $status;
     }
 
     /**
