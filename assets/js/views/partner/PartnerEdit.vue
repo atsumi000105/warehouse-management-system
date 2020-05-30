@@ -6,7 +6,7 @@
                     class="btn btn-info btn-flat dropdown-toggle"
                     data-toggle="dropdown"
                 >
-                    <i class="fa  fa-info-circle" />{{ partner.status | orderStatusFormat }}
+                    <i class="fa fa-info-circle" /> {{ partner.status | orderStatusFormat }}
                 </button>
                 <ul class="dropdown-menu dropdown-menu-right">
                     <li
