@@ -92,11 +92,11 @@
 </template>
 
 <script>
-import FieldError from '../components/FieldError.vue';
-import DateField from '../components/DateField.vue';
-import OptionListStatic from '../components/OptionListStatic.vue';
+    import FieldError from '../components/FieldError.vue';
+    import DateField from '../components/DateField.vue';
+    import OptionListStatic from '../components/OptionListStatic.vue';
 
-export default {
+    export default {
         components: {
             'fielderror': FieldError,
             'datefield': DateField,
