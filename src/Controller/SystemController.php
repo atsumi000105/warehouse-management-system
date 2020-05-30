@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\EAV\Definition;
 use App\Entity\Setting;
+use App\Transformers\UserTransformer;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -77,6 +78,15 @@ class SystemController extends BaseController
         $this->getEm()->flush();
 
         return new JsonResponse(['data' => $this->getSettings()]);
+    }
+
+    /**
+     * @Route(path="/current-user", methods={"GET"})
+     * @return JsonResponse
+     */
+    public function getLoggedInUser(Request $request)
+    {
+        return $this->serialize($request, $this->getUser(), new UserTransformer);
     }
 
     private function getSettings()

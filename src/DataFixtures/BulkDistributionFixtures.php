@@ -27,6 +27,7 @@ class BulkDistributionFixtures extends BaseFixture implements DependentFixtureIn
     public function loadData(ObjectManager $manager)
     {
         $partners = $manager->getRepository(Partner::class)->findAll();
+        /** @var Product[] $products */
         $products = $manager->getRepository(Product::class)->findByPartnerOrderable();
 
         // Number of distributions to make for each partner
@@ -57,10 +58,11 @@ class BulkDistributionFixtures extends BaseFixture implements DependentFixtureIn
                 $order->setDistributionPeriod($period);
 
                 foreach ($clients as $client) {
+                    /** @var Product $product */
                     $product = $this->faker->randomElement($products);
                     $lineItem = new BulkDistributionLineItem(
                         $product,
-                        $this->faker->numberBetween(1, 2) * $product->getSmallestPackSize()
+                        $product->getAgencyMaxPacks() * $product->getAgencyPackSize()
                     );
                     $lineItem->setClient($client);
                     $order->addLineItem($lineItem);

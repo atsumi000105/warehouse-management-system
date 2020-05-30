@@ -81,6 +81,7 @@ class ProductFixtures extends BaseFixture implements DependentFixtureInterface
     {
         $training_pants = new Product($name, $this->getReference('product_category_training_pants'));
         $training_pants->setAgencyPackSize(30);
+        $training_pants->setAgencyMaxPacks(1);
         $training_pants->setAgencyPacksPerBag(8);
         $training_pants->setDefaultCost(0.13);
         $training_pants->setRetailPrice(0.37);

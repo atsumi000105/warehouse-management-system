@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Partner;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -17,5 +18,14 @@ class UserRepository extends ServiceEntityRepository
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, User::class);
+    }
+
+    public function findByPartner(Partner $partner)
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere(':partner MEMBER OF u.partners')
+            ->setParameter('partner', $partner)
+            ->getQuery()
+            ->getResult();
     }
 }

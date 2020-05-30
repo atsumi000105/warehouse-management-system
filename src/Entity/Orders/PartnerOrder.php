@@ -21,6 +21,9 @@ class PartnerOrder extends Order
     const STATUS_PENDING = "PENDING";
     const STATUS_SHIPPED = "SHIPPED";
 
+    const ROLE_VIEW = "ROLE_PARTNER_ORDER_VIEW";
+    const ROLE_EDIT = "ROLE_PARTNER_ORDER_EDIT";
+
     /**
      * @var Partner $partner
      *

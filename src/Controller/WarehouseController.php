@@ -24,6 +24,8 @@ class WarehouseController extends StorageLocationController
      */
     public function index(Request $request): JsonResponse
     {
+        $this->denyAccessUnlessGranted(Warehouse::ROLE_VIEW);
+
         $partners = $this->getRepository(Warehouse::class)->findAll();
 
         return $this->serialize($request, $partners);
@@ -35,6 +37,8 @@ class WarehouseController extends StorageLocationController
      */
     public function show(Request $request, int $id): JsonResponse
     {
+        $this->denyAccessUnlessGranted(Warehouse::ROLE_VIEW);
+
         $partner = $this->getWarehouseById($id);
 
         return $this->serialize($request, $partner);
