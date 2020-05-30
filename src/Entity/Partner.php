@@ -220,11 +220,6 @@ class Partner extends StorageLocation
         return $this->clients;
     }
 
-    public function getStatus(): string
-    {
-        return strtolower(parent::getStatus());
-    }
-
     public function applyTransition(string $transition)
     {
         $stateMachine = $this->workflowRegistry->get($this);
