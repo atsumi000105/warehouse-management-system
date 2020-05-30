@@ -44,7 +44,7 @@ class Client extends CoreEntity
     /**
      * @var Partner
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Partner")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Partner", inversedBy="clients")
      * @Gedmo\Versioned
      */
     protected $partner;

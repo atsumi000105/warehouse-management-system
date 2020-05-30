@@ -13,6 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class AdjustmentOrder extends Order
 {
+    const ROLE_VIEW = "ROLE_ADJUSTMENT_ORDER_VIEW";
+    const ROLE_EDIT = "ROLE_ADJUSTMENT_ORDER_EDIT";
+
     /**
      * @var StorageLocation $storageLocation
      *

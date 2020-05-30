@@ -94,15 +94,51 @@
                                     :key="sysGroup.id"
                                 >
                                     <input
-                                        :id="sysGroup.id"
+                                        :id="'group-'+sysGroup.id"
                                         v-model="user.groups"
                                         type="checkbox"
                                         name="group[]"
                                         :value="sysGroup"
                                     >
-                                    <label :for="sysGroup.id">{{ sysGroup.name }}</label>
+                                    <label :for="'group-'+sysGroup.id">{{ sysGroup.name }}</label>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-6">
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">
+                                <i class="icon fa fa-shopping-cart fa-fw" />Partner
+                            </h3>
+                            <PartnerSelectionForm
+                                v-model="selectedPartner"
+                                label="Partner Assignments"
+                            />
+                            <button
+                                class="btn btn-success btn-flat"
+                                :disabled="!selectedPartner.id"
+                                @click="onPartnerAddClick"
+                            >
+                                Add Partner<i class="fa fa-fw fa-plus-circle" />
+                            </button>
+                            <table class="table table-hover">
+                                <tr v-for="partner in user.partners" :key="partner.id">
+                                    <td v-text="partner.title" />
+                                    <td>
+                                        <button
+                                            class="btn btn-success btn-flat"
+                                            @click="onPartnerRemoveClick(partner.id)"
+                                        >
+                                            <i class="fa fa-fw fa-trash"/>
+                                        </button>
+
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -127,9 +163,16 @@
 
 <script>
     import Modal from '../../components/Modal.vue';
+    import OptionListEntity from "../../components/OptionListEntity";
+    import { mapGetters, mapActions } from 'vuex';
+    import PartnerField from "../../components/PartnerField";
+    import PartnerSelectionForm from "../../components/PartnerSelectionForm";
 
     export default {
         components: {
+            PartnerSelectionForm,
+            PartnerField,
+            OptionListEntity,
             'modal' : Modal
         },
         props: ['new'],
@@ -137,19 +180,28 @@
             return {
                 user: {
                     name: {},
-                    groups: []
+                    groups: [],
+                    partners: []
                 },
                 sysGroups: {},
+                sysPartners: {},
+                selectedPartner: { id: 0 },
             };
+        },
+        computed: {
+            ...mapGetters([
+                'allActivePartners',
+            ]),
         },
         created() {
             let self = this;
 
             if (!this.new) {
                 axios
-                    .get('/api/users/' + this.$route.params.id, { params: {include: ['groups'] }})
+                    .get('/api/users/' + this.$route.params.id, { params: {include: ['groups', 'partners'] }})
                     .then(response => {
                         self.user = response.data.data;
+                        console.log('user', response.data.data);
                     })
                     .catch(error => console.log("Error receiving users %o", error));
             }
@@ -160,6 +212,8 @@
                     self.sysGroups = response.data.data;
                 })
                 .catch(error => console.log("Error receiving groups %o", error));
+
+            this.$store.dispatch('loadStorageLocations');
 
             console.log('UserEdit Component mounted.');
         },
@@ -190,6 +244,13 @@
                 axios
                     .delete('/api/users/' + this.$route.params.id)
                     .then(self.$router.push({ name: 'admin-users' }));
+            },
+            onPartnerAddClick: function() {
+                this.user.partners.push(this.$store.getters.getStorageLocationById(this.selectedPartner.id));
+                // this.user.partners = values;
+            },
+            onPartnerRemoveClick: function(partnerId) {
+                this.user.partners = this.user.partners.filter((partner) => partner.id !== partnerId);
             }
         }
     }

@@ -2,6 +2,12 @@
 
 namespace App\Entity;
 
+use App\Entity\Orders\AdjustmentOrder;
+use App\Entity\Orders\BulkDistribution;
+use App\Entity\Orders\MerchandiseOrder;
+use App\Entity\Orders\PartnerOrder;
+use App\Entity\Orders\SupplyOrder;
+use App\Entity\Orders\TransferOrder;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -34,6 +40,24 @@ class Group extends CoreEntity
 
         User::ROLE_VIEW,
         User::ROLE_EDIT,
+
+        PartnerOrder::ROLE_EDIT,
+        PartnerOrder::ROLE_VIEW,
+
+        SupplyOrder::ROLE_EDIT,
+        SupplyOrder::ROLE_VIEW,
+
+        BulkDistribution::ROLE_VIEW,
+        BulkDistribution::ROLE_EDIT,
+
+        MerchandiseOrder::ROLE_EDIT,
+        MerchandiseOrder::ROLE_VIEW,
+
+        TransferOrder::ROLE_VIEW,
+        TransferOrder::ROLE_EDIT,
+
+        AdjustmentOrder::ROLE_EDIT,
+        AdjustmentOrder::ROLE_VIEW,
     ];
 
     /**
@@ -60,7 +84,7 @@ class Group extends CoreEntity
     protected $users;
 
     /**
-     * @ORM\Column(type="json_array")
+     * @ORM\Column(type="json")
      * @Assert\NotBlank
      *
      * @var array

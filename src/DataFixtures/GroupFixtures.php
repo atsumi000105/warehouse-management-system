@@ -38,6 +38,14 @@ class GroupFixtures extends BaseFixture
         $em->persist($volunteer);
         $this->setReference('group_volunteer', $volunteer);
 
+        $partner = new Group();
+        $partner->setName('Partner');
+        $partner->setRoles([
+            Order::ROLE_VIEW_OWN,
+        ]);
+        $em->persist($partner);
+        $this->setReference('group_partner', $partner);
+
         $em->flush();
     }
 }

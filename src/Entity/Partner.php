@@ -105,6 +105,13 @@ class Partner extends StorageLocation
      */
     protected $clients;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="partners")
+     */
+    protected $users;
+
     /** @var Registry */
     protected $workflowRegistry;
 
@@ -112,9 +119,10 @@ class Partner extends StorageLocation
     {
         parent::__construct($title);
 
+        $this->clients = new ArrayCollection();
+        $this->users = new ArrayCollection();
         $this->status = self::STATUS_START;
         $this->workflowRegistry = $workflowRegistry;
-        $this->clients = new ArrayCollection();
     }
 
     /**
@@ -218,6 +226,11 @@ class Partner extends StorageLocation
     public function getClients(): Collection
     {
         return $this->clients;
+    }
+
+    public function getUsers(): Collection
+    {
+        return $this->users;
     }
 
     public function applyTransition(string $transition)
