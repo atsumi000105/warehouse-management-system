@@ -10,7 +10,7 @@
                 </button>
                 <ul class="dropdown-menu dropdown-menu-right">
                     <li
-                        v-for="enabledTransition in partner.workflow.enabledTransitions"
+                        v-for="enabledTransition in partner.workflow.enabledTransitions.sort()"
                         :key="enabledTransition"
                         :value="enabledTransition"
                     >
