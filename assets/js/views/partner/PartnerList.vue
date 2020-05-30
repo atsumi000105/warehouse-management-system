@@ -61,7 +61,7 @@
                                     </td>
                                     <td v-text="partner.title" />
                                     <td v-text="partner.partnerType" />
-                                    <td>{{ partner.status | orderStatusFormat }}</td>
+                                    <td>{{ partner.status | statusFormat }}</td>
                                     <td v-text="partner.fulfillmentPeriod.name" />
                                     <td v-text="partner.distributionMethod ? partner.distributionMethod.name : null" />
                                     <td>{{ partner.updatedAt | dateTimeFormat }}</td>
@@ -78,9 +78,9 @@
 </template>
 
 <script>
-    import PulseLoader from "vue-spinner/src/PulseLoader";
+import PulseLoader from "vue-spinner/src/PulseLoader";
 
-    export default {
+export default {
         components: {
             PulseLoader,
         },

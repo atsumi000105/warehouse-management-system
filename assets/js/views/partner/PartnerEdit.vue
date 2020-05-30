@@ -6,7 +6,7 @@
                     class="btn btn-info btn-flat dropdown-toggle"
                     data-toggle="dropdown"
                 >
-                    <i class="fa fa-info-circle" /> {{ partner.status | orderStatusFormat }}
+                    <i class="fa fa-info-circle" /> {{ partner.status | statusFormat }}
                 </button>
                 <ul class="dropdown-menu dropdown-menu-right">
                     <li
@@ -17,7 +17,7 @@
                         <a
                             @click.prevent="doTransition(enabledTransition)"
                         >
-                            <i class="fa fa-arrow-circle-right" />{{ enabledTransition | orderStatusFormat }}
+                            <i class="fa fa-arrow-circle-right" />{{ enabledTransition | statusFormat }}
                         </a>
                     </li>
                 </ul>
@@ -99,12 +99,12 @@
 
 
 <script>
-    import Modal from '../../components/Modal.vue';
+import Modal from '../../components/Modal.vue';
 
-    import PartnerLocationEditTab from './PartnerLocationEditTab';
-    import AttributesEditForm from "../../components/AttributesEditForm";
+import PartnerLocationEditTab from './PartnerLocationEditTab';
+import AttributesEditForm from "../../components/AttributesEditForm";
 
-    export default {
+export default {
         components: {
             AttributesEditForm,
             PartnerLocationEditTab,

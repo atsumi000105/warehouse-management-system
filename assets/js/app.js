@@ -31,7 +31,7 @@ Vue.filter('dateTimeFormat', require('./filters/dateTimeFormat'));
 Vue.filter('dateTimeMonthFormat', require('./filters/dateTimeMonthFormat'));
 Vue.filter('numberFormat', require('./filters/numberFormat'));
 Vue.filter('currencyFormat', require('./filters/currencyFormat'));
-Vue.filter('orderStatusFormat', require('./filters/orderStatusFormat'));
+Vue.filter('statusFormat', require('./filters/statusFormat'));
 
 Vue.directive('chosen', {
     inserted: function(el, binding, vnode) {

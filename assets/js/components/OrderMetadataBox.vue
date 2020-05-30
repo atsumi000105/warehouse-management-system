@@ -20,7 +20,7 @@
 
                 <template v-else>
                     <strong>Status:</strong>
-                    <span>{{ order.status | orderStatusFormat }}</span>
+                    <span>{{ order.status | statusFormat }}</span>
                 </template>
             </div>
 
@@ -92,10 +92,11 @@
 </template>
 
 <script>
-    import FieldError from '../components/FieldError.vue';
-    import DateField from '../components/DateField.vue';
-    import OptionListStatic from '../components/OptionListStatic.vue';
-    export default {
+import FieldError from '../components/FieldError.vue';
+import DateField from '../components/DateField.vue';
+import OptionListStatic from '../components/OptionListStatic.vue';
+
+export default {
         components: {
             'fielderror': FieldError,
             'datefield': DateField,
