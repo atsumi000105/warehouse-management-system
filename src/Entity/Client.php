@@ -289,7 +289,7 @@ class Client extends CoreEntity
         $this->distributionExpiresAt = $firstMoment->addYears(3)->addMonths(1)->startOf('month');
     }
 
-    public function applyTransition(string $transition)
+    public function applyTransition(string $transition): void
     {
         $stateMachine = $this->workflowRegistry->get($this);
         try {

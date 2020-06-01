@@ -101,7 +101,7 @@ class ClientController extends BaseController
             $params['name']['lastName']
         );
 
-        $client = new Client();
+        $client = new Client($this->workflowRegistry);
         $client->setName($name);
 
         if ($params['partner']['id']) {
@@ -228,6 +228,10 @@ class ClientController extends BaseController
         return $client;
     }
 
+    /**
+     * @param Client $client
+     * @return String[]
+     */
     protected function getEnabledTransitions(Client $client): array
     {
         $enabledTransitions = $this->workflowRegistry
