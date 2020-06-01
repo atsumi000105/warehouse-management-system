@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Workflow\Registry;
+use Symfony\Component\Workflow\Transition;
 
 /**
  * @Route(path="/api/clients")
@@ -18,6 +20,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class ClientController extends BaseController
 {
     protected $defaultEntityName = Client::class;
+
+    /** @var Registry */
+    protected $workflowRegistry;
+
+    public function __construct(Registry $workflowRegistry)
+    {
+        $this->workflowRegistry = $workflowRegistry;
+    }
 
     /**
      * Get a list of Clients
@@ -68,10 +78,13 @@ class ClientController extends BaseController
     public function show(Request $request, string $uuid): JsonResponse
     {
         $client = $this->getClientById($uuid);
+        $meta = [
+            'enabledTransitions' => $this->getEnabledTransitions($client),
+        ];
 
 //        $this->checkViewPermissions($client);
 
-        return $this->serialize($request, $client);
+        return $this->serialize($request, $client, null, $meta);
     }
 
     /**
@@ -154,6 +167,30 @@ class ClientController extends BaseController
         return $this->success(sprintf('Client "%s" deleted.', $client->getName()));
     }
 
+    /**
+     * @Route("/{uuid}/transition", methods={"PATCH"})
+     */
+    public function transition(Request $request, string $uuid): JsonResponse
+    {
+        $client = $this->getClientById($uuid);
+
+        $params = $this->getParams($request);
+
+        if ($params['transition']) {
+            $this->workflowRegistry
+                ->get($client)
+                ->apply($client, $params['transition']);
+
+            $this->getEm()->flush();
+        }
+
+        $meta = [
+            'enabledTransitions' => $this->getEnabledTransitions($client),
+        ];
+
+        return $this->serialize($request, $client, null, $meta);
+    }
+
      /**
      * @param Request $request
      * @return ParameterBag
@@ -189,5 +226,16 @@ class ClientController extends BaseController
         }
 
         return $client;
+    }
+
+    protected function getEnabledTransitions(Client $client): array
+    {
+        $enabledTransitions = $this->workflowRegistry
+            ->get($client)
+            ->getEnabledTransitions($client);
+
+        return array_map(function (Transition $transition) {
+            return $transition->getName();
+        }, $enabledTransitions);
     }
 }
