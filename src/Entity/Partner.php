@@ -233,7 +233,7 @@ class Partner extends StorageLocation
         return $this->users;
     }
 
-    public function applyTransition(string $transition)
+    public function applyTransition(string $transition): void
     {
         $stateMachine = $this->workflowRegistry->get($this);
         try {

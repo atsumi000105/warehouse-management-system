@@ -48,7 +48,7 @@ class PartnerController extends StorageLocationController
     {
         $params = $this->getParams($request);
 
-        $partner = new Partner($params['title']);
+        $partner = new Partner($params['title'], $this->workflowRegistry);
         $partnerProfile = new PartnerProfile();
         $partner->setProfile($partnerProfile);
 
@@ -166,6 +166,10 @@ class PartnerController extends StorageLocationController
         return $partner;
     }
 
+    /**
+     * @param Partner $partner
+     * @return String[]
+     */
     protected function getEnabledTransitions(Partner $partner): array
     {
         $enabledTransitions = $this->workflowRegistry
