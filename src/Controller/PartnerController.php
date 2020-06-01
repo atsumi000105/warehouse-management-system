@@ -23,8 +23,10 @@ use Symfony\Component\Workflow\Transition;
  */
 class PartnerController extends StorageLocationController
 {
-    protected $workflowRegistry;
     protected $defaultEntityName = Partner::class;
+
+    /** @var Registry */
+    protected $workflowRegistry;
 
     public function __construct(Registry $workflowRegistry)
     {
@@ -123,7 +125,6 @@ class PartnerController extends StorageLocationController
 
         return $this->serialize($request, $partner->getClients()->getValues(), new ClientTransformer);
     }
-
 
     /**
      * @Route("/{id<\d+>}/transition", methods={"PATCH"})
