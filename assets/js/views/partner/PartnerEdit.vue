@@ -143,6 +143,7 @@
                     distributionMethod: {},
                     profile: {},
                     users: [],
+                    status: '',
                     workflow: {},
                 },
                 transition: '',
@@ -185,7 +186,7 @@
                 let self = this;
                 axios.patch('/api/partners/' + this.$route.params.id + '/transition', {'transition': transition})
                     .then(response => {
-                        self.partner = response.data.data;
+                        self.partner.status = response.data.data.status;
                         self.partner.workflow = response.data.meta;
                 });
             },
