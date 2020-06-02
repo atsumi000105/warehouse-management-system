@@ -21,14 +21,6 @@ class ClientController extends BaseController
 {
     protected $defaultEntityName = Client::class;
 
-    /** @var Registry */
-    protected $workflowRegistry;
-
-    public function __construct(Registry $workflowRegistry)
-    {
-        $this->workflowRegistry = $workflowRegistry;
-    }
-
     /**
      * Get a list of Clients
      *
@@ -75,11 +67,11 @@ class ClientController extends BaseController
      *
      * @Route(path="/{uuid}", methods={"GET"})
      */
-    public function show(Request $request, string $uuid): JsonResponse
+    public function show(Request $request, Registry $workflowRegistry, string $uuid): JsonResponse
     {
         $client = $this->getClientById($uuid);
         $meta = [
-            'enabledTransitions' => $this->getEnabledTransitions($client),
+            'enabledTransitions' => $this->getEnabledTransitions($workflowRegistry, $client),
         ];
 
 //        $this->checkViewPermissions($client);
@@ -92,7 +84,7 @@ class ClientController extends BaseController
      *
      * @Route(path="", methods={"POST"})
      */
-    public function store(Request $request): JsonResponse
+    public function store(Request $request, Registry $workflowRegistry): JsonResponse
     {
         $params = $this->getParams($request);
 
@@ -101,7 +93,7 @@ class ClientController extends BaseController
             $params['name']['lastName']
         );
 
-        $client = new Client($this->workflowRegistry);
+        $client = new Client($workflowRegistry);
         $client->setName($name);
 
         if ($params['partner']['id']) {
@@ -170,14 +162,14 @@ class ClientController extends BaseController
     /**
      * @Route("/{uuid}/transition", methods={"PATCH"})
      */
-    public function transition(Request $request, string $uuid): JsonResponse
+    public function transition(Request $request, Registry $workflowRegistry, string $uuid): JsonResponse
     {
         $client = $this->getClientById($uuid);
 
         $params = $this->getParams($request);
 
         if ($params['transition']) {
-            $this->workflowRegistry
+            $workflowRegistry
                 ->get($client)
                 ->apply($client, $params['transition']);
 
@@ -185,7 +177,7 @@ class ClientController extends BaseController
         }
 
         $meta = [
-            'enabledTransitions' => $this->getEnabledTransitions($client),
+            'enabledTransitions' => $this->getEnabledTransitions($workflowRegistry, $client),
         ];
 
         return $this->serialize($request, $client, null, $meta);
@@ -229,12 +221,13 @@ class ClientController extends BaseController
     }
 
     /**
+     * @param Registry $workflowRegistry
      * @param Client $client
      * @return String[]
      */
-    protected function getEnabledTransitions(Client $client): array
+    protected function getEnabledTransitions(Registry $workflowRegistry, Client $client): array
     {
-        $enabledTransitions = $this->workflowRegistry
+        $enabledTransitions = $workflowRegistry
             ->get($client)
             ->getEnabledTransitions($client);
 
