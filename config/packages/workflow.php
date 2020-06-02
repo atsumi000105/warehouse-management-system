@@ -1,5 +1,6 @@
 <?php
 
+use App\Entity\Client;
 use App\Entity\Partner;
 
 $container->loadFromExtension('framework', [
@@ -81,6 +82,65 @@ $container->loadFromExtension('framework', [
                         Partner::STATUS_REVIEW_PAST_DUE,
                     ],
                     'to' => Partner::STATUS_INACTIVE,
+                ],
+            ],
+        ],
+        'client_management' => [
+            'type' => 'state_machine',
+            'audit_trail' => [
+                'enabled' => true,
+            ],
+            'marking_store' => [
+                'type' => 'method',
+                'property' => 'status',
+            ],
+            'supports' => [
+                Client::class,
+            ],
+            'initial_marking' => Client::STATUS_CREATION,
+            'places' => [
+                Client::STATUS_CREATION,
+                Client::STATUS_ACTIVE,
+                Client::STATUS_INACTIVE,
+                Client::STATUS_LIMIT_REACHED,
+                Client::STATUS_DUPLICATE_INACTIVE,
+            ],
+            'transitions' => [
+                'activate' => [
+                    'from' => [
+                        Client::STATUS_CREATION,
+                        Client::STATUS_INACTIVE,
+                        Client::STATUS_LIMIT_REACHED,
+                        Client::STATUS_DUPLICATE_INACTIVE,
+                    ],
+                    'to' => Client::STATUS_ACTIVE,
+                ],
+                'deactivate' => [
+                    'from' => [
+                        Client::STATUS_CREATION,
+                        Client::STATUS_ACTIVE,
+                        Client::STATUS_LIMIT_REACHED,
+                        Client::STATUS_DUPLICATE_INACTIVE,
+                    ],
+                    'to' => Client::STATUS_INACTIVE,
+                ],
+                'reach_limit' => [
+                    'from' => [
+                        Client::STATUS_CREATION,
+                        Client::STATUS_ACTIVE,
+                        Client::STATUS_INACTIVE,
+                        Client::STATUS_DUPLICATE_INACTIVE,
+                    ],
+                    'to' => Client::STATUS_LIMIT_REACHED,
+                ],
+                'duplicate_(inactivate)' => [
+                    'from' => [
+                        Client::STATUS_CREATION,
+                        Client::STATUS_ACTIVE,
+                        Client::STATUS_INACTIVE,
+                        Client::STATUS_LIMIT_REACHED,
+                    ],
+                    'to' => Client::STATUS_DUPLICATE_INACTIVE,
                 ],
             ],
         ],

@@ -145,7 +145,7 @@
                     users: [],
                     workflow: {},
                 },
-                transition: ''
+                transition: '',
             };
         },
         created() {

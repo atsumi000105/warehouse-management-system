@@ -30,6 +30,7 @@ class ClientTransformer extends TransformerAbstract
             'pullupDistributionCount' => $client->getPullupDistributionCount(),
             'updatedAt' => $client->getUpdatedAt()->format('c'),
             'createdAt' => $client->getCreatedAt()->format('c'),
+            'status' => $client->getStatus(),
         ];
     }
 
