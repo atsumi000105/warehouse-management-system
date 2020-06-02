@@ -205,6 +205,7 @@
                     name: {},
                     partner: {},
                     attributes: [],
+                    status: '',
                     workflow: {},
                 },
                 transition: '',
@@ -250,8 +251,8 @@
                 let self = this;
                 axios.patch('/api/clients/' + this.$route.params.id + '/transition', {'transition': transition})
                     .then(response => {
-                        self.client = response.data.data;
                         self.client.workflow = response.data.meta;
+                        self.client.status = response.data.data.status;
                     });
             },
             askDelete: function() {
