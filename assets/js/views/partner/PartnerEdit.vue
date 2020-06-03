@@ -96,7 +96,7 @@
         </div>
         <modal
             id="confirmModal"
-            :confirm-action="this.deletePartner"
+            :confirm-action="deletePartner"
             classes="modal-danger"
         >
             <template slot="header">
