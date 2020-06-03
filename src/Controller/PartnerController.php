@@ -21,7 +21,7 @@ use Symfony\Component\Workflow\Transition;
  *
  * @Route(path="/api/partners")
  */
-class PartnerController extends StorageLocationController
+class PartnerController extends BaseController
 {
     protected $defaultEntityName = Partner::class;
 
@@ -114,6 +114,24 @@ class PartnerController extends StorageLocationController
         $this->getEm()->flush();
 
         return $this->serialize($request, $partner);
+    }
+
+    /**
+     * Delete a Partner
+     *
+     * @Route(path="/{id}", methods={"DELETE"})
+     */
+    public function destroy(int $id): JsonResponse
+    {
+        $partner = $this->getPartnerById($id);
+
+        // TODO: get permissions working (#1)
+        // $this->checkEditPermissions($partner);
+
+        $this->getEm()->remove($partner);
+        $this->getEm()->flush();
+
+        return $this->success(sprintf('Partner "%s" deleted', $partner->getTitle()));
     }
 
     /**
