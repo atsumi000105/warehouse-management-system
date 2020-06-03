@@ -8,7 +8,10 @@
                 >
                     <i class="fa fa-info-circle" /> {{ partner.status | statusFormat }}
                 </button>
-                <ul class="dropdown-menu dropdown-menu-right">
+                <ul
+                    v-if="partner.workflow.enabledTransitions"
+                    class="dropdown-menu dropdown-menu-right"
+                >
                     <li
                         v-for="enabledTransition in partner.workflow.enabledTransitions.sort()"
                         :key="enabledTransition"
