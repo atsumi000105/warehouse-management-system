@@ -15,7 +15,6 @@
                     <li
                         v-for="enabledTransition in client.workflow.enabledTransitions.sort()"
                         :key="enabledTransition"
-                        :value="enabledTransition"
                     >
                         <a
                             @click.prevent="doTransition(enabledTransition)"
@@ -175,15 +174,15 @@
 </template>
 
 <script>
-    import Modal from '../../components/Modal.vue';
-    import AttributesEditForm from "../../components/AttributesEditForm";
-    import PartnerSelectionForm from "../../components/PartnerSelectionForm";
-    import DateField from "../../components/DateField";
-    import BooleanField from "../../components/ToggleField";
-    import NumberField from "../../components/NumberField";
-    import DisplayField from "../../components/DisplayField";
+import Modal from '../../components/Modal.vue';
+import AttributesEditForm from "../../components/AttributesEditForm";
+import PartnerSelectionForm from "../../components/PartnerSelectionForm";
+import DateField from "../../components/DateField";
+import BooleanField from "../../components/ToggleField";
+import NumberField from "../../components/NumberField";
+import DisplayField from "../../components/DisplayField";
 
-    export default {
+export default {
         name: 'ClientEdit',
         components: {
             DisplayField,

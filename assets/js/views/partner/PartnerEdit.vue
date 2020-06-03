@@ -15,7 +15,6 @@
                     <li
                         v-for="enabledTransition in partner.workflow.enabledTransitions.sort()"
                         :key="enabledTransition"
-                        :value="enabledTransition"
                     >
                         <a
                             @click.prevent="doTransition(enabledTransition)"
@@ -113,13 +112,13 @@
 
 
 <script>
-    import Modal from '../../components/Modal.vue';
+import Modal from '../../components/Modal.vue';
 
-    import PartnerLocationEditTab from './PartnerLocationEditTab';
-    import AttributesEditForm from "../../components/AttributesEditForm";
-    import PartnerUserListTab from "./PartnerUserListTab";
+import PartnerLocationEditTab from './PartnerLocationEditTab';
+import AttributesEditForm from "../../components/AttributesEditForm";
+import PartnerUserListTab from "./PartnerUserListTab";
 
-    export default {
+export default {
         components: {
             PartnerUserListTab,
             AttributesEditForm,
