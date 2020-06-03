@@ -25,14 +25,6 @@ class PartnerController extends BaseController
 {
     protected $defaultEntityName = Partner::class;
 
-    /** @var Registry */
-    protected $workflowRegistry;
-
-    public function __construct(Registry $workflowRegistry)
-    {
-        $this->workflowRegistry = $workflowRegistry;
-    }
-
     /**
      * @Route("/", methods={"GET"})
      */
@@ -46,11 +38,11 @@ class PartnerController extends BaseController
     /**
      * @Route("", methods={"POST"})
      */
-    public function store(Request $request)
+    public function store(Request $request, Registry $workflowRegistry)
     {
         $params = $this->getParams($request);
 
-        $partner = new Partner($params['title'], $this->workflowRegistry);
+        $partner = new Partner($params['title'], $workflowRegistry);
         $partnerProfile = new PartnerProfile();
         $partner->setProfile($partnerProfile);
 
@@ -76,11 +68,11 @@ class PartnerController extends BaseController
     /**
      * @Route("/{id<\d+>}", methods={"GET"})
      */
-    public function show(Request $request, int $id): JsonResponse
+    public function show(Request $request, Registry $workflowRegistry, int $id): JsonResponse
     {
         $partner = $this->getPartnerById($id);
         $meta = [
-            'enabledTransitions' => $this->getEnabledTransitions($partner),
+            'enabledTransitions' => $this->getEnabledTransitions($workflowRegistry, $partner),
         ];
 
         return $this->serialize($request, $partner, null, $meta);
@@ -147,14 +139,14 @@ class PartnerController extends BaseController
     /**
      * @Route("/{id<\d+>}/transition", methods={"PATCH"})
      */
-    public function transition(Request $request, int $id): JsonResponse
+    public function transition(Request $request, Registry $workflowRegistry, int $id): JsonResponse
     {
         $partner = $this->getPartnerById($id);
 
         $params = $this->getParams($request);
 
         if ($params['transition']) {
-            $this->workflowRegistry
+            $workflowRegistry
                 ->get($partner)
                 ->apply($partner, $params['transition']);
 
@@ -162,7 +154,7 @@ class PartnerController extends BaseController
         }
 
         $meta = [
-            'enabledTransitions' => $this->getEnabledTransitions($partner),
+            'enabledTransitions' => $this->getEnabledTransitions($workflowRegistry, $partner),
         ];
 
         return $this->serialize($request, $partner, null, $meta);
@@ -186,12 +178,13 @@ class PartnerController extends BaseController
     }
 
     /**
+     * @param Registry $workflowRegistry
      * @param Partner $partner
      * @return String[]
      */
-    protected function getEnabledTransitions(Partner $partner): array
+    protected function getEnabledTransitions(Registry $workflowRegistry, Partner $partner): array
     {
-        $enabledTransitions = $this->workflowRegistry
+        $enabledTransitions = $workflowRegistry
             ->get($partner)
             ->getEnabledTransitions($partner);
 
