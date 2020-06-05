@@ -68,10 +68,10 @@
 </template>
 
 <script>
+    import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
     import Vuetable from 'vuetable-2/src/components/Vuetable.vue'
     import VuetablePagination from 'vuetable-2/src/components/VuetablePagination.vue'
     import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo.vue'
-    import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 
     export default {
         components: {
@@ -124,6 +124,15 @@
                 let d = moment(date).tz('Etc/UTC');
                 if (!d.isValid(date)) return null;
                 return d.format('YYYY-MM');
+            },
+            statusFormat: function (status) {
+                if (status == null) return null;
+
+                return status
+                    .toLowerCase()
+                    .split('_')
+                    .map(upperStatus => upperStatus.charAt(0).toUpperCase() + upperStatus.slice(1))
+                    .join(' ');
             },
             onPaginationData (paginationData) {
                 this.$refs.pagination.setPaginationData(paginationData);

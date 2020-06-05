@@ -9,9 +9,18 @@ use App\Entity\ValueObjects\Name;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
+use Symfony\Component\Workflow\Registry;
 
 class ClientFixtures extends BaseFixture implements DependentFixtureInterface
 {
+    /** @var Registry */
+    protected $workflowRegistry;
+
+    public function __construct(Registry $workflowRegistry)
+    {
+        $this->workflowRegistry = $workflowRegistry;
+    }
+
     public function getDependencies()
     {
         return [
@@ -20,17 +29,27 @@ class ClientFixtures extends BaseFixture implements DependentFixtureInterface
         ];
     }
 
-
     protected function loadData(ObjectManager $manager)
     {
         $definitions = $manager->getRepository(ClientDefinition::class)->findAll();
 
+        $statuses = [
+            Client::STATUS_CREATION,
+            Client::STATUS_ACTIVE,
+            Client::STATUS_INACTIVE,
+            Client::STATUS_LIMIT_REACHED,
+            Client::STATUS_DUPLICATE_INACTIVE,
+        ];
+
 
         foreach ($this->getData() as $clientArr) {
-            $client = new Client();
+            $client = new Client($this->workflowRegistry);
             $client->setName($clientArr['name']);
             $client->setPartner($clientArr['partner']);
             $client->setBirthdate($this->faker->dateTimeBetween('-5 years', 'now'));
+
+            $randKey = array_rand($statuses);
+            $client->setStatus($statuses[$randKey]);
 
             foreach ($definitions as $definition) {
                 $attribute = $definition->createAttribute();

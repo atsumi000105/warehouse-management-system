@@ -6,6 +6,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Workflow\Exception\LogicException;
+use Symfony\Component\Workflow\Registry;
 
 /**
  * Class Partner
@@ -24,9 +26,26 @@ class Partner extends StorageLocation
         self::TYPE_HOSPITAL,
     ];
 
-    const ROLE_VIEW_ALL = 'ROLE_PARTNER_VIEW_ALL';
-    const ROLE_VIEW_SELF = 'ROLE_PARTNER_VIEW_SELF';
-    const ROLE_EDIT = 'ROLE_PARTNER_EDIT';
+    public const ROLE_VIEW_ALL = 'ROLE_PARTNER_VIEW_ALL';
+    public const ROLE_VIEW_SELF = 'ROLE_PARTNER_VIEW_SELF';
+    public const ROLE_EDIT = 'ROLE_PARTNER_EDIT';
+
+    // State Machine Statuses
+    public const STATUS_START = 'START';
+    public const STATUS_APPLICATION_PENDING = 'APPLICATION_PENDING';
+    public const STATUS_APPLICATION_PENDING_PRIORITY = 'APPLICATION_PENDING_PRIORITY';
+    public const STATUS_NEEDS_PROFILE_REVIEW = 'NEEDS_PROFILE_REVIEW';
+    public const STATUS_REVIEW_PAST_DUE = 'REVIEW_PAST_DUE';
+
+    public const STATUSES = [
+        self::STATUS_START,
+        self::STATUS_APPLICATION_PENDING,
+        self::STATUS_APPLICATION_PENDING_PRIORITY,
+        self::STATUS_ACTIVE,
+        self::STATUS_NEEDS_PROFILE_REVIEW,
+        self::STATUS_REVIEW_PAST_DUE,
+        self::STATUS_INACTIVE,
+    ];
 
     /**
      * @var string
@@ -93,12 +112,17 @@ class Partner extends StorageLocation
      */
     protected $users;
 
-    public function __construct($title)
+    /** @var Registry */
+    protected $workflowRegistry;
+
+    public function __construct($title, Registry $workflowRegistry)
     {
         parent::__construct($title);
 
         $this->clients = new ArrayCollection();
         $this->users = new ArrayCollection();
+        $this->status = self::STATUS_START;
+        $this->workflowRegistry = $workflowRegistry;
     }
 
     /**
@@ -179,9 +203,9 @@ class Partner extends StorageLocation
             unset($changes['partnerType']);
         }
 
-        if (isset($changes['status'])) {
-            $this->setStatus($changes['status']);
-            unset($changes['status']);
+        if (isset($changes['transition'])) {
+            $this->applyTransition($changes['transition']);
+            unset($changes['transition']);
         }
 
         $this->setUpdatedAt(new \DateTime());
@@ -207,5 +231,16 @@ class Partner extends StorageLocation
     public function getUsers(): Collection
     {
         return $this->users;
+    }
+
+    public function applyTransition(string $transition): void
+    {
+        $stateMachine = $this->workflowRegistry->get($this);
+        try {
+            $stateMachine->apply($this, $transition);
+        } catch (LogicException $ex) {
+            // TODO log this instead
+            throw new \Exception(sprintf('%s is not a valid transition at this time. Exception thrown: %s', $transition, $ex->getMessage()));
+        }
     }
 }

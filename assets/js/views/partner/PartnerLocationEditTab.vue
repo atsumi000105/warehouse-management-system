@@ -49,20 +49,6 @@
                             />
                         </div>
                         <div class="form-group">
-                            <label>Status</label>
-                            <select
-                                v-model="value.status"
-                                class="form-control"
-                            >
-                                <option value="ACTIVE">
-                                    Active
-                                </option>
-                                <option value="INACTIVE">
-                                    Inactive
-                                </option>
-                            </select>
-                        </div>
-                        <div class="form-group">
                             <label>Number of previous months to average for forecasting</label>
                             <input
                                 v-model="value.forecastAverageMonths"
@@ -179,7 +165,7 @@
                     address: {},
                     contacts: [],
                     fulfillmentPeriod: {},
-                    distributionMethod: { },
+                    distributionMethod: {},
                 }
             }}
         },
@@ -189,7 +175,8 @@
                     address: {},
                     contacts: [],
                     fulfillmentPeriod: {},
-                    distributionMethod: { },
+                    distributionMethod: {},
+                    transition: '',
                 }
             };
         },
@@ -198,25 +185,5 @@
                 this.value.contacts.push({ isDeleted: false });
             }
         },
-        methods: {
-            save: function () {
-                var self = this;
-                if (this.new) {
-                    axios
-                        .post('/api/partners', this.partner)
-                        .then(response => self.$router.push('/partners'))
-                        .catch(function (error) {
-                            console.log(error);
-                        });
-                } else {
-                    axios
-                        .patch('/api/partners/' + this.$route.params.id, this.partner)
-                        .then(response => self.$router.push('/partners'))
-                        .catch(function (error) {
-                            console.log(error);
-                        });
-                }
-            },
-        }
     }
 </script>
