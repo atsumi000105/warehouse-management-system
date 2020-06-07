@@ -33,6 +33,7 @@
         "symfony/twig-bundle": "*",
         "symfony/validator": "*",
         "symfony/webpack-encore-bundle": "^1.0",
+        "symfony/workflow": "*",
         "symfony/yaml": "*"
     },
     "require-dev": {

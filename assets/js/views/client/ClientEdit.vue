@@ -1,6 +1,29 @@
 <template>
     <section class="content">
         <div class="pull-right">
+            <div class="btn-group">
+                <button
+                    class="btn btn-info btn-flat dropdown-toggle"
+                    data-toggle="dropdown"
+                >
+                    <i class="fa fa-info-circle" /> {{ client.status | statusFormat }}
+                </button>
+                <ul
+                    v-if="client.workflow.enabledTransitions"
+                    class="dropdown-menu dropdown-menu-right"
+                >
+                    <li
+                        v-for="enabledTransition in client.workflow.enabledTransitions.sort()"
+                        :key="enabledTransition"
+                    >
+                        <a
+                            @click.prevent="doTransition(enabledTransition)"
+                        >
+                            <i class="fa fa-arrow-circle-right" />{{ enabledTransition | statusFormat }}
+                        </a>
+                    </li>
+                </ul>
+            </div>
             <button
                 class="btn btn-success btn-flat"
                 @click.prevent="save"
@@ -151,15 +174,15 @@
 </template>
 
 <script>
-    import Modal from '../../components/Modal.vue';
-    import AttributesEditForm from "../../components/AttributesEditForm";
-    import PartnerSelectionForm from "../../components/PartnerSelectionForm";
-    import DateField from "../../components/DateField";
-    import BooleanField from "../../components/ToggleField";
-    import NumberField from "../../components/NumberField";
-    import DisplayField from "../../components/DisplayField";
+import Modal from '../../components/Modal.vue';
+import AttributesEditForm from "../../components/AttributesEditForm";
+import PartnerSelectionForm from "../../components/PartnerSelectionForm";
+import DateField from "../../components/DateField";
+import BooleanField from "../../components/ToggleField";
+import NumberField from "../../components/NumberField";
+import DisplayField from "../../components/DisplayField";
 
-    export default {
+export default {
         name: 'ClientEdit',
         components: {
             DisplayField,
@@ -183,8 +206,11 @@
                 client: {
                     name: {},
                     partner: {},
-                    attributes: []
+                    attributes: [],
+                    status: '',
+                    workflow: {},
                 },
+                transition: '',
             };
         },
         created() {
@@ -197,6 +223,7 @@
                     })
                     .then(response => {
                         self.client = response.data.data;
+                        self.client.workflow = response.data.meta;
                     })
                     .catch(error => console.log("Error receiving clients %o", error));
             }
@@ -221,6 +248,14 @@
                             console.log("Save this.client error with params id %o", error);
                         });
                 }
+            },
+            doTransition: function(transition) {
+                let self = this;
+                axios.patch('/api/clients/' + this.$route.params.id + '/transition', {'transition': transition})
+                    .then(response => {
+                        self.client.workflow = response.data.meta;
+                        self.client.status = response.data.data.status;
+                    });
             },
             askDelete: function() {
                 $('#confirmModal').modal('show');

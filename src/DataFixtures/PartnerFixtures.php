@@ -2,15 +2,24 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Partner;
 use App\Entity\PartnerDistributionMethod;
 use App\Entity\PartnerFulfillmentPeriod;
 use App\Entity\StorageLocationAddress;
 use App\Entity\StorageLocationContact;
 use Doctrine\Common\Persistence\ObjectManager;
-use App\Entity\Partner;
+use Symfony\Component\Workflow\Registry;
 
 class PartnerFixtures extends BaseFixture
 {
+    /** @var Registry */
+    protected $workflowRegistry;
+
+    public function __construct(Registry $workflowRegistry)
+    {
+        $this->workflowRegistry = $workflowRegistry;
+    }
+
     public function loadData(ObjectManager $manager)
     {
         $periods = [
@@ -34,7 +43,7 @@ class PartnerFixtures extends BaseFixture
         }
 
         for ($i = 0; $i < 50; $i++) {
-            $partner = new Partner($this->faker->company . ' Partner');
+            $partner = new Partner($this->faker->company . ' Partner', $this->workflowRegistry);
             $partner->setPartnerType(Partner::TYPE_AGENCY);
             $partner->setDistributionMethod($this->randValue($distributionMethods));
             $partner->setFulfillmentPeriod($this->randValue($periods));
@@ -45,7 +54,7 @@ class PartnerFixtures extends BaseFixture
         }
 
         for ($i = 0; $i < 4; $i++) {
-            $hospital = new Partner($this->faker->company . ' Hospital');
+            $hospital = new Partner($this->faker->company . ' Hospital', $this->workflowRegistry);
             $hospital->setPartnerType(Partner::TYPE_HOSPITAL);
             $hospital->setDistributionMethod($this->randValue($distributionMethods));
             $hospital->setFulfillmentPeriod($this->randValue($periods));

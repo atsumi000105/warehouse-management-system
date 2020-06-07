@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Workflow\Registry;
+use Symfony\Component\Workflow\Transition;
 
 /**
  * Class PartnerController
@@ -19,7 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @Route(path="/api/partners")
  */
-class PartnerController extends StorageLocationController
+class PartnerController extends BaseController
 {
     protected $defaultEntityName = Partner::class;
 
@@ -36,11 +38,11 @@ class PartnerController extends StorageLocationController
     /**
      * @Route("", methods={"POST"})
      */
-    public function store(Request $request)
+    public function store(Request $request, Registry $workflowRegistry)
     {
         $params = $this->getParams($request);
 
-        $partner = new Partner($params['title']);
+        $partner = new Partner($params['title'], $workflowRegistry);
         $partnerProfile = new PartnerProfile();
         $partner->setProfile($partnerProfile);
 
@@ -66,11 +68,14 @@ class PartnerController extends StorageLocationController
     /**
      * @Route("/{id<\d+>}", methods={"GET"})
      */
-    public function show(Request $request, int $id): JsonResponse
+    public function show(Request $request, Registry $workflowRegistry, int $id): JsonResponse
     {
         $partner = $this->getPartnerById($id);
+        $meta = [
+            'enabledTransitions' => $this->getEnabledTransitions($workflowRegistry, $partner),
+        ];
 
-        return $this->serialize($request, $partner);
+        return $this->serialize($request, $partner, null, $meta);
     }
 
     /**
@@ -104,6 +109,24 @@ class PartnerController extends StorageLocationController
     }
 
     /**
+     * Delete a Partner
+     *
+     * @Route(path="/{id}", methods={"DELETE"})
+     */
+    public function destroy(int $id): JsonResponse
+    {
+        $partner = $this->getPartnerById($id);
+
+        // TODO: get permissions working (#1)
+        // $this->checkEditPermissions($partner);
+
+        $this->getEm()->remove($partner);
+        $this->getEm()->flush();
+
+        return $this->success(sprintf('Partner "%s" deleted', $partner->getTitle()));
+    }
+
+    /**
      * @Route("/{id<\d+>}/clients", methods={"GET"})
      */
     public function clients(Request $request, int $id): JsonResponse
@@ -111,6 +134,30 @@ class PartnerController extends StorageLocationController
         $partner = $this->getPartnerById($id);
 
         return $this->serialize($request, $partner->getClients()->getValues(), new ClientTransformer);
+    }
+
+    /**
+     * @Route("/{id<\d+>}/transition", methods={"PATCH"})
+     */
+    public function transition(Request $request, Registry $workflowRegistry, int $id): JsonResponse
+    {
+        $partner = $this->getPartnerById($id);
+
+        $params = $this->getParams($request);
+
+        if ($params['transition']) {
+            $workflowRegistry
+                ->get($partner)
+                ->apply($partner, $params['transition']);
+
+            $this->getEm()->flush();
+        }
+
+        $meta = [
+            'enabledTransitions' => $this->getEnabledTransitions($workflowRegistry, $partner),
+        ];
+
+        return $this->serialize($request, $partner, null, $meta);
     }
 
     protected function getDefaultTransformer()
@@ -128,5 +175,21 @@ class PartnerController extends StorageLocationController
         }
 
         return $partner;
+    }
+
+    /**
+     * @param Registry $workflowRegistry
+     * @param Partner $partner
+     * @return String[]
+     */
+    protected function getEnabledTransitions(Registry $workflowRegistry, Partner $partner): array
+    {
+        $enabledTransitions = $workflowRegistry
+            ->get($partner)
+            ->getEnabledTransitions($partner);
+
+        return array_map(function (Transition $transition) {
+            return $transition->getName();
+        }, $enabledTransitions);
     }
 }

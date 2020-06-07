@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Workflow\Registry;
+use Symfony\Component\Workflow\Transition;
 
 /**
  * @Route(path="/api/clients")
@@ -65,13 +67,16 @@ class ClientController extends BaseController
      *
      * @Route(path="/{uuid}", methods={"GET"})
      */
-    public function show(Request $request, string $uuid): JsonResponse
+    public function show(Request $request, Registry $workflowRegistry, string $uuid): JsonResponse
     {
         $client = $this->getClientById($uuid);
+        $meta = [
+            'enabledTransitions' => $this->getEnabledTransitions($workflowRegistry, $client),
+        ];
 
 //        $this->checkViewPermissions($client);
 
-        return $this->serialize($request, $client);
+        return $this->serialize($request, $client, null, $meta);
     }
 
     /**
@@ -79,7 +84,7 @@ class ClientController extends BaseController
      *
      * @Route(path="", methods={"POST"})
      */
-    public function store(Request $request): JsonResponse
+    public function store(Request $request, Registry $workflowRegistry): JsonResponse
     {
         $params = $this->getParams($request);
 
@@ -88,7 +93,7 @@ class ClientController extends BaseController
             $params['name']['lastName']
         );
 
-        $client = new Client();
+        $client = new Client($workflowRegistry);
         $client->setName($name);
 
         if ($params['partner']['id']) {
@@ -154,6 +159,30 @@ class ClientController extends BaseController
         return $this->success(sprintf('Client "%s" deleted.', $client->getName()));
     }
 
+    /**
+     * @Route("/{uuid}/transition", methods={"PATCH"})
+     */
+    public function transition(Request $request, Registry $workflowRegistry, string $uuid): JsonResponse
+    {
+        $client = $this->getClientById($uuid);
+
+        $params = $this->getParams($request);
+
+        if ($params['transition']) {
+            $workflowRegistry
+                ->get($client)
+                ->apply($client, $params['transition']);
+
+            $this->getEm()->flush();
+        }
+
+        $meta = [
+            'enabledTransitions' => $this->getEnabledTransitions($workflowRegistry, $client),
+        ];
+
+        return $this->serialize($request, $client, null, $meta);
+    }
+
      /**
      * @param Request $request
      * @return ParameterBag
@@ -189,5 +218,21 @@ class ClientController extends BaseController
         }
 
         return $client;
+    }
+
+    /**
+     * @param Registry $workflowRegistry
+     * @param Client $client
+     * @return String[]
+     */
+    protected function getEnabledTransitions(Registry $workflowRegistry, Client $client): array
+    {
+        $enabledTransitions = $workflowRegistry
+            ->get($client)
+            ->getEnabledTransitions($client);
+
+        return array_map(function (Transition $transition) {
+            return $transition->getName();
+        }, $enabledTransitions);
     }
 }

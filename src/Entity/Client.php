@@ -11,6 +11,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Moment\Moment;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Routing\Exception\MissingMandatoryParametersException;
+use Symfony\Component\Workflow\Exception\LogicException;
+use Symfony\Component\Workflow\Registry;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ClientRepository")
@@ -19,6 +21,12 @@ use Symfony\Component\Routing\Exception\MissingMandatoryParametersException;
  */
 class Client extends CoreEntity
 {
+    public const STATUS_CREATION = 'CREATION';
+    public const STATUS_ACTIVE = 'ACTIVE';
+    public const STATUS_INACTIVE = 'INACTIVE';
+    public const STATUS_LIMIT_REACHED = 'LIMIT_REACHED';
+    public const STATUS_DUPLICATE_INACTIVE = 'DUPLICATE_(INACTIVE)';
+
     use Uuidable;
     use AttributedEntityTrait;
 
@@ -44,7 +52,7 @@ class Client extends CoreEntity
     /**
      * @var Partner
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Partner")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Partner", inversedBy="clients")
      * @Gedmo\Versioned
      */
     protected $partner;
@@ -91,7 +99,17 @@ class Client extends CoreEntity
      */
     protected $pullupDistributionCount;
 
-    public function __construct()
+    /**
+     * @var string
+     * @ORM\Column(type="string")
+     * @Gedmo\Versioned
+     */
+    protected $status;
+
+    /** @var Registry */
+    protected $workflowRegistry;
+
+    public function __construct(Registry $workflowRegistry)
     {
         $this->attributes = new ArrayCollection();
         $this->distributionLineItems = new ArrayCollection();
@@ -99,6 +117,7 @@ class Client extends CoreEntity
         $this->isExpirationOverridden = false;
         $this->pullupDistributionMax = 6;
         $this->pullupDistributionCount = 0;
+        $this->workflowRegistry = $workflowRegistry;
     }
 
     public function getName(): Name
@@ -268,5 +287,29 @@ class Client extends CoreEntity
         $firstMoment = Moment::fromDateTime($first);
 
         $this->distributionExpiresAt = $firstMoment->addYears(3)->addMonths(1)->startOf('month');
+    }
+
+    public function applyTransition(string $transition): void
+    {
+        $stateMachine = $this->workflowRegistry->get($this);
+        try {
+            $stateMachine->apply($this, $transition);
+        } catch (LogicException $ex) {
+            // TODO log this instead
+            throw new \Exception(sprintf('%s is not a valid transition at this time. Exception thrown: %s', $transition, $ex->getMessage()));
+        }
+    }
+
+    /**
+     * Status is set by the workflow
+     */
+    public function setStatus(string $status): void
+    {
+        $this->status = $status;
+    }
+
+    public function getStatus(): string
+    {
+        return $this->status;
     }
 }

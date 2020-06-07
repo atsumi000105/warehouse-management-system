@@ -63,6 +63,7 @@ Learn More at https://www.happybottoms.org
 
 ## Development Installation - Docker Compose
 
+1. Copy `.env.docker` to `.env.local`
 1. `docker-compose up --build`
 1. `docker-compose exec app docker/install`
 
@@ -70,7 +71,13 @@ You should now be able to connect to your the dev server at http://localhost:808
 
 ### Build and watch the Vue JS app
 
-1. `docker/yarn`
+1. `docker/yarn watch`
+
+### Debugging with Xdebug
+
+1. In the "app" service of `docker-compose.yml`, change `WITH_XDEBUG=false` to `WITH_XDEBUG=true`
+1. Rebuild your environment: `docker-compose up --build`
+1. If using PHPStorm, make sure you set your xdebug server to have the name "coverd"
 
 ## Work With the Dev Environment
 

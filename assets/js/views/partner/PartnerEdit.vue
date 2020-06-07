@@ -1,6 +1,29 @@
 <template>
     <section class="content">
         <div class="pull-right">
+            <div class="btn-group">
+                <button
+                    class="btn btn-info btn-flat dropdown-toggle"
+                    data-toggle="dropdown"
+                >
+                    <i class="fa fa-info-circle" /> {{ partner.status | statusFormat }}
+                </button>
+                <ul
+                    v-if="partner.workflow.enabledTransitions"
+                    class="dropdown-menu dropdown-menu-right"
+                >
+                    <li
+                        v-for="enabledTransition in partner.workflow.enabledTransitions.sort()"
+                        :key="enabledTransition"
+                    >
+                        <a
+                            @click.prevent="doTransition(enabledTransition)"
+                        >
+                            <i class="fa fa-arrow-circle-right" />{{ enabledTransition | statusFormat }}
+                        </a>
+                    </li>
+                </ul>
+            </div>
             <button
                 class="btn btn-success btn-flat"
                 @click.prevent="save"
@@ -73,7 +96,7 @@
         </div>
         <modal
             id="confirmModal"
-            :confirm-action="this.deletePartner"
+            :confirm-action="deletePartner"
             classes="modal-danger"
         >
             <template slot="header">
@@ -89,14 +112,13 @@
 
 
 <script>
-    import Modal from '../../components/Modal.vue';
+import Modal from '../../components/Modal.vue';
 
-    import PartnerLocationEditTab from './PartnerLocationEditTab';
-    import PartnerProfileEditTab from './PartnerProfileEditTab';
-    import AttributesEditForm from "../../components/AttributesEditForm";
-    import PartnerUserListTab from "./PartnerUserListTab";
+import PartnerLocationEditTab from './PartnerLocationEditTab';
+import AttributesEditForm from "../../components/AttributesEditForm";
+import PartnerUserListTab from "./PartnerUserListTab";
 
-    export default {
+export default {
         components: {
             PartnerUserListTab,
             AttributesEditForm,
@@ -120,10 +142,13 @@
                     address: {},
                     contacts: [],
                     fulfillmentPeriod: {},
-                    distributionMethod: { },
+                    distributionMethod: {},
                     profile: {},
                     users: [],
-                }
+                    status: '',
+                    workflow: {},
+                },
+                transition: '',
             };
         },
         created() {
@@ -134,9 +159,11 @@
                 axios
                     .get('/api/partners/' + this.$route.params.id, {
                         params: { include: ['profile.attributes.options']}
-                    }).then(response => self.partner = response.data.data);
+                    }).then(response => {
+                        self.partner = response.data.data;
+                        self.partner.workflow = response.data.meta;
+                    });
             }
-            console.log('Component mounted.')
         },
         methods: {
             save: function () {
@@ -156,6 +183,14 @@
                             console.log(error);
                         });
                 }
+            },
+            doTransition: function(transition) {
+                let self = this;
+                axios.patch('/api/partners/' + this.$route.params.id + '/transition', {'transition': transition})
+                    .then(response => {
+                        self.partner.status = response.data.data.status;
+                        self.partner.workflow = response.data.meta;
+                });
             },
             askDelete: function() {
                 $('#confirmModal').modal('show');

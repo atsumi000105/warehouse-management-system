@@ -93,6 +93,7 @@
                     { name: 'name.firstName', title: "First Name", sortField: 'c.name.firstname' },
                     { name: 'name.lastName', title: "Last Name", sortField: 'c.name.lastname' },
                     { name: 'partner.title', title: "Assigned Partner", sortField: 'partner.title'},
+                    { name: 'status', title: "Status", callback: 'statusFormat', sortField: 'status' },
                     { name: 'createdAt', title: "Created", callback: 'dateTimeFormat', sortField: 'createdAt' },
                     { name: 'updatedAt', title: "Last Updated", callback: 'dateTimeFormat', sortField: 'updatedAt' },
                 ],

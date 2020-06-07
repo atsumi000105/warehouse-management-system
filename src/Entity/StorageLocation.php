@@ -132,18 +132,15 @@ abstract class StorageLocation extends CoreEntity
         $address->setStorageLocation($this);
     }
 
-    /**
-     * @return string
-     */
-    public function getStatus()
+    public function getStatus(): string
     {
         return $this->status;
     }
 
     public function setStatus(string $status): void
     {
-        if (!in_array($status, self::STATUSES)) {
-            throw new \Exception('%s is not a valid Status', $status);
+        if (!in_array($status, static::STATUSES)) {
+            throw new \Exception(sprintf('%s is not a valid Status', $status));
         }
         $this->status = $status;
     }

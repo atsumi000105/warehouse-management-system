@@ -6,10 +6,13 @@ services:
         build:
             context: ./docker
             dockerfile: Dockerfile
+            args:
+                - WITH_XDEBUG=false
         volumes:
             - ./:/app
             - var:/app/var
             - ./docker/config/app.php.ini:/usr/local/etc/php/conf.d/coverd-overrides.ini
+        env_file: .env.local
         depends_on:
             - db
     nginx:
