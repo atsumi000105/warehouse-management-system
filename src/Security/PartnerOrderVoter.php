@@ -44,9 +44,9 @@ class PartnerOrderVoter extends Voter
                 return $this->canView($order, $user);
             case self::EDIT:
                 return $this->canEdit($order, $user);
+            default:
+                throw new \LogicException('This code should not be reached!');
         }
-
-        throw new \LogicException('This code should not be reached!');
     }
 
     private function canView(PartnerOrder $order, User $user)

@@ -44,9 +44,9 @@ class BulkDistributionVoter extends Voter
                 return $this->canView($order, $user);
             case self::EDIT:
                 return $this->canEdit($order, $user);
+            default:
+                throw new \LogicException('This code should not be reached!');
         }
-
-        throw new \LogicException('This code should not be reached!');
     }
 
     private function canView(BulkDistribution $order, User $user)
