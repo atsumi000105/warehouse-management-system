@@ -6,7 +6,9 @@ use App\Entity\Client;
 use App\Entity\LineItem;
 use App\Entity\Orders\BulkDistribution;
 use App\Entity\Orders\BulkDistributionLineItem;
+use App\Entity\Orders\PartnerOrder;
 use App\Entity\Partner;
+use App\Entity\User;
 use App\Transformers\BulkDistributionLineItemTransformer;
 use App\Transformers\BulkDistributionTransformer;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -139,6 +141,28 @@ class PartnerDistributionController extends OrderController
         return $this->serialize($request, $lineItems, new BulkDistributionLineItemTransformer);
     }
 
+    protected function buildFilterParams(Request $request)
+    {
+        $params = parent::buildFilterParams($request);
+
+        if ($request->get('orderPeriod')) {
+            $params->set('orderPeriod', new \DateTime($request->get('orderPeriod')));
+        }
+        if ($request->get('partner')) {
+            $params->set('partner', $this->getRepository(Partner::class)->find($request->get('partner')));
+        }
+
+        /** @var User $user */
+        $user = $this->getUser();
+
+        // If the user isn't an admin,
+        if (!$user->hasRole(BulkDistribution::ROLE_VIEW_ALL)) {
+            $params->set('partner', $user->getActivePartner());
+        }
+
+        return $params;
+    }
+    
     protected function getDefaultTransformer()
     {
         return new BulkDistributionTransformer();

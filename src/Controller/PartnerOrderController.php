@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Orders\PartnerOrder;
 use App\Entity\Orders\PartnerOrderLineItem;
 use App\Entity\Partner;
+use App\Entity\User;
 use App\Entity\Warehouse;
 use App\Transformers\BagTransformer;
 use App\Transformers\PartnerOrderTransformer;
@@ -143,6 +144,14 @@ class PartnerOrderController extends OrderController
         }
         if ($request->get('partner')) {
             $params->set('partner', $this->getRepository(Partner::class)->find($request->get('partner')));
+        }
+
+        /** @var User $user */
+        $user = $this->getUser();
+
+        // If the user isn't an admin,
+        if (!$user->hasRole(PartnerOrder::ROLE_VIEW_ALL)) {
+            $params->set('partner', $user->getActivePartner());
         }
 
         return $params;

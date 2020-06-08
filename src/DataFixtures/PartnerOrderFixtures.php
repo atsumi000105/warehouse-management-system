@@ -26,7 +26,7 @@ class PartnerOrderFixtures extends BaseFixture implements DependentFixtureInterf
         /** @var Product[] $products */
         $products = $manager->getRepository(Product::class)->findByPartnerOrderable();
 
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 50; $i++) {
             /** @var Partner $partner */
             $partner = $this->faker->randomElement($partners);
 

@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Group;
 use App\Entity\Order;
+use App\Entity\Partner;
 use App\Entity\Product;
 use App\Entity\Supplier;
 use App\Entity\Warehouse;
@@ -28,7 +29,7 @@ class GroupFixtures extends BaseFixture
         $volunteer = new Group();
         $volunteer->setName('Volunteer');
         $volunteer->setRoles([
-            Order::ROLE_EDIT,
+            Order::ROLE_EDIT_ALL,
             Order::ROLE_VIEW_ALL,
             Product::ROLE_VIEW,
             Supplier::ROLE_VIEW,
@@ -41,7 +42,8 @@ class GroupFixtures extends BaseFixture
         $partner = new Group();
         $partner->setName('Partner');
         $partner->setRoles([
-            Order::ROLE_VIEW_OWN,
+            Order::ROLE_MANAGE_OWN,
+            Partner::ROLE_MANAGE_OWN,
         ]);
         $em->persist($partner);
         $this->setReference('group_partner', $partner);

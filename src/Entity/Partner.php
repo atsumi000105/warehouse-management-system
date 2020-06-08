@@ -27,8 +27,8 @@ class Partner extends StorageLocation
     ];
 
     public const ROLE_VIEW_ALL = 'ROLE_PARTNER_VIEW_ALL';
-    public const ROLE_VIEW_SELF = 'ROLE_PARTNER_VIEW_SELF';
     public const ROLE_EDIT = 'ROLE_PARTNER_EDIT';
+    public const ROLE_MANAGE_OWN = 'ROLE_PARTNER_MANAGE_OWN';
 
     // State Machine Statuses
     public const STATUS_START = 'START';

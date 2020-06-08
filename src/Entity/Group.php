@@ -21,9 +21,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Group extends CoreEntity
 {
     const AVAILABLE_ROLES = [
-        Order::ROLE_VIEW_OWN,
+        User::ROLE_ADMIN,
+
+        Order::ROLE_MANAGE_OWN,
         Order::ROLE_VIEW_ALL,
-        Order::ROLE_EDIT,
+        Order::ROLE_EDIT_ALL,
 
         Supplier::ROLE_VIEW,
         Supplier::ROLE_EDIT,
@@ -32,8 +34,8 @@ class Group extends CoreEntity
         Warehouse::ROLE_EDIT,
 
         Partner::ROLE_VIEW_ALL,
-        Partner::ROLE_VIEW_SELF,
-        Partner::ROLE_EDIT,
+        Partner::ROLE_EDIT_ALL,
+        Partner::ROLE_MANAGE_OWN,
 
         Product::ROLE_VIEW,
         Product::ROLE_EDIT,
