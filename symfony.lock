@@ -2,6 +2,9 @@
     "behat/transliterator": {
         "version": "v1.2.0"
     },
+    "brick/math": {
+        "version": "0.8.15"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -40,9 +43,6 @@
             "src/Entity/.gitignore",
             "src/Repository/.gitignore"
         ]
-    },
-    "doctrine/doctrine-cache-bundle": {
-        "version": "1.3.5"
     },
     "doctrine/doctrine-fixtures-bundle": {
         "version": "3.0",
@@ -93,6 +93,9 @@
     "doctrine/reflection": {
         "version": "v1.0.0"
     },
+    "doctrine/sql-formatter": {
+        "version": "1.1.0"
+    },
     "egulias/email-validator": {
         "version": "2.1.9"
     },
@@ -105,14 +108,14 @@
     "gedmo/doctrine-extensions": {
         "version": "v2.4.37"
     },
-    "jdorn/sql-formatter": {
-        "version": "v1.2.17"
-    },
     "league/fractal": {
         "version": "0.18.0"
     },
     "liip/test-fixtures-bundle": {
         "version": "1.3.0"
+    },
+    "maennchen/zipstream-php": {
+        "version": "2.1.0"
     },
     "markbaker/complex": {
         "version": "1.4.7"
@@ -122,6 +125,9 @@
     },
     "monolog/monolog": {
         "version": "1.24.0"
+    },
+    "myclabs/php-enum": {
+        "version": "1.7.6"
     },
     "nelmio/cors-bundle": {
         "version": "1.5",
@@ -177,10 +183,16 @@
     "psr/container": {
         "version": "1.0.0"
     },
+    "psr/http-message": {
+        "version": "1.0.1"
+    },
     "psr/log": {
         "version": "1.1.0"
     },
     "psr/simple-cache": {
+        "version": "1.0.1"
+    },
+    "ramsey/collection": {
         "version": "1.0.1"
     },
     "ramsey/uuid": {
@@ -279,6 +291,9 @@
     },
     "symfony/dotenv": {
         "version": "v4.3.2"
+    },
+    "symfony/error-handler": {
+        "version": "v4.4.9"
     },
     "symfony/event-dispatcher": {
         "version": "v4.3.2"
@@ -391,6 +406,9 @@
     },
     "symfony/polyfill-php73": {
         "version": "v1.11.0"
+    },
+    "symfony/polyfill-php80": {
+        "version": "v1.17.0"
     },
     "symfony/process": {
         "version": "v4.3.2"
