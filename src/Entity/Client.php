@@ -120,6 +120,11 @@ class Client extends CoreEntity
         $this->workflowRegistry = $workflowRegistry;
     }
 
+    public function __toString()
+    {
+        return sprintf('%s (%s)', $this->name, $this->getId());
+    }
+
     public function getName(): Name
     {
         return $this->name;
