@@ -165,16 +165,12 @@
 
 <script>
 import Modal from '../../components/Modal.vue';
-import OptionListEntity from "../../components/OptionListEntity";
 import {mapGetters} from 'vuex';
-import PartnerField from "../../components/PartnerField";
 import PartnerSelectionForm from "../../components/PartnerSelectionForm";
 
 export default {
         components: {
             PartnerSelectionForm,
-            PartnerField,
-            OptionListEntity,
             'modal' : Modal
         },
         props: ['new'],
