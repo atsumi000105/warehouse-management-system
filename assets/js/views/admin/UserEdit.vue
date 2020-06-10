@@ -126,16 +126,18 @@
                                 Add Partner<i class="fa fa-fw fa-plus-circle" />
                             </button>
                             <table class="table table-hover">
-                                <tr v-for="partner in user.partners" :key="partner.id">
+                                <tr
+                                    v-for="partner in user.partners"
+                                    :key="partner.id"
+                                >
                                     <td v-text="partner.title" />
                                     <td>
                                         <button
                                             class="btn btn-success btn-flat"
                                             @click="onPartnerRemoveClick(partner.id)"
                                         >
-                                            <i class="fa fa-fw fa-trash"/>
+                                            <i class="fa fa-fw fa-trash" />
                                         </button>
-
                                     </td>
                                 </tr>
                             </table>
@@ -162,13 +164,13 @@
 
 
 <script>
-    import Modal from '../../components/Modal.vue';
-    import OptionListEntity from "../../components/OptionListEntity";
-    import { mapGetters, mapActions } from 'vuex';
-    import PartnerField from "../../components/PartnerField";
-    import PartnerSelectionForm from "../../components/PartnerSelectionForm";
+import Modal from '../../components/Modal.vue';
+import OptionListEntity from "../../components/OptionListEntity";
+import {mapGetters} from 'vuex';
+import PartnerField from "../../components/PartnerField";
+import PartnerSelectionForm from "../../components/PartnerSelectionForm";
 
-    export default {
+export default {
         components: {
             PartnerSelectionForm,
             PartnerField,

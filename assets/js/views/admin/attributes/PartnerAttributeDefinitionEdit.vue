@@ -5,15 +5,15 @@
         patch-api="/api/partner/attribute/definition/"
         list-route="admin-partner-attribute"
         definition-entity="Partner"
-        :newForm="newForm"
+        :new-form="newForm"
     />
 </template>
 
 
 <script>
-    import AttributeDefinitionEdit from "./AttributeDefinitionEdit";
+import AttributeDefinitionEdit from "./AttributeDefinitionEdit";
 
-    export default {
+export default {
         components: {
             AttributeDefinitionEdit,
         },

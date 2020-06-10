@@ -14,19 +14,20 @@
             </div>
             <lineitemformrow
                 v-for="(lineItem, index) in lineItems"
+                v-show="!filterText || filterResults.includes(lineItem.client.id)"
                 :key="lineItem.client.id"
                 v-model="lineItems[index]"
                 :editable="editable"
                 :partner-type="partnerType"
-                v-show="!filterText || filterResults.includes(lineItem.client.id)"
             />
         </div>
     </div>
 </template>
 
 <script>
-    import BulkDistributionLineItemFormRow from './BulkDistributionLineItemFormRow';
-    export default {
+import BulkDistributionLineItemFormRow from './BulkDistributionLineItemFormRow';
+
+export default {
         components: {
             'lineitemformrow' : BulkDistributionLineItemFormRow
         },
