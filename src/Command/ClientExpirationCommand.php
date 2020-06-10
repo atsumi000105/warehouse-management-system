@@ -68,7 +68,7 @@ class ClientExpirationCommand extends Command
 
         $io->table($headers, array_merge($ageRows, $rows));
 
-        $io->warning(sprintf('%d client(s) will are queued for expiration.', count($rows)));
+        $io->warning(sprintf('%d client(s) are queued for expiration.', count($rows)));
 
         return 0;
     }
