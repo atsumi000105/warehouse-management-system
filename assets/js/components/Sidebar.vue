@@ -47,9 +47,8 @@
 </template>
 
 <script>
-    import store from "../store";
 
-    export default {
+export default {
         props:[],
         data() {
             return {
@@ -116,6 +115,9 @@
                 ]
             }
         },
+        mounted() {
+            console.log('Component mounted.')
+        },
         methods: {
             hasAccess(linkRoute) {
                 if (!linkRoute) return true;
@@ -128,9 +130,6 @@
                 }
                 return true;
             }
-        },
-        mounted() {
-            console.log('Component mounted.')
         }
     }
 </script>
