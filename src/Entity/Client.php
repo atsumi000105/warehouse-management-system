@@ -296,7 +296,13 @@ class Client extends CoreEntity
             $stateMachine->apply($this, $transition);
         } catch (LogicException $ex) {
             // TODO log this instead
-            throw new \Exception(sprintf('%s is not a valid transition at this time. Exception thrown: %s', $transition, $ex->getMessage()));
+            throw new \Exception(
+                sprintf(
+                    '%s is not a valid transition at this time. Exception thrown: %s',
+                    $transition,
+                    $ex->getMessage()
+                )
+            );
         }
     }
 
