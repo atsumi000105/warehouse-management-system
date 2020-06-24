@@ -27,6 +27,12 @@ class Client extends CoreEntity
     public const STATUS_LIMIT_REACHED = 'LIMIT_REACHED';
     public const STATUS_DUPLICATE_INACTIVE = 'DUPLICATE_(INACTIVE)';
 
+    public const TRANSITION_ACTIVATE = 'ACTIVATE';
+    public const TRANSITION_DEACTIVATE = 'DEACTIVATE';
+    public const TRANSITION_EXPIRE = 'EXPIRE';
+    public const TRANSITION_DUPLICATE_INACTIVE = 'DUPLICATE';
+
+
     use Uuidable;
     use AttributedEntityTrait;
 

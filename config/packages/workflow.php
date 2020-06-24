@@ -28,22 +28,28 @@ $container->loadFromExtension('framework', [
                 Partner::STATUS_INACTIVE,
             ],
             'transitions' => [
-                'submit' => [
+                Partner::TRANSITION_SUBMIT => [
                     'from' => [
                         Partner::STATUS_START,
                         Partner::STATUS_APPLICATION_PENDING_PRIORITY,
                         Partner::STATUS_INACTIVE,
                     ],
                     'to' => Partner::STATUS_APPLICATION_PENDING,
+                    'metadata' => [
+                        'title' => 'Submit'
+                    ],
                 ],
-                'submit_priority' => [
+                Partner::TRANSITION_SUBMIT_PRIORITY => [
                     'from' => [
                         Partner::STATUS_APPLICATION_PENDING,
                         Partner::STATUS_INACTIVE,
                     ],
                     'to' => Partner::STATUS_APPLICATION_PENDING_PRIORITY,
+                    'metadata' => [
+                        'title' => 'Submit (Priority)'
+                    ],
                 ],
-                'activate' => [
+                Partner::TRANSITION_ACTIVATE => [
                     'from' => [
                         Partner::STATUS_APPLICATION_PENDING,
                         Partner::STATUS_APPLICATION_PENDING_PRIORITY,
@@ -52,8 +58,11 @@ $container->loadFromExtension('framework', [
                         Partner::STATUS_INACTIVE,
                     ],
                     'to' => Partner::STATUS_ACTIVE,
+                    'metadata' => [
+                        'title' => 'Activate'
+                    ],
                 ],
-                'flag_for_review' => [
+                Partner::TRANSITION_FLAG_FOR_REVIEW => [
                     'from' => [
                         Partner::STATUS_APPLICATION_PENDING,
                         Partner::STATUS_APPLICATION_PENDING_PRIORITY,
@@ -62,8 +71,11 @@ $container->loadFromExtension('framework', [
                         Partner::STATUS_INACTIVE,
                     ],
                     'to' => Partner::STATUS_NEEDS_PROFILE_REVIEW,
+                    'metadata' => [
+                        'title' => 'Flag for Review'
+                    ],
                 ],
-                'flag_for_review_past_due' => [
+                Partner::TRANSITION_FLAG_FOR_REVIEW_PAST_DUE => [
                     'from' => [
                         Partner::STATUS_APPLICATION_PENDING,
                         Partner::STATUS_APPLICATION_PENDING_PRIORITY,
@@ -71,9 +83,12 @@ $container->loadFromExtension('framework', [
                         Partner::STATUS_NEEDS_PROFILE_REVIEW,
                         Partner::STATUS_INACTIVE,
                     ],
-                    'to' => Partner::STATUS_REVIEW_PAST_DUE,
+                    'metadata' => [
+                        'title' => 'Flag for Review Past Due'
+                    ],
+                   'to' => Partner::STATUS_REVIEW_PAST_DUE,
                 ],
-                'deactivate' => [
+                Partner::TRANSITION_DEACTIVATE => [
                     'from' => [
                         Partner::STATUS_APPLICATION_PENDING,
                         Partner::STATUS_APPLICATION_PENDING_PRIORITY,
@@ -82,6 +97,9 @@ $container->loadFromExtension('framework', [
                         Partner::STATUS_REVIEW_PAST_DUE,
                     ],
                     'to' => Partner::STATUS_INACTIVE,
+                    'metadata' => [
+                        'title' => 'Deactivate'
+                    ],
                 ],
             ],
         ],
@@ -106,7 +124,7 @@ $container->loadFromExtension('framework', [
                 Client::STATUS_DUPLICATE_INACTIVE,
             ],
             'transitions' => [
-                'activate' => [
+                Client::TRANSITION_ACTIVATE => [
                     'from' => [
                         Client::STATUS_CREATION,
                         Client::STATUS_INACTIVE,
@@ -114,8 +132,11 @@ $container->loadFromExtension('framework', [
                         Client::STATUS_DUPLICATE_INACTIVE,
                     ],
                     'to' => Client::STATUS_ACTIVE,
+                    'metadata' => [
+                        'title' => 'Activate'
+                    ],
                 ],
-                'deactivate' => [
+                Client::TRANSITION_DEACTIVATE => [
                     'from' => [
                         Client::STATUS_CREATION,
                         Client::STATUS_ACTIVE,
@@ -123,8 +144,11 @@ $container->loadFromExtension('framework', [
                         Client::STATUS_DUPLICATE_INACTIVE,
                     ],
                     'to' => Client::STATUS_INACTIVE,
+                    'metadata' => [
+                        'title' => 'Deactivate'
+                    ],
                 ],
-                'reach_limit' => [
+                Client::TRANSITION_EXPIRE => [
                     'from' => [
                         Client::STATUS_CREATION,
                         Client::STATUS_ACTIVE,
@@ -132,8 +156,11 @@ $container->loadFromExtension('framework', [
                         Client::STATUS_DUPLICATE_INACTIVE,
                     ],
                     'to' => Client::STATUS_LIMIT_REACHED,
+                    'metadata' => [
+                        'title' => 'Expire Client'
+                    ],
                 ],
-                'duplicate_(inactivate)' => [
+                Client::TRANSITION_DUPLICATE_INACTIVE => [
                     'from' => [
                         Client::STATUS_CREATION,
                         Client::STATUS_ACTIVE,
@@ -141,6 +168,9 @@ $container->loadFromExtension('framework', [
                         Client::STATUS_LIMIT_REACHED,
                     ],
                     'to' => Client::STATUS_DUPLICATE_INACTIVE,
+                    'metadata' => [
+                        'title' => 'Duplicate (inactivate)'
+                    ],
                 ],
             ],
         ],

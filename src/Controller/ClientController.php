@@ -227,12 +227,15 @@ class ClientController extends BaseController
      */
     protected function getEnabledTransitions(Registry $workflowRegistry, Client $client): array
     {
-        $enabledTransitions = $workflowRegistry
-            ->get($client)
-            ->getEnabledTransitions($client);
+        $workflow = $workflowRegistry->get($client);
+        $enabledTransitions = $workflow->getEnabledTransitions($client);
 
-        return array_map(function (Transition $transition) {
-            return $transition->getName();
+        return array_map(function (Transition $transition) use ($workflow) {
+            $title = $workflow->getMetadataStore()->getTransitionMetadata($transition)['title'];
+            return [
+                'transition' => $transition->getName(),
+                'title' => $title
+            ];
         }, $enabledTransitions);
     }
 }

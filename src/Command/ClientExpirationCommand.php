@@ -9,6 +9,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Workflow\Registry;
 
 class ClientExpirationCommand extends Command
 {
@@ -19,9 +20,15 @@ class ClientExpirationCommand extends Command
      */
     private $em;
 
-    public function __construct(EntityManagerInterface $em)
+    /**
+     * @var Registry
+     */
+    private $workflowRegistry;
+
+    public function __construct(EntityManagerInterface $em, Registry $workflowRegistry)
     {
         $this->em = $em;
+        $this->workflowRegistry = $workflowRegistry;
 
         parent::__construct();
     }
@@ -68,7 +75,25 @@ class ClientExpirationCommand extends Command
 
         $io->table($headers, array_merge($ageRows, $rows));
 
-        $io->warning(sprintf('%d client(s) are queued for expiration.', count($rows)));
+        if ($force) {
+            foreach ($agedOutClients as $client) {
+                $this->workflowRegistry
+                    ->get($client)
+                    ->apply($client, Client::TRANSITION_EXPIRE);
+            }
+
+            foreach ($maxDistributionClients as $client) {
+                $this->workflowRegistry
+                    ->get($client)
+                    ->apply($client, Client::TRANSITION_EXPIRE);
+            }
+
+            $this->em->flush();
+
+            $io->success(sprintf('%d client(s) have been transitioned to "%s".', count($rows), Client::TRANSITION_EXPIRE));
+        } else {
+            $io->warning(sprintf('%d client(s) are queued for expiration. Use --force to update client statuses', count($rows)));
+        }
 
         return 0;
     }

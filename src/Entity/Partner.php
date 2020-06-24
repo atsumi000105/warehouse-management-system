@@ -47,6 +47,13 @@ class Partner extends StorageLocation
         self::STATUS_INACTIVE,
     ];
 
+    public const TRANSITION_SUBMIT = 'SUBMIT';
+    public const TRANSITION_SUBMIT_PRIORITY = 'SUBMIT_PRIORITY';
+    public const TRANSITION_ACTIVATE = 'ACTIVATE';
+    public const TRANSITION_FLAG_FOR_REVIEW = 'FLAG_FOR_REVIEW';
+    public const TRANSITION_FLAG_FOR_REVIEW_PAST_DUE = 'FLAG_FOR_REVIEW_PAST_DUE';
+    public const TRANSITION_DEACTIVATE = 'DEACTIVATE';
+
     /**
      * @var string
      *
