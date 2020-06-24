@@ -17,7 +17,7 @@
                 v-for="item in options"
                 :key="item.id"
                 :selected="value == item.id"
-                v-bind:value="item.id"
+                :value="item.id"
                 v-text="item[displayProperty]"
             />
         </select>

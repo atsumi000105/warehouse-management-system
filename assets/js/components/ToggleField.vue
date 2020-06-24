@@ -5,7 +5,7 @@
                 :checked="value"
                 type="checkbox"
                 @change="$emit('input', $event.target.checked)"
-            /> {{ label }}
+            > {{ label }}
         </label>
     </div>
 </template>

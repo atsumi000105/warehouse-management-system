@@ -1,6 +1,9 @@
 <template>
     <div>
-        <form role="form" class="row">
+        <form
+            role="form"
+            class="row"
+        >
             <div class="col-md-6">
                 <div class="box box-info">
                     <div class="box-header with-border">
@@ -147,11 +150,11 @@
 
 
 <script>
-    import AddressFormFields from '../../components/AddressFormFields.vue';
-    import ContactFormFields from '../../components/ContactFormFields.vue';
-    import OptionListEntity from '../../components/OptionListEntity.vue';
+import AddressFormFields from '../../components/AddressFormFields.vue';
+import ContactFormFields from '../../components/ContactFormFields.vue';
+import OptionListEntity from '../../components/OptionListEntity.vue';
 
-    export default {
+export default {
         name: 'PartnerLocationEditTab',
         components: {
             AddressFormFields,
