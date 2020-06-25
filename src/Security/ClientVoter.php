@@ -9,76 +9,74 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class ClientVoter extends Voter
 {
-	const EDIT = 'EDIT';
-	const VIEW = 'VIEW';
+    const EDIT = 'EDIT';
+    const VIEW = 'VIEW';
 
-	protected function supports($attribute, $subject)
-	{
-		if (!in_array($attribute, [self::VIEW, self::EDIT])) {
-			return false;
-		}
+    protected function supports($attribute, $subject)
+    {
+        if (!in_array($attribute, [self::VIEW, self::EDIT])) {
+            return false;
+        }
 
-		if (!$subject instanceof Client) {
-			return false;
-		}
+        if (!$subject instanceof Client) {
+            return false;
+        }
 
-		return true;
-	}
+        return true;
+    }
 
-	protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
-	{
-		$user = $token->getUser();
+    protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
+    {
+        $user = $token->getUser();
 
-		if (!$user instanceof User) {
-			return false;
-		}
+        if (!$user instanceof User) {
+            return false;
+        }
 
-		$client = $subject;
+        $client = $subject;
 
-		switch ($attribute) {
-			case self::VIEW:
-				return $this->canView($client, $user);
-			case self::EDIT:
-				return $this->canEdit($client, $user);
-			default:
-				throw new \LogicException('This code should not be reached!');
-		}
-	}
+        switch ($attribute) {
+            case self::VIEW:
+                return $this->canView($client, $user);
+            case self::EDIT:
+                return $this->canEdit($client, $user);
+            default:
+                throw new \LogicException('This code should not be reached!');
+        }
+    }
 
-	private function canView(Client $client, User $user)
-	{
-		if ($this->canEdit($client, $user)) {
-			return true;
-		}
+    private function canView(Client $client, User $user)
+    {
+        if ($this->canEdit($client, $user)) {
+            return true;
+        }
 
-		if ($user->hasRole(Client::ROLE_VIEW_ALL)) {
-			return true;
-		}
+        if ($user->hasRole(Client::ROLE_VIEW_ALL)) {
+            return true;
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	private function canEdit(Client $client, User $user)
-	{
-		if ($user->isAdmin()) {
-			return true;
-		}
+    private function canEdit(Client $client, User $user)
+    {
+        if ($user->isAdmin()) {
+            return true;
+        }
 
-		if ($user->hasRole(Client::ROLE_EDIT_ALL)) {
-			return true;
-		}
+        if ($user->hasRole(Client::ROLE_EDIT_ALL)) {
+            return true;
+        }
 
-		$activePartner = $user->getActivePartner();
+        $activePartner = $user->getActivePartner();
 
-		if (
-			$user->hasRole(Client::ROLE_MANAGE_OWN)
-			&& $activePartner
-			&& $client->getPartner()->getId() === $activePartner->getId()
-		) {
-			return true;
-		}
+        if ($user->hasRole(Client::ROLE_MANAGE_OWN)
+            && $activePartner
+            && $client->getPartner()->getId() === $activePartner->getId()
+        ) {
+            return true;
+        }
 
-		return false;
-	}
-
+        return false;
+    }
 }
