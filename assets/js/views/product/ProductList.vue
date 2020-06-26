@@ -1,11 +1,26 @@
 <template>
     <section class="content">
-        <router-link
-            :to="{ name: 'product-new' }"
-            class="btn btn-success btn-flat pull-right"
-        >
-            <i class="fa fa-plus-circle fa-fw" />Create Product
-        </router-link>
+        <div class="pull-right">
+            <div class="btn-group">
+                <button
+                    type="button"
+                    class="btn btn-default btn-flat"
+                    @click.prevent="saveSort"
+                >
+                    <i class="fa fa-fw fa-save" />
+                    Save Product Order
+                </button>
+            </div>
+            <div class="btn-group">
+                <router-link
+                    :to="{ name: 'product-new' }"
+                    class="btn btn-success btn-flat pull-right"
+                >
+                    <i class="fa fa-plus-circle fa-fw" />
+                    Create Product
+                </router-link>
+            </div>
+        </div>
         <h3 class="box-title">
             Products List
         </h3>
@@ -43,18 +58,24 @@
                         >
                             <thead>
                                 <tr>
+                                    <th />
                                     <th>Product ID</th>
                                     <th>Name</th>
                                     <th>Category</th>
+                                    <th>Order</th>
                                     <th>Status</th>
                                     <th>Last Updated</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <Draggable
+                                v-model="products.data"
+                                tag="tbody"
+                            >
                                 <tr
                                     v-for="product in products.data"
                                     :key="product.id"
                                 >
+                                    <td><i class="fa fa-arrows" /></td>
                                     <td>
                                         <router-link :to="{ name: 'product-edit', params: { id: product.id }}">
                                             <i class="fa fa-edit" />{{ product.id }}
@@ -62,10 +83,11 @@
                                     </td>
                                     <td v-text="product.name" />
                                     <td v-text="product.productCategory.name" />
+                                    <td v-text="product.orderIndex" />
                                     <td v-text="product.status" />
                                     <td>{{ product.updatedAt | dateTimeFormat }}</td>
                                 </tr>
-                            </tbody>
+                            </Draggable>
                         </table>
                     </div>
                     <!-- /.box-body -->
@@ -78,10 +100,12 @@
 
 <script>
     import PulseLoader from "vue-spinner/src/PulseLoader";
+    import Draggable from 'vuedraggable';
 
     export default {
         components: {
             PulseLoader,
+            Draggable,
         },
         props:[],
         data() {
@@ -97,7 +121,21 @@
                     console.log(error)
                 })
                 .finally(() => this.loading = false);
-            console.log('Component mounted.')
+            console.log('Component mounted.');
+        },
+        methods: {
+            saveSort() {
+                let me = this;
+                let ids = this.products.data.map(product => product.id);
+                axios
+                    .post('/api/products/order', {
+                        ids: ids,
+                    })
+                    .then(response => me.setProducts(response.data.data));
+            },
+            setProducts(products) {
+                this.products.data = products.sort((a, b) => a.orderIndex - b.orderIndex);
+            }
         }
     }
 </script>

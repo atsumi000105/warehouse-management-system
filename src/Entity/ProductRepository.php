@@ -7,6 +7,11 @@ use Doctrine\ORM\Query\Expr;
 
 class ProductRepository extends EntityRepository
 {
+    public function findAllSorted()
+    {
+        return $this->findBy([], ['orderIndex' => 'ASC']);
+    }
+    
     public function getWarehouseInventory(Product $product)
     {
         $dql = "SELECT SUM(t.delta) AS balance FROM App\Entity\InventoryTransaction t
