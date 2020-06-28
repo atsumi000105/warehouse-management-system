@@ -1,7 +1,6 @@
 <?php
 namespace App\Schedule;
 
-
 use Zenstruck\ScheduleBundle\Schedule;
 use Zenstruck\ScheduleBundle\Schedule\ScheduleBuilder;
 

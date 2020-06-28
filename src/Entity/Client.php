@@ -32,7 +32,6 @@ class Client extends CoreEntity
     public const TRANSITION_EXPIRE = 'EXPIRE';
     public const TRANSITION_DUPLICATE_INACTIVE = 'DUPLICATE';
 
-
     use Uuidable;
     use AttributedEntityTrait;
 

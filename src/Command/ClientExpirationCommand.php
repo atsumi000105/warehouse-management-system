@@ -37,7 +37,12 @@ class ClientExpirationCommand extends Command
     {
         $this
             ->setDescription('Run the client expiration checks and transition expired clients. ')
-            ->addOption('force', null, InputOption::VALUE_NONE, 'Execute transitions on expired clients. Otherwise, actions will only be reported.')
+            ->addOption(
+                'force',
+                null,
+                InputOption::VALUE_NONE,
+                'Execute transitions on expired clients. Otherwise, actions will only be reported.'
+            )
         ;
     }
 
@@ -51,7 +56,7 @@ class ClientExpirationCommand extends Command
 
         $agedOutClients = $clientRepo->findAllActiveAgedOut();
 
-        $ageRows = array_map(function(Client $client) {
+        $ageRows = array_map(function (Client $client) {
             return [
                 (string) $client,
                 (string) $client->getPartner(),
@@ -62,7 +67,7 @@ class ClientExpirationCommand extends Command
 
         $maxDistributionClients = $clientRepo->findAllActiveMaxDistributions();
 
-        $distRows = array_map(function(Client $client) {
+        $distRows = array_map(function (Client $client) {
             return [
                 (string) $client,
                 (string) $client->getPartner(),
@@ -90,12 +95,18 @@ class ClientExpirationCommand extends Command
 
             $this->em->flush();
 
-            $io->success(sprintf('%d client(s) have been transitioned to "%s".', count($rows), Client::TRANSITION_EXPIRE));
+            $io->success(sprintf(
+                '%d client(s) have been transitioned to "%s".',
+                count($rows),
+                Client::TRANSITION_EXPIRE
+            ));
         } else {
-            $io->warning(sprintf('%d client(s) are queued for expiration. Use --force to update client statuses', count($rows)));
+            $io->warning(sprintf(
+                '%d client(s) are queued for expiration. Use --force to update client statuses',
+                count($rows)
+            ));
         }
 
         return 0;
     }
-
 }
