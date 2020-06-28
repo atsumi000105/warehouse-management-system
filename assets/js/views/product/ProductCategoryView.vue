@@ -37,7 +37,10 @@
                                 color="#3c8dbc"
                             />
                         </div>
-                        <table v-else class="table table-hover">
+                        <table
+                            v-else
+                            class="table table-hover"
+                        >
                             <thead>
                                 <tr>
                                     <th>{{ name }} ID</th>
@@ -74,9 +77,9 @@
 </template>
 
 <script>
-    import PulseLoader from "vue-spinner/src/PulseLoader";
+import PulseLoader from "vue-spinner/src/PulseLoader";
 
-    export default {
+export default {
         components: {
             PulseLoader,
         },

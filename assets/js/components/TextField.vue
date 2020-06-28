@@ -1,6 +1,9 @@
 <template>
     <div class="form-group">
-        <label v-text="label" v-if="label"></label>
+        <label
+            v-if="label"
+            v-text="label"
+        />
         <input
             :value="value"
             type="text"

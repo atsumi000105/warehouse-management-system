@@ -234,7 +234,9 @@ class User extends CoreEntity implements UserInterface
     public function getActivePartner(): ?Partner
     {
         if (!$this->activePartner) {
-            if ($this->isAdmin()) return null;
+            if ($this->isAdmin()) {
+                return null;
+            }
 
             $this->activePartner = $this->partners->first();
         }

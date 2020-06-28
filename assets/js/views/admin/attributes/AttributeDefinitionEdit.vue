@@ -49,7 +49,11 @@
                                 label="Interface Type"
                                 :preloaded-options="interfaceOptions"
                             />
-                            <KeyValueField v-if="selectedTypeHasOptions" v-model="definition.options" label="Options" />
+                            <KeyValueField
+                                v-if="selectedTypeHasOptions"
+                                v-model="definition.options"
+                                label="Options"
+                            />
                         </div>
                         <!-- /.box-body -->
                     </div>
@@ -61,11 +65,11 @@
 
 
 <script>
-    import KeyValueField from "../../../components/KeyValueField";
-    import {mapGetters} from "vuex";
-    import OptionListStatic from "../../../components/OptionListStatic";
+import KeyValueField from "../../../components/KeyValueField";
+import {mapGetters} from "vuex";
+import OptionListStatic from "../../../components/OptionListStatic";
 
-    export default {
+export default {
         name: 'AttributeDefinitionEdit',
         components: {
             OptionListStatic,
@@ -115,6 +119,9 @@
                 return !!attributeType.hasOptions;
             }
         },
+        mounted() {
+            this.$store.dispatch('loadTypes');
+        },
         methods: {
             save: function () {
                 let self = this;
@@ -150,9 +157,6 @@
 
                 return map[uiType];
             }
-        },
-        mounted() {
-            this.$store.dispatch('loadTypes');
         }
     }
 </script>
