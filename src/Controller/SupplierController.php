@@ -30,7 +30,7 @@ class SupplierController extends BaseController
      * @return JsonResponse
      */
     public function index(Request $request)
-    {   
+    {
         if (!$request->get('page')) {
             $suppliers = $this->getRepository()->findAll();
             return $this->serialize($request, $suppliers);
