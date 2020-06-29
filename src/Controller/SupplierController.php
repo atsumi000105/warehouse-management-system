@@ -31,9 +31,6 @@ class SupplierController extends BaseController
      */
     public function index(Request $request)
     {   
-        // Enable this line to prevent listing of Suppliers
-        //$this->denyAccessUnlessGranted('VIEW', new Supplier());
-
         if (!$request->get('page')) {
             $suppliers = $this->getRepository()->findAll();
             return $this->serialize($request, $suppliers);
@@ -83,7 +80,7 @@ class SupplierController extends BaseController
     {
         $supplier = $this->getSupplier($id);
 
-        $this->denyAccessUnlessGranted('VIEW', $supplier);
+        //$this->denyAccessUnlessGranted('VIEW', $supplier);
 
         return $this->serialize($request, $supplier);
     }
