@@ -30,7 +30,10 @@ class SupplierController extends BaseController
      * @return JsonResponse
      */
     public function index(Request $request)
-    {
+    {   
+        // Enable this line to prevent listing of Suppliers
+        //$this->denyAccessUnlessGranted('VIEW', new Supplier());
+
         if (!$request->get('page')) {
             $suppliers = $this->getRepository()->findAll();
             return $this->serialize($request, $suppliers);
@@ -80,6 +83,8 @@ class SupplierController extends BaseController
     {
         $supplier = $this->getSupplier($id);
 
+        $this->denyAccessUnlessGranted('VIEW', $supplier);
+
         return $this->serialize($request, $supplier);
     }
 
@@ -98,8 +103,7 @@ class SupplierController extends BaseController
         $params = $this->getParams($request);
         $supplier->applyChangesFromArray($params);
 
-        // TODO: get permissions working (#1)
-        // $this->checkEditPermissions($supplier);
+        $this->denyAccessUnlessGranted('EDIT', $supplier);
 
         $this->validate($supplier, $validator);
 
@@ -124,8 +128,7 @@ class SupplierController extends BaseController
         /** @var Supplier $supplier */
         $supplier = $this->getSupplier($id);
 
-        // TODO: get permissions working (#1)
-        // $this->checkEditPermissions($supplier);
+        $this->denyAccessUnlessGranted('EDIT', $supplier);
 
         $supplier->applyChangesFromArray($params);
 
@@ -147,8 +150,7 @@ class SupplierController extends BaseController
     {
         $supplier = $this->getSupplier($id);
 
-        // TODO: get permissions working (#1)
-        // $this->checkEditPermissions($supplier);
+        $this->denyAccessUnlessGranted('EDIT', $supplier);
 
         $this->getEm()->remove($supplier);
 
