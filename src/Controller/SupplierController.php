@@ -80,7 +80,7 @@ class SupplierController extends BaseController
     {
         $supplier = $this->getSupplier($id);
 
-        //$this->denyAccessUnlessGranted('VIEW', $supplier);
+        $this->denyAccessUnlessGranted('VIEW', $supplier);
 
         return $this->serialize($request, $supplier);
     }
