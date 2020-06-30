@@ -33,7 +33,6 @@ class ProductController extends BaseController
         $partnerOrderable = $request->get('partnerOrderable');
 
         if ($partnerOrderable == null) {
-            //$products = $this->getRepository()->findAll();
             $products = $this->getRepository()->findAllSorted();
         } else {
             $products = $this->getRepository()->findByPartnerOrderable($partnerOrderable);
