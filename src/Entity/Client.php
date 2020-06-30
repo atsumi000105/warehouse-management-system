@@ -27,6 +27,10 @@ class Client extends CoreEntity
     public const STATUS_LIMIT_REACHED = 'LIMIT_REACHED';
     public const STATUS_DUPLICATE_INACTIVE = 'DUPLICATE_(INACTIVE)';
 
+    const ROLE_VIEW_ALL = "ROLE_CLIENT_VIEW_ALL";
+    const ROLE_EDIT_ALL = "ROLE_CLIENT_EDIT_ALL";
+    const ROLE_MANAGE_OWN = "ROLE_CLIENT_MANAGE_OWN";
+
     use Uuidable;
     use AttributedEntityTrait;
 

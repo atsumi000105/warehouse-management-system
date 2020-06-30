@@ -200,6 +200,14 @@ class ClientController extends BaseController
             $params->set('partner', $partner);
         }
 
+        /** @var User $user */
+        $user = $this->getUser();
+
+        // If the user isn't an admin,
+        if (!$user->hasRole(Client::ROLE_VIEW_ALL)) {
+            $params->set('partner', $user->getActivePartner());
+        }
+
         return $params;
     }
 
