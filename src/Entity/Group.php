@@ -37,6 +37,10 @@ class Group extends CoreEntity
         Partner::ROLE_EDIT_ALL,
         Partner::ROLE_MANAGE_OWN,
 
+        Client::ROLE_VIEW_ALL,
+        Client::ROLE_EDIT_ALL,
+        Client::ROLE_MANAGE_OWN,
+
         Product::ROLE_VIEW,
         Product::ROLE_EDIT,
 

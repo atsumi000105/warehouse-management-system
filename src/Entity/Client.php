@@ -32,6 +32,10 @@ class Client extends CoreEntity
     public const TRANSITION_EXPIRE = 'EXPIRE';
     public const TRANSITION_DUPLICATE_INACTIVE = 'DUPLICATE';
 
+    public const ROLE_VIEW_ALL = "ROLE_CLIENT_VIEW_ALL";
+    public const ROLE_EDIT_ALL = "ROLE_CLIENT_EDIT_ALL";
+    public const ROLE_MANAGE_OWN = "ROLE_CLIENT_MANAGE_OWN";
+
     use Uuidable;
     use AttributedEntityTrait;
 
