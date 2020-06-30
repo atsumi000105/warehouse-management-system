@@ -184,12 +184,15 @@ class PartnerController extends BaseController
      */
     protected function getEnabledTransitions(Registry $workflowRegistry, Partner $partner): array
     {
-        $enabledTransitions = $workflowRegistry
-            ->get($partner)
-            ->getEnabledTransitions($partner);
+        $workflow = $workflowRegistry->get($partner);
+        $enabledTransitions = $workflow->getEnabledTransitions($partner);
 
-        return array_map(function (Transition $transition) {
-            return $transition->getName();
+        return array_map(function (Transition $transition) use ($workflow) {
+            $title = $workflow->getMetadataStore()->getTransitionMetadata($transition)['title'];
+            return [
+                'transition' => $transition->getName(),
+                'title' => $title
+            ];
         }, $enabledTransitions);
     }
 }
