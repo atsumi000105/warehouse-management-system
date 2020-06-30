@@ -9,63 +9,63 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class SupplyOrderVoter extends Voter
 {
-	public const VIEW = 'VIEW';
-	public const EDIT = 'EDIT';
+    public const VIEW = 'VIEW';
+    public const EDIT = 'EDIT';
 
-	protected function supports($attribute, $subject)
-	{
-		if (!in_array($attribute, [self::VIEW, self::EDIT])) {
-			return false;
-		}
+    protected function supports($attribute, $subject)
+    {
+        if (!in_array($attribute, [self::VIEW, self::EDIT])) {
+            return false;
+        }
 
-		if (!$subject instanceof SupplyOrder) {
-			return false;
-		}
+        if (!$subject instanceof SupplyOrder) {
+            return false;
+        }
 
-		return true;
-	}
+        return true;
+    }
 
-	protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
-	{
-		$user = $token->getUser();
+    protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
+    {
+        $user = $token->getUser();
 
-		if (!$user instanceof User) {
-			return false;
-		}
+        if (!$user instanceof User) {
+            return false;
+        }
 
-		switch ($attribute) {
-			case self::VIEW:
-				return $this->canView($subject, $user);
-			case self::EDIT:
-				return $this->canEdit($subject, $user);
-			default:
-				throw new \LogicException('This code should not be reached!');
-		}
-	}
+        switch ($attribute) {
+            case self::VIEW:
+                return $this->canView($subject, $user);
+            case self::EDIT:
+                return $this->canEdit($subject, $user);
+            default:
+                throw new \LogicException('This code should not be reached!');
+        }
+    }
 
-	private function canView(SupplyOrder $supplyOrder, User $user)
-	{
-		if ($this->canEdit($supplyOrder, $user)) {
-			return true;
-		}
+    private function canView(SupplyOrder $supplyOrder, User $user)
+    {
+        if ($this->canEdit($supplyOrder, $user)) {
+            return true;
+        }
 
-		if ($user->hasRole(SupplyOrder::ROLE_VIEW)) {
-			return true;
-		}
+        if ($user->hasRole(SupplyOrder::ROLE_VIEW)) {
+            return true;
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	private function canEdit(SupplyOrder $supplyOrder, User $user)
-	{
-		if ($user->isAdmin()) {
-			return true;
-		}
+    private function canEdit(SupplyOrder $supplyOrder, User $user)
+    {
+        if ($user->isAdmin()) {
+            return true;
+        }
 
-		if ($user->hasRole(SupplyOrder::ROLE_EDIT)) {
-			return true;
-		}
+        if ($user->hasRole(SupplyOrder::ROLE_EDIT)) {
+            return true;
+        }
 
-		return false;
-	}
+        return false;
+    }
 }
