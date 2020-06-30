@@ -80,7 +80,7 @@ class SupplierController extends BaseController
     {
         $supplier = $this->getSupplier($id);
 
-        $this->denyAccessUnlessGranted('VIEW', $supplier);
+        $this->denyAccessUnlessGranted(SupplierVoter::VIEW, $supplier);
 
         return $this->serialize($request, $supplier);
     }
@@ -100,7 +100,7 @@ class SupplierController extends BaseController
         $params = $this->getParams($request);
         $supplier->applyChangesFromArray($params);
 
-        $this->denyAccessUnlessGranted('EDIT', $supplier);
+        $this->denyAccessUnlessGranted(SupplierVoter::EDIT, $supplier);
 
         $this->validate($supplier, $validator);
 
@@ -125,7 +125,7 @@ class SupplierController extends BaseController
         /** @var Supplier $supplier */
         $supplier = $this->getSupplier($id);
 
-        $this->denyAccessUnlessGranted('EDIT', $supplier);
+        $this->denyAccessUnlessGranted(SupplierVoter::EDIT, $supplier);
 
         $supplier->applyChangesFromArray($params);
 
@@ -147,7 +147,7 @@ class SupplierController extends BaseController
     {
         $supplier = $this->getSupplier($id);
 
-        $this->denyAccessUnlessGranted('EDIT', $supplier);
+        $this->denyAccessUnlessGranted(SupplierVoter::EDIT, $supplier);
 
         $this->getEm()->remove($supplier);
 
