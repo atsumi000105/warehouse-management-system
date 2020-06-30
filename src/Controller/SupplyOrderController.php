@@ -8,6 +8,7 @@ use App\Entity\Supplier;
 use App\Entity\SupplierAddress;
 use App\Entity\Warehouse;
 use App\Transformers\SupplyOrderTransformer;
+use App\Security\SupplyOrderVoter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -61,8 +62,7 @@ class SupplyOrderController extends OrderController
 
         $order->applyChangesFromArray($params);
 
-        // TODO: get permissions working (#1)
-        // $this->checkEditPermissions($order);
+        $this->denyAccessUnlessGranted(SupplyOrderVoter::EDIT, $order);
 
         $this->getEm()->persist($order);
         $this->getEm()->flush();
@@ -86,8 +86,7 @@ class SupplyOrderController extends OrderController
         /** @var \App\Entity\Orders\SupplyOrder $order */
         $order = $this->getOrder($id);
 
-        // TODO: get permissions working (#1)
-        // $this->checkEditPermissions($order);
+        $this->denyAccessUnlessGranted(SupplyOrderVoter::EDIT, $order);
 
         $this->checkEditable($order);
         
