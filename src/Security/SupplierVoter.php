@@ -50,7 +50,7 @@ class SupplierVoter extends Voter
             return true;
         }
 
-        if ($user->hasRole(Supplier::ROLE_VIEW_ALL)) {
+        if ($user->hasRole(Supplier::ROLE_VIEW)) {
             return true;
         }
 
@@ -63,7 +63,7 @@ class SupplierVoter extends Voter
             return true;
         }
 
-        if ($user->hasRole(Supplier::ROLE_EDIT_ALL)) {
+        if ($user->hasRole(Supplier::ROLE_EDIT)) {
             return true;
         }
 

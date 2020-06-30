@@ -27,8 +27,8 @@ class Supplier extends CoreEntity
     const TYPE_DIAPERDRIVE = "DIAPERDRIVE";
     const TYPE_DROPSITE = "DROPSITE";
 
-    const ROLE_VIEW = "ROLE_SUPPLIER_VIEW";
-    const ROLE_EDIT = "ROLE_SUPPLIER_EDIT";
+    public const ROLE_VIEW = "ROLE_SUPPLIER_VIEW";
+    public const ROLE_EDIT = "ROLE_SUPPLIER_EDIT";
 
     /**
      * @var int
