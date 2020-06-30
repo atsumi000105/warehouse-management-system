@@ -8,8 +8,8 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class SupplierVoter extends Voter
 {
-    const EDIT = 'EDIT';
-    const VIEW = 'VIEW';
+    public const EDIT = 'EDIT';
+    public const VIEW = 'VIEW';
 
     protected function supports($attribute, $subject)
     {
