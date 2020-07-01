@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Entity\PartnerUser;
 use App\Entity\ValueObjects\Name;
 use App\Transformers\UserTransformer;
+use App\Security\UserVoter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -33,7 +34,7 @@ class UserController extends BaseController
     {
         $users = $this->getRepository()->findAll();
 
-//        $this->checkViewPermissions($users);
+        $this->denyAccessUnlessGranted(UserVoter::VIEW, new User(null));
 
         return $this->serialize($request, $users);
     }
@@ -48,7 +49,7 @@ class UserController extends BaseController
         $partner = $this->getRepository(Partner::class)->find($partnerId);
         $users = $this->getRepository()->findByPartner($partner);
 
-//        $this->checkViewPermissions($users);
+        $this->denyAccessUnlessGranted(UserVoter::VIEW, new User(null));
 
         return $this->serialize($request, $users);
     }
@@ -63,7 +64,7 @@ class UserController extends BaseController
     {
         $user = $this->getUserById($id);
 
-//        $this->checkViewPermissions($user);
+        $this->denyAccessUnlessGranted(UserVoter::VIEW, $user);
 
         return $this->serialize($request, $user);
     }
@@ -102,7 +103,7 @@ class UserController extends BaseController
         $user->setName($name);
         $user->setPlainTextPassword($params['plainTextPassword']);
 
-//        $this->checkEditPermissions($user);
+        $this->denyAccessUnlessGranted(UserVoter::EDIT, $user);
 
         $this->getEm()->persist($user);
         $this->getEm()->flush();
@@ -121,7 +122,7 @@ class UserController extends BaseController
         /** @var User $user */
         $user = $this->getUserById($id);
 
-//        $this->checkEditPermissions($user);
+        $this->denyAccessUnlessGranted(UserVoter::EDIT, $user);
 
         if ($params['groups']) {
             $groups = array_map(function ($group) {
@@ -162,7 +163,7 @@ class UserController extends BaseController
     {
         $user = $this->getUserById($id);
 
-//        $this->checkEditPermissions($user);
+        $this->denyAccessUnlessGranted(UserVoter::EDIT, $user);
 
         $this->getEm()->remove($user);
 
@@ -183,6 +184,8 @@ class UserController extends BaseController
         $partner = $this->getRepository(Partner::class)->find($partnerId);
         /** @var User $user */
         $user = $this->getUser();
+
+        $this->denyAccessUnlessGranted(UserVoter::EDIT, $user);
 
         if (!$user->isAssignedToPartner($partner)) {
             return $this->meta(false, "Invalid partner for this user");
