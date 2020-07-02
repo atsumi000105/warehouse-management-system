@@ -3,6 +3,7 @@
 namespace App\Security;
 
 use App\Entity\User;
+use App\Entity\Partner;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
@@ -48,16 +49,18 @@ class UserVoter extends Voter
             return true;
         }
 
-        $selectedActivePartner = $selectedUser->getActivePartner();
-        $activePartner = $user->getActivePartner();
-
-        if ($user->hasRole(User::ROLE_VIEW)
-            && $activePartner
-            && $selectedActivePartner
-            && $activePartner->getId() === $selectedActivePartner->getId()
-        ) {
+        if ($user->hasRole(User::ROLE_VIEW)) {
             return true;
         }
+
+        $activePartner = $user->getActivePartner();
+
+        if ($user->hasRole(Partner::ROLE_MANAGE_OWN)
+            && $activePartner
+            && $selectedUser->isAssignedToPartner($activePartner)
+        ) {
+            return true;
+         }
 
         return false;
     }
@@ -65,6 +68,19 @@ class UserVoter extends Voter
     private function canEdit(User $selectedUser, User $user)
     {
         if ($user->isAdmin()) {
+            return true;
+        }
+
+        if ($user->hasRole(User::ROLE_EDIT)) {
+            return true;
+        }
+
+        $activePartner = $user->getActivePartner();
+
+        if ($user->hasRole(Partner::ROLE_MANAGE_OWN)
+            && $activePartner
+            && $selectedUser->isAssignedToPartner($activePartner)
+        ) {
             return true;
         }
 

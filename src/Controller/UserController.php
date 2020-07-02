@@ -34,8 +34,6 @@ class UserController extends BaseController
     {
         $users = $this->getRepository()->findAll();
 
-        $this->denyAccessUnlessGranted(UserVoter::VIEW, new User(null));
-
         return $this->serialize($request, $users);
     }
 
@@ -48,8 +46,6 @@ class UserController extends BaseController
     {
         $partner = $this->getRepository(Partner::class)->find($partnerId);
         $users = $this->getRepository()->findByPartner($partner);
-
-        $this->denyAccessUnlessGranted(UserVoter::VIEW, new User(null));
 
         return $this->serialize($request, $users);
     }
@@ -184,8 +180,6 @@ class UserController extends BaseController
         $partner = $this->getRepository(Partner::class)->find($partnerId);
         /** @var User $user */
         $user = $this->getUser();
-
-        $this->denyAccessUnlessGranted(UserVoter::EDIT, $user);
 
         if (!$user->isAssignedToPartner($partner)) {
             return $this->meta(false, "Invalid partner for this user");
