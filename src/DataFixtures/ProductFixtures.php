@@ -73,6 +73,7 @@ class ProductFixtures extends BaseFixture implements DependentFixtureInterface
         $diaper->setDefaultCost(0.13);
         $diaper->setRetailPrice(0.37);
         $diaper->setColor($this->faker->hexColor);
+        $diaper->setOrderIndex(0);
 
         return $diaper;
     }
@@ -86,6 +87,7 @@ class ProductFixtures extends BaseFixture implements DependentFixtureInterface
         $training_pants->setDefaultCost(0.13);
         $training_pants->setRetailPrice(0.37);
         $training_pants->setColor($this->faker->hexColor);
+        $training_pants->setOrderIndex(0);
 
         return $training_pants;
     }

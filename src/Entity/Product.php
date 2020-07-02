@@ -135,6 +135,14 @@ class Product extends CoreEntity
      */
     protected $status;
 
+    /**
+     * @var int $orderIndex
+     *
+     * @ORM\Column(type="integer", nullable=true)
+     * @Gedmo\Versioned
+     */
+    protected $orderIndex;
+
 
     public function __construct($name, ProductCategory $category = null)
     {
@@ -358,5 +366,21 @@ class Product extends CoreEntity
     public function setStatus($status)
     {
         $this->status = $status;
+    }
+
+    /**
+     * @return int
+     */
+    public function getOrderIndex()
+    {
+        return $this->orderIndex;
+    }
+
+    /**
+     * @param int $orderIndex
+     */
+    public function setOrderIndex($orderIndex)
+    {
+        $this->orderIndex = $orderIndex;
     }
 }

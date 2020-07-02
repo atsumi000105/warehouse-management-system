@@ -27,6 +27,7 @@ class ProductTransformer extends TransformerAbstract
             'defaultCost' => $product->getDefaultCost(),
             'retailPrice' => $product->getRetailPrice(),
             'status' => $product->getStatus(),
+            'orderIndex' => $product->getOrderIndex(),
             'createdAt' => $product->getCreatedAt()->format('c'),
             'updatedAt' => $product->getUpdatedAt()->format('c'),
         ];
