@@ -60,7 +60,7 @@ class UserVoter extends Voter
             && $selectedUser->isAssignedToPartner($activePartner)
         ) {
             return true;
-         }
+        }
 
         return false;
     }
