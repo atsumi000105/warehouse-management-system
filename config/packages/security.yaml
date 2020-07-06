@@ -41,7 +41,7 @@ security:
         # Reference - https://symfony.com/doc/current/security/access_control.html
 
         - { path: ^/api/clients, roles: ROLE_USER}
-        - { path: ^/api/groups, roles: ROLE_USER}
+        #- { path: ^/api/groups, roles: ROLE_USER}
         - { path: ^/api/orders/adjustment, roles: ROLE_USER}
         - { path: ^/api/orders/distribution, roles: ROLE_USER}
         - { path: ^/api/orders/merchandise, roles: ROLE_USER}

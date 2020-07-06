@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Group;
 use App\Transformers\GroupTransformer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,6 +27,7 @@ class GroupController extends BaseController
      * Get a list of Groups
      *
      * @Route(path="", methods={"GET"})
+     * @IsGranted({"ROLE_ADMIN"})
      *
      * @return JsonResponse
      */
