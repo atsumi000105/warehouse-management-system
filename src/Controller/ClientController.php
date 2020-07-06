@@ -6,6 +6,7 @@ use App\Entity\Client;
 use App\Entity\Partner;
 use App\Entity\ValueObjects\Name;
 use App\Transformers\ClientTransformer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,6 +26,13 @@ class ClientController extends BaseController
      * Get a list of Clients
      *
      * @Route(path="/", methods={"GET"})
+     * @IsGranted({
+        "ROLE_ADMIN",
+        "ROLE_PARTNER_VIEW_ALL",
+        "ROLE_PARTNER_EDIT_ALL",
+        "ROLE_PARTNER_MANAGE_OWN",
+       })
+     *
      */
     public function index(Request $request): JsonResponse
     {
