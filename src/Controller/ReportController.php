@@ -45,7 +45,7 @@ class ReportController extends BaseController
      *
      * @Route(path="/transactions")
      * @IsGranted({"ROLE_ADMIN"})
-     * 
+     *
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      * @throws \PhpOffice\PhpSpreadsheet\Exception
@@ -118,7 +118,7 @@ class ReportController extends BaseController
      *
      * @Route(path="/supplier-totals")
      * @IsGranted({"ROLE_ADMIN"})
-     * 
+     *
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      * @throws \PhpOffice\PhpSpreadsheet\Exception
@@ -202,7 +202,7 @@ class ReportController extends BaseController
      *
      * @Route(path="/distribution-totals")
      * @IsGranted({"ROLE_ADMIN"})
-     * 
+     *
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      * @throws \PhpOffice\PhpSpreadsheet\Exception
@@ -286,7 +286,7 @@ class ReportController extends BaseController
      *
      * @Route(path="/partner-order-totals")
      * @IsGranted({"ROLE_ADMIN"})
-     * 
+     *
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      * @throws \PhpOffice\PhpSpreadsheet\Exception
@@ -370,7 +370,7 @@ class ReportController extends BaseController
      *
      * @Route(path="/partner-inventory")
      * @IsGranted({"ROLE_ADMIN"})
-     * 
+     *
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      * @throws \PhpOffice\PhpSpreadsheet\Exception

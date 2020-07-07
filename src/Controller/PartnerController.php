@@ -28,10 +28,10 @@ class PartnerController extends BaseController
     protected $defaultEntityName = Partner::class;
 
     /**
-     * 
+     *
      * @Route("/", methods={"GET"})
      * @IsGranted({"ROLE_PARTNER_VIEW_ALL","ROLE_PARTNER_MANAGE_OWN"})
-     * 
+     *
      */
     public function index(Request $request)
     {
@@ -41,10 +41,10 @@ class PartnerController extends BaseController
     }
 
     /**
-     * 
+     *
      * @Route("", methods={"POST"})
      * @IsGranted({"ROLE_PARTNER_EDIT_ALL","ROLE_PARTNER_MANAGE_OWN"})
-     * 
+     *
      */
     public function store(Request $request, Registry $workflowRegistry)
     {
@@ -77,10 +77,10 @@ class PartnerController extends BaseController
     }
 
     /**
-     * 
+     *
      * @Route("/{id<\d+>}", methods={"GET"})
      * @IsGranted({"ROLE_PARTNER_VIEW_ALL","ROLE_PARTNER_MANAGE_OWN"})
-     * 
+     *
      */
     public function show(Request $request, Registry $workflowRegistry, int $id): JsonResponse
     {
@@ -96,10 +96,10 @@ class PartnerController extends BaseController
     }
 
     /**
-     * 
+     *
      * @Route(path="/{id<\d+>}", methods={"PATCH"})
      * @IsGranted({"ROLE_PARTNER_EDIT_ALL","ROLE_PARTNER_MANAGE_OWN"})
-     * 
+     *
      * @param Request $request
      * @param int $id
      * @return JsonResponse

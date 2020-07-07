@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @Route(path="/api/product-categories")
  * @IsGranted({"ROLE_ADMIN"})
- * 
+ *
  */
 class ProductCategoryController extends ListOptionController
 {

@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
  *     "ROLE_PARTNER_EDIT_ALL",
  *     "ROLE_PARTNER_MANAGE_OWN"
  * })
- * 
+ *
  */
 class PartnerDistributionMethodController extends ListOptionController
 {

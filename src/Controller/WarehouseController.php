@@ -21,10 +21,10 @@ class WarehouseController extends StorageLocationController
     protected $defaultEntityName = Warehouse::class;
 
     /**
-     * 
+     *
      * @Route("/", methods={"GET"})
      * @IsGranted({"ROLE_WAREHOUSE_VIEW"})
-     * 
+     *
      */
     public function index(Request $request): JsonResponse
     {

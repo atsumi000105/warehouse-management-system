@@ -77,7 +77,7 @@ class SupplyOrderController extends OrderController
      *
      * @Route(path="/{id<\d+>}", methods={"PATCH"})
      * @IsGranted({"ROLE_SUPPLY_ORDER_EDIT"})
-     * 
+     *
      * @param Request $request
      * @param $id
      * @return JsonResponse

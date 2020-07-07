@@ -76,7 +76,7 @@ class OrderController extends BaseController
      *
      * @Route(path="/{id<\d+>}", methods={"GET"})
      * @IsGranted({"ROLE_ORDER_VIEW_ALL","ROLE_ORDER_MANAGE_OWN"})
-     * 
+     *
      */
     public function show(Request $request, $id)
     {
@@ -160,7 +160,7 @@ class OrderController extends BaseController
     }
 
     /**
-     * 
+     *
      * @Route(path="/bulk-change", methods={"PATCH"})
      * @IsGranted({"ROLE_ORDER_EDIT_ALL","ROLE_ORDER_MANAGE_OWN"})
      *
@@ -190,7 +190,7 @@ class OrderController extends BaseController
     }
 
     /**
-     * 
+     *
      * @Route(path="/bulk-delete", methods={"PATCH"})
      * @IsGranted({"ROLE_ORDER_EDIT_ALL","ROLE_ORDER_MANAGE_OWN"})
      *
