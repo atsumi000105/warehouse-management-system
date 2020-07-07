@@ -6,6 +6,7 @@ use App\Entity\Orders\TransferOrder;
 use App\Entity\Orders\TransferOrderLineItem;
 use App\Entity\StorageLocation;
 use App\Transformers\TransferOrderTransformer;
+use App\Security\TransferOrderVoter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -59,8 +60,7 @@ class TransferOrdersController extends OrderController
 
         $order->validate();
 
-        // TODO: get permissions working (#1)
-        // $this->checkEditPermissions($order);
+        $this->denyAccessUnlessGranted(TransferOrderVoter::EDIT, $order);
 
         $this->getEm()->persist($order);
         $this->getEm()->flush();
@@ -88,8 +88,7 @@ class TransferOrdersController extends OrderController
 
         $this->checkEditable($order);
 
-        // TODO: get permissions working (#1)
-        // $this->checkEditPermissions($order);
+        $this->denyAccessUnlessGranted(TransferOrderVoter::EDIT, $order);
 
         if ($params['sourceLocation']['id']) {
             $newLocation = $this->getEm()->find(StorageLocation::class, $params['sourceLocation']['id']);
