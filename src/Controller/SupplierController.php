@@ -93,7 +93,7 @@ class SupplierController extends BaseController
      * Save a new supplier
      *
      * @Route(path="", methods={"POST"})
-     * @IsGranted({ROLE_SUPPLIER_EDIT"})
+     * @IsGranted({"ROLE_SUPPLIER_EDIT"})
      *
      * @param Request $request
      * @return JsonResponse
