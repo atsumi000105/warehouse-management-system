@@ -32,15 +32,10 @@ class SupplyOrderController extends OrderController
      * Save a new Supply Order
      *
      * @Route(path="", methods={"POST"})
-     * @IsGranted({
-       "ROLE_ADMIN",
-       "ROLE_SUPPLY_ORDER_EDIT",
-       })
-     *
+     * @IsGranted({"ROLE_SUPPLY_ORDER_EDIT"})
      *
      * @param Request $request
      * @return JsonResponse
-     *
      */
     public function store(Request $request)
     {
@@ -81,16 +76,12 @@ class SupplyOrderController extends OrderController
      * Whole or partial update of a order
      *
      * @Route(path="/{id<\d+>}", methods={"PATCH"})
-     * @IsGranted({
-       "ROLE_ADMIN",
-       "ROLE_SUPPLY_ORDER_EDIT",
-       })
-     *
+     * @IsGranted({"ROLE_SUPPLY_ORDER_EDIT"})
+     * 
      * @param Request $request
      * @param $id
      * @return JsonResponse
      * @throws \App\Exception\CommittedTransactionException
-     *
      */
     public function update(Request $request, $id)
     {

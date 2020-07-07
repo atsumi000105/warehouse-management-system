@@ -12,11 +12,10 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @Route(path="/api/partners/distribution-methods")
  * @IsGranted({
-   "ROLE_ADMIN",
-   "ROLE_PARTNER_VIEW_ALL",
-   "ROLE_PARTNER_EDIT_ALL",
-   "ROLE_PARTNER_MANAGE_OWN"
-   })
+ *     "ROLE_PARTNER_VIEW_ALL",
+ *     "ROLE_PARTNER_EDIT_ALL",
+ *     "ROLE_PARTNER_MANAGE_OWN"
+ * })
  * 
  */
 class PartnerDistributionMethodController extends ListOptionController

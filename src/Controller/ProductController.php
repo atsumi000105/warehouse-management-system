@@ -29,7 +29,6 @@ class ProductController extends BaseController
      * @IsGranted({"ROLE_ADMIN"})
      *
      * @return JsonResponse
-     * 
      */
     public function index(Request $request)
     {
@@ -52,7 +51,6 @@ class ProductController extends BaseController
      *
      * @param $id
      * @return JsonResponse
-     *
      */
     public function show(Request $request, $id)
     {
@@ -69,7 +67,6 @@ class ProductController extends BaseController
      *
      * @param Request $request
      * @return JsonResponse
-     *
      */
     public function store(Request $request, ValidatorInterface $validator)
     {
@@ -128,7 +125,6 @@ class ProductController extends BaseController
      * @param Request $request
      * @param $id
      * @return array
-     *
      */
     public function update(Request $request, $id)
     {
@@ -160,7 +156,6 @@ class ProductController extends BaseController
      *
      * @param $id
      * @return JsonResponse
-     *
      */
     public function destroy($id)
     {
@@ -183,7 +178,6 @@ class ProductController extends BaseController
      * @IsGranted({"ROLE_ADMIN"})
      *
      * @param $id
-     *
      */
     public function inventory($id)
     {

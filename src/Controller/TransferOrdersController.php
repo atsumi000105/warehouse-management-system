@@ -30,15 +30,11 @@ class TransferOrdersController extends OrderController
      * Save a new Transfer
      *
      * @Route(path="", methods={"POST"})
-     * @IsGranted({
-       "ROLE_ADMIN",
-       "ROLE_TRANSFER_ORDER_EDIT",
-       })
+     * @IsGranted({"ROLE_TRANSFER_ORDER_EDIT"})
      *
      * @param Request $request
      * @return JsonResponse
      * @throws \Exception
-     * 
      */
     public function store(Request $request)
     {
@@ -76,17 +72,13 @@ class TransferOrdersController extends OrderController
      * Whole or partial update of a order
      *
      * @Route(path="/{id<\d+>}", methods={"PATCH"})
-     * @IsGranted({
-       "ROLE_ADMIN",
-       "ROLE_TRANSFER_ORDER_EDIT",
-       })
+     * @IsGranted({"ROLE_TRANSFER_ORDER_EDIT"})
      *
      * @param Request $request
      * @param $id
      * @return JsonResponse
      * @throws \App\Exception\CommittedTransactionException
      * @throws \App\Exception\UserInterfaceException
-     * 
      */
     public function update(Request $request, $id)
     {

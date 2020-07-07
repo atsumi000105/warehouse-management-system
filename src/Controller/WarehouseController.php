@@ -23,10 +23,7 @@ class WarehouseController extends StorageLocationController
     /**
      * 
      * @Route("/", methods={"GET"})
-     * @IsGranted({
-       "ROLE_ADMIN",
-       "ROLE_WAREHOUSE_VIEW",
-       })
+     * @IsGranted({"ROLE_WAREHOUSE_VIEW"})
      * 
      */
     public function index(Request $request): JsonResponse
@@ -41,10 +38,7 @@ class WarehouseController extends StorageLocationController
     /**
      *
      * @Route("/{id<\d+>}", methods={"GET"})
-     * @IsGranted({
-       "ROLE_ADMIN",
-       "ROLE_WAREHOUSE_VIEW",
-       })
+     * @IsGranted({"ROLE_WAREHOUSE_VIEW"})
      *
      */
     public function show(Request $request, int $id): JsonResponse

@@ -50,7 +50,6 @@ class ReportController extends BaseController
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
-     *
      */
     public function transactionsReport(Request $request)
     {
@@ -124,7 +123,6 @@ class ReportController extends BaseController
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
-     *
      */
     public function supplierTotalsReport(Request $request)
     {
@@ -209,7 +207,6 @@ class ReportController extends BaseController
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
-     *
      */
     public function distributionTotalsReport(Request $request)
     {
@@ -294,7 +291,6 @@ class ReportController extends BaseController
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
-     *
      */
     public function partnerOrderTotalsReport(Request $request)
     {
@@ -379,7 +375,6 @@ class ReportController extends BaseController
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
-     *
      */
     public function partnerInventoryReport(Request $request)
     {

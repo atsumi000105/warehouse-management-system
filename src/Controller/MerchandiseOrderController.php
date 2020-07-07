@@ -33,14 +33,10 @@ class MerchandiseOrderController extends OrderController
      * Save a new product
      *
      * @Route(path="", methods={"POST"})
-     * @IsGranted({
-       "ROLE_ADMIN",
-       "ROLE_MERCHANDISE_ORDER_EDIT",
-       })
+     * @IsGranted({"ROLE_MERCHANDISE_ORDER_EDIT"})
      *
      * @param Request $request
      * @return JsonResponse
-     * 
      */
     public function store(Request $request)
     {
@@ -67,10 +63,7 @@ class MerchandiseOrderController extends OrderController
      * Whole or partial update of a order
      *
      * @Route(path="/{id<\d+>}", methods={"PATCH"})
-     * @IsGranted({
-       "ROLE_ADMIN",
-       "ROLE_MERCHANDISE_ORDER_EDIT",
-       })
+     * @IsGranted({"ROLE_MERCHANDISE_ORDER_EDIT"})
      *
      * @param Request $request
      * @param $id

@@ -29,7 +29,6 @@ class StorageLocationController extends BaseController
      * @IsGranted({"ROLE_ADMIN"})
      *
      * @return JsonResponse
-     *
      */
     public function index(Request $request)
     {
@@ -60,7 +59,6 @@ class StorageLocationController extends BaseController
      *
      * @param Request $request
      * @return array
-     *
      */
     public function store(Request $request)
     {
@@ -76,7 +74,6 @@ class StorageLocationController extends BaseController
      * @param Request $request
      * @param int $id
      * @return JsonResponse
-     *
      */
     public function update(Request $request, int $id)
     {
@@ -103,7 +100,6 @@ class StorageLocationController extends BaseController
      *
      * @param int $id
      * @return JsonResponse
-     *
      */
     public function destroy(int $id)
     {
@@ -134,7 +130,6 @@ class StorageLocationController extends BaseController
      *
      * @param Request $request
      * @return JsonResponse
-     *
      */
     public function listOptions(Request $request)
     {

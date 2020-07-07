@@ -28,10 +28,7 @@ class SupplierController extends BaseController
      * Get a list of Suppliers
      *
      * @Route(path="", methods={"GET"})
-     * @IsGranted({
-       "ROLE_ADMIN",
-       "ROLE_SUPPLIER_VIEW",
-       })
+     * @IsGranted({"ROLE_SUPPLIER_VIEW"})
      *
      * @return JsonResponse
      */
@@ -64,8 +61,8 @@ class SupplierController extends BaseController
                 'per_page' => (int) $limit,
                 'current_page' => (int) $page,
                 'last_page' => ceil($total / $limit),
-                "next_page_url" => null,
-                "prev_page_url" => null,
+                'next_page_url' => null,
+                'prev_page_url' => null,
                 'from' => (($page - 1) * $limit) + 1,
                 'to' => ($page * $limit),
             ]
@@ -78,14 +75,10 @@ class SupplierController extends BaseController
      * Get a single Supplier
      *
      * @Route(path="/{id<\d+>}", methods={"GET"})
-     * @IsGranted({
-       "ROLE_ADMIN",
-       "ROLE_SUPPLIER_VIEW",
-       })
+     * @IsGranted({"ROLE_SUPPLIER_VIEW"})
      *
      * @param $id
      * @return JsonResponse
-     * 
      */
     public function show(Request $request, $id)
     {
@@ -100,14 +93,10 @@ class SupplierController extends BaseController
      * Save a new supplier
      *
      * @Route(path="", methods={"POST"})
-     * @IsGranted({
-       "ROLE_ADMIN",
-       "ROLE_SUPPLIER_EDIT",
-       })
+     * @IsGranted({ROLE_SUPPLIER_EDIT"})
      *
      * @param Request $request
      * @return JsonResponse
-     * 
      */
     public function store(Request $request, ValidatorInterface $validator)
     {
@@ -130,10 +119,7 @@ class SupplierController extends BaseController
      * Whole or partial update of a supplier
      *
      * @Route(path="/{id<\d+>}", methods={"PATCH"})
-     * @IsGranted({
-       "ROLE_ADMIN",
-       "ROLE_SUPPLIER_EDIT",
-       })
+     * @IsGranted({"ROLE_SUPPLIER_EDIT"})
      *
      * @param Request $request
      * @param $id
@@ -159,10 +145,7 @@ class SupplierController extends BaseController
      * Delete a supplier
      *
      * @Route(path="/{id<\d+>}", methods={"DELETE"})
-     * @IsGranted({
-       "ROLE_ADMIN",
-       "ROLE_SUPPLIER_EDIT",
-       })
+     * @IsGranted({"ROLE_SUPPLIER_EDIT"})
      *
      * @param $id
      * @return JsonResponse
@@ -182,10 +165,7 @@ class SupplierController extends BaseController
 
     /**
      * @Route(path="/list-options")
-     * @IsGranted({
-       "ROLE_ADMIN",
-       "ROLE_SUPPLIER_VIEW",
-       })
+     * @IsGranted({"ROLE_SUPPLIER_VIEW"})
      *
      * @param Request $request
      * @return JsonResponse

@@ -30,7 +30,6 @@ class GroupController extends BaseController
      * @IsGranted({"ROLE_ADMIN"})
      *
      * @return JsonResponse
-     *
      */
     public function index(Request $request)
     {
@@ -47,7 +46,6 @@ class GroupController extends BaseController
      *
      * @param $id
      * @return JsonResponse
-     *
      */
     public function show(Request $request, $id)
     {
@@ -65,7 +63,6 @@ class GroupController extends BaseController
      * @param Request $request
      * @param ValidatorInterface $validator
      * @return JsonResponse
-     *
      */
     public function store(Request $request, ValidatorInterface $validator)
     {
@@ -91,7 +88,6 @@ class GroupController extends BaseController
      * @param Request $request
      * @param $id
      * @return JsonResponse
-     *
      */
     public function update(Request $request, $id)
     {
@@ -115,7 +111,6 @@ class GroupController extends BaseController
      *
      * @param $id
      * @return JsonResponse
-     *
      */
     public function destroy($id)
     {
@@ -135,7 +130,6 @@ class GroupController extends BaseController
      *
      * @param $id
      * @return JsonResponse
-     *
      */
     public function listRoles()
     {

@@ -31,14 +31,10 @@ class AdjustmentOrderController extends OrderController
      * Save a new Adjustment
      *
      * @Route(path="", methods={"POST"})
-     * @IsGranted({
-       "ROLE_ADMIN",
-       "ROLE_ADJUSTMENT_ORDER_EDIT",
-       })
+     * @IsGranted({"ROLE_ADJUSTMENT_ORDER_EDIT"})
      *
      * @param Request $request
      * @return JsonResponse
-     * 
      */
     public function store(Request $request)
     {
@@ -69,16 +65,12 @@ class AdjustmentOrderController extends OrderController
      * Whole or partial update of a order
      *
      * @Route(path="/{id<\d+>}", methods={"PATCH"})
-     * @IsGranted({
-       "ROLE_ADMIN",
-       "ROLE_ADJUSTMENT_ORDER_EDIT",
-       })
+     * @IsGranted({"ROLE_ADJUSTMENT_ORDER_EDIT"})
      *
      * @param Request $request
      * @param int $id
      * @return JsonResponse
      * @throws \App\Exception\CommittedTransactionException
-     * 
      */
     public function update(Request $request, $id)
     {

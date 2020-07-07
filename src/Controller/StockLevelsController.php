@@ -23,7 +23,6 @@ class StockLevelsController extends BaseController
      * @IsGranted({"ROLE_ADMIN"})
      *
      * @return JsonResponse
-     *
      */
     public function index(Request $request)
     {
