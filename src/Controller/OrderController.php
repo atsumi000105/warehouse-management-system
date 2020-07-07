@@ -8,6 +8,7 @@ use App\Entity\Product;
 use App\Exception\CommittedTransactionException;
 use App\Security\PartnerOrderVoter;
 use App\Transformers\OrderTransformer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,8 +33,14 @@ class OrderController extends BaseController
      * Get a list of Sub-classed orders
      *
      * @Route(path="", methods={"GET"})
+     * @IsGranted({
+       "ROLE_ADMIN",
+       "ROLE_ORDER_VIEW_ALL",
+       "ROLE_ORDER_MANAGE_OWN",
+       })
      *
      * @return JsonResponse
+     * 
      */
     public function index(Request $request)
     {
@@ -73,6 +80,13 @@ class OrderController extends BaseController
      * Get a single Order
      *
      * @Route(path="/{id<\d+>}", methods={"GET"})
+     * @IsGranted({
+       "ROLE_ADMIN",
+       "ROLE_ORDER_VIEW_ALL",
+       "ROLE_ORDER_MANAGE_OWN",
+       })
+     *
+     * 
      */
     public function show(Request $request, $id)
     {
@@ -84,10 +98,17 @@ class OrderController extends BaseController
     }
 
     /**
+     *
      * @Route(path="/bulk", methods={"GET"})
+     * @IsGranted({
+       "ROLE_ADMIN",
+       "ROLE_ORDER_VIEW_ALL",
+       "ROLE_ORDER_MANAGE_OWN",
+       })
      *
      * @param Request $request
      * @return JsonResponse
+     * 
      */
     public function bulkShow(Request $request)
     {
@@ -102,10 +123,16 @@ class OrderController extends BaseController
      * Whole or partial update of a order
      *
      * @Route(path="/{id<\d+>}", methods={"PATCH"})
+     * @IsGranted({
+       "ROLE_ADMIN",
+       "ROLE_ORDER_EDIT_ALL",
+       "ROLE_ORDER_MANAGE_OWN",
+       })
      *
      * @param Request $request
      * @param $id
      * @return JsonResponse
+     * 
      */
     public function update(Request $request, $id)
     {
@@ -126,12 +153,18 @@ class OrderController extends BaseController
     }
 
     /**
-     * Delete a order
+     * Delete an order
      *
      * @Route(path="/{id<\d+>}", methods={"DELETE"})
+     * @IsGranted({
+       "ROLE_ADMIN",
+       "ROLE_ORDER_EDIT_ALL",
+       "ROLE_ORDER_MANAGE_OWN",
+       })
      *
      * @param $id
      * @return JsonResponse
+     * 
      */
     public function destroy($id)
     {
@@ -152,10 +185,17 @@ class OrderController extends BaseController
     }
 
     /**
+     * 
      * @Route(path="/bulk-change", methods={"PATCH"})
+     * @IsGranted({
+       "ROLE_ADMIN",
+       "ROLE_ORDER_EDIT_ALL",
+       "ROLE_ORDER_MANAGE_OWN",
+       })
      *
      * @param Request $request
      * @return JsonResponse
+     * 
      */
     public function bulkChange(Request $request)
     {
@@ -180,10 +220,17 @@ class OrderController extends BaseController
     }
 
     /**
+     * 
      * @Route(path="/bulk-delete", methods={"PATCH"})
+     * @IsGranted({
+       "ROLE_ADMIN",
+       "ROLE_ORDER_EDIT_ALL",
+       "ROLE_ORDER_MANAGE_OWN",
+       })
      *
      * @param Request $request
      * @return JsonResponse
+     * 
      */
     public function bulkDelete(Request $request)
     {

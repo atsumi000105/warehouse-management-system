@@ -29,6 +29,7 @@ use App\Transformers\Report\InventoryTransactionReportTransformer;
 use App\Transformers\Report\PartnerInventoryReportTransformer;
 use App\Transformers\Report\PartnerOrderTotalsReportTransformer;
 use App\Transformers\Report\SupplierTotalsReportTransformer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -41,12 +42,15 @@ use Symfony\Component\Routing\Annotation\Route;
 class ReportController extends BaseController
 {
     /**
-     * @Route(path="/transactions")
      *
+     * @Route(path="/transactions")
+     * @IsGranted({"ROLE_ADMIN"})
+     * 
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     *
      */
     public function transactionsReport(Request $request)
     {
@@ -112,12 +116,15 @@ class ReportController extends BaseController
     }
 
     /**
-     * @Route(path="/supplier-totals")
      *
+     * @Route(path="/supplier-totals")
+     * @IsGranted({"ROLE_ADMIN"})
+     * 
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     *
      */
     public function supplierTotalsReport(Request $request)
     {
@@ -194,12 +201,15 @@ class ReportController extends BaseController
     }
 
     /**
-     * @Route(path="/distribution-totals")
      *
+     * @Route(path="/distribution-totals")
+     * @IsGranted({"ROLE_ADMIN"})
+     * 
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     *
      */
     public function distributionTotalsReport(Request $request)
     {
@@ -276,12 +286,15 @@ class ReportController extends BaseController
     }
 
     /**
-     * @Route(path="/partner-order-totals")
      *
+     * @Route(path="/partner-order-totals")
+     * @IsGranted({"ROLE_ADMIN"})
+     * 
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     *
      */
     public function partnerOrderTotalsReport(Request $request)
     {
@@ -358,12 +371,15 @@ class ReportController extends BaseController
     }
 
     /**
-     * @Route(path="/partner-inventory")
      *
+     * @Route(path="/partner-inventory")
+     * @IsGranted({"ROLE_ADMIN"})
+     * 
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     *
      */
     public function partnerInventoryReport(Request $request)
     {

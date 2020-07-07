@@ -8,6 +8,7 @@ use App\Entity\PartnerFulfillmentPeriod;
 use App\Entity\PartnerProfile;
 use App\Transformers\ClientTransformer;
 use App\Transformers\PartnerTransformer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -26,7 +27,14 @@ class PartnerController extends BaseController
     protected $defaultEntityName = Partner::class;
 
     /**
+     * 
      * @Route("/", methods={"GET"})
+     * @IsGranted({
+       "ROLE_ADMIN",
+       "ROLE_PARTNER_VIEW_ALL",
+       "ROLE_PARTNER_MANAGE_OWN"
+       })
+     * 
      */
     public function index(Request $request)
     {
@@ -36,7 +44,14 @@ class PartnerController extends BaseController
     }
 
     /**
+     * 
      * @Route("", methods={"POST"})
+     * @IsGranted({
+       "ROLE_ADMIN",
+       "ROLE_PARTNER_EDIT_ALL",
+       "ROLE_PARTNER_MANAGE_OWN"
+       })
+     * 
      */
     public function store(Request $request, Registry $workflowRegistry)
     {
@@ -66,7 +81,14 @@ class PartnerController extends BaseController
     }
 
     /**
+     * 
      * @Route("/{id<\d+>}", methods={"GET"})
+     * @IsGranted({
+       "ROLE_ADMIN",
+       "ROLE_PARTNER_VIEW_ALL",
+       "ROLE_PARTNER_MANAGE_OWN"
+       })
+     * 
      */
     public function show(Request $request, Registry $workflowRegistry, int $id): JsonResponse
     {
@@ -79,11 +101,19 @@ class PartnerController extends BaseController
     }
 
     /**
+     * 
      * @Route(path="/{id<\d+>}", methods={"PATCH"})
+     * @IsGranted({
+       "ROLE_ADMIN",
+       "ROLE_PARTNER_EDIT_ALL",
+       "ROLE_PARTNER_MANAGE_OWN"
+       })
+     * 
      * @param Request $request
      * @param int $id
      * @return JsonResponse
      * @throws \Exception
+     * 
      */
     public function update(Request $request, int $id)
     {
@@ -112,6 +142,12 @@ class PartnerController extends BaseController
      * Delete a Partner
      *
      * @Route(path="/{id}", methods={"DELETE"})
+     * @IsGranted({
+       "ROLE_ADMIN",
+       "ROLE_PARTNER_EDIT_ALL",
+       "ROLE_PARTNER_MANAGE_OWN"
+       })
+     *
      */
     public function destroy(int $id): JsonResponse
     {
@@ -127,7 +163,16 @@ class PartnerController extends BaseController
     }
 
     /**
+     *
      * @Route("/{id<\d+>}/clients", methods={"GET"})
+     * @IsGranted({
+       "ROLE_ADMIN",
+       "ROLE_PARTNER_VIEW_ALL",
+       "ROLE_PARTNER_MANAGE_OWN",
+       "ROLE_CLIENT_VIEW_ALL",
+       "ROLE_CLIENT_MANAGE_OWN"
+       })
+     *
      */
     public function clients(Request $request, int $id): JsonResponse
     {
@@ -137,7 +182,14 @@ class PartnerController extends BaseController
     }
 
     /**
+     *
      * @Route("/{id<\d+>}/transition", methods={"PATCH"})
+     * @IsGranted({
+       "ROLE_ADMIN",
+       "ROLE_PARTNER_EDIT_ALL",
+       "ROLE_PARTNER_MANAGE_OWN"
+       })
+     *
      */
     public function transition(Request $request, Registry $workflowRegistry, int $id): JsonResponse
     {
@@ -178,9 +230,11 @@ class PartnerController extends BaseController
     }
 
     /**
+     *
      * @param Registry $workflowRegistry
      * @param Partner $partner
      * @return String[]
+     *
      */
     protected function getEnabledTransitions(Registry $workflowRegistry, Partner $partner): array
     {

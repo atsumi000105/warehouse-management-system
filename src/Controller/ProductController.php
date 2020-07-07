@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Product;
 use App\Entity\ProductCategory;
 use App\Transformers\ProductTransformer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -25,8 +26,10 @@ class ProductController extends BaseController
      * Get a list of Products
      *
      * @Route(path="", methods={"GET"})
+     * @IsGranted({"ROLE_ADMIN"})
      *
      * @return JsonResponse
+     * 
      */
     public function index(Request $request)
     {
@@ -45,9 +48,11 @@ class ProductController extends BaseController
      * Get a single Product
      *
      * @Route(path="/{id<\d+>}", methods={"GET"})
+     * @IsGranted({"ROLE_ADMIN"})
      *
      * @param $id
      * @return JsonResponse
+     *
      */
     public function show(Request $request, $id)
     {
@@ -60,9 +65,11 @@ class ProductController extends BaseController
      * Save a new product
      *
      * @Route(path="", methods={"POST"})
+     * @IsGranted({"ROLE_ADMIN"})
      *
      * @param Request $request
      * @return JsonResponse
+     *
      */
     public function store(Request $request, ValidatorInterface $validator)
     {
@@ -92,6 +99,8 @@ class ProductController extends BaseController
      * Saves the order index of the products
      *
      * @Route(path="/order", methods={"POST"})
+     * @IsGranted({"ROLE_ADMIN"})
+     *
      */
     public function storeOrder(Request $request): JsonResponse
     {
@@ -114,10 +123,12 @@ class ProductController extends BaseController
      * Whole or partial update of a product
      *
      * @Route(path="/{id<\d+>}", methods={"PATCH"})
+     * @IsGranted({"ROLE_ADMIN"})
      *
      * @param Request $request
      * @param $id
      * @return array
+     *
      */
     public function update(Request $request, $id)
     {
@@ -145,9 +156,11 @@ class ProductController extends BaseController
      * Delete a product
      *
      * @Route(path="/{id<\d+>}", methods={"DELETE"})
+     * @IsGranted({"ROLE_ADMIN"})
      *
      * @param $id
      * @return JsonResponse
+     *
      */
     public function destroy($id)
     {
@@ -167,8 +180,10 @@ class ProductController extends BaseController
      * Get current inventory stats for the give product
      *
      * @Route(path="/{id<\d+>}/inventory")
+     * @IsGranted({"ROLE_ADMIN"})
      *
      * @param $id
+     *
      */
     public function inventory($id)
     {

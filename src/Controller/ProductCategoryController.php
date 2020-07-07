@@ -5,6 +5,7 @@ use App\Entity\PartnerDistributionMethod;
 use App\Entity\ProductCategory;
 use App\Transformers\ListOptionTransformer;
 use App\Transformers\ProductCategoryTransformer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -12,6 +13,8 @@ use Symfony\Component\Routing\Annotation\Route;
  * @package App\Controllers
  *
  * @Route(path="/api/product-categories")
+ * @IsGranted({"ROLE_ADMIN"})
+ * 
  */
 class ProductCategoryController extends ListOptionController
 {

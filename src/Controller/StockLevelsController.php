@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\InventoryTransaction;
 use App\Entity\Product;
 use App\Entity\StorageLocation;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,8 +20,10 @@ class StockLevelsController extends BaseController
      * Get a list of Sub-classed storage locations
      *
      * @Route(path="", methods={"GET"})
+     * @IsGranted({"ROLE_ADMIN"})
      *
      * @return JsonResponse
+     *
      */
     public function index(Request $request)
     {

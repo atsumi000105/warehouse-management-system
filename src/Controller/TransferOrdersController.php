@@ -6,6 +6,7 @@ use App\Entity\Orders\TransferOrder;
 use App\Entity\Orders\TransferOrderLineItem;
 use App\Entity\StorageLocation;
 use App\Transformers\TransferOrderTransformer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -29,10 +30,15 @@ class TransferOrdersController extends OrderController
      * Save a new Transfer
      *
      * @Route(path="", methods={"POST"})
+     * @IsGranted({
+       "ROLE_ADMIN",
+       "ROLE_TRANSFER_ORDER_EDIT",
+       })
      *
      * @param Request $request
      * @return JsonResponse
      * @throws \Exception
+     * 
      */
     public function store(Request $request)
     {
@@ -70,12 +76,17 @@ class TransferOrdersController extends OrderController
      * Whole or partial update of a order
      *
      * @Route(path="/{id<\d+>}", methods={"PATCH"})
+     * @IsGranted({
+       "ROLE_ADMIN",
+       "ROLE_TRANSFER_ORDER_EDIT",
+       })
      *
      * @param Request $request
      * @param $id
      * @return JsonResponse
      * @throws \App\Exception\CommittedTransactionException
      * @throws \App\Exception\UserInterfaceException
+     * 
      */
     public function update(Request $request, $id)
     {
@@ -87,7 +98,6 @@ class TransferOrdersController extends OrderController
 
         // TODO: get permissions working (#1)
         // $this->checkEditPermissions($order);
-
 
         if ($params['sourceLocation']['id']) {
             $newLocation = $this->getEm()->find(StorageLocation::class, $params['sourceLocation']['id']);
