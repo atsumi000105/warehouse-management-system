@@ -47,6 +47,13 @@ class Partner extends StorageLocation
         self::STATUS_INACTIVE,
     ];
 
+    public const TRANSITION_SUBMIT = 'SUBMIT';
+    public const TRANSITION_SUBMIT_PRIORITY = 'SUBMIT_PRIORITY';
+    public const TRANSITION_ACTIVATE = 'ACTIVATE';
+    public const TRANSITION_FLAG_FOR_REVIEW = 'FLAG_FOR_REVIEW';
+    public const TRANSITION_FLAG_FOR_REVIEW_PAST_DUE = 'FLAG_FOR_REVIEW_PAST_DUE';
+    public const TRANSITION_DEACTIVATE = 'DEACTIVATE';
+
     /**
      * @var string
      *
@@ -123,6 +130,11 @@ class Partner extends StorageLocation
         $this->users = new ArrayCollection();
         $this->status = self::STATUS_START;
         $this->workflowRegistry = $workflowRegistry;
+    }
+
+    public function __toString()
+    {
+        return sprintf('%s (%s)', $this->getTitle(), $this->id);
     }
 
     /**
@@ -240,7 +252,13 @@ class Partner extends StorageLocation
             $stateMachine->apply($this, $transition);
         } catch (LogicException $ex) {
             // TODO log this instead
-            throw new \Exception(sprintf('%s is not a valid transition at this time. Exception thrown: %s', $transition, $ex->getMessage()));
+            throw new \Exception(
+                sprintf(
+                    '%s is not a valid transition at this time. Exception thrown: %s',
+                    $transition,
+                    $ex->getMessage()
+                )
+            );
         }
     }
 }

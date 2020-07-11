@@ -41,8 +41,14 @@
                                     <th>Updated</th>
                                 </tr>
                             </thead>
-                            <Draggable v-model="definitions" tag="tbody">
-                                <tr v-for="definition in definitions" :key="definition.id">
+                            <Draggable
+                                v-model="definitions"
+                                tag="tbody"
+                            >
+                                <tr
+                                    v-for="definition in definitions"
+                                    :key="definition.id"
+                                >
                                     <td><i class="fa fa-arrows" /></td>
                                     <td>
                                         <router-link
@@ -68,9 +74,9 @@
 </template>
 
 <script>
-    import Draggable from 'vuedraggable';
+import Draggable from 'vuedraggable';
 
-    export default {
+export default {
         name: "AttributeDefinitionList",
         components: {
             Draggable

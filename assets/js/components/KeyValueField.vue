@@ -9,7 +9,7 @@
             >
                 <div>
                     <div class="col-xs-1">
-                        <i class="fa fa-arrows"></i>
+                        <i class="fa fa-arrows" />
                     </div>
                     <div class="col-xs-5">
                         <input
@@ -30,16 +30,16 @@
                 </div>
             </div>
         </Draggable>
-        <button @click="addBlankPair">Add Option</button>
-
-
+        <button @click="addBlankPair">
+            Add Option
+        </button>
     </div>
 </template>
 
 <script>
-    import Draggable from 'vuedraggable';
+import Draggable from 'vuedraggable';
 
-    export default {
+export default {
         name: "NameValueField",
         components: {
             Draggable

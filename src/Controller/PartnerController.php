@@ -8,6 +8,7 @@ use App\Entity\PartnerFulfillmentPeriod;
 use App\Entity\PartnerProfile;
 use App\Transformers\ClientTransformer;
 use App\Transformers\PartnerTransformer;
+use App\Security\PartnerVoter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -43,6 +44,9 @@ class PartnerController extends BaseController
         $params = $this->getParams($request);
 
         $partner = new Partner($params['title'], $workflowRegistry);
+
+        $this->denyAccessUnlessGranted(PartnerVoter::EDIT, $partner);
+
         $partnerProfile = new PartnerProfile();
         $partner->setProfile($partnerProfile);
 
@@ -71,6 +75,9 @@ class PartnerController extends BaseController
     public function show(Request $request, Registry $workflowRegistry, int $id): JsonResponse
     {
         $partner = $this->getPartnerById($id);
+
+        $this->denyAccessUnlessGranted(PartnerVoter::VIEW, $partner);
+
         $meta = [
             'enabledTransitions' => $this->getEnabledTransitions($workflowRegistry, $partner),
         ];
@@ -90,6 +97,9 @@ class PartnerController extends BaseController
         $params = $this->getParams($request);
 
         $partner = $this->getPartnerById($id);
+
+        $this->denyAccessUnlessGranted(PartnerVoter::EDIT, $partner);
+
         $partner->applyChangesFromArray($params);
 
         if ($params['distributionMethod']['id']) {
@@ -117,8 +127,7 @@ class PartnerController extends BaseController
     {
         $partner = $this->getPartnerById($id);
 
-        // TODO: get permissions working (#1)
-        // $this->checkEditPermissions($partner);
+        $this->denyAccessUnlessGranted(PartnerVoter::EDIT, $partner);
 
         $this->getEm()->remove($partner);
         $this->getEm()->flush();
@@ -184,12 +193,15 @@ class PartnerController extends BaseController
      */
     protected function getEnabledTransitions(Registry $workflowRegistry, Partner $partner): array
     {
-        $enabledTransitions = $workflowRegistry
-            ->get($partner)
-            ->getEnabledTransitions($partner);
+        $workflow = $workflowRegistry->get($partner);
+        $enabledTransitions = $workflow->getEnabledTransitions($partner);
 
-        return array_map(function (Transition $transition) {
-            return $transition->getName();
+        return array_map(function (Transition $transition) use ($workflow) {
+            $title = $workflow->getMetadataStore()->getTransitionMetadata($transition)['title'];
+            return [
+                'transition' => $transition->getName(),
+                'title' => $title
+            ];
         }, $enabledTransitions);
     }
 }

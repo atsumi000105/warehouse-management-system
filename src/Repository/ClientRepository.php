@@ -78,4 +78,40 @@ class ClientRepository extends EntityRepository
     {
         $qb->join('c.partner', 'partner');
     }
+
+    /**
+     * Returns all clients that are currently active and their age expiration date has passed.
+     */
+    public function findAllActiveAgedOut()
+    {
+        $qb = $this->createQueryBuilder('c');
+
+        $qb->andWhere('c.status = :status')
+            ->setParameter('status', Client::STATUS_ACTIVE);
+
+        $now = new \DateTimeImmutable();
+
+        $qb->andWhere('c.ageExpiresAt < :now')
+            ->setParameter('now', $now);
+
+        return $qb->getQuery()->execute();
+    }
+
+    /**
+     * Returns all clients that are currently active and their age expiration date has passed.
+     */
+    public function findAllActiveMaxDistributions()
+    {
+        $qb = $this->createQueryBuilder('c');
+
+        $qb->andWhere('c.status = :status')
+            ->setParameter('status', Client::STATUS_ACTIVE);
+
+        $now = new \DateTimeImmutable();
+
+        $qb->andWhere('c.distributionExpiresAt < :now')
+            ->setParameter('now', $now);
+
+        return $qb->getQuery()->execute();
+    }
 }

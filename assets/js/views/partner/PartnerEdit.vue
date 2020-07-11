@@ -14,12 +14,12 @@
                 >
                     <li
                         v-for="enabledTransition in partner.workflow.enabledTransitions.sort()"
-                        :key="enabledTransition"
+                        :key="enabledTransition.transition"
                     >
                         <a
-                            @click.prevent="doTransition(enabledTransition)"
+                            @click.prevent="doTransition(enabledTransition.transition)"
                         >
-                            <i class="fa fa-arrow-circle-right" />{{ enabledTransition | statusFormat }}
+                            <i class="fa fa-arrow-circle-right" />{{ enabledTransition.title }}
                         </a>
                     </li>
                 </ul>

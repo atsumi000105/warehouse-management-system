@@ -1,10 +1,13 @@
 <template>
     <div class="form-group">
-        <label v-if="label" v-text="label" />
+        <label
+            v-if="label"
+            v-text="label"
+        />
         <template v-if="chosen && loaded">
             <select
-                :value="value"
                 v-chosen
+                :value="value"
                 class="form-control"
                 :class="{'loaded': loaded}"
                 @change="onChange"

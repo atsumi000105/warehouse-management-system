@@ -6,6 +6,7 @@ use App\Entity\Orders\AdjustmentOrder;
 use App\Entity\Orders\AdjustmentOrderLineItem;
 use App\Entity\StorageLocation;
 use App\Transformers\AdjustmentOrderTransformer;
+use App\Security\AdjustmentOrderVoter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -50,8 +51,7 @@ class AdjustmentOrderController extends OrderController
 
         $order->applyChangesFromArray($params);
 
-        // TODO: get permissions working (#1)
-        // $this->checkEditPermissions($order);
+        $this->denyAccessUnlessGranted(AdjustmentOrderVoter::EDIT, $order);
 
         $this->getEm()->persist($order);
         $this->getEm()->flush();
@@ -76,6 +76,8 @@ class AdjustmentOrderController extends OrderController
         $order = $this->getOrder($id);
 
         $this->checkEditable($order);
+
+        $this->denyAccessUnlessGranted(AdjustmentOrderVoter::EDIT, $order);
 
         if ($params['storageLocation']['id']) {
             $newLocation = $this->getEm()->find(StorageLocation::class, $params['storageLocation']['id']);

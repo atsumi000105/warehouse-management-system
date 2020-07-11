@@ -1,6 +1,6 @@
 <template>
     <div class="form-group">
-        <label v-text="label"></label>
+        <label v-text="label" />
         <textarea
             :value="value"
             class="form-control"

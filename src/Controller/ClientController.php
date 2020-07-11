@@ -31,8 +31,8 @@ class ClientController extends BaseController
 //        $this->checkViewPermissions($clients);
 
         $sort = $request->get('sort') ? explode('|', $request->get('sort')) : null;
-        $page = $request->get('page', 1);
-        $limit = $request->get('per_page', 10);
+        $page = (int) $request->get('page', 1);
+        $limit = (int) $request->get('per_page', 10);
 
         $params = $this->buildFilterParams($request);
 
@@ -44,18 +44,18 @@ class ClientController extends BaseController
             $params
         );
 
-        $total = $this->getRepository()->findAllCount($params);
+        $total = (int) $this->getRepository()->findAllCount($params);
 
         $meta = [
             'pagination' => [
-                'total' => (int) $total,
-                'per_page' => (int) $limit,
-                'current_page' => (int) $page,
+                'total' => $total,
+                'per_page' => $limit,
+                'current_page' => $page,
                 'last_page' => ceil($total / $limit),
                 'next_page_url' => null,
                 'prev_page_url' => null,
                 'from' => (($page - 1) * $limit) + 1,
-                'to' => ($page * $limit),
+                'to' => min($page * $limit, $total),
             ]
         ];
 
@@ -200,6 +200,14 @@ class ClientController extends BaseController
             $params->set('partner', $partner);
         }
 
+        /** @var User $user */
+        $user = $this->getUser();
+
+        // If the user isn't an admin,
+        if (!$user->hasRole(Client::ROLE_VIEW_ALL)) {
+            $params->set('partner', $user->getActivePartner());
+        }
+
         return $params;
     }
 
@@ -227,12 +235,15 @@ class ClientController extends BaseController
      */
     protected function getEnabledTransitions(Registry $workflowRegistry, Client $client): array
     {
-        $enabledTransitions = $workflowRegistry
-            ->get($client)
-            ->getEnabledTransitions($client);
+        $workflow = $workflowRegistry->get($client);
+        $enabledTransitions = $workflow->getEnabledTransitions($client);
 
-        return array_map(function (Transition $transition) {
-            return $transition->getName();
+        return array_map(function (Transition $transition) use ($workflow) {
+            $title = $workflow->getMetadataStore()->getTransitionMetadata($transition)['title'];
+            return [
+                'transition' => $transition->getName(),
+                'title' => $title
+            ];
         }, $enabledTransitions);
     }
 }

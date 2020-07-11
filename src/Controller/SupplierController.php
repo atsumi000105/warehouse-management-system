@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Supplier;
 use App\Transformers\SupplierOptionTransformer;
 use App\Transformers\SupplierTransformer;
+use App\Security\SupplierVoter;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -80,6 +81,8 @@ class SupplierController extends BaseController
     {
         $supplier = $this->getSupplier($id);
 
+        $this->denyAccessUnlessGranted(SupplierVoter::VIEW, $supplier);
+
         return $this->serialize($request, $supplier);
     }
 
@@ -98,8 +101,7 @@ class SupplierController extends BaseController
         $params = $this->getParams($request);
         $supplier->applyChangesFromArray($params);
 
-        // TODO: get permissions working (#1)
-        // $this->checkEditPermissions($supplier);
+        $this->denyAccessUnlessGranted(SupplierVoter::EDIT, $supplier);
 
         $this->validate($supplier, $validator);
 
@@ -124,8 +126,7 @@ class SupplierController extends BaseController
         /** @var Supplier $supplier */
         $supplier = $this->getSupplier($id);
 
-        // TODO: get permissions working (#1)
-        // $this->checkEditPermissions($supplier);
+        $this->denyAccessUnlessGranted(SupplierVoter::EDIT, $supplier);
 
         $supplier->applyChangesFromArray($params);
 
@@ -147,8 +148,7 @@ class SupplierController extends BaseController
     {
         $supplier = $this->getSupplier($id);
 
-        // TODO: get permissions working (#1)
-        // $this->checkEditPermissions($supplier);
+        $this->denyAccessUnlessGranted(SupplierVoter::EDIT, $supplier);
 
         $this->getEm()->remove($supplier);
 

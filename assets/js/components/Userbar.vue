@@ -1,6 +1,9 @@
 <template>
     <ul class="nav navbar-nav">
-        <li v-if="userPartners.length > 0" class="dropdown admin-menu">
+        <li
+            v-if="userPartners.length > 0"
+            class="dropdown admin-menu"
+        >
             <a
                 id="partner-switch-dropdown"
                 href="#"
@@ -32,8 +35,6 @@
                     </a>
                 </li>
             </ul>
-
-
         </li>
         <!-- Authentication Links -->
         <li class="dropdown user admin-menu">
@@ -71,10 +72,10 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
-    import axios from 'axios';
+import {mapGetters} from 'vuex';
+import axios from 'axios';
 
-    export default {
+export default {
         props:[],
         data() {
             return {
@@ -95,6 +96,9 @@
                 'userPartners'
             ])
         },
+        mounted() {
+            console.log('Component mounted.')
+        },
         methods: {
             switchPartner(id) {
                 let self = this;
@@ -104,9 +108,6 @@
                         self.$store.dispatch('loadCurrentUser')
                     });
             }
-        },
-        mounted() {
-            console.log('Component mounted.')
         }
     }
 </script>

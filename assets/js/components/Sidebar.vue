@@ -28,8 +28,7 @@
                     class="treeview-menu"
                 >
                     <li
-                        v-for="link in menu.links"
-                        v-if="hasAccess(link.route)"
+                        v-for="link in routesUserCanAccess(menu.links)"
                         :key="link.id"
                     >
                         <router-link :to="link.route">
@@ -47,9 +46,8 @@
 </template>
 
 <script>
-    import store from "../store";
 
-    export default {
+export default {
         props:[],
         data() {
             return {
@@ -116,21 +114,21 @@
                 ]
             }
         },
-        methods: {
-            hasAccess(linkRoute) {
-                if (!linkRoute) return true;
-                let self = this;
-                let resolved = this.$router.resolve({name: linkRoute.name});
-                let route = resolved.route;
-                if (route?.meta?.roles) {
-                    let hasRoles = route.meta.roles.filter((role) => self.$store.getters.userHasRole(role));
-                    return hasRoles.length > 0;
-                }
-                return true;
-            }
-        },
         mounted() {
             console.log('Component mounted.')
+        },
+        methods: {
+            routesUserCanAccess(links) {
+                return links.filter((link) => {
+                    let resolved = this.$router.resolve({name: link.name});
+                    let route = resolved.route;
+                    if (route?.meta?.roles) {
+                        let hasRoles = route.meta.roles.filter((role) => this.$store.getters.userHasRole(role));
+                        return hasRoles.length > 0;
+                    }
+                    return true;
+                }, this);
+            }
         }
     }
 </script>

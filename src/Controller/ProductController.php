@@ -33,7 +33,7 @@ class ProductController extends BaseController
         $partnerOrderable = $request->get('partnerOrderable');
 
         if ($partnerOrderable == null) {
-            $products = $this->getRepository()->findAll();
+            $products = $this->getRepository()->findAllSorted();
         } else {
             $products = $this->getRepository()->findByPartnerOrderable($partnerOrderable);
         }
@@ -86,6 +86,28 @@ class ProductController extends BaseController
         $this->getEm()->flush();
 
         return $this->serialize($request, $product);
+    }
+
+    /**
+     * Saves the order index of the products
+     *
+     * @Route(path="/order", methods={"POST"})
+     */
+    public function storeOrder(Request $request): JsonResponse
+    {
+        $params = $this->getParams($request);
+        $ids = $params['ids'];
+
+        /** @var Product[] $products */
+        $products = $this->getRepository()->findAllSorted();
+
+        foreach ($products as $product) {
+            $product->setOrderIndex(array_search($product->getId(), $ids));
+        }
+
+        $this->getEm()->flush();
+
+        return $this->serialize($request, $products);
     }
 
     /**

@@ -38,7 +38,9 @@ class UserTransformer extends TransformerAbstract
 
     public function includeActivePartner(User $user)
     {
-        if (!$user->getActivePartner()) return null;
+        if (!$user->getActivePartner()) {
+            return null;
+        }
 
         return $this->item($user->getActivePartner(), new PartnerTransformer());
     }
