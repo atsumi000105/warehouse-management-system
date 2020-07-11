@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# docker/app docker/js_install
 
 yarn install
 yarn dev

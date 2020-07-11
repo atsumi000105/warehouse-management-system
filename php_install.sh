@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# docker/app docker/php_install
 
 rm .env.local
 cp .env.docker .env.local
