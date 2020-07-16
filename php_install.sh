@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-rm .env.local
-cp .env.docker .env.local
-
 composer install
 
 # start fresh
