@@ -18,6 +18,7 @@ class AttributeDefinitionTransformer extends TransformerAbstract
             'name' => $definition->getName(),
             'label' => $definition->getLabel(),
             'type' => $definition->getType(),
+            'helpText' => $definition->getHelpText(),
             'displayInterface' => $definition->getDisplayInterface(),
             'description' => $definition->getDescription(),
             'required' => $definition->getRequired(),
