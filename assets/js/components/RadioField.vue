@@ -1,6 +1,12 @@
 <template>
     <div class="form-group">
         <label v-text="label" />
+        <i
+            v-if="helpText"
+            v-tooltip
+            :title="helpText"
+            class="attribute-help-text fa fa-question-circle"
+        ></i>
         <div
             v-for="option in options"
             :key="option.id"
@@ -25,6 +31,7 @@
         props: {
             value: { type: String, required: true },
             label: { type: String },
+            helpText: { type: String, requird: false, default: "" },
             displayProperty: { type: String, default: 'name'},
             displayTextFn: { type: Function },
             preloadedOptions: { type: Array, default: function() {return []}},

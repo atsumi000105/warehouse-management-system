@@ -7,6 +7,12 @@
                 @change="$emit('input', $event.target.checked)"
             > {{ label }}
         </label>
+        <i
+            v-if="helpText"
+            v-tooltip
+            :title="helpText"
+            class="attribute-help-text fa fa-question-circle"
+        ></i>
     </div>
 </template>
 
@@ -14,8 +20,9 @@
     export default {
         name: 'BooleanField',
         props: {
-            label: { required: true, type: String },
-            value: { type: Boolean, required: true }
+            label: { type: String, required: true },
+            value: { type: Boolean, required: true },
+            helpText: { type: String, required: false, default: "" },
         }
     }
 </script>
