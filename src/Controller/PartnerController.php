@@ -43,7 +43,7 @@ class PartnerController extends BaseController
     /**
      *
      * @Route("", methods={"POST"})
-     * @IsGranted({"ROLE_PARTNER_EDIT_ALL","ROLE_PARTNER_MANAGE_OWN"})
+     * @IsGranted({"ROLE_PARTNER_EDIT_ALL"})
      *
      */
     public function store(Request $request, Registry $workflowRegistry)
@@ -135,7 +135,7 @@ class PartnerController extends BaseController
      * Delete a Partner
      *
      * @Route(path="/{id}", methods={"DELETE"})
-     * @IsGranted({"ROLE_PARTNER_EDIT_ALL","ROLE_PARTNER_MANAGE_OWN"})
+     * @IsGranted({"ROLE_PARTNER_EDIT_ALL"})
      *
      */
     public function destroy(int $id): JsonResponse
@@ -171,7 +171,7 @@ class PartnerController extends BaseController
     /**
      *
      * @Route("/{id<\d+>}/transition", methods={"PATCH"})
-     * @IsGranted({"ROLE_PARTNER_EDIT_ALL","ROLE_PARTNER_MANAGE_OWN"})
+     * @IsGranted({"ROLE_PARTNER_EDIT_ALL"})
      *
      */
     public function transition(Request $request, Registry $workflowRegistry, int $id): JsonResponse

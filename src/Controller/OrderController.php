@@ -136,7 +136,7 @@ class OrderController extends BaseController
      * Delete an order
      *
      * @Route(path="/{id<\d+>}", methods={"DELETE"})
-     * @IsGranted({"ROLE_ORDER_EDIT_ALL","ROLE_ORDER_MANAGE_OWN"})
+     * @IsGranted({"ROLE_ADMIN"})
      *
      * @param $id
      * @return JsonResponse
@@ -162,7 +162,7 @@ class OrderController extends BaseController
     /**
      *
      * @Route(path="/bulk-change", methods={"PATCH"})
-     * @IsGranted({"ROLE_ORDER_EDIT_ALL","ROLE_ORDER_MANAGE_OWN"})
+     * @IsGranted({"ROLE_ORDER_EDIT_ALL"})
      *
      * @param Request $request
      * @return JsonResponse
@@ -192,7 +192,7 @@ class OrderController extends BaseController
     /**
      *
      * @Route(path="/bulk-delete", methods={"PATCH"})
-     * @IsGranted({"ROLE_ORDER_EDIT_ALL","ROLE_ORDER_MANAGE_OWN"})
+     * @IsGranted({"ROLE_ADMIN"})
      *
      * @param Request $request
      * @return JsonResponse

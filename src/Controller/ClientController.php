@@ -154,7 +154,7 @@ class ClientController extends BaseController
      * Delete a client
      *
      * @Route(path="/{uuid}", methods={"DELETE"})
-     * @IsGranted({"ROLE_CLIENT_EDIT_ALL","ROLE_CLIENT_MANAGE_OWN"})
+     * @IsGranted({"ROLE_ADMIN"})
      *
      */
     public function destroy(Request $request, string $uuid): JsonResponse
