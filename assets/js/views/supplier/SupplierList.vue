@@ -4,7 +4,8 @@
             :to="{ name: 'supplier-new' }"
             class="btn btn-success btn-flat pull-right"
         >
-            <i class="fa fa-plus-circle fa-fw" />Create Supplier
+            <i class="fa fa-plus-circle fa-fw" />
+            Create Supplier
         </router-link>
         <h3 class="box-title">
             Suppliers List
