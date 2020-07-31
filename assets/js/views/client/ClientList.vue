@@ -88,7 +88,7 @@
         data() {
             return {
                 columns: [
-                    { name: '__slot:link', title: "Client Id", sortField: 'id' },
+                    //{ name: '__slot:link', title: "Client Id", sortField: 'id' },
                     //todo: find a better way to sort value objects #30
                     { name: 'name.firstName', title: "First Name", sortField: 'c.name.firstname' },
                     { name: 'name.lastName', title: "Last Name", sortField: 'c.name.lastname' },
