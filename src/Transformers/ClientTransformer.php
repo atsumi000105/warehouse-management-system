@@ -21,6 +21,8 @@ class ClientTransformer extends TransformerAbstract
                 'firstName' => $client->getName()->getFirstname(),
                 'lastName' => $client->getName()->getLastname(),
             ],
+            'name.firstName' => $client->getName()->getFirstName(),
+            'name.lastName' => $client->getName()->getLastName(),
             'birthdate' => $client->getBirthdate()->format('c'),
             'isExpirationOverridden' => $client->isExpirationOverridden(),
             'ageExpiresAt' => $client->getAgeExpiresAt()->format('c'),
