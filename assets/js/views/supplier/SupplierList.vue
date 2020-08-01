@@ -181,6 +181,7 @@
             },
             onSelectionChange (selection) {
                 this.selection = selection;
+                console.log('ZACK', this.selection);
             },
             bulkStatusChange (statusId) {
                 $('#bulkChangeModal').modal('show');
