@@ -46,7 +46,7 @@
             </div>
 
             <div class="col-xs-2">
-                <optionliststatic
+                <OptionListStatic
                     v-model="filters.status"
                     label="Status"
                     :preloaded-options="statuses"
@@ -59,7 +59,8 @@
                     class="btn btn-success btn-flat"
                     @click="doFilter"
                 >
-                    <i class="fa fa-fw fa-filter" />Filter
+                    <i class="fa fa-fw fa-filter" />
+                    Filter
                 </button>
             </div>
         </div>
@@ -95,7 +96,7 @@
                             </div>
                         </div>
                     </div>
-                    <tablepaged
+                    <TablePaged
                         ref="hbtable"
                         :columns="columns"
                         api-url="/api/suppliers"
@@ -109,7 +110,7 @@
                 <!-- /.box -->
             </div>
         </div>
-        <supplier-merge
+        <SupplierMerge
             ref="supplierMerge"
             :selected-supplier-ids="selection"
         />
@@ -121,12 +122,13 @@
     import OptionListStatic from '../../components/OptionListStatic.vue';
     import TablePaged from '../../components/TablePaged.vue';
     import TextField from "../../components/TextField";
+
     export default {
         components: {
             TextField,
-            'supplier-merge' : SupplierMerge,
-            'optionliststatic' : OptionListStatic,
-            'tablepaged' : TablePaged
+            SupplierMerge,
+            OptionListStatic,
+            TablePaged,
         },
         props:[],
         data() {
@@ -165,7 +167,7 @@
         },
         methods: {
             routerLink: function (id) {
-                return "<router-link :to=" + { name: 'supplier-edit', params: { id: id }} + "><i class=\"fa fa-edit\"></i>" + id + "</router-link>";
+                return "<router-link :to=" + { name: 'supplier-edit', params: { id: id }} + "><i class=\"fa fa-edit\"></i> " + id + "</router-link>";
             },
             onPaginationData (paginationData) {
                 this.$refs.pagination.setPaginationData(paginationData)
@@ -193,14 +195,13 @@
                 let self = this;
                 axios
                     .patch('/api/supplier/bulk-change', {
-                    ids: self.selection,
-                    changes: self.bulkChange,
-                })
+                        ids: self.selection,
+                        changes: self.bulkChange,
+                    })
                     .then(response => self.refreshTable())
                     .catch(function (error) {
                         console.log(error);
                     });
-
             },
             requestParams: function () {
                 return {
