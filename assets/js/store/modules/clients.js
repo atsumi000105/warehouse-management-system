@@ -17,6 +17,21 @@ const getters = {
 
 // actions
 const actions = {
+    loadClients ({ commit }) {
+        return new Promise((resolve, reject) => {
+            axios
+                .get('/api/clients',  {
+                    params: {}
+                })
+                .then((response) => {
+                    commit('setClients', { list: response.data.data });
+                    resolve(response);
+                },
+                    (err) => {
+                    reject(err);
+            });
+        });
+    },
     loadPartnerClients ({ commit }, partnerId) {
         return new Promise((resolve, reject) => {
             axios
