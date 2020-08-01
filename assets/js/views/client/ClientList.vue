@@ -57,7 +57,7 @@
                                     type="button"
                                     class="btn btn-info btn-flat dropdown-toggle"
                                     data-toggle="dropdown"
-                                    :disabled="selection.length = 0"
+                                    :disabled="selection.length == 0"
                                 >
                                     <i class="fa fa-fw fa-wrench" />
                                     Bulk Operations ({{ selection.length }})
@@ -166,8 +166,7 @@
                 this.$events.fire('filter-set', this.requestParams());
             },
             onSelectionChange (selection) {
-                this._data.selection = selection;
-                console.log('ZACK', this._data.selection);
+                this.selection = selection;
             },
             bulkStatusChange (statusId) {
                 $('#bulkChangeModal').modal('show');
