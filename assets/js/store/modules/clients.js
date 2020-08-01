@@ -13,6 +13,9 @@ const getters = {
     allActiveClients: state => {
         return state.all.filter(client => client.status == "ACTIVE")
     },
+    getClientById: (state) => (id) => {
+        return state.all.find(client => client.id == id);
+    },
 };
 
 // actions
