@@ -51,6 +51,31 @@
                             </div>
                         </div>
                         -->
+                        <div class="col-xs-12">
+                            <div class="input-group-btn">
+                                <button
+                                    type="button"
+                                    class="btn btn-info btn-flat dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    :disabled="selection.length = 0"
+                                >
+                                    <i class="fa fa-fw fa-wrench" />
+                                    Bulk Operations ({{ selection.length }})
+                                    <span class="caret" />
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul
+                                    class="dropdown-menu"
+                                    role="menu"
+                                >
+                                    <li>
+                                        <a @click="onClickMerge()">
+                                            <i class="fa fa-compress-alt fa-fw" />Merge Clients
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body table-responsive no-padding">
@@ -69,10 +94,15 @@
                 <!-- /.box -->
             </div>
         </div>
+        <ClientMerge
+            ref="clientMerge"
+            :selected-client-ids="selection"
+        />
     </section>
 </template>
 
 <script>
+    import ClientMerge from './ClientMerge';
     import PartnerSelectionForm from "../../components/PartnerSelectionForm";
     import TablePaged from "../../components/TablePaged";
     import TextField from "../../components/TextField";
@@ -80,12 +110,14 @@
     export default {
         components: {
             TextField,
+            ClientMerge,
             PartnerSelectionForm,
             TablePaged,
         },
         props: [],
         data() {
             let columns = [
+                { name: '__checkbox', title: "#" },
                 { name: '__slot:link', title: "Client Id", sortField: 'id' },
                 //todo: find a better way to sort value objects #30
                 { name: 'name.firstName', title: "First Name", sortField: 'c.name.firstname' },
@@ -107,24 +139,69 @@
                     keyword: null,
                     partner: { id: null }
                 },
+                selection: [],
             }
         },
         created() {
-            console.log('Component mounted.');
+            axios
+                .get('/api/clients')
+                .then(response => this.clients = response.data);
+            console.log('Component mounted.')
+        },
+        mounted() {
+            this.$events.$on('selection-change', eventData => this.onSelectionChange(eventData));
         },
         methods: {
-
+            routerLink: function (id) {
+                return "<router-link :to=" + { name: 'client-edit', params: { id: id }} + "><i class=\"fa fa-edit\"></i> " + id + "</router-link>";
+            },
+            onPaginationData (paginationData) {
+                this.$refs.pagination.setPaginationData(paginationData)
+            },
+            onChangePage (page) {
+                this.$refs.vuetable.changePage(page)
+            },
             doFilter () {
                 console.log('doFilter:', this.requestParams());
                 this.$events.fire('filter-set', this.requestParams());
             },
+            onSelectionChange (selection) {
+                this._data.selection = selection;
+                console.log('ZACK', this._data.selection);
+            },
+            bulkStatusChange (statusId) {
+                $('#bulkChangeModal').modal('show');
+                this.bulkChange = {
+                    status: statusId
+                }
+            },
+            refreshTable () {
+                this.$refs.hbtable.refresh();
+            },
+            doBulkChange () {
+                let self = this;
+                axios
+                    .patch('/api/client/bulk-change', {
+                        ids: self.selection,
+                        changes: self.bulkChange,
+                    })
+                    .then(response => self.refreshTable())
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },
             requestParams: function () {
                 return {
+                    status: this.filters.status || null,
                     keyword: this.filters.keyword || null,
                     partner: this.filters.partner.id || null,
                     include: ['partner'],
                 }
             },
+            onClickMerge: function () {
+                this.$refs.clientMerge.reset();
+                $('#clientMergeModal').modal('show');
+            }
         },
     }
 </script>
