@@ -55,7 +55,7 @@
                     </label>
                 </div>
                 <div class="checkbox">
-                    <label for="orders">
+                    <label for="deactivate">
                         <input
                             id="deactivate"
                             v-model="mergeContext"
