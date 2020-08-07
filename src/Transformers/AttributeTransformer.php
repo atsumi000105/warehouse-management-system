@@ -3,13 +3,17 @@
 namespace App\Transformers;
 
 use App\Entity\EAV\Attribute;
-use App\Entity\EAV\Definition;
+use App\Entity\EAV\Type\AddressAttribute;
 use League\Fractal\TransformerAbstract;
 
 class AttributeTransformer extends TransformerAbstract
 {
     protected $availableIncludes = [
         'options'
+    ];
+
+    protected $defaultIncludes = [
+        'value'
     ];
 
     /**
@@ -24,10 +28,18 @@ class AttributeTransformer extends TransformerAbstract
             'label' => $attribute->getDefinition()->getLabel(),
             'type' => $attribute->getDefinition()->getType(),
             'displayInterface' => $attribute->getDefinition()->getDisplayInterface(),
-            'value' => $attribute->getJsonValue(),
             'orderIndex' => $attribute->getDefinition()->getOrderIndex(),
             'hasOptions' => $attribute->hasOptions(),
         ];
+    }
+
+    public function includeValue(Attribute $attribute)
+    {
+        if ($attribute instanceof AddressAttribute) {
+            return $this->item($attribute->getValue(), new AddressTransformer());
+        }
+
+        return $this->primitive($attribute->getJsonValue());
     }
 
     public function includeOptions(Attribute $attribute)

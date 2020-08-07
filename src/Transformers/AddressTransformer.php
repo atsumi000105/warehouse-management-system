@@ -2,13 +2,13 @@
 
 namespace App\Transformers;
 
-use App\Entity\StorageLocationAddress;
+use App\Entity\Address;
 use League\Fractal\TransformerAbstract;
 
-class StorageLocationAddressTransformer extends TransformerAbstract
+class AddressTransformer extends TransformerAbstract
 {
 
-    public function transform(StorageLocationAddress $address)
+    public function transform(Address $address)
     {
         return [
             'id' => (int) $address->getId(),

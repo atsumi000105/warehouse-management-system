@@ -42,6 +42,11 @@
                     v-model="attribute.value"
                     :label="attribute.label"
                 />
+                <AddressFormFields
+                    v-else-if="attribute.displayInterface === 'ADDRESS'"
+                    v-model="attribute.value"
+                    :label="attribute.label"
+                />
                 <TextField
                     v-else
                     v-model="attribute.value"
@@ -62,9 +67,11 @@
     import RadioField from "./RadioField";
     import BooleanField from "./ToggleField";
     import YesNoRadioField from "./YesNoRadioField";
+    import AddressFormFields from "./AddressFormFields";
     export default {
         name: 'AttributesEditForm',
         components: {
+            AddressFormFields,
             YesNoRadioField,
             BooleanField, RadioField, TextareaField, OptionListApi, NumberField, TextField, DateField},
         props: {
