@@ -134,9 +134,9 @@
                 let me = this;
                 axios
                     .post('/api/suppliers/merge', {
-                            targetSupplier: this.targetSupplier.id,
-                            sourceSuppliers: this.getSourcesSupplierIds(),
-                            context: this.mergeContext,
+                        targetSupplier: this.targetSupplier.id,
+                        sourceSuppliers: this.getSourcesSupplierIds(),
+                        context: this.mergeContext,
                     })
                     .then(response => me.$parent.refreshTable())
                     .catch(function (error) {

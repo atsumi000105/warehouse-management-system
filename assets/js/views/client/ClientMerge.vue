@@ -101,9 +101,9 @@
                 let me = this;
                 axios
                     .post('/api/clients/merge', {
-                            targetClient: this.targetClient.id,
-                            sourceClients: this.getSourcesClientIds(),
-                            context: this.mergeContext,
+                        targetClient: this.targetClient.id,
+                        sourceClients: this.getSourcesClientIds(),
+                        context: this.mergeContext,
                     })
                     .then(response => me.$parent.refreshTable())
                     .catch(function (error) {
