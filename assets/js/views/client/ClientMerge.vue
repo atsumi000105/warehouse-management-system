@@ -13,7 +13,6 @@
             v-model="targetClient"
             label="Merge clients in to"
             display-property="fullName"
-            :display-text-fn="item => item.id + ': ' + item.name.firstName + ' ' + item.name.lastName"
             :preloaded-options="selectedClients"
             empty-string="-- Select a Destination Client --"
             :chosen="false"
@@ -29,16 +28,16 @@
                             type="checkbox"
                             value="deactivate"
                         >
-                        Deactivate the merged {{ selectedClientList.length }} client(s)
+                        Deactivate the {{ selectedClientList.length }} merged client(s)
                     </label>
                 </div>
             </div>
-            Merge the following clients in to <strong>{{ targetClient.id }} - {{ targetClientTitle }}</strong>
+            Merge the following clients in to <strong>{{ targetClientName }}</strong> <span class="text-white-alpha">&ndash; {{ targetClient.id }}</span>:
             <ul>
                 <li
                     v-for="client in selectedClientList"
                     :key="client.id"
-                    v-text="client"
+                    v-html="client"
                 />
             </ul>
         </template>
@@ -61,7 +60,7 @@
             'modal' : Modal,
         },
         props: {
-            selectedClientIds: { type: Array, required: true }
+            selectedClientIds: { type: Array, required: true },
         },
         data() {
             return {
@@ -74,10 +73,10 @@
                 let me = this;
                 return this.selectedClientIds.map(clientId => me.$store.getters.getClientById(clientId));
             },
-            targetClientTitle: function () {
+            targetClientName: function () {
                 if (this.isTargetSet()) {
                     let target = this.$store.getters.getClientById(this.targetClient.id);
-                    return target.name.firstName + ' ' + target.name.lastName;
+                    return target.fullName;
                 }
 
                 return '';
@@ -87,7 +86,7 @@
                 let me = this;
                 let clients = this.selectedClientIds.map(clientId => me.$store.getters.getClientById(clientId));
                 clients = clients.filter(client => client.id !== me.targetClient.id);
-                return clients.map(client => client.id + ": " + client.name.firstName + ' ' + client.name.lastName)
+                return clients.map(client => client.fullName+' <span class="text-white-alpha">&ndash; '+client.id+'</span>')
             },
         },
         created() {
