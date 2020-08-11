@@ -24,7 +24,7 @@ const actions = {
         return new Promise((resolve, reject) => {
             axios
                 .get('/api/clients',  {
-                    params: {}
+                    params: {per_page: -1}
                 })
                 .then((response) => {
                     commit('setClients', { list: response.data.data });

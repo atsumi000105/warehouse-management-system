@@ -36,6 +36,10 @@ class ClientController extends BaseController
 
         $params = $this->buildFilterParams($request);
 
+        $total = (int) $this->getRepository()->findAllCount($params);
+
+        if ($limit === -1) $limit = $total;
+
         $clients = $this->getRepository()->findAllPaged(
             $page,
             $limit,
@@ -43,8 +47,6 @@ class ClientController extends BaseController
             $sort ? $sort[1] : null,
             $params
         );
-
-        $total = (int) $this->getRepository()->findAllCount($params);
 
         $meta = [
             'pagination' => [
