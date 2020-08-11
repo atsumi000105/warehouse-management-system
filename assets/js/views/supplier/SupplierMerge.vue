@@ -13,7 +13,6 @@
             v-model="targetSupplier"
             label="Merge suppliers in to"
             display-property="title"
-            :display-text-fn="item => item.id + ': ' + item.title"
             :preloaded-options="selectedSuppliers"
             empty-string="-- Select a Destination Supplier --"
             :chosen="false"
@@ -62,16 +61,16 @@
                             type="checkbox"
                             value="deactivate"
                         >
-                        Deactivate the merged {{ selectedSupplierList.length }} supplier(s)
+                        Deactivate the {{ selectedSupplierList.length }} merged supplier(s)
                     </label>
                 </div>
             </div>
-            Merge the following suppliers in to <strong>{{ targetSupplier.id }} - {{ targetSupplierTitle }}</strong>
+            Merge the following suppliers in to <strong>{{ targetSupplierTitle }}</strong> <span class="text-white-alpha">&ndash; {{ targetSupplier.id }}</span>:
             <ul>
                 <li
                     v-for="supplier in selectedSupplierList"
                     :key="supplier.id"
-                    v-text="supplier"
+                    v-html="supplier"
                 />
             </ul>
         </template>
@@ -120,7 +119,7 @@
                 let me = this;
                 let suppliers = this.selectedSupplierIds.map(supplierId => me.$store.getters.getSupplierById(supplierId));
                 suppliers = suppliers.filter(supplier => supplier.id !== me.targetSupplier.id);
-                return suppliers.map(supplier => supplier.id + ": " + supplier.title)
+                return suppliers.map(supplier => supplier.title+' <span class="text-white-alpha">&ndash; '+supplier.id+'</span>')
             },
         },
         created() {

@@ -75,7 +75,7 @@
                                     type="button"
                                     class="btn btn-info btn-flat dropdown-toggle"
                                     data-toggle="dropdown"
-                                    :disabled="selection.length == 0"
+                                    :disabled="selection.length < 2"
                                 >
                                     <i class="fa fa-fw fa-wrench" />
                                     Bulk Operations ({{ selection.length }})
@@ -88,7 +88,7 @@
                                 >
                                     <li>
                                         <a @click="onClickMerge()">
-                                            <i class="fa fa-compress-alt fa-fw" />Merge Suppliers
+                                            <i class="fa fa-compress fa-fw" /> Merge Suppliers
                                         </a>
                                     </li>
                                     <!--<li><a href="#">Separated link</a></li>-->
