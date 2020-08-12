@@ -249,39 +249,25 @@ class ClientController extends BaseController
         }, $enabledTransitions);
     }
 
+    /**
+     * Merge one or more Clients
+     *
+     * @Route(path="/merge", methods={"POST"})
+     */
     public function merge(Request $request)
     {
+
+        $request = $this->getParams($request);
+
         /** @var Client $target */
-        $target = $this->getRepository()->find($request->get('targetClient'));
+        $target = $this->getRepository()->findOneByUuid($request['targetClient']);
         /** @var Client[] $sources */
-        $sources = $this->getRepository()->findBy(['id' => $request->get('sourceClients')]);
-        $context = $request->get('context');
+        $sources = $this->getRepository()->findAllByUuid($request['sourceClients']);
+        $context = $request['context'];
 
         foreach ($sources as $source) {
-            /*if (in_array('orders', $context)) {
-                $orders = $source->getSupplyOrders();
-                foreach ($orders as $order) {
-                    $order->setSupplier($target);
-                }
-            }*/
-
-            /*if (in_array('contacts', $context)) {
-                $contacts = $source->getContacts();
-                foreach ($contacts as $contact) {
-                    $contact->setSupplier($target);
-                }
-            }*/
-
-            /*if (in_array('addresses', $context)) {
-                $addresses = $source->getAddresses();
-                foreach ($addresses as $address) {
-                    $address->setSupplier($target);
-                }
-            }*/
-
-            if (in_array('destroy', $context)) {
-                die('about to destroy source id '.$source->id);
-                //$this->destroy(['id' => $source->id]);
+            if (in_array('deactivate', $context)) {
+                $source->setStatus(Client::STATUS_INACTIVE);
             }
         }
 
