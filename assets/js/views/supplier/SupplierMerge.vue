@@ -65,7 +65,7 @@
                     </label>
                 </div>
             </div>
-            Merge the following suppliers in to <strong>{{ targetSupplierTitle }}</strong> <span class="text-white-alpha">&ndash; {{ targetSupplier.id }}</span>:
+            Merge the following suppliers in to <strong>{{ targetSupplierTitle }}</strong> <span class="text-white-alpha">&ndash; {{ targetSupplier.id }}</span>
             <ul>
                 <li
                     v-for="supplier in selectedSupplierList"

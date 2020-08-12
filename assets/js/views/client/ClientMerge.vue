@@ -32,7 +32,7 @@
                     </label>
                 </div>
             </div>
-            Merge the following clients in to <strong>{{ targetClientName }}</strong> <span class="text-white-alpha">&ndash; {{ targetClient.id }}</span>:
+            Merge the following clients in to <strong>{{ targetClientName }}</strong> <span class="text-white-alpha">&ndash; {{ targetClient.id }}</span>
             <ul>
                 <li
                     v-for="client in selectedClientList"
