@@ -76,7 +76,7 @@ class ClientRepository extends EntityRepository
 
     protected function joinRelatedTables(QueryBuilder $qb)
     {
-        $qb->join('c.partner', 'partner');
+        $qb->leftJoin('c.partner', 'partner');
     }
 
     /**
