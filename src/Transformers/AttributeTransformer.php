@@ -35,6 +35,10 @@ class AttributeTransformer extends TransformerAbstract
 
     public function includeValue(Attribute $attribute)
     {
+        if ($attribute->getValue() === null) {
+            return $this->primitive(null);
+        }
+
         if ($attribute instanceof AddressAttribute) {
             return $this->item($attribute->getValue(), new AddressTransformer());
         }

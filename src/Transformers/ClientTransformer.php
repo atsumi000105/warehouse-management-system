@@ -17,10 +17,8 @@ class ClientTransformer extends TransformerAbstract
     {
         return [
             'id' => $client->getUuid(),
-            'name' => [
-                'firstName' => $client->getName()->getFirstname(),
-                'lastName' => $client->getName()->getLastname(),
-            ],
+            'firstName' => $client->getName()->getFirstname(),
+            'lastName' => $client->getName()->getLastname(),
             'birthdate' => $client->getBirthdate()->format('c'),
             'isExpirationOverridden' => $client->isExpirationOverridden(),
             'ageExpiresAt' => $client->getAgeExpiresAt()->format('c'),
@@ -41,6 +39,10 @@ class ClientTransformer extends TransformerAbstract
 
     public function includePartner(Client $client)
     {
+        if (!$client->getPartner()) {
+            return;
+        }
+
         return $this->item($client->getPartner(), new PartnerTransformer());
     }
 }

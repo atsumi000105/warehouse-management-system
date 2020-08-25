@@ -76,7 +76,7 @@
             BooleanField, RadioField, TextareaField, OptionListApi, NumberField, TextField, DateField},
         props: {
             new: { type: Boolean },
-            value: { type: Array, required: true }
+            value: { type: Array }
         },
         computed: {
             attributes: function () {

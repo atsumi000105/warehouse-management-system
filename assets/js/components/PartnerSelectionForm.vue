@@ -38,7 +38,7 @@
             'optionlist' : OptionListEntity
         },
         props: {
-            value: { required: true, type: Object },
+            value: { type: Object },
             editable: { type: Boolean, default: true },
             label: { type: String, default: "Partner" },
         },
