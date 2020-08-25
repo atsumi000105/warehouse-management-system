@@ -32,7 +32,7 @@
         computed: {
             humanReadable: {
                 get: function() {
-                    if (!this.dateValue) {
+                    if (!this.dateValue && !this.value) {
                         return;
                     }
                     let date = moment.tz(this.dateValue || this.value, this.timezone);
