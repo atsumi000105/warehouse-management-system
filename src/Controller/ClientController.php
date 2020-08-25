@@ -98,6 +98,9 @@ class ClientController extends BaseController
 
         if ($params['partner']['id']) {
             $newPartner = $this->getEm()->find(Partner::class, $params['partner']['id']);
+            if (!$newPartner) {
+                throw new \Exception('Invalid Partner ID provided');
+            }
             $client->setPartner($newPartner);
         }
 
@@ -130,6 +133,9 @@ class ClientController extends BaseController
 
         if (isset($params['partner']['id'])) {
             $newPartner = $this->getEm()->find(Partner::class, $params['partner']['id']);
+            if (!$newPartner) {
+                throw new \Exception('Invalid Partner ID provided');
+            }
             $client->setPartner($newPartner);
         }
 
