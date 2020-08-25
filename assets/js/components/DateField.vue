@@ -32,6 +32,9 @@
         computed: {
             humanReadable: {
                 get: function() {
+                    if (!this.dateValue) {
+                        return;
+                    }
                     let date = moment.tz(this.dateValue || this.value, this.timezone);
                     return date.format(this.format);
                 },
