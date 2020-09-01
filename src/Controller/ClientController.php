@@ -262,7 +262,7 @@ class ClientController extends BaseController
         /** @var Client $target */
         $target = $this->getRepository()->findOneByUuid($request['targetClient']);
         /** @var Client[] $sources */
-        $sources = $this->getRepository()->findAllByUuid($request['sourceClients']);
+        $sources = $this->getRepository()->findByUuids($request['sourceClients']);
         $context = $request['context'];
 
         foreach ($sources as $source) {

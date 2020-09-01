@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\Exception\InvalidUuidStringException;
 use Ramsey\Uuid\Uuid;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -22,9 +23,9 @@ class ClientRepository extends EntityRepository
         return $this->findOneBy(['uuid' => $uuid]);
     }
 
-    public function findAllByUuid(array $ids): ?array
+    public function findByUuids(array $ids): ?ArrayCollection
     {
-        $clients = [];
+        $clients = new ArrayCollection();
         foreach ($ids as $id) {
             try {
                 $uuid = Uuid::fromString($id);
