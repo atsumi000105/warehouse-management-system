@@ -264,7 +264,9 @@ class ClientController extends BaseController
 
         foreach ($sources as $source) {
 
-            $line_items = $this->getEm()->getRepository(BulkDistributionLineItem::class)->findBy(['client' => $source->getId()]);
+            $line_items = $this->getEm()
+                ->getRepository(BulkDistributionLineItem::class)
+                ->findBy(['client' => $source->getId()]);
 
             if ($line_items) {
                 foreach ($line_items as $line_item) {
