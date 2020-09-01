@@ -67,8 +67,8 @@ class ClientControllerTest extends AbstractWebTestCase
         $clientAccount = $this->getClientAccount();
         $uuid = $clientAccount->getUuid()->toString();
         $name = $clientAccount->getName();
-        $firstName = $name->getFirstname();
-        $lastName = $name->getLastname();
+        $firstName = $name['getFirstname'];
+        $lastName = $name['getLastname'];
 
         $newLastName = uniqid();
 
