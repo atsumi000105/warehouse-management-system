@@ -39,7 +39,9 @@ class ClientController extends BaseController
 
         $total = (int) $this->getRepository()->findAllCount($params);
 
-        if ($limit === -1) $limit = $total;
+        if ($limit === -1) {
+            $limit = $total;
+        }
 
         $clients = $this->getRepository()->findAllPaged(
             $page,
@@ -263,7 +265,6 @@ class ClientController extends BaseController
         $context = $request['context'];
 
         foreach ($sources as $source) {
-
             $line_items = $this->getEm()
                 ->getRepository(BulkDistributionLineItem::class)
                 ->findBy(['client' => $source->getId()]);
@@ -279,7 +280,6 @@ class ClientController extends BaseController
             if (in_array('deactivate', $context)) {
                 $source->setStatus(Client::STATUS_INACTIVE);
             }
-
         }
 
         $this->getEm()->flush();
