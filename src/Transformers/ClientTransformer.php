@@ -42,6 +42,10 @@ class ClientTransformer extends TransformerAbstract
 
     public function includePartner(Client $client)
     {
+        if (!$client->getPartner()) {
+            return;
+        }
+
         return $this->item($client->getPartner(), new PartnerTransformer());
     }
 }

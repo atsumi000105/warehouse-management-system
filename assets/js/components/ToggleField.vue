@@ -15,7 +15,7 @@
         name: 'BooleanField',
         props: {
             label: { required: true, type: String },
-            value: { type: Boolean, required: true }
+            value: { type: Boolean }
         }
     }
 </script>

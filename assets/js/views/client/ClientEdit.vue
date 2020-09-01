@@ -69,7 +69,7 @@
                             <div class="form-group">
                                 <label>First Name</label>
                                 <input
-                                    v-model="client.name.firstName"
+                                    v-model="client.firstName"
                                     type="text"
                                     class="form-control"
                                     placeholder="Enter first name"
@@ -77,7 +77,7 @@
 
                                 <label>Last Name</label>
                                 <input
-                                    v-model="client.name.lastName"
+                                    v-model="client.lastName"
                                     type="text"
                                     class="form-control"
                                     placeholder="Enter last name"
@@ -165,7 +165,7 @@
             <template slot="header">
                 Delete Client
             </template>
-            <p>Are you sure you want to delete <strong>{{ client.name.firstName }} {{ client.name.lastName }}</strong>?</p>
+            <p>Are you sure you want to delete <strong>{{ client.firstName }} {{ client.lastName }}</strong>?</p>
             <template slot="confirmButton">
                 Delete Client
             </template>
@@ -195,8 +195,8 @@ export default {
         },
         props: {
             new: {
-                type: String,
-                default: '',
+                type: Boolean,
+                default: false,
                 required: false
             }
 
@@ -204,7 +204,6 @@ export default {
         data() {
             return {
                 client: {
-                    name: {},
                     partner: {},
                     attributes: [],
                     status: '',

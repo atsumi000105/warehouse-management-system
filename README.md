@@ -45,15 +45,16 @@ Learn More at https://www.happybottoms.org
 
 ## Development Installation - On existing environment (with PHP and Database)
 
-1. `composer install`
-1. `yarn install`
 1. Create a database (mysql, postgres, sqlite)
     - There is a docker compose file that will give you a Postgres DB by running `docker-compose up` in the repository root (this should only be used for development and testing purposes, not for Production)
 1. Copy `.env` to `.env.local` and set the database connection
     - Example: `DATABASE_URL=postgres://postgres:coverd@127.0.0.1:5432/coverd?charset=UTF-8`
-1. `bin/console doctrine:database:create`
-1. `bin/console doctrine:schema:create`
-1. `bin/console doctrine:fixtures:load`
+1. Build PHP and db: `./bin/php_install.sh`
+1. Build JS: `./bin/js_install.sh`
+
+### Update After Switching to a New Branch
+
+1. `./bin/post-update.sh`
 
 ### Run Development Server and Build JS App
 
@@ -63,11 +64,22 @@ Learn More at https://www.happybottoms.org
 
 ## Development Installation - Docker Compose
 
-1. Copy `.env.docker` to `.env.local`
-1. `docker-compose up --build`
-1. `docker-compose exec app docker/install`
+1. `./bin/dockerized-install.sh`
+1. `docker-compose up`
 
 You should now be able to connect to your the dev server at http://localhost:8080/
+
+### Install just the PHP app with updated DB
+
+1. `docker/app ./bin/php_install.sh`
+
+### Install just the JS app
+
+1. `docker/app ./bin/js_install.sh`
+
+### Update After Switching to a New Branch
+
+1. `docker/app ./bin/post-update.sh`
 
 ### Build and watch the Vue JS app
 
