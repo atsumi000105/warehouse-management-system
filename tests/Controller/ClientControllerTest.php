@@ -79,8 +79,8 @@ class ClientControllerTest extends AbstractWebTestCase
         $response = $this->getDecodedResponse();
 
         $this->assertEquals($uuid, $response['id']);
-        $this->assertEquals($firstName, $response['firstName']);
-        $this->assertEquals($newLastName, $response['lastName']);
+        $this->assertEquals($firstName, $response['name']['firstName']);
+        $this->assertEquals($newLastName, $response['name']['lastName']);
     }
 
     protected function getClientAccount(): Client
