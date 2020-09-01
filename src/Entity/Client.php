@@ -118,6 +118,12 @@ class Client extends CoreEntity
     /** @var Registry */
     protected $workflowRegistry;
 
+    /**
+     * @var int
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $mergedTo;
+
     public function __construct(Registry $workflowRegistry)
     {
         $this->attributes = new ArrayCollection();
@@ -331,5 +337,18 @@ class Client extends CoreEntity
     public function getStatus(): string
     {
         return $this->status;
+    }
+
+    /**
+     * Merged To client id
+     */
+    public function setMergedTo(string $mergedTo): void
+    {
+        $this->mergedTo = $mergedTo;
+    }
+
+    public function getMergedTo(): string
+    {
+        return $this->mergedTo;
     }
 }
