@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Client;
 use App\Entity\Partner;
+use App\Entity\Orders\BulkDistributionLineItem;
 use App\Entity\ValueObjects\Name;
 use App\Transformers\ClientTransformer;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -266,6 +267,14 @@ class ClientController extends BaseController
         $context = $request['context'];
 
         foreach ($sources as $source) {
+
+            $line_items = $this->getEm()->getRepository(BulkDistributionLineItem::class)->findBy(['client' => $source->getId()]);
+
+            if ($line_items) {
+                foreach ($line_items as $line_item) {
+                    $line_item->setClient($target);
+                }
+            }
             if (in_array('deactivate', $context)) {
                 $source->setStatus(Client::STATUS_INACTIVE);
             }
