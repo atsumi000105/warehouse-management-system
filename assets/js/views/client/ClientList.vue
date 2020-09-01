@@ -123,6 +123,7 @@
                     //todo: find a better way to sort value objects #30
                     { name: '__checkbox', title: "#" },
                     { name: '__slot:link', title: "Name", sortField: 'c.fullName' },
+                    //{ name: 'firstName', title: "First Name", sortField: 'c.name.firstname' },
                     //{ name: 'name.lastName', title: "Last Name", sortField: 'c.name.lastname' },
                     { name: 'partner.title', title: "Assigned Partner", sortField: 'partner.title'},
                     { name: 'status', title: "Status", callback: 'statusFormat', sortField: 'status' },

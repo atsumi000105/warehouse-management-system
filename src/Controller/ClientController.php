@@ -91,18 +91,14 @@ class ClientController extends BaseController
     {
         $params = $this->getParams($request);
 
-        $name = new Name(
-            $params['name']['firstName'],
-            $params['name']['lastName']
-        );
-
         $client = new Client($workflowRegistry);
-        $client->setName($name);
 
         if ($params['partner']['id']) {
             $newPartner = $this->getEm()->find(Partner::class, $params['partner']['id']);
             $client->setPartner($newPartner);
         }
+
+        $client->applyChangesFromArray($params);
 
 //        $this->checkEditPermissions($client);
 

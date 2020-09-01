@@ -240,7 +240,7 @@ class OrderController extends BaseController
     protected function processLineItems(Order $order, $lineItemsArray)
     {
         foreach ($lineItemsArray as $lineItemArray) {
-            if (!$lineItemArray['id'] && (!$lineItemArray['product']['id'] || !$lineItemArray['quantity'])) {
+            if (!isset($lineItemArray['id']) && (!$lineItemArray['product']['id'] || !$lineItemArray['quantity'])) {
                 continue;
             }
 
