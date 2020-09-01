@@ -26,11 +26,11 @@
     export default {
         name: 'DateField',
         props: {
-            value: { type: String, required: true },
+            value: { type: String, default: '' },
             label: { type: String, required: false, default: 'Date:' },
             helpText: { type: String, required: false, default: "" },
             format: { type: String, default: 'MM/DD/YYYY'},
-            timezone: { type: String, required: false },
+            timezone: { type: String, required: false, default: 'UTC' },
         },
         data() {
             return { dateValue: null }
@@ -38,6 +38,9 @@
         computed: {
             humanReadable: {
                 get: function() {
+                    if (!this.dateValue && !this.value) {
+                        return;
+                    }
                     let date = moment.tz(this.dateValue || this.value, this.timezone);
                     return date.format(this.format);
                 },

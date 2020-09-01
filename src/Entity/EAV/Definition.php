@@ -3,6 +3,7 @@
 namespace App\Entity\EAV;
 
 use App\Entity\CoreEntity;
+use App\Entity\EAV\Type\AddressAttribute;
 use App\Entity\EAV\Type\BooleanAttribute;
 use App\Entity\EAV\Type\DatetimeAttribute;
 use App\Entity\EAV\Type\FloatAttribute;
@@ -418,6 +419,9 @@ abstract class Definition extends CoreEntity
                 break;
             case self::TYPE_BOOLEAN:
                 $attribute = new BooleanAttribute();
+                break;
+            case self::TYPE_ADDRESS:
+                $attribute = new AddressAttribute();
                 break;
         }
 

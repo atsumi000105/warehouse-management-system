@@ -21,7 +21,7 @@
     export default {
         name: 'NumberField',
         props: {
-            value: { type: String, required: true },
+            value: { type: Number },
             label: { type: String, required: true },
             helpText: { type: String, requird: false, default: "" },
             placeholder: { type: [String,Number] },

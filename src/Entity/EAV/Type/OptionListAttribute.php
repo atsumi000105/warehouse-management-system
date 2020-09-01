@@ -8,7 +8,7 @@ use App\Entity\EAV\Option;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class StringAttribute
+ * Class OptionListAttribute
  *
  * @ORM\Entity()
  */

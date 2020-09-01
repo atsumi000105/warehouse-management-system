@@ -37,7 +37,7 @@ class StorageLocationTransformer extends TransformerAbstract
             return;
         }
 
-        return $this->item($address, new StorageLocationAddressTransformer);
+        return $this->item($address, new AddressTransformer);
     }
 
     public function includeContacts(StorageLocation $storageLocation)

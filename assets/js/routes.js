@@ -4,7 +4,7 @@ import store from './store';
 let routes = [
     {
         path: '/',
-        component: require('./views/Dashboard.vue')
+        component: require('./views/Dashboard.vue').default
     },
 
     {
