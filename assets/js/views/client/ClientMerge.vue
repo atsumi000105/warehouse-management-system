@@ -20,7 +20,7 @@
 
         <template v-if="isTargetSet()">
             <div class="form-group">
-                 <div class="checkbox">
+                <div class="checkbox">
                     <label for="deactivate">
                         <input
                             id="deactivate"
