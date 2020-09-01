@@ -275,9 +275,13 @@ class ClientController extends BaseController
                     $line_item->setClient($target);
                 }
             }
+
+            $source->setMergedTo($target->getId());
+
             if (in_array('deactivate', $context)) {
                 $source->setStatus(Client::STATUS_INACTIVE);
             }
+
         }
 
         $this->getEm()->flush();
