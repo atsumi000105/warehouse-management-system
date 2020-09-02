@@ -1,6 +1,12 @@
 <template>
     <div class="form-group">
         <label v-text="label" />
+        <i
+            v-if="helpText"
+            v-tooltip
+            :title="helpText"
+            class="attribute-help-text fa fa-question-circle"
+        ></i>
         <input
             :value="value"
             type="number"
@@ -15,8 +21,9 @@
     export default {
         name: 'NumberField',
         props: {
-            label: { required: true, type: String },
             value: { type: Number },
+            label: { type: String, required: true },
+            helpText: { type: String, requird: false, default: "" },
             placeholder: { type: [String,Number] },
         }
     }

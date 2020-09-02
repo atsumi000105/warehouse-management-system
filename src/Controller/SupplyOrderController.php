@@ -9,6 +9,7 @@ use App\Entity\SupplierAddress;
 use App\Entity\Warehouse;
 use App\Transformers\SupplyOrderTransformer;
 use App\Security\SupplyOrderVoter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,6 +33,7 @@ class SupplyOrderController extends OrderController
      * Save a new Supply Order
      *
      * @Route(path="", methods={"POST"})
+     * @IsGranted({"ROLE_SUPPLY_ORDER_EDIT"})
      *
      * @param Request $request
      * @return JsonResponse
@@ -74,6 +76,7 @@ class SupplyOrderController extends OrderController
      * Whole or partial update of a order
      *
      * @Route(path="/{id<\d+>}", methods={"PATCH"})
+     * @IsGranted({"ROLE_SUPPLY_ORDER_EDIT"})
      *
      * @param Request $request
      * @param $id

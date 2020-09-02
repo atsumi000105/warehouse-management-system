@@ -27,6 +27,7 @@ class AttributeTransformer extends TransformerAbstract
             'name' => $attribute->getDefinition()->getName(),
             'label' => $attribute->getDefinition()->getLabel(),
             'type' => $attribute->getDefinition()->getType(),
+            'helpText' => $attribute->getDefinition()->getHelpText(),
             'displayInterface' => $attribute->getDefinition()->getDisplayInterface(),
             'orderIndex' => $attribute->getDefinition()->getOrderIndex(),
             'hasOptions' => $attribute->hasOptions(),

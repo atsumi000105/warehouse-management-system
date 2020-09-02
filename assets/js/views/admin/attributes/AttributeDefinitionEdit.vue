@@ -38,6 +38,14 @@
                                     placeholder="Enter attribute name"
                                 >
                             </div>
+                            <div class="form-group">
+                                <label>Help Text</label>
+                                <textarea
+                                    v-model="definition.helpText"
+                                    class="form-control"
+                                    placeholder="Enter help text"
+                                ></textarea>
+                            </div>
                             <OptionListStatic
                                 v-model="definition.type"
                                 label="Attribute Type"

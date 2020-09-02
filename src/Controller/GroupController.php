@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Group;
 use App\Transformers\GroupTransformer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,6 +27,7 @@ class GroupController extends BaseController
      * Get a list of Groups
      *
      * @Route(path="", methods={"GET"})
+     * @IsGranted({"ROLE_ADMIN"})
      *
      * @return JsonResponse
      */
@@ -40,6 +42,7 @@ class GroupController extends BaseController
      * Get a single Group
      *
      * @Route(path="/{id<\d+>}", methods={"GET"})
+     * @IsGranted({"ROLE_ADMIN"})
      *
      * @param $id
      * @return JsonResponse
@@ -55,6 +58,7 @@ class GroupController extends BaseController
      * Save a new group
      *
      * @Route(path="", methods={"POST"})
+     * @IsGranted({"ROLE_ADMIN"})
      *
      * @param Request $request
      * @param ValidatorInterface $validator
@@ -79,6 +83,7 @@ class GroupController extends BaseController
      * Whole or partial update of a group
      *
      * @Route(path="/{id<\d+>}", methods={"PATCH"})
+     * @IsGranted({"ROLE_ADMIN"})
      *
      * @param Request $request
      * @param $id
@@ -102,6 +107,7 @@ class GroupController extends BaseController
      * Delete a group
      *
      * @Route(path="/{id<\d+>}", methods={"DELETE"})
+     * @IsGranted({"ROLE_ADMIN"})
      *
      * @param $id
      * @return JsonResponse
@@ -120,6 +126,7 @@ class GroupController extends BaseController
      * List all permissions in the system
      *
      * @Route(path="/list-roles", methods={"GET"})
+     * @IsGranted({"ROLE_ADMIN"})
      *
      * @param $id
      * @return JsonResponse
