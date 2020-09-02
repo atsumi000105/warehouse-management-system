@@ -80,6 +80,13 @@ abstract class Definition extends CoreEntity
     /**
      * @var string
      *
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $helpText;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(type="string", length=100)
      */
     private $displayInterface;
@@ -224,6 +231,24 @@ abstract class Definition extends CoreEntity
     public function getType() : string
     {
         return $this->type;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHelpText()
+    {
+        return $this->helpText;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setHelpText($helpText)
+    {
+        $this->helpText = $helpText;
+
+        return $this;
     }
 
     public function getDisplayInterface(): string

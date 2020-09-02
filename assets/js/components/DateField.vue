@@ -1,7 +1,12 @@
 <template>
     <div class="form-group">
         <label v-text="label" />
-
+        <i
+            v-if="helpText"
+            v-tooltip
+            :title="helpText"
+            class="attribute-help-text fa fa-question-circle"
+        ></i>
         <div class="input-group date">
             <div class="input-group-addon">
                 <i class="fa fa-calendar" />
@@ -22,7 +27,8 @@
         name: 'DateField',
         props: {
             value: { type: String, default: '' },
-            label: { required: false, type: String, default: 'Date:' },
+            label: { type: String, required: false, default: 'Date:' },
+            helpText: { type: String, required: false, default: "" },
             format: { type: String, default: 'MM/DD/YYYY'},
             timezone: { type: String, required: false, default: 'UTC' },
         },

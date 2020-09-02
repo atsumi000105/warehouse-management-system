@@ -1,6 +1,12 @@
 <template>
     <div class="form-group">
         <label v-text="label" />
+        <i
+            v-if="helpText"
+            v-tooltip
+            :title="helpText"
+            class="attribute-help-text fa fa-question-circle"
+        ></i>
         <select
             v-if="!groupProperty"
             v-chosen
@@ -56,6 +62,7 @@
         props: {
             value: { type: String, default: () => "" },
             label: { type: String },
+            helpText: { type: String, requird: false, default: "" },
             apiPath: { type: String },
             preloadedOptions: { type: Array, default: function() {return []}},
             displayProperty: { type: String, default: 'name'},
