@@ -8,6 +8,7 @@ use App\Entity\Product;
 use App\Exception\CommittedTransactionException;
 use App\Security\PartnerOrderVoter;
 use App\Transformers\OrderTransformer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,6 +33,7 @@ class OrderController extends BaseController
      * Get a list of Sub-classed orders
      *
      * @Route(path="", methods={"GET"})
+     * @IsGranted({"ROLE_ORDER_VIEW_ALL", "ROLE_ORDER_MANAGE_OWN"})
      *
      * @return JsonResponse
      */
@@ -59,8 +61,8 @@ class OrderController extends BaseController
                 'per_page' => (int) $limit,
                 'current_page' => (int) $page,
                 'last_page' => ceil($total / $limit),
-                "next_page_url" => null,
-                "prev_page_url" => null,
+                'next_page_url' => null,
+                'prev_page_url' => null,
                 'from' => (($page - 1) * $limit) + 1,
                 'to' => ($page * $limit),
             ]
@@ -73,6 +75,8 @@ class OrderController extends BaseController
      * Get a single Order
      *
      * @Route(path="/{id<\d+>}", methods={"GET"})
+     * @IsGranted({"ROLE_ORDER_VIEW_ALL","ROLE_ORDER_MANAGE_OWN"})
+     *
      */
     public function show(Request $request, $id)
     {
@@ -84,7 +88,9 @@ class OrderController extends BaseController
     }
 
     /**
+     *
      * @Route(path="/bulk", methods={"GET"})
+     * @IsGranted({"ROLE_ORDER_VIEW_ALL","ROLE_ORDER_MANAGE_OWN"})
      *
      * @param Request $request
      * @return JsonResponse
@@ -102,6 +108,7 @@ class OrderController extends BaseController
      * Whole or partial update of a order
      *
      * @Route(path="/{id<\d+>}", methods={"PATCH"})
+     * @IsGranted({"ROLE_ORDER_EDIT_ALL","ROLE_ORDER_MANAGE_OWN"})
      *
      * @param Request $request
      * @param $id
@@ -126,9 +133,10 @@ class OrderController extends BaseController
     }
 
     /**
-     * Delete a order
+     * Delete an order
      *
      * @Route(path="/{id<\d+>}", methods={"DELETE"})
+     * @IsGranted({"ROLE_ADMIN"})
      *
      * @param $id
      * @return JsonResponse
@@ -152,7 +160,9 @@ class OrderController extends BaseController
     }
 
     /**
+     *
      * @Route(path="/bulk-change", methods={"PATCH"})
+     * @IsGranted({"ROLE_ORDER_EDIT_ALL"})
      *
      * @param Request $request
      * @return JsonResponse
@@ -180,7 +190,9 @@ class OrderController extends BaseController
     }
 
     /**
+     *
      * @Route(path="/bulk-delete", methods={"PATCH"})
+     * @IsGranted({"ROLE_ADMIN"})
      *
      * @param Request $request
      * @return JsonResponse

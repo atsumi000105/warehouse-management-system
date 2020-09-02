@@ -6,6 +6,7 @@ use App\Entity\Client;
 use App\Entity\Partner;
 use App\Entity\ValueObjects\Name;
 use App\Transformers\ClientTransformer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,6 +26,8 @@ class ClientController extends BaseController
      * Get a list of Clients
      *
      * @Route(path="/", methods={"GET"})
+     * @IsGranted({"ROLE_CLIENT_VIEW_ALL","ROLE_CLIENT_MANAGE_OWN"})
+     *
      */
     public function index(Request $request): JsonResponse
     {
@@ -66,6 +69,8 @@ class ClientController extends BaseController
      * Get a single Client
      *
      * @Route(path="/{uuid}", methods={"GET"})
+     * @IsGranted({"ROLE_CLIENT_VIEW_ALL","ROLE_CLIENT_MANAGE_OWN"})
+     *
      */
     public function show(Request $request, Registry $workflowRegistry, string $uuid): JsonResponse
     {
@@ -83,6 +88,8 @@ class ClientController extends BaseController
      * Save a new Client
      *
      * @Route(path="", methods={"POST"})
+     * @IsGranted({"ROLE_CLIENT_EDIT_ALL","ROLE_CLIENT_MANAGE_OWN"})
+     *
      */
     public function store(Request $request, Registry $workflowRegistry): JsonResponse
     {
@@ -109,6 +116,8 @@ class ClientController extends BaseController
      * Whole or partial update of a client
      *
      * @Route(path="/{uuid}", methods={"PATCH"})
+     * @IsGranted({"ROLE_CLIENT_EDIT_ALL","ROLE_CLIENT_MANAGE_OWN"})
+     *
      */
     public function update(Request $request, string $uuid): JsonResponse
     {
@@ -141,6 +150,8 @@ class ClientController extends BaseController
      * Delete a client
      *
      * @Route(path="/{uuid}", methods={"DELETE"})
+     * @IsGranted({"ROLE_ADMIN"})
+     *
      */
     public function destroy(Request $request, string $uuid): JsonResponse
     {
@@ -156,7 +167,10 @@ class ClientController extends BaseController
     }
 
     /**
+     *
      * @Route("/{uuid}/transition", methods={"PATCH"})
+     * @IsGranted({"ROLE_CLIENT_EDIT_ALL","ROLE_CLIENT_MANAGE_OWN"})
+     *
      */
     public function transition(Request $request, Registry $workflowRegistry, string $uuid): JsonResponse
     {

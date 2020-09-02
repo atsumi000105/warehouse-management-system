@@ -9,6 +9,7 @@ use App\Entity\PartnerUser;
 use App\Entity\ValueObjects\Name;
 use App\Transformers\UserTransformer;
 use App\Security\UserVoter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -29,6 +30,8 @@ class UserController extends BaseController
      * Get a list of Users
      *
      * @Route(path="", methods={"GET"})
+     * @IsGranted({"ROLE_USER_VIEW"})
+     *
      */
     public function index(Request $request) : JsonResponse
     {
@@ -41,6 +44,12 @@ class UserController extends BaseController
      * Get a list of Users by partner
      *
      * @Route(path="/partner/{partnerId<\d+>}", methods={"GET"})
+     * @IsGranted({
+     *     "ROLE_USER_VIEW",
+     *     "ROLE_PARTNER_VIEW_ALL",
+     *     "ROLE_PARTNER_MANAGE_OWN",
+     * })
+     *
      */
     public function partnerIndex(Request $request, string $partnerId) : JsonResponse
     {
@@ -55,6 +64,8 @@ class UserController extends BaseController
      * Get a single User
      *
      * @Route(path="/{id<\d+>}", methods={"GET"})
+     * @IsGranted({"ROLE_USER_VIEW"})
+     *
      */
     public function show(Request $request, string $id): JsonResponse
     {
@@ -69,6 +80,8 @@ class UserController extends BaseController
      * Save a new user
      *
      * @Route(path="", methods={"POST"})
+     * @IsGranted({"ROLE_USER_EDIT"})
+     *
      */
     public function store(Request $request) : JsonResponse
     {
@@ -111,6 +124,8 @@ class UserController extends BaseController
      * Whole or partial update of a user
      *
      * @Route(path="/{id<\d+>}", methods={"PATCH"})
+     * @IsGranted({"ROLE_USER_EDIT"})
+     *
      */
     public function update(Request $request, string $id) : JsonResponse
     {
@@ -154,6 +169,8 @@ class UserController extends BaseController
      * Delete a user
      *
      * @Route(path="/{id<\d+>}", methods={"DELETE"})
+     * @IsGranted({"ROLE_USER_EDIT"})
+     *
      */
     public function destroy(Request $request, string $id)
     {
@@ -172,6 +189,8 @@ class UserController extends BaseController
      * Set the user's active partner
      *
      * @Route(path="/active-partner", methods={"POST"})
+     * @IsGranted({"ROLE_USER_EDIT","ROLE_PARTNER_MANAGE_OWN"})
+     *
      */
     public function setActivePartner(Request $request, SessionInterface $session)
     {
