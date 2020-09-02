@@ -40,12 +40,11 @@
                             </div>
                             <div class="form-group">
                                 <label>Help Text</label>
-                                <input
+                                <textarea
                                     v-model="definition.helpText"
-                                    type="text"
                                     class="form-control"
                                     placeholder="Enter help text"
-                                >
+                                ></textarea>
                             </div>
                             <OptionListStatic
                                 v-model="definition.type"
