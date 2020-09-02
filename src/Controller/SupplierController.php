@@ -177,7 +177,6 @@ class SupplierController extends BaseController
      */
     public function merge(Request $request)
     {
-        //$request = $this->getParams($request);
 
         /** @var Supplier $target */
         $target = $this->getRepository()->find($request->get('targetSupplier'));
