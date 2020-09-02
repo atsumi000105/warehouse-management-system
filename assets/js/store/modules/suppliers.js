@@ -25,7 +25,7 @@ const actions = {
             axios
                 .get('/api/suppliers',  {
                     params: { include: ['addresses']}
-            })
+                })
                 .then((response) => {
                     commit('setSuppliers', { list: response.data.data });
                     resolve(response);

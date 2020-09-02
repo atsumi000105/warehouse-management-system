@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Client;
 use App\Entity\Partner;
+use App\Entity\Orders\BulkDistributionLineItem;
 use App\Entity\ValueObjects\Name;
 use App\Transformers\ClientTransformer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -39,6 +40,12 @@ class ClientController extends BaseController
 
         $params = $this->buildFilterParams($request);
 
+        $total = (int) $this->getRepository()->findAllCount($params);
+
+        if ($limit === -1) {
+            $limit = $total;
+        }
+
         $clients = $this->getRepository()->findAllPaged(
             $page,
             $limit,
@@ -46,8 +53,6 @@ class ClientController extends BaseController
             $sort ? $sort[1] : null,
             $params
         );
-
-        $total = (int) $this->getRepository()->findAllCount($params);
 
         $meta = [
             'pagination' => [
@@ -255,5 +260,44 @@ class ClientController extends BaseController
                 'title' => $title
             ];
         }, $enabledTransitions);
+    }
+
+    /**
+     * Merge one or more Clients
+     *
+     * @Route(path="/merge", methods={"POST"})
+     */
+    public function merge(Request $request)
+    {
+
+        $request = $this->getParams($request);
+
+        /** @var Client $target */
+        $target = $this->getRepository()->findOneByUuid($request['targetClient']);
+        /** @var Client[] $sources */
+        $sources = $this->getRepository()->findByUuids($request['sourceClients']);
+        $context = $request['context'];
+
+        foreach ($sources as $source) {
+            $line_items = $this->getEm()
+                ->getRepository(BulkDistributionLineItem::class)
+                ->findBy(['client' => $source->getId()]);
+
+            if ($line_items) {
+                foreach ($line_items as $line_item) {
+                    $line_item->setClient($target);
+                }
+            }
+
+            $source->setMergedTo($target->getId());
+
+            if (in_array('deactivate', $context)) {
+                $source->setStatus(Client::STATUS_INACTIVE);
+            }
+        }
+
+        $this->getEm()->flush();
+
+        return $this->success();
     }
 }

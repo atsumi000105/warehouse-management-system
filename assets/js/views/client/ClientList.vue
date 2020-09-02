@@ -10,16 +10,13 @@
         <h3 class="box-title">
             Client List
         </h3>
+
         <div class="row">
             <div class="col-xs-2">
-                <div class="form-group">
-                    <label>Keyword</label>
-                    <input
-                        v-model="filters.keyword"
-                        type="text"
-                        class="form-control"
-                    >
-                </div>
+                <TextField
+                    v-model="filters.keyword"
+                    label="Keyword"
+                />
             </div>
             <div class="col-xs-4">
                 <PartnerSelectionForm
@@ -33,7 +30,8 @@
                     class="btn btn-success btn-flat"
                     @click="doFilter"
                 >
-                    <i class="fa fa-fw fa-filter" />Filter
+                    <i class="fa fa-fw fa-filter" />
+                    Filter
                 </button>
             </div>
         </div>
@@ -53,16 +51,41 @@
                             </div>
                         </div>
                         -->
+                        <div class="col-xs-12">
+                            <div class="input-group-btn">
+                                <button
+                                    type="button"
+                                    class="btn btn-info btn-flat dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    :disabled="selection.length < 2"
+                                >
+                                    <i class="fa fa-fw fa-wrench" />
+                                    Bulk Operations ({{ selection.length }})
+                                    <span class="caret" />
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul
+                                    class="dropdown-menu"
+                                    role="menu"
+                                >
+                                    <li>
+                                        <a @click="onClickMerge()">
+                                            <i class="fa fa-compress fa-fw" /> Merge Clients
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body table-responsive no-padding">
-                        <tablepaged
+                        <TablePaged
                             ref="hbtable"
                             :columns="columns"
                             api-url="/api/clients/"
                             edit-route="/clients/"
                             :sort-order="[{ field: 'id', direction: 'desc'}]"  
-                            :params="requestParams()"                         
+                            :params="requestParams()"
                             :per-page="50"
                             link-display-property="fullName"
                         />
@@ -72,55 +95,109 @@
                 <!-- /.box -->
             </div>
         </div>
+        <ClientMerge
+            ref="clientMerge"
+            :selected-client-ids="selection"
+        />
     </section>
 </template>
 
 <script>
-    import TablePaged from "../../components/TablePaged";
+    import ClientMerge from './ClientMerge';
     import PartnerSelectionForm from "../../components/PartnerSelectionForm";
+    import TablePaged from "../../components/TablePaged";
+    import TextField from "../../components/TextField";
 
     export default {
-        name: 'ClientView',
         components: {
+            TextField,
+            ClientMerge,
             PartnerSelectionForm,
-            'tablepaged' : TablePaged,
+            TablePaged,
         },
-        props:[],
+        props: [],
         data() {
             return {
                 columns: [
-                    //{ name: '__slot:link', title: "Client Id", sortField: 'id' },
                     //todo: find a better way to sort value objects #30
+                    { name: '__checkbox', title: "#" },
                     { name: '__slot:link', title: "Name", sortField: 'c.fullName' },
-                    //{ name: 'firstName', title: "First Name", sortField: 'c.name.firstname' },
-                    //{ name: 'name.lastName', title: "Last Name", sortField: 'c.name.lastname' },
                     { name: 'partner.title', title: "Assigned Partner", sortField: 'partner.title'},
                     { name: 'status', title: "Status", callback: 'statusFormat', sortField: 'status' },
                     { name: 'createdAt', title: "Created", callback: 'dateTimeFormat', sortField: 'createdAt' },
                     { name: 'updatedAt', title: "Last Updated", callback: 'dateTimeFormat', sortField: 'updatedAt' },
                 ],
+                clients: {},
+                statuses: [
+                    {id: "ACTIVE", name: "Active"},
+                    {id: "INACTIVE", name: "Inactive"}
+                ],
                 filters: {
                     keyword: null,
                     partner: { id: null }
-                },       
+                },
+                selection: [],
             }
         },
         created() {
-            console.log('Component mounted.');
+            axios
+                .get('/api/clients')
+                .then(response => this.clients = response.data);
+            console.log('Component mounted.')
+        },
+        mounted() {
+            this.$events.$on('selection-change', eventData => this.onSelectionChange(eventData));
         },
         methods: {
-
+            routerLink: function (id) {
+                return "<router-link :to=" + { name: 'client-edit', params: { id: id }} + "><i class=\"fa fa-edit\"></i> " + id + "</router-link>";
+            },
+            onPaginationData (paginationData) {
+                this.$refs.pagination.setPaginationData(paginationData)
+            },
+            onChangePage (page) {
+                this.$refs.vuetable.changePage(page)
+            },
             doFilter () {
                 console.log('doFilter:', this.requestParams());
                 this.$events.fire('filter-set', this.requestParams());
             },
+            onSelectionChange (selection) {
+                this.selection = selection;
+            },
+            bulkStatusChange (statusId) {
+                $('#bulkChangeModal').modal('show');
+                this.bulkChange = {
+                    status: statusId
+                }
+            },
+            refreshTable () {
+                this.$refs.hbtable.refresh();
+            },
+            doBulkChange () {
+                let self = this;
+                axios
+                    .patch('/api/client/bulk-change', {
+                        ids: self.selection,
+                        changes: self.bulkChange,
+                    })
+                    .then(response => self.refreshTable())
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },
             requestParams: function () {
                 return {
+                    status: this.filters.status || null,
                     keyword: this.filters.keyword || null,
                     partner: this.filters.partner.id || null,
                     include: ['partner'],
                 }
             },
+            onClickMerge: function () {
+                this.$refs.clientMerge.reset();
+                $('#clientMergeModal').modal('show');
+            }
         },
     }
 </script>

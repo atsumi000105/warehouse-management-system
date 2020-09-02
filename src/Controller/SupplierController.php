@@ -177,8 +177,14 @@ class SupplierController extends BaseController
         return $this->serialize($request, $suppliers, new SupplierOptionTransformer());
     }
 
+    /**
+     * Merge one or more Suppliers
+     *
+     * @Route(path="/merge", methods={"POST"})
+     */
     public function merge(Request $request)
     {
+
         /** @var Supplier $target */
         $target = $this->getRepository()->find($request->get('targetSupplier'));
         /** @var Supplier[] $sources */
