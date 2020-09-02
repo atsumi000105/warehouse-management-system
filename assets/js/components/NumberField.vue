@@ -16,7 +16,7 @@
         name: 'NumberField',
         props: {
             label: { required: true, type: String },
-            value: { type: String, required: true },
+            value: { type: Number },
             placeholder: { type: [String,Number] },
         }
     }

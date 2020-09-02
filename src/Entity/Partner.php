@@ -200,27 +200,10 @@ class Partner extends StorageLocation
      */
     public function applyChangesFromArray(array $changes): void
     {
-        if (isset($changes['legacyId'])) {
-            $this->setLegacyId($changes['legacyId']);
-            unset($changes['legacyId']);
-        }
-
-        if (isset($changes['title'])) {
-            $this->setTitle($changes['title']);
-            unset($changes['title']);
-        }
-
-        if (isset($changes['partnerType'])) {
-            $this->setPartnerType($changes['partnerType']);
-            unset($changes['partnerType']);
-        }
-
         if (isset($changes['transition'])) {
             $this->applyTransition($changes['transition']);
             unset($changes['transition']);
         }
-
-        $this->setUpdatedAt(new \DateTime());
 
         parent::applyChangesFromArray($changes);
     }
