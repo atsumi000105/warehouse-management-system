@@ -25,7 +25,7 @@ class ClientRepository extends EntityRepository
 
     public function findByUuids(array $ids): ?ArrayCollection
     {
-        $uuids = array_map(function($id) {
+        $uuids = array_map(function ($id){
             try {
                 $uuid = Uuid::fromString($id);
             } catch (InvalidUuidStringException $exception) {
