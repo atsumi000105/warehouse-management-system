@@ -25,16 +25,17 @@ class ClientRepository extends EntityRepository
 
     public function findByUuids(array $ids): ?ArrayCollection
     {
-        $clients = new ArrayCollection();
-        foreach ($ids as $id) {
+        $uuids = array_map(function($id) {
             try {
                 $uuid = Uuid::fromString($id);
             } catch (InvalidUuidStringException $exception) {
                 throw new NotFoundHttpException(sprintf('Invalid Client ID: %s', $id));
             }
-            $clients[] = $this->findOneBy(['uuid' => $uuid]);
-        }
-        return $clients;
+            return $uuid;
+        }, $ids);
+
+        $clients = $this->findBy(['uuid' => $uuids]);
+        return new ArrayCollection($clients);
     }
 
     public function findAllPaged(
