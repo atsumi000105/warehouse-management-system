@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Warehouse;
 use App\Transformers\StorageLocationTransformer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -20,7 +21,10 @@ class WarehouseController extends StorageLocationController
     protected $defaultEntityName = Warehouse::class;
 
     /**
+     *
      * @Route("/", methods={"GET"})
+     * @IsGranted({"ROLE_WAREHOUSE_VIEW"})
+     *
      */
     public function index(Request $request): JsonResponse
     {
@@ -32,7 +36,9 @@ class WarehouseController extends StorageLocationController
     }
 
     /**
+     *
      * @Route("/{id<\d+>}", methods={"GET"})
+     * @IsGranted({"ROLE_WAREHOUSE_VIEW"})
      *
      */
     public function show(Request $request, int $id): JsonResponse

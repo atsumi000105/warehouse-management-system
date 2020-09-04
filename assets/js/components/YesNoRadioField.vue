@@ -4,6 +4,12 @@
             class="control-label"
             v-text="label"
         />
+        <i
+            v-if="helpText"
+            v-tooltip
+            :title="helpText"
+            class="attribute-help-text fa fa-question-circle"
+        ></i>
         <div class="radio-inline">
             <label>
                 <input
@@ -33,8 +39,9 @@
     export default {
         name: 'YesNoRadioField',
         props: {
-            label: { required: true, type: String },
-            value: { type: Boolean, required: true }
+            value: { type: Boolean, required: true },
+            label: { type: String, required: true },
+            helpText: { type: String, requird: false, default: "" },
         }
     }
 </script>

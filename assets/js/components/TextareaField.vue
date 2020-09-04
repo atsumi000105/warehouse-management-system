@@ -1,6 +1,12 @@
 <template>
     <div class="form-group">
         <label v-text="label" />
+        <i
+            v-if="helpText"
+            v-tooltip
+            :title="helpText"
+            class="attribute-help-text fa fa-question-circle"
+        ></i>
         <textarea
             :value="value"
             class="form-control"
@@ -13,8 +19,9 @@
     export default {
         name: 'TextareaField',
         props: {
-            label: { required: true, type: String },
-            value: { type: String, required: true }
+            value: { type: String, required: true },
+            label: { type: String, required: true },
+            helpText: { type: String, requird: false, default: "" },
         }
     }
 </script>

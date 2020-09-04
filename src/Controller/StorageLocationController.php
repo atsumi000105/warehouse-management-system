@@ -6,6 +6,7 @@ use App\Entity\InventoryTransaction;
 use App\Entity\StorageLocation;
 use App\Transformers\StorageLocationOptionTransformer;
 use App\Transformers\StorageLocationTransformer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -25,6 +26,8 @@ class StorageLocationController extends BaseController
      * Get a list of Sub-classed storage locations
      *
      * @Route(path="", methods={"GET"})
+     * @IsGranted({"ROLE_ADMIN"})
+     *
      * @return JsonResponse
      */
     public function index(Request $request)
@@ -38,6 +41,8 @@ class StorageLocationController extends BaseController
      * Get a single StorageLocation
      *
      * @Route(path="/{id}", methods={"GET"})
+     * @IsGranted({"ROLE_ADMIN"})
+     *
      */
     public function show(Request $request, int $id): JsonResponse
     {
@@ -50,6 +55,8 @@ class StorageLocationController extends BaseController
      * Save a new storageLocation
      *
      * @Route(path="/", methods={"POST"})
+     * @IsGranted({"ROLE_ADMIN"})
+     *
      * @param Request $request
      * @return array
      */
@@ -62,6 +69,8 @@ class StorageLocationController extends BaseController
      * Whole or partial update of a storageLocation
      *
      * @Route(path="/{id}", methods={"PATCH"})
+     * @IsGranted({"ROLE_ADMIN"})
+     *
      * @param Request $request
      * @param int $id
      * @return JsonResponse
@@ -87,6 +96,8 @@ class StorageLocationController extends BaseController
      * Delete a storageLocation
      *
      * @Route(path="/{id}", methods={"DELETE"})
+     * @IsGranted({"ROLE_ADMIN"})
+     *
      * @param int $id
      * @return JsonResponse
      */
@@ -113,7 +124,9 @@ class StorageLocationController extends BaseController
     }
 
     /**
+     *
      * @Route(path="/list-options", methods={"GET"})
+     * @IsGranted({"ROLE_ADMIN"})
      *
      * @param Request $request
      * @return JsonResponse

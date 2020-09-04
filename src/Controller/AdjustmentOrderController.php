@@ -7,6 +7,7 @@ use App\Entity\Orders\AdjustmentOrderLineItem;
 use App\Entity\StorageLocation;
 use App\Transformers\AdjustmentOrderTransformer;
 use App\Security\AdjustmentOrderVoter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,6 +32,7 @@ class AdjustmentOrderController extends OrderController
      * Save a new Adjustment
      *
      * @Route(path="", methods={"POST"})
+     * @IsGranted({"ROLE_ADJUSTMENT_ORDER_EDIT"})
      *
      * @param Request $request
      * @return JsonResponse
@@ -63,6 +65,7 @@ class AdjustmentOrderController extends OrderController
      * Whole or partial update of a order
      *
      * @Route(path="/{id<\d+>}", methods={"PATCH"})
+     * @IsGranted({"ROLE_ADJUSTMENT_ORDER_EDIT"})
      *
      * @param Request $request
      * @param int $id

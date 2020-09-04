@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\Exception\InvalidUuidStringException;
 use Ramsey\Uuid\Uuid;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -20,6 +21,21 @@ class ClientRepository extends EntityRepository
             throw new NotFoundHttpException(sprintf('Invalid Client ID: %s', $id));
         }
         return $this->findOneBy(['uuid' => $uuid]);
+    }
+
+    public function findByUuids(array $ids): ?ArrayCollection
+    {
+        $uuids = array_map(function ($id) {
+            try {
+                $uuid = Uuid::fromString($id);
+            } catch (InvalidUuidStringException $exception) {
+                throw new NotFoundHttpException(sprintf('Invalid Client ID: %s', $id));
+            }
+            return $uuid;
+        }, $ids);
+
+        $clients = $this->findBy(['uuid' => $uuids]);
+        return new ArrayCollection($clients);
     }
 
     public function findAllPaged(
@@ -76,7 +92,7 @@ class ClientRepository extends EntityRepository
 
     protected function joinRelatedTables(QueryBuilder $qb)
     {
-        $qb->join('c.partner', 'partner');
+        $qb->leftJoin('c.partner', 'partner');
     }
 
     /**

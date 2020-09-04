@@ -9,6 +9,7 @@ use App\Entity\User;
 use App\Entity\Warehouse;
 use App\Transformers\BagTransformer;
 use App\Transformers\PartnerOrderTransformer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -36,6 +37,7 @@ class PartnerOrderController extends OrderController
      * Save a new partner order
      *
      * @Route(path="", methods={"POST"})
+     * @IsGranted({"ROLE_PARTNER_EDIT","ROLE_PARTNER_MANAGE_OWN"})
      *
      * @param Request $request
      * @return JsonResponse
@@ -74,6 +76,7 @@ class PartnerOrderController extends OrderController
      * Whole or partial update of a order
      *
      * @Route(path="/{id<\d+>}", methods={"PATCH"})
+     * @IsGranted({"ROLE_PARTNER_EDIT","ROLE_PARTNER_MANAGE_OWN"})
      *
      * @param Request $request
      * @param $id
@@ -113,6 +116,7 @@ class PartnerOrderController extends OrderController
 
     /**
      * @Route(path="/{id<\d+>}/fill-sheet")
+     * @IsGranted({"ROLE_PARTNER_EDIT","ROLE_PARTNER_MANAGE_OWN"})
      *
      * @param Request $request
      * @param $id

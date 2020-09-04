@@ -1,7 +1,12 @@
 <template>
     <div class="form-group">
         <label v-text="label" />
-
+        <i
+            v-if="helpText"
+            v-tooltip
+            :title="helpText"
+            class="attribute-help-text fa fa-question-circle"
+        ></i>
         <div class="input-group date">
             <div class="input-group-addon">
                 <i class="fa fa-calendar" />
@@ -21,10 +26,11 @@
     export default {
         name: 'DateField',
         props: {
-            value: { type: String, required: true },
-            label: { required: false, type: String, default: 'Date:' },
+            value: { type: String, default: '' },
+            label: { type: String, required: false, default: 'Date:' },
+            helpText: { type: String, required: false, default: "" },
             format: { type: String, default: 'MM/DD/YYYY'},
-            timezone: { type: String, required: false },
+            timezone: { type: String, required: false, default: 'UTC' },
         },
         data() {
             return { dateValue: null }
@@ -32,6 +38,9 @@
         computed: {
             humanReadable: {
                 get: function() {
+                    if (!this.dateValue && !this.value) {
+                        return;
+                    }
                     let date = moment.tz(this.dateValue || this.value, this.timezone);
                     return date.format(this.format);
                 },

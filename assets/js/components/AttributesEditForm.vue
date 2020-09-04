@@ -9,36 +9,48 @@
                     v-if="attribute.displayInterface === 'TOGGLE'"
                     v-model="attribute.value"
                     :label="attribute.label"
+                    :helpText="attribute.helpText"
                 />
                 <YesNoRadioField
                     v-else-if="attribute.displayInterface === 'YES_NO_RADIO'"
                     v-model="attribute.value"
                     :label="attribute.label"
+                    :helpText="attribute.helpText"
                 />
                 <DateField
                     v-else-if="attribute.displayInterface === 'DATETIME'"
                     v-model="attribute.value"
                     :label="attribute.label"
+                    :helpText="attribute.helpText"
                 />
                 <NumberField
                     v-else-if="attribute.displayInterface === 'NUMBER'"
                     v-model="attribute.value"
                     :label="attribute.label"
+                    :helpText="attribute.helpText"
                 />
                 <OptionListApi
                     v-else-if="attribute.displayInterface === 'SELECT_SINGLE'"
                     v-model="attribute.value"
                     :label="attribute.label"
+                    :helpText="attribute.helpText"
                     :preloaded-options="attribute.options"
                 />
                 <RadioField
                     v-else-if="attribute.displayInterface === 'RADIO'"
                     v-model="attribute.value"
                     :label="attribute.label"
+                    :helpText="attribute.helpText"
                     :preloaded-options="attribute.options"
                 />
                 <TextareaField
                     v-else-if="attribute.displayInterface === 'TEXTAREA'"
+                    v-model="attribute.value"
+                    :label="attribute.label"
+                    :helpText="attribute.helpText"
+                />
+                <AddressField
+                    v-else-if="attribute.displayInterface === 'ADDRESS'"
                     v-model="attribute.value"
                     :label="attribute.label"
                 />
@@ -46,6 +58,7 @@
                     v-else
                     v-model="attribute.value"
                     :label="attribute.label"
+                    :helpText="attribute.helpText"
                 />
             </div>
         </form>
@@ -62,14 +75,16 @@
     import RadioField from "./RadioField";
     import BooleanField from "./ToggleField";
     import YesNoRadioField from "./YesNoRadioField";
+    import AddressField from "./AddressField";
     export default {
         name: 'AttributesEditForm',
         components: {
+            AddressField,
             YesNoRadioField,
             BooleanField, RadioField, TextareaField, OptionListApi, NumberField, TextField, DateField},
         props: {
             new: { type: Boolean },
-            value: { type: Array, required: true }
+            value: { type: Array }
         },
         computed: {
             attributes: function () {

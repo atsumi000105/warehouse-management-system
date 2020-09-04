@@ -45,6 +45,7 @@ class PartnerFixtures extends BaseFixture
         for ($i = 0; $i < 50; $i++) {
             $partner = new Partner($this->faker->company . ' Partner', $this->workflowRegistry);
             $partner->setPartnerType(Partner::TYPE_AGENCY);
+            $partner->setStatus($this->randValue(Partner::STATUSES));
             $partner->setDistributionMethod($this->randValue($distributionMethods));
             $partner->setFulfillmentPeriod($this->randValue($periods));
             $partner->addContact($this->createContact(StorageLocationContact::class));
@@ -53,9 +54,11 @@ class PartnerFixtures extends BaseFixture
             $manager->persist($partner);
         }
 
-        for ($i = 0; $i < 4; $i++) {
+        $numStatuses = count(Partner::STATUSES);
+        for ($i = 0; $i < ($numStatuses * 2); $i++) {
             $hospital = new Partner($this->faker->company . ' Hospital', $this->workflowRegistry);
             $hospital->setPartnerType(Partner::TYPE_HOSPITAL);
+            $hospital->setStatus(Partner::STATUSES[$i % $numStatuses]);
             $hospital->setDistributionMethod($this->randValue($distributionMethods));
             $hospital->setFulfillmentPeriod($this->randValue($periods));
             $hospital->addContact($this->createContact(StorageLocationContact::class));

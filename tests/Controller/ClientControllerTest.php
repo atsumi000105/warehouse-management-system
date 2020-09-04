@@ -67,8 +67,8 @@ class ClientControllerTest extends AbstractWebTestCase
         $clientAccount = $this->getClientAccount();
         $uuid = $clientAccount->getUuid()->toString();
         $name = $clientAccount->getName();
-        $firstName = $name->getFirstname();
-        $lastName = $name->getLastname();
+        $firstName = $name->getFirstName();
+        $lastName = $name->getLastName();
 
         $newLastName = uniqid();
 
@@ -79,8 +79,8 @@ class ClientControllerTest extends AbstractWebTestCase
         $response = $this->getDecodedResponse();
 
         $this->assertEquals($uuid, $response['id']);
-        $this->assertEquals($firstName, $response['name']['firstName']);
-        $this->assertEquals($newLastName, $response['name']['lastName']);
+        $this->assertEquals($firstName, $response['firstName']);
+        $this->assertEquals($newLastName, $response['lastName']);
     }
 
     protected function getClientAccount(): Client

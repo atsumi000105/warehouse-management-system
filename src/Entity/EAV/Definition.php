@@ -3,6 +3,7 @@
 namespace App\Entity\EAV;
 
 use App\Entity\CoreEntity;
+use App\Entity\EAV\Type\AddressAttribute;
 use App\Entity\EAV\Type\BooleanAttribute;
 use App\Entity\EAV\Type\DatetimeAttribute;
 use App\Entity\EAV\Type\FloatAttribute;
@@ -75,6 +76,13 @@ abstract class Definition extends CoreEntity
      * @ORM\Column(type="string", length=100)
      */
     private $type;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $helpText;
 
     /**
      * @var string
@@ -223,6 +231,24 @@ abstract class Definition extends CoreEntity
     public function getType() : string
     {
         return $this->type;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHelpText()
+    {
+        return $this->helpText;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setHelpText($helpText)
+    {
+        $this->helpText = $helpText;
+
+        return $this;
     }
 
     public function getDisplayInterface(): string
@@ -393,6 +419,9 @@ abstract class Definition extends CoreEntity
                 break;
             case self::TYPE_BOOLEAN:
                 $attribute = new BooleanAttribute();
+                break;
+            case self::TYPE_ADDRESS:
+                $attribute = new AddressAttribute();
                 break;
         }
 

@@ -7,6 +7,7 @@ use App\Entity\Orders\TransferOrderLineItem;
 use App\Entity\StorageLocation;
 use App\Transformers\TransferOrderTransformer;
 use App\Security\TransferOrderVoter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -30,6 +31,7 @@ class TransferOrdersController extends OrderController
      * Save a new Transfer
      *
      * @Route(path="", methods={"POST"})
+     * @IsGranted({"ROLE_TRANSFER_ORDER_EDIT"})
      *
      * @param Request $request
      * @return JsonResponse
@@ -70,6 +72,7 @@ class TransferOrdersController extends OrderController
      * Whole or partial update of a order
      *
      * @Route(path="/{id<\d+>}", methods={"PATCH"})
+     * @IsGranted({"ROLE_TRANSFER_ORDER_EDIT"})
      *
      * @param Request $request
      * @param $id

@@ -118,15 +118,23 @@ class Client extends CoreEntity
     /** @var Registry */
     protected $workflowRegistry;
 
+    /**
+     * @var int
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $mergedTo;
+
     public function __construct(Registry $workflowRegistry)
     {
         $this->attributes = new ArrayCollection();
+        $this->name = new Name();
         $this->distributionLineItems = new ArrayCollection();
         $this->uuid = Uuid::uuid4();
         $this->isExpirationOverridden = false;
         $this->pullupDistributionMax = 6;
         $this->pullupDistributionCount = 0;
         $this->workflowRegistry = $workflowRegistry;
+        $this->status = self::STATUS_CREATION;
     }
 
     public function __toString()
@@ -146,6 +154,16 @@ class Client extends CoreEntity
         }
 
         $this->name = $name;
+    }
+
+    public function setFirstName($firstName)
+    {
+        $this->name->setFirstname($firstName);
+    }
+
+    public function setLastName($lastName)
+    {
+        $this->name->setLastname($lastName);
     }
 
     /**
@@ -253,7 +271,7 @@ class Client extends CoreEntity
         parent::applyChangesFromArray($changes);
     }
 
-    public function getPartner(): Partner
+    public function getPartner(): ?Partner
     {
         return $this->partner;
     }
@@ -331,5 +349,18 @@ class Client extends CoreEntity
     public function getStatus(): string
     {
         return $this->status;
+    }
+
+    /**
+     * Merged To client id
+     */
+    public function setMergedTo(string $mergedTo): void
+    {
+        $this->mergedTo = $mergedTo;
+    }
+
+    public function getMergedTo(): string
+    {
+        return $this->mergedTo;
     }
 }
