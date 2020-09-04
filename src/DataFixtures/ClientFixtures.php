@@ -45,11 +45,9 @@ class ClientFixtures extends BaseFixture implements DependentFixtureInterface
         foreach ($this->getData() as $clientArr) {
             $client = new Client($this->workflowRegistry);
             $client->setName($clientArr['name']);
+            $client->setStatus($clientArr['status']);
             $client->setPartner($clientArr['partner']);
             $client->setBirthdate($this->faker->dateTimeBetween('-5 years', 'now'));
-
-            $randKey = array_rand($statuses);
-            $client->setStatus($statuses[$randKey]);
 
             foreach ($definitions as $definition) {
                 $attribute = $definition->createAttribute();
@@ -64,21 +62,79 @@ class ClientFixtures extends BaseFixture implements DependentFixtureInterface
         $manager->flush();
     }
 
+    /**
+     * @return Client[]
+     */
     private function getData(): array
     {
         $clientsToCreate = 500;
         $faker = Factory::create();
-        $partners = $this->manager->getRepository(Partner::class)->findAll();
 
+        $clients = [];
 
-        return array_map(
-            static function () use ($faker, $partners) {
-                return [
-                    'name' => new Name($faker->firstName, $faker->lastName),
-                    'partner' => $partners[array_rand($partners)]
-                ];
-            },
-            range(1, $clientsToCreate)
-        );
+        for ($i = 0; $i < $clientsToCreate; $i++) {
+            $status = $this->getClientStatus();
+            $partner = null;
+            if ($status === Client::STATUS_CREATION
+                || $status === Client::STATUS_ACTIVE
+                || $status === Client::STATUS_LIMIT_REACHED
+            ) {
+                $partner = $this->getActivePartner();
+            } else {
+                $partner = $this->getInactivePartner();
+            }
+
+            $clients[] = [
+                'name' => new Name($faker->firstName, $faker->lastName),
+                'status' => $status,
+                'partner' => $partner,
+            ];
+        }
+
+        return $clients;
+    }
+
+    private function getClientStatus(): string
+    {
+        $statuses = [
+            Client::STATUS_ACTIVE,
+            Client::STATUS_LIMIT_REACHED,
+            Client::STATUS_CREATION,
+            Client::STATUS_INACTIVE,
+        ];
+
+        return $this->randomArrayValue($statuses);
+    }
+
+    private function getActivePartner(): Partner
+    {
+        $partners = $this->manager
+            ->getRepository(Partner::class)
+            ->findBy(['status' => Partner::STATUS_ACTIVE]);
+
+        return $this->randomArrayValue($partners);
+    }
+
+    private function getInactivePartner(): Partner
+    {
+        $partners = $this->manager
+            ->getRepository(Partner::class)
+            ->findBy(['status' =>
+                [
+                    Partner::STATUS_INACTIVE,
+                    Partner::STATUS_START,
+                    Partner::STATUS_APPLICATION_PENDING,
+                    Partner::STATUS_APPLICATION_PENDING_PRIORITY,
+                    Partner::STATUS_NEEDS_PROFILE_REVIEW,
+                    Partner::STATUS_REVIEW_PAST_DUE,
+                ]
+            ]);
+
+        return $this->randomArrayValue($partners);
+    }
+
+    private function randomArrayValue(array $arr)
+    {
+        return $arr[array_rand($arr)];
     }
 }
