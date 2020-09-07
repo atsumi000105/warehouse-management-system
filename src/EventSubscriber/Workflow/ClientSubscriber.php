@@ -26,17 +26,31 @@ class ClientSubscriber implements EventSubscriberInterface
 
     public function onTransitionActivate(GuardEvent $event): void
     {
-        if (!$this->checker->isGranted(Client::ROLE_MANAGE_OWN) &&
-            !$this->checker->isGranted(Client::ROLE_EDIT_ALL)) {
-            $event->setBlocked(true);
+        if (!$this->checker->isGranted(Client::ROLE_EDIT_ALL)) {
+            ['status' => $status] = $event->getSubject();
+
+            if ($status === Client::STATUS_LIMIT_REACHED || $status === Client::STATUS_DUPLICATE_INACTIVE) {
+                $event->setBlocked(true);
+            }
+
+            if (!$this->checker->isGranted(Client::ROLE_MANAGE_OWN)) {
+                $event->setBlocked(true);
+            }
         }
     }
 
     public function onTransitionDeactivate(GuardEvent $event): void
     {
-        if (!$this->checker->isGranted(Client::ROLE_MANAGE_OWN) &&
-            !$this->checker->isGranted(Client::ROLE_EDIT_ALL)) {
-            $event->setBlocked(true);
+        if (!$this->checker->isGranted(Client::ROLE_EDIT_ALL)) {
+            ['status' => $status] = $event->getSubject();
+
+            if ($status === Client::STATUS_LIMIT_REACHED || $status === Client::STATUS_DUPLICATE_INACTIVE) {
+                $event->setBlocked(true);
+            }
+
+            if (!$this->checker->isGranted(Client::ROLE_MANAGE_OWN)) {
+                $event->setBlocked(true);
+            }
         }
     }
 
