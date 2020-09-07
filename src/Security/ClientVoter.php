@@ -41,7 +41,7 @@ class ClientVoter extends Voter
             case self::EDIT:
                 return $this->canEdit($client, $user);
             default:
-                throw new \LogicException('This code should not be reached!');
+                throw new \LogicException('Unknown Voter attribute');
         }
     }
 
