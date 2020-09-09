@@ -21,6 +21,9 @@ use Symfony\Component\Workflow\Registry;
  */
 class Client extends CoreEntity
 {
+    use Uuidable;
+    use AttributedEntityTrait;
+
     public const STATUS_CREATION = 'CREATION';
     public const STATUS_ACTIVE = 'ACTIVE';
     public const STATUS_INACTIVE = 'INACTIVE';
@@ -35,9 +38,6 @@ class Client extends CoreEntity
     public const ROLE_VIEW_ALL = "ROLE_CLIENT_VIEW_ALL";
     public const ROLE_EDIT_ALL = "ROLE_CLIENT_EDIT_ALL";
     public const ROLE_MANAGE_OWN = "ROLE_CLIENT_MANAGE_OWN";
-
-    use Uuidable;
-    use AttributedEntityTrait;
 
     /**
      * The name value object which holds the
