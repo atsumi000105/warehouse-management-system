@@ -13,20 +13,20 @@ use Doctrine\ORM\Mapping as ORM;
  */
 abstract class Attribute
 {
-    const UI_TEXT = "TEXT";
-    const UI_NUMBER = "NUMBER";
-    const UI_TEXTAREA = "TEXTAREA";
-    const UI_DATETIME = "DATETIME";
-    const UI_SELECT_SINGLE = "SELECT_SINGLE";
-    const UI_SELECT_MULTI = "SELECT_MULTI";
-    const UI_FILE_UPLOAD = "FILE_UPLOAD";
-    const UI_RADIO = "RADIO";
-    const UI_CHECKBOX_GROUP = "CHECKBOX_GROUP";
-    const UI_TOGGLE = "TOGGLE";
-    const UI_YES_NO_RADIO = "YES_NO_RADIO";
-    const UI_ADDRESS = "ADDRESS";
-    const UI_URL = "URL";
-    const UI_ZIPCODE = "ZIPCODE";
+    public const UI_TEXT = "TEXT";
+    public const UI_NUMBER = "NUMBER";
+    public const UI_TEXTAREA = "TEXTAREA";
+    public const UI_DATETIME = "DATETIME";
+    public const UI_SELECT_SINGLE = "SELECT_SINGLE";
+    public const UI_SELECT_MULTI = "SELECT_MULTI";
+    public const UI_FILE_UPLOAD = "FILE_UPLOAD";
+    public const UI_RADIO = "RADIO";
+    public const UI_CHECKBOX_GROUP = "CHECKBOX_GROUP";
+    public const UI_TOGGLE = "TOGGLE";
+    public const UI_YES_NO_RADIO = "YES_NO_RADIO";
+    public const UI_ADDRESS = "ADDRESS";
+    public const UI_URL = "URL";
+    public const UI_ZIPCODE = "ZIPCODE";
 
     /**
      * @var int

@@ -13,7 +13,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 abstract class Address extends CoreEntity
 {
-    const DEFAULT_VALIDATIONS = [
+    public const DEFAULT_VALIDATIONS = [
         'street1' => 'required',
         'city' => 'required',
         'state' => 'required',

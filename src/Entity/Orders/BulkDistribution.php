@@ -15,10 +15,10 @@ use Moment\Moment;
  */
 class BulkDistribution extends Order
 {
-    const STATUS_PENDING = "PENDING";
+    public const STATUS_PENDING = "PENDING";
 
-    const ROLE_VIEW = "ROLE_DISTRIBUTION_ORDER_VIEW";
-    const ROLE_EDIT = "ROLE_DISTRIBUTION_ORDER_EDIT";
+    public const ROLE_VIEW = "ROLE_DISTRIBUTION_ORDER_VIEW";
+    public const ROLE_EDIT = "ROLE_DISTRIBUTION_ORDER_EDIT";
 
     /**
      * @var Partner $partner

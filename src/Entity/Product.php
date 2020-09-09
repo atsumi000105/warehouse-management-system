@@ -15,12 +15,12 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Product extends CoreEntity
 {
-    const STATUS_ACTIVE = "ACTIVE";
-    const STATUS_INACTIVE = "INACTIVE";
-    const STATUS_OUT_OF_STOCK = "OUT_OF_STOCK";
+    public const STATUS_ACTIVE = "ACTIVE";
+    public const STATUS_INACTIVE = "INACTIVE";
+    public const STATUS_OUT_OF_STOCK = "OUT_OF_STOCK";
 
-    const ROLE_VIEW = "ROLE_PRODUCT_VIEW";
-    const ROLE_EDIT = "ROLE_PRODUCT_EDIT";
+    public const ROLE_VIEW = "ROLE_PRODUCT_VIEW";
+    public const ROLE_EDIT = "ROLE_PRODUCT_EDIT";
 
     /**
      * @var int

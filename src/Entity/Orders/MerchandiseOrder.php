@@ -13,8 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class MerchandiseOrder extends Order
 {
-    const ROLE_VIEW = "ROLE_MERCHANDISE_ORDER_VIEW";
-    const ROLE_EDIT = "ROLE_MERCHANDISE_ORDER_EDIT";
+    public const ROLE_VIEW = "ROLE_MERCHANDISE_ORDER_VIEW";
+    public const ROLE_EDIT = "ROLE_MERCHANDISE_ORDER_EDIT";
 
     /**
      * @var Warehouse $warehouse

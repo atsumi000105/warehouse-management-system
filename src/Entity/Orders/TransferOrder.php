@@ -16,8 +16,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class TransferOrder extends Order
 {
-    const ROLE_VIEW = "ROLE_TRANSFER_ORDER_VIEW";
-    const ROLE_EDIT = "ROLE_TRANSFER_ORDER_EDIT";
+    public const ROLE_VIEW = "ROLE_TRANSFER_ORDER_VIEW";
+    public const ROLE_EDIT = "ROLE_TRANSFER_ORDER_EDIT";
 
     /**
      * @var StorageLocation $sourceLocation

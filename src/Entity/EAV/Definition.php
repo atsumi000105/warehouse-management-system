@@ -26,17 +26,17 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 abstract class Definition extends CoreEntity
 {
-    const TYPE_STRING = "STRING";
-    const TYPE_INTEGER = "INTEGER";
-    const TYPE_FLOAT = "FLOAT";
-    const TYPE_DATETIME = "DATETIME";
-    const TYPE_OPTION_LIST = "OPTION_LIST";
-    const TYPE_TEXT = "TEXT";
-    const TYPE_FILE = "FILE";
-    const TYPE_ADDRESS = "ADDRESS";
-    const TYPE_URL = "URL";
-    const TYPE_BOOLEAN = "BOOLEAN";
-    const TYPE_ZIPCODE = "ZIPCODE";
+    public const TYPE_STRING = "STRING";
+    public const TYPE_INTEGER = "INTEGER";
+    public const TYPE_FLOAT = "FLOAT";
+    public const TYPE_DATETIME = "DATETIME";
+    public const TYPE_OPTION_LIST = "OPTION_LIST";
+    public const TYPE_TEXT = "TEXT";
+    public const TYPE_FILE = "FILE";
+    public const TYPE_ADDRESS = "ADDRESS";
+    public const TYPE_URL = "URL";
+    public const TYPE_BOOLEAN = "BOOLEAN";
+    public const TYPE_ZIPCODE = "ZIPCODE";
 
     /**
      * @var int
