@@ -4,10 +4,8 @@ namespace App\DataFixtures;
 
 use App\Entity\Orders\BulkDistribution;
 use App\Entity\Orders\BulkDistributionLineItem;
-use App\Entity\Orders\PartnerOrder;
-use App\Entity\Orders\PartnerOrderLineItem;
-use App\Entity\Product;
 use App\Entity\Partner;
+use App\Entity\Product;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Moment\Moment;
@@ -35,7 +33,7 @@ class BulkDistributionFixtures extends BaseFixture implements DependentFixtureIn
 
         foreach ($partners as $partner) {
             $clients = $partner->getClients();
-            for ($i=0; $i < $ordersPerPartner; $i++) {
+            for ($i = 0; $i < $ordersPerPartner; $i++) {
                 $order = new BulkDistribution($partner);
 
                 $order->setStatus($this->faker->randomElement([

@@ -112,7 +112,7 @@ class Group extends CoreEntity
         $this->name = $name;
     }
 
-    public function getRoles() : array
+    public function getRoles(): array
     {
         return $this->roles;
     }

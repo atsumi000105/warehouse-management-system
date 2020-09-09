@@ -30,7 +30,7 @@ class ProductCategory extends ListOption
         $this->isPartnerOrderable = true;
     }
 
-    public function isPartnerOrderable() : bool
+    public function isPartnerOrderable(): bool
     {
         return $this->isPartnerOrderable;
     }

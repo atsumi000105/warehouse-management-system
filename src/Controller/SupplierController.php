@@ -3,15 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Supplier;
+use App\Security\SupplierVoter;
 use App\Transformers\SupplierOptionTransformer;
 use App\Transformers\SupplierTransformer;
-use App\Security\SupplierVoter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
@@ -264,6 +264,6 @@ class SupplierController extends BaseController
 
     protected function getDefaultTransformer()
     {
-        return new SupplierTransformer;
+        return new SupplierTransformer();
     }
 }

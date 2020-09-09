@@ -55,7 +55,7 @@ class BulkDistribution extends Order
         }
     }
 
-    public function getOrderTypeName() : string
+    public function getOrderTypeName(): string
     {
         return "Partner Distribution";
     }

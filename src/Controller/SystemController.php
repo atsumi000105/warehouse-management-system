@@ -86,7 +86,7 @@ class SystemController extends BaseController
      */
     public function getLoggedInUser(Request $request)
     {
-        return $this->serialize($request, $this->getUser(), new UserTransformer);
+        return $this->serialize($request, $this->getUser(), new UserTransformer());
     }
 
     private function getSettings()

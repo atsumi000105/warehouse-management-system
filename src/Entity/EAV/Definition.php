@@ -228,7 +228,7 @@ abstract class Definition extends CoreEntity
         return $this;
     }
 
-    public function getType() : string
+    public function getType(): string
     {
         return $this->type;
     }
@@ -378,7 +378,7 @@ abstract class Definition extends CoreEntity
         return $this->attributes;
     }
 
-    public static function getAttributeTypes() : array
+    public static function getAttributeTypes(): array
     {
         return [
             self::TYPE_DATETIME,
@@ -394,7 +394,7 @@ abstract class Definition extends CoreEntity
         ];
     }
 
-    public static function createNewAttributeFromType(string $type) : Attribute
+    public static function createNewAttributeFromType(string $type): Attribute
     {
         $attribute = new StringAttribute();
 
@@ -428,7 +428,7 @@ abstract class Definition extends CoreEntity
         return $attribute;
     }
 
-    public function createAttribute($value = null) : Attribute
+    public function createAttribute($value = null): Attribute
     {
         $attribute = null;
 

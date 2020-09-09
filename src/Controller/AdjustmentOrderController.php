@@ -5,8 +5,8 @@ namespace App\Controller;
 use App\Entity\Orders\AdjustmentOrder;
 use App\Entity\Orders\AdjustmentOrderLineItem;
 use App\Entity\StorageLocation;
-use App\Transformers\AdjustmentOrderTransformer;
 use App\Security\AdjustmentOrderVoter;
+use App\Transformers\AdjustmentOrderTransformer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -99,6 +99,6 @@ class AdjustmentOrderController extends OrderController
 
     protected function getDefaultTransformer()
     {
-        return new AdjustmentOrderTransformer;
+        return new AdjustmentOrderTransformer();
     }
 }

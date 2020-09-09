@@ -2,8 +2,8 @@
 
 namespace App\Transformers;
 
-use App\Entity\Orders\AdjustmentOrder;
 use App\Entity\Order;
+use App\Entity\Orders\AdjustmentOrder;
 
 class AdjustmentOrderTransformer extends OrderTransformer
 {
@@ -34,6 +34,6 @@ class AdjustmentOrderTransformer extends OrderTransformer
     {
         $partner = $order->getStorageLocation();
 
-        return $this->item($partner, new StorageLocationTransformer);
+        return $this->item($partner, new StorageLocationTransformer());
     }
 }

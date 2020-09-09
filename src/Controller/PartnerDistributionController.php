@@ -6,7 +6,6 @@ use App\Entity\Client;
 use App\Entity\LineItem;
 use App\Entity\Orders\BulkDistribution;
 use App\Entity\Orders\BulkDistributionLineItem;
-use App\Entity\Orders\PartnerOrder;
 use App\Entity\Partner;
 use App\Entity\User;
 use App\Transformers\BulkDistributionLineItemTransformer;
@@ -138,7 +137,7 @@ class PartnerDistributionController extends OrderController
             return $line;
         }, $clients);
 
-        return $this->serialize($request, $lineItems, new BulkDistributionLineItemTransformer);
+        return $this->serialize($request, $lineItems, new BulkDistributionLineItemTransformer());
     }
 
     protected function buildFilterParams(Request $request)

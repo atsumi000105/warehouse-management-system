@@ -112,7 +112,7 @@ abstract class BaseController extends AbstractController
      * @param Request $request
      * @return array
      */
-    protected function getParams(Request $request) : array
+    protected function getParams(Request $request): array
     {
         // TODO: This needs to redone to check the type of request and only give back the right params for that method
         $params = $request->request->all();

@@ -35,14 +35,14 @@ class PartnerOrderTransformer extends OrderTransformer
     {
         $partner = $order->getPartner();
 
-        return $this->item($partner, new PartnerTransformer);
+        return $this->item($partner, new PartnerTransformer());
     }
 
     public function includeWarehouse(PartnerOrder $order)
     {
         $warehouse = $order->getWarehouse();
 
-        return $this->item($warehouse, new StorageLocationTransformer);
+        return $this->item($warehouse, new StorageLocationTransformer());
     }
 
     public function includeBags(PartnerOrder $order)

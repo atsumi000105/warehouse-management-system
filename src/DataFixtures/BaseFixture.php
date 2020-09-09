@@ -28,7 +28,7 @@ abstract class BaseFixture extends Fixture
         $this->loadData($manager);
     }
 
-    protected function createAddress($class) : Address
+    protected function createAddress($class): Address
     {
         /** @var Address $address */
         $address = new $class();
@@ -41,7 +41,7 @@ abstract class BaseFixture extends Fixture
         return $address;
     }
 
-    protected function createContact($class) : Contact
+    protected function createContact($class): Contact
     {
         /** @var Contact $contact */
         $contact = new $class();

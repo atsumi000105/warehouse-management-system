@@ -5,8 +5,8 @@ namespace App\Controller;
 use App\Entity\Orders\TransferOrder;
 use App\Entity\Orders\TransferOrderLineItem;
 use App\Entity\StorageLocation;
-use App\Transformers\TransferOrderTransformer;
 use App\Security\TransferOrderVoter;
+use App\Transformers\TransferOrderTransformer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -114,6 +114,6 @@ class TransferOrdersController extends OrderController
 
     protected function getDefaultTransformer()
     {
-        return new TransferOrderTransformer;
+        return new TransferOrderTransformer();
     }
 }

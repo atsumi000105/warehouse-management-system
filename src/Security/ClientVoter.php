@@ -70,7 +70,8 @@ class ClientVoter extends Voter
 
         $activePartner = $user->getActivePartner();
 
-        if ($user->hasRole(Client::ROLE_MANAGE_OWN)
+        if (
+            $user->hasRole(Client::ROLE_MANAGE_OWN)
             && $activePartner
             && $client->getPartner()->getId() === $activePartner->getId()
         ) {

@@ -3,7 +3,6 @@
 namespace App\Transformers;
 
 use App\Entity\Client;
-use App\Entity\PartnerProfile;
 use League\Fractal\TransformerAbstract;
 
 class ClientTransformer extends TransformerAbstract
@@ -19,7 +18,7 @@ class ClientTransformer extends TransformerAbstract
             'id' => $client->getUuid(),
             'firstName' => $client->getName()->getFirstname(),
             'lastName' => $client->getName()->getLastname(),
-            'fullName' => $client->getName()->getFirstName().' '.$client->getName()->getLastName(),
+            'fullName' => $client->getName()->getFirstName() . ' ' . $client->getName()->getLastName(),
             'birthdate' => $client->getBirthdate()->format('c'),
             'isExpirationOverridden' => $client->isExpirationOverridden(),
             'ageExpiresAt' => $client->getAgeExpiresAt()->format('c'),

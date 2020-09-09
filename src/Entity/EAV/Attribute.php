@@ -2,7 +2,6 @@
 
 namespace App\Entity\EAV;
 
-use App\Entity\CoreEntity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -71,12 +70,12 @@ abstract class Attribute
 
     abstract public function getValue();
 
-    abstract public function getDisplayInterfaces() : array;
+    abstract public function getDisplayInterfaces(): array;
 
     /**
      * By default this will just get the first interface in the list. Override as necessary.
      */
-    public function getDefaultDisplayInterface() : string
+    public function getDefaultDisplayInterface(): string
     {
         $interfaces = $this->getDisplayInterfaces();
         return reset($interfaces);
@@ -85,7 +84,7 @@ abstract class Attribute
     /**
      * Whether this type supports list options (dropdown, radio, checkboxes, etc)
      */
-    public function hasOptions() : bool
+    public function hasOptions(): bool
     {
         return false;
     }
