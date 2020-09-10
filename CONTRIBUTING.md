@@ -6,7 +6,7 @@ Thank you for showing interest in helping make this project better for all!
 
 For PHP:
 
-* Code Style: [PSR-2](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)
+* Code Style: [PSR-12](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-12-extended-coding-style-guide.md)
 * Name Spaces: [PSR-4](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md)
 * Static Analysis: [PHPStan](https://github.com/phpstan/phpstan)
 
