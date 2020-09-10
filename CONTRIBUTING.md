@@ -6,8 +6,8 @@ Thank you for showing interest in helping make this project better for all!
 
 For PHP:
 
-* Code Style: [PSR-12](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-12-extended-coding-style-guide.md)
-* Name Spaces: [PSR-4](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md)
+* Code Style: [PSR-12](https://www.php-fig.org/psr/psr-12/)
+* Name Spaces: [PSR-4](https://www.php-fig.org/psr/psr-4/)
 * Static Analysis: [PHPStan](https://github.com/phpstan/phpstan)
 
 For JavaScript:
