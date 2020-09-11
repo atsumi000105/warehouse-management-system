@@ -41,11 +41,11 @@ class ClientVoter extends Voter
             case self::EDIT:
                 return $this->canEdit($client, $user);
             default:
-                throw new \LogicException('This code should not be reached!');
+                throw new \LogicException('Unknown Voter attribute');
         }
     }
 
-    private function canView(Client $client, User $user)
+    private function canView(Client $client, User $user): bool
     {
         if ($this->canEdit($client, $user)) {
             return true;
@@ -58,7 +58,7 @@ class ClientVoter extends Voter
         return false;
     }
 
-    private function canEdit(Client $client, User $user)
+    private function canEdit(Client $client, User $user): bool
     {
         if ($user->isAdmin()) {
             return true;
@@ -69,14 +69,11 @@ class ClientVoter extends Voter
         }
 
         $activePartner = $user->getActivePartner();
+        $clientPartner = $client->getPartner();
 
-        if ($user->hasRole(Client::ROLE_MANAGE_OWN)
-            && $activePartner
-            && $client->getPartner()->getId() === $activePartner->getId()
-        ) {
-            return true;
-        }
-
-        return false;
+        return $activePartner
+            && $clientPartner
+            && $user->hasRole(Client::ROLE_MANAGE_OWN)
+            && $clientPartner->getId() === $activePartner->getId();
     }
 }
