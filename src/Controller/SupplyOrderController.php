@@ -7,8 +7,8 @@ use App\Entity\Orders\SupplyOrderLineItem;
 use App\Entity\Supplier;
 use App\Entity\SupplierAddress;
 use App\Entity\Warehouse;
-use App\Transformers\SupplyOrderTransformer;
 use App\Security\SupplyOrderVoter;
+use App\Transformers\SupplyOrderTransformer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -122,6 +122,6 @@ class SupplyOrderController extends OrderController
 
     protected function getDefaultTransformer()
     {
-        return new SupplyOrderTransformer;
+        return new SupplyOrderTransformer();
     }
 }

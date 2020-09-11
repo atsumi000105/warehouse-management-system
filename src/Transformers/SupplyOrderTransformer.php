@@ -34,7 +34,7 @@ class SupplyOrderTransformer extends OrderTransformer
     {
         $supplier = $order->getSupplier();
 
-        return $this->item($supplier, new SupplierTransformer);
+        return $this->item($supplier, new SupplierTransformer());
     }
 
     public function includeSupplierAddress(SupplyOrder $order)
@@ -42,7 +42,7 @@ class SupplyOrderTransformer extends OrderTransformer
         $supplierAddress = $order->getSupplierAddress();
 
         if ($supplierAddress) {
-            return $this->item($supplierAddress, new SupplierAddressTransformer);
+            return $this->item($supplierAddress, new SupplierAddressTransformer());
         }
     }
 
@@ -50,6 +50,6 @@ class SupplyOrderTransformer extends OrderTransformer
     {
         $warehouse = $order->getWarehouse();
 
-        return $this->item($warehouse, new StorageLocationTransformer);
+        return $this->item($warehouse, new StorageLocationTransformer());
     }
 }

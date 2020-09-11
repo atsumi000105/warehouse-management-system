@@ -20,7 +20,8 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
  */
 abstract class CoreEntity
 {
-    use TimestampableEntity, SoftDeleteableEntity;
+    use TimestampableEntity;
+    use SoftDeleteableEntity;
 
     /**
      * Every entity will have an id
@@ -141,8 +142,7 @@ abstract class CoreEntity
         }
 
         return array_reduce($annotations, function ($carry, $annotation) {
-            if ($annotation instanceof OneToMany
-            ) {
+            if ($annotation instanceof OneToMany) {
                 return true;
             }
 
@@ -174,9 +174,7 @@ abstract class CoreEntity
         }
 
         return array_reduce($annotations, function ($carry, $annotation) {
-            if ($annotation instanceof ManyToMany ||
-                $annotation instanceof ManyToOne
-            ) {
+            if ($annotation instanceof ManyToMany || $annotation instanceof ManyToOne) {
                 return true;
             }
 

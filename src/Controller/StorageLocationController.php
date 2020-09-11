@@ -152,6 +152,6 @@ class StorageLocationController extends BaseController
 
     protected function getDefaultTransformer()
     {
-        return new StorageLocationTransformer;
+        return new StorageLocationTransformer();
     }
 }

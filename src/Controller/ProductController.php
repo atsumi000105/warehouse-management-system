@@ -211,6 +211,6 @@ class ProductController extends BaseController
 
     protected function getDefaultTransformer()
     {
-        return new ProductTransformer;
+        return new ProductTransformer();
     }
 }

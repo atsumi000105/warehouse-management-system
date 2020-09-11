@@ -4,11 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Group;
 use App\Entity\Partner;
-use App\Entity\User;
 use App\Entity\PartnerUser;
+use App\Entity\User;
 use App\Entity\ValueObjects\Name;
-use App\Transformers\UserTransformer;
 use App\Security\UserVoter;
+use App\Transformers\UserTransformer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,7 +33,7 @@ class UserController extends BaseController
      * @IsGranted({"ROLE_USER_VIEW"})
      *
      */
-    public function index(Request $request) : JsonResponse
+    public function index(Request $request): JsonResponse
     {
         $users = $this->getRepository()->findAll();
 
@@ -51,7 +51,7 @@ class UserController extends BaseController
      * })
      *
      */
-    public function partnerIndex(Request $request, string $partnerId) : JsonResponse
+    public function partnerIndex(Request $request, string $partnerId): JsonResponse
     {
         $partner = $this->getRepository(Partner::class)->find($partnerId);
         $users = $this->getRepository()->findByPartner($partner);
@@ -83,7 +83,7 @@ class UserController extends BaseController
      * @IsGranted({"ROLE_USER_EDIT"})
      *
      */
-    public function store(Request $request) : JsonResponse
+    public function store(Request $request): JsonResponse
     {
         $params = $this->getParams($request);
         $user = new User($params["email"]);
@@ -127,7 +127,7 @@ class UserController extends BaseController
      * @IsGranted({"ROLE_USER_EDIT"})
      *
      */
-    public function update(Request $request, string $id) : JsonResponse
+    public function update(Request $request, string $id): JsonResponse
     {
         $params = $this->getParams($request);
         /** @var User $user */
@@ -212,7 +212,7 @@ class UserController extends BaseController
 
     protected function getDefaultTransformer()
     {
-        return new UserTransformer;
+        return new UserTransformer();
     }
 
     protected function getUserById($id): User

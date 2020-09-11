@@ -117,6 +117,6 @@ abstract class ListOptionController extends BaseController
 
     protected function getDefaultTransformer()
     {
-        return new ListOptionTransformer;
+        return new ListOptionTransformer();
     }
 }

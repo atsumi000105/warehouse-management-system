@@ -6,7 +6,6 @@ use App\Entity\Product;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\IWriter;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class SupplierTotalsExcel
 {
@@ -37,7 +36,7 @@ class SupplierTotalsExcel
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    public function buildExcel() : IWriter
+    public function buildExcel(): IWriter
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();

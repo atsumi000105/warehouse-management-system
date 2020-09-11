@@ -31,6 +31,6 @@ class AttributeDefinitionTransformer extends TransformerAbstract
     {
         $options = $definition->getOptions();
 
-        return $this->collection($options, new AttributeDefinitionOptionTransformer);
+        return $this->collection($options, new AttributeDefinitionOptionTransformer());
     }
 }

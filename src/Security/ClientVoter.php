@@ -9,8 +9,8 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class ClientVoter extends Voter
 {
-    const EDIT = 'EDIT';
-    const VIEW = 'VIEW';
+    public const EDIT = 'EDIT';
+    public const VIEW = 'VIEW';
 
     protected function supports($attribute, $subject)
     {
@@ -69,11 +69,15 @@ class ClientVoter extends Voter
         }
 
         $activePartner = $user->getActivePartner();
-        $clientPartner = $client->getPartner();
 
-        return $activePartner
-            && $clientPartner
-            && $user->hasRole(Client::ROLE_MANAGE_OWN)
-            && $clientPartner->getId() === $activePartner->getId();
+        if (
+            $user->hasRole(Client::ROLE_MANAGE_OWN)
+            && $activePartner
+            && $client->getPartner()->getId() === $activePartner->getId()
+        ) {
+            return true;
+        }
+
+        return false;
     }
 }

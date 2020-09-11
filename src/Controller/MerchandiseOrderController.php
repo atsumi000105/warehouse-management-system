@@ -97,6 +97,6 @@ class MerchandiseOrderController extends OrderController
 
     protected function getDefaultTransformer()
     {
-        return new MerchandiseOrderTransformer;
+        return new MerchandiseOrderTransformer();
     }
 }

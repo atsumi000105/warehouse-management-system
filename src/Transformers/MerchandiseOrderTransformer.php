@@ -19,6 +19,6 @@ class MerchandiseOrderTransformer extends OrderTransformer
     {
         $warehouse = $order->getWarehouse();
 
-        return $this->item($warehouse, new StorageLocationTransformer);
+        return $this->item($warehouse, new StorageLocationTransformer());
     }
 }

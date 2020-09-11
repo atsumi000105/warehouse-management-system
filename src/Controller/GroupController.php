@@ -7,8 +7,6 @@ use App\Transformers\GroupTransformer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -157,6 +155,6 @@ class GroupController extends BaseController
 
     protected function getDefaultTransformer()
     {
-        return new GroupTransformer;
+        return new GroupTransformer();
     }
 }

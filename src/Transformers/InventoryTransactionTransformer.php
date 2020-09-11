@@ -32,20 +32,20 @@ class InventoryTransactionTransformer extends TransformerAbstract
     {
         $lineItem = $inventoryTransaction->getLineItem();
 
-        return $this->item($lineItem, new LineItemTransformer);
+        return $this->item($lineItem, new LineItemTransformer());
     }
 
     public function includeProduct(InventoryTransaction $inventoryTransaction)
     {
         $product = $inventoryTransaction->getProduct();
 
-        return $this->item($product, new ProductTransformer);
+        return $this->item($product, new ProductTransformer());
     }
 
     public function includeStorageLocation(InventoryTransaction $inventoryTransaction)
     {
         $storageLocation = $inventoryTransaction->getStorageLocation();
 
-        return $this->item($storageLocation, new StorageLocationTransformer);
+        return $this->item($storageLocation, new StorageLocationTransformer());
     }
 }

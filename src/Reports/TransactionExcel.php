@@ -30,7 +30,7 @@ class TransactionExcel
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
      */
-    public function buildExcel() : IWriter
+    public function buildExcel(): IWriter
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
