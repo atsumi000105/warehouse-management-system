@@ -11,6 +11,7 @@ use App\Entity\EAV\Type\IntegerAttribute;
 use App\Entity\EAV\Type\OptionListAttribute;
 use App\Entity\EAV\Type\StringAttribute;
 use App\Entity\EAV\Type\TextAttribute;
+use App\Entity\EAV\Type\ZipCountyAttribute;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -422,6 +423,9 @@ abstract class Definition extends CoreEntity
                 break;
             case self::TYPE_ADDRESS:
                 $attribute = new AddressAttribute();
+                break;
+            case self::TYPE_ZIPCODE:
+                $attribute = new ZipCountyAttribute();
                 break;
         }
 

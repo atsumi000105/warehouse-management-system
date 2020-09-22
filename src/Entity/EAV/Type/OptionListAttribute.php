@@ -55,6 +55,11 @@ class OptionListAttribute extends Attribute
         return $this->value;
     }
 
+    public function getValueType(): string
+    {
+        return Option::class;
+    }
+
     public function isEmpty(): bool
     {
         return !$this->getValue();

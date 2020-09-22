@@ -71,6 +71,11 @@ abstract class Attribute
 
     abstract public function getValue();
 
+    public function getValueType() : string
+    {
+        return 'string';
+    }
+
     abstract public function getDisplayInterfaces() : array;
 
     /**

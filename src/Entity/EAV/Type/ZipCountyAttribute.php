@@ -4,67 +4,53 @@ namespace App\Entity\EAV\Type;
 
 use App\Entity\EAV\Attribute;
 use App\Entity\EAV\EavAddress;
+use App\Entity\ZipCounty;
 use Doctrine\ORM\Mapping as ORM;
+use http\Exception\UnexpectedValueException;
 
 /**
- * Class AddressAttribute
+ * Class ZipCOuntyAttribute
  *
  * @ORM\Entity()
  */
-class AddressAttribute extends Attribute
+class ZipCountyAttribute extends Attribute
 {
 
     /**
-     * @var EavAddress
+     * @var ZipCounty
      *
-     * @ORM\OneToOne(targetEntity="App\Entity\EAV\EavAddress", cascade={"persist"}, orphanRemoval=true)
-     * @ORM\JoinColumn(name="address_id")
+     * @ORM\ManyToOne(targetEntity="App\Entity\ZipCounty")
+     * @ORM\JoinColumn(name="zip_county_id")
      */
     private $value;
 
     public function getTypeLabel(): string
     {
-        return "Address";
+        return "Zip/County";
     }
 
     /**
-     * @param EavAddress|array $value
+     * @param ZipCounty $value
      *
      * @return Attribute
      */
     public function setValue($value): Attribute
     {
-        if (is_array($value)) {
-            if (isset($value['id'])) {
-                $address = $this->getValue();
-            } else {
-                $address = new EavAddress();
-            }
-            $address->applyChangesFromArray($value);
-        } else {
-            $address = $value;
+        if (!$value instanceof ZipCounty && !is_null($value)) {
+            throw new \TypeError("Value is not an Zip/County. Got %s", get_class($value));
         }
 
-        if (!$address instanceof EavAddress && !is_null($address)) {
-            throw new \TypeError("Value is not an Address. It's an %s", get_class($address));
-        }
-
-        $this->value = $address;
+        $this->value = $value;
 
         return $this;
     }
 
     /**
-     * @return EavAddress
+     * @return ZipCounty
      */
     public function getValue()
     {
         return $this->value;
-    }
-
-    public function getValueType(): string
-    {
-        return EavAddress::class;
     }
 
     public function isEmpty(): bool
@@ -87,7 +73,7 @@ class AddressAttribute extends Attribute
     public function getDisplayInterfaces(): array
     {
         return [
-            self::UI_ADDRESS,
+            self::UI_ZIPCODE,
         ];
     }
 }

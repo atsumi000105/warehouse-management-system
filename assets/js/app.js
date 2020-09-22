@@ -43,6 +43,7 @@ Vue.directive('chosen', {
         });
     },
     componentUpdated: function(el, binding) {
+        console.log('componentUpdated');
         jQuery(el).trigger("chosen:updated");
     }
 });

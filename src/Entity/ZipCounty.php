@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @package App\Entity
  *
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="App\Repository\ZipCountyRepository")
  * @ORM\Table(
  *     uniqueConstraints={@ORM\UniqueConstraint(name="zip_code_county_unique",columns={"zip_code", "county_id"})},
  *     indexes={
@@ -61,6 +61,14 @@ class ZipCounty
     public function __toString()
     {
         return sprintf("%s - %s, %s", $this->zipCode, $this->countyName, $this->stateCode);
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
     }
 
     /**
