@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Client;
 use App\Entity\Partner;
 use App\Entity\Orders\BulkDistributionLineItem;
+use App\Entity\User;
 use App\Entity\ValueObjects\Name;
 use App\Transformers\ClientTransformer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
