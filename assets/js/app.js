@@ -87,9 +87,6 @@ window.App = new Vue({
     data: {
         exceptions: []
     },
-    created() {
-        this.$store.dispatch('loadCurrentUser')
-    },
     router,
     store
 });
