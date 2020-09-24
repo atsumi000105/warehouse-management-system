@@ -4,6 +4,8 @@ includes:
 parameters:
     bootstrapFiles:
         - bin/.phpunit/phpunit/vendor/autoload.php
+    checkGenericClassInNonGenericObjectType: false
+    checkMissingIterableValueType: false
     doctrine:
         objectManagerLoader: tests/object-manager.php
     inferPrivatePropertyTypeFromConstructor: true
