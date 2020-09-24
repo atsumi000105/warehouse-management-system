@@ -2,7 +2,7 @@ import './bootstrap';
 import router from './routes';
 import store from './store';
 
-require('../sass/bootstrap.scss');
+require('bootstrap/dist/css/bootstrap.css');
 require('admin-lte/dist/css/AdminLTE.css');
 require('admin-lte/dist/css/skins/skin-blue.css');
 require('verte/dist/verte.css');
@@ -86,6 +86,9 @@ window.App = new Vue({
     el: '#app',
     data: {
         exceptions: []
+    },
+    created() {
+        this.$store.dispatch('loadCurrentUser')
     },
     router,
     store
