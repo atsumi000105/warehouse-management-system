@@ -8,7 +8,7 @@ use App\Entity\EAV\Definition;
 use App\Entity\EAV\Option;
 use App\Entity\EAV\PartnerProfileDefinition;
 use App\Entity\PartnerProfile;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use App\Entity\Partner;
 
 class ClientAttributeFixtures extends BaseFixture

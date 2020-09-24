@@ -8,7 +8,7 @@ use App\Entity\Product;
 use App\Entity\Partner;
 use App\Entity\StorageLocation;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 
 class AdjustmentOrderFixtures extends BaseFixture implements DependentFixtureInterface
 {
