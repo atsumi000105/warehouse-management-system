@@ -354,17 +354,19 @@ let router = new VueRouter({
     linkExactActiveClass: 'active'
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach( (to, from, next) => {
     console.log({to: to});
     if (to.meta.roles) {
-        let hasRoles = to.meta.roles.filter((role) => store.getters.userHasRole(role));
-        console.log({hasRoles: hasRoles});
-        if (hasRoles.length > 0) {
-            console.log("Will route");
-            next();
-        }
-        console.log("Should not route");
-        next(false);
+        store.dispatch('loadCurrentUser').then(() => {
+            let hasRoles = to.meta.roles.filter((role) => store.getters.userHasRole(role));
+            console.log({hasRoles: hasRoles});
+            if (hasRoles.length > 0) {
+                console.log("Will route");
+                next();
+            }
+            console.log("Should not route");
+            next(false);
+        });
     } else {
         console.log("No roles on route");
         next();
