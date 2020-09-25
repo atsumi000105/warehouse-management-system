@@ -19,6 +19,7 @@ matrix:
                   - $COMPOSER_BIN_DIR/.phpunit
           env:
               global:
+                  - APP_ENV=test
                   - SYMFONY_PHPUNIT_DIR="$COMPOSER_BIN_DIR/.phpunit"
           before_install:
               - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
@@ -37,6 +38,5 @@ matrix:
     fast_finish: true
     allow_failures:
         - php: nightly
-
 notifications:
     email: false
