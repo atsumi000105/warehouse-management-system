@@ -17,15 +17,15 @@ class ZipCountyController extends BaseController
     /**
      * Get a list of matching zip codes/counties
      *
-     * @Route(path="/{query<\S+>}", methods={"GET"})
+     * @Route(path="/", methods={"GET"})
      * @IsGranted({"ROLE_USER"})
      *
      * @return JsonResponse
      */
-    public function index(Request $request, string $query)
+    public function index(Request $request, string $query = null)
     {
         /** @var ZipCounty[] $zips */
-        $zips = $this->getRepository(ZipCounty::class)->findByZipQuery($query);
+        $zips = $this->getRepository(ZipCounty::class)->findAllInConstraints();
 
         return $this->serialize($request, $zips);
     }

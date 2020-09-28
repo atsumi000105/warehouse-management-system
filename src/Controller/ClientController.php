@@ -130,7 +130,7 @@ class ClientController extends BaseController
      * @IsGranted({"ROLE_CLIENT_EDIT_ALL","ROLE_CLIENT_MANAGE_OWN"})
      *
      */
-    public function update(Request $request, string $uuid): JsonResponse
+    public function update(Request $request, EavAttributeProcessor $eavProcessor, string $uuid): JsonResponse
     {
         $params = $this->getParams($request);
         /** @var Client $client */
@@ -151,6 +151,8 @@ class ClientController extends BaseController
             }
             $client->setPartner($newPartner);
         }
+
+        $eavProcessor->processAttributeChanges($client, $params);
 
         $client->applyChangesFromArray($params);
 

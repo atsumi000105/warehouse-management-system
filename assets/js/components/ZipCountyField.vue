@@ -5,7 +5,7 @@
             ref="zipCountySelect"
             v-model="value"
             api-path="zip-county"
-            display-property="title"
+            display-property="label"
             empty-string="-- Select Zip Code --"
             :label="label"
             @input="onSelectionChange"
@@ -15,7 +15,7 @@
             ref="zipCountySelect"
             v-model="value"
             api-path="zip-county"
-            display-property="title"
+            display-property="label"
             empty-string="-- Select Zip Code --"
             :label="label"
             @input="onSelectionChange"
@@ -43,8 +43,8 @@
             this.$refs.zipCountySelect.$on('change', eventData => this.onSelectionChange(eventData))
         },
         methods: {
-            onSelectionChange: function ( values) {
-                this.$emit('input', values);
+            onSelectionChange: function (eventData) {
+                this.$emit('change', eventData);
             }
         }
     }

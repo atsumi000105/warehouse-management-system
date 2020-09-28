@@ -23,7 +23,7 @@ class EavAttributeProcessor
         $this->em = $em;
     }
 
-    public function processAttributeChanges($entity, $changes)
+    public function processAttributeChanges($entity, &$changes)
     {
         if (!method_exists($entity, 'addAttribute') || !method_exists($entity, 'removeAttribute')) {
             throw new \Exception('Trying to process attribute changes on an entity that does not support attributes');
@@ -40,7 +40,11 @@ class EavAttributeProcessor
                 }
 
                 if ($this->isPropertyParentRelationship($attribute, 'value')) {
-                    $valueRef = $this->em->getReference($attribute->getValueType(), $attributeChange['value']);
+                    if(is_array($attributeChange['value']) && key_exists('id', $attributeChange['value'])) {
+                        $valueRef = $this->em->getReference($attribute->getValueType(), $attributeChange['value']['id']);
+                    } else {
+                        $valueRef = $this->em->getReference($attribute->getValueType(), $attributeChange['value']);
+                    }
                     $attribute->setValue($valueRef);
                 } else {
                     $attribute->setValue($attributeChange['value']);

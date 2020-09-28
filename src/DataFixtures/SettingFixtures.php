@@ -24,6 +24,11 @@ class SettingFixtures extends BaseFixture implements DependentFixtureInterface
         $pullupCategorySetting->setValue($pullupCategory->getId());
         $em->persist($pullupCategorySetting);
 
+        $pullupCategorySetting = new Setting();
+        $pullupCategorySetting->setConfig('zipCountyStates');
+        $pullupCategorySetting->setValue(['MO', 'KS']);
+        $em->persist($pullupCategorySetting);
+
         $em->flush();
     }
 }

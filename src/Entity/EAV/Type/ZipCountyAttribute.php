@@ -53,6 +53,11 @@ class ZipCountyAttribute extends Attribute
         return $this->value;
     }
 
+    public function getValueType(): string
+    {
+        return ZipCounty::class;
+    }
+
     public function isEmpty(): bool
     {
         return !$this->getValue();

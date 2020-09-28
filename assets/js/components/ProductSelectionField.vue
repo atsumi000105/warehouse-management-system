@@ -26,8 +26,7 @@
         props: {
             value: { required: true, type: Object },
             editable: { type: Boolean, default: true },
-            label: { type: [String, Boolean], default: "Product:"},
-            v: { type: Object }
+            label: { type: [String, Boolean], default: "Product:"}
         },
         computed: mapGetters([
             'allActiveProducts'

@@ -16,7 +16,8 @@ use Doctrine\ORM\Mapping as ORM;
  *     uniqueConstraints={@ORM\UniqueConstraint(name="zip_code_county_unique",columns={"zip_code", "county_id"})},
  *     indexes={
  *         @ORM\Index(name="zip_code_idx", columns={"zip_code"}),
- *         @ORM\Index(name="county_id_idx", columns={"county_id"})
+ *         @ORM\Index(name="county_id_idx", columns={"county_id"}),
+ *         @ORM\Index(name="state_code_idx", columns={"state_code"})
  *     }
  * )
  */
