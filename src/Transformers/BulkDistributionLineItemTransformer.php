@@ -18,6 +18,6 @@ class BulkDistributionLineItemTransformer extends LineItemTransformer
 
     public function includeClient(BulkDistributionLineItem $lineItem)
     {
-        return $this->item($lineItem->getClient(), new ClientTransformer);
+        return $this->item($lineItem->getClient(), new ClientTransformer());
     }
 }

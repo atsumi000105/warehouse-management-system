@@ -10,8 +10,8 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class PartnerOrderVoter extends Voter
 {
-    const EDIT = 'EDIT';
-    const VIEW = 'VIEW';
+    public const EDIT = 'EDIT';
+    public const VIEW = 'VIEW';
 
     protected function supports($attribute, $subject)
     {
@@ -79,7 +79,8 @@ class PartnerOrderVoter extends Voter
         $activePartner = $user->getActivePartner();
 
         // If they have the manage own role, have an active partner, and this order is that partner's, they can edit
-        if ($user->hasRole(Order::ROLE_MANAGE_OWN)
+        if (
+            $user->hasRole(Order::ROLE_MANAGE_OWN)
             && $activePartner
             && $order->getPartner()->getId() === $activePartner->getId()
         ) {

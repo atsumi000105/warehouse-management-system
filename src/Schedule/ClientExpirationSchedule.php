@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Schedule;
 
 use Zenstruck\ScheduleBundle\Schedule;

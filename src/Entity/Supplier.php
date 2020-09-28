@@ -19,13 +19,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class Supplier extends CoreEntity
 {
-    const STATUS_ACTIVE = "ACTIVE";
-    const STATUS_INACTIVE = "INACTIVE";
+    public const STATUS_ACTIVE = "ACTIVE";
+    public const STATUS_INACTIVE = "INACTIVE";
 
-    const TYPE_DONOR = "DONOR";
-    const TYPE_VENDOR = "VENDOR";
-    const TYPE_DIAPERDRIVE = "DIAPERDRIVE";
-    const TYPE_DROPSITE = "DROPSITE";
+    public const TYPE_DONOR = "DONOR";
+    public const TYPE_VENDOR = "VENDOR";
+    public const TYPE_DIAPERDRIVE = "DIAPERDRIVE";
+    public const TYPE_DROPSITE = "DROPSITE";
 
     public const ROLE_VIEW = "ROLE_SUPPLIER_VIEW";
     public const ROLE_EDIT = "ROLE_SUPPLIER_EDIT";

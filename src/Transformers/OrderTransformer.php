@@ -30,6 +30,6 @@ class OrderTransformer extends TransformerAbstract
     {
         $lineItems = $order->getLineItems();
 
-        return $this->collection($lineItems, new LineItemTransformer);
+        return $this->collection($lineItems, new LineItemTransformer());
     }
 }

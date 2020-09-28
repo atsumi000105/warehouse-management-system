@@ -33,7 +33,7 @@ class BulkDistributionTransformer extends OrderTransformer
     {
         $partner = $order->getPartner();
 
-        return $this->item($partner, new PartnerTransformer);
+        return $this->item($partner, new PartnerTransformer());
     }
 
     /**

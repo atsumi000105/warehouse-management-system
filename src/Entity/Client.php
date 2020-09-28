@@ -21,11 +21,22 @@ use Symfony\Component\Workflow\Registry;
  */
 class Client extends CoreEntity
 {
+    use Uuidable;
+    use AttributedEntityTrait;
+
+    // State Machine Statuses
     public const STATUS_CREATION = 'CREATION';
     public const STATUS_ACTIVE = 'ACTIVE';
     public const STATUS_INACTIVE = 'INACTIVE';
     public const STATUS_LIMIT_REACHED = 'LIMIT_REACHED';
     public const STATUS_DUPLICATE_INACTIVE = 'DUPLICATE_(INACTIVE)';
+    public const STATUSES = [
+        self::STATUS_CREATION,
+        self::STATUS_ACTIVE,
+        self::STATUS_LIMIT_REACHED,
+        self::STATUS_DUPLICATE_INACTIVE,
+        self::STATUS_INACTIVE,
+    ];
 
     public const TRANSITION_ACTIVATE = 'ACTIVATE';
     public const TRANSITION_DEACTIVATE = 'DEACTIVATE';
@@ -35,9 +46,6 @@ class Client extends CoreEntity
     public const ROLE_VIEW_ALL = "ROLE_CLIENT_VIEW_ALL";
     public const ROLE_EDIT_ALL = "ROLE_CLIENT_EDIT_ALL";
     public const ROLE_MANAGE_OWN = "ROLE_CLIENT_MANAGE_OWN";
-
-    use Uuidable;
-    use AttributedEntityTrait;
 
     /**
      * The name value object which holds the
@@ -340,8 +348,16 @@ class Client extends CoreEntity
     /**
      * Status is set by the workflow
      */
-    public function setStatus(string $status): void
+    public function setStatus(?string $status): void
     {
+        if (empty($status)) {
+            return;
+        }
+
+        if (!in_array($status, static::STATUSES)) {
+            throw new \Exception(sprintf('%s is not a valid Status', $status));
+        }
+
         $this->status = $status;
     }
 

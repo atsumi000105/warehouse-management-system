@@ -3,7 +3,6 @@
 namespace App\Transformers;
 
 use App\Entity\LineItem;
-use App\Entity\Product;
 use League\Fractal\TransformerAbstract;
 
 class LineItemTransformer extends TransformerAbstract
@@ -30,20 +29,20 @@ class LineItemTransformer extends TransformerAbstract
     {
         $transactions = $lineItem->getTransactions();
 
-        return $this->collection($transactions, new InventoryTransactionTransformer);
+        return $this->collection($transactions, new InventoryTransactionTransformer());
     }
 
     public function includeProduct(LineItem $lineItem)
     {
         $product = $lineItem->getProduct();
 
-        return $product ? $this->item($product, new ProductTransformer) : null;
+        return $product ? $this->item($product, new ProductTransformer()) : null;
     }
 
     public function includeOrder(LineItem $lineItem)
     {
         $order = $lineItem->getOrder();
 
-        return $this->item($order, new OrderTransformer);
+        return $this->item($order, new OrderTransformer());
     }
 }

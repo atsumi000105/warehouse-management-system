@@ -1,13 +1,15 @@
 {
     "devDependencies": {
         "@babel/plugin-proposal-optional-chaining": "^7.9.0",
+        "@babel/plugin-transform-runtime": "^7.11.5",
+        "@beyonk/google-fonts-webpack-plugin": "^1.5.0",
         "@symfony/webpack-encore": "^0.27.0",
         "@vue/test-utils": "^1.0.0-beta.29",
         "axios": "^0.18.1",
         "babel-core": "^7.0.0-bridge.0",
         "babel-eslint": "^10.1.0",
         "babel-jest": "^24.9.0",
-        "bootstrap-sass": "^3.3.7",
+        "bootstrap": "^3.3.7",
         "bootstrap-tooltip": "^3.1.1",
         "chosen-js": "^1.8.0",
         "core-js": "^3.0.0",
@@ -42,6 +44,7 @@
         "webpack-notifier": "^1.6.0"
     },
     "dependencies": {
+        "@babel/runtime": "^7.11.2",
         "admin-lte": "^2.4.18",
         "chosen-bootstrap-theme": "^1.0.5",
         "normalize-scss": "^6.0.0",

@@ -16,8 +16,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 abstract class ListOption extends CoreEntity
 {
-    const STATUS_ACTIVE = "ACTIVE";
-    const STATUS_INACTIVE = "INACTIVE";
+    public const STATUS_ACTIVE = "ACTIVE";
+    public const STATUS_INACTIVE = "INACTIVE";
 
     /**
      * @var int

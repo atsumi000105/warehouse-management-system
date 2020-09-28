@@ -20,8 +20,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Group extends CoreEntity
 {
-    const AVAILABLE_ROLES = [
+    public const AVAILABLE_ROLES = [
         User::ROLE_ADMIN,
+        User::ROLE_PARTNER,
 
         Order::ROLE_MANAGE_OWN,
         Order::ROLE_VIEW_ALL,
@@ -112,7 +113,7 @@ class Group extends CoreEntity
         $this->name = $name;
     }
 
-    public function getRoles() : array
+    public function getRoles(): array
     {
         return $this->roles;
     }

@@ -27,9 +27,11 @@ const getters = {
 
 // actions
 const actions = {
-    loadCurrentUser ({ commit }) {
-        return new Promise((resolve, reject) => {
-            axios
+    async loadCurrentUser ({ commit }) {
+            if (state.user) {
+                return;
+            }
+            await axios
                 .get('/api/system/current-user', {
                     params: {
                         include: ['groups', 'partners', 'activePartner']
@@ -37,12 +39,8 @@ const actions = {
                 })
                 .then((response) => {
                     commit('setUser', { user: response.data.data });
-                    resolve(response);
-                },
-                    (err) => {
-                    reject(err);
-            });
-        });
+                }
+            );
     },
     clearCurrentUser ({commit}) {
         commit('clearUser');

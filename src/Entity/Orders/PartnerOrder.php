@@ -17,12 +17,12 @@ use Moment\Moment;
  */
 class PartnerOrder extends Order
 {
-    const STATUS_IN_PROCESS = "IN_PROCESS";
-    const STATUS_PENDING = "PENDING";
-    const STATUS_SHIPPED = "SHIPPED";
+    public const STATUS_IN_PROCESS = "IN_PROCESS";
+    public const STATUS_PENDING = "PENDING";
+    public const STATUS_SHIPPED = "SHIPPED";
 
-    const ROLE_VIEW = "ROLE_PARTNER_ORDER_VIEW";
-    const ROLE_EDIT = "ROLE_PARTNER_ORDER_EDIT";
+    public const ROLE_VIEW = "ROLE_PARTNER_ORDER_VIEW";
+    public const ROLE_EDIT = "ROLE_PARTNER_ORDER_EDIT";
 
     /**
      * @var Partner $partner
@@ -68,7 +68,7 @@ class PartnerOrder extends Order
         }
     }
 
-    public function getOrderTypeName() : string
+    public function getOrderTypeName(): string
     {
         return "Partner Order";
     }

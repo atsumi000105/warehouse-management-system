@@ -3,8 +3,8 @@
 namespace App\Reports;
 
 use App\Entity\Orders\BulkDistribution;
-use App\Entity\Product;
 use App\Entity\Partner;
+use App\Entity\Product;
 
 /**
  * Class PartnerTotalsRow
@@ -113,7 +113,7 @@ class PartnerInventoryRow
         $inventory = $this->productInventory;
 
         foreach ($this->productForecast as $key => $item) {
-            $forecastKey = "forecast-".$key;
+            $forecastKey = "forecast-" . $key;
             if (!isset($inventory[$key])) {
                 $inventory[$key] = 0;
             }

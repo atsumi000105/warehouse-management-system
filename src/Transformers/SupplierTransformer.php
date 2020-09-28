@@ -30,13 +30,13 @@ class SupplierTransformer extends TransformerAbstract
     {
         $addresses = $supplier->getAddresses();
 
-        return $this->collection($addresses, new SupplierAddressTransformer);
+        return $this->collection($addresses, new SupplierAddressTransformer());
     }
 
     public function includeContacts(Supplier $supplier)
     {
         $contacts = $supplier->getContacts();
 
-        return $this->collection($contacts, new SupplierContactTransformer);
+        return $this->collection($contacts, new SupplierContactTransformer());
     }
 }

@@ -2,8 +2,8 @@
 
 namespace App\Security;
 
-use App\Entity\User;
 use App\Entity\Partner;
+use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
@@ -55,7 +55,8 @@ class UserVoter extends Voter
 
         $activePartner = $user->getActivePartner();
 
-        if ($user->hasRole(Partner::ROLE_MANAGE_OWN)
+        if (
+            $user->hasRole(Partner::ROLE_MANAGE_OWN)
             && $activePartner
             && $selectedUser->isAssignedToPartner($activePartner)
         ) {
@@ -77,7 +78,8 @@ class UserVoter extends Voter
 
         $activePartner = $user->getActivePartner();
 
-        if ($user->hasRole(Partner::ROLE_MANAGE_OWN)
+        if (
+            $user->hasRole(Partner::ROLE_MANAGE_OWN)
             && $activePartner
             && $selectedUser->isAssignedToPartner($activePartner)
         ) {

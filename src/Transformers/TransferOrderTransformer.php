@@ -20,13 +20,13 @@ class TransferOrderTransformer extends OrderTransformer
     {
         $sourceLocation = $order->getSourceLocation();
 
-        return $this->item($sourceLocation, new StorageLocationTransformer);
+        return $this->item($sourceLocation, new StorageLocationTransformer());
     }
 
     public function includeTargetLocation(TransferOrder $order)
     {
         $targetLocation = $order->getTargetLocation();
 
-        return $this->item($targetLocation, new StorageLocationTransformer);
+        return $this->item($targetLocation, new StorageLocationTransformer());
     }
 }

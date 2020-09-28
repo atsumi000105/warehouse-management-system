@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Entity\EAV\Type;
 
 use App\Entity\EAV\Attribute;
@@ -47,7 +46,7 @@ class FloatAttribute extends Attribute
 
     public function fixtureData()
     {
-        return rand()/mt_getrandmax() * 10;
+        return rand() / mt_getrandmax() * 10;
     }
 
     public function getDisplayInterfaces(): array

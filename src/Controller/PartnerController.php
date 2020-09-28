@@ -6,10 +6,10 @@ use App\Entity\Partner;
 use App\Entity\PartnerDistributionMethod;
 use App\Entity\PartnerFulfillmentPeriod;
 use App\Entity\PartnerProfile;
+use App\Security\PartnerVoter;
 use App\Service\EavAttributeProcessor;
 use App\Transformers\ClientTransformer;
 use App\Transformers\PartnerTransformer;
-use App\Security\PartnerVoter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,7 +36,11 @@ class PartnerController extends BaseController
      */
     public function index(Request $request)
     {
-        $partners = $this->getRepository(Partner::class)->findAll();
+        if ($this->getUser()->hasRole(Partner::ROLE_VIEW_ALL)) {
+            $partners = $this->getRepository(Partner::class)->findAll();
+        } else {
+            $partners = [$this->getUser()->getActivePartner()];
+        }
 
         return $this->serialize($request, $partners);
     }
@@ -172,7 +176,7 @@ class PartnerController extends BaseController
     {
         $partner = $this->getPartnerById($id);
 
-        return $this->serialize($request, $partner->getClients()->getValues(), new ClientTransformer);
+        return $this->serialize($request, $partner->getClients()->getValues(), new ClientTransformer());
     }
 
     /**
@@ -204,7 +208,7 @@ class PartnerController extends BaseController
 
     protected function getDefaultTransformer()
     {
-        return new PartnerTransformer;
+        return new PartnerTransformer();
     }
 
     protected function getPartnerById($id): Partner

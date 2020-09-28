@@ -68,9 +68,10 @@ class PartnerVoter extends Voter
 
         $activePartner = $user->getActivePartner();
 
-        if ($user->hasRole(Partner::ROLE_MANAGE_OWN)
+        if (
+            $user->hasRole(Partner::ROLE_MANAGE_OWN)
             && $activePartner
-            && $partner->getPartner()->getId() === $activePartner->getId()
+            && $partner->getId() === $activePartner->getId()
         ) {
             return true;
         }

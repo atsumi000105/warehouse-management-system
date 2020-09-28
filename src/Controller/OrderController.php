@@ -246,7 +246,7 @@ class OrderController extends BaseController
 
     protected function getDefaultTransformer()
     {
-        return new OrderTransformer;
+        return new OrderTransformer();
     }
 
     protected function processLineItems(Order $order, $lineItemsArray)

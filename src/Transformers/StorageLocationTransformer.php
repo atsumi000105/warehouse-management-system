@@ -37,13 +37,13 @@ class StorageLocationTransformer extends TransformerAbstract
             return;
         }
 
-        return $this->item($address, new AddressTransformer);
+        return $this->item($address, new AddressTransformer());
     }
 
     public function includeContacts(StorageLocation $storageLocation)
     {
         $contacts = $storageLocation->getContacts();
 
-        return $this->collection($contacts, new StorageLocationContactTransformer);
+        return $this->collection($contacts, new StorageLocationContactTransformer());
     }
 }
