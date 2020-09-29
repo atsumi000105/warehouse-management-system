@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\EAV\Attribute;
 use App\Entity\EAV\PartnerProfileDefinition;
 use App\Entity\PartnerProfile;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -14,7 +15,8 @@ class PartnerProfileFixtures extends BaseFixture implements DependentFixtureInte
     {
         return [
             PartnerFixtures::class,
-            PartnerProfileAttributeFixtures::class
+            PartnerProfileAttributeFixtures::class,
+            ZipCountyFixtures::class,
         ];
     }
 
@@ -29,7 +31,11 @@ class PartnerProfileFixtures extends BaseFixture implements DependentFixtureInte
 
             foreach ($definitions as $definition) {
                 $attribute = $definition->createAttribute();
-                $attribute->setValue($attribute->fixtureData());
+                if ($definition->getType() === Attribute::UI_ZIPCODE) {
+                    $attribute->setValue($this->getReference('zip_county.1'));
+                } else {
+                    $attribute->setValue($attribute->fixtureData());
+                }
                 $profile->addAttribute($attribute);
             }
             $manager->persist($profile);

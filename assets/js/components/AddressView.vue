@@ -6,6 +6,12 @@
         <div v-if="hasTitle">
             <strong>{{ value.title }}</strong><br>
         </div>
+        <i
+            v-if="helpText"
+            v-tooltip
+            :title="helpText"
+            class="attribute-help-text fa fa-question-circle"
+        ></i>
         <div v-if="value.street1">
             {{ value.street1 }}<br>
         </div>
@@ -37,6 +43,7 @@ export default {
     props: {
         value: { type: Object },
         hasTitle: { type: Boolean, default: false },
+        helpText: { type: String, requird: false, default: "" },
     },
 };
 </script>

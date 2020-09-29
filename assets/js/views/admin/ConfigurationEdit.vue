@@ -34,6 +34,24 @@
                         <!-- /.box-body -->
                     </div>
                 </div>
+                <div class="col-md-6">
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">
+                                <i class="icon fa fa-map-pin fa-fw" />Zip/County States
+                            </h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <StateField
+                                v-model="settings.zipCountyStates"
+                                :multiple="true"
+                            />
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+
             </form>
         </div>
     </section>
@@ -42,14 +60,16 @@
 <script>
     import { mapGetters } from 'vuex'
     import OptionListStatic from "../../components/OptionListStatic";
+    import StateField from "../../components/StateField";
 
     export default {
         name: "ConfigurationEdit",
-        components: {OptionListStatic},
+        components: {StateField, OptionListStatic},
         data() {
             return {
                 settings: {
-                    pullupCategory: ""
+                    pullupCategory: "",
+                    zipCountyStates: [],
                 }
             }
         },

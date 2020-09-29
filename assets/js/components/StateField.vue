@@ -5,7 +5,8 @@
             v-model="value"
             v-chosen
             class="form-control"
-            @change="$emit('input', $event.target.value)"
+            :multiple="multiple ? true : undefined"
+            @change="onChange"
         >
             <option value="AL">
                 Alabama
@@ -168,8 +169,17 @@
     export default {
         name: "StateField",
         props: {
-            value: {
-                type: String, required: true
+            value: { type: [String, Array], required: true },
+            multiple: { type: Boolean, default: false }
+        },
+        methods: {
+            onChange($event) {
+                if(this.multiple) {
+                    this.$emit('input',[...$event.target.selectedOptions]
+                        .map(option => option.value));
+                } else {
+                    this.$emit('input', $event.target.value);
+                }
             }
         }
     }

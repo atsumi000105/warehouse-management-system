@@ -274,8 +274,6 @@ class Client extends CoreEntity
 
     public function applyChangesFromArray(array $changes): void
     {
-        $this->processAttributeChanges($changes);
-
         parent::applyChangesFromArray($changes);
     }
 

@@ -61,7 +61,7 @@
     export default {
         name: 'OptionListStatic',
         props: {
-            value: { type: [Number,String], required: true },
+            value: { type: [Number,String] },
             property: { type: String },
             label: { type: [String, Boolean], default: false },
             preloadedOptions: { type: Array, default: function() {return []}},

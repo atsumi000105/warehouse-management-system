@@ -7,6 +7,7 @@ use App\Entity\Partner;
 use App\Entity\Orders\BulkDistributionLineItem;
 use App\Entity\User;
 use App\Entity\ValueObjects\Name;
+use App\Service\EavAttributeProcessor;
 use App\Transformers\ClientTransformer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -97,8 +98,11 @@ class ClientController extends BaseController
      * @IsGranted({"ROLE_CLIENT_EDIT_ALL","ROLE_CLIENT_MANAGE_OWN"})
      *
      */
-    public function store(Request $request, Registry $workflowRegistry): JsonResponse
-    {
+    public function store(
+        Request $request,
+        Registry $workflowRegistry,
+        EavAttributeProcessor $eavProcessor
+    ): JsonResponse {
         $params = $this->getParams($request);
 
         $client = new Client($workflowRegistry);
@@ -110,6 +114,8 @@ class ClientController extends BaseController
             }
             $client->setPartner($newPartner);
         }
+
+        $eavProcessor->processAttributeChanges($client, $params);
 
         $client->applyChangesFromArray($params);
 
@@ -128,7 +134,7 @@ class ClientController extends BaseController
      * @IsGranted({"ROLE_CLIENT_EDIT_ALL","ROLE_CLIENT_MANAGE_OWN"})
      *
      */
-    public function update(Request $request, string $uuid): JsonResponse
+    public function update(Request $request, EavAttributeProcessor $eavProcessor, string $uuid): JsonResponse
     {
         $params = $this->getParams($request);
         /** @var Client $client */
@@ -149,6 +155,8 @@ class ClientController extends BaseController
             }
             $client->setPartner($newPartner);
         }
+
+        $eavProcessor->processAttributeChanges($client, $params);
 
         $client->applyChangesFromArray($params);
 
