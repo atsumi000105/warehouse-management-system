@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Client;
+use App\Entity\EAV\Attribute;
 use App\Entity\EAV\ClientDefinition;
 use App\Entity\Partner;
 use App\Entity\ValueObjects\Name;
@@ -51,7 +52,11 @@ class ClientFixtures extends BaseFixture implements DependentFixtureInterface
 
             foreach ($definitions as $definition) {
                 $attribute = $definition->createAttribute();
-                $attribute->setValue($attribute->fixtureData());
+                if ($definition->getType() === Attribute::UI_ZIPCODE) {
+                    $attribute->setValue($this->getReference('zip_county.1'));
+                } else {
+                    $attribute->setValue($attribute->fixtureData());
+                }
                 $client->addAttribute($attribute);
             }
 

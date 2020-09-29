@@ -48,6 +48,11 @@ class DatetimeAttribute extends Attribute
         return $this->value;
     }
 
+    public function getValueType(): string
+    {
+        return \DateTime::class;
+    }
+
     public function getJsonValue()
     {
         return $this->value ? $this->value->format('c') : '';

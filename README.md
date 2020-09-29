@@ -106,3 +106,12 @@ We have fixtures to define basic users of certain roles:
     - **password:** password
       
 Most of the time in development, you will probably want to log in as the admin. when needing to check access for certain types of users, log in as the appropriate role-based user.
+
+## Zip Code/County Information
+
+Coverd has a zip code/county lookup field to capture the number of people served by county. This information has to be sourced from two government data files listed below.
+
+* Zipcode -> County ID (FIPS) : https://www.huduser.gov/portal/datasets/usps_crosswalk.html
+* County ID (FIPS) -> County Name: https://www.census.gov/geographies/reference-files/time-series/geo/gazetteer-files.html (see "Counties" file)
+
+These files are located in /src/Data/ and are imported with the `app:zip-county:import` command.

@@ -4,6 +4,7 @@ namespace App\Transformers;
 
 use App\Entity\EAV\Attribute;
 use App\Entity\EAV\Type\AddressAttribute;
+use App\Entity\EAV\Type\ZipCountyAttribute;
 use League\Fractal\TransformerAbstract;
 
 class AttributeTransformer extends TransformerAbstract
@@ -42,6 +43,10 @@ class AttributeTransformer extends TransformerAbstract
 
         if ($attribute instanceof AddressAttribute) {
             return $this->item($attribute->getValue(), new AddressTransformer());
+        }
+
+        if ($attribute instanceof ZipCountyAttribute) {
+            return $this->item($attribute->getValue(), new ZipCountyTransformer());
         }
 
         return $this->primitive($attribute->getJsonValue());

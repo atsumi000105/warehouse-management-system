@@ -7,6 +7,7 @@ use App\Entity\PartnerDistributionMethod;
 use App\Entity\PartnerFulfillmentPeriod;
 use App\Entity\PartnerProfile;
 use App\Security\PartnerVoter;
+use App\Service\EavAttributeProcessor;
 use App\Transformers\ClientTransformer;
 use App\Transformers\PartnerTransformer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -50,7 +51,7 @@ class PartnerController extends BaseController
      * @IsGranted({"ROLE_PARTNER_EDIT_ALL"})
      *
      */
-    public function store(Request $request, Registry $workflowRegistry)
+    public function store(Request $request, Registry $workflowRegistry, EavAttributeProcessor $eavProcessor)
     {
         $params = $this->getParams($request);
 
@@ -60,6 +61,8 @@ class PartnerController extends BaseController
 
         $partnerProfile = new PartnerProfile();
         $partner->setProfile($partnerProfile);
+
+        $eavProcessor->processAttributeChanges($partnerProfile, $params['profile']);
 
         $partner->applyChangesFromArray($params);
 
@@ -109,13 +112,17 @@ class PartnerController extends BaseController
      * @return JsonResponse
      * @throws \Exception
      */
-    public function update(Request $request, int $id)
+    public function update(Request $request, EavAttributeProcessor $eavProcessor, int $id)
     {
         $params = $this->getParams($request);
 
         $partner = $this->getPartnerById($id);
 
         $this->denyAccessUnlessGranted(PartnerVoter::EDIT, $partner);
+
+        $profile = $partner->getProfile();
+
+        $eavProcessor->processAttributeChanges($profile, $params['profile']);
 
         $partner->applyChangesFromArray($params);
 

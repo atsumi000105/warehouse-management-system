@@ -53,6 +53,13 @@
                     v-else-if="attribute.displayInterface === 'ADDRESS'"
                     v-model="attribute.value"
                     :label="attribute.label"
+                    :helpText="attribute.helpText"
+                />
+                <ZipCountyField
+                    v-else-if="attribute.displayInterface === 'ZIPCODE'"
+                    v-model="attribute.value"
+                    :label="attribute.label"
+                    :helpText="attribute.helpText"
                 />
                 <TextField
                     v-else
@@ -76,9 +83,11 @@
     import BooleanField from "./ToggleField";
     import YesNoRadioField from "./YesNoRadioField";
     import AddressField from "./AddressField";
+    import ZipCountyField from "./ZipCountyField";
     export default {
         name: 'AttributesEditForm',
         components: {
+            ZipCountyField,
             AddressField,
             YesNoRadioField,
             BooleanField, RadioField, TextareaField, OptionListApi, NumberField, TextField, DateField},

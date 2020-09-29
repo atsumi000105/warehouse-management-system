@@ -160,7 +160,9 @@ export default {
                     RADIO: 'Radio Button Group',
                     CHECKBOX_GROUP: 'Checkbox Group',
                     TOGGLE: 'Yes/No Toggle',
-                    YES_NO_RADIO: 'Yes/No Radio Options'
+                    YES_NO_RADIO: 'Yes/No Radio Options',
+                    ADDRESS: 'Address',
+                    ZIPCODE: 'Zip/County'
                 }
 
                 return map[uiType];
