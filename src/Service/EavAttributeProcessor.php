@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Service;
-
 
 use App\Entity\EAV\Attribute;
 use App\Entity\EAV\Definition;
@@ -40,8 +38,11 @@ class EavAttributeProcessor
                 }
 
                 if ($this->isPropertyParentRelationship($attribute, 'value')) {
-                    if(is_array($attributeChange['value']) && key_exists('id', $attributeChange['value'])) {
-                        $valueRef = $this->em->getReference($attribute->getValueType(), $attributeChange['value']['id']);
+                    if (is_array($attributeChange['value']) && key_exists('id', $attributeChange['value'])) {
+                        $valueRef = $this->em->getReference(
+                            $attribute->getValueType(),
+                            $attributeChange['value']['id']
+                        );
                     } else {
                         $valueRef = $this->em->getReference($attribute->getValueType(), $attributeChange['value']);
                     }

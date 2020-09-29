@@ -29,7 +29,10 @@ class ZipCountyImportCommand extends Command
     protected function configure()
     {
         $this
-            ->setDescription('Import zip code/county information from source datafiles. See readme for where to get updated files.')
+            ->setDescription(
+                'Import zip code/county information from source datafiles.
+                See readme for where to get updated files.'
+            )
             ->addOption(
                 'force',
                 null,
@@ -50,11 +53,11 @@ class ZipCountyImportCommand extends Command
 
         // Skip the first line since it's just the header
         fgetcsv($zipFileHandler, 0, "\t");
-        while($line = fgetcsv($zipFileHandler, 0, "\t")) {
+        while ($line = fgetcsv($zipFileHandler, 0, "\t")) {
             $fips = $line[1];
             $zip = $line[0];
 
-            if(!key_exists($fips, $counties)) {
+            if (!key_exists($fips, $counties)) {
                 $counties[$fips] = ['zips' => [], 'county' => '', 'state' => ''];
             }
 
@@ -67,12 +70,12 @@ class ZipCountyImportCommand extends Command
 
         // Skip the first line since it's just the header
         fgetcsv($countyFileHandler, 0, "\t");
-        while($line = fgetcsv($countyFileHandler, 0, "\t")) {
+        while ($line = fgetcsv($countyFileHandler, 0, "\t")) {
             $state = $line[0];
             $fips = $line[1];
             $county = $line[3];
 
-            if(!key_exists($fips, $counties)) {
+            if (!key_exists($fips, $counties)) {
                 $io->warning(sprintf('There are no zipcodes found for %s (%s, %s)', $fips, $county, $state));
                 continue;
             }
@@ -90,8 +93,12 @@ class ZipCountyImportCommand extends Command
         $progress->setFormat('debug');
 
         foreach ($counties as $fips => $countyRaw) {
-            if(!$countyRaw['state'] || !$countyRaw['county']) {
-                $io->error(sprintf("Could not find county information from FIPS: %s. \n Fips was in Zip Code files but not Counties file.", $fips));
+            if (!$countyRaw['state'] || !$countyRaw['county']) {
+                $io->error(sprintf(
+                    "Could not find county information from FIPS: %s.
+                    Fips was in Zip Code files but not Counties file.",
+                    $fips
+                ));
                 continue;
             }
 
@@ -105,9 +112,16 @@ class ZipCountyImportCommand extends Command
                     $action = "ADD";
                 }
 
-                if ($zipCounty->getStateCode() === $countyRaw['state'] && $zipCounty->getCountyName() === $countyRaw['county']) {
+                if (
+                    $zipCounty->getStateCode() === $countyRaw['state']
+                    && $zipCounty->getCountyName() === $countyRaw['county']
+                ) {
                     if ($io->isDebug()) {
-                        $io->text(sprintf('Skipping zip code %s, county ID %s, since nothing has changed.', $zipRaw, $fips));
+                        $io->text(sprintf(
+                            'Skipping zip code %s, county ID %s, since nothing has changed.',
+                            $zipRaw,
+                            $fips
+                        ));
                     }
                     continue;
                 }

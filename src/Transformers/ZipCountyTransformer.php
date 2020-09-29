@@ -22,7 +22,12 @@ class ZipCountyTransformer extends TransformerAbstract
 
         return [
             'id' => (int) $zipCounty->getId(),
-            'label' => sprintf("%s (%s, %s)", $zipCounty->getZipCode(), $zipCounty->getCountyName(), $zipCounty->getStateCode())
+            'label' => sprintf(
+                "%s (%s, %s)",
+                $zipCounty->getZipCode(),
+                $zipCounty->getCountyName(),
+                $zipCounty->getStateCode()
+            ),
         ];
     }
 }

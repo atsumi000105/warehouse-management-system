@@ -98,8 +98,11 @@ class ClientController extends BaseController
      * @IsGranted({"ROLE_CLIENT_EDIT_ALL","ROLE_CLIENT_MANAGE_OWN"})
      *
      */
-    public function store(Request $request, Registry $workflowRegistry, EavAttributeProcessor $eavProcessor): JsonResponse
-    {
+    public function store(
+        Request $request,
+        Registry $workflowRegistry,
+        EavAttributeProcessor $eavProcessor
+    ): JsonResponse {
         $params = $this->getParams($request);
 
         $client = new Client($workflowRegistry);
