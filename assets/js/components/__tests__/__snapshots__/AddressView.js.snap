@@ -13,6 +13,8 @@ exports[`AddressView container is empty when value prop is empty 1`] = `
   <!---->
    
   <!---->
+   
+  <!---->
 </div>
 `;
 
@@ -20,6 +22,8 @@ exports[`AddressView doesn't show title when hasTitle is false 1`] = `
 <div
   class="addressform"
 >
+  <!---->
+   
   <!---->
    
   <!---->
@@ -38,6 +42,8 @@ exports[`AddressView shows full address 1`] = `
 <div
   class="addressform"
 >
+  <!---->
+   
   <!---->
    
   <div>
@@ -90,6 +96,8 @@ exports[`AddressView shows partial city, state, and postal code line 1`] = `
    
   <!---->
    
+  <!---->
+   
   <div
     data-testid="city-state-postalcode"
   >
@@ -110,6 +118,8 @@ exports[`AddressView shows partial city, state, and postal code line 2`] = `
 <div
   class="addressform"
 >
+  <!---->
+   
   <!---->
    
   <!---->
@@ -144,6 +154,8 @@ exports[`AddressView shows partial city, state, and postal code line 3`] = `
    
   <!---->
    
+  <!---->
+   
   <div
     data-testid="city-state-postalcode"
   >
@@ -172,6 +184,8 @@ exports[`AddressView shows title when hasTitle is true 1`] = `
     </strong>
     <br />
   </div>
+   
+  <!---->
    
   <!---->
    
