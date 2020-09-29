@@ -25,7 +25,7 @@ abstract class BaseController extends AbstractController
     }
 
     /**
-     * @param null $entityName
+     * @param string|null $entityName
      * @return \Doctrine\ORM\EntityRepository
      */
     protected function getRepository($entityName = null)

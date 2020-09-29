@@ -27,10 +27,10 @@ matrix:
           before_script:
               - composer self-update
               - composer install --prefer-source --no-interaction --dev
-              - vendor/bin/simple-phpunit install
+              - psql -c 'create database coverd;' -U postgres
           script:
-              - vendor/bin/simple-phpunit -v --coverage-clover clover.xml
-              - if [[ -d "$COMPOSER_BIN_DIR/.phpunit" ]]; then vendor/bin/phpstan analyse; fi
+              - bin/phpunit -v --coverage-clover clover.xml
+              - vendor/bin/phpstan analyse
               - vendor/bin/phpcs
           after_script:
               - ./cc-test-reporter format-coverage -t clover # Backend coverage
@@ -38,6 +38,7 @@ matrix:
     fast_finish: true
     allow_failures:
         - php: nightly
-
 notifications:
     email: false
+services:
+    - postgresql

@@ -10,7 +10,7 @@ use App\Entity\Product;
 use App\Entity\Supplier;
 use App\Entity\User;
 use App\Entity\Warehouse;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 
 class GroupFixtures extends BaseFixture
 {

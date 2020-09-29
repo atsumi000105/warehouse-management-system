@@ -26,36 +26,37 @@ class InventoryTransactionRepository extends EntityRepository
                 ->setParameter('committed', true);
         }
 
-        if ($params->has('location')) {
-            $qb->andWhere('t.storageLocation = :location');
-            $qb->setParameter('location', $params->get('location'));
-        }
-
-        if ($params->has('endingAt')) {
-            if (!$includeAllocated) {
-                $qb->andWhere('t.committedAt < :endingAt');
-            } else {
-                $qb->andWhere('t.createdAt < :endingAt');
+        if ($params) {
+            if ($params->has('location')) {
+                $qb->andWhere('t.storageLocation = :location');
+                $qb->setParameter('location', $params->get('location'));
             }
-            $moment = new Moment($params->get('endingAt'), 'America/Chicago');
-            $moment->endOf('day');
 
-            $qb->setParameter('endingAt', $moment->setTimezone('UTC'));
-        }
+            if ($params->has('endingAt')) {
+                if (!$includeAllocated) {
+                    $qb->andWhere('t.committedAt < :endingAt');
+                } else {
+                    $qb->andWhere('t.createdAt < :endingAt');
+                }
+                $moment = new Moment($params->get('endingAt'), 'America/Chicago');
+                $moment->endOf('day');
 
-        if ($params->has('locationType')) {
-            $qb->join('t.storageLocation', 's');
+                $qb->setParameter('endingAt', $moment->setTimezone('UTC'));
+            }
 
-            $qb->andWhere('s INSTANCE OF :locationType');
-            if ($params->get('locationType') == StorageLocation::TYPE_WAREHOUSE) {
-                $qb->setParameter('locationType', 'warehouse');
-            } elseif ($params->get('locationType') == StorageLocation::TYPE_PARTNER) {
-                $qb->setParameter('locationType', 'partner');
+            if ($params->has('locationType')) {
+                $qb->join('t.storageLocation', 's');
+
+                $qb->andWhere('s INSTANCE OF :locationType');
+                if ($params->get('locationType') == StorageLocation::TYPE_WAREHOUSE) {
+                    $qb->setParameter('locationType', 'warehouse');
+                } elseif ($params->get('locationType') == StorageLocation::TYPE_PARTNER) {
+                    $qb->setParameter('locationType', 'partner');
+                }
             }
         }
-        $inventory = $qb->getQuery()->getArrayResult();
 
-        return $inventory;
+        return $qb->getQuery()->getArrayResult();
     }
 
     /**

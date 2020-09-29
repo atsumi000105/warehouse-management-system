@@ -6,7 +6,7 @@ use App\Entity\EAV\Attribute;
 use App\Entity\EAV\PartnerProfileDefinition;
 use App\Entity\PartnerProfile;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use App\Entity\Partner;
 
 class PartnerProfileFixtures extends BaseFixture implements DependentFixtureInterface
