@@ -143,7 +143,6 @@ class Client extends CoreEntity
         $this->pullupDistributionCount = 0;
         $this->workflowRegistry = $workflowRegistry;
         $this->status = self::STATUS_CREATION;
-        $this->applyTransition(self::TRANSITION_ACTIVATE);
     }
 
     public function __toString()
