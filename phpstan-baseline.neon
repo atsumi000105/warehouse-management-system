@@ -36,16 +36,6 @@ parameters:
 			path: src/Controller/BaseController.php
 
 		-
-			message: "#^Variable \\$entityName in isset\\(\\) is always null\\.$#"
-			count: 1
-			path: src/Controller/BaseController.php
-
-		-
-			message: "#^Ternary operator condition is always false\\.$#"
-			count: 1
-			path: src/Controller/BaseController.php
-
-		-
 			message: "#^Method App\\\\Controller\\\\BaseController\\:\\:serialize\\(\\) has parameter \\$entities with no typehint specified\\.$#"
 			count: 1
 			path: src/Controller/BaseController.php
@@ -366,11 +356,6 @@ parameters:
 			path: src/Controller/PartnerController.php
 
 		-
-			message: "#^Parameter \\#1 \\$entityName of method App\\\\Controller\\\\BaseController\\:\\:getRepository\\(\\) expects null, string given\\.$#"
-			count: 1
-			path: src/Controller/PartnerController.php
-
-		-
 			message: "#^Cannot call method getActivePartner\\(\\) on object\\|null\\.$#"
 			count: 1
 			path: src/Controller/PartnerController.php
@@ -426,11 +411,6 @@ parameters:
 			path: src/Controller/PartnerDistributionController.php
 
 		-
-			message: "#^Parameter \\#1 \\$entityName of method App\\\\Controller\\\\BaseController\\:\\:getRepository\\(\\) expects null, string given\\.$#"
-			count: 1
-			path: src/Controller/PartnerDistributionController.php
-
-		-
 			message: "#^Method App\\\\Controller\\\\PartnerDistributionController\\:\\:getDefaultTransformer\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Controller/PartnerDistributionController.php
@@ -467,11 +447,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Controller\\\\PartnerOrderController\\:\\:getDefaultTransformer\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/Controller/PartnerOrderController.php
-
-		-
-			message: "#^Parameter \\#1 \\$entityName of method App\\\\Controller\\\\BaseController\\:\\:getRepository\\(\\) expects null, string given\\.$#"
 			count: 1
 			path: src/Controller/PartnerOrderController.php
 
@@ -586,11 +561,6 @@ parameters:
 			path: src/Controller/ProductController.php
 
 		-
-			message: "#^Parameter \\#1 \\$entityName of method App\\\\Controller\\\\BaseController\\:\\:getRepository\\(\\) expects null, string given\\.$#"
-			count: 16
-			path: src/Controller/ReportController.php
-
-		-
 			message: "#^PHPDoc tag @var for variable \\$repo contains unknown class App\\\\Entity\\\\InventoryTransactionRepository\\.$#"
 			count: 1
 			path: src/Controller/ReportController.php
@@ -671,11 +641,6 @@ parameters:
 			path: src/Controller/ReportController.php
 
 		-
-			message: "#^Parameter \\#1 \\$entityName of method App\\\\Controller\\\\BaseController\\:\\:getRepository\\(\\) expects null, string given\\.$#"
-			count: 4
-			path: src/Controller/StockLevelsController.php
-
-		-
 			message: "#^Call to an undefined method Doctrine\\\\ORM\\\\EntityRepository\\:\\:getStockLevels\\(\\)\\.$#"
 			count: 2
 			path: src/Controller/StockLevelsController.php
@@ -697,11 +662,6 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method Doctrine\\\\ORM\\\\EntityRepository\\:\\:getStorageLocationInventory\\(\\)\\.$#"
-			count: 1
-			path: src/Controller/StorageLocationController.php
-
-		-
-			message: "#^Parameter \\#1 \\$entityName of method App\\\\Controller\\\\BaseController\\:\\:getRepository\\(\\) expects null, string given\\.$#"
 			count: 1
 			path: src/Controller/StorageLocationController.php
 
@@ -806,11 +766,6 @@ parameters:
 			path: src/Controller/SupplyOrderController.php
 
 		-
-			message: "#^Parameter \\#1 \\$entityName of method App\\\\Controller\\\\BaseController\\:\\:getRepository\\(\\) expects null, string given\\.$#"
-			count: 2
-			path: src/Controller/SystemController.php
-
-		-
 			message: "#^Method App\\\\Controller\\\\SystemController\\:\\:getSettings\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Controller/SystemController.php
@@ -829,11 +784,6 @@ parameters:
 			message: "#^Method App\\\\Controller\\\\TransferOrdersController\\:\\:getDefaultTransformer\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Controller/TransferOrdersController.php
-
-		-
-			message: "#^Parameter \\#1 \\$entityName of method App\\\\Controller\\\\BaseController\\:\\:getRepository\\(\\) expects null, string given\\.$#"
-			count: 2
-			path: src/Controller/UserController.php
 
 		-
 			message: "#^Call to an undefined method Doctrine\\\\ORM\\\\EntityRepository\\:\\:findByPartner\\(\\)\\.$#"
@@ -884,11 +834,6 @@ parameters:
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: src/Controller/UserController.php
-
-		-
-			message: "#^Parameter \\#1 \\$entityName of method App\\\\Controller\\\\BaseController\\:\\:getRepository\\(\\) expects null, string given\\.$#"
-			count: 1
-			path: src/Controller/WarehouseController.php
 
 		-
 			message: "#^Method App\\\\Controller\\\\WarehouseController\\:\\:getDefaultTransformer\\(\\) has no return typehint specified\\.$#"
