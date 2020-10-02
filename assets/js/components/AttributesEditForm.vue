@@ -93,7 +93,7 @@
             BooleanField, RadioField, TextareaField, OptionListApi, NumberField, TextField, DateField},
         props: {
             new: { type: Boolean },
-            value: { type: Array }
+            value: { type: Array, required: false }
         },
         computed: {
             attributes: function () {
