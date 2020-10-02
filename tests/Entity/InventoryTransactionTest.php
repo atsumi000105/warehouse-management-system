@@ -19,8 +19,8 @@ class InventoryTransactionTest extends AbstractWebTestCase
         $delta                = 1;
         $inventoryTransaction = new InventoryTransaction($storageLocation, $lineItem, $delta);
 
-        $this->assertEquals($product, $inventoryTransaction->getProduct());
-        $this->assertEquals($cost, $inventoryTransaction->getCost());
+        $this->assertSame($product, $inventoryTransaction->getProduct());
+        $this->assertSame($cost, $inventoryTransaction->getCost());
         $this->assertFalse($inventoryTransaction->isCommitted());
     }
 
