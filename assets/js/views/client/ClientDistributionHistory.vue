@@ -3,9 +3,10 @@
         v-if="client.id"
         :columns="columns"
         :api-url="apiUrl"
-        :params="{include: ['partners']}"
-        link-display-property="order.sequence"
-        edit-route="/orders/distribution"
+        :params="{include: ['order','order.partner']}"
+        link-display-property="orderSequence"
+        link-id-property="orderId"
+        edit-route="/orders/distribution/"
     />
 </template>
 
@@ -20,22 +21,21 @@
         data() {
             return {
                 columns: [
-                    { name: '__slot:link', title: 'Order Number', sortField: 'order.sequence' },
-                    { name: 'order.partner', title: 'Partner', sortField: 'order.partner.name'},
-                    { name: 'product.name', title: 'Size', sortField: 'product.name'},
-                    { name: 'quantity', title: 'Quantity Distributed', sortField: 'quantity'},
+                    { name: '__slot:link', title: 'Order Number'},
                     {
                         name: 'order.distributionPeriod',
                         title: 'Distribution Month',
-                        sortField: 'order.distributionPeriod',
                         callback: 'periodFormat'
-                    }
+                    },
+                    { name: 'order.partner.title', title: 'Partner'},
+                    { name: 'product.name', title: 'Size'},
+                    { name: 'quantity', title: 'Quantity Distributed'}
                 ],
             }
         },
         computed: {
             apiUrl: function () {
-                return "/api/client/" + this.client.id + "/history";
+                return "/api/clients/" + this.client.id + "/history";
             }
         }
     }

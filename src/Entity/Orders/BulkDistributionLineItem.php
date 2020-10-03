@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class BulkDistributionLineItem
  *
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="App\Repository\Orders\BulkDistributionLineItemRepository")
  * @ORM\EntityListeners({"App\Listener\DistributionLineItemListener"})
  */
 class BulkDistributionLineItem extends LineItem
@@ -22,6 +22,11 @@ class BulkDistributionLineItem extends LineItem
      * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="distributionLineItems")
      */
     protected $client;
+
+    /**
+     * @var BulkDistribution
+     */
+    protected $order;
 
     public function getClient(): ?Client
     {
