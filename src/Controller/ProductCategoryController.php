@@ -36,6 +36,9 @@ class ProductCategoryController extends ListOptionController
     /**
      * Delete a ProductCategory
      * @Route(path="/{id<\d+>}", methods={"DELETE"})
+     * @param int $id
+     * @return JsonResponse
+     * @throws UserInterfaceException
      */
     public function destroy(int $id): JsonResponse
     {
