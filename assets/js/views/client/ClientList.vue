@@ -121,7 +121,7 @@
                 columns: [
                     //todo: find a better way to sort value objects #30
                     { name: '__checkbox', title: "#" },
-                    { name: '__slot:link', title: "Name", sortField: 'firstname' },
+                    { name: '__slot:link', title: "Name", sortField: 'c.fullName' },
                     { name: 'partner.title', title: "Assigned Partner", sortField: 'partner.title'},
                     { name: 'status', title: "Status", callback: 'statusFormat', sortField: 'status' },
                     { name: 'createdAt', title: "Created", callback: 'dateTimeFormat', sortField: 'createdAt' },
