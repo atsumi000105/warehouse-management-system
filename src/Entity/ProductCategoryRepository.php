@@ -6,20 +6,17 @@ use Doctrine\ORM\EntityRepository;
 
 class ProductCategoryRepository extends EntityRepository
 {
-    public function isCategoryEmpty(int $categoryId): bool
+    public function isCategoryEmpty(ProductCategory $productCategory): bool
     {
-        $product = $this->getEntityManager()
+        $productCount = $this->getEntityManager()
             ->createQueryBuilder()
-            ->select('p')
+            ->select('count(p)')
             ->from(Product::class, 'p')
-            ->join('p.productCategory', 'pc')
-            ->andWhere('p.deletedAt IS NULL')
-            ->andWhere('pc.id = :categoryId')
-            ->setMaxResults(1)
-            ->setParameter('categoryId', $categoryId)
+            ->andWhere('p.productCategory = :productCategory')
+            ->setParameter('productCategory', $productCategory)
             ->getQuery()
-            ->getOneOrNullResult();
+            ->getSingleScalarResult();
 
-        return $product === null;
+        return $productCount === 0;
     }
 }

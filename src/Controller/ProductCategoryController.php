@@ -42,10 +42,13 @@ class ProductCategoryController extends ListOptionController
      */
     public function destroy(int $id): JsonResponse
     {
+        /** @var ProductCategory $productCategory */
+        $productCategory = $this->getListOption($id);
+
         /** @var ProductCategoryRepository $productCategoryRepository */
         $productCategoryRepository = $this->getRepository();
 
-        if (!$productCategoryRepository->isCategoryEmpty($id)) {
+        if (!$productCategoryRepository->isCategoryEmpty($productCategory)) {
             throw new UserInterfaceException('Cannot delete a category which has related products');
         }
 
