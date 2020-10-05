@@ -55,13 +55,14 @@ class ClientRepository extends EntityRepository
         }
 
         if ($sortField) {
+            if (!strstr($sortField, '.')) {
+                $sortField = 'c.' . $sortField;
+            }
+
             if ($sortField === 'c.fullName') {
                 $qb->orderBy('c.name.firstname', $sortDirection);
                 $qb->orderBy('c.name.lastname', $sortDirection);
             } else {
-                if (!strstr($sortField, '.')) {
-                    $sortField = 'c.' . $sortField;
-                }
                 $qb->orderBy($sortField, $sortDirection);
             }
         }
