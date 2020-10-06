@@ -6,11 +6,16 @@ namespace App\Repository\Orders;
 
 use App\Entity\Client;
 use App\Entity\Orders\BulkDistribution;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 
 class BulkDistributionLineItemRepository extends EntityRepository
 {
+    /**
+     * @param Client $client
+     * @return array|ArrayCollection
+     */
     public function getClientDistributionHistory(Client $client)
     {
         $qb = $this->createQueryBuilder('l')

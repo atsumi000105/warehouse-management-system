@@ -4,6 +4,7 @@ namespace App\Transformers;
 
 use App\Entity\LineItem;
 use App\Entity\Orders\BulkDistributionLineItem;
+use League\Fractal\Resource\Item;
 
 class BulkDistributionLineItemTransformer extends LineItemTransformer
 {
@@ -17,7 +18,7 @@ class BulkDistributionLineItemTransformer extends LineItemTransformer
         return $includes;
     }
 
-    public function transform(LineItem $lineItem)
+    public function transform(LineItem $lineItem): array
     {
         $properties = parent::transform($lineItem);
 
@@ -30,17 +31,15 @@ class BulkDistributionLineItemTransformer extends LineItemTransformer
 
     }
 
-    public function includeClient(BulkDistributionLineItem $lineItem)
+    public function includeClient(BulkDistributionLineItem $lineItem): Item
     {
         return $this->item($lineItem->getClient(), new ClientTransformer());
     }
 
-    public function includeOrder(LineItem $lineItem)
+    public function includeOrder(LineItem $lineItem): Item
     {
         $order = $lineItem->getOrder();
 
         return $this->item($order, new BulkDistributionTransformer());
     }
-
-
 }
