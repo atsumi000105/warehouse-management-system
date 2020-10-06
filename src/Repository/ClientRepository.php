@@ -91,7 +91,6 @@ class ClientRepository extends EntityRepository
         $qb->setMaxResults(5);
 
         return $qb->getQuery()->execute();
-
     }
 
     protected function addCriteria(QueryBuilder $qb, ParameterBag $params)

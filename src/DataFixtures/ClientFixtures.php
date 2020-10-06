@@ -80,7 +80,7 @@ class ClientFixtures extends BaseFixture implements DependentFixtureInterface
         for ($i = 0; $i < $clientsToCreate; $i++) {
             $status = $this->getClientStatus();
             $partner = null;
-            if ( $status === Client::STATUS_INACTIVE && rand(0, 1)) {
+            if ($status === Client::STATUS_INACTIVE && rand(0, 1)) {
                 $partner = $this->getInactivePartner();
             } else {
                 $partner = $this->getActivePartner();
