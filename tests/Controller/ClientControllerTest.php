@@ -45,7 +45,7 @@ class ClientControllerTest extends AbstractWebTestCase
 
         $response = $this->getDecodedResponse();
 
-        $this->assertEquals($uuid, $response['id']);
+        $this->assertSame($uuid, $response['id']);
     }
 
     public function testCannotShowBadUuid()
@@ -78,9 +78,9 @@ class ClientControllerTest extends AbstractWebTestCase
 
         $response = $this->getDecodedResponse();
 
-        $this->assertEquals($uuid, $response['id']);
-        $this->assertEquals($firstName, $response['firstName']);
-        $this->assertEquals($newLastName, $response['lastName']);
+        $this->assertSame($uuid, $response['id']);
+        $this->assertSame($firstName, $response['firstName']);
+        $this->assertSame($newLastName, $response['lastName']);
     }
 
     protected function getClientAccount(): Client
