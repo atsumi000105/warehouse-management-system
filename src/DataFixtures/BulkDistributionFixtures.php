@@ -29,17 +29,12 @@ class BulkDistributionFixtures extends BaseFixture implements DependentFixtureIn
         $products = $manager->getRepository(Product::class)->findByPartnerOrderable();
 
         // Number of distributions to make for each partner
-        $ordersPerPartner = 1;
+        $ordersPerPartner = 4;
 
         foreach ($partners as $partner) {
             $clients = $partner->getClients();
             for ($i = 0; $i < $ordersPerPartner; $i++) {
                 $order = new BulkDistribution($partner);
-
-                $order->setStatus($this->faker->randomElement([
-                    BulkDistribution::STATUS_COMPLETED,
-                    BulkDistribution::STATUS_PENDING,
-                ]));
 
                 // If this is the current month, set the order to pending, otherwise completed
                 $status = $i == 0 ? BulkDistribution::STATUS_PENDING : BulkDistribution::STATUS_COMPLETED;
@@ -74,8 +69,8 @@ class BulkDistributionFixtures extends BaseFixture implements DependentFixtureIn
 
                 $manager->persist($order);
             }
+            $manager->flush();
+            $manager->clear(BulkDistribution::class);
         }
-
-        $manager->flush();
     }
 }

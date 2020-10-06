@@ -42,7 +42,7 @@ class PartnerFixtures extends BaseFixture
             $manager->persist($distributionMethod);
         }
 
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             $partner = new Partner($this->faker->company . ' Partner', $this->workflowRegistry);
             $partner->setPartnerType(Partner::TYPE_AGENCY);
             $partner->setStatus($this->randValue(Partner::STATUSES));

@@ -71,6 +71,7 @@ export default {
                         icon: "child",
                         links: [
                             { title: "Client Management", route: { name: 'clients' }, icon: "child" },
+                            { title: "Client Search", route: { name: 'client-search' }, icon: "child" },
                         ]
                     },
                     {
