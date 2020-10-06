@@ -3,11 +3,11 @@
 namespace App\Repository;
 
 use App\Entity\Client;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\Exception\InvalidUuidStringException;
 use Ramsey\Uuid\Uuid;
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -58,7 +58,13 @@ class ClientRepository extends EntityRepository
             if (!strstr($sortField, '.')) {
                 $sortField = 'c.' . $sortField;
             }
-            $qb->orderBy($sortField, $sortDirection);
+
+            if ($sortField === 'c.fullName') {
+                $qb->orderBy('c.name.firstname', $sortDirection);
+                $qb->orderBy('c.name.lastname', $sortDirection);
+            } else {
+                $qb->orderBy($sortField, $sortDirection);
+            }
         }
 
         $this->addCriteria($qb, $params);
