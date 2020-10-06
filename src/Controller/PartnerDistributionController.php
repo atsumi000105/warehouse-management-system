@@ -131,9 +131,13 @@ class PartnerDistributionController extends OrderController
         $partner = $this->getEm()->getRepository(Partner::class)->find($id);
         $clients = $partner->getClients()->getValues();
 
-        $lineItems = array_map(function ($client) {
+        // Make a dummy order since Line Items must have an order
+        $order = new BulkDistribution($partner);
+
+        $lineItems = array_map(function ($client) use ($order) {
             $line = new BulkDistributionLineItem();
             $line->setClient($client);
+            $order->addLineItem($line);
             return $line;
         }, $clients);
 

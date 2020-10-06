@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class BulkDistributionLineItem
  *
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="App\Repository\Orders\BulkDistributionLineItemRepository")
  * @ORM\EntityListeners({"App\Listener\DistributionLineItemListener"})
  */
 class BulkDistributionLineItem extends LineItem

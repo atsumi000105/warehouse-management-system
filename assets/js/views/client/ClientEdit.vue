@@ -56,7 +56,7 @@
 
         <div class="row">
             <form role="form">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="box box-info">
                         <div class="box-header with-border">
                             <h3 class="box-title">
@@ -65,95 +65,114 @@
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
-                            <!-- text input -->
-                            <div class="form-group">
-                                <label>First Name</label>
-                                <input
-                                    v-model="client.firstName"
-                                    type="text"
-                                    class="form-control"
-                                    placeholder="Enter first name"
-                                >
+                            <div class="nav-tabs-custom">
+                                <ul class="nav nav-tabs">
+                                    <li class="active">
+                                        <a
+                                            href="#client_info"
+                                            data-toggle="tab"
+                                            aria-expanded="true"
+                                        >Client Information</a>
+                                    </li>
+                                    <li>
+                                        <a
+                                            href="#profile_tab"
+                                            data-toggle="tab"
+                                        >Client Profile</a>
+                                    </li>
+                                    <li>
+                                        <a
+                                            href="#distribution_history"
+                                            data-toggle="tab"
+                                        >Distribution History</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div id="client_info" class="row tab-pane active">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>First Name</label>
+                                                <input
+                                                    v-model="client.firstName"
+                                                    type="text"
+                                                    class="form-control"
+                                                    placeholder="Enter first name"
+                                                >
 
-                                <label>Last Name</label>
-                                <input
-                                    v-model="client.lastName"
-                                    type="text"
-                                    class="form-control"
-                                    placeholder="Enter last name"
-                                >
+                                                <label>Last Name</label>
+                                                <input
+                                                    v-model="client.lastName"
+                                                    type="text"
+                                                    class="form-control"
+                                                    placeholder="Enter last name"
+                                                >
+                                            </div>
+                                            <DateField
+                                                v-model="client.birthdate"
+                                                label="Birthdate"
+                                                format="YYYY-MM-DD"
+                                            />
+                                            <PartnerSelectionForm
+                                                v-model="client.partner"
+                                                label="Assigned Partner"
+                                            />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="box box-info">
+                                                <div class="box-header with-border">
+                                                    <h3 class="box-title">
+                                                        <i class="icon fa fa-clock-o fa-fw" />Expiration Info
+                                                    </h3>
+                                                </div>
+                                                <!-- /.box-header -->
+                                                <div class="box-body">
+                                                    <!-- text input -->
+                                                    <BooleanField
+                                                        v-model="client.isExpirationOverridden"
+                                                        label="Override Expirations"
+                                                    />
+                                                    <DateField
+                                                        v-model="client.ageExpiresAt"
+                                                        label="Age Expiration"
+                                                        format="YYYY-MM-DD"
+                                                    />
+                                                    <DateField
+                                                        v-model="client.distributionExpiresAt"
+                                                        label="Distribution Expiration"
+                                                        format="YYYY-MM-DD"
+                                                    />
+                                                    <NumberField
+                                                        v-model="client.pullupDistributionMax"
+                                                        label="Pullup Maximum Limit"
+                                                    />
+                                                    <DisplayField
+                                                        v-model="client.pullupDistributionCount"
+                                                        label="Pullup Distributions"
+                                                    />
+                                                </div>
+                                                <!-- /.box-body -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <AttributesEditForm
+                                        id="profile_tab"
+                                        v-model="client.attributes"
+                                        class="tab-pane"
+                                    />
+                                    <ClientDistributionHistory
+                                        id="distribution_history"
+                                        :client="client"
+                                        class="tab-pane"
+                                    />
+                                </div>
                             </div>
-                            <DateField
-                                v-model="client.birthdate"
-                                label="Birthdate"
-                                format="YYYY-MM-DD"
-                            />
-                            <PartnerSelectionForm
-                                v-model="client.partner"
-                                label="Assigned Partner"
-                            />
-                        </div>
-                        <!-- /.box-body -->
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="box box-info">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">
-                                <i class="icon fa fa-clock-o fa-fw" />Expiration Info
-                            </h3>
-                        </div>
-                        <!-- /.box-header -->
-                        <div class="box-body">
                             <!-- text input -->
-                            <BooleanField
-                                v-model="client.isExpirationOverridden"
-                                label="Override Expirations"
-                            />
-                            <DateField
-                                v-model="client.ageExpiresAt"
-                                label="Age Expiration"
-                                format="YYYY-MM-DD"
-                            />
-                            <DateField
-                                v-model="client.distributionExpiresAt"
-                                label="Distribution Expiration"
-                                format="YYYY-MM-DD"
-                            />
-                            <NumberField
-                                v-model="client.pullupDistributionMax"
-                                label="Pullup Maximum Limit"
-                            />
-                            <DisplayField
-                                v-model="client.pullupDistributionCount"
-                                label="Pullup Distributions"
-                            />
+
                         </div>
                         <!-- /.box-body -->
                     </div>
                 </div>
-            </form>
-        </div>
 
-
-        <div class="row">
-            <form role="form">
-                <div class="col-md-12">
-                    <div class="box box-info">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">
-                                <i class="icon fa fa-group fa-fw" />Client Attributes
-                            </h3>
-                        </div>
-                        <!-- /.box-header -->
-                        <div class="box-body">
-                            <AttributesEditForm
-                                v-model="client.attributes"
-                            />
-                        </div>
-                        <!-- /.box-body -->
-                    </div>
-                </div>
             </form>
         </div>
 
@@ -181,10 +200,12 @@ import DateField from "../../components/DateField";
 import BooleanField from "../../components/ToggleField";
 import NumberField from "../../components/NumberField";
 import DisplayField from "../../components/DisplayField";
+import ClientDistributionHistory from "./ClientDistributionHistory";
 
 export default {
         name: 'ClientEdit',
         components: {
+            ClientDistributionHistory,
             DisplayField,
             NumberField,
             BooleanField,

@@ -8,6 +8,7 @@ use App\Entity\Orders\BulkDistributionLineItem;
 use App\Entity\User;
 use App\Entity\ValueObjects\Name;
 use App\Service\EavAttributeProcessor;
+use App\Transformers\BulkDistributionLineItemTransformer;
 use App\Transformers\ClientTransformer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -213,7 +214,28 @@ class ClientController extends BaseController
         return $this->serialize($request, $client, null, $meta);
     }
 
-     /**
+    /**
+     * Get distribution history for client
+     *
+     * @Route(path="/{uuid}/history", methods={"GET"})
+     * @IsGranted({"ROLE_CLIENT_VIEW_ALL","ROLE_CLIENT_MANAGE_OWN"})
+     *
+     */
+    public function history(Request $request, string $uuid): JsonResponse
+    {
+        $client = $this->getClientById($uuid);
+
+        $distributionLines = $this->getEm()
+            ->getRepository(BulkDistributionLineItem::class)
+            ->getClientDistributionHistory($client);
+
+//        $this->checkViewPermissions($client);
+
+        return $this->serialize($request, $distributionLines, new BulkDistributionLineItemTransformer());
+    }
+
+
+    /**
      * @param Request $request
      * @return ParameterBag
      */

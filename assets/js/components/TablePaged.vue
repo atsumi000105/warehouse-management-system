@@ -31,7 +31,7 @@
                 slot="link"
                 slot-scope="props"
             >
-                <router-link :to="editRoute + props.rowData.id">
+                <router-link :to="editRoute + props.rowData[linkIdProperty]">
                     <i class="fa fa-edit" /> {{ props.rowData[linkDisplayProperty] }}
                 </router-link>
             </template>
@@ -87,7 +87,8 @@
             sortOrder: { type: Array },
             params: { type: Object },
             perPage: { type: Number, default: 10 },
-            linkDisplayProperty: { type: String, default: 'id' }
+            linkDisplayProperty: { type: String, default: 'id' },
+            linkIdProperty: { type: String, default: 'id' }
         },
         data () {
             return {
