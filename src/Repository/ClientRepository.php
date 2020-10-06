@@ -83,11 +83,27 @@ class ClientRepository extends EntityRepository
         return $qb->getQuery()->getSingleScalarResult();
     }
 
+    /**
+     * @param ParameterBag $params
+     * @return array|ArrayCollection
+     */
+    public function findLimitedSearch(ParameterBag $params)
+    {
+        $qb = $this->createQueryBuilder('c');
+        $this->joinRelatedTables($qb);
+
+        $this->addCriteria($qb, $params);
+
+        $qb->setMaxResults(5);
+
+        return $qb->getQuery()->execute();
+    }
+
     protected function addCriteria(QueryBuilder $qb, ParameterBag $params)
     {
         if ($params->has('keyword') && $params->get('keyword')) {
-            $qb->andWhere('c.name.lastname LIKE :keyword OR c.name.firstname LIKE :keyword')
-                ->setParameter('keyword', '%' . $params->get('keyword') . '%');
+            $qb->andWhere('lower(c.name.lastname) LIKE :keyword OR lower(c.name.firstname) LIKE :keyword')
+                ->setParameter('keyword', '%' . strtolower($params->get('keyword')) . '%');
         }
 
         if ($params->has('partner')) {

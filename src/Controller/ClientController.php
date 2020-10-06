@@ -74,6 +74,23 @@ class ClientController extends BaseController
     }
 
     /**
+     * Limited Client search for partners to look for duplicates
+     *
+     * @param Request $request
+     *
+     * @Route("/search", methods={"GET"})
+     * @IsGranted({"ROLE_CLIENT_EDIT_ALL","ROLE_CLIENT_MANAGE_OWN"})
+     */
+    public function search(Request $request): JsonResponse
+    {
+        $params = $this->buildFilterParams($request);
+
+        $clients = $this->getEm()->getRepository(Client::class)->findLimitedSearch($params);
+
+        return $this->serialize($request, $clients);
+    }
+
+    /**
      * Get a single Client
      *
      * @Route(path="/{uuid}", methods={"GET"})

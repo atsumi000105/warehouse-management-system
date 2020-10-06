@@ -64,11 +64,13 @@ abstract class BaseController extends AbstractController
 
     private function fractal(Request $request)
     {
+        $params = $this->getParams($request);
+
         /** @var Manager $manager */
         $manager = new ContainerAwareManager();
         $manager->setSerializer(new ApiSerializer());
-        if ($request->query->has('include')) {
-            $manager->parseIncludes($request->query->get('include'));
+        if (key_exists('include', $params)) {
+            $manager->parseIncludes($params['include']);
         }
         return $manager;
     }

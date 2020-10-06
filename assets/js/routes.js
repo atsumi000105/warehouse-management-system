@@ -72,6 +72,7 @@ let routes = [
         component: require('./views/client/ClientEdit').default,
         props: {new: true}
     },
+    {path: '/clients/search', name: 'client-search', component: require('./views/client/ClientSearch').default},
     {path: '/clients/:id', name: 'client-edit', component: require('./views/client/ClientEdit').default},
 
     {

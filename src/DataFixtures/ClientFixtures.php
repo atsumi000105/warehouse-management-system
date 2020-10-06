@@ -35,10 +35,10 @@ class ClientFixtures extends BaseFixture implements DependentFixtureInterface
         $definitions = $manager->getRepository(ClientDefinition::class)->findAll();
 
         $statuses = [
-            Client::STATUS_CREATION,
+            Client::STATUS_ACTIVE,
+            Client::STATUS_ACTIVE,
             Client::STATUS_ACTIVE,
             Client::STATUS_INACTIVE,
-            Client::STATUS_LIMIT_REACHED,
             Client::STATUS_DUPLICATE_INACTIVE,
         ];
 
@@ -72,7 +72,7 @@ class ClientFixtures extends BaseFixture implements DependentFixtureInterface
      */
     private function getData(): array
     {
-        $clientsToCreate = 500;
+        $clientsToCreate = 80;
         $faker = Factory::create();
 
         $clients = [];
@@ -80,14 +80,10 @@ class ClientFixtures extends BaseFixture implements DependentFixtureInterface
         for ($i = 0; $i < $clientsToCreate; $i++) {
             $status = $this->getClientStatus();
             $partner = null;
-            if (
-                $status === Client::STATUS_CREATION
-                || $status === Client::STATUS_ACTIVE
-                || $status === Client::STATUS_LIMIT_REACHED
-            ) {
-                $partner = $this->getActivePartner();
-            } else {
+            if ($status === Client::STATUS_INACTIVE && rand(0, 1)) {
                 $partner = $this->getInactivePartner();
+            } else {
+                $partner = $this->getActivePartner();
             }
 
             $clients[] = [
@@ -104,8 +100,10 @@ class ClientFixtures extends BaseFixture implements DependentFixtureInterface
     {
         $statuses = [
             Client::STATUS_ACTIVE,
-            Client::STATUS_LIMIT_REACHED,
-            Client::STATUS_CREATION,
+            Client::STATUS_ACTIVE,
+            Client::STATUS_ACTIVE,
+            Client::STATUS_ACTIVE,
+            Client::STATUS_DUPLICATE_INACTIVE,
             Client::STATUS_INACTIVE,
         ];
 
