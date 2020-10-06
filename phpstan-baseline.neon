@@ -3766,11 +3766,6 @@ parameters:
 			path: src/Transformers/BagTransformer.php
 
 		-
-			message: "#^Method App\\\\Transformers\\\\BulkDistributionLineItemTransformer\\:\\:includeClient\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/Transformers/BulkDistributionLineItemTransformer.php
-
-		-
 			message: "#^Method App\\\\Transformers\\\\BulkDistributionTransformer\\:\\:includePartner\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Transformers/BulkDistributionTransformer.php

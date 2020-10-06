@@ -22,7 +22,7 @@ class BulkDistributionLineItemTransformer extends LineItemTransformer
     {
         $properties = parent::transform($lineItem);
 
-        if ($lineItem->getOrder()) {
+        if ($lineItem->getOrder()->getId()) {
             $properties['orderSequence'] = $lineItem->getOrder()->getSequenceNo();
             $properties['orderId'] = $lineItem->getOrder()->getId();
         }
