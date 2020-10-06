@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Repository\Orders;
-
 
 use App\Entity\Client;
 use App\Entity\Orders\BulkDistribution;

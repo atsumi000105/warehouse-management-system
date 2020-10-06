@@ -225,7 +225,9 @@ class ClientController extends BaseController
     {
         $client = $this->getClientById($uuid);
 
-        $distributionLines = $this->getEm()->getRepository(BulkDistributionLineItem::class)->getClientDistributionHistory($client);
+        $distributionLines = $this->getEm()
+            ->getRepository(BulkDistributionLineItem::class)
+            ->getClientDistributionHistory($client);
 
 //        $this->checkViewPermissions($client);
 

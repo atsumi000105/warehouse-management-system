@@ -28,7 +28,6 @@ class BulkDistributionLineItemTransformer extends LineItemTransformer
         }
 
         return $properties;
-
     }
 
     public function includeClient(BulkDistributionLineItem $lineItem): Item
