@@ -258,7 +258,7 @@ let routes = [
         path: '/orders/distribution/:id',
         name: 'order-distribution-edit',
         component: require('./views/order/distribution/BulkDistributionOrderEdit.vue').default,
-        meta: {roles: ['ROLE_DISTRIBUTION_ORDER_EDIT', 'ROLE_DISTRIBUTION_ORDER_MANAGE_OWN']}
+        meta: {roles: ['ROLE_DISTRIBUTION_ORDER_EDIT', 'ROLE_ORDER_MANAGE_OWN']}
     },
 
     {
@@ -330,7 +330,8 @@ let routes = [
     {
         path: '/reports/supply-totals',
         name: 'reports-supply-totals',
-        component: require('./views/reports/SupplyTotalsReport.vue').default
+        component: require('./views/reports/SupplyTotalsReport.vue').default,
+        meta: { roles: ['ROLE_SUPPLIER_VIEW']}
     },
     {
         path: '/reports/distribution-totals',

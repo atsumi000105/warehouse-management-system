@@ -11,7 +11,7 @@
         />
         <span
             v-else
-            v-text="value.title"
+            v-text="value.name"
         />
     </div>
 </template>

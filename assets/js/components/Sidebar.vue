@@ -9,7 +9,7 @@
                 :key="menu.id"
                 :class="{ treeview: menu.hasOwnProperty('links') }"
             >
-                <router-link :to="menu.route || '#'">
+                <router-link :to="menu.route || '#'" v-if="menuHasAccessibleLinks(menu)">
                     <i
                         v-if="menu.icon"
                         class="fa"
@@ -121,7 +121,7 @@ export default {
         methods: {
             routesUserCanAccess(links) {
                 return links.filter((link) => {
-                    let resolved = this.$router.resolve({name: link.name});
+                    let resolved = this.$router.resolve(link.route);
                     let route = resolved.route;
                     if (route?.meta?.roles) {
                         let hasRoles = route.meta.roles.filter((role) => this.$store.getters.userHasRole(role));
@@ -129,7 +129,14 @@ export default {
                     }
                     return true;
                 }, this);
-            }
+            },
+            menuHasAccessibleLinks(menu) {
+                if (menu.hasOwnProperty('links')) {
+                    return this.routesUserCanAccess(menu.links).length > 0;
+                } else {
+                    return true;
+                }
+            },
         }
     }
 </script>
