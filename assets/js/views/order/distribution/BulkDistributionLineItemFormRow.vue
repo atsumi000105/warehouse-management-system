@@ -15,6 +15,7 @@
                 <ProductSelectionField
                     v-model="value.product"
                     :label="false"
+                    :editable="editable"
                 />
             </div>
             <div
