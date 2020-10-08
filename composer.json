@@ -17,7 +17,6 @@
         "fightbulc/moment": "^1.26",
         "nelmio/cors-bundle": "^1.5",
         "phpoffice/phpspreadsheet": "^1.6",
-        "ramsey/uuid-doctrine": "^1.5",
         "samj/fractal-bundle": "^2.1",
         "sensio/framework-extra-bundle": "^5.2",
         "stof/doctrine-extensions-bundle": "^1.3",

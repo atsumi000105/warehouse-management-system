@@ -40,21 +40,21 @@ class ClientControllerTest extends AbstractWebTestCase
         $this->loginAsAdmin();
 
         $clientAccount = $this->getClientAccount();
-        $uuid = $clientAccount->getUuid()->toString();
-        $this->client->request('GET', "/api/clients/{$uuid}");
+        $publicId = $clientAccount->getPublicId();
+        $this->client->request('GET', "/api/clients/{$publicId}");
 
         $response = $this->getDecodedResponse();
 
-        $this->assertSame($uuid, $response['id']);
+        $this->assertSame($publicId, $response['id']);
     }
 
-    public function testCannotShowBadUuid()
+    public function testCannotShowBadPublicId()
     {
         $this->loginAsAdmin();
 
-        $badUuid = '1234';
+        $badPublicId = '1234';
 
-        $this->client->request('GET', "/api/clients/{$badUuid}");
+        $this->client->request('GET', "/api/clients/{$badPublicId}");
 
         $response = $this->getDecodedResponse();
         $this->assertResponseStatusCodeSame('404');
@@ -65,7 +65,7 @@ class ClientControllerTest extends AbstractWebTestCase
         $this->loginAsAdmin();
 
         $clientAccount = $this->getClientAccount();
-        $uuid = $clientAccount->getUuid()->toString();
+        $publicId = $clientAccount->getPublicId();
         $name = $clientAccount->getName();
         $firstName = $name->getFirstName();
         $lastName = $name->getLastName();
@@ -74,11 +74,11 @@ class ClientControllerTest extends AbstractWebTestCase
 
         $params['name'] = ['firstName' => $firstName, 'lastName' => $newLastName];
 
-        $this->client->request('PATCH', "/api/clients/{$uuid}", $params);
+        $this->client->request('PATCH', "/api/clients/{$publicId}", $params);
 
         $response = $this->getDecodedResponse();
 
-        $this->assertSame($uuid, $response['id']);
+        $this->assertSame($publicId, $response['id']);
         $this->assertSame($firstName, $response['firstName']);
         $this->assertSame($newLastName, $response['lastName']);
     }

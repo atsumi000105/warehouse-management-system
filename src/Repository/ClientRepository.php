@@ -6,35 +6,18 @@ use App\Entity\Client;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
-use Ramsey\Uuid\Exception\InvalidUuidStringException;
-use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\ParameterBag;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ClientRepository extends EntityRepository
 {
-    public function findOneByUuid(string $id): ?Client
+    public function findOneByPublicId(string $id): ?Client
     {
-        try {
-            $uuid = Uuid::fromString($id);
-        } catch (InvalidUuidStringException $exception) {
-            throw new NotFoundHttpException(sprintf('Invalid Client ID: %s', $id));
-        }
-        return $this->findOneBy(['uuid' => $uuid]);
+        return $this->findOneBy(['publicId' => $id]);
     }
 
-    public function findByUuids(array $ids): ?ArrayCollection
+    public function findByPublicIds(array $ids): ?ArrayCollection
     {
-        $uuids = array_map(function ($id) {
-            try {
-                $uuid = Uuid::fromString($id);
-            } catch (InvalidUuidStringException $exception) {
-                throw new NotFoundHttpException(sprintf('Invalid Client ID: %s', $id));
-            }
-            return $uuid;
-        }, $ids);
-
-        $clients = $this->findBy(['uuid' => $uuids]);
+        $clients = $this->findBy(['publicId' => $ids]);
         return new ArrayCollection($clients);
     }
 

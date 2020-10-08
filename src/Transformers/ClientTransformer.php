@@ -15,10 +15,16 @@ class ClientTransformer extends TransformerAbstract
     public function transform(Client $client): array
     {
         return [
-            'id' => $client->getUuid(),
+            'id' => $client->getPublicId(),
             'firstName' => $client->getName()->getFirstname(),
             'lastName' => $client->getName()->getLastname(),
             'fullName' => $client->getName()->getFirstName() . ' ' . $client->getName()->getLastName(),
+            'selectListText' => sprintf(
+                '%s %s (%s)',
+                $client->getName()->getFirstname(),
+                $client->getName()->getLastname(),
+                $client->getPublicId()
+            ),
             'birthdate' => $client->getBirthdate()->format('c'),
             'isExpirationOverridden' => $client->isExpirationOverridden(),
             'ageExpiresAt' => $client->getAgeExpiresAt()->format('c'),

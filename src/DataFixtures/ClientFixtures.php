@@ -7,6 +7,7 @@ use App\Entity\EAV\Attribute;
 use App\Entity\EAV\ClientDefinition;
 use App\Entity\Partner;
 use App\Entity\ValueObjects\Name;
+use App\IdGenerator\RandomIdGenerator;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
@@ -17,9 +18,13 @@ class ClientFixtures extends BaseFixture implements DependentFixtureInterface
     /** @var Registry */
     protected $workflowRegistry;
 
-    public function __construct(Registry $workflowRegistry)
+    /** @var RandomIdGenerator */
+    protected $gen;
+
+    public function __construct(Registry $workflowRegistry, RandomIdGenerator $gen)
     {
         $this->workflowRegistry = $workflowRegistry;
+        $this->gen = $gen;
     }
 
     public function getDependencies()
@@ -48,6 +53,7 @@ class ClientFixtures extends BaseFixture implements DependentFixtureInterface
             $client->setName($clientArr['name']);
             $client->setStatus($clientArr['status']);
             $client->setPartner($clientArr['partner']);
+            $client->setPublicId($this->gen->generate());
             $client->setBirthdate($this->faker->dateTimeBetween('-5 years', 'now'));
 
             foreach ($definitions as $definition) {
