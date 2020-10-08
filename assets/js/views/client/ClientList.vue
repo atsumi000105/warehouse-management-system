@@ -87,7 +87,7 @@
                             :sort-order="[{ field: 'id', direction: 'desc'}]"  
                             :params="requestParams()"
                             :per-page="50"
-                            link-display-property="fullName"
+                            link-display-property="id"
                         />
                     </div>
                     <!-- /.box-body -->
@@ -121,7 +121,8 @@
                 columns: [
                     //todo: find a better way to sort value objects #30
                     { name: '__checkbox', title: "#" },
-                    { name: '__slot:link', title: "Name", sortField: 'c.fullName' },
+                    { name: '__slot:link', title: "ID", sortField: 'c.id' },
+                    { name: 'fullName', title: "Name", sortField: 'c.fullName' },
                     { name: 'partner.title', title: "Assigned Partner", sortField: 'partner.title'},
                     { name: 'status', title: "Status", callback: 'statusFormat', sortField: 'status' },
                     { name: 'createdAt', title: "Created", callback: 'dateTimeFormat', sortField: 'createdAt' },

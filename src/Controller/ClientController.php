@@ -83,7 +83,7 @@ class ClientController extends BaseController
      */
     public function search(Request $request): JsonResponse
     {
-        $params = $this->buildFilterParams($request);
+        $params = $this->buildFilterParams($request, true);
 
         $clients = $this->getEm()->getRepository(Client::class)->findLimitedSearch($params);
 
@@ -93,13 +93,13 @@ class ClientController extends BaseController
     /**
      * Get a single Client
      *
-     * @Route(path="/{uuid}", methods={"GET"})
+     * @Route(path="/{publicId}", methods={"GET"})
      * @IsGranted({"ROLE_CLIENT_VIEW_ALL","ROLE_CLIENT_MANAGE_OWN"})
      *
      */
-    public function show(Request $request, Registry $workflowRegistry, string $uuid): JsonResponse
+    public function show(Request $request, Registry $workflowRegistry, string $publicId): JsonResponse
     {
-        $client = $this->getClientById($uuid);
+        $client = $this->getClientById($publicId);
         $meta = [
             'enabledTransitions' => $this->getEnabledTransitions($workflowRegistry, $client),
         ];
@@ -148,15 +148,15 @@ class ClientController extends BaseController
     /**
      * Whole or partial update of a client
      *
-     * @Route(path="/{uuid}", methods={"PATCH"})
+     * @Route(path="/{publicId}", methods={"PATCH"})
      * @IsGranted({"ROLE_CLIENT_EDIT_ALL","ROLE_CLIENT_MANAGE_OWN"})
      *
      */
-    public function update(Request $request, EavAttributeProcessor $eavProcessor, string $uuid): JsonResponse
+    public function update(Request $request, EavAttributeProcessor $eavProcessor, string $publicId): JsonResponse
     {
         $params = $this->getParams($request);
         /** @var Client $client */
-        $client = $this->getClientById($uuid);
+        $client = $this->getClientById($publicId);
 
 //        $this->checkEditPermissions($client);
 
@@ -187,13 +187,13 @@ class ClientController extends BaseController
     /**
      * Delete a client
      *
-     * @Route(path="/{uuid}", methods={"DELETE"})
+     * @Route(path="/{publicId}", methods={"DELETE"})
      * @IsGranted({"ROLE_ADMIN"})
      *
      */
-    public function destroy(Request $request, string $uuid): JsonResponse
+    public function destroy(Request $request, string $publicId): JsonResponse
     {
-        $client = $this->getClientById($uuid);
+        $client = $this->getClientById($publicId);
 
 //        $this->checkEditPermissions($client);
 
@@ -206,13 +206,13 @@ class ClientController extends BaseController
 
     /**
      *
-     * @Route("/{uuid}/transition", methods={"PATCH"})
+     * @Route("/{publicId}/transition", methods={"PATCH"})
      * @IsGranted({"ROLE_CLIENT_EDIT_ALL","ROLE_CLIENT_MANAGE_OWN"})
      *
      */
-    public function transition(Request $request, Registry $workflowRegistry, string $uuid): JsonResponse
+    public function transition(Request $request, Registry $workflowRegistry, string $publicId): JsonResponse
     {
-        $client = $this->getClientById($uuid);
+        $client = $this->getClientById($publicId);
 
         $params = $this->getParams($request);
 
@@ -234,13 +234,13 @@ class ClientController extends BaseController
     /**
      * Get distribution history for client
      *
-     * @Route(path="/{uuid}/history", methods={"GET"})
+     * @Route(path="/{publicId}/history", methods={"GET"})
      * @IsGranted({"ROLE_CLIENT_VIEW_ALL","ROLE_CLIENT_MANAGE_OWN"})
      *
      */
-    public function history(Request $request, string $uuid): JsonResponse
+    public function history(Request $request, string $publicId): JsonResponse
     {
-        $client = $this->getClientById($uuid);
+        $client = $this->getClientById($publicId);
 
         $distributionLines = $this->getEm()
             ->getRepository(BulkDistributionLineItem::class)
@@ -256,7 +256,7 @@ class ClientController extends BaseController
      * @param Request $request
      * @return ParameterBag
      */
-    protected function buildFilterParams(Request $request)
+    protected function buildFilterParams(Request $request, $viewall = false)
     {
         $params = new ParameterBag();
 
@@ -273,7 +273,7 @@ class ClientController extends BaseController
         $user = $this->getUser();
 
         // If the user isn't an admin,
-        if (!$user->hasRole(Client::ROLE_VIEW_ALL)) {
+        if (!$user->hasRole(Client::ROLE_VIEW_ALL) && !$viewall) {
             $params->set('partner', $user->getActivePartner());
         }
 
@@ -288,7 +288,7 @@ class ClientController extends BaseController
     protected function getClientById(string $id): Client
     {
         /** @var Client $client */
-        $client = $this->getRepository()->findOneByUuid($id);
+        $client = $this->getRepository()->findOneByPublicId($id);
 
         if (!$client) {
             throw new NotFoundHttpException(sprintf('Unknown Client ID: %s', $id));
@@ -327,9 +327,9 @@ class ClientController extends BaseController
         $request = $this->getParams($request);
 
         /** @var Client $target */
-        $target = $this->getRepository()->findOneByUuid($request['targetClient']);
+        $target = $this->getRepository()->findOneByPublicId($request['targetClient']);
         /** @var Client[] $sources */
-        $sources = $this->getRepository()->findByUuids($request['sourceClients']);
+        $sources = $this->getRepository()->findByPublicIds($request['sourceClients']);
         $context = $request['context'];
 
         foreach ($sources as $source) {

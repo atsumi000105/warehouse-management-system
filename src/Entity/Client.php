@@ -9,19 +9,16 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Moment\Moment;
-use Ramsey\Uuid\Uuid;
 use Symfony\Component\Routing\Exception\MissingMandatoryParametersException;
 use Symfony\Component\Workflow\Exception\LogicException;
 use Symfony\Component\Workflow\Registry;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ClientRepository")
- * @ORM\EntityListeners({"App\Listener\ClientListener"})
  * @Gedmo\Loggable()
  */
 class Client extends CoreEntity
 {
-    use Uuidable;
     use AttributedEntityTrait;
 
     // State Machine Statuses
@@ -48,6 +45,17 @@ class Client extends CoreEntity
     public const ROLE_MANAGE_OWN = "ROLE_CLIENT_MANAGE_OWN";
 
     /**
+     * The unique auto incremented primary key.
+     *
+     * @var int
+     *
+     * @ORM\Id
+     * @ORM\Column(type="integer", options={"unsigned": true})
+     * @ORM\GeneratedValue
+     */
+    protected $id;
+
+    /**
      * The name value object which holds the
      * first and last name of the Client
      *
@@ -57,6 +65,13 @@ class Client extends CoreEntity
      * @Gedmo\Versioned
      */
     protected $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", unique=true, nullable=true)
+     */
+    protected $publicId;
 
     /**
      * @var \DateTime
@@ -137,7 +152,6 @@ class Client extends CoreEntity
         $this->attributes = new ArrayCollection();
         $this->name = new Name();
         $this->distributionLineItems = new ArrayCollection();
-        $this->uuid = Uuid::uuid4();
         $this->isExpirationOverridden = false;
         $this->pullupDistributionMax = 6;
         $this->pullupDistributionCount = 0;
@@ -148,6 +162,28 @@ class Client extends CoreEntity
     public function __toString()
     {
         return sprintf('%s (%s)', $this->name, $this->getId());
+    }
+
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPublicId(): ?string
+    {
+        return $this->publicId;
+    }
+
+    /**
+     * @param string $publicId
+     */
+    public function setPublicId(?string $publicId): void
+    {
+        $this->publicId = $publicId;
     }
 
     public function getName(): Name

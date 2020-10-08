@@ -12,7 +12,7 @@
         <OptionListEntity
             v-model="targetClient"
             label="Merge clients in to"
-            display-property="fullName"
+            display-property="selectListText"
             :preloaded-options="selectedClients"
             empty-string="-- Select a Destination Client --"
             :chosen="false"

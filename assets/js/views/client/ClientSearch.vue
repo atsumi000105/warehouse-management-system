@@ -76,11 +76,10 @@
                 columns: [
                     //todo: find a better way to sort value objects #30
                     { name: '__checkbox', title: "#" },
-                    { name: 'fullName', title: "Name" },
-                    { name: 'partner.title', title: "Assigned Partner" },
-                    { name: 'status', title: "Status", callback: 'statusFormat' },
-                    { name: 'createdAt', title: "Created", callback: 'dateTimeFormat' },
-                    { name: 'updatedAt', title: "Last Updated", callback: 'dateTimeFormat' },
+                    { name: 'id', title: "ID", sortField: 'c.id' },
+                    { name: 'fullName', title: "Name", sortField: 'c.fullName' },
+                    { name: 'partner.title', title: "Assigned Partner", sortField: 'partner.title'},
+                    { name: 'status', title: "Status", callback: 'statusFormat', sortField: 'status' },
                 ],
                 clients: {},
                 statuses: [

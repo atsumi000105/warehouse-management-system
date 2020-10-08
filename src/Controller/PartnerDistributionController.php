@@ -111,7 +111,7 @@ class PartnerDistributionController extends OrderController
     protected function extraLineItemProcessing(LineItem $lineItem, array $lineItemArray)
     {
         if (!$lineItem->getClient() || $lineItem->getClient()->getId() != $lineItemArray['client']['id']) {
-            $client = $this->getEm()->getRepository(Client::class)->findOneByUuid($lineItemArray['client']['id']);
+            $client = $this->getEm()->getRepository(Client::class)->findOneByPublicId($lineItemArray['client']['id']);
             $lineItem->setClient($client);
         }
     }
