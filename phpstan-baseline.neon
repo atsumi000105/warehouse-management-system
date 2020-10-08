@@ -111,7 +111,7 @@ parameters:
 			path: src/Controller/ClientController.php
 
 		-
-			message: "#^Call to an undefined method Doctrine\\\\ORM\\\\EntityRepository\\:\\:findOneByUuid\\(\\)\\.$#"
+			message: "#^Call to an undefined method Doctrine\\\\ORM\\\\EntityRepository\\:\\:findOneByPublicId\\(\\)\\.$#"
 			count: 2
 			path: src/Controller/ClientController.php
 
@@ -126,7 +126,7 @@ parameters:
 			path: src/Controller/ClientController.php
 
 		-
-			message: "#^Call to an undefined method Doctrine\\\\ORM\\\\EntityRepository\\:\\:findByUuids\\(\\)\\.$#"
+			message: "#^Call to an undefined method Doctrine\\\\ORM\\\\EntityRepository\\:\\:findByPublicIds\\(\\)\\.$#"
 			count: 1
 			path: src/Controller/ClientController.php
 

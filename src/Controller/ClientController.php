@@ -254,9 +254,10 @@ class ClientController extends BaseController
 
     /**
      * @param Request $request
+     * @param bool $viewAll
      * @return ParameterBag
      */
-    protected function buildFilterParams(Request $request, $viewall = false)
+    protected function buildFilterParams(Request $request, bool $viewAll = false)
     {
         $params = new ParameterBag();
 
@@ -273,7 +274,7 @@ class ClientController extends BaseController
         $user = $this->getUser();
 
         // If the user isn't an admin,
-        if (!$user->hasRole(Client::ROLE_VIEW_ALL) && !$viewall) {
+        if (!$user->hasRole(Client::ROLE_VIEW_ALL) && !$viewAll) {
             $params->set('partner', $user->getActivePartner());
         }
 
