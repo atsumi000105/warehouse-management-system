@@ -48,7 +48,7 @@ class ClientControllerTest extends AbstractWebTestCase
         $this->assertSame($publicId, $response['id']);
     }
 
-    public function testCannotShowBadUuid()
+    public function testCannotShowBadPublicId()
     {
         $this->loginAsAdmin();
 
