@@ -67,9 +67,9 @@ class Client extends CoreEntity
     protected $name;
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(type="string", unique=true)
+     * @ORM\Column(type="string", unique=true, nullable=true)
      */
     protected $publicId;
 
@@ -181,7 +181,7 @@ class Client extends CoreEntity
     /**
      * @param string $publicId
      */
-    public function setPublicId(string $publicId): void
+    public function setPublicId(?string $publicId): void
     {
         $this->publicId = $publicId;
     }
