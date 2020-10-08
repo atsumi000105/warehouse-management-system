@@ -56,7 +56,7 @@ class ClientListener implements EventSubscriber
             return;
         }
 
-        if(!$client->getPublicId()) {
+        if (!$client->getPublicId()) {
             $client->setPublicId($this->gen->generate());
         }
 

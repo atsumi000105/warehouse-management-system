@@ -48,7 +48,9 @@ class RandomIdGenerator
             $maxTries--;
         } while ($this->idExists($id) && $maxTries > 0);
 
-        if ($maxTries === 0) throw new \ErrorException('Unable to generate a Specimen ID (exceeded max tries)');
+        if ($maxTries === 0) {
+            throw new \ErrorException('Unable to generate a Specimen ID (exceeded max tries)');
+        }
 
         return $id;
     }
@@ -57,7 +59,9 @@ class RandomIdGenerator
     {
         // Consider it existing if we've generated it already.
         // This makes working with unpersisted entities easier.
-        if (in_array($id, $this->generatedThisInstance)) return true;
+        if (in_array($id, $this->generatedThisInstance)) {
+            return true;
+        }
 
         // ID exists if it's attached to an existing record in the database
         $found = $this->repository->findOneBy(['publicId' => $id]);
@@ -72,7 +76,7 @@ class RandomIdGenerator
      *  - No ambiguous characters (ie. 0 vs. O or 1 vs l)
      *  - No vowels (so no recognizable words, dirty or otherwise)
      */
-    public static function generateRandomString(int $length, bool $lettersOnly = false) : string
+    public static function generateRandomString(int $length, bool $lettersOnly = false): string
     {
         $alphabet = [
             'B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'R', 'S', 'T', 'V', 'W', 'X', 'Y', 'Z',
@@ -83,11 +87,10 @@ class RandomIdGenerator
         }
 
         $randomStr = '';
-        for ($i=0; $i < $length; $i++) {
+        for ($i = 0; $i < $length; $i++) {
             $randomStr .= $alphabet[array_rand($alphabet)];
         }
 
         return $randomStr;
     }
-
 }
