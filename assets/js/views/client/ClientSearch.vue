@@ -8,7 +8,13 @@
             <div class="col-xs-2">
                 <TextField
                     v-model="filters.keyword"
-                    label="Keyword"
+                    label="Name (Client and Parent/Guardian)"
+                />
+            </div>
+            <div class="col-xs-1">
+                <DateField
+                    v-model="filters.birthdate"
+                    label="Birthdate"
                 />
             </div>
             <div class="col-xs-4">
@@ -62,10 +68,12 @@
     import PartnerSelectionForm from "../../components/PartnerSelectionForm";
     import TextField from "../../components/TextField";
     import TableStatic from "../../components/TableStatic";
+    import DateField from "../../components/DateField";
 
     export default {
         name: 'ClientSearch',
         components: {
+            DateField,
             TableStatic,
             TextField,
             PartnerSelectionForm,
@@ -78,7 +86,9 @@
                     { name: '__checkbox', title: "#" },
                     { name: 'id', title: "ID", sortField: 'c.id' },
                     { name: 'fullName', title: "Name", sortField: 'c.fullName' },
-                    { name: 'partner.title', title: "Assigned Partner", sortField: 'partner.title'},
+                    { name: 'parentFullName', title: "Parent/Guardian" },
+                    { name: 'birthdate', title: "Birthday", callback: 'dateFormat', sortField: 'c.birthdate' },
+                    { name: 'partner.title', title: "Assigned Partner", sortField: 'partner.title' },
                     { name: 'status', title: "Status", callback: 'statusFormat', sortField: 'status' },
                 ],
                 clients: {},
@@ -88,7 +98,8 @@
                 ],
                 filters: {
                     keyword: null,
-                    partner: { id: null }
+                    partner: { id: null },
+                    birthdate: null
                 },
                 selection: [],
             }
@@ -124,6 +135,7 @@
                     status: this.filters.status || null,
                     keyword: this.filters.keyword || null,
                     partner: this.filters.partner.id || null,
+                    birthdate: this.filters.birthdate || null,
                     include: ['partner'],
                 }
             }

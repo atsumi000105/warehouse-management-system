@@ -70,10 +70,23 @@ class ClientRepository extends EntityRepository
      * @param ParameterBag $params
      * @return array|ArrayCollection
      */
-    public function findLimitedSearch(ParameterBag $params)
+    public function findLimitedSearch(ParameterBag $params, $sortField = null, $sortDirection = 'ASC')
     {
         $qb = $this->createQueryBuilder('c');
         $this->joinRelatedTables($qb);
+
+        if ($sortField) {
+            if (!strstr($sortField, '.')) {
+                $sortField = 'c.' . $sortField;
+            }
+
+            if ($sortField === 'c.fullName') {
+                $qb->orderBy('c.name.firstname', $sortDirection);
+                $qb->orderBy('c.name.lastname', $sortDirection);
+            } else {
+                $qb->orderBy($sortField, $sortDirection);
+            }
+        }
 
         $this->addCriteria($qb, $params);
 
@@ -85,8 +98,16 @@ class ClientRepository extends EntityRepository
     protected function addCriteria(QueryBuilder $qb, ParameterBag $params)
     {
         if ($params->has('keyword') && $params->get('keyword')) {
-            $qb->andWhere('lower(c.name.lastname) LIKE :keyword OR lower(c.name.firstname) LIKE :keyword')
+            $qb->andWhere('lower(c.name.lastname) LIKE :keyword 
+                    OR lower(c.name.firstname) LIKE :keyword
+                    OR lower(c.parentFirstName) LIKE :keyword
+                    OR lower(c.parentLastName) LIKE :keyword')
                 ->setParameter('keyword', '%' . strtolower($params->get('keyword')) . '%');
+        }
+
+        if ($params->has('birthdate')) {
+            $qb->andWhere('c.birthdate = :birthdate')
+                ->setParameter('birthdate', $params->get('birthdate'));
         }
 
         if ($params->has('partner')) {
