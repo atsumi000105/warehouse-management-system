@@ -67,11 +67,8 @@ $container->loadFromExtension('framework', [
                         'title' => 'Flag for Review'
                     ],
                     'from' => [
-                        Partner::STATUS_APPLICATION_PENDING,
-                        Partner::STATUS_APPLICATION_PENDING_PRIORITY,
                         Partner::STATUS_ACTIVE,
                         Partner::STATUS_REVIEW_PAST_DUE,
-                        Partner::STATUS_INACTIVE,
                     ],
                     'to' => Partner::STATUS_NEEDS_PROFILE_REVIEW,
                 ],
@@ -80,11 +77,7 @@ $container->loadFromExtension('framework', [
                         'title' => 'Flag for Review Past Due'
                     ],
                     'from' => [
-                        Partner::STATUS_APPLICATION_PENDING,
-                        Partner::STATUS_APPLICATION_PENDING_PRIORITY,
-                        Partner::STATUS_ACTIVE,
                         Partner::STATUS_NEEDS_PROFILE_REVIEW,
-                        Partner::STATUS_INACTIVE,
                     ],
                     'to' => Partner::STATUS_REVIEW_PAST_DUE,
                 ],

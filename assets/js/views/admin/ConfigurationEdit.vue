@@ -13,8 +13,8 @@
             Configuration
         </h3>
 
-        <div class="row">
-            <form role="form">
+        <form role="form">
+            <div class="row">
                 <div class="col-md-6">
                     <div class="box box-info">
                         <div class="box-header with-border">
@@ -33,7 +33,98 @@
                         </div>
                         <!-- /.box-body -->
                     </div>
+
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">
+                                <i class="icon fa fa-calendar fa-fw" />Annual Review Process
+                            </h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <!-- text input -->
+
+                            <div class="panel box box-primary">
+                                <div class="box-header with-border">
+                                    <h4 class="box-title">
+                                        Partner Annual Review
+                                    </h4>
+                                </div>
+                                <div class="box-body">
+                                    <div class="row">
+                                        <DateField
+                                            v-model="settings.partnerReviewStart"
+                                            label="Partner Review Period Start Day"
+                                            format="MM/DD"
+                                            class="col-xs-6"
+                                        />
+                                        <DateField
+                                            v-model="settings.partnerReviewEnd"
+                                            label="Partner Review Period Ends Day"
+                                            format="MM/DD"
+                                            class="col-xs-6"
+                                        />
+                                    </div>
+                                    <div class="row">
+                                        <DateField
+                                            v-model="settings.partnerReviewLastStartRun"
+                                            label="Last Successful Partner Review Start Process"
+                                            format="MM/DD/YYYY h:mm:ss a"
+                                            class="col-xs-6"
+                                        />
+                                        <DateField
+                                            v-model="settings.partnerReviewLastEndRun"
+                                            label="Last Successful Partner Review End Process"
+                                            format="MM/DD/YYYY h:mm:ss a"
+                                            class="col-xs-6"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="panel box box-success">
+                                <div class="box-header with-border">
+                                    <h4 class="box-title">
+                                        Client Annual Review
+                                    </h4>
+                                </div>
+                                <div class="box-body">
+                                    <div class="row">
+                                        <DateField
+                                            v-model="settings.clientReviewStart"
+                                            label="Client Review Period Start Day"
+                                            format="MM/DD"
+                                            class="col-xs-6"
+                                        />
+                                        <DateField
+                                            v-model="settings.clientReviewEnd"
+                                            label="Client Review Period End Day"
+                                            format="MM/DD"
+                                            class="col-xs-6"
+                                        />
+                                    </div>
+                                    <div class="row">
+                                        <DateField
+                                            v-model="settings.clientrReviewLastStartRun"
+                                            label="Last Successful Client Review Start Process"
+                                            format="MM/DD/YYYY h:mm:ss a"
+                                            class="col-xs-6"
+                                        />
+                                        <DateField
+                                            v-model="settings.clientReviewLastEndRun"
+                                            label="Last Successful Client Review End Process"
+                                            format="MM/DD/YYYY h:mm:ss a"
+                                            class="col-xs-6"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
                 </div>
+
                 <div class="col-md-6">
                     <div class="box box-info">
                         <div class="box-header with-border">
@@ -51,9 +142,8 @@
                         <!-- /.box-body -->
                     </div>
                 </div>
-
-            </form>
-        </div>
+            </div>
+        </form>
     </section>
 </template>
 
@@ -61,15 +151,24 @@
     import { mapGetters } from 'vuex'
     import OptionListStatic from "../../components/OptionListStatic";
     import StateField from "../../components/StateField";
+    import DateField from "../../components/DateField";
 
     export default {
         name: "ConfigurationEdit",
-        components: {StateField, OptionListStatic},
+        components: {DateField, StateField, OptionListStatic},
         data() {
             return {
                 settings: {
                     pullupCategory: "",
                     zipCountyStates: [],
+                    partnerReviewStart: null,
+                    partnerReviewEnd: null,
+                    partnerReviewLastStartRun: null,
+                    partnerReviewLastEndRun: null,
+                    clientReviewStart: null,
+                    clientReviewEnd: null,
+                    clientReviewLastStartRun: null,
+                    clientReviewLastEndRun: null,
                 }
             }
         },
