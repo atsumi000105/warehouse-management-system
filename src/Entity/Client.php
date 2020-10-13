@@ -82,14 +82,14 @@ class Client extends CoreEntity
     protected $birthdate;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(type="string", nullable=true)
      */
     protected $parentFirstName;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(type="string", nullable=true)
      */

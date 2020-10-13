@@ -67,10 +67,9 @@ class ClientRepository extends EntityRepository
     }
 
     /**
-     * @param ParameterBag $params
      * @return array|ArrayCollection
      */
-    public function findLimitedSearch(ParameterBag $params, $sortField = null, $sortDirection = 'ASC')
+    public function findLimitedSearch(ParameterBag $params, string $sortField = null, string $sortDirection = 'ASC')
     {
         $qb = $this->createQueryBuilder('c');
         $this->joinRelatedTables($qb);

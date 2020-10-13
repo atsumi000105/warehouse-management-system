@@ -76,7 +76,7 @@ class ClientFixtures extends BaseFixture implements DependentFixtureInterface
     }
 
     /**
-     * @return Client[]
+     * @return array
      */
     private function getData(): array
     {
@@ -99,7 +99,7 @@ class ClientFixtures extends BaseFixture implements DependentFixtureInterface
             $clients[] = [
                 'name' => new Name($faker->firstName,$lastName),
                 'parentFirstName' => $faker->firstName,
-                'parentLastName' => $faker->optional(.2, $lastName)->lastName,
+                'parentLastName' => $faker->optional(.3, $lastName)->lastName,
                 'status' => $status,
                 'partner' => $partner,
             ];
