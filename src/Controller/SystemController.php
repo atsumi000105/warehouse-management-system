@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Configuration\AppConfiguration;
 use App\Entity\EAV\Definition;
 use App\Entity\Setting;
 use App\Transformers\UserTransformer;
@@ -60,19 +61,12 @@ class SystemController extends BaseController
      *
      * @return JsonResponse
      */
-    public function updateSettings(Request $request)
+    public function updateSettings(Request $request, AppConfiguration $appConfig)
     {
         $params = $this->getParams($request);
-        $repo = $this->getRepository(Setting::class);
 
         foreach ($params as $key => $param) {
-            $setting = $repo->find($key);
-            if (!$setting) {
-                $setting = new Setting();
-                $setting->setConfig($key);
-                $this->getEm()->persist($setting);
-            }
-            $setting->setValue($param);
+            $appConfig->set($key, $param);
         }
 
         $this->getEm()->flush();

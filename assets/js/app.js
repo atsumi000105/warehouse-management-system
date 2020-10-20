@@ -59,11 +59,9 @@ Vue.directive('datepicker', {
     inserted: function(el, binding, vnode) {
         binding.value = binding.value || {};
         let format = binding.value.format || 'YYYY-MM-DD';
-        let value = moment($(el).val(), format);
+        let tz = binding.value.tz || null;
+        let value = moment.tz($(el).val(), format, tz);
 
-        if (binding.value.tz || false) {
-            value.tz(binding.value.tz);
-        }
         jQuery(el).datetimepicker({
             format: format
         }).on('dp.change', function (e) {
@@ -74,10 +72,8 @@ Vue.directive('datepicker', {
     componentUpdated: function(el, binding) {
         binding.value = binding.value || {};
         let format = binding.value.format || 'YYYY-MM-DD';
-        let value = moment(el.value, format);
-        if (binding.value.tz || false) {
-            value.tz(binding.value.tz);
-        }
+        let tz = binding.value.tz || null;
+        let value = moment.tz(el.value, format, tz);
         jQuery(el).data("DateTimePicker").date(value);
     }
 });

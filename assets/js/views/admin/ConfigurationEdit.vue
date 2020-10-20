@@ -106,7 +106,7 @@
                                     </div>
                                     <div class="row">
                                         <DateField
-                                            v-model="settings.clientrReviewLastStartRun"
+                                            v-model="settings.clientReviewLastStartRun"
                                             label="Last Successful Client Review Start Process"
                                             format="MM/DD/YYYY h:mm:ss a"
                                             class="col-xs-6"

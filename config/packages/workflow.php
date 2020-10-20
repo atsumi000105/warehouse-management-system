@@ -62,6 +62,16 @@ $container->loadFromExtension('framework', [
                     ],
                     'to' => Partner::STATUS_ACTIVE,
                 ],
+                Partner::TRANSITION_REVIEWED => [
+                    'metadata' => [
+                        'title' => 'Reviewed'
+                    ],
+                    'from' => [
+                        Partner::STATUS_NEEDS_PROFILE_REVIEW,
+                        Partner::STATUS_REVIEW_PAST_DUE,
+                    ],
+                    'to' => Partner::STATUS_ACTIVE,
+                ],
                 Partner::TRANSITION_FLAG_FOR_REVIEW => [
                     'metadata' => [
                         'title' => 'Flag for Review'

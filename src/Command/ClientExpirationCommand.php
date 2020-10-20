@@ -78,7 +78,7 @@ class ClientExpirationCommand extends Command
 
         $rows = array_merge($ageRows, $distRows);
 
-        $io->table($headers, array_merge($ageRows, $rows));
+        $io->table($headers, $rows);
 
         if ($force) {
             foreach ($agedOutClients as $client) {

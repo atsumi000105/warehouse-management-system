@@ -50,6 +50,7 @@ class Partner extends StorageLocation
     public const TRANSITION_SUBMIT = 'SUBMIT';
     public const TRANSITION_SUBMIT_PRIORITY = 'SUBMIT_PRIORITY';
     public const TRANSITION_ACTIVATE = 'ACTIVATE';
+    public const TRANSITION_REVIEWED = 'REVIEWED';
     public const TRANSITION_FLAG_FOR_REVIEW = 'FLAG_FOR_REVIEW';
     public const TRANSITION_FLAG_FOR_REVIEW_PAST_DUE = 'FLAG_FOR_REVIEW_PAST_DUE';
     public const TRANSITION_DEACTIVATE = 'DEACTIVATE';
@@ -243,5 +244,15 @@ class Partner extends StorageLocation
                 )
             );
         }
+    }
+
+    public function isReviewing(): bool
+    {
+        return in_array($this->status, [self::STATUS_NEEDS_PROFILE_REVIEW, self::STATUS_REVIEW_PAST_DUE]);
+    }
+
+    public function canPlaceOrders(): bool
+    {
+        return in_array($this->status, [self::STATUS_ACTIVE, self::STATUS_NEEDS_PROFILE_REVIEW]);
     }
 }

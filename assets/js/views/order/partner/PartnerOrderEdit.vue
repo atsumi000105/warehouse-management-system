@@ -128,6 +128,9 @@
             :action="this.save"
             :order-title="order.sequence"
         />
+        <Modal classes="modal-danger" title="Partner not active" id="inactive-partner-modal" :has-action="false">
+            This partner is not in an active status and cannot place an order at this time.
+        </Modal>
     </section>
 </template>
 
@@ -143,8 +146,10 @@
     import WarehouseSelectionForm from '../../../components/WarehouseSelectionForm.vue'
     import LineItemForm from '../../../components/LineItemForm.vue';
     import PartnerSelectionForm from '../../../components/PartnerSelectionForm.vue';
+    import Modal from "../../../components/Modal";
     export default {
         components: {
+            Modal,
             'modalcomplete' : ModalOrderConfirmComplete,
             'modaldelete' : ModalOrderConfirmDelete,
             'modalinvalid' : ModalOrderInvalid,
@@ -263,6 +268,9 @@
             },
             onPartnerChange: function(currentPartner) {
                 this.partnerType = currentPartner.partnerType;
+                if(!currentPartner.canPlaceOrders && this.new) {
+                    $('#inactive-partner-modal').modal('show');
+                }
             }
         }
     }

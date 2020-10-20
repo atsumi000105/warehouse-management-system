@@ -24,7 +24,7 @@ class Setting
     /**
      * @var string
      *
-     * @ORM\Column(type="json")
+     * @ORM\Column(type="json", nullable=True)
      * @Gedmo\Versioned
      */
     protected $value;

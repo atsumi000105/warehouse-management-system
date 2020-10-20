@@ -7,6 +7,7 @@ use App\Entity\Orders\PartnerOrderLineItem;
 use App\Entity\Partner;
 use App\Entity\User;
 use App\Entity\Warehouse;
+use App\Exception\UserInterfaceException;
 use App\Transformers\BagTransformer;
 use App\Transformers\PartnerOrderTransformer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -41,6 +42,7 @@ class PartnerOrderController extends OrderController
      *
      * @param Request $request
      * @return JsonResponse
+     * @throws UserInterfaceException
      */
     public function store(Request $request)
     {
@@ -55,6 +57,11 @@ class PartnerOrderController extends OrderController
 
         if ($params['partner']['id']) {
             $newPartner = $this->getEm()->find(Partner::class, $params['partner']['id']);
+
+            if(!$newPartner->canPlaceOrders()) {
+                throw new UserInterfaceException(sprintf('%s is not in an allowed status to place new orders.', $newPartner->getTitle()));
+            }
+
             $order->setPartner($newPartner);
         }
 

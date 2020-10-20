@@ -5,7 +5,7 @@
                 v-if="editable"
                 ref="partnerSelect"
                 v-model="value"
-                :preloaded-options="allActivePartners"
+                :preloaded-options="allPartners"
                 display-property="title"
                 empty-string="-- Select Partner --"
                 :label="label"
@@ -43,7 +43,7 @@
             label: { type: String, default: "Partner" },
         },
         computed: mapGetters([
-            'allActivePartners'
+            'allPartners'
         ]),
         mounted: function () {
             this.$store.dispatch('loadStorageLocations');
