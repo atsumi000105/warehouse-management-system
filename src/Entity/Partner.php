@@ -103,6 +103,7 @@ class Partner extends StorageLocation
      *     inversedBy="partner",
      *     cascade={"persist", "remove"}
      * )
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     protected $profile;
 

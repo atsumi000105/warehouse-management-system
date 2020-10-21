@@ -32,7 +32,7 @@
                     v-if="editable"
                     v-model="order.orderPeriod"
                     label="Order Period:"
-                    format="YYYY-MM-DD"
+                    format="YYYY-MM"
                     timezone="Etc/UTC"
                 />
 

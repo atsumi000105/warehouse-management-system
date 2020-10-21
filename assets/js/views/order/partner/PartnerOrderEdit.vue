@@ -62,6 +62,7 @@
                                 <partnerselectionform
                                     ref="partnerSelection"
                                     v-model="order.partner"
+                                    :label="false"
                                     :editable="order.isEditable"
                                     @change="$v.order.partner.$touch()"
                                     @loaded="$v.order.partner.$reset()"
