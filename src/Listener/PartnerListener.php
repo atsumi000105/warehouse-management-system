@@ -18,7 +18,7 @@ class PartnerListener implements EventSubscriber
         $this->workflowRegistry = $workflowRegistry;
     }
 
-    public function preUpdate(PreUpdateEventArgs $event)
+    public function preUpdate(PreUpdateEventArgs $event): void
     {
         $partner = $event->getEntity();
         if (!$partner instanceof Partner) {

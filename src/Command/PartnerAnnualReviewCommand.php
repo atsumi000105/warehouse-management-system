@@ -59,7 +59,7 @@ class PartnerAnnualReviewCommand extends Command
         parent::__construct();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setDescription('Run the partner annual review job.')
@@ -85,9 +85,9 @@ class PartnerAnnualReviewCommand extends Command
         $now = new Moment('now');
 
         $start = new Moment($this->appConfig->get('partnerReviewStart'));
-        $start->setYear($now->getYear());
+        $start->setYear((int) $now->getYear());
         $end = new Moment($this->appConfig->get('partnerReviewEnd'));
-        $end->setYear($now->getYear());
+        $end->setYear((int) $now->getYear());
 
         $lastStart = new Moment($this->appConfig->get('partnerReviewLastStartRun'));
         $lastEnd = new Moment($this->appConfig->get('partnerReviewLastEndRun'));
@@ -95,7 +95,7 @@ class PartnerAnnualReviewCommand extends Command
         // We are not in a review period and we've finished the previous period
         if(!$now->isBetween($start, $end) && $lastEnd->isAfter($end)) {
             $io->success('No Partner Review action needed at this time.');
-            return;
+            return 0;
         }
 
         $io->text(sprintf('Partner Review Period: %s - %s', $start->format(), $end->format()));

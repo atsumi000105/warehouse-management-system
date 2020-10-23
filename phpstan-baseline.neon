@@ -2611,16 +2611,6 @@ parameters:
 			path: src/Entity/Sequence.php
 
 		-
-			message: "#^Property App\\\\Entity\\\\Setting\\:\\:\\$value type mapping mismatch\\: database can contain array but property expects string\\.$#"
-			count: 1
-			path: src/Entity/Setting.php
-
-		-
-			message: "#^Property App\\\\Entity\\\\Setting\\:\\:\\$value type mapping mismatch\\: property can contain string but database expects array\\.$#"
-			count: 1
-			path: src/Entity/Setting.php
-
-		-
 			message: "#^Property App\\\\Entity\\\\StorageLocation\\:\\:\\$address type mapping mismatch\\: database can contain App\\\\Entity\\\\StorageLocationAddress\\|null but property expects App\\\\Entity\\\\StorageLocationAddress\\.$#"
 			count: 1
 			path: src/Entity/StorageLocation.php

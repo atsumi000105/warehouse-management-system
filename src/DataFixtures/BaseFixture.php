@@ -21,6 +21,7 @@ abstract class BaseFixture extends Fixture
     /** @var Generator */
     protected $faker;
 
+    /** @var TokenStorageInterface  */
     protected $tokenStorage;
 
     public function __construct(TokenStorageInterface $storage)
