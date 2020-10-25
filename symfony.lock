@@ -265,6 +265,9 @@
     "symfony/dependency-injection": {
         "version": "v4.3.2"
     },
+    "symfony/deprecation-contracts": {
+        "version": "v2.2.0"
+    },
     "symfony/doctrine-bridge": {
         "version": "v4.3.2"
     },
@@ -319,6 +322,9 @@
             "src/Controller/.gitignore",
             "src/Kernel.php"
         ]
+    },
+    "symfony/http-client-contracts": {
+        "version": "v2.3.1"
     },
     "symfony/http-foundation": {
         "version": "v4.3.2"
@@ -376,6 +382,9 @@
             "phpunit.xml.dist",
             "tests/.gitignore"
         ]
+    },
+    "symfony/polyfill-intl-grapheme": {
+        "version": "v1.19.0"
     },
     "symfony/polyfill-intl-idn": {
         "version": "v1.11.0"
@@ -457,6 +466,9 @@
     },
     "symfony/stopwatch": {
         "version": "v4.3.2"
+    },
+    "symfony/string": {
+        "version": "v5.1.7"
     },
     "symfony/swiftmailer-bundle": {
         "version": "2.5",
