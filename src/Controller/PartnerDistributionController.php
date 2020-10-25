@@ -165,7 +165,7 @@ class PartnerDistributionController extends OrderController
 
         return $params;
     }
-    
+
     protected function getDefaultTransformer()
     {
         return new BulkDistributionTransformer();

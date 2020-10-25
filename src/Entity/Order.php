@@ -161,7 +161,7 @@ abstract class Order extends CoreEntity
     public function completeOrder()
     {
     }
-    
+
     /**
      * @return string
      */
