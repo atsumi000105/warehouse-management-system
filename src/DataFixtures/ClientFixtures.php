@@ -97,7 +97,7 @@ class ClientFixtures extends BaseFixture implements DependentFixtureInterface
             $lastName = $faker->lastName;
 
             $clients[] = [
-                'name' => new Name($faker->firstName,$lastName),
+                'name' => new Name($faker->firstName, $lastName),
                 'parentFirstName' => $faker->firstName,
                 'parentLastName' => $faker->optional(.3, $lastName)->lastName,
                 'status' => $status,
