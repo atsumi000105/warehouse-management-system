@@ -19,6 +19,9 @@ class ClientTransformer extends TransformerAbstract
             'firstName' => $client->getName()->getFirstname(),
             'lastName' => $client->getName()->getLastname(),
             'fullName' => $client->getName()->getFirstName() . ' ' . $client->getName()->getLastName(),
+            'parentFirstName' => $client->getParentFirstName(),
+            'parentLastName' => $client->getParentLastName(),
+            'parentFullName' => $client->getParentFirstName() . ' ' . $client->getParentLastName(),
             'selectListText' => sprintf(
                 '%s %s (%s)',
                 $client->getName()->getFirstname(),

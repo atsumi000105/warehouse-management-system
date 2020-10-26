@@ -121,6 +121,11 @@
                 if (!d.isValid(date)) return null;
                 return d.format('MM/DD/YYYY h:mm a');
             },
+            dateFormat: function (date) {
+                let d = moment(date).tz('Etc/UTC');
+                if (!d.isValid(date)) return null;
+                return d.format('MM/DD/YYYY');
+            },
             periodFormat: function (date) {
                 let d = moment(date).tz('Etc/UTC');
                 if (!d.isValid(date)) return null;

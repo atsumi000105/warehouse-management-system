@@ -52,6 +52,8 @@ class ClientFixtures extends BaseFixture implements DependentFixtureInterface
             $client = new Client($this->workflowRegistry);
             $client->setName($clientArr['name']);
             $client->setStatus($clientArr['status']);
+            $client->setParentFirstName($clientArr['parentFirstName']);
+            $client->setParentLastName($clientArr['parentLastName']);
             $client->setPartner($clientArr['partner']);
             $client->setPublicId($this->gen->generate());
             $client->setBirthdate($this->faker->dateTimeBetween('-5 years', 'now'));
@@ -74,7 +76,7 @@ class ClientFixtures extends BaseFixture implements DependentFixtureInterface
     }
 
     /**
-     * @return Client[]
+     * @return array
      */
     private function getData(): array
     {
@@ -92,8 +94,12 @@ class ClientFixtures extends BaseFixture implements DependentFixtureInterface
                 $partner = $this->getActivePartner();
             }
 
+            $lastName = $faker->lastName;
+
             $clients[] = [
-                'name' => new Name($faker->firstName, $faker->lastName),
+                'name' => new Name($faker->firstName, $lastName),
+                'parentFirstName' => $faker->firstName,
+                'parentLastName' => $faker->optional(.3, $lastName)->lastName,
                 'status' => $status,
                 'partner' => $partner,
             ];
