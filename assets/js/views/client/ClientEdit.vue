@@ -107,6 +107,23 @@
                                                     placeholder="Enter last name"
                                                 >
                                             </div>
+                                            <div class="form-group">
+                                                <label>Parent/Guardian First Name</label>
+                                                <input
+                                                    v-model="client.parentFirstName"
+                                                    type="text"
+                                                    class="form-control"
+                                                    placeholder="Enter parent or guardian first name"
+                                                >
+
+                                                <label>Parent/GuardianLast Name</label>
+                                                <input
+                                                    v-model="client.parentLastName"
+                                                    type="text"
+                                                    class="form-control"
+                                                    placeholder="Enter parent or guarding last name"
+                                                >
+                                            </div>
                                             <DateField
                                                 v-model="client.birthdate"
                                                 label="Birthdate"

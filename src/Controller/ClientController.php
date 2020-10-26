@@ -83,9 +83,17 @@ class ClientController extends BaseController
      */
     public function search(Request $request): JsonResponse
     {
+        $sort = $request->get('sort') ? explode('|', $request->get('sort')) : null;
+
         $params = $this->buildFilterParams($request, true);
 
-        $clients = $this->getEm()->getRepository(Client::class)->findLimitedSearch($params);
+        $clients = $this->getEm()
+            ->getRepository(Client::class)
+            ->findLimitedSearch(
+                $params,
+                $sort ? $sort[0] : null,
+                $sort ? $sort[1] : null
+            );
 
         return $this->serialize($request, $clients);
     }
@@ -268,6 +276,10 @@ class ClientController extends BaseController
         if ($request->get('partner')) {
             $partner = $this->getEm()->getRepository(Partner::class)->find($request->get('partner'));
             $params->set('partner', $partner);
+        }
+
+        if ($request->get('birthdate')) {
+            $params->set('birthdate', new \DateTime($request->get('birthdate')));
         }
 
         /** @var User $user */

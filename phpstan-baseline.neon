@@ -926,26 +926,6 @@ parameters:
 			path: src/DataFixtures/ClientFixtures.php
 
 		-
-			message: "#^Cannot access offset 'name' on App\\\\Entity\\\\Client\\.$#"
-			count: 1
-			path: src/DataFixtures/ClientFixtures.php
-
-		-
-			message: "#^Cannot access offset 'status' on App\\\\Entity\\\\Client\\.$#"
-			count: 1
-			path: src/DataFixtures/ClientFixtures.php
-
-		-
-			message: "#^Cannot access offset 'partner' on App\\\\Entity\\\\Client\\.$#"
-			count: 1
-			path: src/DataFixtures/ClientFixtures.php
-
-		-
-			message: "#^Method App\\\\DataFixtures\\\\ClientFixtures\\:\\:getData\\(\\) should return array\\<App\\\\Entity\\\\Client\\> but returns array\\<int, array\\<string, App\\\\Entity\\\\Partner\\|App\\\\Entity\\\\ValueObjects\\\\Name\\|string\\>\\>\\.$#"
-			count: 1
-			path: src/DataFixtures/ClientFixtures.php
-
-		-
 			message: "#^Method App\\\\DataFixtures\\\\ClientFixtures\\:\\:randomArrayValue\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/DataFixtures/ClientFixtures.php

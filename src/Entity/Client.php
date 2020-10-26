@@ -82,6 +82,20 @@ class Client extends CoreEntity
     protected $birthdate;
 
     /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $parentFirstName;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $parentLastName;
+
+    /**
      * @var Partner
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\Partner", inversedBy="clients")
@@ -224,6 +238,38 @@ class Client extends CoreEntity
     public function setBirthdate(\DateTime $birthdate): void
     {
         $this->birthdate = $birthdate;
+    }
+
+    /**
+     * @return string
+     */
+    public function getParentFirstName(): ?string
+    {
+        return $this->parentFirstName;
+    }
+
+    /**
+     * @param string $parentFirstName
+     */
+    public function setParentFirstName(?string $parentFirstName): void
+    {
+        $this->parentFirstName = $parentFirstName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getParentLastName(): ?string
+    {
+        return $this->parentLastName;
+    }
+
+    /**
+     * @param string $parentLastName
+     */
+    public function setParentLastName(?string $parentLastName): void
+    {
+        $this->parentLastName = $parentLastName;
     }
 
     /**
