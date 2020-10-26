@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Configuration\AppConfiguration;
 use App\Entity\Address;
 use App\Entity\Contact;
 use App\Entity\Group;
@@ -24,9 +25,13 @@ abstract class BaseFixture extends Fixture
     /** @var TokenStorageInterface  */
     protected $tokenStorage;
 
-    public function __construct(TokenStorageInterface $storage)
+    /** @var AppConfiguration */
+    protected $config;
+
+    public function __construct(TokenStorageInterface $storage, AppConfiguration $config)
     {
         $this->tokenStorage = $storage;
+        $this->config = $config;
 
         $token = new UsernamePasswordToken(
             'fixtures',
