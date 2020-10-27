@@ -65,7 +65,7 @@ class PartnerSubscriber implements EventSubscriberInterface
 
     public function onTransitionReviewed(GuardEvent $event): void
     {
-        if(!$this->checker->isGranted(Partner::ROLE_MANAGE_OWN)) {
+        if (!$this->checker->isGranted(Partner::ROLE_MANAGE_OWN)) {
             $event->setBlocked(true);
         }
     }

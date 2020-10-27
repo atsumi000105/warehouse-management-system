@@ -47,10 +47,12 @@ class AppConfiguration
         $this->em = $em;
     }
 
-    public function hasSettingId(string $settingId) : bool
+    public function hasSettingId(string $settingId): bool
     {
         // Early return if we know the key exists, but if it doesn't we may still need to check the database
-        if (array_key_exists($settingId, $this->cache)) return true;
+        if (array_key_exists($settingId, $this->cache)) {
+            return true;
+        }
 
         $entry = $this->getRepository()->find($settingId);
         if ($entry) {
@@ -77,7 +79,9 @@ class AppConfiguration
 
         $entry->setValue($value);
 
-        if ($this->autoFlush) $this->em->flush();
+        if ($this->autoFlush) {
+            $this->em->flush();
+        }
     }
 
     /**
@@ -88,7 +92,9 @@ class AppConfiguration
      */
     public function create(string $settingId, $value): void
     {
-        if ($this->hasSettingId($settingId)) throw new \InvalidArgumentException(sprintf('setting "%s" already exists', $settingId));
+        if ($this->hasSettingId($settingId)) {
+            throw new \InvalidArgumentException(sprintf('setting "%s" already exists', $settingId));
+        }
 
         $entry = new Setting();
         $entry->setConfig($settingId);
@@ -98,7 +104,9 @@ class AppConfiguration
 
         if ($this->em instanceof EntityManagerInterface) {
             $this->em->persist($entry);
-            if ($this->autoFlush) $this->em->flush();
+            if ($this->autoFlush) {
+                $this->em->flush();
+            }
         }
     }
 
@@ -116,7 +124,9 @@ class AppConfiguration
         }
 
         $entry = $this->getRepository()->find($settingId);
-        if (!$entry) return null;
+        if (!$entry) {
+            return null;
+        }
         $this->cache[$settingId] = $entry->getValue();
 
         return $this->cache[$settingId] ?? null;

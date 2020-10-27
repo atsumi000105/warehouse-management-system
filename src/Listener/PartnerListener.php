@@ -25,7 +25,7 @@ class PartnerListener implements EventSubscriber
             return;
         }
 
-        if($partner->isReviewing() && !$event->hasChangedField('status')) {
+        if ($partner->isReviewing() && !$event->hasChangedField('status')) {
             $this->workflowRegistry
                 ->get($partner)
                 ->apply($partner, Partner::TRANSITION_REVIEWED);

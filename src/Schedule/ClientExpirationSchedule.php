@@ -17,7 +17,7 @@ class ClientExpirationSchedule implements ScheduleBuilder
         $schedule->addCommand('app:client-expiration --force')
             ->description('Run client expiration job.')
             ->daily()
-            ->at(6)
+            ->at("06:00")
         ;
     }
 }

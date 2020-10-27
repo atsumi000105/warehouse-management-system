@@ -52,7 +52,8 @@ class PartnerAnnualReviewCommand extends Command
             'system',
             null,
             'main',
-            Group::AVAILABLE_ROLES);
+            Group::AVAILABLE_ROLES
+        );
 
         $this->tokenStorage->setToken($token);
 
@@ -93,7 +94,7 @@ class PartnerAnnualReviewCommand extends Command
         $lastEnd = new Moment($this->appConfig->get('partnerReviewLastEndRun'));
 
         // We are not in a review period and we've finished the previous period
-        if(!$now->isBetween($start, $end) && $lastEnd->isAfter($end)) {
+        if (!$now->isBetween($start, $end) && $lastEnd->isAfter($end)) {
             $io->success('No Partner Review action needed at this time.');
             return 0;
         }
@@ -117,13 +118,13 @@ class PartnerAnnualReviewCommand extends Command
                     ->get($partner)
                     ->apply($partner, Partner::TRANSITION_FLAG_FOR_REVIEW);
 
-                if($force) {
+                if ($force) {
                     $this->appConfig->set('partnerReviewLastStartRun', $now->format());
                 }
             }
         }
         // We are passed the end of the review period, but have not completed it
-        else if ($now->isAfter($end) && $lastEnd->isBefore($end)) {
+        elseif ($now->isAfter($end) && $lastEnd->isBefore($end)) {
             $activePartners = $this->em->getRepository(Partner::class)->findBy(['status' => Partner::STATUS_NEEDS_PROFILE_REVIEW]);
 
             foreach ($activePartners as $partner) {
@@ -137,7 +138,7 @@ class PartnerAnnualReviewCommand extends Command
                     ->get($partner)
                     ->apply($partner, Partner::TRANSITION_FLAG_FOR_REVIEW_PAST_DUE);
 
-                if($force) {
+                if ($force) {
                     $this->appConfig->set('partnerReviewLastEndRun', $now->format());
                 }
             }
@@ -151,7 +152,7 @@ class PartnerAnnualReviewCommand extends Command
 
         $io->table($headers, $rows);
 
-        if($force) {
+        if ($force) {
             $this->em->flush();
         } else {
             $io->warning(sprintf(
@@ -162,5 +163,4 @@ class PartnerAnnualReviewCommand extends Command
 
         return 0;
     }
-
 }

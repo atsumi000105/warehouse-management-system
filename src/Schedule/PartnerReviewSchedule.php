@@ -17,7 +17,7 @@ class PartnerReviewSchedule implements ScheduleBuilder
         $schedule->addCommand('app:partner-review:run --force')
             ->description('Run partner review job.')
             ->daily()
-            ->at(6)
+            ->at("06:00")
         ;
     }
 }

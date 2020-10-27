@@ -49,8 +49,7 @@ class PartnerFixtures extends BaseFixture
             $partner->setPartnerType(Partner::TYPE_AGENCY);
             $partner->setStatus($this->faker
                 ->optional(.5, Partner::STATUS_ACTIVE)
-                ->randomElement($statuses)
-            );
+                ->randomElement($statuses));
             $partner->setDistributionMethod($this->randValue($distributionMethods));
             $partner->setFulfillmentPeriod($this->randValue($periods));
             $partner->addContact($this->createContact(StorageLocationContact::class));
@@ -65,8 +64,7 @@ class PartnerFixtures extends BaseFixture
             $hospital->setPartnerType(Partner::TYPE_HOSPITAL);
             $hospital->setStatus($this->faker
                 ->optional(.5, Partner::STATUS_ACTIVE)
-                ->randomElement($statuses)
-            );
+                ->randomElement($statuses));
             $hospital->setDistributionMethod($this->randValue($distributionMethods));
             $hospital->setFulfillmentPeriod($this->randValue($periods));
             $hospital->addContact($this->createContact(StorageLocationContact::class));

@@ -3516,11 +3516,6 @@ parameters:
 			path: src/Repository/ZipCountyRepository.php
 
 		-
-			message: "#^Parameter \\#1 \\$time of method Zenstruck\\\\ScheduleBundle\\\\Schedule\\\\Task\\:\\:at\\(\\) expects string, int given\\.$#"
-			count: 1
-			path: src/Schedule/ClientExpirationSchedule.php
-
-		-
 			message: "#^Method App\\\\Security\\\\AdjustmentOrderVoter\\:\\:canView\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Security/AdjustmentOrderVoter.php

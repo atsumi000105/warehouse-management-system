@@ -37,7 +37,8 @@ abstract class BaseFixture extends Fixture
             'fixtures',
             null,
             'main',
-            Group::AVAILABLE_ROLES);
+            Group::AVAILABLE_ROLES
+        );
 
         $this->tokenStorage->setToken($token);
     }
