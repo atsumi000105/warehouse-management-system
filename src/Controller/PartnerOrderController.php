@@ -59,7 +59,9 @@ class PartnerOrderController extends OrderController
             $newPartner = $this->getEm()->find(Partner::class, $params['partner']['id']);
 
             if (!$newPartner->canPlaceOrders()) {
-                throw new UserInterfaceException(sprintf('%s is not in an allowed status to place new orders.', $newPartner->getTitle()));
+                throw new UserInterfaceException(
+                    sprintf('%s is not in an allowed status to place new orders.', $newPartner->getTitle())
+                );
             }
 
             $order->setPartner($newPartner);

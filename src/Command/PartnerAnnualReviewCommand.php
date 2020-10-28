@@ -38,8 +38,12 @@ class PartnerAnnualReviewCommand extends Command
 
     private $tokenStorage;
 
-    public function __construct(EntityManagerInterface $em, Registry $workflowRegistry, AppConfiguration $appConfiguration, TokenStorageInterface $storage)
-    {
+    public function __construct(
+        EntityManagerInterface $em,
+        Registry $workflowRegistry,
+        AppConfiguration $appConfiguration,
+        TokenStorageInterface $storage
+    ) {
         $this->em = $em;
         $this->workflowRegistry = $workflowRegistry;
         $this->appConfig = $appConfiguration;
@@ -122,10 +126,11 @@ class PartnerAnnualReviewCommand extends Command
                     $this->appConfig->set('partnerReviewLastStartRun', $now->format());
                 }
             }
-        }
-        // We are passed the end of the review period, but have not completed it
-        elseif ($now->isAfter($end) && $lastEnd->isBefore($end)) {
-            $activePartners = $this->em->getRepository(Partner::class)->findBy(['status' => Partner::STATUS_NEEDS_PROFILE_REVIEW]);
+        } elseif ($now->isAfter($end) && $lastEnd->isBefore($end)) {
+            // We are passed the end of the review period, but have not completed it
+            $activePartners = $this->em
+                ->getRepository(Partner::class)
+                ->findBy(['status' => Partner::STATUS_NEEDS_PROFILE_REVIEW]);
 
             foreach ($activePartners as $partner) {
                 $rows[] = [
