@@ -28,5 +28,10 @@ class SettingFixtures extends BaseFixture implements DependentFixtureInterface
         $this->config->create('partnerReviewEnd', $now->cloning()->addMonths(2)->format());
         $this->config->create('partnerReviewLastStartRun', $now->cloning()->subtractMonths(2)->format());
         $this->config->create('partnerReviewLastEndRun', $now->cloning()->subtractMonths(1)->format());
+
+        $this->config->create('clientReviewStart', $now->cloning()->addMonths(1)->format());
+        $this->config->create('clientReviewEnd', $now->cloning()->addMonths(2)->format());
+        $this->config->create('clientReviewLastStartRun', $now->cloning()->subtractMonths(2)->format());
+        $this->config->create('clientReviewLastEndRun', $now->cloning()->subtractMonths(1)->format());
     }
 }

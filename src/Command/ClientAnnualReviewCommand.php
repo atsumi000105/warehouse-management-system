@@ -4,7 +4,7 @@ namespace App\Command;
 
 use App\Configuration\AppConfiguration;
 use App\Entity\Group;
-use App\Entity\Partner;
+use App\Entity\Client;
 use Doctrine\ORM\EntityManagerInterface;
 use Moment\Moment;
 use Symfony\Component\Console\Command\Command;
@@ -16,9 +16,9 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Workflow\Registry;
 
-class PartnerAnnualReviewCommand extends Command
+class ClientAnnualReviewCommand extends Command
 {
-    protected static $defaultName = 'app:partner-review:run';
+    protected static $defaultName = 'app:client-review:run';
 
     /**
      * @var EntityManagerInterface
@@ -64,12 +64,12 @@ class PartnerAnnualReviewCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setDescription('Run the partner annual review job.')
+            ->setDescription('Run the client annual review job.')
             ->addOption(
                 'force',
                 null,
                 InputOption::VALUE_NONE,
-                'Execute transitions on partners need to be moved if we are in the review window.'
+                'Execute transitions on clients need to be moved if we are in the review window.'
             )
         ;
     }
@@ -79,69 +79,70 @@ class PartnerAnnualReviewCommand extends Command
     {
         $force = $input->getOption('force') !== false;
         $io = new SymfonyStyle($input, $output);
-        $partnerRepo = $this->em->getRepository(Partner::class);
+        $clientRepo = $this->em->getRepository(Client::class);
 
-        $headers = ['Partner', 'Current Status', 'Planned Transition'];
+        $headers = ['Client', 'Current Status', 'Partner', 'Planned Transition'];
         $rows = [];
 
         $now = new Moment('now');
 
-        $start = new Moment($this->appConfig->get('partnerReviewStart'));
+        $start = new Moment($this->appConfig->get('clientReviewStart'));
         $start->setYear((int) $now->getYear());
-        $end = new Moment($this->appConfig->get('partnerReviewEnd'));
+        $end = new Moment($this->appConfig->get('clientReviewEnd'));
         $end->setYear((int) $now->getYear());
 
-        $lastStart = new Moment($this->appConfig->get('partnerReviewLastStartRun'));
-        $lastEnd = new Moment($this->appConfig->get('partnerReviewLastEndRun'));
+        $lastStart = new Moment($this->appConfig->get('clientReviewLastStartRun'));
+        $lastEnd = new Moment($this->appConfig->get('clientReviewLastEndRun'));
 
         // We are not in a review period and we've finished the previous period
         if (!$now->isBetween($start, $end) && $lastEnd->isAfter($end)) {
-            $io->success('No Partner Review action needed at this time.');
+            $io->success('No Client Review action needed at this time.');
             return 0;
         }
 
-        $io->text(sprintf('Partner Review Period: %s - %s', $start->format(), $end->format()));
+        $io->text(sprintf('Client Review Period: %s - %s', $start->format(), $end->format()));
         $io->text(sprintf('Last start date: %s', $lastStart->format()));
         $io->text(sprintf('Last end date: %s', $lastEnd->format()));
 
         // We have entered a new review period and have not started it.
         if ($now->isAfter($start) && $lastStart->isBefore($start)) {
-            $activePartners = $this->em->getRepository(Partner::class)->findBy(['status' => Partner::STATUS_ACTIVE]);
+            $activeClients = $this->em->getRepository(Client::class)->findBy(['status' => Client::STATUS_ACTIVE]);
 
-            foreach ($activePartners as $partner) {
+            foreach ($activeClients as $client) {
                 $rows[] = [
-                    $partner->getTitle(),
-                    $partner->getStatus(),
-                    Partner::TRANSITION_FLAG_FOR_REVIEW
+                    (string) $client,
+                    $client->getStatus(),
+                    $client->getPartner() ? $client->getPartner()->getTitle() : null,
+                    Client::TRANSITION_FLAG_FOR_REVIEW
                 ];
 
                 $this->workflowRegistry
-                    ->get($partner)
-                    ->apply($partner, Partner::TRANSITION_FLAG_FOR_REVIEW);
+                    ->get($client)
+                    ->apply($client, Client::TRANSITION_FLAG_FOR_REVIEW);
 
                 if ($force) {
-                    $this->appConfig->set('partnerReviewLastStartRun', $now->format());
+                    $this->appConfig->set('clientReviewLastStartRun', $now->format());
                 }
             }
         } elseif ($now->isAfter($end) && $lastEnd->isBefore($end)) {
             // We are passed the end of the review period, but have not completed it
-            $activePartners = $this->em
-                ->getRepository(Partner::class)
-                ->findBy(['status' => Partner::STATUS_NEEDS_PROFILE_REVIEW]);
+            $activeClients = $this->em
+                ->getRepository(Client::class)
+                ->findBy(['status' => Client::STATUS_NEEDS_REVIEW]);
 
-            foreach ($activePartners as $partner) {
+            foreach ($activeClients as $client) {
                 $rows[] = [
-                    $partner->getTitle(),
-                    $partner->getStatus(),
-                    Partner::TRANSITION_FLAG_FOR_REVIEW_PAST_DUE
+                    $client->getTitle(),
+                    $client->getStatus(),
+                    Client::TRANSITION_FLAG_FOR_REVIEW_PAST_DUE
                 ];
 
                 $this->workflowRegistry
-                    ->get($partner)
-                    ->apply($partner, Partner::TRANSITION_FLAG_FOR_REVIEW_PAST_DUE);
+                    ->get($client)
+                    ->apply($client, Client::TRANSITION_FLAG_FOR_REVIEW_PAST_DUE);
 
                 if ($force) {
-                    $this->appConfig->set('partnerReviewLastEndRun', $now->format());
+                    $this->appConfig->set('clientReviewLastEndRun', $now->format());
                 }
             }
         } else {
@@ -158,7 +159,7 @@ class PartnerAnnualReviewCommand extends Command
             $this->em->flush();
         } else {
             $io->warning(sprintf(
-                '%d partner(s) are queued for annual review transitions. Use --force to update partner statuses',
+                '%d client(s) are queued for annual review transitions. Use --force to update client statuses',
                 count($rows)
             ));
         }
