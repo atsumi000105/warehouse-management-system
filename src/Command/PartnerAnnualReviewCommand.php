@@ -50,8 +50,6 @@ class PartnerAnnualReviewCommand extends Command
 
         $this->tokenStorage = $storage;
 
-        $user = $this->em->getRepository(User::class)->find(906);
-
         $token = new UsernamePasswordToken(
             'system',
             null,
