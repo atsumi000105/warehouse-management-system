@@ -37,6 +37,18 @@ class ClientAnnualReviewCommand extends Command
 
     private $tokenStorage;
 
+    /** @var Moment */
+    private $reviewStartAt;
+
+    /** @var Moment */
+    private $reviewEndAt;
+
+    /** @var Moment */
+    private $lastStartAt;
+
+    /** @var Moment */
+    private $lastEndAt;
+
     public function __construct(
         EntityManagerInterface $em,
         Registry $workflowRegistry,
@@ -57,6 +69,16 @@ class ClientAnnualReviewCommand extends Command
         );
 
         $this->tokenStorage->setToken($token);
+
+        $now = new Moment('now');
+
+        $this->reviewStartAt = new Moment($this->appConfig->get('clientReviewStart'));
+        $this->reviewStartAt->setYear((int) $now->getYear());
+        $this->reviewEndAt = new Moment($this->appConfig->get('clientReviewEnd'));
+        $this->reviewEndAt->setYear((int) $now->getYear());
+
+        $this->lastStartAt = new Moment($this->appConfig->get('clientReviewLastStartRun'));
+        $this->lastEndAt = new Moment($this->appConfig->get('clientReviewLastEndRun'));
 
         parent::__construct();
     }
@@ -81,32 +103,33 @@ class ClientAnnualReviewCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $clientRepo = $this->em->getRepository(Client::class);
 
+        $now = new Moment('now');
+
         $headers = ['Client', 'Current Status', 'Partner', 'Planned Transition'];
         $rows = [];
 
-        $now = new Moment('now');
-
-        $start = new Moment($this->appConfig->get('clientReviewStart'));
-        $start->setYear((int) $now->getYear());
-        $end = new Moment($this->appConfig->get('clientReviewEnd'));
-        $end->setYear((int) $now->getYear());
-
-        $lastStart = new Moment($this->appConfig->get('clientReviewLastStartRun'));
-        $lastEnd = new Moment($this->appConfig->get('clientReviewLastEndRun'));
+        $io->text(sprintf('Client Review Period: %s - %s', $this->reviewStartAt->format(), $this->reviewEndAt->format()));
+        $io->text(sprintf('Last start date: %s', $this->lastStartAt->format()));
+        $io->text(sprintf('Last end date: %s', $this->lastEndAt->format()));
 
         // We are not in a review period and we've finished the previous period
-        if (!$now->isBetween($start, $end) && $lastEnd->isAfter($end)) {
+        if ($this->isBeforeYearReview() || $this->isAfterYearCompleteReview()) {
             $io->success('No Client Review action needed at this time.');
             return 0;
         }
 
-        $io->text(sprintf('Client Review Period: %s - %s', $start->format(), $end->format()));
-        $io->text(sprintf('Last start date: %s', $lastStart->format()));
-        $io->text(sprintf('Last end date: %s', $lastEnd->format()));
+        // We are in a review period, but it's started so we don't need to do anything
+        if ($this->isInReviewPeriod() && $this->isCurrentYearReviewStarted()) {
+            $io->success(sprintf(
+                'Currently in an started active review period. Next action will be taken after %s',
+                $this->reviewEndAt->format()
+            ));
+            return 0;
+        }
 
         // We have entered a new review period and have not started it.
-        if ($now->isAfter($start) && $lastStart->isBefore($start)) {
-            $activeClients = $this->em->getRepository(Client::class)->findBy(['status' => Client::STATUS_ACTIVE]);
+        if ($this->isInReviewPeriod() && !$this->isCurrentYearReviewStarted() ) {
+            $activeClients = $clientRepo->findBy(['status' => Client::STATUS_ACTIVE]);
 
             foreach ($activeClients as $client) {
                 $rows[] = [
@@ -124,16 +147,15 @@ class ClientAnnualReviewCommand extends Command
                     $this->appConfig->set('clientReviewLastStartRun', $now->format());
                 }
             }
-        } elseif ($now->isAfter($end) && $lastEnd->isBefore($end)) {
+        } elseif ($this->isAfterYearReviewEnd() && !$this->isCurrentYearReviewComplete()) {
             // We are passed the end of the review period, but have not completed it
-            $activeClients = $this->em
-                ->getRepository(Client::class)
-                ->findBy(['status' => Client::STATUS_NEEDS_REVIEW]);
+            $activeClients = $clientRepo->findBy(['status' => Client::STATUS_NEEDS_REVIEW]);
 
             foreach ($activeClients as $client) {
                 $rows[] = [
-                    $client->getTitle(),
+                    (string) $client,
                     $client->getStatus(),
+                    $client->getPartner() ? $client->getPartner()->getTitle() : null,
                     Client::TRANSITION_FLAG_FOR_REVIEW_PAST_DUE
                 ];
 
@@ -146,11 +168,8 @@ class ClientAnnualReviewCommand extends Command
                 }
             }
         } else {
-            $io->success(sprintf(
-                'Currently in an active review period. Next action will be taken after %s',
-                $end->format()
-            ));
-            return 0;
+            $io->error('We should not get to this code.');
+            return 1;
         }
 
         $io->table($headers, $rows);
@@ -165,5 +184,38 @@ class ClientAnnualReviewCommand extends Command
         }
 
         return 0;
+    }
+
+    private function isInReviewPeriod(): bool
+    {
+        $now = new Moment();
+        return $now->isBetween($this->reviewStartAt, $this->reviewEndAt);
+    }
+
+    private function isAfterYearReviewEnd(): bool
+    {
+        $now = new Moment();
+        return $now->isAfter($this->reviewEndAt);
+    }
+
+    private function isCurrentYearReviewComplete(): bool
+    {
+        return $this->lastEndAt->isAfter($this->reviewEndAt);
+    }
+
+    private function isCurrentYearReviewStarted(): bool
+    {
+        return $this->lastStartAt->isAfter($this->reviewStartAt);
+    }
+
+    private function isBeforeYearReview(): bool {
+        $now = new Moment();
+        return !$this->isCurrentYearReviewStarted() && $now->isBefore($this->reviewStartAt);
+    }
+
+    private function isAfterYearCompleteReview(): bool
+    {
+        $now = new Moment();
+        return $this->isCurrentYearReviewComplete() && $now->isAfter($this->reviewEndAt);
     }
 }

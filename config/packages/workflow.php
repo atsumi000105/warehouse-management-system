@@ -186,7 +186,7 @@ $container->loadFromExtension('framework', [
                     'from' => [
                         Client::STATUS_ACTIVE,
                     ],
-                    'to' => Client::STATUS_DUPLICATE_INACTIVE,
+                    'to' => Client::STATUS_NEEDS_REVIEW,
                 ],
                 Client::TRANSITION_FLAG_FOR_REVIEW_PAST_DUE => [
                     'metadata' => [
