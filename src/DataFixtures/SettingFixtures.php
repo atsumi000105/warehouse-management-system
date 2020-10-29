@@ -2,9 +2,9 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Setting;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Moment\Moment;
 
 class SettingFixtures extends BaseFixture implements DependentFixtureInterface
 {
@@ -19,16 +19,14 @@ class SettingFixtures extends BaseFixture implements DependentFixtureInterface
     {
         $pullupCategory = $this->getReference('product_category_training_pants');
 
-        $pullupCategorySetting = new Setting();
-        $pullupCategorySetting->setConfig('pullupCategory');
-        $pullupCategorySetting->setValue($pullupCategory->getId());
-        $em->persist($pullupCategorySetting);
+        $this->config->create('zipCountyStates', ['MO', 'KS']);
+        $this->config->create('pullupCategory', $pullupCategory->getId());
 
-        $pullupCategorySetting = new Setting();
-        $pullupCategorySetting->setConfig('zipCountyStates');
-        $pullupCategorySetting->setValue(['MO', 'KS']);
-        $em->persist($pullupCategorySetting);
+        $now = new Moment();
 
-        $em->flush();
+        $this->config->create('partnerReviewStart', $now->cloning()->addMonths(1)->format());
+        $this->config->create('partnerReviewEnd', $now->cloning()->addMonths(2)->format());
+        $this->config->create('partnerReviewLastStartRun', $now->cloning()->subtractMonths(2)->format());
+        $this->config->create('partnerReviewLastEndRun', $now->cloning()->subtractMonths(1)->format());
     }
 }

@@ -2,13 +2,17 @@
 
 namespace App\DataFixtures;
 
+use App\Configuration\AppConfiguration;
 use App\Entity\Address;
 use App\Entity\Contact;
+use App\Entity\Group;
 use App\Entity\ValueObjects\Name;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 abstract class BaseFixture extends Fixture
 {
@@ -17,6 +21,27 @@ abstract class BaseFixture extends Fixture
 
     /** @var Generator */
     protected $faker;
+
+    /** @var TokenStorageInterface  */
+    protected $tokenStorage;
+
+    /** @var AppConfiguration */
+    protected $config;
+
+    public function __construct(TokenStorageInterface $storage, AppConfiguration $config)
+    {
+        $this->tokenStorage = $storage;
+        $this->config = $config;
+
+        $token = new UsernamePasswordToken(
+            'fixtures',
+            null,
+            'main',
+            Group::AVAILABLE_ROLES
+        );
+
+        $this->tokenStorage->setToken($token);
+    }
 
     abstract protected function loadData(ObjectManager $manager);
 

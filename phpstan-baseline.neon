@@ -2591,16 +2591,6 @@ parameters:
 			path: src/Entity/Sequence.php
 
 		-
-			message: "#^Property App\\\\Entity\\\\Setting\\:\\:\\$value type mapping mismatch\\: database can contain array but property expects string\\.$#"
-			count: 1
-			path: src/Entity/Setting.php
-
-		-
-			message: "#^Property App\\\\Entity\\\\Setting\\:\\:\\$value type mapping mismatch\\: property can contain string but database expects array\\.$#"
-			count: 1
-			path: src/Entity/Setting.php
-
-		-
 			message: "#^Property App\\\\Entity\\\\StorageLocation\\:\\:\\$address type mapping mismatch\\: database can contain App\\\\Entity\\\\StorageLocationAddress\\|null but property expects App\\\\Entity\\\\StorageLocationAddress\\.$#"
 			count: 1
 			path: src/Entity/StorageLocation.php
@@ -3524,11 +3514,6 @@ parameters:
 			message: "#^Method App\\\\Repository\\\\ZipCountyRepository\\:\\:findAllInConstraints\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Repository/ZipCountyRepository.php
-
-		-
-			message: "#^Parameter \\#1 \\$time of method Zenstruck\\\\ScheduleBundle\\\\Schedule\\\\Task\\:\\:at\\(\\) expects string, int given\\.$#"
-			count: 1
-			path: src/Schedule/ClientExpirationSchedule.php
 
 		-
 			message: "#^Method App\\\\Security\\\\AdjustmentOrderVoter\\:\\:canView\\(\\) has no return typehint specified\\.$#"

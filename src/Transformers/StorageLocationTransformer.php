@@ -2,6 +2,7 @@
 
 namespace App\Transformers;
 
+use App\Entity\Partner;
 use App\Entity\StorageLocation;
 use League\Fractal\TransformerAbstract;
 
@@ -24,6 +25,8 @@ class StorageLocationTransformer extends TransformerAbstract
             'status' => $storageLocation->getStatus(),
             'createdAt' => $storageLocation->getCreatedAt()->format('c'),
             'updatedAt' => $storageLocation->getUpdatedAt()->format('c'),
+            // For the record, I don't like this
+            'canPlaceOrders' => $storageLocation instanceof Partner ? $storageLocation->canPlaceOrders() : null,
             'type' => end($classpath),
 
         ];

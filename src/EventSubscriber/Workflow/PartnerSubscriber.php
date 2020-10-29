@@ -63,6 +63,13 @@ class PartnerSubscriber implements EventSubscriberInterface
         }
     }
 
+    public function onTransitionReviewed(GuardEvent $event): void
+    {
+        if (!$this->checker->isGranted(Partner::ROLE_MANAGE_OWN)) {
+            $event->setBlocked(true);
+        }
+    }
+
     public function onTransitionDeactivate(GuardEvent $event): void
     {
         if (!$this->checker->isGranted(Partner::ROLE_EDIT_ALL)) {
@@ -79,6 +86,7 @@ class PartnerSubscriber implements EventSubscriberInterface
             'workflow.partner_management.guard.FLAG_FOR_REVIEW' => 'onTransitionFlagForReview',
             'workflow.partner_management.guard.FLAG_FOR_REVIEW_PAST_DUE' => 'onTransitionFlagForReviewPastDue',
             'workflow.partner_management.guard.ACTIVATE' => 'onTransitionActivate',
+            'workflow.partner_management.guard.REVIEWED' => 'onTransitionReviewed',
             'workflow.partner_management.guard.DEACTIVATE' => 'onTransitionDeactivate',
         ];
     }

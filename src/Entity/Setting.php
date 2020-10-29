@@ -22,9 +22,9 @@ class Setting
     protected $config;
 
     /**
-     * @var string
+     * @var mixed
      *
-     * @ORM\Column(type="json")
+     * @ORM\Column(type="json", nullable=True)
      * @Gedmo\Versioned
      */
     protected $value;
