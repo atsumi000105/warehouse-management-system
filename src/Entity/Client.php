@@ -167,6 +167,13 @@ class Client extends CoreEntity
      */
     protected $mergedTo;
 
+    /**
+     * @var \DateTime
+     * @ORM\Column(type="date", nullable=true)
+     * @Gedmo\Versioned
+     */
+    protected $lastReviewedAt;
+
     public function __construct(Registry $workflowRegistry)
     {
         $this->attributes = new ArrayCollection();
@@ -464,5 +471,23 @@ class Client extends CoreEntity
     public function getMergedTo(): string
     {
         return $this->mergedTo;
+    }
+
+    public function canReview(): bool
+    {
+        return in_array($this->status, [self::STATUS_REVIEW_PAST_DUE, self::STATUS_NEEDS_REVIEW]);
+    }
+
+    public function getLastReviewedAt(): ?\DateTime
+    {
+        return $this->lastReviewedAt;
+    }
+
+    /**
+     * @param \DateTime $lastReviewedAt
+     */
+    public function setLastReviewedAt(?\DateTime $lastReviewedAt): void
+    {
+        $this->lastReviewedAt = $lastReviewedAt;
     }
 }

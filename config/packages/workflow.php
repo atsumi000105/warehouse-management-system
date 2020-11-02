@@ -195,7 +195,7 @@ $container->loadFromExtension('framework', [
                     'from' => [
                         Client::STATUS_NEEDS_REVIEW,
                     ],
-                    'to' => Client::STATUS_DUPLICATE_INACTIVE,
+                    'to' => Client::STATUS_REVIEW_PAST_DUE,
                 ],
             ],
         ],

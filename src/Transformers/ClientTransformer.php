@@ -38,6 +38,7 @@ class ClientTransformer extends TransformerAbstract
             'updatedAt' => $client->getUpdatedAt()->format('c'),
             'createdAt' => $client->getCreatedAt()->format('c'),
             'status' => $client->getStatus(),
+            'canReview' => $client->canReview(),
         ];
     }
 

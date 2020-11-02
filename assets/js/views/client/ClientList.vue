@@ -18,7 +18,7 @@
                     label="Keyword"
                 />
             </div>
-            <div class="col-xs-4">
+            <div class="col-xs-3">
                 <PartnerSelectionForm
                     v-model="filters.partner"
                     label="Assigned Partner"
@@ -88,7 +88,19 @@
                             :params="requestParams()"
                             :per-page="50"
                             link-display-property="id"
-                        />
+                        >
+                            <template v-slot:actions="{rowData}">
+                                <button
+                                    v-if="rowData.canReview"
+                                    class="btn btn-xs btn-primary"
+                                    @click="onMarkReviewClicked(rowData.id)"
+                                >
+                                    <i class="fa fa-check-square fa-fw"></i>
+                                    Mark Reviewed
+                                </button>
+                            </template>
+
+                        </TablePaged>
                     </div>
                     <!-- /.box-body -->
                 </div>
@@ -127,6 +139,7 @@
                     { name: 'status', title: "Status", callback: 'statusFormat', sortField: 'status' },
                     { name: 'createdAt', title: "Created", callback: 'dateTimeFormat', sortField: 'createdAt' },
                     { name: 'updatedAt', title: "Last Updated", callback: 'dateTimeFormat', sortField: 'updatedAt' },
+                    { name: '__slot:actions'},
                 ],
                 clients: {},
                 statuses: [
@@ -198,7 +211,10 @@
             onClickMerge: function () {
                 this.$refs.clientMerge.reset();
                 $('#clientMergeModal').modal('show');
-            }
+            },
+            onMarkReviewClicked: function (clientId) {
+                console.log(clientId);
+            }-
         },
     }
 </script>
