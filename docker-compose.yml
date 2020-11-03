@@ -9,8 +9,7 @@ services:
             args:
                 - WITH_XDEBUG=false
         volumes:
-            - ./:/app
-            - var:/app/var
+            - project_root:/app
             - ./docker/config/app.php.ini:/usr/local/etc/php/conf.d/coverd-overrides.ini
         env_file: .env.local
         depends_on:
@@ -20,7 +19,7 @@ services:
         ports:
             - 8080:80
         volumes:
-            - ./:/app:ro,cached
+            - project_root:/app:ro
             - ./docker/config/app.nginx.conf:/etc/nginx/conf.d/default.conf
         depends_on:
             - app
@@ -31,6 +30,20 @@ services:
             POSTGRES_DB: coverd
         ports:
             - 5432:5432
-
+    unison:
+        image: docksal/unison
+        volumes:
+            - ./:/source
+            - project_root:/destination
+        environment:
+            - SYNC_DESTINATION=/destination
+            - SYNC_PREFER=newer
+            - SYNC_MAX_INOTIFY_WATCHES=524288
+            - SYNC_VERBOSE=1
+            - SYNC_NODELETE_SOURCE=0
+            - UNISON_UID=${HOST_UID:-0}
+            - UNISON_GID=${HOST_GID:-0}
+        privileged: true
 volumes:
     var:
+    project_root:

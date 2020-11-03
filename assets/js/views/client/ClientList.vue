@@ -131,7 +131,6 @@
         data() {
             return {
                 columns: [
-                    //todo: find a better way to sort value objects #30
                     { name: '__checkbox', title: "#" },
                     { name: '__slot:link', title: "ID", sortField: 'c.id' },
                     { name: 'fullName', title: "Name", sortField: 'c.fullName' },
@@ -214,7 +213,7 @@
             },
             onMarkReviewClicked: function (clientId) {
                 console.log(clientId);
-            }-
+            }
         },
     }
 </script>
