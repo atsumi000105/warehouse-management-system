@@ -54,7 +54,7 @@ export default {
                 navigation: [
                     {
                         header: "Dashboard",
-                        icon: "dashboard",
+                        icon: "tachometer-alt",
                         route: "/"
                     },
                     {
@@ -62,7 +62,7 @@ export default {
                         icon: "truck",
                         links: [
                             { title: "Supply Orders", route: { name: 'orders-supply' }, icon: "truck" },
-                            { title: "Supplier Management", route: { name: 'suppliers' }, icon: "group" },
+                            { title: "Supplier Management", route: { name: 'suppliers' }, icon: "users" },
                             { title: "Supply Totals Report", route: { name: 'reports-supply-totals'}, icon: "print" },
                         ]
                     },
@@ -79,7 +79,7 @@ export default {
                         icon: "shopping-cart",
                         links: [
                             { title: "Partner Orders", route: { name: 'orders-partner' }, icon: "child" },
-                            { title: "Partner Distributions", route: { name: 'orders-distribution'}, icon: "check-square-o" },
+                            { title: "Partner Distributions", route: { name: 'orders-distribution'}, icon: "check-square" },
                             { title: "Partner Management", route: { name: 'partners' }, icon: "sitemap" },
                             { title: "Partner Order Totals Report", route: { name: 'reports-partner-order-totals' }, icon: "print" },
                             { title: "Partner Inventory Report", route: { name: 'reports-partner-inventory' }, icon: "print" },
@@ -90,10 +90,10 @@ export default {
                         header: "Warehousing",
                         icon: "industry",
                         links: [
-                            { title: "Merchandise Orders", route: { name: 'orders-merchandise' }, icon: "usd" },
+                            { title: "Merchandise Orders", route: { name: 'orders-merchandise' }, icon: "dollar-sign" },
                             { title: "Warehouse Management", route: { name: 'warehouses' }, icon: "industry" },
-                            { title: "Stock Levels", route: { name: 'stock-levels' }, icon: "line-chart" },
-                            { title: "Transaction Report", route: { name: 'reports-transactions'}, icon: "exchange" },
+                            { title: "Stock Levels", route: { name: 'stock-levels' }, icon: "chart-line" },
+                            { title: "Transaction Report", route: { name: 'reports-transactions'}, icon: "exchange-alt" },
                         ]
                     },
                     {
@@ -101,7 +101,7 @@ export default {
                         icon: "wrench",
                         links: [
                             { title: "Stock Changes", route: { name: 'orders-adjustment' }, icon: "wrench" },
-                            { title: "Transfer Orders", route: { name: 'orders-transfer' }, icon: "refresh" },
+                            { title: "Transfer Orders", route: { name: 'orders-transfer' }, icon: "sync" },
                         ]
                     },
                     {

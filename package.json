@@ -45,6 +45,7 @@
     },
     "dependencies": {
         "@babel/runtime": "^7.11.2",
+        "@fortawesome/fontawesome-free": "^5.15.1",
         "admin-lte": "^2.4.18",
         "chosen-bootstrap-theme": "^1.0.5",
         "normalize-scss": "^6.0.0",

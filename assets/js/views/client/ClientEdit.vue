@@ -6,7 +6,7 @@
                     class="btn btn-info btn-flat dropdown-toggle"
                     data-toggle="dropdown"
                 >
-                    <i class="fa fa-info-circle" /> {{ client.status | statusFormat }}
+                    <i class="fa fa-project-diagram fa-fw" /> Status: {{ client.status | statusFormat }} <i class="fa fa-caret-down fa-fw"></i>
                 </button>
                 <ul
                     v-if="client.workflow.enabledTransitions"
@@ -24,6 +24,14 @@
                     </li>
                 </ul>
             </div>
+            <button
+                class="btn btn-primary btn-flat"
+                @click.prevent="review"
+                v-if="client.canReview"
+            >
+                <i class="fa fa-check-square fa-fw" />
+                Mark Client Reviewed
+            </button>
             <button
                 class="btn btn-success btn-flat"
                 @click.prevent="save"
@@ -60,7 +68,7 @@
                     <div class="box box-info">
                         <div class="box-header with-border">
                             <h3 class="box-title">
-                                <i class="icon fa fa-group fa-fw" />Client Info
+                                <i class="icon fa fa-child fa-fw" />Client Info
                             </h3>
                         </div>
                         <!-- /.box-header -->
@@ -138,7 +146,7 @@
                                             <div class="box box-info">
                                                 <div class="box-header with-border">
                                                     <h3 class="box-title">
-                                                        <i class="icon fa fa-clock-o fa-fw" />Expiration Info
+                                                        <i class="icon far fa-clock fa-fw" />Expiration Info
                                                     </h3>
                                                 </div>
                                                 <!-- /.box-header -->
@@ -302,6 +310,21 @@ export default {
                 axios
                     .delete('/api/clients/' + this.$route.params.id)
                     .then(response => self.$router.push({ name: 'clients' }));
+            },
+            review: function() {
+                let self = this;
+                axios
+                    .post('/api/clients/' + this.$route.params.id + '/review', {
+                        params: { include: ['partner', 'attributes']}
+                    })
+                    .then(response => {
+                        self.client = response.data.data;
+                        self.client.workflow = response.data.meta;
+                    })
+                    .catch(function (error) {
+                        console.log("Save this.client error with params id %o", error);
+                    }
+                );
             }
         }
     }

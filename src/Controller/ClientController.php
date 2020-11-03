@@ -7,6 +7,7 @@ use App\Entity\Partner;
 use App\Entity\Orders\BulkDistributionLineItem;
 use App\Entity\User;
 use App\Entity\ValueObjects\Name;
+use App\Security\ClientVoter;
 use App\Service\EavAttributeProcessor;
 use App\Transformers\BulkDistributionLineItemTransformer;
 use App\Transformers\ClientTransformer;
@@ -108,11 +109,12 @@ class ClientController extends BaseController
     public function show(Request $request, Registry $workflowRegistry, string $publicId): JsonResponse
     {
         $client = $this->getClientById($publicId);
+
+        $this->denyAccessUnlessGranted(ClientVoter::VIEW, $client);
+
         $meta = [
             'enabledTransitions' => $this->getEnabledTransitions($workflowRegistry, $client),
         ];
-
-//        $this->checkViewPermissions($client);
 
         return $this->serialize($request, $client, null, $meta);
     }
@@ -165,8 +167,7 @@ class ClientController extends BaseController
         $params = $this->getParams($request);
         /** @var Client $client */
         $client = $this->getClientById($publicId);
-
-//        $this->checkEditPermissions($client);
+        $this->denyAccessUnlessGranted(ClientVoter::EDIT, $client);
 
         if ($params['name']) {
             $name = new Name($params['name']['firstName'], $params['name']['lastName']);
@@ -202,8 +203,7 @@ class ClientController extends BaseController
     public function destroy(Request $request, string $publicId): JsonResponse
     {
         $client = $this->getClientById($publicId);
-
-//        $this->checkEditPermissions($client);
+        $this->denyAccessUnlessGranted(ClientVoter::EDIT, $client);
 
         $this->getEm()->remove($client);
 
@@ -221,6 +221,7 @@ class ClientController extends BaseController
     public function transition(Request $request, Registry $workflowRegistry, string $publicId): JsonResponse
     {
         $client = $this->getClientById($publicId);
+        $this->denyAccessUnlessGranted(ClientVoter::EDIT, $client);
 
         $params = $this->getParams($request);
 
@@ -249,6 +250,7 @@ class ClientController extends BaseController
     public function history(Request $request, string $publicId): JsonResponse
     {
         $client = $this->getClientById($publicId);
+        $this->denyAccessUnlessGranted(ClientVoter::VIEW, $client);
 
         $distributionLines = $this->getEm()
             ->getRepository(BulkDistributionLineItem::class)
@@ -257,6 +259,35 @@ class ClientController extends BaseController
 //        $this->checkViewPermissions($client);
 
         return $this->serialize($request, $distributionLines, new BulkDistributionLineItemTransformer());
+    }
+
+    /**
+     * Mark client as reviewed during the annual review period (or after)
+     *
+     * @param Request $request
+     * @param string $publicId
+     * @return JsonResponse
+     *
+     * @Route(path="/{publicId}/review", methods={"POST"})
+     * @IsGranted({"ROLE_CLIENT_VIEW_ALL","ROLE_CLIENT_MANAGE_OWN"})
+     */
+    public function review(Request $request, Registry $workflowRegistry, string $publicId): JsonResponse
+    {
+        $client = $this->getClientById($publicId);
+        $this->denyAccessUnlessGranted(ClientVoter::EDIT, $client);
+
+        if($client->canReview()) {
+            $workflowRegistry->get($client)->apply($client, Client::TRANSITION_ACTIVATE);
+            $client->setLastReviewedAt(new \DateTime());
+
+            $this->getEm()->flush();
+        }
+
+        $meta = [
+            'enabledTransitions' => $this->getEnabledTransitions($workflowRegistry, $client),
+        ];
+
+        return $this->serialize($request, $client, null, $meta);
     }
 
 

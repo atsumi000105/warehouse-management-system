@@ -190,7 +190,7 @@
             doBulkChange () {
                 let self = this;
                 axios
-                    .patch('/api/client/bulk-change', {
+                    .patch('/api/clients/bulk-change', {
                         ids: self.selection,
                         changes: self.bulkChange,
                     })
@@ -212,7 +212,12 @@
                 $('#clientMergeModal').modal('show');
             },
             onMarkReviewClicked: function (clientId) {
-                console.log(clientId);
+                axios
+                    .post('/api/clients/' + clientId + '/review')
+                    .then(() => {this.refreshTable()})
+                    .catch(function (error) {
+                        console.log("Save this.client error with params id %o", error);
+                    });
             }
         },
     }
