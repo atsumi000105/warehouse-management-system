@@ -168,7 +168,7 @@ class Client extends CoreEntity
     protected $mergedTo;
 
     /**
-     * @var \DateTime
+     * @var \DateTime|null
      * @ORM\Column(type="date", nullable=true)
      * @Gedmo\Versioned
      */
@@ -484,7 +484,7 @@ class Client extends CoreEntity
     }
 
     /**
-     * @param \DateTime $lastReviewedAt
+     * @param \DateTime|null $lastReviewedAt
      */
     public function setLastReviewedAt(?\DateTime $lastReviewedAt): void
     {

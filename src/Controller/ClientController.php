@@ -276,7 +276,7 @@ class ClientController extends BaseController
         $client = $this->getClientById($publicId);
         $this->denyAccessUnlessGranted(ClientVoter::EDIT, $client);
 
-        if($client->canReview()) {
+        if ($client->canReview()) {
             $workflowRegistry->get($client)->apply($client, Client::TRANSITION_ACTIVATE);
             $client->setLastReviewedAt(new \DateTime());
 

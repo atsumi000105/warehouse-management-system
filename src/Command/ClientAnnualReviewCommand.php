@@ -108,7 +108,13 @@ class ClientAnnualReviewCommand extends Command
         $headers = ['Client', 'Current Status', 'Partner', 'Planned Transition'];
         $rows = [];
 
-        $io->text(sprintf('Client Review Period: %s - %s', $this->reviewStartAt->format(), $this->reviewEndAt->format()));
+        $io->text(
+            sprintf(
+                'Client Review Period: %s - %s',
+                $this->reviewStartAt->format(),
+                $this->reviewEndAt->format()
+            )
+        );
         $io->text(sprintf('Last start date: %s', $this->lastStartAt->format()));
         $io->text(sprintf('Last end date: %s', $this->lastEndAt->format()));
 
@@ -128,7 +134,7 @@ class ClientAnnualReviewCommand extends Command
         }
 
         // We have entered a new review period and have not started it.
-        if ($this->isInReviewPeriod() && !$this->isCurrentYearReviewStarted() ) {
+        if ($this->isInReviewPeriod() && !$this->isCurrentYearReviewStarted()) {
             $activeClients = $clientRepo->findBy(['status' => Client::STATUS_ACTIVE]);
 
             foreach ($activeClients as $client) {
@@ -208,7 +214,8 @@ class ClientAnnualReviewCommand extends Command
         return $this->lastStartAt->isAfter($this->reviewStartAt);
     }
 
-    private function isBeforeYearReview(): bool {
+    private function isBeforeYearReview(): bool
+    {
         $now = new Moment();
         return !$this->isCurrentYearReviewStarted() && $now->isBefore($this->reviewStartAt);
     }
