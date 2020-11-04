@@ -25,9 +25,9 @@
                 </ul>
             </div>
             <button
+                v-if="client.canReview"
                 class="btn btn-primary btn-flat"
                 @click.prevent="review"
-                v-if="client.canReview"
             >
                 <i class="fa fa-check-square fa-fw" />
                 Mark Client Reviewed
