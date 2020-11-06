@@ -71,6 +71,16 @@ class ClientAnnualReviewCommand extends Command
 
         $this->tokenStorage->setToken($token);
 
+        $now = new Moment('now');
+
+        $this->reviewStartAt = new Moment($this->appConfig->get('clientReviewStart'));
+        $this->reviewStartAt->setYear((int) $now->getYear());
+        $this->reviewEndAt = new Moment($this->appConfig->get('clientReviewEnd'));
+        $this->reviewEndAt->setYear((int) $now->getYear());
+
+        $this->lastStartAt = new Moment($this->appConfig->get('clientReviewLastStartRun'));
+        $this->lastEndAt = new Moment($this->appConfig->get('clientReviewLastEndRun'));
+
         parent::__construct();
     }
 
@@ -90,16 +100,6 @@ class ClientAnnualReviewCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $now = new Moment('now');
-
-        $this->reviewStartAt = new Moment($this->appConfig->get('clientReviewStart'));
-        $this->reviewStartAt->setYear((int) $now->getYear());
-        $this->reviewEndAt = new Moment($this->appConfig->get('clientReviewEnd'));
-        $this->reviewEndAt->setYear((int) $now->getYear());
-
-        $this->lastStartAt = new Moment($this->appConfig->get('clientReviewLastStartRun'));
-        $this->lastEndAt = new Moment($this->appConfig->get('clientReviewLastEndRun'));
-
         $force = $input->getOption('force') !== false;
         $io = new SymfonyStyle($input, $output);
         $clientRepo = $this->em->getRepository(Client::class);
