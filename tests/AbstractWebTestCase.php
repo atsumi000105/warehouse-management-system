@@ -66,19 +66,15 @@ class AbstractWebTestCase extends WebTestCase
             ->set(new Cookie($session->getName(), $session->getId()));
     }
 
-    /**
-     * @param bool $decodeAsArray
-     * @return null|\stdClass|array
-     */
-    protected function getDecodedResponse(bool $decodeAsArray = true)
+    protected function getDecodedResponse():?array
     {
         $response = $this->client->getResponse()->getContent();
         if (!$this->client->getResponse()->isOk()) {
             return null;
         }
 
-        $decodedResponse = json_decode($response, $decodeAsArray);
+        $decodedResponse = json_decode($response, true);
 
-        return $decodedResponse ? $decodedResponse['data'] : $decodedResponse->{'data'};
+        return $decodedResponse['data'];
     }
 }

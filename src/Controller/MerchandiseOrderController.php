@@ -77,7 +77,7 @@ class MerchandiseOrderController extends OrderController
         $order = $this->getOrder($id);
 
         $this->checkEditable($order);
-        
+
         if ($params['warehouse']['id']) {
             $newWarehouse = $this->getEm()->find(Warehouse::class, $params['warehouse']['id']);
             $order->setWarehouse($newWarehouse);
