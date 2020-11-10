@@ -4086,11 +4086,6 @@ parameters:
 			path: tests/Controller/ClientControllerTest.php
 
 		-
-			message: "#^Cannot access offset 'id' on array\\|stdClass\\|null\\.$#"
-			count: 2
-			path: tests/Controller/ClientControllerTest.php
-
-		-
 			message: "#^Method App\\\\Tests\\\\Controller\\\\ClientControllerTest\\:\\:testCannotShowBadPublicId\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: tests/Controller/ClientControllerTest.php
@@ -4102,16 +4097,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Tests\\\\Controller\\\\ClientControllerTest\\:\\:testUpdate\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Controller/ClientControllerTest.php
-
-		-
-			message: "#^Cannot access offset 'firstName' on array\\|stdClass\\|null\\.$#"
-			count: 1
-			path: tests/Controller/ClientControllerTest.php
-
-		-
-			message: "#^Cannot access offset 'lastName' on array\\|stdClass\\|null\\.$#"
 			count: 1
 			path: tests/Controller/ClientControllerTest.php
 

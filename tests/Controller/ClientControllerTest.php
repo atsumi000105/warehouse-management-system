@@ -43,6 +43,7 @@ class ClientControllerTest extends AbstractWebTestCase
         $publicId = $clientAccount->getPublicId();
         $this->client->request('GET', "/api/clients/{$publicId}");
 
+        /** @var array{id:string} $response */
         $response = $this->getDecodedResponse();
 
         $this->assertSame($publicId, $response['id']);
@@ -76,6 +77,7 @@ class ClientControllerTest extends AbstractWebTestCase
 
         $this->client->request('PATCH', "/api/clients/{$publicId}", $params);
 
+        /** @var array{id:string, firstName:string, lastName:string} $response */
         $response = $this->getDecodedResponse();
 
         $this->assertSame($publicId, $response['id']);

@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\Query\Expr;
 
 class ProductRepository extends EntityRepository
 {
@@ -11,7 +10,7 @@ class ProductRepository extends EntityRepository
     {
         return $this->findBy([], ['orderIndex' => 'ASC']);
     }
-    
+
     public function getWarehouseInventory(Product $product)
     {
         $dql = "SELECT SUM(t.delta) AS balance FROM App\Entity\InventoryTransaction t

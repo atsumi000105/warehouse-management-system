@@ -92,7 +92,7 @@ class SupplyOrderController extends OrderController
         $this->denyAccessUnlessGranted(SupplyOrderVoter::EDIT, $order);
 
         $this->checkEditable($order);
-        
+
         if ($params['warehouse']['id']) {
             $newWarehouse = $this->getEm()->find('App\Entity\Warehouse', $params['warehouse']['id']);
             $order->setWarehouse($newWarehouse);
