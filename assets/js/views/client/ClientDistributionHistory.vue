@@ -7,7 +7,17 @@
         link-display-property="orderSequence"
         link-id-property="orderId"
         edit-route="/orders/distribution/"
-    />
+    >
+        <template v-slot:toolbar>
+            <button
+                class="btn btn-flat btn-primary"
+                @click="onExportClick(client.id)"
+            >
+                <i class="fa fa-file-excel fa-fw"></i>
+                Export Client History
+            </button>
+        </template>
+    </table-paged>
 </template>
 
 <script>
@@ -36,6 +46,16 @@
         computed: {
             apiUrl: function () {
                 return "/api/clients/" + this.client.id + "/history";
+            }
+        },
+        methods: {
+            onExportClick: (clientId) => {
+                axios
+                    .get('api/clients/' + clientId + '/history/export', { params: {download: 'xlsx'}, responseType: 'blob' })
+                    .then(response => {
+                        let filename = response.headers['content-disposition'].match(/filename="(.*)"/)[1]
+                        fileDownload(response.data, filename, response.headers['content-type'])
+                    });
             }
         }
     }
