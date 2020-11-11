@@ -30,7 +30,7 @@ matrix:
               - psql -c 'create database coverd;' -U postgres
           script:
               - bin/phpunit -v --coverage-clover clover.xml
-              - vendor/bin/phpstan analyse
+              - vendor/bin/phpstan analyse --debug
               - vendor/bin/phpcs
           after_script:
               - ./cc-test-reporter format-coverage -t clover # Backend coverage
