@@ -53,12 +53,14 @@ class ClientDistributionExcel
         }
         $sheet->fromArray($dataArr, null, 'A2');
 
-        $sheet = $sheet->calculateColumnWidths();
+        foreach ($sheet->getColumnIterator() as $column) {
+            $sheet->getColumnDimension($column->getColumnIndex())->setAutoSize(true);
+        }
 
         return IOFactory::createWriter($spreadsheet, 'Xlsx');
     }
 
-    private function buildHeaders()
+    private function buildHeaders(): array
     {
         return [
             'Client',

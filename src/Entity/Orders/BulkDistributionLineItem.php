@@ -23,12 +23,12 @@ class BulkDistributionLineItem extends LineItem
      */
     protected $client;
 
-    public function getClient(): ?Client
+    public function getClient(): Client
     {
         return $this->client;
     }
 
-    public function setClient(?Client $client): void
+    public function setClient(Client $client): void
     {
         $this->client = $client;
     }
