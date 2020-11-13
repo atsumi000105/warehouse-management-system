@@ -8,14 +8,26 @@
         link-id-property="orderId"
         edit-route="/orders/distribution/"
     >
-        <template v-slot:toolbar>
-            <button
-                class="btn btn-flat btn-primary"
-                @click="onExportClick(client.id)"
-            >
-                <i class="fa fa-file-excel fa-fw"></i>
-                Export Client History
-            </button>
+        <template v-slot:toolbar-right>
+            <div class="btn-group">
+                <button
+                    type="button"
+                    class="btn btn-info btn-flat dropdown-toggle"
+                    data-toggle="dropdown"
+                >
+                    <i class="fa fa-fw fa-download" />Export
+                    <span class="caret" />
+                    <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul
+                    class="dropdown-menu"
+                    role="menu"
+                >
+                    <li>
+                        <a @click="onExportClick(client.id)"><i class="fa fa-fw fa-file-excel" />Excel</a>
+                    </li>
+                </ul>
+            </div>
         </template>
     </table-paged>
 </template>
@@ -53,8 +65,8 @@
                 axios
                     .get('api/clients/' + clientId + '/history/export', { params: {download: 'xlsx'}, responseType: 'blob' })
                     .then(response => {
-                        let filename = response.headers['content-disposition'].match(/filename="(.*)"/)[1]
-                        fileDownload(response.data, filename, response.headers['content-type'])
+                        let filename = response.headers['content-disposition'].match(/filename="(.*)"/)[1];
+                        fileDownload(response.data, filename, response.headers['content-type']);
                     });
             }
         }

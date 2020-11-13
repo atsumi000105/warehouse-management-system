@@ -7,6 +7,7 @@ use App\Entity\Partner;
 use App\Entity\Orders\BulkDistributionLineItem;
 use App\Entity\User;
 use App\Entity\ValueObjects\Name;
+use App\Reports\ClientDistributionExcel;
 use App\Security\ClientVoter;
 use App\Service\EavAttributeProcessor;
 use App\Transformers\BulkDistributionLineItemTransformer;
@@ -262,9 +263,38 @@ class ClientController extends BaseController
     }
 
     /**
+     * Get distribution history for client
+     *
+     * @Route(path="/{publicId}/history/export", methods={"GET"})
+     * @IsGranted({"ROLE_CLIENT_VIEW_ALL","ROLE_CLIENT_MANAGE_OWN"})
+     *
+     */
+    public function historyExport(Request $request, string $publicId): JsonResponse
+    {
+        $client = $this->getClientById($publicId);
+        $this->denyAccessUnlessGranted(ClientVoter::VIEW, $client);
+
+        $distributionLines = $this->getEm()
+            ->getRepository(BulkDistributionLineItem::class)
+            ->getClientDistributionHistory($client);
+
+        $excel = new ClientDistributionExcel($distributionLines);
+
+        $writer = $excel->buildExcel();
+        // redirect output to client browser
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="ClientHistory.' . date('c') . '.xlsx"');
+        header('Cache-Control: max-age=0');
+
+        $writer->save('php://output');
+        exit();
+    }
+
+    /**
      * Mark client as reviewed during the annual review period (or after)
      *
      * @param Request $request
+     * @param Registry $workflowRegistry
      * @param string $publicId
      * @return JsonResponse
      *

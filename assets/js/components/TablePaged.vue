@@ -7,9 +7,14 @@
             />
         </div>
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-xs-6">
                 <slot
-                    name="toolbar"
+                    name="toolbar-left"
+                />
+            </div>
+            <div class="col-xs-6 text-right">
+                <slot
+                    name="toolbar-right"
                 />
             </div>
         </div>
