@@ -29,6 +29,7 @@ matrix:
               - composer install --prefer-source --no-interaction
               - psql -c 'create database coverd;' -U postgres
           script:
+              - bin/console doctrine:schema:validate
               - bin/phpunit -v --coverage-clover clover.xml
               - vendor/bin/phpstan analyse --debug
               - vendor/bin/phpcs
