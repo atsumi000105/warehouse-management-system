@@ -3511,11 +3511,6 @@ parameters:
 			path: src/Repository/UserRepository.php
 
 		-
-			message: "#^Method App\\\\Repository\\\\ZipCountyRepository\\:\\:findAllInConstraints\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/Repository/ZipCountyRepository.php
-
-		-
 			message: "#^Method App\\\\Security\\\\AdjustmentOrderVoter\\:\\:canView\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Security/AdjustmentOrderVoter.php

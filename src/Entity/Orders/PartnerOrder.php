@@ -43,7 +43,7 @@ class PartnerOrder extends Order
     /**
      * @var \DateTime
      *
-     * @ORM\Column(type="date", nullable=false, options={"model_timezone=UTC"})
+     * @ORM\Column(type="date", nullable=false, options={"model_timezone":"UTC"})
      */
     protected $orderPeriod;
 
