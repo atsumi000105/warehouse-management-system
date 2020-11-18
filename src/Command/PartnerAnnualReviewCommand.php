@@ -5,7 +5,6 @@ namespace App\Command;
 use App\Configuration\AppConfiguration;
 use App\Entity\Group;
 use App\Entity\Partner;
-use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Moment\Moment;
 use Symfony\Component\Console\Command\Command;
@@ -106,7 +105,7 @@ class PartnerAnnualReviewCommand extends Command
         $io->text(sprintf('Last end date: %s', $lastEnd->format()));
 
         // We have entered a new review period and have not started it.
-        if ($lastStart->isBefore($start)) {
+        if ($now->isAfter($start) && $lastStart->isBefore($start)) {
             $activePartners = $this->em->getRepository(Partner::class)->findBy(['status' => Partner::STATUS_ACTIVE]);
 
             foreach ($activePartners as $partner) {

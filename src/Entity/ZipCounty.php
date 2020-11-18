@@ -72,65 +72,41 @@ class ZipCounty
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getZipCode(): ?string
     {
         return $this->zipCode;
     }
 
-    /**
-     * @param string $zipCode
-     */
     public function setZipCode(string $zipCode): void
     {
         $this->zipCode = $zipCode;
     }
 
-    /**
-     * @return string
-     */
     public function getCountyName(): ?string
     {
         return $this->countyName;
     }
 
-    /**
-     * @param string $countyName
-     */
     public function setCountyName(string $countyName): void
     {
         $this->countyName = $countyName;
     }
 
-    /**
-     * @return string
-     */
     public function getStateCode(): ?string
     {
         return $this->stateCode;
     }
 
-    /**
-     * @param string $stateCode
-     */
     public function setStateCode(string $stateCode): void
     {
         $this->stateCode = $stateCode;
     }
 
-    /**
-     * @return string
-     */
     public function getCountyId(): ?string
     {
         return $this->countyId;
     }
 
-    /**
-     * @param string $countyId
-     */
     public function setCountyId(string $countyId): void
     {
         $this->countyId = $countyId;

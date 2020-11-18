@@ -9,7 +9,7 @@
         ></i>
         <div class="input-group date">
             <div class="input-group-addon">
-                <i class="fa fa-calendar" />
+                <i class="far fa-calendar-alt" />
             </div>
             <input
                 v-model.lazy="humanReadable"

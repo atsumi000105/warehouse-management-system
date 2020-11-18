@@ -27,13 +27,16 @@
             @vuetable:loading="showLoader"
             @vuetable:loaded="hideLoader"
         >
-            <template
-                slot="link"
-                slot-scope="props"
-            >
-                <router-link :to="editRoute + props.rowData[linkIdProperty]">
-                    <i class="fa fa-edit" /> {{ props.rowData[linkDisplayProperty] }}
+            <template v-slot:link="{rowData}">
+                <router-link :to="editRoute + rowData[linkIdProperty]">
+                    <i class="fa fa-edit" /> {{ rowData[linkDisplayProperty] }}
                 </router-link>
+            </template>
+            <template v-slot:actions="{rowData}">
+                <slot
+                    name="actions"
+                    :rowData="rowData"
+                />
             </template>
         </vuetable>
         <div class="box-footer">

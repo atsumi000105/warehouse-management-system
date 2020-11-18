@@ -122,6 +122,8 @@ $container->loadFromExtension('framework', [
             'places' => [
                 Client::STATUS_CREATION,
                 Client::STATUS_ACTIVE,
+                Client::STATUS_NEEDS_REVIEW,
+                Client::STATUS_REVIEW_PAST_DUE,
                 Client::STATUS_INACTIVE,
                 Client::STATUS_LIMIT_REACHED,
                 Client::STATUS_DUPLICATE_INACTIVE,
@@ -136,6 +138,8 @@ $container->loadFromExtension('framework', [
                         Client::STATUS_INACTIVE,
                         Client::STATUS_LIMIT_REACHED,
                         Client::STATUS_DUPLICATE_INACTIVE,
+                        Client::STATUS_NEEDS_REVIEW,
+                        Client::STATUS_REVIEW_PAST_DUE,
                     ],
                     'to' => Client::STATUS_ACTIVE,
                 ],
@@ -174,6 +178,24 @@ $container->loadFromExtension('framework', [
                         Client::STATUS_LIMIT_REACHED,
                     ],
                     'to' => Client::STATUS_DUPLICATE_INACTIVE,
+                ],
+                Client::TRANSITION_FLAG_FOR_REVIEW => [
+                    'metadata' => [
+                        'title' => 'Needs Review'
+                    ],
+                    'from' => [
+                        Client::STATUS_ACTIVE,
+                    ],
+                    'to' => Client::STATUS_NEEDS_REVIEW,
+                ],
+                Client::TRANSITION_FLAG_FOR_REVIEW_PAST_DUE => [
+                    'metadata' => [
+                        'title' => 'Review Past Due'
+                    ],
+                    'from' => [
+                        Client::STATUS_NEEDS_REVIEW,
+                    ],
+                    'to' => Client::STATUS_REVIEW_PAST_DUE,
                 ],
             ],
         ],

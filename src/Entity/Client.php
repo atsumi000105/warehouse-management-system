@@ -24,12 +24,16 @@ class Client extends CoreEntity
     // State Machine Statuses
     public const STATUS_CREATION = 'CREATION';
     public const STATUS_ACTIVE = 'ACTIVE';
+    public const STATUS_NEEDS_REVIEW = 'NEEDS_REVIEW';
+    public const STATUS_REVIEW_PAST_DUE = 'REVIEW_PAST_DUE';
     public const STATUS_INACTIVE = 'INACTIVE';
     public const STATUS_LIMIT_REACHED = 'LIMIT_REACHED';
     public const STATUS_DUPLICATE_INACTIVE = 'DUPLICATE_(INACTIVE)';
     public const STATUSES = [
         self::STATUS_CREATION,
         self::STATUS_ACTIVE,
+        self::STATUS_NEEDS_REVIEW,
+        self::STATUS_REVIEW_PAST_DUE,
         self::STATUS_LIMIT_REACHED,
         self::STATUS_DUPLICATE_INACTIVE,
         self::STATUS_INACTIVE,
@@ -39,6 +43,8 @@ class Client extends CoreEntity
     public const TRANSITION_DEACTIVATE = 'DEACTIVATE';
     public const TRANSITION_EXPIRE = 'EXPIRE';
     public const TRANSITION_DUPLICATE_INACTIVE = 'DUPLICATE';
+    public const TRANSITION_FLAG_FOR_REVIEW = 'FLAG_FOR_REVIEW';
+    public const TRANSITION_FLAG_FOR_REVIEW_PAST_DUE = 'FLAG_FOR_REVIEW_PAST_DUE';
 
     public const ROLE_VIEW_ALL = "ROLE_CLIENT_VIEW_ALL";
     public const ROLE_EDIT_ALL = "ROLE_CLIENT_EDIT_ALL";
@@ -160,6 +166,13 @@ class Client extends CoreEntity
      * @ORM\Column(type="integer", nullable=true)
      */
     protected $mergedTo;
+
+    /**
+     * @var \DateTime|null
+     * @ORM\Column(type="date", nullable=true)
+     * @Gedmo\Versioned
+     */
+    protected $lastReviewedAt;
 
     public function __construct(Registry $workflowRegistry)
     {
@@ -458,5 +471,20 @@ class Client extends CoreEntity
     public function getMergedTo(): string
     {
         return $this->mergedTo;
+    }
+
+    public function canReview(): bool
+    {
+        return in_array($this->status, [self::STATUS_REVIEW_PAST_DUE, self::STATUS_NEEDS_REVIEW]);
+    }
+
+    public function getLastReviewedAt(): ?\DateTime
+    {
+        return $this->lastReviewedAt;
+    }
+
+    public function setLastReviewedAt(?\DateTime $lastReviewedAt): void
+    {
+        $this->lastReviewedAt = $lastReviewedAt;
     }
 }
