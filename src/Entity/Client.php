@@ -483,9 +483,6 @@ class Client extends CoreEntity
         return $this->lastReviewedAt;
     }
 
-    /**
-     * @param \DateTime|null $lastReviewedAt
-     */
     public function setLastReviewedAt(?\DateTime $lastReviewedAt): void
     {
         $this->lastReviewedAt = $lastReviewedAt;
