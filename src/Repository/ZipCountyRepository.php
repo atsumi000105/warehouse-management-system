@@ -7,7 +7,7 @@ use Doctrine\ORM\EntityRepository;
 
 class ZipCountyRepository extends EntityRepository
 {
-    public function findAllInConstraints()
+    public function findAllInConstraints(): array
     {
         $zipCountySetting = $this->getEntityManager()->getRepository(Setting::class)->find('zipCountyStates');
         $states = $zipCountySetting->getValue();

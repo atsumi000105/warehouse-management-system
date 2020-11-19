@@ -115,3 +115,7 @@ Coverd has a zip code/county lookup field to capture the number of people served
 * County ID (FIPS) -> County Name: https://www.census.gov/geographies/reference-files/time-series/geo/gazetteer-files.html (see "Counties" file)
 
 These files are located in /src/Data/ and are imported with the `app:zip-county:import` command.
+
+## FontAwesome
+
+Coverd makes use of the free set of icons from FontAwesome. To search the available icons, see https://fontawesome.com/icons?m=free.
