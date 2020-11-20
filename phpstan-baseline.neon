@@ -411,7 +411,7 @@ parameters:
 			path: src/Controller/PartnerDistributionController.php
 
 		-
-			message: "#^Cannot call method getId\\(\\) on App\\\\Entity\\\\Client\\|null\\.$#"
+			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: src/Controller/PartnerDistributionController.php
 
@@ -2121,11 +2121,6 @@ parameters:
 			path: src/Entity/Orders/BulkDistribution.php
 
 		-
-			message: "#^Cannot call method getId\\(\\) on App\\\\Entity\\\\Client\\|null\\.$#"
-			count: 1
-			path: src/Entity/Orders/BulkDistribution.php
-
-		-
 			message: "#^Method App\\\\Entity\\\\Orders\\\\BulkDistribution\\:\\:setPortalOrderId\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Entity/Orders/BulkDistribution.php
@@ -2137,11 +2132,6 @@ parameters:
 
 		-
 			message: "#^Property App\\\\Entity\\\\Orders\\\\BulkDistributionLineItem\\:\\:\\$client type mapping mismatch\\: database can contain App\\\\Entity\\\\Client\\|null but property expects App\\\\Entity\\\\Client\\.$#"
-			count: 1
-			path: src/Entity/Orders/BulkDistributionLineItem.php
-
-		-
-			message: "#^Property App\\\\Entity\\\\Orders\\\\BulkDistributionLineItem\\:\\:\\$client \\(App\\\\Entity\\\\Client\\) does not accept App\\\\Entity\\\\Client\\|null\\.$#"
 			count: 1
 			path: src/Entity/Orders/BulkDistributionLineItem.php
 
@@ -2941,22 +2931,7 @@ parameters:
 			path: src/Listener/DistributionLineItemListener.php
 
 		-
-			message: "#^Cannot call method setPullupDistributionCount\\(\\) on App\\\\Entity\\\\Client\\|null\\.$#"
-			count: 2
-			path: src/Listener/DistributionLineItemListener.php
-
-		-
-			message: "#^Cannot call method calculateDistributionExpiration\\(\\) on App\\\\Entity\\\\Client\\|null\\.$#"
-			count: 2
-			path: src/Listener/DistributionLineItemListener.php
-
-		-
 			message: "#^Method App\\\\Listener\\\\DistributionLineItemListener\\:\\:postUpdate\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/Listener/DistributionLineItemListener.php
-
-		-
-			message: "#^Cannot call method getDistributionLineItems\\(\\) on App\\\\Entity\\\\Client\\|null\\.$#"
 			count: 1
 			path: src/Listener/DistributionLineItemListener.php
 
