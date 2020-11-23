@@ -6,6 +6,18 @@
                 color="#3c8dbc"
             />
         </div>
+        <div class="row">
+            <div class="col-xs-6">
+                <slot
+                    name="toolbar-left"
+                />
+            </div>
+            <div class="col-xs-6 text-right">
+                <slot
+                    name="toolbar-right"
+                />
+            </div>
+        </div>
         <vuetable
             ref="vuetable"
             :api-url="apiUrl"

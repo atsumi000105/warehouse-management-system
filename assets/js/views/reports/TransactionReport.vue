@@ -20,7 +20,7 @@
                         role="menu"
                     >
                         <li>
-                            <a @click="downloadExcel"><i class="fa fa-fw fa-file-excel-o" />Excel</a>
+                            <a @click="downloadExcel"><i class="fa fa-fw fa-file-excel" />Excel</a>
                         </li>
                     </ul>
                 </div>
