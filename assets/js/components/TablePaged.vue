@@ -15,8 +15,8 @@
             :per-page="perPage"
             :css="{
                 tableClass: 'table table-hover',
-                ascendingIcon: 'fa fa-sort-amount-asc',
-                descendingIcon: 'fa fa-sort-amount-desc'
+                ascendingIcon: 'fa fa-sort-amount-up',
+                descendingIcon: 'fa fa-sort-amount-down'
             }"
             :sort-order="sortOrder"
             :append-params="params"

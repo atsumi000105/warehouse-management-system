@@ -82,4 +82,9 @@ class PartnerOrderRepository extends OrderRepository
                 ->setParameter('endingAt', new \DateTime($params->get('endingAt')));
         }
     }
+
+    public function findOneByMonth(\DateTime $month)
+    {
+        return$this->findOneBy(['orderPeriod' => $month]);
+    }
 }

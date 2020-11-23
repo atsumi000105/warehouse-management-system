@@ -8,6 +8,7 @@ use App\Entity\Orders\BulkDistribution;
 use App\Entity\Orders\BulkDistributionLineItem;
 use App\Entity\Partner;
 use App\Entity\User;
+use App\Exception\UserInterfaceException;
 use App\Transformers\BulkDistributionLineItemTransformer;
 use App\Transformers\BulkDistributionTransformer;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -59,6 +60,22 @@ class PartnerDistributionController extends OrderController
 
         // TODO: get permissions working (#1)
         // $this->checkEditPermissions($order);
+
+        // Check if the partner has already submitted an order for the specified month.
+        $existingOrder = $this->getRepository()->findOneBy([
+            'partner' => $order->getPartner(),
+            'distributionPeriod' => $order->getDistributionPeriod(),
+        ]);
+
+        if ($existingOrder) {
+            throw new UserInterfaceException(
+                sprintf(
+                    '%s has already reported distributions for %s.',
+                    $order->getPartner()->getTitle(),
+                    $order->getDistributionPeriod()->format('M Y')
+                )
+            );
+        }
 
         $this->getEm()->persist($order);
         $this->getEm()->flush();
@@ -142,6 +159,28 @@ class PartnerDistributionController extends OrderController
         }, $clients);
 
         return $this->serialize($request, $lineItems, new BulkDistributionLineItemTransformer());
+    }
+
+    /**
+     * Whole or partial update of a order
+     *
+     * @Route(path="/partner-can-order", methods={"GET"})
+     *
+     * @return JsonResponse
+     * @throws \Exception
+     */
+    public function partnerCanOrder(Request $request)
+    {
+        $params = $this->getParams($request);
+        $partner = $this->getRepository(Partner::class)->find($params['partnerId']);
+        $distributionPeriod = new \DateTime($params['distributionPeriod']);
+
+        $existingOrder = $this->getRepository()->findOneBy([
+            'partner' => $partner,
+            'distributionPeriod' => $distributionPeriod,
+        ]);
+
+        return $this->meta($existingOrder === null);
     }
 
     protected function buildFilterParams(Request $request)

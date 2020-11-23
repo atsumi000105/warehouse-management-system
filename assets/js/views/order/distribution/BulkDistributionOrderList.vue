@@ -92,6 +92,7 @@
                     { name: '__checkbox', title: "#" },
                     { name: '__slot:link', title: "Order Id", sortField: 'id' },
                     { name: 'partner.title', title: "Partner", sortField: 'partner.title' },
+                    { name: 'distributionPeriod', title: "Distribution Period", callback: 'periodFormat', sortField: 'distributionPeriod' },
                     { name: 'status', title: "Status", sortField: 'status' },
                     { name: 'createdAt', title: "Created", callback: 'dateTimeFormat', sortField: 'createdAt' },
                     { name: 'updatedAt', title: "Last Updated", callback: 'dateTimeFormat', sortField: 'updatedAt' },

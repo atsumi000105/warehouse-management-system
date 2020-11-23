@@ -10,7 +10,7 @@
                 class="close"
                 @click="exceptions.splice(key, 1)"
             >
-                <i class="fa fa-fw fa-close" />
+                <i class="fa fa-fw fa-times" />
             </button>
             <button
                 type="button"

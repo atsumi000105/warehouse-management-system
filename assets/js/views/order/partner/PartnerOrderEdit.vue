@@ -1,5 +1,12 @@
 <template>
     <section class="content">
+        <div
+            v-if="!partnerCanOrder"
+            class="callout callout-danger"
+        >
+            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+            The selected partner has already created a distribution for {{ order.distributionPeriod|dateTimeMonthFormat }}
+        </div>
         <div class="pull-right">
             <button
                 class="btn btn-success btn-flat"
@@ -148,6 +155,7 @@
     import LineItemForm from '../../../components/LineItemForm.vue';
     import PartnerSelectionForm from '../../../components/PartnerSelectionForm.vue';
     import Modal from "../../../components/Modal";
+    import axios from "axios";
     export default {
         components: {
             Modal,
@@ -179,6 +187,7 @@
                     {id: "SHIPPED", name: "Shipped", commit: true },
                 ],
                 partnerType: 'AGENCY',
+                partnerCanOrder: true
             };
         },
         validations: {
@@ -206,6 +215,43 @@
                     return self.order.status == item.id
                 });
                 return status[0].commit === true;
+            }
+        },
+        watch: {
+            'order.partner': {
+                handler(val) {
+                    console.log("I'm here");
+                    if (this.order.partner.id && this.order.orderPeriod) {
+                        axios
+                            .get('/api/orders/partner/partner-can-order', {
+                                params: {
+                                    partnerId: this.order.partner.id,
+                                    orderPeriod: this.order.orderPeriod
+                                }
+                            })
+                            .then(response => {
+                                this.partnerCanOrder = response.data.success;
+                            });
+                    }
+                },
+                deep: true
+            },
+            'order.orderPeriod': {
+                handler(val) {
+                    console.log("I'm here");
+                    if (this.order.partner.id && this.order.orderPeriod) {
+                        axios
+                            .get('/api/orders/partner/partner-can-order', {
+                                params: {
+                                    partnerId: this.order.partner.id,
+                                    orderPeriod: this.order.orderPeriod
+                                }
+                            })
+                            .then(response => {
+                                this.partnerCanOrder = response.data.success;
+                            });
+                    }
+                },
             }
         },
         created() {

@@ -1,5 +1,12 @@
 <template>
     <section class="content">
+        <div
+            v-if="!partnerCanOrder"
+            class="alert alert-danger alert-dismissible"
+        >
+            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+            The selected partner has already created a distribution for {{ order.distributionPeriod|dateTimeMonthFormat }}
+        </div>
         <div class="pull-right">
             <button
                 class="btn btn-success btn-flat"
@@ -154,7 +161,8 @@
                     {id: "PENDING", name: "Pending"},
                     {id: "COMPLETED", name: "Completed", commit: true },
                 ],
-                filterText: ""
+                filterText: "",
+                partnerCanOrder: true
             };
         },
         validations: {
@@ -177,9 +185,45 @@
             statusIsCompleted: function () {
                 var self = this;
                 var status = this.statuses.filter(function(item) {
-                    return self.order.status == item.id
+                    return self.order.status === item.id
                 });
                 return status[0].commit === true;
+            },
+
+        },
+        watch: {
+            'order.partner': {
+                handler(val) {
+                    if (this.order.partner.id && this.order.distributionPeriod) {
+                        axios
+                            .get('/api/orders/distribution/partner-can-order', {
+                                params: {
+                                    partnerId: this.order.partner.id,
+                                    distributionPeriod: this.order.distributionPeriod
+                                }
+                            })
+                            .then(response => {
+                                this.partnerCanOrder = response.data.success;
+                            });
+                    }
+                },
+                deep: true
+            },
+            'order.distributionPeriod': {
+                handler(val) {
+                    if (this.order.partner.id && this.order.distributionPeriod) {
+                        axios
+                            .get('/api/orders/distribution/partner-can-order', {
+                                params: {
+                                    partnerId: this.order.partner.id,
+                                    distributionPeriod: this.order.distributionPeriod
+                                }
+                            })
+                            .then(response => {
+                                this.partnerCanOrder = response.data.success;
+                            });
+                    }
+                },
             }
         },
         created() {
@@ -255,6 +299,22 @@
                 axios
                     .delete('/api/orders/distribution/' + this.$route.params.id)
                     .then(self.$router.push('/orders/distribution'));
+            },
+            checkPartnerCanOrder: (val) => {
+                console.log('in handler (val)', val);
+                console.log('in handler', this);
+                if (this.order.partner.id && this.order.distributionPeriod) {
+                    axios
+                        .get('/api/orders/distribution/partner-can-order', {
+                            params: {
+                                partnerId: this.order.partner.id,
+                                distributionPeriod: this.order.distributionPeriod
+                            }
+                        })
+                        .then(response => {
+                            this.partnerCanOrder = !response.data.success;
+                        });
+                }
             }
         }
     }

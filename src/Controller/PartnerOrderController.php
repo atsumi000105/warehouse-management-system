@@ -75,6 +75,22 @@ class PartnerOrderController extends OrderController
         // TODO: get permissions working (#1)
         // $this->checkEditPermissions($order);
 
+        // Check if the partner has already submitted an order for the specified month.
+        $existingOrder = $this->getRepository()->findOneBy([
+            'partner' => $order->getPartner(),
+            'orderPeriod' => $order->getOrderPeriod(),
+        ]);
+
+        if ($existingOrder) {
+            throw new UserInterfaceException(
+                sprintf(
+                    '%s has already placed and order for %s.',
+                    $order->getPartner()->getTitle(),
+                    $order->getOrderPeriod()->format('M Y')
+                )
+            );
+        }
+
         $this->getEm()->persist($order);
         $this->getEm()->flush();
 
@@ -142,7 +158,28 @@ class PartnerOrderController extends OrderController
         return $this->serialize($request, $order->buildBags(), new BagTransformer());
     }
 
+    /**
+     * Whole or partial update of a order
+     *
+     * @Route(path="/partner-can-order", methods={"GET"})
+     *
+     * @return JsonResponse
+     * @throws \Exception
+     */
+    public function partnerCanOrder(Request $request)
+    {
+        $params = $this->getParams($request);
+        $partner = $this->getRepository(Partner::class)->find($params['partnerId']);
+        $orderPeriod = new \DateTime($params['orderPeriod']);
 
+        $existingOrder = $this->getRepository()->findOneBy([
+            'partner' => $partner,
+            'orderPeriod' => $orderPeriod,
+        ]);
+
+        return $this->meta($existingOrder === null);
+    }
+    
     protected function getDefaultTransformer()
     {
         return new PartnerOrderTransformer();
