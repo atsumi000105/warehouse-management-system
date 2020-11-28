@@ -87,7 +87,7 @@ You should now be able to connect to your the dev server at http://localhost:808
 
 ### Debugging with Xdebug
 
-1. In the "app" service of `docker-compose.yml`, change `WITH_XDEBUG=false` to `WITH_XDEBUG=true`
+1. In the "app" service of `docker-compose.unison.yml`, change `WITH_XDEBUG=false` to `WITH_XDEBUG=true`
 1. Rebuild your environment: `docker-compose up --build`
 1. If using PHPStorm, make sure you set your xdebug server to have the name "coverd"
 
