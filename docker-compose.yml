@@ -6,8 +6,6 @@ services:
         build:
             context: ./docker
             dockerfile: Dockerfile
-            args:
-                - WITH_XDEBUG=false
         volumes:
             - ./:/app
             - var:/app/var

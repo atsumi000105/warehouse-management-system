@@ -36,7 +36,7 @@ ARG WITH_XDEBUG=false
 ARG XDEBUG_INI=/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 RUN \
      if $WITH_XDEBUG; then \
-        pecl install xdebug; \
+        pecl install xdebug-2.9.8; \
         docker-php-ext-enable xdebug; \
         echo "error_reporting = E_ALL" >> ${XDEBUG_INI}; \
         echo "display_startup_errors = 1" >> ${XDEBUG_INI}; \
