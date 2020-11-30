@@ -144,7 +144,9 @@
             'ordermetadatabox' : OrderMetadataBox,
             'partnerselectionform' : PartnerSelectionForm
         },
-        props: ['new'],
+        props: {
+            new: { type: Boolean, default: false}
+        },
         data() {
             return {
                 order: {
@@ -194,7 +196,7 @@
         watch: {
             'order.partner': {
                 handler(val) {
-                    if (this.order.partner.id && this.order.distributionPeriod) {
+                    if (this.new && this.order.partner.id && this.order.distributionPeriod) {
                         axios
                             .get('/api/orders/distribution/partner-can-order', {
                                 params: {
@@ -211,7 +213,7 @@
             },
             'order.distributionPeriod': {
                 handler(val) {
-                    if (this.order.partner.id && this.order.distributionPeriod) {
+                    if (this.new && this.order.partner.id && this.order.distributionPeriod) {
                         axios
                             .get('/api/orders/distribution/partner-can-order', {
                                 params: {

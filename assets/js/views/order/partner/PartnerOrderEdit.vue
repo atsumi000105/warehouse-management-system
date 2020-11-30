@@ -168,7 +168,9 @@
             'lineitemform' : LineItemForm,
             'partnerselectionform' : PartnerSelectionForm
         },
-        props: ['new'],
+        props: {
+            new: { type: Boolean, default: false}
+        },
         data() {
             return {
                 order: {
@@ -220,8 +222,7 @@
         watch: {
             'order.partner': {
                 handler(val) {
-                    console.log("I'm here");
-                    if (this.order.partner.id && this.order.orderPeriod) {
+                    if (this.new && this.order.partner.id && this.order.orderPeriod) {
                         axios
                             .get('/api/orders/partner/partner-can-order', {
                                 params: {
@@ -238,8 +239,7 @@
             },
             'order.orderPeriod': {
                 handler(val) {
-                    console.log("I'm here");
-                    if (this.order.partner.id && this.order.orderPeriod) {
+                    if (this.new && this.order.partner.id && this.order.orderPeriod) {
                         axios
                             .get('/api/orders/partner/partner-can-order', {
                                 params: {

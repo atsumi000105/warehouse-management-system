@@ -111,6 +111,10 @@ class PartnerDistributionController extends OrderController
             $order->setPartner($newPartner);
         }
 
+        $params['lineItems'] = array_filter($params['lineItems'], function ($lineItem) {
+            return isset($lineItem['client']['id']);
+        });
+
         $this->processLineItems($order, $params['lineItems']);
         unset($params['lineItems']);
 
@@ -127,10 +131,8 @@ class PartnerDistributionController extends OrderController
      */
     protected function extraLineItemProcessing(LineItem $lineItem, array $lineItemArray)
     {
-        if (!$lineItem->getClient() || $lineItem->getClient()->getId() != $lineItemArray['client']['id']) {
-            $client = $this->getEm()->getRepository(Client::class)->findOneByPublicId($lineItemArray['client']['id']);
-            $lineItem->setClient($client);
-        }
+        $client = $this->getEm()->getRepository(Client::class)->findOneByPublicId($lineItemArray['client']['id']);
+        $lineItem->setClient($client);
     }
 
     /**
