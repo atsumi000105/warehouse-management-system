@@ -321,6 +321,11 @@ parameters:
 			path: src/Controller/OrderController.php
 
 		-
+			message: "#^Parameter \\#1 \\$line of method App\\\\Controller\\\\OrderController\\:\\:extraLineItemProcessing\\(\\) expects App\\\\Entity\\\\LineItem, App\\\\Entity\\\\LineItem\\|bool given\\.$#"
+			count: 1
+			path: src/Controller/OrderController.php
+
+		-
 			message: "#^Parameter \\#1 \\$lineItem of method App\\\\Entity\\\\Order\\:\\:removeLineItem\\(\\) expects App\\\\Entity\\\\LineItem, App\\\\Entity\\\\LineItem\\|bool given\\.$#"
 			count: 2
 			path: src/Controller/OrderController.php
@@ -332,11 +337,6 @@ parameters:
 
 		-
 			message: "#^Cannot call method setProduct\\(\\) on App\\\\Entity\\\\LineItem\\|bool\\.$#"
-			count: 1
-			path: src/Controller/OrderController.php
-
-		-
-			message: "#^Parameter \\#1 \\$line of method App\\\\Controller\\\\OrderController\\:\\:extraLineItemProcessing\\(\\) expects App\\\\Entity\\\\LineItem, App\\\\Entity\\\\LineItem\\|bool given\\.$#"
 			count: 1
 			path: src/Controller/OrderController.php
 
@@ -407,11 +407,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Controller\\\\PartnerDistributionController\\:\\:extraLineItemProcessing\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/Controller/PartnerDistributionController.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: src/Controller/PartnerDistributionController.php
 
@@ -3366,27 +3361,7 @@ parameters:
 			path: src/Repository/Orders/PartnerOrderRepository.php
 
 		-
-			message: "#^Method App\\\\Repository\\\\Orders\\\\PartnerOrderRepository\\:\\:partnerOrderTotals\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/Repository/Orders/PartnerOrderRepository.php
-
-		-
-			message: "#^Method App\\\\Repository\\\\Orders\\\\PartnerOrderRepository\\:\\:partnerOrderTotals\\(\\) has parameter \\$sortDirection with no typehint specified\\.$#"
-			count: 1
-			path: src/Repository/Orders/PartnerOrderRepository.php
-
-		-
-			message: "#^Method App\\\\Repository\\\\Orders\\\\PartnerOrderRepository\\:\\:partnerOrderTotals\\(\\) has parameter \\$sortField with no typehint specified\\.$#"
-			count: 1
-			path: src/Repository/Orders/PartnerOrderRepository.php
-
-		-
 			message: "#^Parameter \\#2 \\$params of method App\\\\Repository\\\\Orders\\\\PartnerOrderRepository\\:\\:addCriteria\\(\\) expects Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag, Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\|null given\\.$#"
-			count: 1
-			path: src/Repository/Orders/PartnerOrderRepository.php
-
-		-
-			message: "#^Method App\\\\Repository\\\\Orders\\\\PartnerOrderRepository\\:\\:findPartnerOrderTotalsCount\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Repository/Orders/PartnerOrderRepository.php
 

@@ -155,7 +155,7 @@ class BulkDistribution extends Order
         $this->portalOrderId = $portalOrderId;
     }
 
-    public function removeLineItem(LineItem $lineItem)
+    public function removeLineItem(LineItem $lineItem): void
     {
         /** @var BulkDistributionLineItem $lineItem */
         //If the line item has an ID then look it up by that, otherwise look it up by product
