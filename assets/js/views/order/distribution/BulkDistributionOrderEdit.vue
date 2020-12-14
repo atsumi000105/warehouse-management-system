@@ -96,7 +96,7 @@
                                 />
                             </div>
                         </div>
-                        <BulkDistributionLineItemForm
+                        <LineItemByClientForm
                             :products="allOrderableProducts"
                             :line-items="order.lineItems"
                             :editable="order.isEditable"
@@ -130,19 +130,19 @@
     import FieldError from '../../../components/FieldError.vue';
     import OrderMetadataBox from '../../../components/OrderMetadataBox.vue';
     import PartnerSelectionForm from '../../../components/PartnerSelectionForm.vue';
-    import BulkDistributionLineItemForm from "./BulkDistributionLineItemForm";
     import axios from "axios";
     import TextField from "../../../components/TextField";
+    import LineItemByClientForm from "../../../components/order/LineItemByClientForm";
     export default {
         components: {
+            LineItemByClientForm,
             TextField,
-            BulkDistributionLineItemForm,
             'modalcomplete' : ModalOrderConfirmComplete,
             'modaldelete' : ModalOrderConfirmDelete,
             'modalinvalid' : ModalOrderInvalid,
             'fielderror' : FieldError,
             'ordermetadatabox' : OrderMetadataBox,
-            'partnerselectionform' : PartnerSelectionForm
+            'partnerselectionform' : PartnerSelectionForm,
         },
         props: {
             new: { type: Boolean, default: false}
@@ -228,13 +228,10 @@
                 },
             }
         },
-        created() {
+        mounted() {
             var self = this;
             this.$store.dispatch('loadProducts');
 
-            axios
-                .get('/api/products', {params: { partnerOrderable: 1}})
-                .then(response => this.products = response.data.data);
             if (this.new) {
             } else {
                 axios

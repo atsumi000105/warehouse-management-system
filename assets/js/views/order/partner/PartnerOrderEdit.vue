@@ -113,11 +113,42 @@
                                 At least one line item must have a quantity
                             </fielderror>
                             <h3 class="box-title">
-                                <i class="icon fa fa-list fa-fw" />Line Items
+                                <a data-toggle="collapse" href="#orderByClient" aria-expanded="true" aria-controls="orderByClient">
+                                    <i class="icon fa fa-child fa-fw" />Order by Client
+                                </a>
+                            </h3>
+                        </div>
+                        <div id="orderByClient" class="panel-collapse collapse in" aria-expanded="true">
+                            <LineItemByClientForm
+                                :products="allOrderableProducts"
+                                :line-items="order.lineItems.filter((item) => item.client)"
+                                :editable="order.isEditable"
+                                :show-packs="true"
+                                :filter-text="filterText"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div
+                        class="box box-info"
+                        :class="{ 'has-error': $v.order.lineItems.$error }"
+                    >
+                        <div class="box-header with-border">
+                            <fielderror
+                                v-if="$v.order.lineItems.$error"
+                                classes="pull-right"
+                            >
+                                At least one line item must have a quantity
+                            </fielderror>
+                            <h3 class="box-title">
+                                <i class="icon fa fa-boxes fa-fw" />Order in Bulk or On-hand
                             </h3>
                         </div>
                         <lineitemform
-                            :products="products"
+                            :products="allOrderableProducts"
                             :line-items="order.lineItems"
                             :editable="order.isEditable"
                             :show-packs="true"
@@ -152,12 +183,15 @@
     import FieldError from '../../../components/FieldError';
     import OrderMetadataBox from '../../../components/OrderMetadataBox.vue';
     import WarehouseSelectionForm from '../../../components/WarehouseSelectionForm.vue'
-    import LineItemForm from '../../../components/LineItemForm.vue';
+    import LineItemForm from '../../../components/order/LineItemByProductForm.vue';
     import PartnerSelectionForm from '../../../components/PartnerSelectionForm.vue';
     import Modal from "../../../components/Modal";
     import axios from "axios";
+    import LineItemByClientForm from "../../../components/order/LineItemByClientForm";
+    import {mapGetters} from "vuex";
     export default {
         components: {
+            LineItemByClientForm,
             Modal,
             'modalcomplete' : ModalOrderConfirmComplete,
             'modaldelete' : ModalOrderConfirmDelete,
@@ -217,7 +251,10 @@
                     return self.order.status == item.id
                 });
                 return status[0].commit === true;
-            }
+            },
+            ...mapGetters([
+                'allOrderableProducts'
+            ])
         },
         watch: {
             'order.partner': {
@@ -256,9 +293,6 @@
         },
         created() {
             var self = this;
-            axios
-                .get('/api/products', {params: { partnerOrderable: 1}})
-                .then(response => this.products = response.data.data);
             if (this.new) {
             } else {
                 axios
@@ -270,7 +304,7 @@
         },
         mounted() {
             this.$refs.partnerSelection.$on('partner-change', eventData => this.onPartnerChange(eventData));
-
+            this.$store.dispatch('loadProducts');
             console.log('Component mounted.')
         },
         methods: {
@@ -313,11 +347,25 @@
                     .delete('/api/orders/partner/' + this.$route.params.id)
                     .then(self.$router.push('/orders/partner'));
             },
-            onPartnerChange: function(currentPartner) {
-                this.partnerType = currentPartner.partnerType;
-                if(!currentPartner.canPlaceOrders && this.new) {
+            onPartnerChange: function(partner) {
+                let self = this;
+                this.$v.order.partner.$touch();
+
+                this.partnerType = partner.partnerType;
+                if(!partner.canPlaceOrders && this.new) {
                     $('#inactive-partner-modal').modal('show');
                 }
+
+                axios
+                    .get('/api/orders/partner/new-line-items-for-partner/' + partner.id)
+                    .then((response) => {
+                            self.order.lineItems = response.data.data;
+                            // resolve(response);
+                        },
+                        (err) => {
+                            // reject(err);
+                        }
+                    );
             }
         }
     }

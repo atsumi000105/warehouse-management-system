@@ -133,7 +133,7 @@
     import FieldError from '../../../components/FieldError.vue';
     import OrderMetadataBox from '../../../components/OrderMetadataBox.vue';
     import WarehouseSelectionForm from '../../../components/WarehouseSelectionForm.vue'
-    import LineItemForm from '../../../components/LineItemForm.vue';
+    import LineItemForm from '../../../components/order/LineItemByProductForm.vue';
     import SupplierSelectionForm from '../../../components/SupplierSelectionForm.vue';
     export default {
         components: {

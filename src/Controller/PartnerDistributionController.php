@@ -136,7 +136,7 @@ class PartnerDistributionController extends OrderController
     }
 
     /**
-     * Whole or partial update of a order
+     * Generate line items for each client for use in the edit view
      *
      * @Route(path="/new-line-items-for-partner/{id<\d+>}", methods={"GET"})
      *

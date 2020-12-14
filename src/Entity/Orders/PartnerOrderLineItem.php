@@ -2,9 +2,9 @@
 
 namespace App\Entity\Orders;
 
+use App\Entity\Client;
 use App\Entity\InventoryTransaction;
 use App\Entity\LineItem;
-use App\Entity\Orders\PartnerOrder;
 use App\Entity\Partner;
 use App\Entity\Warehouse;
 use Doctrine\ORM\Mapping as ORM;
@@ -16,6 +16,28 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class PartnerOrderLineItem extends LineItem
 {
+
+    /**
+     * @var Client
+     *
+     * @ORM\ManyToOne(targetEntity="App\Entity\Client")
+     */
+    protected $client;
+
+    public function getClient(): Client
+    {
+        return $this->client;
+    }
+
+    public function setClient(Client $client): void
+    {
+        $this->client = $client;
+    }
+
+    public function isClientLineItem(): bool
+    {
+        return !!$this->client;
+    }
 
     /**
      * Partner Orders generate a deduction from the warehouse and an increase to the partner

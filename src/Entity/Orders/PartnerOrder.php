@@ -2,6 +2,8 @@
 
 namespace App\Entity\Orders;
 
+use App\Entity\Client;
+use App\Entity\LineItem;
 use App\Entity\Order;
 use App\Entity\Partner;
 use App\Entity\Warehouse;
@@ -123,6 +125,53 @@ class PartnerOrder extends Order
         return $this->getStatus() !== self::STATUS_SHIPPED;
     }
 
+    public function addMissingClients()
+    {
+        $clients = $this->getPartner()->getClients();
+        $lineItems = $this->lineItems;
+
+        $missingClients = $clients->filter(function (Client $client) use ($lineItems) {
+            return !$lineItems
+                ->filter(function (PartnerOrderLineItem $line) { return $line->isClientLineItem(); })
+                ->exists(function ($key, PartnerOrderLineItem $lineItem) use ($client) {
+                    return $lineItem->getClient()->getId() == $client->getId();
+                });
+        });
+
+        foreach ($missingClients as $client) {
+            $line = new PartnerOrderLineItem();
+            $line->setClient($client);
+            $this->addLineItem($line);
+        }
+    }
+
+    public function removeLineItem(LineItem $lineItem): void
+    {
+        /** @var PartnerOrderLineItem $lineItem */
+        //If the line item has an ID then look it up by that, otherwise look it up by product
+        if ($lineItem->getId()) {
+            $found = $this->lineItems->filter(function (LineItem $line) use ($lineItem) {
+                return $line->getId() == $lineItem->getId();
+            })->first();
+        } else {
+            if ($lineItem->isClientLineItem()) {
+                $found = $this->lineItems->filter(function (PartnerOrderLineItem $line) use ($lineItem) {
+                    if ($line->isClientLineItem()) {
+                        return $line->getClient()->getId() == $lineItem->getClient()->getId();
+                    }
+                    return false;
+                })->first();
+            } else {
+                $found = $this->lineItems->filter(function (LineItem $line) use ($lineItem) {
+                    return $line->getProduct()->getId() == $lineItem->getProduct()->getId();
+                })->first();
+            }
+        }
+
+        if ($found) {
+            $this->lineItems->removeElement($found);
+        }
+    }
 
     public function buildBags()
     {
