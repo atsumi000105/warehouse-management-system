@@ -140,11 +140,11 @@ class PartnerDistributionController extends OrderController
      *
      * @Route(path="/new-line-items-for-partner/{id<\d+>}", methods={"GET"})
      *
-     * @param $id
+     * @param Request $request
+     * @param int $id
      * @return JsonResponse
-     * @throws \App\Exception\CommittedTransactionException
      */
-    public function createLineItemsForPartner(Request $request, $id)
+    public function createLineItemsForPartner(Request $request, int $id)
     {
         /** @var Partner $partner */
         $partner = $this->getEm()->getRepository(Partner::class)->find($id);

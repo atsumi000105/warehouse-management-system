@@ -22,7 +22,7 @@ class PartnerOrderLineItemTransformer extends LineItemTransformer
     {
         $properties = parent::transform($lineItem);
 
-        if ($lineItem->getOrder()) {
+        if ($lineItem->hasOrder()) {
             $properties['orderSequence'] = $lineItem->getOrder()->getSequenceNo();
             $properties['orderId'] = $lineItem->getOrder()->getId();
         }

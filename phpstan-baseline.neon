@@ -411,16 +411,6 @@ parameters:
 			path: src/Controller/PartnerDistributionController.php
 
 		-
-			message: "#^Method App\\\\Controller\\\\PartnerDistributionController\\:\\:createLineItemsForPartner\\(\\) has parameter \\$id with no typehint specified\\.$#"
-			count: 1
-			path: src/Controller/PartnerDistributionController.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected type at offset 151$#"
-			count: 1
-			path: src/Controller/PartnerDistributionController.php
-
-		-
 			message: "#^Method App\\\\Controller\\\\PartnerDistributionController\\:\\:getDefaultTransformer\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Controller/PartnerDistributionController.php
@@ -1909,11 +1899,6 @@ parameters:
 			message: "#^Method App\\\\Entity\\\\InventoryTransaction\\:\\:setCommittedAt\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Entity/InventoryTransaction.php
-
-		-
-			message: "#^Property App\\\\Entity\\\\LineItem\\:\\:\\$order type mapping mismatch\\: database can contain App\\\\Entity\\\\Order\\|null but property expects App\\\\Entity\\\\Order\\.$#"
-			count: 1
-			path: src/Entity/LineItem.php
 
 		-
 			message: "#^Property App\\\\Entity\\\\LineItem\\:\\:\\$product type mapping mismatch\\: database can contain App\\\\Entity\\\\Product\\|null but property expects App\\\\Entity\\\\Product\\.$#"
@@ -3774,21 +3759,6 @@ parameters:
 			message: "#^Method App\\\\Transformers\\\\OrderTransformer\\:\\:includeLineItems\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Transformers/OrderTransformer.php
-
-		-
-			message: "#^Method App\\\\Transformers\\\\PartnerOrderTransformer\\:\\:includePartner\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/Transformers/PartnerOrderTransformer.php
-
-		-
-			message: "#^Method App\\\\Transformers\\\\PartnerOrderTransformer\\:\\:includeWarehouse\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/Transformers/PartnerOrderTransformer.php
-
-		-
-			message: "#^Method App\\\\Transformers\\\\PartnerOrderTransformer\\:\\:includeBags\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/Transformers/PartnerOrderTransformer.php
 
 		-
 			message: "#^Method App\\\\Transformers\\\\PartnerProfileTransformer\\:\\:includeAttributes\\(\\) has no return typehint specified\\.$#"

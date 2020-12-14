@@ -28,7 +28,7 @@ abstract class LineItem extends CoreEntity
     protected $id;
 
     /**
-     * @var Order
+     * @var Order|null
      *
      * @ORM\ManyToOne(targetEntity="Order", inversedBy="lineItems")
      */
@@ -102,9 +102,14 @@ abstract class LineItem extends CoreEntity
 
     /**
      * @return Order
+     * @throws \Exception
      */
-    public function getOrder()
+    public function getOrder(): Order
     {
+        if (is_null($this->order)) {
+            throw new \Exception('getOrder should not be called when there is a chance it is null. Use hasOrder() to test for this.');
+        }
+
         return $this->order;
     }
 
@@ -114,6 +119,11 @@ abstract class LineItem extends CoreEntity
     public function setOrder(Order $order)
     {
         $this->order = $order;
+    }
+
+    public function hasOrder(): bool
+    {
+        return !is_null($this->order);
     }
 
     /**

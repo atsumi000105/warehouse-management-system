@@ -125,7 +125,7 @@ class PartnerOrder extends Order
         return $this->getStatus() !== self::STATUS_SHIPPED;
     }
 
-    public function addMissingClients()
+    public function addMissingClients(): void
     {
         $clients = $this->getPartner()->getClients();
         $lineItems = $this->lineItems;

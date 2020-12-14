@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Client;
 use App\Entity\LineItem;
-use App\Entity\Orders\BulkDistribution;
 use App\Entity\Orders\PartnerOrder;
 use App\Entity\Orders\PartnerOrderLineItem;
 use App\Entity\Partner;
@@ -36,7 +35,6 @@ class PartnerOrderController extends OrderController
     {
         return new PartnerOrderLineItem();
     }
-
 
     /**
      * Save a new partner order
@@ -147,7 +145,7 @@ class PartnerOrderController extends OrderController
      * @param PartnerOrderLineItem $lineItem
      * @param array $lineItemArray
      */
-    protected function extraLineItemProcessing(LineItem $lineItem, array $lineItemArray)
+    protected function extraLineItemProcessing(LineItem $lineItem, array $lineItemArray): void
     {
         if (isset($lineItemArray['client']['id'])) {
             $client = $this->getEm()->getRepository(Client::class)->findOneByPublicId($lineItemArray['client']['id']);
@@ -160,10 +158,11 @@ class PartnerOrderController extends OrderController
      *
      * @Route(path="/new-line-items-for-partner/{id<\d+>}", methods={"GET"})
      *
-     * @param $id
+     * @param Request $request
+     * @param int $id
      * @return JsonResponse
      */
-    public function createLineItemsForPartner(Request $request, $id): JsonResponse
+    public function createLineItemsForPartner(Request $request, int $id): JsonResponse
     {
         /** @var Partner $partner */
         $partner = $this->getEm()->getRepository(Partner::class)->find($id);
