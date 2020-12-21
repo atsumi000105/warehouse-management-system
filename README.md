@@ -87,9 +87,16 @@ You should now be able to connect to your the dev server at http://localhost:808
 
 ### Debugging with Xdebug
 
-1. In the "app" service of `docker-compose.unison.yml`, change `WITH_XDEBUG=false` to `WITH_XDEBUG=true`
+1. In the "XDEBUG" section of `.env.local`, set `XDEBUG_MODE` to include `debug`
+   * ex. `XDEBUG_MODE=develop,debug`
+   * For more information, see: https://xdebug.org/docs/install#mode
 1. Rebuild your environment: `docker-compose up --build`
+   * Note: If you are debugging via phpunit, you can do this more quickly via:
+     1. `docker/app bash`
+     1. `export XDEBUG_MODE=debug`
+     1. Run your phpunit tests from this command-line
 1. If using PHPStorm, make sure you set your xdebug server to have the name "coverd"
+1. Don't forget to reset your `XDEBUG_MODE` when you are 
 
 ## Work With the Dev Environment
 
