@@ -217,7 +217,7 @@ class PartnerOrderController extends OrderController
 
         return $this->meta($existingOrder === null);
     }
-    
+
     protected function getDefaultTransformer()
     {
         return new PartnerOrderTransformer();

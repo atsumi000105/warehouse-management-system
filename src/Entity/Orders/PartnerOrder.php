@@ -132,9 +132,11 @@ class PartnerOrder extends Order
 
         $missingClients = $clients->filter(function (Client $client) use ($lineItems) {
             return !$lineItems
-                ->filter(function (PartnerOrderLineItem $line) { return $line->isClientLineItem(); })
+                ->filter(function (PartnerOrderLineItem $line) {
+                    return $line->isClientLineItem();
+                })
                 ->exists(function ($key, PartnerOrderLineItem $lineItem) use ($client) {
-                    return $lineItem->getClient()->getId() == $client->getId();
+                    return $lineItem->getClient()->getId() === $client->getId();
                 });
         });
 
