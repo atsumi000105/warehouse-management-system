@@ -65,7 +65,7 @@ Learn More at https://www.happybottoms.org
 ## Development Installation - Docker Compose
 
 1. `./bin/dockerized-install.sh`
-1. `docker-compose up`
+1. `docker-compose -f docker-compose.yml -f docker-compose.unison.yml up --build`
 
 You should now be able to connect to your the dev server at http://localhost:8080/
 
@@ -90,7 +90,7 @@ You should now be able to connect to your the dev server at http://localhost:808
 1. In the "XDEBUG" section of `.env.local`, set `XDEBUG_MODE` to include `debug`
    * ex. `XDEBUG_MODE=develop,debug`
    * For more information, see: https://xdebug.org/docs/install#mode
-1. Rebuild your environment: `docker-compose up --build`
+1. Rebuild your environment: `docker-compose -f docker-compose.yml -f docker-compose.unison.yml up --build`
    * Note: If you are debugging via phpunit, you can do this more quickly via:
      1. `docker/app bash`
      1. `export XDEBUG_MODE=debug`
