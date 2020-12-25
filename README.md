@@ -96,7 +96,7 @@ You should now be able to connect to your the dev server at http://localhost:808
      1. `export XDEBUG_MODE=debug`
      1. Run your phpunit tests from this command-line
 1. If using PHPStorm, make sure you set your xdebug server to have the name "coverd"
-1. Don't forget to reset your `XDEBUG_MODE` when you are 
+1. Don't forget to reset your `XDEBUG_MODE` when you are done debugging
 
 ## Work With the Dev Environment
 
