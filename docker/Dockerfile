@@ -32,19 +32,15 @@ RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 
 
 # install xdebug
-ARG WITH_XDEBUG=false
 ARG XDEBUG_INI=/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 RUN \
-     if $WITH_XDEBUG; then \
-        pecl install xdebug-2.9.8; \
-        docker-php-ext-enable xdebug; \
-        echo "error_reporting = E_ALL" >> ${XDEBUG_INI}; \
-        echo "display_startup_errors = 1" >> ${XDEBUG_INI}; \
-        echo "display_errors = 1" >> ${XDEBUG_INI}; \
-        echo "xdebug.remote_enable = 1" >> ${XDEBUG_INI}; \
-        echo "xdebug.remote_autostart = 0" >> ${XDEBUG_INI}; \
-        echo "xdebug.remote_connect_back = 0" >> ${XDEBUG_INI}; \
-        echo "xdebug.max_nesting_level = 1500" >> ${XDEBUG_INI}; \
-     fi ;
+    pecl install xdebug; \
+    docker-php-ext-enable xdebug; \
+    echo "error_reporting = E_ALL" >> ${XDEBUG_INI}; \
+    echo "display_startup_errors = yes" >> ${XDEBUG_INI}; \
+    echo "xdebug.force_display_errors = 1" >> ${XDEBUG_INI}; \
+    echo "xdebug.start_with_request = yes" >> ${XDEBUG_INI}; \
+    echo "xdebug.discover_client_host = false" >> ${XDEBUG_INI}; \
+    echo "xdebug.max_nesting_level = 1500" >> ${XDEBUG_INI};
 
 WORKDIR /app
