@@ -7,7 +7,11 @@
         <template slot="header">
             Invalid Values
         </template>
-        <p>There are incorrect values in on this order. Please see error messages next to applicable fields.</p>
+        <p>
+            <slot>
+                There are incorrect values in on this order. Please see error messages next to applicable fields.
+            </slot>
+        </p>
         <template slot="cancelButton">
             OK
         </template>

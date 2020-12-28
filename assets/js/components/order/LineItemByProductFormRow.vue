@@ -68,8 +68,9 @@
 </template>
 
 <script>
-    import LineItemTransactionTable from '../components/LineItemTransactionTable.vue';
+    import LineItemTransactionTable from '../LineItemTransactionTable.vue';
     export default {
+        name: 'LineItemByProductFormRow',
         components: {
             'lineitemtransactions' : LineItemTransactionTable
         },

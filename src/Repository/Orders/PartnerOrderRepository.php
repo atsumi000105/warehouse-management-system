@@ -2,6 +2,7 @@
 
 namespace App\Repository\Orders;
 
+use App\Entity\Orders\PartnerOrder;
 use App\Repository\OrderRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -15,8 +16,17 @@ class PartnerOrderRepository extends OrderRepository
             ->leftJoin('o.warehouse', 'warehouse');
     }
 
-    public function partnerOrderTotals($sortField = null, $sortDirection = 'ASC', ParameterBag $params = null)
-    {
+    /**
+     * @param string|null $sortField
+     * @param string|null $sortDirection
+     * @param ParameterBag|null $params
+     * @return PartnerOrder[]
+     */
+    public function partnerOrderTotals(
+        ?string $sortField = null,
+        ?string $sortDirection = 'ASC',
+        ParameterBag $params = null
+    ): array {
         $qb = $this->createQueryBuilder('o')
             ->leftJoin('o.lineItems', 'l')
             ->join('o.partner', 'p');
@@ -30,11 +40,10 @@ class PartnerOrderRepository extends OrderRepository
 
         $this->addCriteria($qb, $params);
 
-        $results = $qb->getQuery()->execute();
-        return $results;
+        return $qb->getQuery()->execute();
     }
 
-    public function findPartnerOrderTotalsCount(ParameterBag $params)
+    public function findPartnerOrderTotalsCount(ParameterBag $params): int
     {
 
         $qb = $this->createQueryBuilder('o')
@@ -81,5 +90,10 @@ class PartnerOrderRepository extends OrderRepository
             $qb->andWhere('o.orderPeriod <= :endingAt')
                 ->setParameter('endingAt', new \DateTime($params->get('endingAt')));
         }
+    }
+
+    public function findOneByMonth(\DateTime $month): PartnerOrder
+    {
+        return $this->findOneBy(['orderPeriod' => $month]);
     }
 }

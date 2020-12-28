@@ -41,8 +41,9 @@
 </template>
 
 <script>
-    import LineItemFormRow from '../components/LineItemFormRow.vue';
+    import LineItemFormRow from './LineItemByProductFormRow.vue';
     export default {
+        name: 'LineItemByProductForm',
         components: {
             'lineitemformrow' : LineItemFormRow
         },
@@ -58,7 +59,7 @@
             findLineItem: function(product) {
                 let self = this;
                 let lineItem = this.lineItems.filter(function(line) {
-                    return line.product.id === product.id;
+                    return line.product.id === product.id && !line.client;
                 }).pop();
 
                 if (!lineItem) {

@@ -4,6 +4,8 @@ namespace App\Transformers;
 
 use App\Entity\Order;
 use App\Entity\Orders\PartnerOrder;
+use League\Fractal\Resource\Collection;
+use League\Fractal\Resource\Item;
 
 class PartnerOrderTransformer extends OrderTransformer
 {
@@ -31,21 +33,36 @@ class PartnerOrderTransformer extends OrderTransformer
         return $fields;
     }
 
-    public function includePartner(PartnerOrder $order)
+    /**
+     * @param PartnerOrder $order
+     * @return Collection
+     */
+    public function includeLineItems(Order $order): Collection
+    {
+        if ($order->isEditable()) {
+            $order->addMissingClients();
+        }
+
+        $lineItems = $order->getLineItems();
+
+        return $this->collection($lineItems, new PartnerOrderLineItemTransformer());
+    }
+
+    public function includePartner(PartnerOrder $order): Item
     {
         $partner = $order->getPartner();
 
         return $this->item($partner, new PartnerTransformer());
     }
 
-    public function includeWarehouse(PartnerOrder $order)
+    public function includeWarehouse(PartnerOrder $order): Item
     {
         $warehouse = $order->getWarehouse();
 
         return $this->item($warehouse, new StorageLocationTransformer());
     }
 
-    public function includeBags(PartnerOrder $order)
+    public function includeBags(PartnerOrder $order): Collection
     {
         return $this->collection($order->buildBags(), new BagTransformer());
     }

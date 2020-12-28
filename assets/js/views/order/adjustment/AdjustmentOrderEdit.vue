@@ -135,7 +135,7 @@
     import ModalOrderInvalid from '../../../components/ModalOrderInvalid.vue';
     import FieldError from '../../../components/FieldError.vue';
     import OrderMetadataBox from '../../../components/OrderMetadataBox.vue';
-    import LineItemForm from '../../../components/LineItemForm.vue';
+    import LineItemForm from '../../../components/order/LineItemByProductForm.vue';
     import StorageLocationSelectionForm from '../../../components/StorageLocationSelectionForm.vue';
     export default {
         components: {

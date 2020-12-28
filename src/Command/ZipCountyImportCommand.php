@@ -48,7 +48,7 @@ class ZipCountyImportCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $zipCountyRepo = $this->em->getRepository(ZipCounty::class);
 
-        $zipFileHandler = fopen(__DIR__ . "/../data/ZIP_COUNTY_062020.txt", 'r');
+        $zipFileHandler = fopen(__DIR__ . "/../Data/ZIP_COUNTY_062020.txt", 'r');
         $counties = [];
 
         // Skip the first line since it's just the header
@@ -66,7 +66,7 @@ class ZipCountyImportCommand extends Command
 
         fclose($zipFileHandler);
 
-        $countyFileHandler = fopen(__DIR__ . "/../data/2019_Gaz_counties_national.txt", 'r');
+        $countyFileHandler = fopen(__DIR__ . "/../Data/2019_Gaz_counties_national.txt", 'r');
 
         // Skip the first line since it's just the header
         fgetcsv($countyFileHandler, 0, "\t");
