@@ -303,8 +303,6 @@
                     .then(self.$router.push('/orders/distribution'));
             },
             checkPartnerCanOrder: (val) => {
-                console.log('in handler (val)', val);
-                console.log('in handler', this);
                 if (this.order.partner.id && this.order.distributionPeriod) {
                     axios
                         .get('/api/orders/distribution/partner-can-order', {
