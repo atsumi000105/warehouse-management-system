@@ -8,9 +8,9 @@ cp .env .env.local
 DB_URL="DATABASE_URL=postgres://postgres:coverd@db/coverd?charset=UTF-8"
 if [[ "$OSTYPE" == "darwin"* ]]; then
     # MacOS `sed` needs a zero-length extension
-    sed -i '' -e "s~^DATABASE_URL=postgres.*~$DB_URL~g" .env.local
+    sed -i '' -e "s~^DATABASE_URL=.*~$DB_URL~g" .env.local
 else
-    sed -i -e "s~^DATABASE_URL=postgres.*~$DB_URL~g" .env.local
+    sed -i -e "s~^DATABASE_URL=.*~$DB_URL~g" .env.local
 fi
 
 docker-compose -f docker-compose.yml -f docker-compose.unison.yml down -v --rmi all --remove-orphans
