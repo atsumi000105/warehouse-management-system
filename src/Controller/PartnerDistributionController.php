@@ -8,6 +8,7 @@ use App\Entity\Orders\BulkDistribution;
 use App\Entity\Orders\BulkDistributionLineItem;
 use App\Entity\Partner;
 use App\Entity\User;
+use App\Exception\UserInterfaceException;
 use App\Transformers\BulkDistributionLineItemTransformer;
 use App\Transformers\BulkDistributionTransformer;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -60,6 +61,22 @@ class PartnerDistributionController extends OrderController
         // TODO: get permissions working (#1)
         // $this->checkEditPermissions($order);
 
+        // Check if the partner has already submitted an order for the specified month.
+        $existingOrder = $this->getRepository()->findOneBy([
+            'partner' => $order->getPartner(),
+            'distributionPeriod' => $order->getDistributionPeriod(),
+        ]);
+
+        if ($existingOrder) {
+            throw new UserInterfaceException(
+                sprintf(
+                    '%s has already reported distributions for %s.',
+                    $order->getPartner()->getTitle(),
+                    $order->getDistributionPeriod()->format('M Y')
+                )
+            );
+        }
+
         $this->getEm()->persist($order);
         $this->getEm()->flush();
 
@@ -94,6 +111,10 @@ class PartnerDistributionController extends OrderController
             $order->setPartner($newPartner);
         }
 
+        $params['lineItems'] = array_filter($params['lineItems'], function ($lineItem) {
+            return isset($lineItem['client']['id']);
+        });
+
         $this->processLineItems($order, $params['lineItems']);
         unset($params['lineItems']);
 
@@ -110,22 +131,20 @@ class PartnerDistributionController extends OrderController
      */
     protected function extraLineItemProcessing(LineItem $lineItem, array $lineItemArray)
     {
-        if (!$lineItem->getClient() || $lineItem->getClient()->getId() != $lineItemArray['client']['id']) {
-            $client = $this->getEm()->getRepository(Client::class)->findOneByPublicId($lineItemArray['client']['id']);
-            $lineItem->setClient($client);
-        }
+        $client = $this->getEm()->getRepository(Client::class)->findOneByPublicId($lineItemArray['client']['id']);
+        $lineItem->setClient($client);
     }
 
     /**
-     * Whole or partial update of a order
+     * Generate line items for each client for use in the edit view
      *
      * @Route(path="/new-line-items-for-partner/{id<\d+>}", methods={"GET"})
      *
-     * @param $id
+     * @param Request $request
+     * @param int $id
      * @return JsonResponse
-     * @throws \App\Exception\CommittedTransactionException
      */
-    public function createLineItemsForPartner(Request $request, $id)
+    public function createLineItemsForPartner(Request $request, int $id)
     {
         /** @var Partner $partner */
         $partner = $this->getEm()->getRepository(Partner::class)->find($id);
@@ -142,6 +161,28 @@ class PartnerDistributionController extends OrderController
         }, $clients);
 
         return $this->serialize($request, $lineItems, new BulkDistributionLineItemTransformer());
+    }
+
+    /**
+     * Whole or partial update of a order
+     *
+     * @Route(path="/partner-can-order", methods={"GET"})
+     *
+     * @return JsonResponse
+     * @throws \Exception
+     */
+    public function partnerCanOrder(Request $request)
+    {
+        $params = $this->getParams($request);
+        $partner = $this->getRepository(Partner::class)->find($params['partnerId']);
+        $distributionPeriod = new \DateTime($params['distributionPeriod']);
+
+        $existingOrder = $this->getRepository()->findOneBy([
+            'partner' => $partner,
+            'distributionPeriod' => $distributionPeriod,
+        ]);
+
+        return $this->meta($existingOrder === null);
     }
 
     protected function buildFilterParams(Request $request)

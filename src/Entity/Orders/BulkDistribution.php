@@ -3,6 +3,7 @@
 namespace App\Entity\Orders;
 
 use App\Entity\Client;
+use App\Entity\LineItem;
 use App\Entity\Order;
 use App\Entity\Partner;
 use Doctrine\ORM\Mapping as ORM;
@@ -152,5 +153,24 @@ class BulkDistribution extends Order
     public function setPortalOrderId(?int $portalOrderId)
     {
         $this->portalOrderId = $portalOrderId;
+    }
+
+    public function removeLineItem(LineItem $lineItem): void
+    {
+        /** @var BulkDistributionLineItem $lineItem */
+        //If the line item has an ID then look it up by that, otherwise look it up by product
+        if ($lineItem->getId()) {
+            $found = $this->lineItems->filter(function (LineItem $line) use ($lineItem) {
+                return $line->getId() == $lineItem->getId();
+            })->first();
+        } else {
+            $found = $this->lineItems->filter(function (BulkDistributionLineItem $line) use ($lineItem) {
+                return $line->getClient()->getId() == $lineItem->getClient()->getId();
+            })->first();
+        }
+
+        if ($found) {
+            $this->lineItems->removeElement($found);
+        }
     }
 }

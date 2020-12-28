@@ -263,6 +263,8 @@ class OrderController extends BaseController
                 $order->addLineItem($line);
             }
 
+            $this->extraLineItemProcessing($line, $lineItemArray);
+
             if (!$lineItemArray['product']['id']) {
                 $order->removeLineItem($line);
                 continue;
@@ -272,8 +274,6 @@ class OrderController extends BaseController
                 $product = $this->getEm()->getReference(Product::class, $lineItemArray['product']['id']);
                 $line->setProduct($product);
             }
-
-            $this->extraLineItemProcessing($line, $lineItemArray);
 
             $line->applyChangesFromArray($lineItemArray);
 

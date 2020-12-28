@@ -367,9 +367,6 @@
             "config/packages/test/monolog.yaml"
         ]
     },
-    "symfony/orm-pack": {
-        "version": "v1.0.6"
-    },
     "symfony/phpunit-bridge": {
         "version": "4.3",
         "recipe": {
@@ -409,9 +406,6 @@
     },
     "symfony/process": {
         "version": "v4.4.15"
-    },
-    "symfony/profiler-pack": {
-        "version": "v1.0.4"
     },
     "symfony/property-access": {
         "version": "v4.3.2"
@@ -461,9 +455,6 @@
     "symfony/serializer": {
         "version": "v4.3.2"
     },
-    "symfony/serializer-pack": {
-        "version": "v1.0.2"
-    },
     "symfony/service-contracts": {
         "version": "v1.1.5"
     },
@@ -484,9 +475,6 @@
     },
     "symfony/templating": {
         "version": "v4.4.15"
-    },
-    "symfony/test-pack": {
-        "version": "v1.0.6"
     },
     "symfony/translation-contracts": {
         "version": "v1.1.5"

@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Client;
+use App\Entity\LineItem;
 use App\Entity\Orders\PartnerOrder;
 use App\Entity\Orders\PartnerOrderLineItem;
 use App\Entity\Partner;
@@ -9,6 +11,7 @@ use App\Entity\User;
 use App\Entity\Warehouse;
 use App\Exception\UserInterfaceException;
 use App\Transformers\BagTransformer;
+use App\Transformers\PartnerOrderLineItemTransformer;
 use App\Transformers\PartnerOrderTransformer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -32,7 +35,6 @@ class PartnerOrderController extends OrderController
     {
         return new PartnerOrderLineItem();
     }
-
 
     /**
      * Save a new partner order
@@ -74,6 +76,22 @@ class PartnerOrderController extends OrderController
 
         // TODO: get permissions working (#1)
         // $this->checkEditPermissions($order);
+
+        // Check if the partner has already submitted an order for the specified month.
+        $existingOrder = $this->getRepository()->findOneBy([
+            'partner' => $order->getPartner(),
+            'orderPeriod' => $order->getOrderPeriod(),
+        ]);
+
+        if ($existingOrder) {
+            throw new UserInterfaceException(
+                sprintf(
+                    '%s has already placed and order for %s.',
+                    $order->getPartner()->getTitle(),
+                    $order->getOrderPeriod()->format('M Y')
+                )
+            );
+        }
 
         $this->getEm()->persist($order);
         $this->getEm()->flush();
@@ -124,6 +142,42 @@ class PartnerOrderController extends OrderController
     }
 
     /**
+     * @param PartnerOrderLineItem $lineItem
+     * @param array $lineItemArray
+     */
+    protected function extraLineItemProcessing(LineItem $lineItem, array $lineItemArray): void
+    {
+        if (isset($lineItemArray['client']['id'])) {
+            $client = $this->getEm()->getRepository(Client::class)->findOneByPublicId($lineItemArray['client']['id']);
+            $lineItem->setClient($client);
+        }
+    }
+
+    /**
+     * Generate line items for each client for use in the edit view
+     *
+     * @Route(path="/new-line-items-for-partner/{id<\d+>}", methods={"GET"})
+     *
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function createLineItemsForPartner(Request $request, int $id): JsonResponse
+    {
+        /** @var Partner $partner */
+        $partner = $this->getEm()->getRepository(Partner::class)->find($id);
+        $clients = $partner->getClients()->getValues();
+
+        $lineItems = array_map(function ($client) {
+            $line = new PartnerOrderLineItem();
+            $line->setClient($client);
+            return $line;
+        }, $clients);
+
+        return $this->serialize($request, $lineItems, new PartnerOrderLineItemTransformer());
+    }
+
+    /**
      * @Route(path="/{id<\d+>}/fill-sheet")
      * @IsGranted({"ROLE_PARTNER_EDIT","ROLE_PARTNER_MANAGE_OWN"})
      *
@@ -142,6 +196,27 @@ class PartnerOrderController extends OrderController
         return $this->serialize($request, $order->buildBags(), new BagTransformer());
     }
 
+    /**
+     * Whole or partial update of a order
+     *
+     * @Route(path="/partner-can-order", methods={"GET"})
+     *
+     * @return JsonResponse
+     * @throws \Exception
+     */
+    public function partnerCanOrder(Request $request)
+    {
+        $params = $this->getParams($request);
+        $partner = $this->getRepository(Partner::class)->find($params['partnerId']);
+        $orderPeriod = new \DateTime($params['orderPeriod']);
+
+        $existingOrder = $this->getRepository()->findOneBy([
+            'partner' => $partner,
+            'orderPeriod' => $orderPeriod,
+        ]);
+
+        return $this->meta($existingOrder === null);
+    }
 
     protected function getDefaultTransformer()
     {

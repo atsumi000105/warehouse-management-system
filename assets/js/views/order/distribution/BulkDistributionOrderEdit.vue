@@ -1,5 +1,12 @@
 <template>
     <section class="content">
+        <div
+            v-if="!partnerCanOrder"
+            class="alert alert-danger alert-dismissible"
+        >
+            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+            The selected partner has already created a distribution for {{ order.distributionPeriod|dateTimeMonthFormat }}
+        </div>
         <div class="pull-right">
             <button
                 class="btn btn-success btn-flat"
@@ -89,7 +96,7 @@
                                 />
                             </div>
                         </div>
-                        <BulkDistributionLineItemForm
+                        <LineItemByClientForm
                             :products="allOrderableProducts"
                             :line-items="order.lineItems"
                             :editable="order.isEditable"
@@ -123,21 +130,23 @@
     import FieldError from '../../../components/FieldError.vue';
     import OrderMetadataBox from '../../../components/OrderMetadataBox.vue';
     import PartnerSelectionForm from '../../../components/PartnerSelectionForm.vue';
-    import BulkDistributionLineItemForm from "./BulkDistributionLineItemForm";
     import axios from "axios";
     import TextField from "../../../components/TextField";
+    import LineItemByClientForm from "../../../components/order/LineItemByClientForm";
     export default {
         components: {
+            LineItemByClientForm,
             TextField,
-            BulkDistributionLineItemForm,
             'modalcomplete' : ModalOrderConfirmComplete,
             'modaldelete' : ModalOrderConfirmDelete,
             'modalinvalid' : ModalOrderInvalid,
             'fielderror' : FieldError,
             'ordermetadatabox' : OrderMetadataBox,
-            'partnerselectionform' : PartnerSelectionForm
+            'partnerselectionform' : PartnerSelectionForm,
         },
-        props: ['new'],
+        props: {
+            new: { type: Boolean, default: false}
+        },
         data() {
             return {
                 order: {
@@ -154,7 +163,8 @@
                     {id: "PENDING", name: "Pending"},
                     {id: "COMPLETED", name: "Completed", commit: true },
                 ],
-                filterText: ""
+                filterText: "",
+                partnerCanOrder: true
             };
         },
         validations: {
@@ -177,18 +187,51 @@
             statusIsCompleted: function () {
                 var self = this;
                 var status = this.statuses.filter(function(item) {
-                    return self.order.status == item.id
+                    return self.order.status === item.id
                 });
                 return status[0].commit === true;
+            },
+
+        },
+        watch: {
+            'order.partner': {
+                handler(val) {
+                    if (this.new && this.order.partner.id && this.order.distributionPeriod) {
+                        axios
+                            .get('/api/orders/distribution/partner-can-order', {
+                                params: {
+                                    partnerId: this.order.partner.id,
+                                    distributionPeriod: this.order.distributionPeriod
+                                }
+                            })
+                            .then(response => {
+                                this.partnerCanOrder = response.data.success;
+                            });
+                    }
+                },
+                deep: true
+            },
+            'order.distributionPeriod': {
+                handler(val) {
+                    if (this.new && this.order.partner.id && this.order.distributionPeriod) {
+                        axios
+                            .get('/api/orders/distribution/partner-can-order', {
+                                params: {
+                                    partnerId: this.order.partner.id,
+                                    distributionPeriod: this.order.distributionPeriod
+                                }
+                            })
+                            .then(response => {
+                                this.partnerCanOrder = response.data.success;
+                            });
+                    }
+                },
             }
         },
-        created() {
+        mounted() {
             var self = this;
             this.$store.dispatch('loadProducts');
 
-            axios
-                .get('/api/products', {params: { partnerOrderable: 1}})
-                .then(response => this.products = response.data.data);
             if (this.new) {
             } else {
                 axios
@@ -255,6 +298,22 @@
                 axios
                     .delete('/api/orders/distribution/' + this.$route.params.id)
                     .then(self.$router.push('/orders/distribution'));
+            },
+            checkPartnerCanOrder: (val) => {
+                console.log('in handler (val)', val);
+                console.log('in handler', this);
+                if (this.order.partner.id && this.order.distributionPeriod) {
+                    axios
+                        .get('/api/orders/distribution/partner-can-order', {
+                            params: {
+                                partnerId: this.order.partner.id,
+                                distributionPeriod: this.order.distributionPeriod
+                            }
+                        })
+                        .then(response => {
+                            this.partnerCanOrder = !response.data.success;
+                        });
+                }
             }
         }
     }

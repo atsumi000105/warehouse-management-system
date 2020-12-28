@@ -9,63 +9,63 @@
                     v-if="attribute.displayInterface === 'TOGGLE'"
                     v-model="attribute.value"
                     :label="attribute.label"
-                    :helpText="attribute.helpText"
+                    :help-text="attribute.helpText"
                 />
                 <YesNoRadioField
                     v-else-if="attribute.displayInterface === 'YES_NO_RADIO'"
                     v-model="attribute.value"
                     :label="attribute.label"
-                    :helpText="attribute.helpText"
+                    :help-text="attribute.helpText"
                 />
                 <DateField
                     v-else-if="attribute.displayInterface === 'DATETIME'"
                     v-model="attribute.value"
                     :label="attribute.label"
-                    :helpText="attribute.helpText"
+                    :help-text="attribute.helpText"
                 />
                 <NumberField
                     v-else-if="attribute.displayInterface === 'NUMBER'"
                     v-model="attribute.value"
                     :label="attribute.label"
-                    :helpText="attribute.helpText"
+                    :help-text="attribute.helpText"
                 />
                 <OptionListApi
                     v-else-if="attribute.displayInterface === 'SELECT_SINGLE'"
                     v-model="attribute.value"
                     :label="attribute.label"
-                    :helpText="attribute.helpText"
+                    :help-text="attribute.helpText"
                     :preloaded-options="attribute.options"
                 />
                 <RadioField
                     v-else-if="attribute.displayInterface === 'RADIO'"
                     v-model="attribute.value"
                     :label="attribute.label"
-                    :helpText="attribute.helpText"
+                    :help-text="attribute.helpText"
                     :preloaded-options="attribute.options"
                 />
                 <TextareaField
                     v-else-if="attribute.displayInterface === 'TEXTAREA'"
                     v-model="attribute.value"
                     :label="attribute.label"
-                    :helpText="attribute.helpText"
+                    :help-text="attribute.helpText"
                 />
                 <AddressField
                     v-else-if="attribute.displayInterface === 'ADDRESS'"
                     v-model="attribute.value"
                     :label="attribute.label"
-                    :helpText="attribute.helpText"
+                    :help-text="attribute.helpText"
                 />
                 <ZipCountyField
                     v-else-if="attribute.displayInterface === 'ZIPCODE'"
                     v-model="attribute.value"
                     :label="attribute.label"
-                    :helpText="attribute.helpText"
+                    :help-text="attribute.helpText"
                 />
                 <TextField
                     v-else
                     v-model="attribute.value"
                     :label="attribute.label"
-                    :helpText="attribute.helpText"
+                    :help-text="attribute.helpText"
                 />
             </div>
         </form>

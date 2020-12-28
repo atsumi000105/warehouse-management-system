@@ -62,13 +62,13 @@
 </template>
 
 <script>
-    import LineItemTransactionTable from "../../../components/LineItemTransactionTable";
-    import OptionListStatic from "../../../components/OptionListStatic";
+    import LineItemTransactionTable from "../LineItemTransactionTable";
+    import OptionListStatic from "../OptionListStatic";
     import { mapGetters } from 'vuex'
-    import ProductSelectionField from "../../../components/ProductSelectionField";
+    import ProductSelectionField from "../ProductSelectionField";
 
     export default {
-        name: "BulkDistributionLineItemFormRow",
+        name: "LineItemByClientFormRow",
         components: {
             OptionListStatic,
             ProductSelectionField,
