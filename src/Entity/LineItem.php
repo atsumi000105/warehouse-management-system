@@ -107,7 +107,9 @@ abstract class LineItem extends CoreEntity
     public function getOrder(): Order
     {
         if (is_null($this->order)) {
-            throw new \Exception('getOrder should not be called when there is a chance it is null. Use hasOrder() to test for this.');
+            throw new \Exception(
+                'getOrder should not be called when there is a chance it is null. Use hasOrder() to test for this.'
+            );
         }
 
         return $this->order;

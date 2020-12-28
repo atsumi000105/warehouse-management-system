@@ -31,7 +31,10 @@ class PartnerOrderLineItem extends LineItem
     public function getClient(): Client
     {
         if (is_null($this->client)) {
-            throw new \Exception('getClient should not be called when there is a chance it is null. Use isClientLineItem() to test for this.');
+            throw new \Exception(
+                'getClient should not be called when there is a chance it is null. ' .
+                'Use isClientLineItem() to test for this.'
+            );
         }
 
         return $this->client;
