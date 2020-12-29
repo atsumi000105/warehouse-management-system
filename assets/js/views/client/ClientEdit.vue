@@ -13,7 +13,7 @@
                     class="dropdown-menu dropdown-menu-right"
                 >
                     <li
-                        v-for="enabledTransition in client.workflow.enabledTransitions.sort()"
+                        v-for="enabledTransition in getSortedTransitions()"
                         :key="enabledTransition.transition"
                     >
                         <a
@@ -192,12 +192,10 @@
                                 </div>
                             </div>
                             <!-- text input -->
-
                         </div>
                         <!-- /.box-body -->
                     </div>
                 </div>
-
             </form>
         </div>
 
@@ -323,6 +321,28 @@ export default {
                     })
                     .catch(function (error) {
                         console.log("Save this.client error with params id %o", error);
+                    }
+                );
+            },
+            getSortedTransitions() {
+                const inputObject = this.client.workflow.enabledTransitions;
+
+                return Object
+                    .keys(inputObject)
+                    .map((key) => inputObject[key])
+                    .sort(function (a, b) {
+                        let titleA = a.title.toUpperCase();
+                        let titleB = b.title.toUpperCase();
+
+                        if (titleA < titleB) {
+                            return -1;
+                        }
+
+                        if (titleA > titleB) {
+                            return 1;
+                        }
+
+                        return 0;
                     }
                 );
             }

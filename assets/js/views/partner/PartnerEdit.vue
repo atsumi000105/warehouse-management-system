@@ -13,7 +13,7 @@
                     class="dropdown-menu dropdown-menu-right"
                 >
                     <li
-                        v-for="enabledTransition in partner.workflow.enabledTransitions.sort()"
+                        v-for="enabledTransition in getSortedTransitions()"
                         :key="enabledTransition.transition"
                     >
                         <a
@@ -200,6 +200,28 @@ export default {
                 axios
                     .delete('/api/partners/' + this.$route.params.id)
                     .then(self.$router.push('/partners'));
+            },
+            getSortedTransitions() {
+                const inputObject = this.partner.workflow.enabledTransitions;
+
+                return Object
+                    .keys(inputObject)
+                    .map((key) => inputObject[key])
+                    .sort(function (a, b) {
+                            let titleA = a.title.toUpperCase();
+                            let titleB = b.title.toUpperCase();
+
+                            if (titleA < titleB) {
+                                return -1;
+                            }
+
+                            if (titleA > titleB) {
+                                return 1;
+                            }
+
+                            return 0;
+                        }
+                    );
             }
         }
     }
