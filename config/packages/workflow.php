@@ -126,7 +126,7 @@ $container->loadFromExtension('framework', [
                 Client::STATUS_REVIEW_PAST_DUE,
                 Client::STATUS_INACTIVE,
                 Client::STATUS_LIMIT_REACHED,
-                Client::STATUS_DUPLICATE_INACTIVE,
+                Client::STATUS_INACTIVE_DUPLICATE,
             ],
             'transitions' => [
                 Client::TRANSITION_ACTIVATE => [
@@ -137,7 +137,7 @@ $container->loadFromExtension('framework', [
                         Client::STATUS_CREATION,
                         Client::STATUS_INACTIVE,
                         Client::STATUS_LIMIT_REACHED,
-                        Client::STATUS_DUPLICATE_INACTIVE,
+                        Client::STATUS_INACTIVE_DUPLICATE,
                         Client::STATUS_NEEDS_REVIEW,
                         Client::STATUS_REVIEW_PAST_DUE,
                     ],
@@ -151,7 +151,7 @@ $container->loadFromExtension('framework', [
                         Client::STATUS_CREATION,
                         Client::STATUS_ACTIVE,
                         Client::STATUS_LIMIT_REACHED,
-                        Client::STATUS_DUPLICATE_INACTIVE,
+                        Client::STATUS_INACTIVE_DUPLICATE,
                     ],
                     'to' => Client::STATUS_INACTIVE,
                 ],
@@ -163,13 +163,13 @@ $container->loadFromExtension('framework', [
                         Client::STATUS_CREATION,
                         Client::STATUS_ACTIVE,
                         Client::STATUS_INACTIVE,
-                        Client::STATUS_DUPLICATE_INACTIVE,
+                        Client::STATUS_INACTIVE_DUPLICATE,
                     ],
                     'to' => Client::STATUS_LIMIT_REACHED,
                 ],
-                Client::TRANSITION_DUPLICATE_INACTIVE => [
+                Client::TRANSITION_DEACTIVATE_DUPLICATE => [
                     'metadata' => [
-                        'title' => 'Duplicate (inactivate)'
+                        'title' => 'Deactivate (Duplicate)'
                     ],
                     'from' => [
                         Client::STATUS_CREATION,
@@ -177,7 +177,7 @@ $container->loadFromExtension('framework', [
                         Client::STATUS_INACTIVE,
                         Client::STATUS_LIMIT_REACHED,
                     ],
-                    'to' => Client::STATUS_DUPLICATE_INACTIVE,
+                    'to' => Client::STATUS_INACTIVE_DUPLICATE,
                 ],
                 Client::TRANSITION_FLAG_FOR_REVIEW => [
                     'metadata' => [

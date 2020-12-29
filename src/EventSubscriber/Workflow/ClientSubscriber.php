@@ -29,7 +29,7 @@ class ClientSubscriber implements EventSubscriberInterface
         if (!$this->checker->isGranted(Client::ROLE_EDIT_ALL)) {
             $status = $event->getSubject()->getStatus();
 
-            if ($status === Client::STATUS_LIMIT_REACHED || $status === Client::STATUS_DUPLICATE_INACTIVE) {
+            if ($status === Client::STATUS_LIMIT_REACHED || $status === Client::STATUS_INACTIVE_DUPLICATE) {
                 $event->setBlocked(true);
             }
 
@@ -44,7 +44,7 @@ class ClientSubscriber implements EventSubscriberInterface
         if (!$this->checker->isGranted(Client::ROLE_EDIT_ALL)) {
             $status = $event->getSubject()->getStatus();
 
-            if ($status === Client::STATUS_LIMIT_REACHED || $status === Client::STATUS_DUPLICATE_INACTIVE) {
+            if ($status === Client::STATUS_LIMIT_REACHED || $status === Client::STATUS_INACTIVE_DUPLICATE) {
                 $event->setBlocked(true);
             }
 
@@ -61,7 +61,7 @@ class ClientSubscriber implements EventSubscriberInterface
         }
     }
 
-    public function onTransitionDuplicateInactive(GuardEvent $event): void
+    public function onTransitionDeactivateDuplicate(GuardEvent $event): void
     {
         if (!$this->checker->isGranted(Client::ROLE_EDIT_ALL)) {
             $event->setBlocked(true);
@@ -74,8 +74,8 @@ class ClientSubscriber implements EventSubscriberInterface
             'workflow.client_management.guard' => 'onTransition',
             'workflow.client_management.guard.ACTIVATE' => 'onTransitionActivate',
             'workflow.client_management.guard.DEACTIVATE' => 'onTransitionDeactivate',
+            'workflow.client_management.guard.DUPLICATE' => 'onTransitionDeactivateDuplicate',
             'workflow.client_management.guard.EXPIRE' => 'onTransitionExpire',
-            'workflow.client_management.guard.DUPLICATE' => 'onTransitionDuplicateInactive',
         ];
     }
 }
