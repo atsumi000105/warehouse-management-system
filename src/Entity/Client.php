@@ -29,7 +29,7 @@ class Client extends CoreEntity
     public const STATUS_INACTIVE = 'INACTIVE';
     public const STATUS_INACTIVE_DUPLICATE = 'INACTIVE_(DUPLICATE)';
     public const STATUS_LIMIT_REACHED = 'LIMIT_REACHED';
-    public const STATUS_DUPLICATE_INACTIVE = 'DUPLICATE_(INACTIVE)';
+    public const STATUS_INACTIVE_BLOCKED = 'INACTIVE_(BLOCKED)';
     public const STATUSES = [
         self::STATUS_CREATION,
         self::STATUS_ACTIVE,
@@ -38,6 +38,7 @@ class Client extends CoreEntity
         self::STATUS_LIMIT_REACHED,
         self::STATUS_INACTIVE_DUPLICATE,
         self::STATUS_INACTIVE,
+        self::STATUS_INACTIVE_BLOCKED,
     ];
 
     public const TRANSITION_ACTIVATE = 'ACTIVATE';
@@ -46,6 +47,7 @@ class Client extends CoreEntity
     public const TRANSITION_DEACTIVATE_DUPLICATE = 'DUPLICATE';
     public const TRANSITION_FLAG_FOR_REVIEW = 'FLAG_FOR_REVIEW';
     public const TRANSITION_FLAG_FOR_REVIEW_PAST_DUE = 'FLAG_FOR_REVIEW_PAST_DUE';
+    public const TRANSITION_DEACTIVATE_BLOCKED = 'BLOCK';
 
     public const ROLE_VIEW_ALL = "ROLE_CLIENT_VIEW_ALL";
     public const ROLE_EDIT_ALL = "ROLE_CLIENT_EDIT_ALL";
@@ -459,6 +461,11 @@ class Client extends CoreEntity
     public function getStatus(): string
     {
         return $this->status;
+    }
+
+    public function isInactiveBlocked(): bool
+    {
+        return $this->status === self::STATUS_INACTIVE_BLOCKED;
     }
 
     /**

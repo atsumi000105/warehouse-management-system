@@ -29,7 +29,11 @@ class ClientSubscriber implements EventSubscriberInterface
         if (!$this->checker->isGranted(Client::ROLE_EDIT_ALL)) {
             $status = $event->getSubject()->getStatus();
 
-            if ($status === Client::STATUS_LIMIT_REACHED || $status === Client::STATUS_INACTIVE_DUPLICATE) {
+            if (
+                $status === Client::STATUS_LIMIT_REACHED
+                || $status === Client::STATUS_INACTIVE_DUPLICATE
+                || $status === Client::STATUS_INACTIVE_BLOCKED
+            ) {
                 $event->setBlocked(true);
             }
 
@@ -44,7 +48,11 @@ class ClientSubscriber implements EventSubscriberInterface
         if (!$this->checker->isGranted(Client::ROLE_EDIT_ALL)) {
             $status = $event->getSubject()->getStatus();
 
-            if ($status === Client::STATUS_LIMIT_REACHED || $status === Client::STATUS_INACTIVE_DUPLICATE) {
+            if (
+                $status === Client::STATUS_LIMIT_REACHED
+                || $status === Client::STATUS_INACTIVE_DUPLICATE
+                || $status === Client::STATUS_INACTIVE_BLOCKED
+            ) {
                 $event->setBlocked(true);
             }
 
@@ -68,11 +76,31 @@ class ClientSubscriber implements EventSubscriberInterface
         }
     }
 
+    public function onTransitionDeactivateBlocked(GuardEvent $event): void
+    {
+        if (!$this->checker->isGranted(Client::ROLE_EDIT_ALL)) {
+            $status = $event->getSubject()->getStatus();
+
+            if (
+                $status === Client::STATUS_LIMIT_REACHED
+                || $status === Client::STATUS_INACTIVE
+                || $status === Client::STATUS_INACTIVE_DUPLICATE
+            ) {
+                $event->setBlocked(true);
+            }
+
+            if (!$this->checker->isGranted(Client::ROLE_MANAGE_OWN)) {
+                $event->setBlocked(true);
+            }
+        }
+    }
+
     public static function getSubscribedEvents()
     {
         return [
             'workflow.client_management.guard' => 'onTransition',
             'workflow.client_management.guard.ACTIVATE' => 'onTransitionActivate',
+            'workflow.client_management.guard.BLOCK' => 'onTransitionDeactivateBlocked',
             'workflow.client_management.guard.DEACTIVATE' => 'onTransitionDeactivate',
             'workflow.client_management.guard.DUPLICATE' => 'onTransitionDeactivateDuplicate',
             'workflow.client_management.guard.EXPIRE' => 'onTransitionExpire',

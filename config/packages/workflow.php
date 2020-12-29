@@ -125,6 +125,7 @@ $container->loadFromExtension('framework', [
                 Client::STATUS_NEEDS_REVIEW,
                 Client::STATUS_REVIEW_PAST_DUE,
                 Client::STATUS_INACTIVE,
+                Client::STATUS_INACTIVE_BLOCKED,
                 Client::STATUS_LIMIT_REACHED,
                 Client::STATUS_INACTIVE_DUPLICATE,
             ],
@@ -136,6 +137,7 @@ $container->loadFromExtension('framework', [
                     'from' => [
                         Client::STATUS_CREATION,
                         Client::STATUS_INACTIVE,
+                        Client::STATUS_INACTIVE_BLOCKED,
                         Client::STATUS_LIMIT_REACHED,
                         Client::STATUS_INACTIVE_DUPLICATE,
                         Client::STATUS_NEEDS_REVIEW,
@@ -150,6 +152,7 @@ $container->loadFromExtension('framework', [
                     'from' => [
                         Client::STATUS_CREATION,
                         Client::STATUS_ACTIVE,
+                        Client::STATUS_INACTIVE_BLOCKED,
                         Client::STATUS_LIMIT_REACHED,
                         Client::STATUS_INACTIVE_DUPLICATE,
                     ],
@@ -196,6 +199,19 @@ $container->loadFromExtension('framework', [
                         Client::STATUS_NEEDS_REVIEW,
                     ],
                     'to' => Client::STATUS_REVIEW_PAST_DUE,
+                ],
+                Client::TRANSITION_DEACTIVATE_BLOCKED => [
+                    'metadata' => [
+                        'title' => 'Deactivate (Blocked)'
+                    ],
+                    'from' => [
+                        Client::STATUS_ACTIVE,
+                        Client::STATUS_CREATION,
+                        Client::STATUS_INACTIVE,
+                        Client::STATUS_INACTIVE_DUPLICATE,
+                        Client::STATUS_LIMIT_REACHED,
+                    ],
+                    'to' => Client::STATUS_INACTIVE_BLOCKED,
                 ],
             ],
         ],
