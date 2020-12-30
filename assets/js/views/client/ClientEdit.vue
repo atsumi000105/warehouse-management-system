@@ -140,6 +140,7 @@
                                             <PartnerSelectionForm
                                                 v-model="client.partner"
                                                 label="Assigned Partner"
+                                                :editable="!isClientBlocked()"
                                             />
                                         </div>
                                         <div class="col-md-6">
@@ -345,6 +346,9 @@ export default {
                         return 0;
                     }
                 );
+            },
+            isClientBlocked() {
+                return this.client.status === "INACTIVE_(BLOCKED)";
             }
         }
     }
