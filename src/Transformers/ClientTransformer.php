@@ -3,6 +3,7 @@
 namespace App\Transformers;
 
 use App\Entity\Client;
+use League\Fractal\Resource\Item;
 use League\Fractal\TransformerAbstract;
 
 class ClientTransformer extends TransformerAbstract
@@ -57,7 +58,7 @@ class ClientTransformer extends TransformerAbstract
         return $this->item($client->getPartner(), new PartnerTransformer());
     }
 
-    public function includeLastDistribution(Client $client)
+    public function includeLastDistribution(Client $client): Item
     {
         return $this->item($client->getLastCompleteDistributionLineItem(), new BulkDistributionLineItemTransformer());
     }

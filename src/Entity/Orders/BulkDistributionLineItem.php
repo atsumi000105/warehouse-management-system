@@ -38,7 +38,7 @@ class BulkDistributionLineItem extends LineItem
         /** @var BulkDistribution $order */
         $order = $this->getOrder();
 
-        return $order ? $order->getDistributionPeriod() : null;
+        return $this->hasOrder() ? $order->getDistributionPeriod() : null;
     }
 
     /**
