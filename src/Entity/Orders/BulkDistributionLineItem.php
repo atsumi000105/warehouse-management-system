@@ -33,6 +33,14 @@ class BulkDistributionLineItem extends LineItem
         $this->client = $client;
     }
 
+    public function getDistributionPeriod(): ?\DateTime
+    {
+        /** @var BulkDistribution $order */
+        $order = $this->getOrder();
+
+        return $order ? $order->getDistributionPeriod() : null;
+    }
+
     /**
      * Partner Orders generate a deduction from the warehouse and an increase to the partner
      */

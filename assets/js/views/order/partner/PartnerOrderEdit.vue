@@ -357,7 +357,9 @@
                 }
 
                 axios
-                    .get('/api/orders/partner/new-line-items-for-partner/' + partner.id)
+                    .get('/api/orders/partner/new-line-items-for-partner/' + partner.id, {
+                        params: { include: ['client.lastDistribution']}
+                    })
                     .then((response) => {
                             self.order.lineItems = response.data.data;
                             // resolve(response);

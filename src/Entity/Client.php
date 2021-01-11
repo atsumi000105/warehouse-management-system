@@ -487,4 +487,20 @@ class Client extends CoreEntity
     {
         $this->lastReviewedAt = $lastReviewedAt;
     }
+
+    public function getLastCompleteDistributionLineItem(): ?BulkDistributionLineItem
+    {
+        $lines = $this->getDistributionLineItems();
+
+        $lines = $lines->filter(function(BulkDistributionLineItem $line) {
+            return $line->getOrder()->isComplete();
+        });
+
+        return array_reduce($lines->getValues(), function(?BulkDistributionLineItem $carry, BulkDistributionLineItem $line) {
+            if (!$carry) {
+                return $line;
+            }
+            return $carry->getDistributionPeriod() > $line->getDistributionPeriod() ? $carry : $line;
+        }, null);
+    }
 }

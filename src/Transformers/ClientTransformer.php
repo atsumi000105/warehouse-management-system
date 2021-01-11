@@ -10,6 +10,7 @@ class ClientTransformer extends TransformerAbstract
     protected $availableIncludes = [
         'partner',
         'attributes',
+        'lastDistribution',
     ];
 
     public function transform(Client $client): array
@@ -54,5 +55,10 @@ class ClientTransformer extends TransformerAbstract
         }
 
         return $this->item($client->getPartner(), new PartnerTransformer());
+    }
+
+    public function includeLastDistribution(Client $client)
+    {
+        return $this->item($client->getLastCompleteDistributionLineItem(), new BulkDistributionLineItemTransformer());
     }
 }
