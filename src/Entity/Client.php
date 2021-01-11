@@ -492,15 +492,19 @@ class Client extends CoreEntity
     {
         $lines = $this->getDistributionLineItems();
 
-        $lines = $lines->filter(function(BulkDistributionLineItem $line) {
+        $lines = $lines->filter(function (BulkDistributionLineItem $line) {
             return $line->getOrder()->isComplete();
         });
 
-        return array_reduce($lines->getValues(), function(?BulkDistributionLineItem $carry, BulkDistributionLineItem $line) {
-            if (!$carry) {
-                return $line;
-            }
-            return $carry->getDistributionPeriod() > $line->getDistributionPeriod() ? $carry : $line;
-        }, null);
+        return array_reduce(
+            $lines->getValues(),
+            function (?BulkDistributionLineItem $carry, BulkDistributionLineItem $line) {
+                if (!$carry) {
+                    return $line;
+                }
+                return $carry->getDistributionPeriod() > $line->getDistributionPeriod() ? $carry : $line;
+            },
+            null
+        );
     }
 }
