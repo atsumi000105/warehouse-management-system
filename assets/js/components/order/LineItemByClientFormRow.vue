@@ -1,14 +1,22 @@
 <template>
     <div>
         <div>
-            <label :class="{'col-xs-6': showCost || showPacks, 'col-xs-8': !showCost && !showPacks }">
+            <div :class="{'col-xs-6': showCost || showPacks, 'col-xs-8': !showCost && !showPacks }">
                 <i
                     class="fa fa-plus-circle text-gray fa-fw"
                     title="Show/Hide Transactions"
                     @click="showTransactions = !showTransactions"
                 />
-                {{ value.client.fullName }}
-            </label>
+                <strong>{{ value.client.fullName }}</strong>
+
+                <div
+                    v-if="value.client.lastDistribution"
+                    class="pull-right"
+                >
+                    <span class="small">Last Distribution:</span> <span class="badge bg-light-blue">{{ value.client.lastDistribution.product.name }} x {{value.client.lastDistribution.quantity}}</span>
+                </div>
+
+            </div>
             <div
                 class="col-xs-2"
             >
