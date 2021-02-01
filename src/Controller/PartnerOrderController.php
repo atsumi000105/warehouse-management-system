@@ -106,14 +106,14 @@ class PartnerOrderController extends OrderController
      * @IsGranted({"ROLE_PARTNER_EDIT","ROLE_PARTNER_MANAGE_OWN"})
      *
      * @param Request $request
-     * @param $id
+     * @param int $id
      * @return JsonResponse
      * @throws \App\Exception\CommittedTransactionException
      */
     public function update(Request $request, $id)
     {
         $params = $this->getParams($request);
-        /** @var \App\Entity\Orders\PartnerOrder $order */
+        /** @var PartnerOrder $order */
         $order = $this->getOrder($id);
 
         // TODO: get permissions working (#1)
@@ -184,12 +184,8 @@ class PartnerOrderController extends OrderController
     /**
      * @Route(path="/{id<\d+>}/fill-sheet")
      * @IsGranted({"ROLE_PARTNER_EDIT","ROLE_PARTNER_MANAGE_OWN"})
-     *
-     * @param Request $request
-     * @param $id
-     * @return JsonResponse
      */
-    public function fillSheet(Request $request, $id)
+    public function fillSheet(Request $request, int $id): JsonResponse
     {
         /** @var PartnerOrder $order */
         $order = $this->getOrder($id);

@@ -78,7 +78,7 @@ class OrderController extends BaseController
      * @IsGranted({"ROLE_ORDER_VIEW_ALL","ROLE_ORDER_MANAGE_OWN"})
      *
      */
-    public function show(Request $request, $id)
+    public function show(Request $request, int $id): JsonResponse
     {
         $order = $this->getOrder($id);
 
@@ -111,7 +111,7 @@ class OrderController extends BaseController
      * @IsGranted({"ROLE_ORDER_EDIT_ALL","ROLE_ORDER_MANAGE_OWN"})
      *
      * @param Request $request
-     * @param $id
+     * @param int $id
      * @return JsonResponse
      */
     public function update(Request $request, $id)
@@ -137,11 +137,8 @@ class OrderController extends BaseController
      *
      * @Route(path="/{id<\d+>}", methods={"DELETE"})
      * @IsGranted({"ROLE_ADMIN"})
-     *
-     * @param $id
-     * @return JsonResponse
      */
-    public function destroy($id)
+    public function destroy(int $id): JsonResponse
     {
         $order = $this->getOrder($id);
 
@@ -214,12 +211,7 @@ class OrderController extends BaseController
         return $this->success(sprintf("Orders %s have been deleted", implode(", ", $ids)));
     }
 
-    /**
-     * @param $id
-     * @return null|Order
-     * @throws NotFoundHttpException
-     */
-    protected function getOrder($id)
+    protected function getOrder(int $id): ?Order
     {
         /** @var Order $order */
         $order = $this->getRepository()->find($id);
