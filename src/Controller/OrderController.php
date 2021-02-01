@@ -232,11 +232,11 @@ class OrderController extends BaseController
     }
 
     /**
-     * @param int[] $id
-     * @return null|Order[]
+     * @param int[] $ids
+     * @return Order[]
      * @throws NotFoundHttpException
      */
-    protected function getOrders($ids)
+    protected function getOrders(array $ids)
     {
         /** @var Order[] $orders */
         $orders = $this->getRepository()->findBy(['id' => $ids]);
@@ -256,7 +256,7 @@ class OrderController extends BaseController
                 continue;
             }
 
-            if (isset($lineItemArray['id']) && !$lineItemArray['id'] == 0) {
+            if (isset($lineItemArray['id']) && $lineItemArray['id'] !== 0) {
                 $line = $order->getLineItem($lineItemArray['id']);
             } else {
                 $line = $this->createLineItem();
@@ -270,7 +270,7 @@ class OrderController extends BaseController
                 continue;
             }
 
-            if (!$line->getProduct() || $line->getProduct()->getId() != $lineItemArray['product']['id']) {
+            if (!$line->getProduct() || $line->getProduct()->getId() !== $lineItemArray['product']['id']) {
                 $product = $this->getEm()->getReference(Product::class, $lineItemArray['product']['id']);
                 $line->setProduct($product);
             }

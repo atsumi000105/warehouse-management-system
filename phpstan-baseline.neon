@@ -296,16 +296,6 @@ parameters:
 			path: src/Controller/OrderController.php
 
 		-
-			message: "#^Method App\\\\Controller\\\\OrderController\\:\\:getOrders\\(\\) has parameter \\$ids with no typehint specified\\.$#"
-			count: 1
-			path: src/Controller/OrderController.php
-
-		-
-			message: "#^PHPDoc tag @param references unknown parameter\\: \\$id$#"
-			count: 1
-			path: src/Controller/OrderController.php
-
-		-
 			message: "#^Method App\\\\Controller\\\\OrderController\\:\\:getDefaultTransformer\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Controller/OrderController.php
