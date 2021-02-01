@@ -469,6 +469,20 @@ class Client extends CoreEntity
     }
 
     /**
+     * Statuses in which the client is considered eligible for orders
+     *
+     * return string[]
+     */
+    public function getActiveStatuses(): array
+    {
+        return [
+            self::STATUS_ACTIVE,
+            self::STATUS_NEEDS_REVIEW,
+            self::STATUS_REVIEW_PAST_DUE,
+        ];
+    }
+
+    /**
      * Merged To client id
      */
     public function setMergedTo(string $mergedTo): void

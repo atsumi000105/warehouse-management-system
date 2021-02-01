@@ -166,13 +166,17 @@ class PartnerOrderController extends OrderController
     {
         /** @var Partner $partner */
         $partner = $this->getEm()->getRepository(Partner::class)->find($id);
-        $clients = $partner->getClients()->getValues();
 
-        $lineItems = array_map(function ($client) {
-            $line = new PartnerOrderLineItem();
-            $line->setClient($client);
-            return $line;
-        }, $clients);
+        $lineItems = $partner
+            ->getActiveClients()
+            ->map(function (Client $client) {
+                if (in_array($client->getStatus(), $client->getActiveStatuses())) {
+                    $line = new PartnerOrderLineItem();
+                    $line->setClient($client);
+
+                    return $line;
+                }
+            });
 
         return $this->serialize($request, $lineItems, new PartnerOrderLineItemTransformer());
     }
@@ -187,7 +191,7 @@ class PartnerOrderController extends OrderController
      */
     public function fillSheet(Request $request, $id)
     {
-        /** @var \App\Entity\Orders\PartnerOrder $order */
+        /** @var PartnerOrder $order */
         $order = $this->getOrder($id);
 
         // TODO: get permissions working (#1)
