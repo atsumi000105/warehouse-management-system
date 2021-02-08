@@ -3,8 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Client;
-use App\Entity\Partner;
 use App\Entity\Orders\BulkDistributionLineItem;
+use App\Entity\Partner;
 use App\Entity\User;
 use App\Entity\ValueObjects\Name;
 use App\Reports\ClientDistributionExcel;
@@ -395,7 +395,7 @@ class ClientController extends BaseController
      *
      * @Route(path="/merge", methods={"POST"})
      */
-    public function merge(Request $request)
+    public function merge(Request $request): JsonResponse
     {
 
         $request = $this->getParams($request);
