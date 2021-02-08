@@ -19,9 +19,10 @@ class PartnerSubscriber implements EventSubscriberInterface
 
     public function onTransition(GuardEvent $event): void
     {
-        if (!$this->checker->isGranted('IS_AUTHENTICATED_FULLY')) {
-            $event->setBlocked(true);
+        if ($this->checker->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return;
         }
+        $event->setBlocked(true);
     }
 
     public function onTransitionSubmit(GuardEvent $event): void
@@ -29,53 +30,61 @@ class PartnerSubscriber implements EventSubscriberInterface
         /** @var Partner $partner */
         $partner = $event->getSubject();
         if (
-            !$this->checker->isGranted(Partner::ROLE_EDIT_ALL)
-            || !($partner->getStatus() === Partner::STATUS_START && $this->checker->isGranted(Partner::ROLE_MANAGE_OWN))
+            $this->checker->isGranted(Partner::ROLE_EDIT_ALL)
+            && $partner->getStatus() === Partner::STATUS_START
+            && $this->checker->isGranted(Partner::ROLE_MANAGE_OWN)
         ) {
-            $event->setBlocked(true);
+            return;
         }
+        $event->setBlocked(true);
     }
 
     public function onTransitionSubmitPriority(GuardEvent $event): void
     {
-        if (!$this->checker->isGranted(Partner::ROLE_EDIT_ALL)) {
-            $event->setBlocked(true);
+        if ($this->checker->isGranted(Partner::ROLE_EDIT_ALL)) {
+            return;
         }
+        $event->setBlocked(true);
     }
 
     public function onTransitionFlagForReview(GuardEvent $event): void
     {
-        if (!$this->checker->isGranted(Partner::ROLE_EDIT_ALL)) {
-            $event->setBlocked(true);
+        if ($this->checker->isGranted(Partner::ROLE_EDIT_ALL)) {
+            return;
         }
+        $event->setBlocked(true);
     }
 
     public function onTransitionFlagForReviewPastDue(GuardEvent $event): void
     {
-        if (!$this->checker->isGranted(Partner::ROLE_EDIT_ALL)) {
-            $event->setBlocked(true);
+        if ($this->checker->isGranted(Partner::ROLE_EDIT_ALL)) {
+            return;
         }
+        $event->setBlocked(true);
     }
 
     public function onTransitionActivate(GuardEvent $event): void
     {
-        if (!$this->checker->isGranted(Partner::ROLE_EDIT_ALL)) {
-            $event->setBlocked(true);
+        if ($this->checker->isGranted(Partner::ROLE_EDIT_ALL)) {
+            return;
         }
+        $event->setBlocked(true);
     }
 
     public function onTransitionReviewed(GuardEvent $event): void
     {
-        if (!$this->checker->isGranted(Partner::ROLE_MANAGE_OWN)) {
-            $event->setBlocked(true);
+        if ($this->checker->isGranted(Partner::ROLE_MANAGE_OWN)) {
+            return;
         }
+        $event->setBlocked(true);
     }
 
     public function onTransitionDeactivate(GuardEvent $event): void
     {
-        if (!$this->checker->isGranted(Partner::ROLE_EDIT_ALL)) {
-            $event->setBlocked(true);
+        if ($this->checker->isGranted(Partner::ROLE_EDIT_ALL)) {
+            return;
         }
+        $event->setBlocked(true);
     }
 
     public static function getSubscribedEvents()

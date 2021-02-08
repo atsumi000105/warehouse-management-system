@@ -19,53 +19,60 @@ class ClientSubscriber implements EventSubscriberInterface
 
     public function onTransition(GuardEvent $event): void
     {
-        if (!$this->checker->isGranted('IS_AUTHENTICATED_FULLY')) {
-            $event->setBlocked(true);
+        if ($this->checker->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return;
         }
+        $event->setBlocked(true);
     }
 
     public function onTransitionActivate(GuardEvent $event): void
     {
-        if (!$this->checker->isGranted(Client::ROLE_EDIT_ALL)) {
-            $status = $event->getSubject()->getStatus();
-
-            if ($status === Client::STATUS_LIMIT_REACHED || $status === Client::STATUS_DUPLICATE_INACTIVE) {
-                $event->setBlocked(true);
-            }
-
-            if (!$this->checker->isGranted(Client::ROLE_MANAGE_OWN)) {
-                $event->setBlocked(true);
-            }
+        if ($this->checker->isGranted(Client::ROLE_EDIT_ALL)) {
+            return;
         }
+        $status = $event->getSubject()->getStatus();
+
+        if ($status === Client::STATUS_LIMIT_REACHED || $status === Client::STATUS_DUPLICATE_INACTIVE) {
+            $event->setBlocked(true);
+        }
+
+        if ($this->checker->isGranted(Client::ROLE_MANAGE_OWN)) {
+            return;
+        }
+        $event->setBlocked(true);
     }
 
     public function onTransitionDeactivate(GuardEvent $event): void
     {
-        if (!$this->checker->isGranted(Client::ROLE_EDIT_ALL)) {
-            $status = $event->getSubject()->getStatus();
-
-            if ($status === Client::STATUS_LIMIT_REACHED || $status === Client::STATUS_DUPLICATE_INACTIVE) {
-                $event->setBlocked(true);
-            }
-
-            if (!$this->checker->isGranted(Client::ROLE_MANAGE_OWN)) {
-                $event->setBlocked(true);
-            }
+        if ($this->checker->isGranted(Client::ROLE_EDIT_ALL)) {
+            return;
         }
+        $status = $event->getSubject()->getStatus();
+
+        if ($status === Client::STATUS_LIMIT_REACHED || $status === Client::STATUS_DUPLICATE_INACTIVE) {
+            $event->setBlocked(true);
+        }
+
+        if ($this->checker->isGranted(Client::ROLE_MANAGE_OWN)) {
+            return;
+        }
+        $event->setBlocked(true);
     }
 
     public function onTransitionExpire(GuardEvent $event): void
     {
-        if (!$this->checker->isGranted(Client::ROLE_EDIT_ALL)) {
-            $event->setBlocked(true);
+        if ($this->checker->isGranted(Client::ROLE_EDIT_ALL)) {
+            return;
         }
+        $event->setBlocked(true);
     }
 
     public function onTransitionDuplicateInactive(GuardEvent $event): void
     {
-        if (!$this->checker->isGranted(Client::ROLE_EDIT_ALL)) {
-            $event->setBlocked(true);
+        if ($this->checker->isGranted(Client::ROLE_EDIT_ALL)) {
+            return;
         }
+        $event->setBlocked(true);
     }
 
     public static function getSubscribedEvents()
