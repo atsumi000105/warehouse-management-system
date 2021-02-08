@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-docker-compose -f docker-compose.yml -f docker-compose.unison.yml stop
+docker-compose -f docker-compose.yml -f docker-compose.unison.yml stop $@
