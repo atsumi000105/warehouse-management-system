@@ -12,6 +12,11 @@ class ClientVoter extends Voter
     public const EDIT = 'EDIT';
     public const VIEW = 'VIEW';
 
+    /**
+     * @param string $attribute
+     * @param mixed $subject
+     * @return bool
+     */
     protected function supports($attribute, $subject)
     {
         if (!in_array($attribute, [self::VIEW, self::EDIT])) {
@@ -25,6 +30,12 @@ class ClientVoter extends Voter
         return true;
     }
 
+    /**
+     * @param string $attribute
+     * @param mixed $subject
+     * @param TokenInterface $token
+     * @return bool
+     */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
     {
         $user = $token->getUser();
@@ -69,15 +80,11 @@ class ClientVoter extends Voter
         }
 
         $activePartner = $user->getActivePartner();
+        $clientPartner = $client->getPartner();
 
-        if (
-            $user->hasRole(Client::ROLE_MANAGE_OWN)
+        return $user->hasRole(Client::ROLE_MANAGE_OWN)
             && $activePartner
-            && $client->getPartner()->getId() === $activePartner->getId()
-        ) {
-            return true;
-        }
-
-        return false;
+            && $clientPartner
+            && $clientPartner->getId() === $activePartner->getId();
     }
 }

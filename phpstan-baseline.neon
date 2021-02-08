@@ -3356,11 +3356,6 @@ parameters:
 			path: src/Security/BulkDistributionVoter.php
 
 		-
-			message: "#^Cannot call method getId\\(\\) on App\\\\Entity\\\\Partner\\|null\\.$#"
-			count: 1
-			path: src/Security/ClientVoter.php
-
-		-
 			message: "#^Method App\\\\Security\\\\PartnerOrderVoter\\:\\:canView\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Security/PartnerOrderVoter.php
@@ -3369,16 +3364,6 @@ parameters:
 			message: "#^Method App\\\\Security\\\\PartnerOrderVoter\\:\\:canEdit\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Security/PartnerOrderVoter.php
-
-		-
-			message: "#^Method App\\\\Security\\\\PartnerVoter\\:\\:canView\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/Security/PartnerVoter.php
-
-		-
-			message: "#^Method App\\\\Security\\\\PartnerVoter\\:\\:canEdit\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/Security/PartnerVoter.php
 
 		-
 			message: "#^Method App\\\\Security\\\\SupplierVoter\\:\\:canView\\(\\) has no return typehint specified\\.$#"
