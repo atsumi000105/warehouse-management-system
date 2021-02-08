@@ -14,7 +14,7 @@ else
 fi
 
 # Ensure fresh install of docker containers
-./docker/destroy.sh
+./docker/down.sh -v --rmi all --remove-orphans
 ./docker/up.sh --detach
 
 ./docker/app ./bin/php_install.sh
