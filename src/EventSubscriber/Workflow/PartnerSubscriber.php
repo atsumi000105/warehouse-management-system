@@ -27,18 +27,11 @@ class PartnerSubscriber implements EventSubscriberInterface
 
     public function onTransitionSubmit(GuardEvent $event): void
     {
-        /** @var Partner $partner */
-        $partner = $event->getSubject();
-        if (
-            $this->checker->isGranted(Partner::ROLE_MANAGE_OWN)
-            && $partner->getStatus() === Partner::STATUS_START
-        ) {
-            return;
-        }
+        $status = $event->getSubject()->getStatus();
 
         if (
             $this->checker->isGranted(Partner::ROLE_EDIT_ALL) && in_array(
-                $partner->getStatus(),
+                $status,
                 [
                     Partner::STATUS_ACTIVE,
                     Partner::STATUS_APPLICATION_PENDING_PRIORITY,
@@ -47,8 +40,16 @@ class PartnerSubscriber implements EventSubscriberInterface
                 true
             )
         ) {
-                return;
+             return;
         }
+
+        if (
+            $this->checker->isGranted(Partner::ROLE_MANAGE_OWN)
+            && $status === Partner::STATUS_START
+        ) {
+            return;
+        }
+
         $event->setBlocked(true);
     }
 
