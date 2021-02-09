@@ -19,13 +19,13 @@ $container->loadFromExtension('framework', [
             ],
             'initial_marking' => Partner::STATUS_START,
             'places' => [
-                Partner::STATUS_START,
+                Partner::STATUS_ACTIVE,
                 Partner::STATUS_APPLICATION_PENDING,
                 Partner::STATUS_APPLICATION_PENDING_PRIORITY,
-                Partner::STATUS_ACTIVE,
+                Partner::STATUS_INACTIVE,
                 Partner::STATUS_NEEDS_PROFILE_REVIEW,
                 Partner::STATUS_REVIEW_PAST_DUE,
-                Partner::STATUS_INACTIVE,
+                Partner::STATUS_START,
             ],
             'transitions' => [
                 Partner::TRANSITION_SUBMIT => [
@@ -33,9 +33,9 @@ $container->loadFromExtension('framework', [
                         'title' => 'Submit'
                     ],
                     'from' => [
-                        Partner::STATUS_START,
                         Partner::STATUS_APPLICATION_PENDING_PRIORITY,
                         Partner::STATUS_INACTIVE,
+                        Partner::STATUS_START,
                     ],
                     'to' => Partner::STATUS_APPLICATION_PENDING,
                 ],
@@ -56,9 +56,9 @@ $container->loadFromExtension('framework', [
                     'from' => [
                         Partner::STATUS_APPLICATION_PENDING,
                         Partner::STATUS_APPLICATION_PENDING_PRIORITY,
+                        Partner::STATUS_INACTIVE,
                         Partner::STATUS_NEEDS_PROFILE_REVIEW,
                         Partner::STATUS_REVIEW_PAST_DUE,
-                        Partner::STATUS_INACTIVE,
                     ],
                     'to' => Partner::STATUS_ACTIVE,
                 ],
@@ -103,9 +103,9 @@ $container->loadFromExtension('framework', [
                         'title' => 'Deactivate'
                     ],
                     'from' => [
+                        Partner::STATUS_ACTIVE,
                         Partner::STATUS_APPLICATION_PENDING,
                         Partner::STATUS_APPLICATION_PENDING_PRIORITY,
-                        Partner::STATUS_ACTIVE,
                         Partner::STATUS_NEEDS_PROFILE_REVIEW,
                         Partner::STATUS_REVIEW_PAST_DUE,
                     ],
@@ -127,13 +127,13 @@ $container->loadFromExtension('framework', [
             ],
             'initial_marking' => Client::STATUS_CREATION,
             'places' => [
-                Client::STATUS_CREATION,
                 Client::STATUS_ACTIVE,
+                Client::STATUS_CREATION,
+                Client::STATUS_INACTIVE,
+                Client::STATUS_INACTIVE_DUPLICATE,
+                Client::STATUS_INACTIVE_EXPIRED,
                 Client::STATUS_NEEDS_REVIEW,
                 Client::STATUS_REVIEW_PAST_DUE,
-                Client::STATUS_INACTIVE,
-                Client::STATUS_INACTIVE_EXPIRED,
-                Client::STATUS_INACTIVE_DUPLICATE,
             ],
             'transitions' => [
                 Client::TRANSITION_ACTIVATE => [
@@ -143,8 +143,8 @@ $container->loadFromExtension('framework', [
                     'from' => [
                         Client::STATUS_CREATION,
                         Client::STATUS_INACTIVE,
-                        Client::STATUS_INACTIVE_EXPIRED,
                         Client::STATUS_INACTIVE_DUPLICATE,
+                        Client::STATUS_INACTIVE_EXPIRED,
                         Client::STATUS_NEEDS_REVIEW,
                         Client::STATUS_REVIEW_PAST_DUE,
                     ],
@@ -155,10 +155,10 @@ $container->loadFromExtension('framework', [
                         'title' => 'Deactivate'
                     ],
                     'from' => [
-                        Client::STATUS_CREATION,
                         Client::STATUS_ACTIVE,
-                        Client::STATUS_INACTIVE_EXPIRED,
+                        Client::STATUS_CREATION,
                         Client::STATUS_INACTIVE_DUPLICATE,
+                        Client::STATUS_INACTIVE_EXPIRED,
                     ],
                     'to' => Client::STATUS_INACTIVE,
                 ],
@@ -167,8 +167,8 @@ $container->loadFromExtension('framework', [
                         'title' => 'Deactivate (Expire Client)'
                     ],
                     'from' => [
-                        Client::STATUS_CREATION,
                         Client::STATUS_ACTIVE,
+                        Client::STATUS_CREATION,
                         Client::STATUS_INACTIVE,
                         Client::STATUS_INACTIVE_DUPLICATE,
                     ],
@@ -179,8 +179,8 @@ $container->loadFromExtension('framework', [
                         'title' => 'Deactivate (Duplicate)'
                     ],
                     'from' => [
-                        Client::STATUS_CREATION,
                         Client::STATUS_ACTIVE,
+                        Client::STATUS_CREATION,
                         Client::STATUS_INACTIVE,
                         Client::STATUS_INACTIVE_EXPIRED,
                     ],

@@ -105,13 +105,13 @@ class PartnerSubscriber implements EventSubscriberInterface
     {
         return [
             'workflow.partner_management.guard' => 'onTransition',
-            'workflow.partner_management.guard.SUBMIT' => 'onTransitionSubmit',
-            'workflow.partner_management.guard.SUBMIT_PRIORITY' => 'onTransitionSubmitPriority',
+            'workflow.partner_management.guard.ACTIVATE' => 'onTransitionActivate',
+            'workflow.partner_management.guard.DEACTIVATE' => 'onTransitionDeactivate',
             'workflow.partner_management.guard.FLAG_FOR_REVIEW' => 'onTransitionFlagForReview',
             'workflow.partner_management.guard.FLAG_FOR_REVIEW_PAST_DUE' => 'onTransitionFlagForReviewPastDue',
-            'workflow.partner_management.guard.ACTIVATE' => 'onTransitionActivate',
             'workflow.partner_management.guard.REVIEWED' => 'onTransitionReviewed',
-            'workflow.partner_management.guard.DEACTIVATE' => 'onTransitionDeactivate',
+            'workflow.partner_management.guard.SUBMIT' => 'onTransitionSubmit',
+            'workflow.partner_management.guard.SUBMIT_PRIORITY' => 'onTransitionSubmitPriority',
         ];
     }
 

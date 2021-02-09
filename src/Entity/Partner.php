@@ -25,35 +25,35 @@ class Partner extends StorageLocation
         self::TYPE_AGENCY,
         self::TYPE_HOSPITAL,
     ];
-
-    public const ROLE_VIEW_ALL = 'ROLE_PARTNER_VIEW_ALL';
+    
     public const ROLE_EDIT_ALL = 'ROLE_PARTNER_EDIT_ALL';
     public const ROLE_MANAGE_OWN = 'ROLE_PARTNER_MANAGE_OWN';
+    public const ROLE_VIEW_ALL = 'ROLE_PARTNER_VIEW_ALL';
 
     // State Machine Statuses
-    public const STATUS_START = 'START';
     public const STATUS_APPLICATION_PENDING = 'APPLICATION_PENDING';
     public const STATUS_APPLICATION_PENDING_PRIORITY = 'APPLICATION_PENDING_PRIORITY';
     public const STATUS_NEEDS_PROFILE_REVIEW = 'NEEDS_PROFILE_REVIEW';
     public const STATUS_REVIEW_PAST_DUE = 'REVIEW_PAST_DUE';
+    public const STATUS_START = 'START';
 
     public const STATUSES = [
-        self::STATUS_START,
+        self::STATUS_ACTIVE,
         self::STATUS_APPLICATION_PENDING,
         self::STATUS_APPLICATION_PENDING_PRIORITY,
-        self::STATUS_ACTIVE,
+        self::STATUS_INACTIVE,
         self::STATUS_NEEDS_PROFILE_REVIEW,
         self::STATUS_REVIEW_PAST_DUE,
-        self::STATUS_INACTIVE,
+        self::STATUS_START,
     ];
 
-    public const TRANSITION_SUBMIT = 'SUBMIT';
-    public const TRANSITION_SUBMIT_PRIORITY = 'SUBMIT_PRIORITY';
     public const TRANSITION_ACTIVATE = 'ACTIVATE';
-    public const TRANSITION_REVIEWED = 'REVIEWED';
+    public const TRANSITION_DEACTIVATE = 'DEACTIVATE';
     public const TRANSITION_FLAG_FOR_REVIEW = 'FLAG_FOR_REVIEW';
     public const TRANSITION_FLAG_FOR_REVIEW_PAST_DUE = 'FLAG_FOR_REVIEW_PAST_DUE';
-    public const TRANSITION_DEACTIVATE = 'DEACTIVATE';
+    public const TRANSITION_REVIEWED = 'REVIEWED';
+    public const TRANSITION_SUBMIT = 'SUBMIT';
+    public const TRANSITION_SUBMIT_PRIORITY = 'SUBMIT_PRIORITY';
 
     /**
      * @var string
