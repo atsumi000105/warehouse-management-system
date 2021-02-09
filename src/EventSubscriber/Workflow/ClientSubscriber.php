@@ -32,11 +32,12 @@ class ClientSubscriber implements EventSubscriberInterface
         }
         $status = $event->getSubject()->getStatus();
 
-        if ($status === Client::STATUS_LIMIT_REACHED || $status === Client::STATUS_DUPLICATE_INACTIVE) {
-            $event->setBlocked(true);
-        }
-
-        if ($this->checker->isGranted(Client::ROLE_MANAGE_OWN)) {
+        if (
+            $this->checker->isGranted(Client::ROLE_MANAGE_OWN) && in_array($status, [
+                    Client::STATUS_CREATION,
+                    Client::STATUS_INACTIVE,
+                ], true)
+        ) {
             return;
         }
         $event->setBlocked(true);
@@ -49,11 +50,12 @@ class ClientSubscriber implements EventSubscriberInterface
         }
         $status = $event->getSubject()->getStatus();
 
-        if ($status === Client::STATUS_LIMIT_REACHED || $status === Client::STATUS_DUPLICATE_INACTIVE) {
-            $event->setBlocked(true);
-        }
-
-        if ($this->checker->isGranted(Client::ROLE_MANAGE_OWN)) {
+        if (
+            $this->checker->isGranted(Client::ROLE_MANAGE_OWN) && in_array($status, [
+                Client::STATUS_CREATION,
+                Client::STATUS_INACTIVE,
+            ], true)
+        ) {
             return;
         }
         $event->setBlocked(true);

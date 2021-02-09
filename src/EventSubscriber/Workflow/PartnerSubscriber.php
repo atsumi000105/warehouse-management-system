@@ -30,11 +30,24 @@ class PartnerSubscriber implements EventSubscriberInterface
         /** @var Partner $partner */
         $partner = $event->getSubject();
         if (
-            $this->checker->isGranted(Partner::ROLE_EDIT_ALL)
+            $this->checker->isGranted(Partner::ROLE_MANAGE_OWN)
             && $partner->getStatus() === Partner::STATUS_START
-            && $this->checker->isGranted(Partner::ROLE_MANAGE_OWN)
         ) {
             return;
+        }
+
+        if (
+            $this->checker->isGranted(Partner::ROLE_EDIT_ALL) && in_array(
+                $partner->getStatus(),
+                [
+                    Partner::STATUS_ACTIVE,
+                    Partner::STATUS_APPLICATION_PENDING_PRIORITY,
+                    Partner::STATUS_START,
+                ],
+                true
+            )
+        ) {
+                return;
         }
         $event->setBlocked(true);
     }
