@@ -44,7 +44,7 @@ class ClientFixtures extends BaseFixture implements DependentFixtureInterface
             Client::STATUS_ACTIVE,
             Client::STATUS_ACTIVE,
             Client::STATUS_INACTIVE,
-            Client::STATUS_DUPLICATE_INACTIVE,
+            Client::STATUS_INACTIVE_DUPLICATE,
         ];
 
 
@@ -115,7 +115,7 @@ class ClientFixtures extends BaseFixture implements DependentFixtureInterface
             Client::STATUS_ACTIVE,
             Client::STATUS_ACTIVE,
             Client::STATUS_ACTIVE,
-            Client::STATUS_DUPLICATE_INACTIVE,
+            Client::STATUS_INACTIVE_DUPLICATE,
             Client::STATUS_INACTIVE,
         ];
 

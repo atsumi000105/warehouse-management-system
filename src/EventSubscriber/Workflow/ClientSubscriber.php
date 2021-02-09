@@ -61,7 +61,7 @@ class ClientSubscriber implements EventSubscriberInterface
         $event->setBlocked(true);
     }
 
-    public function onTransitionExpire(GuardEvent $event): void
+    public function onTransitionDeactivateExpire(GuardEvent $event): void
     {
         if ($this->isManager()) {
             return;
@@ -69,7 +69,7 @@ class ClientSubscriber implements EventSubscriberInterface
         $event->setBlocked(true);
     }
 
-    public function onTransitionDuplicateInactive(GuardEvent $event): void
+    public function onTransitionDeactivateDuplicate(GuardEvent $event): void
     {
         if ($this->isManager()) {
             return;
@@ -83,8 +83,8 @@ class ClientSubscriber implements EventSubscriberInterface
             'workflow.client_management.guard' => 'onTransition',
             'workflow.client_management.guard.ACTIVATE' => 'onTransitionActivate',
             'workflow.client_management.guard.DEACTIVATE' => 'onTransitionDeactivate',
-            'workflow.client_management.guard.EXPIRE' => 'onTransitionExpire',
-            'workflow.client_management.guard.DUPLICATE' => 'onTransitionDuplicateInactive',
+            'workflow.client_management.guard.EXPIRE' => 'onTransitionDeactivateExpire',
+            'workflow.client_management.guard.DUPLICATE' => 'onTransitionDeactivateDuplicate',
         ];
     }
 
