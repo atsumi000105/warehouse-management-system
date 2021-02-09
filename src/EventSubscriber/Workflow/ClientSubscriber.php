@@ -27,7 +27,7 @@ class ClientSubscriber implements EventSubscriberInterface
 
     public function onTransitionActivate(GuardEvent $event): void
     {
-        if ($this->checker->isGranted(Client::ROLE_EDIT_ALL)) {
+        if ($this->isManager()) {
             return;
         }
         $status = $event->getSubject()->getStatus();
@@ -45,7 +45,7 @@ class ClientSubscriber implements EventSubscriberInterface
 
     public function onTransitionDeactivate(GuardEvent $event): void
     {
-        if ($this->checker->isGranted(Client::ROLE_EDIT_ALL)) {
+        if ($this->isManager()) {
             return;
         }
         $status = $event->getSubject()->getStatus();
@@ -63,7 +63,7 @@ class ClientSubscriber implements EventSubscriberInterface
 
     public function onTransitionExpire(GuardEvent $event): void
     {
-        if ($this->checker->isGranted(Client::ROLE_EDIT_ALL)) {
+        if ($this->isManager()) {
             return;
         }
         $event->setBlocked(true);
@@ -71,7 +71,7 @@ class ClientSubscriber implements EventSubscriberInterface
 
     public function onTransitionDuplicateInactive(GuardEvent $event): void
     {
-        if ($this->checker->isGranted(Client::ROLE_EDIT_ALL)) {
+        if ($this->isManager()) {
             return;
         }
         $event->setBlocked(true);
@@ -86,5 +86,12 @@ class ClientSubscriber implements EventSubscriberInterface
             'workflow.client_management.guard.EXPIRE' => 'onTransitionExpire',
             'workflow.client_management.guard.DUPLICATE' => 'onTransitionDuplicateInactive',
         ];
+    }
+
+    protected function isManager(): bool
+    {
+        return $this->checker->isGranted('ROLE_ADMIN')
+            || $this->checker->isGranted(Client::ROLE_EDIT_ALL)
+        ;
     }
 }

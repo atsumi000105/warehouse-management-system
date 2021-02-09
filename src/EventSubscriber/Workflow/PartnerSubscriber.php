@@ -30,7 +30,7 @@ class PartnerSubscriber implements EventSubscriberInterface
         $status = $event->getSubject()->getStatus();
 
         if (
-            $this->checker->isGranted(Partner::ROLE_EDIT_ALL) && in_array(
+            $this->isManager() && in_array(
                 $status,
                 [
                     Partner::STATUS_ACTIVE,
@@ -55,7 +55,7 @@ class PartnerSubscriber implements EventSubscriberInterface
 
     public function onTransitionSubmitPriority(GuardEvent $event): void
     {
-        if ($this->checker->isGranted(Partner::ROLE_EDIT_ALL)) {
+        if ($this->isManager()) {
             return;
         }
         $event->setBlocked(true);
@@ -63,7 +63,7 @@ class PartnerSubscriber implements EventSubscriberInterface
 
     public function onTransitionFlagForReview(GuardEvent $event): void
     {
-        if ($this->checker->isGranted(Partner::ROLE_EDIT_ALL)) {
+        if ($this->isManager()) {
             return;
         }
         $event->setBlocked(true);
@@ -71,7 +71,7 @@ class PartnerSubscriber implements EventSubscriberInterface
 
     public function onTransitionFlagForReviewPastDue(GuardEvent $event): void
     {
-        if ($this->checker->isGranted(Partner::ROLE_EDIT_ALL)) {
+        if ($this->isManager()) {
             return;
         }
         $event->setBlocked(true);
@@ -79,7 +79,7 @@ class PartnerSubscriber implements EventSubscriberInterface
 
     public function onTransitionActivate(GuardEvent $event): void
     {
-        if ($this->checker->isGranted(Partner::ROLE_EDIT_ALL)) {
+        if ($this->isManager()) {
             return;
         }
         $event->setBlocked(true);
@@ -87,7 +87,7 @@ class PartnerSubscriber implements EventSubscriberInterface
 
     public function onTransitionReviewed(GuardEvent $event): void
     {
-        if ($this->checker->isGranted(Partner::ROLE_MANAGE_OWN)) {
+        if ($this->isManager() || $this->checker->isGranted(Partner::ROLE_MANAGE_OWN)) {
             return;
         }
         $event->setBlocked(true);
@@ -95,7 +95,7 @@ class PartnerSubscriber implements EventSubscriberInterface
 
     public function onTransitionDeactivate(GuardEvent $event): void
     {
-        if ($this->checker->isGranted(Partner::ROLE_EDIT_ALL)) {
+        if ($this->isManager()) {
             return;
         }
         $event->setBlocked(true);
@@ -113,5 +113,12 @@ class PartnerSubscriber implements EventSubscriberInterface
             'workflow.partner_management.guard.REVIEWED' => 'onTransitionReviewed',
             'workflow.partner_management.guard.DEACTIVATE' => 'onTransitionDeactivate',
         ];
+    }
+
+    protected function isManager(): bool
+    {
+        return $this->checker->isGranted('ROLE_ADMIN')
+            || $this->checker->isGranted(Partner::ROLE_EDIT_ALL)
+        ;
     }
 }
