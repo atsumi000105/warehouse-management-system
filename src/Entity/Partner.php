@@ -25,7 +25,7 @@ class Partner extends StorageLocation
         self::TYPE_AGENCY,
         self::TYPE_HOSPITAL,
     ];
-    
+
     public const ROLE_EDIT_ALL = 'ROLE_PARTNER_EDIT_ALL';
     public const ROLE_MANAGE_OWN = 'ROLE_PARTNER_MANAGE_OWN';
     public const ROLE_VIEW_ALL = 'ROLE_PARTNER_VIEW_ALL';

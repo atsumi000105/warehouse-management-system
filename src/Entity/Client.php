@@ -45,7 +45,7 @@ class Client extends CoreEntity
     public const TRANSITION_DEACTIVATE_EXPIRE = 'EXPIRE';
     public const TRANSITION_FLAG_FOR_REVIEW = 'FLAG_FOR_REVIEW';
     public const TRANSITION_FLAG_FOR_REVIEW_PAST_DUE = 'FLAG_FOR_REVIEW_PAST_DUE';
-    
+
     public const ROLE_EDIT_ALL = "ROLE_CLIENT_EDIT_ALL";
     public const ROLE_MANAGE_OWN = "ROLE_CLIENT_MANAGE_OWN";
     public const ROLE_VIEW_ALL = "ROLE_CLIENT_VIEW_ALL";
