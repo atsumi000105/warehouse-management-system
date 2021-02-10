@@ -79,7 +79,7 @@ class ClientSubscriber implements EventSubscriberInterface
 
     public function onTransitionDeactivateBlocked(GuardEvent $event): void
     {
-        if ($this->isManager()) {
+        if ($this->canEditAll()) {
             return;
         }                        
         $event->setBlocked(true);
