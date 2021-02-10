@@ -84,13 +84,13 @@ class ClientExpirationCommand extends Command
             foreach ($agedOutClients as $client) {
                 $this->workflowRegistry
                     ->get($client)
-                    ->apply($client, Client::TRANSITION_EXPIRE);
+                    ->apply($client, Client::TRANSITION_DEACTIVATE_EXPIRE);
             }
 
             foreach ($maxDistributionClients as $client) {
                 $this->workflowRegistry
                     ->get($client)
-                    ->apply($client, Client::TRANSITION_EXPIRE);
+                    ->apply($client, Client::TRANSITION_DEACTIVATE_EXPIRE);
             }
 
             $this->em->flush();
@@ -98,7 +98,7 @@ class ClientExpirationCommand extends Command
             $io->success(sprintf(
                 '%d client(s) have been transitioned to "%s".',
                 count($rows),
-                Client::TRANSITION_EXPIRE
+                Client::TRANSITION_DEACTIVATE_EXPIRE
             ));
         } else {
             $io->warning(sprintf(
