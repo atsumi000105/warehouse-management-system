@@ -81,7 +81,7 @@ class ClientSubscriber implements EventSubscriberInterface
     {
         if ($this->canEditAll()) {
             return;
-        }                        
+        }
         $event->setBlocked(true);
     }
 
