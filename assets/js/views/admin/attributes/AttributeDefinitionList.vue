@@ -21,9 +21,10 @@
                 </router-link>
             </div>
         </div>
-        <h3 class="box-title">
-            Partner Profile Attribute List
-        </h3>
+        <h3
+            class="box-title"
+            v-text="title"
+        ></h3>
 
         <div class="row">
             <div class="col-xs-12">
@@ -82,6 +83,7 @@ export default {
             Draggable
         },
         props: {
+            title: { type: String, required: true },
             getApi: { type: String, required: true },
             orderApi: { type: String, required: true },
             editRoute: { type: [Object, String], required: true },

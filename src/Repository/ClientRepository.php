@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Client;
+use App\Entity\EAV\Definition;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
@@ -19,6 +20,44 @@ class ClientRepository extends EntityRepository
     {
         $clients = $this->findBy(['publicId' => $ids]);
         return new ArrayCollection($clients);
+    }
+
+    public function findDuplicates(ParameterBag $params): ?ArrayCollection
+    {
+        $qb = $this->createQueryBuilder('c');
+
+        $qb->andWhere('LOWER(c.name.firstname) LIKE :firstname')
+            ->andWhere('LOWER(c.name.lastname) LIKE :lastname')
+            ->setParameter('firstname', strtolower($params->get('firstname')))
+            ->setParameter('lastname', strtolower($params->get('lastname')));
+
+        $qb->andWhere('c.birthdate = :birthdate')
+            ->setParameter('birthdate', $params->get('birthdate'));
+
+        if ($params->has('attributes')) {
+            /** @var array $attributes */
+            $attributes = $params->get('attributes');
+
+            $qb->leftJoin('c.attributes', 'a');
+
+            foreach ($attributes as $attribute) {
+                $definition = $this
+                    ->getEntityManager()
+                    ->getRepository(Definition::class)
+                    ->find($attribute['definition_id']);
+
+                $alias = 'a' . $attribute['definition_id'];
+
+                $qb->leftJoin($definition->getAttributeClass(), $alias, 'WITH', "$alias.id = a.id");
+
+                $qb->andWhere($alias . '.value = :attribute_value')
+                    ->setParameter('attribute_value', $attribute['value']);
+            }
+
+            $qb->setMaxResults(5);
+        }
+
+        return $qb->getQuery()->execute();
     }
 
     public function findAllPaged(

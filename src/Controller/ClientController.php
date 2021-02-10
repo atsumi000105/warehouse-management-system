@@ -3,14 +3,20 @@
 namespace App\Controller;
 
 use App\Entity\Client;
+use App\Entity\EAV\ClientDefinition;
 use App\Entity\Partner;
 use App\Entity\Orders\BulkDistributionLineItem;
 use App\Entity\User;
 use App\Entity\ValueObjects\Name;
 use App\Reports\ClientDistributionExcel;
+use App\Repository\ClientRepository;
 use App\Security\ClientVoter;
 use App\Service\EavAttributeProcessor;
+use App\Transformers\AttributeDefinitionTransformer;
+use App\Transformers\AttributeTransformer;
 use App\Transformers\BulkDistributionLineItemTransformer;
+use App\Transformers\ClientAttributeDefinitionTransformer;
+use App\Transformers\ClientAttributeTransformer;
 use App\Transformers\ClientTransformer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -101,6 +107,62 @@ class ClientController extends BaseController
     }
 
     /**
+     * @param Request $request
+     * @return JsonResponse
+     *
+     * @Route(path="/new-fields", methods={"GET"})
+     */
+    public function newClientAttributes(Request $request): JsonResponse
+    {
+        $fields = $this->getRepository(ClientDefinition::class)->findBy(['isDuplicateReference' => true]);
+
+        $attributes = array_map(function ($definition) {
+            return $definition->createAttribute();
+        }, $fields);
+
+        return $this->serialize($request, $attributes, new ClientAttributeTransformer());
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     *
+     * @Route(path="/fields", methods={"GET"})
+     */
+    public function clientAttributes(Request $request): JsonResponse
+    {
+        $fields = $this->getRepository(ClientDefinition::class)->findAll();
+
+        $attributes = array_map(function ($definition) {
+            return $definition->createAttribute();
+        }, $fields);
+
+        return $this->serialize($request, $attributes, new ClientAttributeTransformer());
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     *
+     * @Route(path="/new-check", methods={"POST"})
+     */
+    public function newClientCheck(Request $request): JsonResponse
+    {
+        $params = $this->getParams($request);
+
+        $paramBag = new ParameterBag();
+        $paramBag->set('firstname', $params['firstName']);
+        $paramBag->set('lastname', $params['lastName']);
+        $paramBag->set('birthdate', new \DateTime($params['birthdate']));
+        $paramBag->set('attributes', $params['attributes']);
+
+        /** @var ClientRepository $repo */
+        $repo = $this->getRepository(Client::class);
+        $result = $repo->findDuplicates($paramBag);
+
+        return $this->serialize($request, $result);
+    }
+    /**
      * Get a single Client
      *
      * @Route(path="/{publicId}", methods={"GET"})
@@ -170,10 +232,10 @@ class ClientController extends BaseController
         $client = $this->getClientById($publicId);
         $this->denyAccessUnlessGranted(ClientVoter::EDIT, $client);
 
-        if ($params['name']) {
-            $name = new Name($params['name']['firstName'], $params['name']['lastName']);
+        if ($params['firstName'] && $params['lastName']) {
+            $name = new Name($params['firstName'], $params['lastName']);
             $client->setName($name);
-            unset($params['name']);
+            unset($params['firstName'], $params['lastName']);
         }
 
         if (isset($params['partner']['id'])) {
@@ -319,7 +381,6 @@ class ClientController extends BaseController
 
         return $this->serialize($request, $client, null, $meta);
     }
-
 
     /**
      * @param Request $request

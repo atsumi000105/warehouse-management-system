@@ -46,6 +46,10 @@ class ClientListener implements EventSubscriber
             return;
         }
 
+        if (!$client->getPublicId()) {
+            $client->setPublicId($this->gen->generate());
+        }
+
         $client->calculateAgeExpiration();
     }
 
@@ -54,10 +58,6 @@ class ClientListener implements EventSubscriber
         $client = $event->getEntity();
         if (!$client instanceof Client) {
             return;
-        }
-
-        if (!$client->getPublicId()) {
-            $client->setPublicId($this->gen->generate());
         }
 
         $client->calculateAgeExpiration();
