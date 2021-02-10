@@ -43,10 +43,7 @@ class PartnerSubscriber implements EventSubscriberInterface
              return;
         }
 
-        if (
-            $this->checker->isGranted(Partner::ROLE_MANAGE_OWN)
-            && $status === Partner::STATUS_START
-        ) {
+        if ($status === Partner::STATUS_START && $this->checker->isGranted(Partner::ROLE_MANAGE_OWN)) {
             return;
         }
 
