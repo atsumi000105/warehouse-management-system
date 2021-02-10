@@ -30,7 +30,7 @@ class PartnerSubscriber implements EventSubscriberInterface
         $status = $event->getSubject()->getStatus();
 
         if (
-            $this->isManager() && in_array(
+            $this->canEditAll() && in_array(
                 $status,
                 [
                     Partner::STATUS_ACTIVE,
@@ -52,7 +52,7 @@ class PartnerSubscriber implements EventSubscriberInterface
 
     public function onTransitionSubmitPriority(GuardEvent $event): void
     {
-        if ($this->isManager()) {
+        if ($this->canEditAll()) {
             return;
         }
         $event->setBlocked(true);
@@ -60,7 +60,7 @@ class PartnerSubscriber implements EventSubscriberInterface
 
     public function onTransitionFlagForReview(GuardEvent $event): void
     {
-        if ($this->isManager()) {
+        if ($this->canEditAll()) {
             return;
         }
         $event->setBlocked(true);
@@ -68,7 +68,7 @@ class PartnerSubscriber implements EventSubscriberInterface
 
     public function onTransitionFlagForReviewPastDue(GuardEvent $event): void
     {
-        if ($this->isManager()) {
+        if ($this->canEditAll()) {
             return;
         }
         $event->setBlocked(true);
@@ -76,7 +76,7 @@ class PartnerSubscriber implements EventSubscriberInterface
 
     public function onTransitionActivate(GuardEvent $event): void
     {
-        if ($this->isManager()) {
+        if ($this->canEditAll()) {
             return;
         }
         $event->setBlocked(true);
@@ -84,7 +84,7 @@ class PartnerSubscriber implements EventSubscriberInterface
 
     public function onTransitionReviewed(GuardEvent $event): void
     {
-        if ($this->isManager() || $this->checker->isGranted(Partner::ROLE_MANAGE_OWN)) {
+        if ($this->canEditAll() || $this->checker->isGranted(Partner::ROLE_MANAGE_OWN)) {
             return;
         }
         $event->setBlocked(true);
@@ -92,7 +92,7 @@ class PartnerSubscriber implements EventSubscriberInterface
 
     public function onTransitionDeactivate(GuardEvent $event): void
     {
-        if ($this->isManager()) {
+        if ($this->canEditAll()) {
             return;
         }
         $event->setBlocked(true);
@@ -112,7 +112,7 @@ class PartnerSubscriber implements EventSubscriberInterface
         ];
     }
 
-    protected function isManager(): bool
+    protected function canEditAll(): bool
     {
         return $this->checker->isGranted('ROLE_ADMIN')
             || $this->checker->isGranted(Partner::ROLE_EDIT_ALL)

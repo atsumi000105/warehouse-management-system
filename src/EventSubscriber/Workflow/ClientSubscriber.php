@@ -27,7 +27,7 @@ class ClientSubscriber implements EventSubscriberInterface
 
     public function onTransitionActivate(GuardEvent $event): void
     {
-        if ($this->isManager()) {
+        if ($this->canEditAll()) {
             return;
         }
         $status = $event->getSubject()->getStatus();
@@ -45,7 +45,7 @@ class ClientSubscriber implements EventSubscriberInterface
 
     public function onTransitionDeactivate(GuardEvent $event): void
     {
-        if ($this->isManager()) {
+        if ($this->canEditAll()) {
             return;
         }
         $status = $event->getSubject()->getStatus();
@@ -63,7 +63,7 @@ class ClientSubscriber implements EventSubscriberInterface
 
     public function onTransitionDeactivateExpire(GuardEvent $event): void
     {
-        if ($this->isManager()) {
+        if ($this->canEditAll()) {
             return;
         }
         $event->setBlocked(true);
@@ -71,7 +71,7 @@ class ClientSubscriber implements EventSubscriberInterface
 
     public function onTransitionDeactivateDuplicate(GuardEvent $event): void
     {
-        if ($this->isManager()) {
+        if ($this->canEditAll()) {
             return;
         }
         $event->setBlocked(true);
@@ -88,7 +88,7 @@ class ClientSubscriber implements EventSubscriberInterface
         ];
     }
 
-    protected function isManager(): bool
+    protected function canEditAll(): bool
     {
         return $this->checker->isGranted('ROLE_ADMIN')
             || $this->checker->isGranted(Client::ROLE_EDIT_ALL)
