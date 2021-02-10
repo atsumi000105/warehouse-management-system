@@ -79,21 +79,10 @@ class ClientSubscriber implements EventSubscriberInterface
 
     public function onTransitionDeactivateBlocked(GuardEvent $event): void
     {
-        if (!$this->checker->isGranted(Client::ROLE_EDIT_ALL)) {
-            $status = $event->getSubject()->getStatus();
-
-            if (
-                $status === Client::STATUS_INACTIVE_EXPIRED
-                || $status === Client::STATUS_INACTIVE
-                || $status === Client::STATUS_INACTIVE_DUPLICATE
-            ) {
-                $event->setBlocked(true);
-            }
-
-            if (!$this->checker->isGranted(Client::ROLE_MANAGE_OWN)) {
-                $event->setBlocked(true);
-            }
-        }
+        if ($this->isManager()) {
+            return;
+        }                        
+        $event->setBlocked(true);
     }
 
     public static function getSubscribedEvents()
