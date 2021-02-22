@@ -61,7 +61,10 @@ class ClientTransformer extends TransformerAbstract
     public function includeLastDistribution(Client $client): ?Item
     {
         if ($client->getLastCompleteDistributionLineItem()) {
-            return $this->item($client->getLastCompleteDistributionLineItem(), new BulkDistributionLineItemTransformer());
+            return $this->item(
+                $client->getLastCompleteDistributionLineItem(),
+                new BulkDistributionLineItemTransformer()
+            );
         }
 
         return null;
