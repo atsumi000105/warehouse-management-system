@@ -3,7 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Client;
-use App\Entity\EAV\Definition;
+use App\Entity\EAV\ClientDefinition;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
@@ -43,21 +43,26 @@ class ClientRepository extends EntityRepository
             foreach ($attributes as $attribute) {
                 $definition = $this
                     ->getEntityManager()
-                    ->getRepository(Definition::class)
+                    ->getRepository(ClientDefinition::class)
                     ->find($attribute['definition_id']);
 
-                $alias = 'a' . $attribute['definition_id'];
+                // TODO: Figure out why doing the negative of this and a continue gives a 500 error
+                if ($definition->isDuplicateReference()) {
+                    $alias = 'a' . $attribute['definition_id'];
 
-                $qb->leftJoin($definition->getAttributeClass(), $alias, 'WITH', "$alias.id = a.id");
+                    $qb->leftJoin($definition->getAttributeClass(), $alias, 'WITH', "$alias.id = a.id");
 
-                $qb->andWhere($alias . '.value = :attribute_value')
-                    ->setParameter('attribute_value', $attribute['value']);
+                    $qb->andWhere($alias . '.value = :attribute_value')
+                        ->setParameter('attribute_value', $attribute['value']);
+                }
             }
 
             $qb->setMaxResults(5);
         }
 
-        return $qb->getQuery()->execute();
+        $clients = $qb->getQuery()->execute();
+
+        return new ArrayCollection($clients);
     }
 
     public function findAllPaged(

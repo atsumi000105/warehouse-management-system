@@ -87,8 +87,8 @@
             v-if="foundDuplicates"
             id="duplicates"
         >
-            <div class="alert alert-danger">
-                <h3 class="alert-heading">Duplicate Clients Found</h3>
+            <div class="callout callout-danger">
+                <h3>Duplicate Clients Found</h3>
                 Based on the information provided, this client appears to be a duplicate of the following client(s). If inactive, please transfer a client below to your partner agency.
             </div>
             <div class="row">
@@ -104,11 +104,19 @@
                                     <th></th>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="duplicate in duplicates">
+                                    <tr
+                                        v-for="duplicate in duplicates"
+                                        :key="duplicate.id"
+                                    >
                                         <td v-text="duplicate.fullName"></td>
                                         <td v-text="duplicate.status"></td>
                                         <td v-text="duplicate.partner.title"></td>
-                                        <td v-text="duplicate.lastDistribution.order.distributionPeriod"></td>
+                                        <td>
+                                            <span
+                                                v-if="duplicate.lastDistribution"
+                                                v-text="duplicate.lastDistribution.order.distributionPeriod"
+                                            ></span>
+                                        </td>
                                         <td></td>
                                     </tr>
                                 </tbody>

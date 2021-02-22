@@ -58,8 +58,12 @@ class ClientTransformer extends TransformerAbstract
         return $this->item($client->getPartner(), new PartnerTransformer());
     }
 
-    public function includeLastDistribution(Client $client): Item
+    public function includeLastDistribution(Client $client): ?Item
     {
-        return $this->item($client->getLastCompleteDistributionLineItem(), new BulkDistributionLineItemTransformer());
+        if ($client->getLastCompleteDistributionLineItem()) {
+            return $this->item($client->getLastCompleteDistributionLineItem(), new BulkDistributionLineItemTransformer());
+        }
+
+        return null;
     }
 }
