@@ -91,6 +91,7 @@ class Client extends CoreEntity
      * @var string|null
      *
      * @ORM\Column(type="string", nullable=true)
+     * @Gedmo\Versioned
      */
     protected $parentFirstName;
 
@@ -98,6 +99,7 @@ class Client extends CoreEntity
      * @var string|null
      *
      * @ORM\Column(type="string", nullable=true)
+     * @Gedmo\Versioned
      */
     protected $parentLastName;
 
@@ -367,11 +369,6 @@ class Client extends CoreEntity
         return $this->pullupDistributionCount >= $this->pullupDistributionMax;
     }
 
-    public function applyChangesFromArray(array $changes): void
-    {
-        parent::applyChangesFromArray($changes);
-    }
-
     public function getPartner(): ?Partner
     {
         return $this->partner;
@@ -506,5 +503,21 @@ class Client extends CoreEntity
             },
             null
         );
+    }
+
+    /**
+     * Clients are considered active if they are "ACTIVE" or "NEEDS REVIEW"
+     */
+    public function isActive(): bool
+    {
+        return in_array($this->status, [self::STATUS_ACTIVE, self::STATUS_NEEDS_REVIEW]);
+    }
+
+    /**
+     * Partners can only transfer clients to themselves if they are (regular) Inactive or Creating
+     */
+    public function canPartnerTransfer(): bool
+    {
+        return in_array($this->status, [self::STATUS_INACTIVE, self::STATUS_CREATION]);
     }
 }

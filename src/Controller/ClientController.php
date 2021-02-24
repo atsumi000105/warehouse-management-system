@@ -8,6 +8,7 @@ use App\Entity\Partner;
 use App\Entity\Orders\BulkDistributionLineItem;
 use App\Entity\User;
 use App\Entity\ValueObjects\Name;
+use App\Exception\UserInterfaceException;
 use App\Reports\ClientDistributionExcel;
 use App\Repository\ClientRepository;
 use App\Security\ClientVoter;
@@ -145,6 +146,7 @@ class ClientController extends BaseController
      * @return JsonResponse
      *
      * @Route(path="/new-check", methods={"POST"})
+     * @IsGranted({"ROLE_CLIENT_EDIT_ALL","ROLE_CLIENT_MANAGE_OWN"})
      */
     public function newClientCheck(Request $request): JsonResponse
     {
@@ -319,8 +321,6 @@ class ClientController extends BaseController
             ->getRepository(BulkDistributionLineItem::class)
             ->getClientDistributionHistory($client);
 
-//        $this->checkViewPermissions($client);
-
         return $this->serialize($request, $distributionLines, new BulkDistributionLineItemTransformer());
     }
 
@@ -361,7 +361,7 @@ class ClientController extends BaseController
      * @return JsonResponse
      *
      * @Route(path="/{publicId}/review", methods={"POST"})
-     * @IsGranted({"ROLE_CLIENT_VIEW_ALL","ROLE_CLIENT_MANAGE_OWN"})
+     * @IsGranted({"ROLE_CLIENT_EDIT_ALL","ROLE_CLIENT_MANAGE_OWN"})
      */
     public function review(Request $request, Registry $workflowRegistry, string $publicId): JsonResponse
     {
@@ -380,6 +380,30 @@ class ClientController extends BaseController
         ];
 
         return $this->serialize($request, $client, null, $meta);
+    }
+
+    /**
+     * @Route(path="/{publicId}/transfer", methods={"POST"})
+     * @IsGranted({"ROLE_CLIENT_EDIT_ALL","ROLE_CLIENT_MANAGE_OWN"})
+     */
+    public function transfer(Request $request, Registry $workflowRegistry, string $publicId): JsonResponse
+    {
+        $client = $this->getClientById($publicId);
+        $this->denyAccessUnlessGranted(ClientVoter::TRANSFER, $client);
+
+        if(!$this->getUser()->getActivePartner()) {
+            throw new UserInterfaceException("Current logged in user has no active partner or is an admin.");
+        }
+
+        $partner = $this->getUser()->getActivePartner();
+
+        $client->setPartner($partner);
+
+        $workflowRegistry->get($client)->apply($client, Client::TRANSITION_ACTIVATE);
+
+        $this->getEm()->flush();
+
+        return $this->serialize($request, $client);
     }
 
     /**

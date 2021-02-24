@@ -11,10 +11,11 @@ class ClientVoter extends Voter
 {
     public const EDIT = 'EDIT';
     public const VIEW = 'VIEW';
+    public const TRANSFER = 'TRANSFER';
 
     protected function supports($attribute, $subject)
     {
-        if (!in_array($attribute, [self::VIEW, self::EDIT])) {
+        if (!in_array($attribute, [self::VIEW, self::EDIT, self::TRANSFER])) {
             return false;
         }
 
@@ -40,6 +41,8 @@ class ClientVoter extends Voter
                 return $this->canView($client, $user);
             case self::EDIT:
                 return $this->canEdit($client, $user);
+            case self::TRANSFER:
+                return $this->canTransfer($client, $user);
             default:
                 throw new \LogicException('Unknown Voter attribute');
         }
@@ -80,4 +83,29 @@ class ClientVoter extends Voter
 
         return false;
     }
+
+    private function canTransfer(Client $client, User $user): bool
+    {
+        if ($user->isAdmin()) {
+            return true;
+        }
+
+        if ($user->hasRole(Client::ROLE_EDIT_ALL)) {
+            return true;
+        }
+
+        $activePartner = $user->getActivePartner();
+
+        if (
+            $user->hasRole(Client::ROLE_MANAGE_OWN)
+            && $activePartner
+            && $client->canPartnerTransfer()
+        ) {
+            return true;
+        }
+
+        return false;
+    }
+
+
 }
