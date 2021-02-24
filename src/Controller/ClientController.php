@@ -391,11 +391,14 @@ class ClientController extends BaseController
         $client = $this->getClientById($publicId);
         $this->denyAccessUnlessGranted(ClientVoter::TRANSFER, $client);
 
-        if(!$this->getUser()->getActivePartner()) {
+        /** @var User $user */
+        $user = $this->getUser();
+
+        if (!$user->getActivePartner()) {
             throw new UserInterfaceException("Current logged in user has no active partner or is an admin.");
         }
 
-        $partner = $this->getUser()->getActivePartner();
+        $partner = $user->getActivePartner();
 
         $client->setPartner($partner);
 

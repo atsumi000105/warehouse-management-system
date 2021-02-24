@@ -106,6 +106,4 @@ class ClientVoter extends Voter
 
         return false;
     }
-
-
 }

@@ -104,7 +104,7 @@ class Client extends CoreEntity
     protected $parentLastName;
 
     /**
-     * @var Partner
+     * @var Partner|null
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\Partner", inversedBy="clients")
      * @Gedmo\Versioned
@@ -374,7 +374,7 @@ class Client extends CoreEntity
         return $this->partner;
     }
 
-    public function setPartner(Partner $partner): void
+    public function setPartner(?Partner $partner): void
     {
         $this->partner = $partner;
     }

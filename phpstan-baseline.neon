@@ -1096,11 +1096,6 @@ parameters:
 			path: src/Entity/Address.php
 
 		-
-			message: "#^Property App\\\\Entity\\\\Client\\:\\:\\$partner type mapping mismatch\\: database can contain App\\\\Entity\\\\Partner\\|null but property expects App\\\\Entity\\\\Partner\\.$#"
-			count: 1
-			path: src/Entity/Client.php
-
-		-
 			message: "#^Property App\\\\Entity\\\\Client\\:\\:\\$ageExpiresAt type mapping mismatch\\: database can contain DateTime\\|null but property expects DateTime\\.$#"
 			count: 1
 			path: src/Entity/Client.php

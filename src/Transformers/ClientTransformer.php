@@ -55,7 +55,7 @@ class ClientTransformer extends TransformerAbstract
     {
         return $client->getPartner()
             ? $this->item($client->getPartner(), new PartnerTransformer())
-            : $this->primitive(['id'=>null]);
+            : $this->primitive(['id' => null]);
     }
 
     public function includeLastDistribution(Client $client): ?Item
