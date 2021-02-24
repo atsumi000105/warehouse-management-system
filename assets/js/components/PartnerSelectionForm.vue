@@ -1,8 +1,10 @@
 <template>
     <div>
-        <div class="form-group">
+        <div
+            v-if="editable"
+            class="form-group"
+        >
             <optionlist
-                v-if="editable"
                 ref="partnerSelect"
                 v-model="value"
                 :preloaded-options="allPartners"
@@ -10,15 +12,14 @@
                 empty-string="-- Select Partner --"
                 :label="label"
             />
-            <span
-                v-else
-                v-text="value.title"
-            />
         </div>
         <div
-            v-if="!editable"
+            v-else
             class="form-group"
         >
+            <b>{{ label }}</b>
+            <p>{{ value.title }}</p>
+
             <address-view
                 v-model="value.address"
                 v="v.address"
@@ -28,11 +29,11 @@
 </template>
 
 <script>
-    import {mapGetters} from 'vuex'
-    import Address from '../components/AddressView.vue';
-    import OptionListEntity from './OptionListEntity.vue';
+import {mapGetters} from 'vuex'
+import Address from '../components/AddressView.vue';
+import OptionListEntity from './OptionListEntity.vue';
 
-    export default {
+export default {
         components:{
             'address-view' : Address,
             'optionlist' : OptionListEntity

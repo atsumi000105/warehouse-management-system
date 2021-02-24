@@ -22,33 +22,33 @@ class Client extends CoreEntity
     use AttributedEntityTrait;
 
     // State Machine Statuses
-    public const STATUS_CREATION = 'CREATION';
     public const STATUS_ACTIVE = 'ACTIVE';
+    public const STATUS_CREATION = 'CREATION';
+    public const STATUS_INACTIVE = 'INACTIVE';
+    public const STATUS_INACTIVE_DUPLICATE = 'INACTIVE_(DUPLICATE)';
+    public const STATUS_INACTIVE_EXPIRED = 'INACTIVE_(EXPIRED)';
     public const STATUS_NEEDS_REVIEW = 'NEEDS_REVIEW';
     public const STATUS_REVIEW_PAST_DUE = 'REVIEW_PAST_DUE';
-    public const STATUS_INACTIVE = 'INACTIVE';
-    public const STATUS_LIMIT_REACHED = 'LIMIT_REACHED';
-    public const STATUS_DUPLICATE_INACTIVE = 'DUPLICATE_(INACTIVE)';
     public const STATUSES = [
-        self::STATUS_CREATION,
         self::STATUS_ACTIVE,
+        self::STATUS_CREATION,
+        self::STATUS_INACTIVE,
+        self::STATUS_INACTIVE_DUPLICATE,
+        self::STATUS_INACTIVE_EXPIRED,
         self::STATUS_NEEDS_REVIEW,
         self::STATUS_REVIEW_PAST_DUE,
-        self::STATUS_LIMIT_REACHED,
-        self::STATUS_DUPLICATE_INACTIVE,
-        self::STATUS_INACTIVE,
     ];
 
     public const TRANSITION_ACTIVATE = 'ACTIVATE';
     public const TRANSITION_DEACTIVATE = 'DEACTIVATE';
-    public const TRANSITION_EXPIRE = 'EXPIRE';
-    public const TRANSITION_DUPLICATE_INACTIVE = 'DUPLICATE';
+    public const TRANSITION_DEACTIVATE_DUPLICATE = 'DUPLICATE';
+    public const TRANSITION_DEACTIVATE_EXPIRE = 'EXPIRE';
     public const TRANSITION_FLAG_FOR_REVIEW = 'FLAG_FOR_REVIEW';
     public const TRANSITION_FLAG_FOR_REVIEW_PAST_DUE = 'FLAG_FOR_REVIEW_PAST_DUE';
 
-    public const ROLE_VIEW_ALL = "ROLE_CLIENT_VIEW_ALL";
     public const ROLE_EDIT_ALL = "ROLE_CLIENT_EDIT_ALL";
     public const ROLE_MANAGE_OWN = "ROLE_CLIENT_MANAGE_OWN";
+    public const ROLE_VIEW_ALL = "ROLE_CLIENT_VIEW_ALL";
 
     /**
      * The unique auto incremented primary key.
