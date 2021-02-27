@@ -6,6 +6,7 @@
         list-route="admin-client-attribute"
         definition-entity="Client"
         :new-form="newForm"
+        :has-duplicate-check="true"
     />
 </template>
 

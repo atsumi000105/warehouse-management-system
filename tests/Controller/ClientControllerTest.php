@@ -73,7 +73,7 @@ class ClientControllerTest extends AbstractWebTestCase
 
         $newLastName = uniqid();
 
-        $params['name'] = ['firstName' => $firstName, 'lastName' => $newLastName];
+        $params = ['firstName' => $firstName, 'lastName' => $newLastName];
 
         $this->client->request('PATCH', "/api/clients/{$publicId}", $params);
 

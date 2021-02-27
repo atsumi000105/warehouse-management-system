@@ -46,6 +46,11 @@
                                     placeholder="Enter help text"
                                 ></textarea>
                             </div>
+                            <BooleanField
+                                v-if="hasDuplicateCheck"
+                                v-model="definition.isDuplicateReference"
+                                label="Used when checking for duplicate records"
+                            />
                             <OptionListStatic
                                 v-model="definition.type"
                                 label="Attribute Type"
@@ -76,15 +81,18 @@
 import KeyValueField from "../../../components/KeyValueField";
 import {mapGetters} from "vuex";
 import OptionListStatic from "../../../components/OptionListStatic";
+import BooleanField from "../../../components/ToggleField";
 
 export default {
         name: 'AttributeDefinitionEdit',
         components: {
+            BooleanField,
             OptionListStatic,
             KeyValueField
         },
         props: {
             newForm: { type: Boolean, default: false },
+            hasDuplicateCheck: { type: Boolean, default: false },
             getApi: { type: String, required: true },
             postApi: { type: String, required: true },
             patchApi: { type: String, required: true },

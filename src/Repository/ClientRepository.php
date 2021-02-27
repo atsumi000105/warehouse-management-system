@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Client;
+use App\Entity\EAV\ClientDefinition;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
@@ -18,6 +19,49 @@ class ClientRepository extends EntityRepository
     public function findByPublicIds(array $ids): ?ArrayCollection
     {
         $clients = $this->findBy(['publicId' => $ids]);
+        return new ArrayCollection($clients);
+    }
+
+    public function findDuplicates(ParameterBag $params): ?ArrayCollection
+    {
+        $qb = $this->createQueryBuilder('c');
+
+        $qb->andWhere('LOWER(c.name.firstname) LIKE :firstname')
+            ->andWhere('LOWER(c.name.lastname) LIKE :lastname')
+            ->setParameter('firstname', strtolower($params->get('firstname')))
+            ->setParameter('lastname', strtolower($params->get('lastname')));
+
+        $qb->andWhere('c.birthdate = :birthdate')
+            ->setParameter('birthdate', $params->get('birthdate'));
+
+        if ($params->has('attributes')) {
+            /** @var array $attributes */
+            $attributes = $params->get('attributes');
+
+            $qb->leftJoin('c.attributes', 'a');
+
+            foreach ($attributes as $attribute) {
+                $definition = $this
+                    ->getEntityManager()
+                    ->getRepository(ClientDefinition::class)
+                    ->find($attribute['definition_id']);
+
+                // TODO: Figure out why doing the negative of this and a continue gives a 500 error
+                if ($definition->isDuplicateReference()) {
+                    $alias = 'a' . $attribute['definition_id'];
+
+                    $qb->leftJoin($definition->getAttributeClass(), $alias, 'WITH', "$alias.id = a.id");
+
+                    $qb->andWhere($alias . '.value = :attribute_value')
+                        ->setParameter('attribute_value', $attribute['value']);
+                }
+            }
+
+            $qb->setMaxResults(5);
+        }
+
+        $clients = $qb->getQuery()->execute();
+
         return new ArrayCollection($clients);
     }
 

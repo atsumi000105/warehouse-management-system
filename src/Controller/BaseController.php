@@ -51,7 +51,7 @@ abstract class BaseController extends AbstractController
     {
         $transformer = $transformer ?: $this->getDefaultTransformer();
 
-        if ($entities instanceof \Iterator || is_array($entities)) {
+        if ($entities instanceof \Traversable || is_array($entities)) {
             $resource = new Collection($entities, $transformer, 'data');
         } else {
             $resource = new Item($entities, $transformer, 'data');

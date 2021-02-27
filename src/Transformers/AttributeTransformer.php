@@ -17,10 +17,7 @@ class AttributeTransformer extends TransformerAbstract
         'value'
     ];
 
-    /**
-     * @return array
-     */
-    public function transform(Attribute $attribute)
+    public function transform(Attribute $attribute): array
     {
         return [
             'id' => (int) $attribute->getId(),

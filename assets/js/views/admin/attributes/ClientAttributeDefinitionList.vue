@@ -1,5 +1,6 @@
 <template>
     <AttributeDefinitionList
+        title="Client Profile Attribute List"
         edit-route="admin-client-attribute-edit"
         new-route="admin-client-attribute-new"
         get-api="/api/client/attribute/definition"
