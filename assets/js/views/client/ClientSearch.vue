@@ -46,7 +46,21 @@
                             api-url="/api/clients/search"
                             :sort-order="[{ field: 'id', direction: 'desc'}]"
                             :params="requestParams()"
-                        />
+                        >
+                            <template v-slot:actions="{rowData}">
+                                <button
+                                    :disabled="!userActivePartner || !rowData.canPartnerTransfer"
+                                    v-tooltip
+                                    :title="transferButtonTooltip(rowData)"
+                                    class="btn btn-xs btn-primary"
+                                    @click="onTransferClicked(rowData)"
+                                >
+                                    <i class="fa fa-exchange-alt fa-fw"></i>
+                                    Transfer to Active Partner
+                                </button>
+                            </template>
+
+                        </TableStatic>
                     </div>
                     <!-- /.box-body -->
                 </div>
@@ -61,6 +75,10 @@
                 </div>
             </div>
         </div>
+        <ClientTransferModal
+            :client="transferClient"
+            :target-partner="userActivePartner || null"
+        />
     </section>
 </template>
 
@@ -69,10 +87,13 @@
     import TextField from "../../components/TextField";
     import TableStatic from "../../components/TableStatic";
     import DateField from "../../components/DateField";
+    import ClientTransferModal from "./ClientTransferModal";
+    import {mapGetters} from "vuex";
 
     export default {
         name: 'ClientSearch',
         components: {
+            ClientTransferModal,
             DateField,
             TableStatic,
             TextField,
@@ -82,14 +103,13 @@
         data() {
             return {
                 columns: [
-                    //todo: find a better way to sort value objects #30
-                    { name: '__checkbox', title: "#" },
                     { name: 'id', title: "ID", sortField: 'c.id' },
                     { name: 'fullName', title: "Name", sortField: 'c.fullName' },
                     { name: 'parentFullName', title: "Parent/Guardian" },
                     { name: 'birthdate', title: "Birthday", callback: 'dateFormat', sortField: 'c.birthdate' },
                     { name: 'partner.title', title: "Assigned Partner", sortField: 'partner.title' },
                     { name: 'status', title: "Status", callback: 'statusFormat', sortField: 'status' },
+                    { name: '__slot:actions'}
                 ],
                 clients: {},
                 statuses: [
@@ -102,7 +122,13 @@
                     birthdate: null
                 },
                 selection: [],
+                transferClient: {}
             }
+        },
+        computed: {
+            ...mapGetters([
+                'userActivePartner'
+            ])
         },
         created() {
             console.log('Component mounted.')
@@ -138,6 +164,16 @@
                     birthdate: this.filters.birthdate || null,
                     include: ['partner'],
                 }
+            },
+            onTransferClicked: function(client) {
+                this.transferClient = client;
+                $('#clientTransferModal').modal('show');
+            },
+            transferButtonTooltip: function(rowData) {
+                if(this.userActivePartner && rowData.canPartnerTransfer) {
+                    return 'Transfer client to ' + this.userActivePartner.title;
+                }
+                return 'This client is not in a transferable status or you do not have access.';
             }
         },
     }

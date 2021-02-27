@@ -41,6 +41,8 @@ class ClientTransformer extends TransformerAbstract
             'createdAt' => $client->getCreatedAt()->format('c'),
             'status' => $client->getStatus(),
             'canReview' => $client->canReview(),
+            'canPartnerTransfer' => $client->canPartnerTransfer(),
+            'isActive' => $client->isActive(),
         ];
     }
 
@@ -51,11 +53,9 @@ class ClientTransformer extends TransformerAbstract
 
     public function includePartner(Client $client)
     {
-        if (!$client->getPartner()) {
-            return;
-        }
-
-        return $this->item($client->getPartner(), new PartnerTransformer());
+        return $client->getPartner()
+            ? $this->item($client->getPartner(), new PartnerTransformer())
+            : $this->primitive(['id' => null]);
     }
 
     public function includeLastDistribution(Client $client): ?Item

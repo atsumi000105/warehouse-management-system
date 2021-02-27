@@ -17,7 +17,7 @@ const getters = {
     },
     userActivePartner: (state) => {
         if (state.user == null) return false;
-        return state.user.activePartner
+        return state.user.activePartner || null
     },
     userPartners: (state) => {
         if (state.user == null) return false;

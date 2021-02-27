@@ -1,5 +1,10 @@
 <template>
     <section class="content">
+        <ClientTransferModal
+            :client="transferClient"
+            :target-partner="userActivePartner || null"
+        />
+
         <div class="pull-right">
             <button
                 v-if="noDuplicates"
@@ -99,8 +104,8 @@
                                 <thead>
                                     <th>Name</th>
                                     <th>Status</th>
-                                    <th>Partner</th>
                                     <th>Last Activity</th>
+                                    <th>Partner</th>
                                     <th></th>
                                 </thead>
                                 <tbody>
@@ -110,23 +115,31 @@
                                     >
                                         <td v-text="duplicate.fullName"></td>
                                         <td v-text="duplicate.status"></td>
-                                        <td v-text="duplicate.partner.title"></td>
                                         <td>
                                             <span
                                                 v-if="duplicate.lastDistribution"
                                                 v-text="duplicate.lastDistribution.order.distributionPeriod"
                                             ></span>
                                         </td>
-                                        <td></td>
+                                        <td v-text="duplicate.partner ? duplicate.partner.title : ''"></td>
+                                        <td>
+                                            <button
+                                                :disabled="!duplicate.canPartnerTransfer"
+                                                v-tooltip
+                                                :title="transferButtonTooltip(duplicate)"
+                                                class="btn btn-xs btn-primary"
+                                                @click="onTransferClicked(duplicate)"
+                                            >
+                                                <i class="fa fa-exchange-alt fa-fw"></i>
+                                                Transfer to Active Partner
+                                            </button>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
-
                         </div>
                     </div>
-
                 </div>
-
             </div>
         </section>
 
@@ -151,23 +164,19 @@
         </section>
 
     </section>
-
-
 </template>
 
 <script>
 import AttributesEditForm from "../../components/AttributesEditForm";
-import PartnerSelectionForm from "../../components/PartnerSelectionForm";
 import DateField from "../../components/DateField";
-import BooleanField from "../../components/ToggleField";
-import NumberField from "../../components/NumberField";
-import DisplayField from "../../components/DisplayField";
-import TableStatic from "../../components/TableStatic";
 import ClientInfoForm from "./ClientInfoForm";
+import {mapGetters} from "vuex";
+import ClientTransferModal from "./ClientTransferModal";
 
 export default {
     name: 'ClientNewCheck',
     components: {
+        ClientTransferModal,
         ClientInfoForm,
         DateField,
         AttributesEditForm,
@@ -179,10 +188,14 @@ export default {
                 partner: {},
             },
             duplicates: [],
-            checked: false
+            checked: false,
+            transferClient: {}
         };
     },
     computed: {
+        ...mapGetters([
+            'userActivePartner'
+        ]),
         foundDuplicates: function() { return this.checked && this.duplicates.length > 0 },
         noDuplicates: function() { return this.checked && this.duplicates.length === 0 }
     },
@@ -222,6 +235,16 @@ export default {
                     console.log("Save this.client error %o", error);
                 });
         },
+        onTransferClicked: function(client) {
+            this.transferClient = client;
+            $('#clientTransferModal').modal('show');
+        },
+        transferButtonTooltip: function(rowData) {
+            if(rowData.canPartnerTransfer) {
+                return 'Transfer client to ' + this.userActivePartner.title;
+            }
+            return 'This client is not in a transferable status or you do not have access.';
+        }
     }
 }
 </script>
