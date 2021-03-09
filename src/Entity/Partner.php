@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Bridge\Monolog\Logger;
 use Symfony\Component\Workflow\Exception\LogicException;
 use Symfony\Component\Workflow\Registry;
 
@@ -255,5 +256,25 @@ class Partner extends StorageLocation
     public function canPlaceOrders(): bool
     {
         return in_array($this->status, [self::STATUS_ACTIVE, self::STATUS_NEEDS_PROFILE_REVIEW]);
+    }
+
+    /**
+     * @return PartnerContact[]
+     */
+    public function getProgramContacts():ArrayCollection
+    {
+        $programContacts = $this->contacts->filter(function(PartnerContact $contact) {
+            return $contact->isProgramContact();
+        });
+
+        return $programContacts;
+    }
+
+    /**
+     * @return PartnerContact
+     */
+    protected function createNewContact() :StorageLocationContact
+    {
+        return new PartnerContact();
     }
 }

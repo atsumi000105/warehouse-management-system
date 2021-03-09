@@ -14,8 +14,10 @@ use App\Transformers\BagTransformer;
 use App\Transformers\PartnerOrderLineItemTransformer;
 use App\Transformers\PartnerOrderTransformer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -106,11 +108,12 @@ class PartnerOrderController extends OrderController
      * @IsGranted({"ROLE_PARTNER_EDIT","ROLE_PARTNER_MANAGE_OWN"})
      *
      * @param Request $request
+     * @param MailerInterface $mailer
      * @param $id
      * @return JsonResponse
      * @throws \App\Exception\CommittedTransactionException
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, MailerInterface $mailer, $id)
     {
         $params = $this->getParams($request);
         /** @var \App\Entity\Orders\PartnerOrder $order */
@@ -137,6 +140,8 @@ class PartnerOrderController extends OrderController
         $order->applyChangesFromArray($params);
 
         $this->getEm()->flush();
+
+        $this->emailOrderUpdate($order, $mailer);
 
         return $this->serialize($request, $order);
     }
@@ -243,5 +248,25 @@ class PartnerOrderController extends OrderController
         }
 
         return $params;
+    }
+
+    private function emailOrderUpdate(PartnerOrder $order, MailerInterface $mailer)
+    {
+        $email = (new TemplatedEmail())
+            ->addFrom('andrew@koebbe.com')
+            ->subject('Order Updated')
+            ->htmlTemplate('emails/order-update.html.twig')
+            ->text('Something here')
+            ->context([
+                'order' => $order,
+                'partner' =>  $order->getPartner(),
+            ]);
+
+        foreach ($order->getPartner()->getProgramContacts() as $programContact) {
+            $email->addTo($programContact->getEmail());
+        }
+
+        $mailer->send($email);
+
     }
 }

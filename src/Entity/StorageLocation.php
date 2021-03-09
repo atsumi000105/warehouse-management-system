@@ -223,7 +223,7 @@ abstract class StorageLocation extends CoreEntity
                 if (isset($changedContact['id'])) {
                     $contact = $this->getContact($changedContact['id']);
                 } elseif (!isset($changedContact['isDeleted']) || !$changedContact['isDeleted']) {
-                    $contact = new StorageLocationContact();
+                    $contact = $this->createNewContact();
                     $this->addContact($contact);
                 } else {
                     continue;
@@ -238,5 +238,10 @@ abstract class StorageLocation extends CoreEntity
         }
 
         parent::applyChangesFromArray($changes);
+    }
+
+    protected function createNewContact() :StorageLocationContact
+    {
+        return new StorageLocationContact();
     }
 }

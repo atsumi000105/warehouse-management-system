@@ -13,6 +13,7 @@ use App\Transformers\BulkDistributionLineItemTransformer;
 use App\Transformers\BulkDistributionTransformer;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -89,11 +90,12 @@ class PartnerDistributionController extends OrderController
      * @Route(path="/{id<\d+>}", methods={"PATCH"}, defaults={"_format": "json"})
      *
      * @param Request $request
+     * @param MailerInterface $mailer
      * @param $id
      * @return JsonResponse
      * @throws \App\Exception\CommittedTransactionException
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, MailerInterface $mailer, $id)
     {
         $params = $this->getParams($request);
         /** @var BulkDistribution $order */

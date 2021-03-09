@@ -10,6 +10,7 @@ use App\Transformers\AdjustmentOrderTransformer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -68,11 +69,12 @@ class AdjustmentOrderController extends OrderController
      * @IsGranted({"ROLE_ADJUSTMENT_ORDER_EDIT"})
      *
      * @param Request $request
+     * @param MailerInterface $mailer
      * @param int $id
      * @return JsonResponse
      * @throws \App\Exception\CommittedTransactionException
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, MailerInterface $mailer, $id)
     {
         $params = $this->getParams($request);
         /** @var \App\Entity\Orders\AdjustmentOrder $order */

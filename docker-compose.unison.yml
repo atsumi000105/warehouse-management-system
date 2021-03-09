@@ -8,6 +8,14 @@ services:
         depends_on:
             - app
             - unison
+    app:
+        volumes:
+            - project_root:/app
+            - ./docker/config/app.php.ini:/usr/local/etc/php/conf.d/coverd-overrides.ini
+        depends_on:
+            - db
+            - unison
+            - mail
     unison:
         image: docksal/unison
         volumes:
@@ -29,5 +37,11 @@ services:
                 ignore = Path var/*
                 ignore = Path var/sessions/*
         privileged: true
+    mail:
+        image: mailhog/mailhog
+        ports:
+            - 1025:1025
+            - 8025:8025
+
 volumes:
     project_root:

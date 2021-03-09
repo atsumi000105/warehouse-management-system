@@ -12,6 +12,7 @@ use App\Transformers\SupplyOrderTransformer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -79,11 +80,12 @@ class SupplyOrderController extends OrderController
      * @IsGranted({"ROLE_SUPPLY_ORDER_EDIT"})
      *
      * @param Request $request
+     * @param MailerInterface $mailer
      * @param $id
      * @return JsonResponse
      * @throws \App\Exception\CommittedTransactionException
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, MailerInterface $mailer, $id)
     {
         $params = $this->getParams($request);
         /** @var \App\Entity\Orders\SupplyOrder $order */

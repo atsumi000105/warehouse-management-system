@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Partner;
+use App\Entity\PartnerContact;
 use App\Entity\PartnerDistributionMethod;
 use App\Entity\PartnerFulfillmentPeriod;
 use App\Entity\StorageLocationAddress;
@@ -52,7 +53,10 @@ class PartnerFixtures extends BaseFixture
                 ->randomElement($statuses));
             $partner->setDistributionMethod($this->randValue($distributionMethods));
             $partner->setFulfillmentPeriod($this->randValue($periods));
-            $partner->addContact($this->createContact(StorageLocationContact::class));
+            /** @var PartnerContact $contact */
+            $contact = $this->createContact(PartnerContact::class);
+            $contact->setIsProgramContact(true);
+            $partner->addContact($contact);
             $partner->setAddress($this->createAddress(StorageLocationAddress::class));
 
             $manager->persist($partner);
@@ -67,7 +71,9 @@ class PartnerFixtures extends BaseFixture
                 ->randomElement($statuses));
             $hospital->setDistributionMethod($this->randValue($distributionMethods));
             $hospital->setFulfillmentPeriod($this->randValue($periods));
-            $hospital->addContact($this->createContact(StorageLocationContact::class));
+            $contact = $this->createContact(PartnerContact::class);
+            $contact->setIsProgramContact(true);
+            $hospital->addContact($contact);
             $hospital->setAddress($this->createAddress(StorageLocationAddress::class));
 
             $manager->persist($hospital);

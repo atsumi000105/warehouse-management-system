@@ -10,6 +10,7 @@ use App\Transformers\TransferOrderTransformer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -75,12 +76,13 @@ class TransferOrderController extends OrderController
      * @IsGranted({"ROLE_TRANSFER_ORDER_EDIT"})
      *
      * @param Request $request
+     * @param MailerInterface $mailer
      * @param $id
      * @return JsonResponse
      * @throws \App\Exception\CommittedTransactionException
      * @throws \App\Exception\UserInterfaceException
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, MailerInterface $mailer, $id)
     {
         $params = $this->getParams($request);
         /** @var TransferOrder $order */

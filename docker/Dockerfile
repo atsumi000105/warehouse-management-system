@@ -20,13 +20,15 @@ RUN apt-get update && apt-get install -y \
         libpq-dev \
         nodejs \
         yarn \
+        libxslt1-dev \
     && docker-php-ext-install -j$(nproc) iconv \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-install -j$(nproc) zip \
     && docker-php-ext-install -j$(nproc) opcache \
+    && docker-php-ext-install -j$(nproc) xsl \
     && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
-    && docker-php-ext-install pdo pdo_pgsql pgsql
+    && docker-php-ext-install -j$(nproc) pdo pdo_pgsql pgsql
 
 RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 
