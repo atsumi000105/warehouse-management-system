@@ -66,4 +66,11 @@ class PartnerTransformer extends StorageLocationTransformer
     {
         return $this->collection($partner->getUsers(), new PartnerUserTransformer());
     }
+
+    public function includeContacts(StorageLocation $storageLocation)
+    {
+        $contacts = $storageLocation->getContacts();
+
+        return $this->collection($contacts, new PartnerContactTransformer());
+    }
 }

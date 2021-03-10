@@ -114,7 +114,10 @@
                             </div>
                             <!-- /.box-header -->
                             <div class="box-body">
-                                <contact :contact="contact" />
+                                <contact
+                                    :contact="contact"
+                                    :show-program-contact="true"
+                                />
                             </div>
                             <!-- /.box-body -->
                         </div>

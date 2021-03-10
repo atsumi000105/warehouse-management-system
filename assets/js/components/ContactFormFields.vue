@@ -49,11 +49,24 @@
                 >
             </div>
         </div>
+        <div class="row">
+            <div class="form-group col-xs-12">
+                <YesNoRadioField
+                    v-model="contact.isProgramContact"
+                    label="Program contact?"
+                />
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
+    import YesNoRadioField from "./YesNoRadioField";
     export default {
-        props: ['contact']
+        components: {YesNoRadioField},
+        props: {
+            contact: {type: Object, required: true},
+            showProgramContact: {type: Boolean, default: false}
+        }
     }
 </script>

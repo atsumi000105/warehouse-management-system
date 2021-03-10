@@ -16,7 +16,7 @@
                     v-model="value"
                     type="radio"
                     :value="true"
-                    @change="$emit('input', $event.target.value)"
+                    @change="$emit('input', true)"
                 >
                 Yes
             </label>
@@ -27,7 +27,7 @@
                     v-model="value"
                     type="radio"
                     :value="false"
-                    @change="$emit('input', $event.target.value)"
+                    @change="$emit('input', false)"
                 >
                 No
             </label>
@@ -41,7 +41,7 @@
         props: {
             value: { type: Boolean, required: true },
             label: { type: String, required: true },
-            helpText: { type: String, requird: false, default: "" },
+            helpText: { type: String, required: false, default: "" },
         }
     }
 </script>
