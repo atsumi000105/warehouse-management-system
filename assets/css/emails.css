@@ -23,14 +23,14 @@ td.column,td.columns,th.column,th.columns{padding-top:16px;}
 .fs-14{font-size:14px;}
 .fs-16{font-size:16px;}
 
-a{color:#6c00ff;text-decoration:none}
-a:active,a:hover{color:#8a36fb}
-a:visited,h1 a,h1 a:visited,h2 a,h2 a:visited,h3 a,h3 a:visited,h4 a,h4 a:visited,h5 a,h5 a:visited,h6 a,h6 a:visited{color:#6c00ff}
-table.button table td{text-align:left;color:#fefefe;background:#6c00ff;border:2px solid #6c00ff}
-table.button:hover table td,table.button:visited table td{background:#8a36fb;color:#fefefe}
-table.button table td a{color:#fefefe;border:0 solid #6c00ff;border-radius:6px}
-table.button:active table a,table.button:hover table a,table.button:visited table a{border:0 solid #8a36fb}
-table.menu td.menu-item a,table.menu th.menu-item a{color:#6c00ff}
+a{color:#1f5fac;text-decoration:none}
+a:active,a:hover{color:#5081ff}
+a:visited,h1 a,h1 a:visited,h2 a,h2 a:visited,h3 a,h3 a:visited,h4 a,h4 a:visited,h5 a,h5 a:visited,h6 a,h6 a:visited{color:#1f5fac}
+table.button table td{text-align:left;color:#fefefe;background:#5081ff;border:2px solid #5081ff}
+table.button:hover table td,table.button:visited table td{background:#5081ff;color:#fefefe}
+table.button table td a{color:#fefefe;border:0 solid #1f5fac;border-radius:6px}
+table.button:active table a,table.button:hover table a,table.button:visited table a{border:0 solid #5081ff}
+table.menu td.menu-item a,table.menu th.menu-item a{color:#1f5fac}
 
 .bordered {
     border: #1f5fac 1px solid;

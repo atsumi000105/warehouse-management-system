@@ -21,12 +21,12 @@
                         <table>
                             <tr>
                                 <th><strong>Product</strong></th>
-                                <th><strong>Quantity</strong></th>
+                                <th class="text-right"><strong>Quantity</strong></th>
                             </tr>
                             {% for line in order.getAggregateLineItems()|sort((a, b) => a.product.orderIndex <=> b.product.orderIndex) %}
                                 <tr>
                                     <td>{{ line.product.name }}</td>
-                                    <td>{{ line.quantity }}</td>
+                                    <td class="text-right">{{ line.quantity }}</td>
                                 </tr>
                             {% endfor %}
                         </table>

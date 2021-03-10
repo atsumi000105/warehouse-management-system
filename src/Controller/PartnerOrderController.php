@@ -250,13 +250,20 @@ class PartnerOrderController extends OrderController
         return $params;
     }
 
+    /**
+     * Only for demo purposes
+     *
+     * @param PartnerOrder $order
+     * @param MailerInterface $mailer
+     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
+     */
     private function emailOrderUpdate(PartnerOrder $order, MailerInterface $mailer)
     {
         $email = (new TemplatedEmail())
             ->addFrom('andrew@koebbe.com')
             ->subject('Order Updated')
             ->htmlTemplate('emails/order-update.html.twig')
-            ->text('Something here')
+            ->textTemplate('emails/order-update.txt.twig')
             ->context([
                 'order' => $order,
                 'partner' =>  $order->getPartner(),
@@ -267,6 +274,5 @@ class PartnerOrderController extends OrderController
         }
 
         $mailer->send($email);
-
     }
 }
