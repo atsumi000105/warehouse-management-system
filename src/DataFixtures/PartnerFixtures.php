@@ -71,6 +71,7 @@ class PartnerFixtures extends BaseFixture
                 ->randomElement($statuses));
             $hospital->setDistributionMethod($this->randValue($distributionMethods));
             $hospital->setFulfillmentPeriod($this->randValue($periods));
+            /** @var PartnerContact $contact */
             $contact = $this->createContact(PartnerContact::class);
             $contact->setIsProgramContact(true);
             $hospital->addContact($contact);

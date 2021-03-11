@@ -74,7 +74,7 @@ class AdjustmentOrderController extends OrderController
      * @return JsonResponse
      * @throws \App\Exception\CommittedTransactionException
      */
-    public function update(Request $request, MailerInterface $mailer, $id)
+    public function update(Request $request, MailerInterface $mailer, int $id)
     {
         $params = $this->getParams($request);
         /** @var \App\Entity\Orders\AdjustmentOrder $order */

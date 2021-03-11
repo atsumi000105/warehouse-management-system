@@ -109,11 +109,11 @@ class PartnerOrderController extends OrderController
      *
      * @param Request $request
      * @param MailerInterface $mailer
-     * @param $id
+     * @param int $id
      * @return JsonResponse
      * @throws \App\Exception\CommittedTransactionException
      */
-    public function update(Request $request, MailerInterface $mailer, $id)
+    public function update(Request $request, MailerInterface $mailer, int $id)
     {
         $params = $this->getParams($request);
         /** @var \App\Entity\Orders\PartnerOrder $order */
@@ -257,7 +257,7 @@ class PartnerOrderController extends OrderController
      * @param MailerInterface $mailer
      * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
      */
-    private function emailOrderUpdate(PartnerOrder $order, MailerInterface $mailer)
+    private function emailOrderUpdate(PartnerOrder $order, MailerInterface $mailer): void
     {
         $email = (new TemplatedEmail())
             ->addFrom('andrew@koebbe.com')

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Entity;
 
 use App\Entity\ValueObjects\Name;
@@ -12,14 +11,18 @@ use Doctrine\ORM\Mapping as ORM;
 class PartnerContact extends StorageLocationContact
 {
     /**
-     * @var bool
+     * @var bool|null
      *
      * @ORM\Column(type="boolean", nullable=true)
      */
     protected $isProgramContact;
 
-    public function __construct(Name $name = null, $title = null, $email = null, $phoneNumber = null)
-    {
+    public function __construct(
+        Name $name = null,
+        string $title = null,
+        string $email = null,
+        string $phoneNumber = null
+    ) {
         parent::__construct($name, $title, $email, $phoneNumber);
         $this->isProgramContact = false;
     }
@@ -29,7 +32,7 @@ class PartnerContact extends StorageLocationContact
      */
     public function isProgramContact(): bool
     {
-        return $this->isProgramContact;
+        return !!$this->isProgramContact;
     }
 
     /**

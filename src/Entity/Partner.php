@@ -259,11 +259,11 @@ class Partner extends StorageLocation
     }
 
     /**
-     * @return PartnerContact[]
+     * @return PartnerContact[]|ArrayCollection
      */
-    public function getProgramContacts():ArrayCollection
+    public function getProgramContacts(): ArrayCollection
     {
-        $programContacts = $this->contacts->filter(function(PartnerContact $contact) {
+        $programContacts = $this->contacts->filter(function (PartnerContact $contact) {
             return $contact->isProgramContact();
         });
 
@@ -273,7 +273,7 @@ class Partner extends StorageLocation
     /**
      * @return PartnerContact
      */
-    protected function createNewContact() :StorageLocationContact
+    protected function createNewContact(): StorageLocationContact
     {
         return new PartnerContact();
     }

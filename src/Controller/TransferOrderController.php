@@ -77,12 +77,12 @@ class TransferOrderController extends OrderController
      *
      * @param Request $request
      * @param MailerInterface $mailer
-     * @param $id
+     * @param int $id
      * @return JsonResponse
      * @throws \App\Exception\CommittedTransactionException
      * @throws \App\Exception\UserInterfaceException
      */
-    public function update(Request $request, MailerInterface $mailer, $id)
+    public function update(Request $request, MailerInterface $mailer, int $id)
     {
         $params = $this->getParams($request);
         /** @var TransferOrder $order */

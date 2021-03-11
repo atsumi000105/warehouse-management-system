@@ -240,7 +240,7 @@ abstract class StorageLocation extends CoreEntity
         parent::applyChangesFromArray($changes);
     }
 
-    protected function createNewContact() :StorageLocationContact
+    protected function createNewContact(): StorageLocationContact
     {
         return new StorageLocationContact();
     }

@@ -11,7 +11,7 @@ class PartnerContactTransformer extends StorageLocationContactTransformer
      * @param PartnerContact $contact
      * @return array
      */
-    public function transform(StorageLocationContact $contact)
+    public function transform(StorageLocationContact $contact): array
     {
         $fields = parent::transform($contact);
 

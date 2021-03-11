@@ -208,7 +208,7 @@ abstract class Order extends CoreEntity
         $aggLines = [];
         foreach ($this->lineItems as $lineItem) {
             $productId = $lineItem->getProduct()->getId();
-            if(!key_exists($productId, $aggLines)) {
+            if (!key_exists($productId, $aggLines)) {
                 $aggLines[$productId] = clone $lineItem;
             } else {
                 $aggLines[$productId]->setQuantity($aggLines[$productId]->getQuantity() + $lineItem->getQuantity());

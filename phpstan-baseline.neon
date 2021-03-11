@@ -216,16 +216,6 @@ parameters:
 			path: src/Controller/LoginController.php
 
 		-
-			message: "#^Method App\\\\Controller\\\\MerchandiseOrderController\\:\\:update\\(\\) has parameter \\$id with no typehint specified\\.$#"
-			count: 1
-			path: src/Controller/MerchandiseOrderController.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected type at offset 208$#"
-			count: 1
-			path: src/Controller/MerchandiseOrderController.php
-
-		-
 			message: "#^Method App\\\\Controller\\\\MerchandiseOrderController\\:\\:getDefaultTransformer\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Controller/MerchandiseOrderController.php
@@ -247,16 +237,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Controller\\\\OrderController\\:\\:show\\(\\) has parameter \\$id with no typehint specified\\.$#"
-			count: 1
-			path: src/Controller/OrderController.php
-
-		-
-			message: "#^Method App\\\\Controller\\\\OrderController\\:\\:update\\(\\) has parameter \\$id with no typehint specified\\.$#"
-			count: 1
-			path: src/Controller/OrderController.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected type at offset 224$#"
 			count: 1
 			path: src/Controller/OrderController.php
 
@@ -396,16 +376,6 @@ parameters:
 			path: src/Controller/PartnerController.php
 
 		-
-			message: "#^Method App\\\\Controller\\\\PartnerDistributionController\\:\\:update\\(\\) has parameter \\$id with no typehint specified\\.$#"
-			count: 1
-			path: src/Controller/PartnerDistributionController.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected type at offset 187$#"
-			count: 1
-			path: src/Controller/PartnerDistributionController.php
-
-		-
 			message: "#^Method App\\\\Controller\\\\PartnerDistributionController\\:\\:extraLineItemProcessing\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Controller/PartnerDistributionController.php
@@ -424,16 +394,6 @@ parameters:
 			message: "#^Method App\\\\Controller\\\\PartnerFulfillmentPeriodController\\:\\:getDefaultTransformer\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Controller/PartnerFulfillmentPeriodController.php
-
-		-
-			message: "#^Method App\\\\Controller\\\\PartnerOrderController\\:\\:update\\(\\) has parameter \\$id with no typehint specified\\.$#"
-			count: 1
-			path: src/Controller/PartnerOrderController.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected type at offset 224$#"
-			count: 1
-			path: src/Controller/PartnerOrderController.php
 
 		-
 			message: "#^Method App\\\\Controller\\\\PartnerOrderController\\:\\:fillSheet\\(\\) has parameter \\$id with no typehint specified\\.$#"
@@ -751,16 +711,6 @@ parameters:
 			path: src/Controller/SupplierController.php
 
 		-
-			message: "#^Method App\\\\Controller\\\\SupplyOrderController\\:\\:update\\(\\) has parameter \\$id with no typehint specified\\.$#"
-			count: 1
-			path: src/Controller/SupplyOrderController.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected type at offset 203$#"
-			count: 1
-			path: src/Controller/SupplyOrderController.php
-
-		-
 			message: "#^Method App\\\\Controller\\\\SupplyOrderController\\:\\:getDefaultTransformer\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Controller/SupplyOrderController.php
@@ -769,16 +719,6 @@ parameters:
 			message: "#^Method App\\\\Controller\\\\SystemController\\:\\:getSettings\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Controller/SystemController.php
-
-		-
-			message: "#^Method App\\\\Controller\\\\TransferOrderController\\:\\:update\\(\\) has parameter \\$id with no typehint specified\\.$#"
-			count: 1
-			path: src/Controller/TransferOrderController.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected type at offset 205$#"
-			count: 1
-			path: src/Controller/TransferOrderController.php
 
 		-
 			message: "#^Method App\\\\Controller\\\\TransferOrderController\\:\\:getDefaultTransformer\\(\\) has no return typehint specified\\.$#"
@@ -923,11 +863,6 @@ parameters:
 		-
 			message: "#^Method App\\\\DataFixtures\\\\PartnerFixtures\\:\\:loadData\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: src/DataFixtures/PartnerFixtures.php
-
-		-
-			message: "#^Parameter \\#1 \\$contact of method App\\\\Entity\\\\StorageLocation\\:\\:addContact\\(\\) expects App\\\\Entity\\\\StorageLocationContact, App\\\\Entity\\\\Contact given\\.$#"
-			count: 2
 			path: src/DataFixtures/PartnerFixtures.php
 
 		-
@@ -3759,26 +3694,6 @@ parameters:
 			message: "#^Method App\\\\Transformers\\\\PartnerProfileTransformer\\:\\:includeAttributes\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Transformers/PartnerProfileTransformer.php
-
-		-
-			message: "#^Method App\\\\Transformers\\\\PartnerTransformer\\:\\:includeFulfillmentPeriod\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/Transformers/PartnerTransformer.php
-
-		-
-			message: "#^Method App\\\\Transformers\\\\PartnerTransformer\\:\\:includeDistributionMethod\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/Transformers/PartnerTransformer.php
-
-		-
-			message: "#^Method App\\\\Transformers\\\\PartnerTransformer\\:\\:includeProfile\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/Transformers/PartnerTransformer.php
-
-		-
-			message: "#^Method App\\\\Transformers\\\\PartnerTransformer\\:\\:includeUsers\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/Transformers/PartnerTransformer.php
 
 		-
 			message: "#^Instantiated class App\\\\Transformers\\\\PartnerUserTransformer not found\\.$#"

@@ -3,13 +3,13 @@
 namespace App\Transformers;
 
 use App\Entity\Partner;
-use App\Entity\PartnerDistributionMethod;
 use App\Entity\StorageLocation;
-use League\Fractal\TransformerAbstract;
+use League\Fractal\Resource\Collection;
+use League\Fractal\Resource\Item;
 
 class PartnerTransformer extends StorageLocationTransformer
 {
-    public function getAvailableIncludes()
+    public function getAvailableIncludes(): array
     {
         $availableIncludes = parent::getAvailableIncludes();
         $availableIncludes[] = 'users';
@@ -17,7 +17,7 @@ class PartnerTransformer extends StorageLocationTransformer
         return $availableIncludes;
     }
 
-    public function getDefaultIncludes()
+    public function getDefaultIncludes(): array
     {
         $defaultIncludes = parent::getDefaultIncludes();
         $defaultIncludes[] = 'fulfillmentPeriod';
@@ -32,7 +32,7 @@ class PartnerTransformer extends StorageLocationTransformer
      * @param Partner $partner
      * @return array
      */
-    public function transform(StorageLocation $partner)
+    public function transform(StorageLocation $partner): array
     {
         return [
             'id' => (int) $partner->getId(),
@@ -47,27 +47,27 @@ class PartnerTransformer extends StorageLocationTransformer
         ];
     }
 
-    public function includeFulfillmentPeriod(Partner $partner)
+    public function includeFulfillmentPeriod(Partner $partner): Item
     {
         return $this->item($partner->getFulfillmentPeriod(), new ListOptionTransformer());
     }
 
-    public function includeDistributionMethod(Partner $partner)
+    public function includeDistributionMethod(Partner $partner): Item
     {
         return $this->item($partner->getDistributionMethod(), new ListOptionTransformer());
     }
 
-    public function includeProfile(Partner $partner)
+    public function includeProfile(Partner $partner): Item
     {
         return $this->item($partner->getProfile(), new PartnerProfileTransformer());
     }
 
-    public function includeUsers(Partner $partner)
+    public function includeUsers(Partner $partner): Collection
     {
         return $this->collection($partner->getUsers(), new PartnerUserTransformer());
     }
 
-    public function includeContacts(StorageLocation $storageLocation)
+    public function includeContacts(StorageLocation $storageLocation): Collection
     {
         $contacts = $storageLocation->getContacts();
 
