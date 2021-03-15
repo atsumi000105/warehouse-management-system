@@ -2,7 +2,7 @@
     <div>
         <form role="form">
             <div
-                v-for="attribute in attributes"
+                v-for="attribute in attributes.filter(filter)"
                 :key="attribute.definition_id"
             >
                 <BooleanField
@@ -93,7 +93,8 @@
             BooleanField, RadioField, TextareaField, OptionListApi, NumberField, TextField, DateField},
         props: {
             new: { type: Boolean },
-            value: { type: Array, required: false }
+            value: { type: Array, required: true },
+            filter: { type: Function, required: false, default: (attribute) => true }
         },
         computed: {
             attributes: function () {

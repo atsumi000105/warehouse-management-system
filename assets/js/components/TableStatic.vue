@@ -33,6 +33,12 @@
                     <i class="fa fa-edit" /> {{ props.rowData[linkDisplayProperty] }}
                 </router-link>
             </template>
+            <template v-slot:actions="{rowData}">
+                <slot
+                    name="actions"
+                    :rowData="rowData"
+                />
+            </template>
         </vuetable>
     </div>
 </template>
@@ -50,7 +56,7 @@
         props:{
             columns: { type: Array, required: true },
             apiUrl: { type: String, required: true },
-            httpMethod: { type: String, required: true, default: 'get' },
+            httpMethod: { type: String, default: 'get' },
             editRoute: { type: String },
             sortOrder: { type: Array },
             params: { type: Object },

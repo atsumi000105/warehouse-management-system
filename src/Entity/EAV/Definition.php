@@ -444,6 +444,13 @@ abstract class Definition extends CoreEntity
         return $attribute;
     }
 
+    public function getAttributeClass(): string
+    {
+        $attribute = self::createNewAttributeFromType($this->type);
+
+        return get_class($attribute);
+    }
+
     public function applyChangesFromArray(array $changes): void
     {
         if (isset($changes['options'])) {
