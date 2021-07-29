@@ -139,7 +139,6 @@ class SupplyOrderController extends BaseOrderController
     {
         return SupplyOrderVoter::VIEW;
     }
-    
     protected function buildFilterParams(Request $request)
     {
         $params = parent::buildFilterParams($request);
