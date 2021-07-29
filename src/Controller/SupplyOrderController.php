@@ -147,10 +147,11 @@ class SupplyOrderController extends BaseOrderController
         if ($request->get('startingAt')) {
             $params->set('startingAt', new \DateTime($request->get('startingAt')));
         }
+
         if ($request->get('endingAt')) {
             $params->set('endingAt', new \DateTime($request->get('endingAt')));
         }
-        
+
         if ($request->get('status')) {
             $params->set('status', $request->get('status'));
         }
