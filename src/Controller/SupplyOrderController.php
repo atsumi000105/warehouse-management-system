@@ -139,4 +139,29 @@ class SupplyOrderController extends BaseOrderController
     {
         return SupplyOrderVoter::VIEW;
     }
+    
+    protected function buildFilterParams(Request $request)
+    {
+        $params = parent::buildFilterParams($request);
+
+        if ($request->get('startingAt')) {
+            $params->set('startingAt', new \DateTime($request->get('startingAt')));
+        }
+        if ($request->get('endingAt')) {
+            $params->set('endingAt', new \DateTime($request->get('endingAt')));
+        }
+        
+        if ($request->get('status')) {
+            $params->set('status', $request->get('status'));
+        }
+
+        if ($request->get('supplier')) {
+            $params->set('supplier', $request->get('supplier'));
+        }
+
+        if ($request->get('warehouse')) {
+            $params->set('warehouse', $request->get('warehouse'));
+        }
+        return $params;
+    }
 }
