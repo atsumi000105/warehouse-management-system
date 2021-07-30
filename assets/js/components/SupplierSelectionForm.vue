@@ -46,7 +46,7 @@
         },
         props: {
             value: { required: true, type: Object },
-            addressValue: { required: false, type: Object },
+            addressValue: { type: Object },
             editable: { type: Boolean, default: true },
             address: { type: Boolean, default: true },
             label: { type: String, default: "" },

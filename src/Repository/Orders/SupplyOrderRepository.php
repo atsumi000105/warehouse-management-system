@@ -50,9 +50,19 @@ class SupplyOrderRepository extends OrderRepository
 
     protected function addCriteria(QueryBuilder $qb, ParameterBag $params)
     {
+        if ($params->has('status')) {
+            $qb->andWhere('o.status <= :status')
+                ->setParameter('status', $params->get('status'));
+        }
+
         if ($params->has('supplier')) {
             $qb->andWhere('o.supplier = :supplier')
                 ->setParameter('supplier', $params->get('supplier'));
+        }
+
+        if ($params->has('warehouse')) {
+            $qb->andWhere('o.warehouse = :warehouse')
+                ->setParameter('warehouse', $params->get('warehouse'));
         }
 
         if ($params->has('product')) {
@@ -67,12 +77,12 @@ class SupplyOrderRepository extends OrderRepository
 
         if ($params->has('startingAt')) {
             $qb->andWhere('o.createdAt >= :startingAt')
-                ->setParameter('startingAt', new \DateTime($params->get('startingAt')));
+                ->setParameter('startingAt', $params->get('startingAt'));
         }
 
         if ($params->has('endingAt')) {
             $qb->andWhere('o.createdAt <= :endingAt')
-                ->setParameter('endingAt', new \DateTime($params->get('endingAt')));
+                ->setParameter('endingAt', $params->get('endingAt'));
         }
     }
 }

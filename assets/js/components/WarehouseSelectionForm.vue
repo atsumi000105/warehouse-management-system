@@ -1,7 +1,8 @@
 <template>
     <div>
         <div class="form-group">
-            <optionlist
+            <option-list-entity
+                :label="label"
                 v-if="editable"
                 ref="warehouseSelect"
                 v-model="value"
@@ -32,12 +33,13 @@
     export default {
         components: {
             'address-view' : Address,
-            'optionlist' : OptionListEntity
+            OptionListEntity
         },
         props: {
             value: { required: true, type: Object },
             editable: { type: Boolean, default: true },
-            v: { type: Object }
+            v: { type: Object },
+            label: String,
         },
         computed: mapGetters([
             'allActiveWarehouses'
