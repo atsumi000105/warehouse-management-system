@@ -289,7 +289,7 @@ class User extends CoreEntity implements UserInterface
         }
 
         // users with a group, without partners are approved
-        if (count($this->getGroups()) && !count($this->getPartners())) {
+        if (count($this->getGroups() ?? []) && !count($this->getPartners() ?? [])) {
             return true;
         }
 
