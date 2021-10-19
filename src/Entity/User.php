@@ -282,7 +282,7 @@ class User extends CoreEntity implements UserInterface
     }
 
     public function isApproved(): bool
-    {   
+    {
         // admins are approved
         if ($this->isAdmin()) {
             return true;
