@@ -47,6 +47,10 @@ class SupplierVoter extends Voter
 
     private function canView(Supplier $supplier, User $user)
     {
+        if (!$user->isApproved()) {
+            return false;
+        }
+
         if ($this->canEdit($supplier, $user)) {
             return true;
         }
@@ -60,6 +64,10 @@ class SupplierVoter extends Voter
 
     private function canEdit(Supplier $supplier, User $user)
     {
+        if (!$user->isApproved()) {
+            return false;
+        }
+
         if ($user->isAdmin()) {
             return true;
         }

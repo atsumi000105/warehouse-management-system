@@ -51,6 +51,10 @@ class PartnerOrderVoter extends Voter
 
     private function canView(PartnerOrder $order, User $user): bool
     {
+        if (!$user->isApproved()) {
+            return false;
+        }
+
         // if they can edit, they can view
         if ($this->canEdit($order, $user)) {
             return true;
@@ -71,6 +75,10 @@ class PartnerOrderVoter extends Voter
 
     private function canEdit(PartnerOrder $order, User $user): bool
     {
+        if (!$user->isApproved()) {
+            return false;
+        }
+
         // Admin can do all the things
         if ($user->isAdmin()) {
             return true;
