@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * User Groups
  *
  * @ORM\Entity()
- * @ORM\Table(name="groups")
+ * @ORM\Table(name="`groups`")
  */
 class Group extends CoreEntity
 {
