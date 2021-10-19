@@ -295,10 +295,7 @@ class User extends CoreEntity implements UserInterface
 
         // users with these current active partner statuses are approved
         if ($activePartner = $this->getActivePartner()) {
-            if (in_array($activePartner->status, [
-                Partner::STATUS_ACTIVE,
-                Partner::STATUS_NEEDS_PROFILE_REVIEW
-            ])) {
+            if ($activePartner->isActiveOrNeedsReview()) {
                 return true;
             }
         }

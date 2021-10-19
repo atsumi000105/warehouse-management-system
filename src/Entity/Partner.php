@@ -219,6 +219,11 @@ class Partner extends StorageLocation
         return in_array($this->status, [self::STATUS_NEEDS_PROFILE_REVIEW, self::STATUS_REVIEW_PAST_DUE]);
     }
 
+    public function isActiveOrNeedsReview(): bool
+    {
+        return in_array($this->status, [self::STATUS_ACTIVE, self::STATUS_NEEDS_PROFILE_REVIEW]);
+    }
+
     public function canPlaceOrders(): bool
     {
         return in_array($this->status, [self::STATUS_ACTIVE, self::STATUS_NEEDS_PROFILE_REVIEW]);
