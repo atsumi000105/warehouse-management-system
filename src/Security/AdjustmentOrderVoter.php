@@ -45,6 +45,10 @@ class AdjustmentOrderVoter extends Voter
 
     private function canView(AdjustmentOrder $adjustmentOrder, User $user)
     {
+        if (!$user->isApproved()) {
+            return false;
+        }
+
         if ($this->canEdit($adjustmentOrder, $user)) {
             return true;
         }
@@ -60,6 +64,10 @@ class AdjustmentOrderVoter extends Voter
     {
         if ($user->isAdmin()) {
             return true;
+        }
+
+        if (!$user->isApproved()) {
+            return false;
         }
 
         if ($user->hasRole(AdjustmentOrder::ROLE_EDIT)) {

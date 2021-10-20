@@ -45,6 +45,10 @@ class TransferOrderVoter extends Voter
 
     private function canView(TransferOrder $transferOrder, User $user)
     {
+        if (!$user->isApproved()) {
+            return false;
+        }
+
         if ($this->canEdit($transferOrder, $user)) {
             return true;
         }
@@ -60,6 +64,10 @@ class TransferOrderVoter extends Voter
     {
         if ($user->isAdmin()) {
             return true;
+        }
+
+        if (!$user->isApproved()) {
+            return false;
         }
 
         if ($user->hasRole(TransferOrder::ROLE_EDIT)) {

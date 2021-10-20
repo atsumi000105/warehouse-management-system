@@ -45,6 +45,10 @@ class SupplyOrderVoter extends Voter
 
     private function canView(SupplyOrder $supplyOrder, User $user)
     {
+        if (!$user->isApproved()) {
+            return false;
+        }
+
         if ($this->canEdit($supplyOrder, $user)) {
             return true;
         }
@@ -60,6 +64,10 @@ class SupplyOrderVoter extends Voter
     {
         if ($user->isAdmin()) {
             return true;
+        }
+
+        if (!$user->isApproved()) {
+            return false;
         }
 
         if ($user->hasRole(SupplyOrder::ROLE_EDIT)) {

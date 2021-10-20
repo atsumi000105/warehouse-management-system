@@ -45,6 +45,10 @@ class UserVoter extends Voter
 
     private function canView(User $selectedUser, User $user)
     {
+        if (!$user->isApproved()) {
+            return false;
+        }
+
         if ($this->canEdit($selectedUser, $user)) {
             return true;
         }
@@ -70,6 +74,10 @@ class UserVoter extends Voter
     {
         if ($user->isAdmin()) {
             return true;
+        }
+
+        if (!$user->isApproved()) {
+            return false;
         }
 
         if ($user->hasRole(User::ROLE_EDIT)) {

@@ -51,6 +51,10 @@ class BulkDistributionVoter extends Voter
 
     private function canView(BulkDistribution $order, User $user): bool
     {
+        if (!$user->isApproved()) {
+            return false;
+        }
+
         // if they can edit, they can view
         if ($this->canEdit($order, $user)) {
             return true;
@@ -74,6 +78,10 @@ class BulkDistributionVoter extends Voter
         // Admin can do all the things
         if ($user->isAdmin()) {
             return true;
+        }
+
+        if (!$user->isApproved()) {
+            return false;
         }
 
         // If they have the edit all role, they can edit

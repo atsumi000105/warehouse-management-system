@@ -61,6 +61,10 @@ class ClientVoter extends Voter
 
     private function canView(Client $client, User $user): bool
     {
+        if (!$user->isApproved()) {
+            return false;
+        }
+
         if ($this->canEdit($client, $user)) {
             return true;
         }
@@ -76,6 +80,10 @@ class ClientVoter extends Voter
     {
         if ($user->isAdmin()) {
             return true;
+        }
+
+        if (!$user->isApproved()) {
+            return false;
         }
 
         if ($user->hasRole(Client::ROLE_EDIT_ALL)) {
@@ -96,6 +104,10 @@ class ClientVoter extends Voter
     {
         if ($user->isAdmin()) {
             return true;
+        }
+
+        if (!$user->isApproved()) {
+            return false;
         }
 
         if ($user->hasRole(Client::ROLE_EDIT_ALL)) {

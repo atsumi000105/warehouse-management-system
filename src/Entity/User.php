@@ -280,4 +280,27 @@ class User extends CoreEntity implements UserInterface
     {
         $this->plainTextPassword = null;
     }
+
+    public function isApproved(): bool
+    {
+        // admins are approved
+        if ($this->isAdmin()) {
+            return true;
+        }
+
+        // users with a group, without partners are approved
+        if (count($this->getGroups() ?? []) && !count($this->getPartners() ?? [])) {
+            return true;
+        }
+
+        // users with these current active partner statuses are approved
+        if ($activePartner = $this->getActivePartner()) {
+            if ($activePartner->isActiveOrNeedsReview()) {
+                return true;
+            }
+        }
+
+        // not approved
+        return false;
+    }
 }
