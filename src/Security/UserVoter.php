@@ -72,12 +72,12 @@ class UserVoter extends Voter
 
     private function canEdit(User $selectedUser, User $user)
     {
-        if (!$user->isApproved()) {
-            return false;
-        }
-
         if ($user->isAdmin()) {
             return true;
+        }
+
+        if (!$user->isApproved()) {
+            return false;
         }
 
         if ($user->hasRole(User::ROLE_EDIT)) {

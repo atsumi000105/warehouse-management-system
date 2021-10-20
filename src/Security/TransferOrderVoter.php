@@ -58,12 +58,12 @@ class TransferOrderVoter extends Voter
 
     private function canEdit(TransferOrder $transferOrder, User $user)
     {
-        if (!$user->isApproved()) {
-            return false;
-        }
-
         if ($user->isAdmin()) {
             return true;
+        }
+
+        if (!$user->isApproved()) {
+            return false;
         }
 
         if ($user->hasRole(TransferOrder::ROLE_EDIT)) {

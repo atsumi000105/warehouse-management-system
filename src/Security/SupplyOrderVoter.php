@@ -62,12 +62,12 @@ class SupplyOrderVoter extends Voter
 
     private function canEdit(SupplyOrder $supplyOrder, User $user)
     {
-        if (!$user->isApproved()) {
-            return false;
-        }
-
         if ($user->isAdmin()) {
             return true;
+        }
+
+        if (!$user->isApproved()) {
+            return false;
         }
 
         if ($user->hasRole(SupplyOrder::ROLE_EDIT)) {

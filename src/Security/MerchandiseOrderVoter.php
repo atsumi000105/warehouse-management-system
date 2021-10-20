@@ -75,13 +75,13 @@ class MerchandiseOrderVoter extends Voter
 
     private function canEdit(MerchandiseOrder $order, User $user): bool
     {
-        if (!$user->isApproved()) {
-            return false;
-        }
-
         // Admin can do all the things
         if ($user->isAdmin()) {
             return true;
+        }
+
+        if (!$user->isApproved()) {
+            return false;
         }
 
         // If they have the edit all role, they can edit

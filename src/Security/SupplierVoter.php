@@ -64,12 +64,12 @@ class SupplierVoter extends Voter
 
     private function canEdit(Supplier $supplier, User $user)
     {
-        if (!$user->isApproved()) {
-            return false;
-        }
-
         if ($user->isAdmin()) {
             return true;
+        }
+
+        if (!$user->isApproved()) {
+            return false;
         }
 
         if ($user->hasRole(Supplier::ROLE_EDIT)) {
