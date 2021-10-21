@@ -35,6 +35,7 @@ class ClientWorkflow extends BaseWorkflow
                 ],
                 'from' => [
                     Client::STATUS_CREATION,
+                    Client::STATUS_PREREGISTERED,
                     Client::STATUS_INACTIVE,
                     Client::STATUS_INACTIVE_BLOCKED,
                     Client::STATUS_INACTIVE_DUPLICATE,
@@ -51,6 +52,7 @@ class ClientWorkflow extends BaseWorkflow
                 'from' => [
                     Client::STATUS_ACTIVE,
                     Client::STATUS_CREATION,
+                    Client::STATUS_PREREGISTERED,
                     Client::STATUS_INACTIVE_BLOCKED,
                     Client::STATUS_INACTIVE_DUPLICATE,
                     Client::STATUS_INACTIVE_EXPIRED,
@@ -64,6 +66,7 @@ class ClientWorkflow extends BaseWorkflow
                 'from' => [
                     Client::STATUS_ACTIVE,
                     Client::STATUS_CREATION,
+                    Client::STATUS_PREREGISTERED,
                     Client::STATUS_INACTIVE,
                     Client::STATUS_INACTIVE_DUPLICATE,
                 ],
@@ -76,6 +79,7 @@ class ClientWorkflow extends BaseWorkflow
                 'from' => [
                     Client::STATUS_ACTIVE,
                     Client::STATUS_CREATION,
+                    Client::STATUS_PREREGISTERED,
                     Client::STATUS_INACTIVE,
                     Client::STATUS_INACTIVE_EXPIRED,
                 ],
@@ -87,6 +91,7 @@ class ClientWorkflow extends BaseWorkflow
                 ],
                 'from' => [
                     Client::STATUS_ACTIVE,
+                    Client::STATUS_PREREGISTERED,
                 ],
                 'to' => Client::STATUS_NEEDS_REVIEW,
             ],
@@ -106,6 +111,7 @@ class ClientWorkflow extends BaseWorkflow
                 'from' => [
                     Client::STATUS_ACTIVE,
                     Client::STATUS_CREATION,
+                    Client::STATUS_PREREGISTERED,
                     Client::STATUS_INACTIVE,
                     Client::STATUS_INACTIVE_DUPLICATE,
                     Client::STATUS_INACTIVE_EXPIRED,
