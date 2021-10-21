@@ -32,6 +32,7 @@ class Client extends CoreEntity implements AttributedEntityInterface
     public const STATUSES = [
         self::STATUS_ACTIVE,
         self::STATUS_CREATION,
+        self::STATUS_PREREGISTERED,
         self::STATUS_INACTIVE,
         self::STATUS_INACTIVE_BLOCKED,
         self::STATUS_INACTIVE_DUPLICATE,
