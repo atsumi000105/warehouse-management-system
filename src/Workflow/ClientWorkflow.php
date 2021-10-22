@@ -91,7 +91,6 @@ class ClientWorkflow extends BaseWorkflow
                 ],
                 'from' => [
                     Client::STATUS_ACTIVE,
-                    Client::STATUS_PREREGISTERED,
                 ],
                 'to' => Client::STATUS_NEEDS_REVIEW,
             ],
