@@ -234,8 +234,7 @@ class ClientController extends BaseController
         EavAttributeProcessor $eavProcessor,
         string $publicId,
         ValidatorInterface $validator
-    ): JsonResponse
-    {
+    ): JsonResponse {
         $params = $this->getParams($request);
         /** @var Client $client */
         $client = $this->getClientById($publicId);
