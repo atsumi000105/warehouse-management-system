@@ -22,6 +22,7 @@ class Client extends CoreEntity implements AttributedEntityInterface
 
     // State Machine Statuses
     public const STATUS_ACTIVE = 'ACTIVE';
+    public const STATUS_PREREGISTERED = 'PREREGISTERED';
     public const STATUS_CREATION = 'CREATION';
     public const STATUS_INACTIVE = 'INACTIVE';
     public const STATUS_INACTIVE_BLOCKED = 'INACTIVE_(BLOCKED)';
@@ -31,8 +32,8 @@ class Client extends CoreEntity implements AttributedEntityInterface
     public const STATUS_REVIEW_PAST_DUE = 'REVIEW_PAST_DUE';
     public const STATUSES = [
         self::STATUS_ACTIVE,
-        self::STATUS_CREATION,
         self::STATUS_PREREGISTERED,
+        self::STATUS_CREATION,
         self::STATUS_INACTIVE,
         self::STATUS_INACTIVE_BLOCKED,
         self::STATUS_INACTIVE_DUPLICATE,
