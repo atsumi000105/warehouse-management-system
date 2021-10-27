@@ -11,6 +11,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Moment\Moment;
 use Symfony\Component\Routing\Exception\MissingMandatoryParametersException;
 use Symfony\Component\Workflow\Registry;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ClientRepository")
@@ -72,6 +73,10 @@ class Client extends CoreEntity implements AttributedEntityInterface
      *
      * @ORM\Embedded(class="App\Entity\ValueObjects\Name", columnPrefix=false)
      * @Gedmo\Versioned
+     * @Assert\Expression(
+     *     "this.getName().hasFirstAndLastName()",
+     *     message="Please type a first and last name."
+     * )
      */
     protected $name;
 
@@ -87,6 +92,8 @@ class Client extends CoreEntity implements AttributedEntityInterface
      *
      * @ORM\Column(type="date")
      * @Gedmo\Versioned
+     * @Assert\NotBlank
+     * @Assert\LessThanOrEqual("today")
      */
     protected $birthdate;
 

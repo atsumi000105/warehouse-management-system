@@ -33,7 +33,7 @@ class Name
 
     public function __toString()
     {
-        return sprintf('%s %s', $this->getFirstname(), $this->getLastname());
+        return trim(sprintf('%s %s', $this->getFirstname(), $this->getLastname()));
     }
 
     public static function fromString($fullName)
@@ -87,5 +87,10 @@ class Name
     public function setLastname($lastname)
     {
         $this->lastname = $lastname;
+    }
+
+    public function hasFirstAndLastName(): bool
+    {
+        return !empty($this->firstname) && !empty($this->lastname);
     }
 }

@@ -25,6 +25,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Workflow\Registry;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @Route(path="/api/clients")
@@ -191,13 +192,14 @@ class ClientController extends BaseController
     public function store(
         Request $request,
         Registry $workflowRegistry,
-        EavAttributeProcessor $eavProcessor
+        EavAttributeProcessor $eavProcessor,
+        ValidatorInterface $validator
     ): JsonResponse {
         $params = $this->getParams($request);
 
         $client = new Client($workflowRegistry);
 
-        if ($params['partner']['id']) {
+        if (isset($params['partner']['id'])) {
             $newPartner = $this->getEm()->find(Partner::class, $params['partner']['id']);
             if (!$newPartner) {
                 throw new \Exception('Invalid Partner ID provided');
@@ -212,6 +214,8 @@ class ClientController extends BaseController
 
         $this->denyAccessUnlessGranted(ClientVoter::EDIT, $client);
 
+        $this->validate($client, $validator);
+
         $this->getEm()->persist($client);
         $this->getEm()->flush();
 
@@ -225,8 +229,12 @@ class ClientController extends BaseController
      * @IsGranted({"ROLE_CLIENT_EDIT_ALL","ROLE_CLIENT_MANAGE_OWN"})
      *
      */
-    public function update(Request $request, EavAttributeProcessor $eavProcessor, string $publicId): JsonResponse
-    {
+    public function update(
+        Request $request,
+        EavAttributeProcessor $eavProcessor,
+        string $publicId,
+        ValidatorInterface $validator
+    ): JsonResponse {
         $params = $this->getParams($request);
         /** @var Client $client */
         $client = $this->getClientById($publicId);
@@ -265,6 +273,8 @@ class ClientController extends BaseController
         $eavProcessor->processAttributeChanges($client, $params);
 
         $client->applyChangesFromArray($params);
+
+        $this->validate($client, $validator);
 
         $this->getEm()->persist($client);
         $this->getEm()->flush();
