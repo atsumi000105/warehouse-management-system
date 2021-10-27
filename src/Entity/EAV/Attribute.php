@@ -131,6 +131,10 @@ class Attribute
                 $attributeValue->setValue($value);
             }
 
+            if ($attributeValue->isEmpty()) {
+                continue;
+            }
+
             $attributeValue->setDelta($delta);
             $newAttributeValues->add($attributeValue);
 
@@ -140,17 +144,15 @@ class Attribute
         $this->values = $newAttributeValues;
     }
 
-    private function getValueById(int $id): AttributeValue
+    protected function getValueById($id): AttributeValue
     {
         if (!$this->hasRelationshipValue()) {
-            throw new \Exception("Trying to find a value by ID on a non-relationship attribute");
+            $v = $this->createAttributeValue();
+            throw new \Exception(sprintf("Trying to find a value by ID on a non-relationship attribute: %s", get_class($v)));
         }
 
-        print_r("Trying to find this value id: " . $id . "\n");
-
-        $result = $this->values->filter(function ($value) use ($id) {
-            print_r("Found: " . $value->getValue()->getId() . "\n");
-            return $value->getValue()->getId() === $id;
+        $result = $this->values->filter(function (AttributeValue $value) use ($id) {
+            return $value->getValueId() === $id;
         });
 
         return $result->first();
@@ -244,6 +246,12 @@ class Attribute
     {
         $value = self::createNewValueFromDefinition($this->getDefinition());
         return $value->hasOptions();
+    }
+
+    public function hasReference(): bool
+    {
+        $value = self::createNewValueFromDefinition($this->getDefinition());
+        return $value->hasReference();
     }
 
     public function getValueType(): string

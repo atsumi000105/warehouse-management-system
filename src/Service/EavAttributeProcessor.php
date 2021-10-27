@@ -6,6 +6,7 @@ use App\Entity\AttributedEntityInterface;
 use App\Entity\CoreEntity;
 use App\Entity\EAV\Attribute;
 use App\Entity\EAV\AttributeDefinition;
+use App\Entity\EAV\AttributeValue;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -50,7 +51,7 @@ class EavAttributeProcessor
 
             // Loop through the values of the changed attribute and update the entities
             foreach ($rawValues as $rawValue) {
-                if ($attribute->hasRelationshipValue() && $attribute->hasOptions()) {
+                if ($attribute->hasRelationshipValue()) {
                     $relationId = null;
 
                     if (is_numeric($rawValue)) {
@@ -61,14 +62,16 @@ class EavAttributeProcessor
                         continue;
                     }
 
+                    /** @var AttributeValue $valueType */
+                    $valueType = $attribute->getValueType();
+
                     /** @var CoreEntity|null $relatedEntity */
-                    $relatedEntity = $this->em->getReference(
-                        $attribute->getValueType(),
-                        $relationId
-                    );
+                    $relatedEntity = $this->em
+                        ->getRepository($valueType)
+                        ->findOneBy([$valueType::getPublicIdProperty() => $relationId]);
 
                     if (!$relatedEntity) {
-                        continue;
+                        throw new \Exception(sprintf("Couldn't find id: % for %s", $rawValue, $attribute->getDefinition()->getName));
                     }
 
                     $values->add($relatedEntity);

@@ -2,6 +2,7 @@
 
 namespace App\Entity\EAV;
 
+use App\Entity\Traits\PubliclyExposedEntity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -12,6 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 abstract class AttributeValue
 {
+    use PubliclyExposedEntity;
+
     public const UI_TEXT = "TEXT";
     public const UI_NUMBER = "NUMBER";
     public const UI_TEXTAREA = "TEXTAREA";
@@ -26,6 +29,7 @@ abstract class AttributeValue
     public const UI_ADDRESS = "ADDRESS";
     public const UI_URL = "URL";
     public const UI_ZIPCODE = "ZIPCODE";
+    public const UI_ZIPCODE_MULTI = "ZIPCODE_MULTI";
 
     /**
      * @var int
@@ -69,6 +73,14 @@ abstract class AttributeValue
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getValueId()
+    {
+        return $this->getValue()->getId();
     }
 
     /**
@@ -140,6 +152,22 @@ abstract class AttributeValue
      * Whether this type references another entity as it's value
      */
     public static function hasRelationship(): bool
+    {
+        return self::hasOptions() || self::hasReference() || self::isChild();
+    }
+
+    /**
+     * Whether this type references non-child entity ids (e.g. ZipCode)
+     */
+    public static function hasReference(): bool
+    {
+        return self::hasOptions();
+    }
+
+    /**
+     * Whether the value is a child of the entity this attribute is attached to.
+     */
+    public static function isChild(): bool
     {
         return false;
     }
