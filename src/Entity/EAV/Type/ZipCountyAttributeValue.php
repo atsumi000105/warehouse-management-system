@@ -102,5 +102,4 @@ class ZipCountyAttributeValue extends AttributeValue
     {
         return true;
     }
-
 }
