@@ -192,7 +192,7 @@ class ReportController extends BaseController
 
         return $this->serialize(
             $request,
-            $results->getRows()->slice($page - 1 * $limit, $limit),
+            $results->getRows()->slice(($page - 1) * $limit, $limit),
             new SupplierTotalsReportTransformer(),
             $meta
         );
@@ -276,7 +276,7 @@ class ReportController extends BaseController
 
         return $this->serialize(
             $request,
-            $results->getRows()->slice($page - 1 * $limit, $limit),
+            $results->getRows()->slice(($page - 1) * $limit, $limit),
             new DistributionTotalsReportTransformer(),
             $meta
         );
@@ -360,7 +360,7 @@ class ReportController extends BaseController
 
         return $this->serialize(
             $request,
-            $results->getRows()->slice($page - 1 * $limit, $limit),
+            $results->getRows()->slice(($page - 1) * $limit, $limit),
             new PartnerOrderTotalsReportTransformer(),
             $meta
         );
@@ -443,7 +443,7 @@ class ReportController extends BaseController
 
         return $this->serialize(
             $request,
-            $report->getRows()->slice($page - 1 * $limit, $limit),
+            $report->getRows()->slice(($page - 1) * $limit, $limit),
             new PartnerInventoryReportTransformer(),
             $meta
         );
