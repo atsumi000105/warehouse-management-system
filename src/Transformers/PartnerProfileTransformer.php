@@ -21,9 +21,9 @@ class PartnerProfileTransformer extends TransformerAbstract
     public function transform(PartnerProfile $profile)
     {
         return [
-            'id' => (int) $profile->getId(),
-            'createdAt' => $profile->getCreatedAt()->format('c'),
-            'updatedAt' => $profile->getUpdatedAt()->format('c'),
+            'id' => $profile->getId(),
+            'createdAt' => $profile->getCreatedAt() ? $profile->getCreatedAt()->format('c') : null,
+            'updatedAt' => $profile->getUpdatedAt() ? $profile->getUpdatedAt()->format('c') : null,
         ];
     }
 
