@@ -2731,6 +2731,11 @@ parameters:
 			path: src/Transformers/PartnerProfileTransformer.php
 
 		-
+			message: "#^Ternary operator condition is always true\\.$#"
+			count: 2
+			path: src/Transformers/PartnerProfileTransformer.php
+
+		-
 			message: "#^Instantiated class App\\\\Transformers\\\\PartnerUserTransformer not found\\.$#"
 			count: 1
 			path: src/Transformers/PartnerTransformer.php
