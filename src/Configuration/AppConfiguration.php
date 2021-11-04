@@ -54,6 +54,7 @@ class AppConfiguration
             return true;
         }
 
+        /** @var Setting|null $entry */
         $entry = $this->getRepository()->find($settingId);
         if ($entry) {
             $this->cache[$settingId] = $entry->getValue();
@@ -70,6 +71,7 @@ class AppConfiguration
     {
         $this->cache[$settingId] = $value;
 
+        /** @var Setting|null $entry */
         $entry = $this->getRepository()->find($settingId);
         if (!$entry) {
             $entry = new Setting();
@@ -123,6 +125,7 @@ class AppConfiguration
             return $this->cache[$settingId];
         }
 
+        /** @var Setting|null $entry */
         $entry = $this->getRepository()->find($settingId);
         if (!$entry) {
             return null;

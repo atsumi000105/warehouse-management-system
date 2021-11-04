@@ -5,6 +5,7 @@ namespace App\Entity\EAV\Type;
 use App\Entity\EAV\AttributeValue;
 use App\Entity\EAV\EavFile;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Integer;
 
 /**
  * Class FileAttributeValue
@@ -24,6 +25,9 @@ class FileAttributeValue extends AttributeValue
 
     public function getValueId()
     {
+        if (!$this->value) {
+            return null;
+        }
         return $this->value->getPublicId();
     }
 

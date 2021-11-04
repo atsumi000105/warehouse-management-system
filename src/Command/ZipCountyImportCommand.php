@@ -103,11 +103,12 @@ class ZipCountyImportCommand extends Command
             }
 
             foreach ($countyRaw['zips'] as $zipRaw) {
-                $zipCounty = $zipCountyRepo->findOneBy(['countyId' => $fips, 'zipCode' => $zipRaw]);
+                /** @var ZipCounty $zipCounty */
+                $zipCounty = $zipCountyRepo->findOneBy(['countyId' => (string) $fips, 'zipCode' => $zipRaw]);
 
                 $action = 'UPDATE';
                 // If we couldn't find one we will create a new one
-                if (!$zipCounty) {
+                if (!empty($zipCounty)) {
                     $zipCounty = new ZipCounty();
                     $action = "ADD";
                 }
@@ -126,7 +127,7 @@ class ZipCountyImportCommand extends Command
                     continue;
                 }
 
-                $zipCounty->setCountyId($fips);
+                $zipCounty->setCountyId((string) $fips);
                 $zipCounty->setCountyName($countyRaw['county']);
                 $zipCounty->setStateCode($countyRaw['state']);
                 $zipCounty->setZipCode($zipRaw);

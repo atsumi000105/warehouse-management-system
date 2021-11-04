@@ -137,6 +137,7 @@ class ClientAnnualReviewCommand extends Command
 
         // We have entered a new review period and have not started it.
         if ($this->isInReviewPeriod() && !$this->isCurrentYearReviewStarted()) {
+            /** @var Client[] $activeClients */
             $activeClients = $clientRepo->findBy(['status' => Client::STATUS_ACTIVE]);
 
             foreach ($activeClients as $client) {
@@ -157,6 +158,7 @@ class ClientAnnualReviewCommand extends Command
             }
         } elseif ($this->isAfterYearReviewEnd() && !$this->isCurrentYearReviewComplete()) {
             // We are passed the end of the review period, but have not completed it
+            /** @var Client[] $activeClients */
             $activeClients = $clientRepo->findBy(['status' => Client::STATUS_NEEDS_REVIEW]);
 
             foreach ($activeClients as $client) {

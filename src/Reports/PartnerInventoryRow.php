@@ -31,7 +31,7 @@ class PartnerInventoryRow
     /**
      * Key = product id
      *
-     * @var int[]
+     * @var int[]|float[]
      */
     protected $productForecast;
 
@@ -89,7 +89,7 @@ class PartnerInventoryRow
     }
 
     /**
-     * @return int[]
+     * @return int[]|float[]
      */
     public function getProductForecasts(): array
     {
@@ -143,7 +143,7 @@ class PartnerInventoryRow
 
     /**
      * @param Product $product
-     * @return int|null
+     * @return int|float|null
      */
     public function getProductForecast(Product $product)
     {

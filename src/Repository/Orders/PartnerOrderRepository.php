@@ -92,8 +92,10 @@ class PartnerOrderRepository extends OrderRepository
         }
     }
 
-    public function findOneByMonth(\DateTime $month): PartnerOrder
+    public function findOneByMonth(\DateTime $month): ?PartnerOrder
     {
-        return $this->findOneBy(['orderPeriod' => $month]);
+        /** @var PartnerOrder|null $order */
+        $order = $this->findOneBy(['orderPeriod' => $month]);
+        return $order;
     }
 }

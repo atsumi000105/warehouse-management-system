@@ -12,6 +12,7 @@ class PartnerProfileListener
     public function postLoad(PartnerProfile $profile, LifecycleEventArgs $event)
     {
         $em = $event->getEntityManager();
+        /** @var PartnerProfileAttributeDefinition[] $definitions */
         $definitions = $em->getRepository(PartnerProfileAttributeDefinition::class)->findAll();
 
         $emptyAttributes = [];

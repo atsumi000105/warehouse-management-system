@@ -22,8 +22,9 @@ class BulkDistributionFixtures extends BaseFixture implements DependentFixtureIn
         ];
     }
 
-    public function loadData(ObjectManager $manager)
+    public function loadData(ObjectManager $manager): void
     {
+        /** @var Partner[] $partners */
         $partners = $manager->getRepository(Partner::class)->findAll();
         /** @var Product[] $products */
         $products = $manager->getRepository(Product::class)->findByPartnerOrderable();

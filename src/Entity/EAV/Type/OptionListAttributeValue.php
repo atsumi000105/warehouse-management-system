@@ -17,9 +17,10 @@ class OptionListAttributeValue extends AttributeValue
     /**
      * @var AttributeOption|null
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\EAV\AttributeOption")
+     * @ORM\ManyToOne(targetEntity="App\Entity\EAV\AttributeOption", )
+     * @ORM\JoinColumn(name="attribute_option_id", referencedColumnName="id")
      */
-    private $attributeOption;
+    private $value;
 
     public function getTypeLabel(): string
     {
@@ -30,12 +31,13 @@ class OptionListAttributeValue extends AttributeValue
      * @param AttributeOption|integer|string $value
      *
      * @return AttributeValue
+     * @throws \Exception
      */
     public function setValue($value): AttributeValue
     {
         $orig_value = $value;
         if (!$value) {
-            $this->attributeOption = null;
+            $this->value = null;
             return $this;
         } elseif (is_numeric($value)) {
             $value = $this->getDefinition()->getOptions()->filter(function (AttributeOption $option) use ($value) {
@@ -51,7 +53,7 @@ class OptionListAttributeValue extends AttributeValue
             throw new \Exception(sprintf("couldn't find: %s for %s", $orig_value, $this->getDefinition()->getName()));
         }
 
-        $this->attributeOption = $value;
+        $this->value = $value;
 
         return $this;
     }
@@ -61,7 +63,7 @@ class OptionListAttributeValue extends AttributeValue
      */
     public function getValue()
     {
-        return $this->attributeOption;
+        return $this->value;
     }
 
     public function getValueType(): string

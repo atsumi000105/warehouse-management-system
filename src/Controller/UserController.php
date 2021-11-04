@@ -9,6 +9,7 @@ use App\Entity\User;
 use App\Entity\ValueObjects\Name;
 use App\Security\UserVoter;
 use App\Transformers\UserTransformer;
+use Doctrine\ORM\EntityNotFoundException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -191,12 +192,17 @@ class UserController extends BaseController
      * @Route(path="/active-partner", methods={"POST"})
      * @IsGranted({"ROLE_USER_EDIT","ROLE_PARTNER_MANAGE_OWN"})
      *
+     * @throws EntityNotFoundException
      */
-    public function setActivePartner(Request $request, SessionInterface $session)
+    public function setActivePartner(Request $request, SessionInterface $session): JsonResponse
     {
         $params = $this->getParams($request);
         $partnerId = (int) $params['active_partner'];
+        /** @var Partner|null $partner */
         $partner = $this->getRepository(Partner::class)->find($partnerId);
+        if (!$partner) {
+            throw new EntityNotFoundException();
+        }
         /** @var User $user */
         $user = $this->getUser();
 

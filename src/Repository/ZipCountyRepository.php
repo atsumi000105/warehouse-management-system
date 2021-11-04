@@ -8,6 +8,7 @@ class ZipCountyRepository extends BaseRepository
 {
     public function findAllInConstraints(): array
     {
+        /** @var Setting $zipCountySetting */
         $zipCountySetting = $this->getEntityManager()->getRepository(Setting::class)->find('zipCountyStates');
         $states = $zipCountySetting->getValue();
 

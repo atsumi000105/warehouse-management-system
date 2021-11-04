@@ -65,9 +65,12 @@ class File extends CoreEntity
         return $this->id;
     }
 
-    public static function getPublicIdProperty(): string
+    /**
+     * @return string|null
+     */
+    public function getPublicId(): ?string
     {
-        return 'publicId';
+        return $this->publicId;
     }
 
     /**

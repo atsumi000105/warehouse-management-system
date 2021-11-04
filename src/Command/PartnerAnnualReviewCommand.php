@@ -107,6 +107,7 @@ class PartnerAnnualReviewCommand extends Command
 
         // We have entered a new review period and have not started it.
         if ($now->isAfter($start) && $lastStart->isBefore($start)) {
+            /** @var Partner[] $activePartners */
             $activePartners = $this->em->getRepository(Partner::class)->findBy(['status' => Partner::STATUS_ACTIVE]);
 
             foreach ($activePartners as $partner) {
@@ -126,6 +127,7 @@ class PartnerAnnualReviewCommand extends Command
             }
         } elseif ($now->isAfter($end) && $lastEnd->isBefore($end)) {
             // We are passed the end of the review period, but have not completed it
+            /** @var Partner[] $activePartners */
             $activePartners = $this->em
                 ->getRepository(Partner::class)
                 ->findBy(['status' => Partner::STATUS_NEEDS_PROFILE_REVIEW]);

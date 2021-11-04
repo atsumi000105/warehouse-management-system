@@ -123,7 +123,7 @@ class Attribute
             if ($value instanceof AttributeValue) {
                 $attributeValue = $value;
             } elseif (is_array($value) && isset($value['id'])) {
-                $attributeValue = $this->getValueById($value['id']);
+                $attributeValue = $this->getValueById((int) $value['id']);
                 $attributeValue->setValue($value);
             } else {
                 $attributeValue = self::createNewValueFromDefinition($this->definition);
@@ -144,7 +144,7 @@ class Attribute
         $this->values = $newAttributeValues;
     }
 
-    protected function getValueById($id): AttributeValue
+    protected function getValueById(int $id): AttributeValue
     {
         if (!$this->hasRelationshipValue()) {
             $v = $this->createAttributeValue();
@@ -254,8 +254,18 @@ class Attribute
         return $value->hasReference();
     }
 
+    public function createValue(): AttributeValue
+    {
+        return self::createNewValueFromDefinition($this->getDefinition());
+    }
+
     public function getValueType(): string
     {
         return self::createNewValueFromDefinition($this->definition)->getValueType();
+    }
+
+    public static function getValueClassFromDefinition(AttributeDefinition $definition): string
+    {
+        return get_class(self::createNewValueFromDefinition($definition));
     }
 }

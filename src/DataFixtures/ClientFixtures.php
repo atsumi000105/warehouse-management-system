@@ -36,8 +36,9 @@ class ClientFixtures extends BaseFixture implements DependentFixtureInterface
         ];
     }
 
-    protected function loadData(ObjectManager $manager)
+    protected function loadData(ObjectManager $manager): void
     {
+        /** @var ClientAttributeDefinition[] $definitions */
         $definitions = $manager->getRepository(ClientAttributeDefinition::class)->findAll();
 
         $statuses = [

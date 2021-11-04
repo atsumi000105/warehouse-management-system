@@ -55,23 +55,22 @@ class EavAttributeProcessor
                     $relationId = null;
 
                     if (is_numeric($rawValue)) {
-                        $relationId = $rawValue;
+                        $relationId = (int) $rawValue;
                     } elseif (isset($rawValue['id'])) {
                         $relationId = $rawValue['id'];
                     } else {
                         continue;
                     }
 
-                    /** @var AttributeValue $valueType */
-                    $valueType = $attribute->getValueType();
+                    $value = $attribute->createValue();
 
                     /** @var CoreEntity|null $relatedEntity */
                     $relatedEntity = $this->em
-                        ->getRepository($valueType)
-                        ->findOneBy([$valueType::getPublicIdProperty() => $relationId]);
+                        ->getRepository(get_class($value))
+                        ->findOneBy([$value::getPublicIdProperty() => $relationId]);
 
                     if (!$relatedEntity) {
-                        throw new \Exception(sprintf("Couldn't find id: % for %s", $rawValue, $attribute->getDefinition()->getName));
+                        throw new \Exception(sprintf("Couldn't find id: %s for %s", $rawValue, $attribute->getDefinition()->getName()));
                     }
 
                     $values->add($relatedEntity);
@@ -93,6 +92,7 @@ class EavAttributeProcessor
 
     private function getAttributeById(int $id): Attribute
     {
+        /** @var Attribute|null $attribute */
         $attribute = $this->em->getRepository(Attribute::class)->find($id);
         if (!$attribute) {
             throw new \Exception(sprintf("Unknown attribute id: %d", $id));
@@ -102,6 +102,7 @@ class EavAttributeProcessor
 
     private function getDefinitionById(int $id): AttributeDefinition
     {
+        /** @var AttributeDefinition|null $definition */
         $definition = $this->em->getRepository(AttributeDefinition::class)->find($id);
         if (!$definition) {
             throw new \Exception(sprintf("Unknown defintion id: %d", $id));

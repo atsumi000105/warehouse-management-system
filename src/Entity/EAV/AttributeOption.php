@@ -44,6 +44,11 @@ class AttributeOption extends CoreEntity
      */
     protected $definition;
 
+    public function __toString()
+    {
+        return $this->value;
+    }
+
     /**
      * @return integer
      */

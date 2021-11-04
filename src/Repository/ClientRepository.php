@@ -3,16 +3,20 @@
 namespace App\Repository;
 
 use App\Entity\Client;
+use App\Entity\EAV\Attribute;
 use App\Entity\EAV\ClientAttributeDefinition;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
+use Monolog\Logger;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
 class ClientRepository extends BaseRepository
 {
     public function findOneByPublicId(string $id): ?Client
     {
-        return $this->findOneBy(['publicId' => $id]);
+        /** @var Client|null $client */
+        $client = $this->findOneBy(['publicId' => $id]);
+        return $client;
     }
 
     public function findByPublicIds(array $ids): ?ArrayCollection
@@ -39,17 +43,23 @@ class ClientRepository extends BaseRepository
 
             $qb->leftJoin('c.attributes', 'a');
 
-            foreach ($attributes as $attribute) {
+            foreach ($attributes as $attribute ) {
+                /** @var ClientAttributeDefinition|null $definition */
                 $definition = $this
                     ->getEntityManager()
                     ->getRepository(ClientAttributeDefinition::class)
                     ->find($attribute['definition_id']);
 
+                if (!$definition) {
+                    throw new \Exception(sprintf("Couldn't find definition %s", $attribute['definition_id']));
+                }
+
                 // TODO: Figure out why doing the negative of this and a continue gives a 500 error
                 if ($definition->isDuplicateReference()) {
                     $alias = 'a' . $attribute['definition_id'];
 
-                    $qb->leftJoin($definition->getAttributeClass(), $alias, 'WITH', "$alias.id = a.id");
+                    // TODO Fix this
+                    $qb->leftJoin(Attribute::getValueClassFromDefinition($definition), $alias, 'WITH', "$alias.attribute = a.id");
 
                     $qb->andWhere($alias . '.value = :attribute_value')
                         ->setParameter('attribute_value', $attribute['value']);
@@ -99,7 +109,7 @@ class ClientRepository extends BaseRepository
         return $results;
     }
 
-    public function findAllCount(ParameterBag $params)
+    public function findAllCount(ParameterBag $params): int
     {
         $qb = $this->createQueryBuilder('c')
             ->select('count(c)');
