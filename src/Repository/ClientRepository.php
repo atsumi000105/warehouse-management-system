@@ -43,7 +43,7 @@ class ClientRepository extends BaseRepository
 
             $qb->leftJoin('c.attributes', 'a');
 
-            foreach ($attributes as $attribute ) {
+            foreach ($attributes as $attribute) {
                 /** @var ClientAttributeDefinition|null $definition */
                 $definition = $this
                     ->getEntityManager()
