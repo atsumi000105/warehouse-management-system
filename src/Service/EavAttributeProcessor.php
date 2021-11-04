@@ -25,7 +25,9 @@ class EavAttributeProcessor
     public function processAttributeChanges(AttributedEntityInterface $entity, &$changes)
     {
         if (!method_exists($entity, 'addAttribute') || !method_exists($entity, 'removeAttribute')) {
-            throw new \Exception('Trying to process attribute changes on an entity that does not support attributes');
+            throw new \Exception(
+                'Trying to process attribute changes on an entity that does not support attributes'
+            );
         }
 
         if (!isset($changes['attributes'])) {
@@ -70,7 +72,13 @@ class EavAttributeProcessor
                         ->findOneBy([$value::getPublicIdProperty() => $relationId]);
 
                     if (!$relatedEntity) {
-                        throw new \Exception(sprintf("Couldn't find id: %s for %s", $rawValue, $attribute->getDefinition()->getName()));
+                        throw new \Exception(
+                            sprintf(
+                                "Couldn't find id: %s for %s",
+                                $rawValue,
+                                $attribute->getDefinition()->getName()
+                            )
+                        );
                     }
 
                     $values->add($relatedEntity);

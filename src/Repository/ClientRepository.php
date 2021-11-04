@@ -59,7 +59,12 @@ class ClientRepository extends BaseRepository
                     $alias = 'a' . $attribute['definition_id'];
 
                     // TODO Fix this
-                    $qb->leftJoin(Attribute::getValueClassFromDefinition($definition), $alias, 'WITH', "$alias.attribute = a.id");
+                    $qb->leftJoin(
+                        Attribute::getValueClassFromDefinition($definition),
+                        $alias,
+                        'WITH',
+                        "$alias.attribute = a.id"
+                    );
 
                     $qb->andWhere($alias . '.value = :attribute_value')
                         ->setParameter('attribute_value', $attribute['value']);

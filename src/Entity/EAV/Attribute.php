@@ -148,7 +148,9 @@ class Attribute
     {
         if (!$this->hasRelationshipValue()) {
             $v = $this->createAttributeValue();
-            throw new \Exception(sprintf("Trying to find a value by ID on a non-relationship attribute: %s", get_class($v)));
+            throw new \Exception(
+                sprintf("Trying to find a value by ID on a non-relationship attribute: %s", get_class($v))
+            );
         }
 
         $result = $this->values->filter(function (AttributeValue $value) use ($id) {
