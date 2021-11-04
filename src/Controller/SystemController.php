@@ -80,6 +80,7 @@ class SystemController extends BaseController
 
     private function getSettings()
     {
+        /** @var Setting[] $settings */
         $settings = $this->getRepository(Setting::class)->findAll();
 
         $return_arr = [];

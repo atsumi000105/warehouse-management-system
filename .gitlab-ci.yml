@@ -22,7 +22,7 @@ test-js:
 
 test-php:
     stage: test
-    image: php:7.3
+    image: php:7.4
     services:
         - name: postgres:latest
           alias: db

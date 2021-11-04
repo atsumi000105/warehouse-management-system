@@ -17,7 +17,8 @@ class OptionListAttributeValue extends AttributeValue
     /**
      * @var AttributeOption|null
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\EAV\AttributeOption")
+     * @ORM\ManyToOne(targetEntity="App\Entity\EAV\AttributeOption", )
+     * @ORM\JoinColumn(name="attribute_option_id", referencedColumnName="id")
      */
     private $value;
 
@@ -27,18 +28,29 @@ class OptionListAttributeValue extends AttributeValue
     }
 
     /**
-     * @param AttributeOption|integer $value
+     * @param AttributeOption|integer|string $value
      *
      * @return AttributeValue
+     * @throws \Exception
      */
     public function setValue($value): AttributeValue
     {
-        if (empty($value)) {
+        $orig_value = $value;
+        if (!$value) {
             $this->value = null;
+            return $this;
         } elseif (is_numeric($value)) {
             $value = $this->getDefinition()->getOptions()->filter(function (AttributeOption $option) use ($value) {
                 return $option->getId() == $value;
             })->first();
+        } elseif (is_string($value)) {
+            $value = $this->getDefinition()->getOptions()->filter(function (AttributeOption $option) use ($value) {
+                return $option->getValue() == $value;
+            })->first();
+        }
+
+        if (!$value) {
+            throw new \Exception(sprintf("couldn't find: %s for %s", $orig_value, $this->getDefinition()->getName()));
         }
 
         $this->value = $value;
@@ -86,11 +98,6 @@ class OptionListAttributeValue extends AttributeValue
     }
 
     public static function hasOptions(): bool
-    {
-        return true;
-    }
-
-    public static function hasRelationship(): bool
     {
         return true;
     }

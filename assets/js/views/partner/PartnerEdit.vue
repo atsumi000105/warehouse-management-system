@@ -141,6 +141,12 @@ export default {
             var self = this;
             if (this.new) {
                 this.partner.contacts.push({ isDeleted: false });
+                axios
+                    .get('/api/partners/new-profile', {
+                        params: { include: ['attributes.options']}
+                    }).then(response => {
+                        self.partner.profile = response.data.data;
+                    });
             } else {
                 axios
                     .get('/api/partners/' + this.$route.params.id, {

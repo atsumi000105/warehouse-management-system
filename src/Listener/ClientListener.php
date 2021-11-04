@@ -23,7 +23,7 @@ class ClientListener implements EventSubscriber
         $this->gen = $gen;
     }
 
-    public function postLoad(LifecycleEventArgs $event)
+    public function postLoad(LifecycleEventArgs $event): void
     {
         $client = $event->getEntity();
         if (!$client instanceof Client) {
@@ -31,6 +31,7 @@ class ClientListener implements EventSubscriber
         }
 
         $em = $event->getEntityManager();
+        /** @var ClientAttributeDefinition[] $definitions */
         $definitions = $em->getRepository(ClientAttributeDefinition::class)->findAll();
 
         $emptyAttributes = [];
@@ -44,7 +45,7 @@ class ClientListener implements EventSubscriber
         $client->addAttributes($emptyAttributes, false);
     }
 
-    public function prePersist(LifecycleEventArgs $event)
+    public function prePersist(LifecycleEventArgs $event): void
     {
         $client = $event->getEntity();
         if (!$client instanceof Client) {
@@ -58,7 +59,7 @@ class ClientListener implements EventSubscriber
         $client->calculateAgeExpiration();
     }
 
-    public function preUpdate(PreUpdateEventArgs $event)
+    public function preUpdate(PreUpdateEventArgs $event): void
     {
         $client = $event->getEntity();
         if (!$client instanceof Client) {
@@ -68,7 +69,7 @@ class ClientListener implements EventSubscriber
         $client->calculateAgeExpiration();
     }
 
-    public function getSubscribedEvents()
+    public function getSubscribedEvents(): array
     {
         return [
             Events::postLoad,

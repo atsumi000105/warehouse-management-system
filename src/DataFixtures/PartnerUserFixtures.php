@@ -19,6 +19,7 @@ class PartnerUserFixtures extends BaseFixture
 
     public function loadData(ObjectManager $manager): void
     {
+        /** @var Partner[] $partners */
         $partners = $manager->getRepository(Partner::class)->findAll();
 
         foreach ($partners as $partner) {

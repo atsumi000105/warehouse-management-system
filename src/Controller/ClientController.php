@@ -112,6 +112,7 @@ class ClientController extends BaseController
      */
     public function newClientAttributes(Request $request): JsonResponse
     {
+        /** @var ClientAttributeDefinition[] $fields */
         $fields = $this->getRepository(ClientAttributeDefinition::class)->findBy(['isDuplicateReference' => true]);
 
         $attributes = array_map(function ($definition) {
@@ -129,6 +130,7 @@ class ClientController extends BaseController
      */
     public function clientAttributes(Request $request): JsonResponse
     {
+        /** @var ClientAttributeDefinition[] $fields */
         $fields = $this->getRepository(ClientAttributeDefinition::class)->findAll();
 
         $attributes = array_map(function ($definition) {

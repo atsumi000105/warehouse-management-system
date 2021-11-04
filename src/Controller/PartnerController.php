@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\EAV\Attribute;
+use App\Entity\EAV\PartnerProfileAttributeDefinition;
 use App\Entity\Partner;
 use App\Entity\PartnerDistributionMethod;
 use App\Entity\PartnerFulfillmentPeriod;
@@ -10,6 +12,7 @@ use App\Repository\PartnerRepository;
 use App\Security\PartnerVoter;
 use App\Service\EavAttributeProcessor;
 use App\Transformers\ClientTransformer;
+use App\Transformers\PartnerProfileTransformer;
 use App\Transformers\PartnerTransformer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -111,6 +114,26 @@ class PartnerController extends BaseController
         $this->getEm()->flush();
 
         return $this->serialize($request, $partner);
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     *
+     * @Route(path="/new-profile", methods={"GET"})
+     */
+    public function newProfile(Request $request): JsonResponse
+    {
+        $profile = new PartnerProfile();
+        $fields = $this->getRepository(PartnerProfileAttributeDefinition::class)->findAll();
+
+        $attributes = array_map(function (PartnerProfileAttributeDefinition $definition) {
+            return new Attribute($definition);
+        }, $fields);
+
+        $profile->addAttributes($attributes);
+
+        return $this->serialize($request, $profile, new PartnerProfileTransformer());
     }
 
     /**

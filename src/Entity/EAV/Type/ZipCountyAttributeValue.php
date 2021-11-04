@@ -81,12 +81,21 @@ class ZipCountyAttributeValue extends AttributeValue
     {
         return [
             self::UI_ZIPCODE,
+            self::UI_ZIPCODE_MULTI,
         ];
     }
 
     public function getJsonValue()
     {
         return !is_null($this->getValue()) ? $this->getValue()->getId() : null;
+    }
+
+    /**
+     * Whether this type references external entity ids (e.g. ZipCode)
+     */
+    public static function hasReference(): bool
+    {
+        return true;
     }
 
     public static function hasRelationship(): bool

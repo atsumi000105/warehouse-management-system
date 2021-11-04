@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\PubliclyExposedEntity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -23,6 +24,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ZipCounty
 {
+    use PubliclyExposedEntity;
+
     /**
      * @ORM\Id()
      * @ORM\Column(type="integer")

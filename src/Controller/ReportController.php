@@ -389,8 +389,10 @@ class ReportController extends BaseController
 
         $partnerRepo = $this->getRepository(Partner::class);
         if ($params->has('partnerType')) {
+            /** @var Partner[] $partners */
             $partners = $partnerRepo->findBy(['partnerType' => $params->get('partnerType')]);
         } else {
+            /** @var Partner[] $partners */
             $partners = $partnerRepo->findAll();
         }
 

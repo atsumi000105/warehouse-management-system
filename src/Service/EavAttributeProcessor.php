@@ -6,6 +6,7 @@ use App\Entity\AttributedEntityInterface;
 use App\Entity\CoreEntity;
 use App\Entity\EAV\Attribute;
 use App\Entity\EAV\AttributeDefinition;
+use App\Entity\EAV\AttributeValue;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -24,7 +25,9 @@ class EavAttributeProcessor
     public function processAttributeChanges(AttributedEntityInterface $entity, &$changes)
     {
         if (!method_exists($entity, 'addAttribute') || !method_exists($entity, 'removeAttribute')) {
-            throw new \Exception('Trying to process attribute changes on an entity that does not support attributes');
+            throw new \Exception(
+                'Trying to process attribute changes on an entity that does not support attributes'
+            );
         }
 
         if (!isset($changes['attributes'])) {
@@ -50,25 +53,32 @@ class EavAttributeProcessor
 
             // Loop through the values of the changed attribute and update the entities
             foreach ($rawValues as $rawValue) {
-                if ($attribute->hasRelationshipValue() && $attribute->hasOptions()) {
+                if ($attribute->hasRelationshipValue()) {
                     $relationId = null;
 
                     if (is_numeric($rawValue)) {
-                        $relationId = $rawValue;
+                        $relationId = (int) $rawValue;
                     } elseif (isset($rawValue['id'])) {
                         $relationId = $rawValue['id'];
                     } else {
                         continue;
                     }
 
+                    $value = $attribute->createValue();
+
                     /** @var CoreEntity|null $relatedEntity */
-                    $relatedEntity = $this->em->getReference(
-                        $attribute->getValueType(),
-                        $relationId
-                    );
+                    $relatedEntity = $this->em
+                        ->getRepository(get_class($value))
+                        ->findOneBy([$value::getPublicIdProperty() => $relationId]);
 
                     if (!$relatedEntity) {
-                        continue;
+                        throw new \Exception(
+                            sprintf(
+                                "Couldn't find id: %s for %s",
+                                $rawValue,
+                                $attribute->getDefinition()->getName()
+                            )
+                        );
                     }
 
                     $values->add($relatedEntity);
@@ -90,6 +100,7 @@ class EavAttributeProcessor
 
     private function getAttributeById(int $id): Attribute
     {
+        /** @var Attribute|null $attribute */
         $attribute = $this->em->getRepository(Attribute::class)->find($id);
         if (!$attribute) {
             throw new \Exception(sprintf("Unknown attribute id: %d", $id));
@@ -99,6 +110,7 @@ class EavAttributeProcessor
 
     private function getDefinitionById(int $id): AttributeDefinition
     {
+        /** @var AttributeDefinition|null $definition */
         $definition = $this->em->getRepository(AttributeDefinition::class)->find($id);
         if (!$definition) {
             throw new \Exception(sprintf("Unknown defintion id: %d", $id));

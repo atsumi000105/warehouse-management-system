@@ -50,9 +50,9 @@ class SupplierTotalsRow
     }
 
     /**
-     * @return int
+     * @return int|float
      */
-    public function getTotal(): int
+    public function getTotal()
     {
         return array_sum($this->productTotals);
     }

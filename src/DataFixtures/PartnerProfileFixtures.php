@@ -24,7 +24,9 @@ class PartnerProfileFixtures extends BaseFixture implements DependentFixtureInte
 
     public function loadData(ObjectManager $manager)
     {
+        /** @var Partner[] $partners */
         $partners = $manager->getRepository(Partner::class)->findAll();
+        /** @var PartnerProfileAttributeDefinition[] $definitions */
         $definitions = $manager->getRepository(PartnerProfileAttributeDefinition::class)->findAll();
 
         foreach ($partners as $partner) {
