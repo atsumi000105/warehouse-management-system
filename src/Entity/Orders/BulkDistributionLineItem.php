@@ -6,12 +6,14 @@ use App\Entity\Client;
 use App\Entity\InventoryTransaction;
 use App\Entity\LineItem;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Class BulkDistributionLineItem
  *
  * @ORM\Entity(repositoryClass="App\Repository\Orders\BulkDistributionLineItemRepository")
  * @ORM\EntityListeners({"App\Listener\DistributionLineItemListener"})
+ * @Gedmo\Loggable()
  */
 class BulkDistributionLineItem extends LineItem
 {
@@ -20,6 +22,7 @@ class BulkDistributionLineItem extends LineItem
      * @var Client
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="distributionLineItems")
+     * @Gedmo\Versioned
      */
     protected $client;
 

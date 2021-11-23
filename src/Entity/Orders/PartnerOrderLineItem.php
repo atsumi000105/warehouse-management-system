@@ -8,11 +8,13 @@ use App\Entity\LineItem;
 use App\Entity\Partner;
 use App\Entity\Warehouse;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Class PartnerOrderLineItem
  *
  * @ORM\Entity()
+ * @Gedmo\Loggable()
  */
 class PartnerOrderLineItem extends LineItem
 {
@@ -21,6 +23,7 @@ class PartnerOrderLineItem extends LineItem
      * @var Client|null
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\Client")
+     * @Gedmo\Versioned
      */
     protected $client;
 
