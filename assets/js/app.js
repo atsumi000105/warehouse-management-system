@@ -25,6 +25,7 @@ Vue.component('optionlistraw', require('./components/OptionListRaw.vue').default
 Vue.component('arraytableform', require('./components/ArrayTableForm.vue').default);
 /*****/
 
+Vue.component('register-client', require('./views/anonymous/client/Register-client').default);
 
 Vue.filter('dateFormat', require('./filters/dateFormat'));
 Vue.filter('dateTimeFormat', require('./filters/dateTimeFormat'));

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSRF Token -->
+    {#<meta name="csrf-token" content="{{ csrf_token() }}">#}
+
+    <title>coverd.io</title>
+
+    {% block stylesheets %}
+        <!-- Styles -->
+        <link rel="stylesheet" href="/build/fonts.css">
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+
+</head>
+    <body class="skin-blue sidebar-mini">
+        <div id="app" class="wrapper">
+            {% block content %}
+            {% endblock %}
+        </div>
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+
+            <!-- Renders app.js & a webpack runtime.js file
+                <script src="/build/runtime.js"></script>
+                <script src="/build/app.js"></script> -->
+        {% endblock %}
+    </body>
+</html>
