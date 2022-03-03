@@ -177,6 +177,7 @@
                                                 :show-expirations="false"
                                                 :new="true"
                                             />
+<!--                                            <AttributesEditForm v-model="client.attributes" />-->
                                         </div>
                                     </div>
                                 </div>
