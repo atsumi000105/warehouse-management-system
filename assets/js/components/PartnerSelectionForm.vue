@@ -45,7 +45,10 @@ export default {
     },
     mounted: function() {
         this.$store.dispatch("loadStorageLocations");
-        this.$refs.partnerSelect.$on("change", eventData => this.onSelectionChange(eventData));
+
+        if (this.$refs.partnerSelect) {
+            this.$refs.partnerSelect.$on("change", eventData => this.onSelectionChange(eventData));
+        }
     },
     methods: {
         onSelectionChange: function(eventData) {

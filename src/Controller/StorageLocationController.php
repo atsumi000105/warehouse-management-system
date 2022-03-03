@@ -46,7 +46,7 @@ class StorageLocationController extends BaseController
                 array_push($storageLocations, ...($user->getPartners() ?? []));
             }
         } else {
-            $storageLocations = $this->getEm()->getRepository(Warehouse::class)->findAll();
+            $storageLocations = $this->getRepository()->findAll();
         }
 
         return $this->serialize($request, $storageLocations);

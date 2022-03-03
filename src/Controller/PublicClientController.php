@@ -17,4 +17,12 @@ class PublicClientController extends AbstractController
             'controller_name' => 'AnonymousClientController',
         ]);
     }
+
+    /**
+     * @Route("/api/public/client", name="public_store_client")
+     */
+    public function storeClient()
+    {
+
+    }
 }

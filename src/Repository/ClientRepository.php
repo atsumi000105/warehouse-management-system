@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
 use Monolog\Logger;
 use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Component\VarDumper\VarDumper;
 
 class ClientRepository extends BaseRepository
 {

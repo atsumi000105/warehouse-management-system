@@ -93,6 +93,7 @@
                                                 <AttributesEditForm
                                                     id="profile_tab"
                                                     v-model="client.attributes"
+                                                    :value="[]"
                                                     :filter="attribute => attribute.isDuplicateReference"
                                                 />
                                                 <!-- text input -->
@@ -111,8 +112,8 @@
                             v-if="foundDuplicates"
                             id="duplicates"
                         >
-                            <div class="callout callout-danger">
-                                <h3>Duplicate Clients Found</h3>
+                            <div class="callout callout-info">
+                                <h3>Duplicate Record Found</h3>
                                 Based on the information provided, this client appears to be a duplicate of the following client(s). If
                                 inactive, please transfer a client below to your partner agency.
                             </div>
@@ -126,7 +127,6 @@
                                                 <th>Status</th>
                                                 <th>Last Activity</th>
                                                 <th>Partner</th>
-                                                <th />
                                                 </thead>
                                                 <tbody>
                                                 <tr
@@ -142,18 +142,6 @@
                                             />
                                                     </td>
                                                     <td v-text="duplicate.partner ? duplicate.partner.title : ''" />
-                                                    <td>
-                                                        <button
-                                                            v-tooltip
-                                                            :disabled="!duplicate.canPartnerTransfer"
-                                                            :title="transferButtonTooltip(duplicate)"
-                                                            class="btn btn-xs btn-primary"
-                                                            @click="onTransferClicked(duplicate)"
-                                                        >
-                                                            <i class="fa fa-exchange-alt fa-fw" />
-                                                            Transfer to Active Partner
-                                                        </button>
-                                                    </td>
                                                 </tr>
                                                 </tbody>
                                             </table>
@@ -175,7 +163,7 @@
                                                 ref="clientInfoForm"
                                                 v-model="client"
                                                 :show-expirations="false"
-                                                :new="true"
+                                                :new="false"
                                             />
 <!--                                            <AttributesEditForm v-model="client.attributes" />-->
                                         </div>
@@ -282,6 +270,8 @@ export default {
                 $("#invalidModal").modal("show");
                 return false;
             }
+
+            console.log(this.client);
 
             axios
                 .post("/api/clients/new-check", this.client, {
