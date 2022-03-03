@@ -25,7 +25,7 @@ Vue.component('optionlistraw', require('./components/OptionListRaw.vue').default
 Vue.component('arraytableform', require('./components/ArrayTableForm.vue').default);
 /*****/
 
-Vue.component('register-client', require('./views/anonymous/client/Register-client').default);
+Vue.component('register-client', require('./views/public/client/RegisterClient').default);
 
 Vue.filter('dateFormat', require('./filters/dateFormat'));
 Vue.filter('dateTimeFormat', require('./filters/dateTimeFormat'));
@@ -85,7 +85,9 @@ window.App = new Vue({
         exceptions: []
     },
     created() {
-        this.$store.dispatch('loadCurrentUser')
+        if (! document.URL.includes('/public/')) {
+            this.$store.dispatch('loadCurrentUser')
+        }
     },
     router,
     store
