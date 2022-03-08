@@ -62,6 +62,7 @@ security:
         #- { path: ^/api/suppliers, roles: ROLE_USER}
         #- { path: ^/api/users, roles: ROLE_USER}
         #- { path: ^/api/warehouses, roles: ROLE_USER}
+        - { path: ^/api/public/client, roles: IS_AUTHENTICATED_ANONYMOUSLY }
 
         # WEB ROUTES
         - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }

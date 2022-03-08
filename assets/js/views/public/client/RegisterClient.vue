@@ -288,6 +288,7 @@ export default {
 
         save: function() {
             let self = this;
+
             if (this.$refs.clientInfoForm) {
                 this.$refs.clientInfoForm.$v.$touch();
                 if (this.$refs.clientInfoForm.$v.$invalid) {
@@ -295,8 +296,9 @@ export default {
                     return false;
                 }
             }
+
             axios
-                .post("/api/clients", this.client)
+                .post("/api/public/client", this.client)
                 .then(response => self.$router.push({ name: "clients" }))
                 .catch(function(error) {
                     console.log("Save this.client error %o", error);
