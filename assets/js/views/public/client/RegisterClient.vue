@@ -51,8 +51,8 @@
                                                     id="client_info"
                                                     class="row active"
                                                 >
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
+                                                    <div class="form-group">
+                                                        <div class="col-md-6">
                                                             <label>First Name</label>
                                                             <div :class="{ 'has-error': $v.client.firstName.$error }">
                                                                 <input
@@ -65,6 +65,8 @@
                                                                     First Name is required
                                                                 </fielderror>
                                                             </div>
+                                                        </div>
+                                                        <div class="col-md-6">
                                                             <label>Last Name</label>
                                                             <div :class="{ 'has-error': $v.client.lastName.$error }">
                                                                 <input
@@ -78,6 +80,8 @@
                                                                 </fielderror>
                                                             </div>
                                                         </div>
+                                                    </div>
+                                                    <div class="col-md-6">
                                                         <div :class="{ 'has-error': $v.client.birthdate.$error }">
                                                             <DateField
                                                                 v-model="client.birthdate"
@@ -112,10 +116,10 @@
                             v-if="foundDuplicates"
                             id="duplicates"
                         >
-                            <div class="callout callout-info">
+                            <div class="callout callout-warning no-background-color text-black">
                                 <h3>Duplicate Record Found</h3>
-                                Based on the information provided, this client appears to be a duplicate of the following client(s). If
-                                inactive, please transfer a client below to your partner agency.
+                                Based on the information provided, it appears you may already be a client.  Our records
+                                show you may be associated with the following Partner, please contact them for more assistance.
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
@@ -123,25 +127,17 @@
                                         <div class="box-body">
                                             <table class="table table-hover">
                                                 <thead>
-                                                <th>Name</th>
-                                                <th>Status</th>
-                                                <th>Last Activity</th>
-                                                <th>Partner</th>
+<!--                                                    <th>Name</th>-->
+                                                    <th>Partner</th>
+                                                    <th>Partner Address</th>
                                                 </thead>
                                                 <tbody>
                                                 <tr
                                                     v-for="duplicate in duplicates"
                                                     :key="duplicate.id"
                                                 >
-                                                    <td v-text="duplicate.fullName" />
-                                                    <td v-text="duplicate.status" />
-                                                    <td>
-                                            <span
-                                                v-if="duplicate.lastDistribution"
-                                                v-text="duplicate.lastDistribution.order.distributionPeriod"
-                                            />
-                                                    </td>
                                                     <td v-text="duplicate.partner ? duplicate.partner.title : ''" />
+                                                    <td v-text="duplicate.partner ? duplicate.partner.fullAddress : ''" />
                                                 </tr>
                                                 </tbody>
                                             </table>
@@ -150,7 +146,6 @@
                                 </div>
                             </div>
                         </section>
-
                         <section
                             v-if="noDuplicates"
                             id="new-client"
@@ -165,7 +160,13 @@
                                                 :show-expirations="false"
                                                 :new="false"
                                             />
-<!--                                            <AttributesEditForm v-model="client.attributes" />-->
+                                            <div class="row">
+                                                <AttributesEditForm
+                                                    v-model="client.attributes"
+                                                    :bootstrap-col-size="'col-md-6'"
+                                                    :only-public-attributes="true"
+                                                />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -321,5 +322,11 @@ export default {
 </script>
 
 <style scoped>
+    .no-background-color {
+        background-color: transparent !important;
+    }
 
+    .text-black {
+        color: black !important;
+    }
 </style>

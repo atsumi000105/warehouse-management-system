@@ -246,6 +246,35 @@ class Partner extends StorageLocation
         return $programContacts;
     }
 
+    public function getFullAddress(): string
+    {
+        $address = '';
+
+        if ($this->address) {
+            if ($this->address->getStreet1()) {
+                $address .= $this->address->getStreet1();
+            }
+
+            if ($this->address->getStreet2()) {
+                $address .= ' ' . $this->address->getStreet2();
+            }
+
+            if ($this->address->getCity()) {
+                $address .= ', ' . $this->address->getCity();
+            }
+
+            if ($this->address->getState()) {
+                $address .= ', ' . $this->address->getState();
+            }
+
+            if ($this->address->getPostalCode()) {
+                $address .= ' ' . $this->address->getPostalCode();
+            }
+        }
+
+        return $address;
+    }
+
     /**
      * @return PartnerContact
      */

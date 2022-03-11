@@ -21,7 +21,7 @@
     export default {
         name: "CountryField",
         props: {
-            value: { type: String, required: true }
+            value: { type: String, required: false }
         },
         data: function() {
             return {

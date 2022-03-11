@@ -19,7 +19,7 @@
     export default {
         name: 'TextareaField',
         props: {
-            value: { type: String, required: true },
+            value: { type: String, required: false },
             label: { type: String, required: true },
             helpText: { type: String, requird: false, default: "" },
         }

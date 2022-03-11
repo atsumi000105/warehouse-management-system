@@ -3,8 +3,9 @@
         id="client_info"
         class="row tab-pane active"
     >
-        <div class="col-md-6">
-            <div class="form-group">
+
+        <div class="form-group">
+            <div class="col-md-6">
                 <label>First Name</label>
                 <div :class="{ 'has-error': $v.value.firstName.$error }">
                     <input
@@ -17,7 +18,9 @@
                         First Name is required
                     </fielderror>
                 </div>
+            </div>
 
+            <div class="col-md-6">
                 <label>Last Name</label>
                 <div :class="{ 'has-error': $v.value.lastName.$error }">
                     <input
@@ -31,7 +34,10 @@
                     </fielderror>
                 </div>
             </div>
-            <div class="form-group">
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-6">
                 <label>Parent/Guardian First Name</label>
                 <input
                     v-model="value.parentFirstName"
@@ -39,7 +45,9 @@
                     class="form-control"
                     placeholder="Enter parent or guardian first name"
                 >
+            </div>
 
+            <div class="col-md-6">
                 <label>Parent/Guardian Last Name</label>
                 <input
                     v-model="value.parentLastName"
@@ -48,6 +56,9 @@
                     placeholder="Enter parent or guardian last name"
                 >
             </div>
+        </div>
+
+        <div class="col-md-6">
             <div :class="{ 'has-error': $v.value.birthdate.$error }">
                 <DateField
                     v-model="value.birthdate"
@@ -58,6 +69,9 @@
                     Birthdate should be a date in the past
                 </fielderror>
             </div>
+        </div>
+
+        <div class="col-md-6">
             <PartnerSelectionForm
                 v-model="value.partner"
                 label="Assigned Partner"
@@ -65,6 +79,7 @@
                 :editable="!this.new"
             />
         </div>
+
         <div class="col-md-6">
             <div
                 v-if="showExpirations"

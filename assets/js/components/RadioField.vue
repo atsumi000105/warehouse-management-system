@@ -29,7 +29,7 @@
     export default {
         name: 'RadioField',
         props: {
-            value: { type: String, required: true },
+            value: { type: String, required: false },
             label: { type: String },
             helpText: { type: String, requird: false, default: "" },
             displayProperty: { type: String, default: 'name'},

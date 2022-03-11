@@ -6,6 +6,7 @@ use App\Entity\Client;
 use App\Entity\Partner;
 use App\Security\ClientVoter;
 use App\Service\EavAttributeProcessor;
+use App\Transformers\ClientTransformer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,6 +18,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PublicClientController extends BaseController
 {
+    protected $defaultEntityName = Client::class;
+
     /**
      * @Route("/public/client", name="public_client")
      */
@@ -62,5 +65,10 @@ class PublicClientController extends BaseController
         $this->getEm()->flush();
 
         return $this->serialize($request, $client);
+    }
+
+    protected function getDefaultTransformer(): ClientTransformer
+    {
+        return new ClientTransformer();
     }
 }
