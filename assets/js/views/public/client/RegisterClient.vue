@@ -127,7 +127,6 @@
                                         <div class="box-body">
                                             <table class="table table-hover">
                                                 <thead>
-<!--                                                    <th>Name</th>-->
                                                     <th>Partner</th>
                                                     <th>Partner Address</th>
                                                 </thead>
