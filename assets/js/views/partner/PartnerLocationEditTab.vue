@@ -68,6 +68,14 @@
                                 class="form-control"
                             >
                         </div>
+                        <div class="form-group">
+                            <label>Notes</label>
+                            <textarea
+                                v-model="value.notes"
+                                class="form-control"
+                                rows="6"
+                            ></textarea>
+                        </div>
                     </div>
                     <!-- /.box-body -->
                 </div>
