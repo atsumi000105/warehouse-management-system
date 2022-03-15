@@ -11,6 +11,7 @@
                             class="box-title"
                             v-text="order.partner.title"
                         />
+                        <p><b>Notes:</b> {{ order.partner.notes }}</p>
                         <div>
                             <strong>Order Month:</strong> {{ order.orderPeriod | dateTimeMonthFormat }}
                         </div>

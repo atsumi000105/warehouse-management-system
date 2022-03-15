@@ -119,7 +119,7 @@
             BooleanField, RadioField, TextareaField, OptionListApi, NumberField, TextField, DateField},
         props: {
             new: { type: Boolean },
-            value: { type: Array, required: true },
+            value: { type: Array, required: false },
             filter: { type: Function, required: false, default: (attribute) => true }
         },
         computed: {

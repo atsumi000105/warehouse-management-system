@@ -169,7 +169,7 @@
     export default {
         name: "StateField",
         props: {
-            value: { type: [String, Array], required: true },
+            value: { type: [String, Array], required: false },
             multiple: { type: Boolean, default: false }
         },
         methods: {

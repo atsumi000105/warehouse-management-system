@@ -40,6 +40,7 @@ class PartnerTransformer extends StorageLocationTransformer
             'status' => $partner->getStatus(),
             'partnerType' => $partner->getPartnerType(),
             'legacyId' => $partner->getLegacyId(),
+            'notes' => $partner->getNotes(),
             'forecastAverageMonths' => $partner->getForecastAverageMonths(),
             'canPlaceOrders' => $partner->canPlaceOrders(),
             'createdAt' => $partner->getCreatedAt()->format('c'),
