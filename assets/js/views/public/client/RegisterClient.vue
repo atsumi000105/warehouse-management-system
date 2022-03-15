@@ -1,178 +1,172 @@
 <template>
     <div>
-        <div class="jumbotron">
-            <h3>Client Registration</h3>
-            <p>Please complete this form for each child who needs diapers.</p>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>New To Us?</h3>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-md-offset-1">
+                    <h4>Did you sign up for our services while you were in the hospital?</h4>
+                    <div class="form-check">
+                        <input type="radio" id="hospital_yes" value="1" v-model="hospital">
+                        <label for="hospital_yes">Yes</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" id="hospital_no" value="0" v-model="hospital">
+                        <label for="hospital_no">No</label>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="row">
-            <div class="container">
-                <div class="panel">
-                    <div class="panel-heading">
-                        <div class="pull-right">
-                            <button
-                                v-if="noDuplicates"
-                                class="btn btn-success btn-flat"
-                                @click.prevent="save"
+
+        <div v-if="hospital==0" class="panel panel-default">
+            <div class="panel-heading">
+                <h3>Duplicate Check</h3>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-md-offset-1">
+                    <h4>Please enter your child's First Name, Last Name, and Birth Date to see if we already have a record for you.</h4>
+                    <form>
+                        <div class="form-row">
+                            <div
+                                class="form-group"
+                                :class="{ 'has-error': $v.client.firstName.$error }"
                             >
-                                <i class="fa fa-save fa-fw" />
-                                Save Client
-                            </button>
-                            <button
-                                v-if="!checked"
-                                class="btn btn-primary btn-flat"
-                                @click="check()"
+                                <label for="dup_first_name">First Name</label>
+                                <input
+                                    v-model="client.firstName"
+                                    id="dup_first_name"
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Enter first name"
+                                >
+                                <fielderror v-if="$v.client.firstName.$error">
+                                    First Name is required
+                                </fielderror>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div
+                                class="form-group"
+                                :class="{ 'has-error': $v.client.lastName.$error }"
                             >
-                                <i class="fa fa-search fa-fw" />
-                                Check for Duplicate
-                            </button>
+                                <label for="dup_last_name">Last Name</label>
+                                <input
+                                    v-model="client.lastName"
+                                    id="dup_last_name"
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Enter last name"
+                                >
+                                <fielderror v-if="$v.client.lastName.$error">
+                                    Last Name is required
+                                </fielderror>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div
+                                class="form-group"
+                                :class="{ 'has-error': $v.client.birthdate.$error }"
+                            >
+                                <DateField
+                                    id="dup_birth_date"
+                                    v-model="client.birthdate"
+                                    label="Birth Date"
+                                    format="YYYY-MM-DD"
+                                />
+                                <fielderror v-if="$v.client.birthdate.$error">
+                                    Birth Date should be a date in the past
+                                </fielderror>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <button
+                                    class="btn btn-primary btn-flat"
+                                    @click="check()"
+                                >
+                                    <i class="fa fa-search fa-fw" />
+                                    Check for Duplicate
+                                </button>
+                            </div>
+                            <AttributesEditForm
+                                id="profile_tab"
+                                v-model="client.attributes"
+                                :value="[]"
+                                :filter="attribute => attribute.isDuplicateReference"
+                            />
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-4">
+                    <div v-if="checked && foundDuplicates">
+                        <div class="callout callout-warning no-background-color text-black">
+                            <h3>Duplicate Record Found</h3>
+                            Based on the information provided, it appears you may already be a client.  Our records
+                            show you may be associated with the following Partner, please contact them for more assistance.
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <th>Partner</th>
+                                    <th>Partner Address</th>
+                                    </thead>
+                                    <tbody>
+                                    <tr
+                                        v-for="duplicate in duplicates"
+                                        :key="duplicate.id"
+                                    >
+                                        <td v-text="duplicate.partner ? duplicate.partner.title : ''" />
+                                        <td v-text="duplicate.partner ? duplicate.partner.fullAddress : ''" />
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                    <div class="panel-body">
-                        <h3 class="box-title">
-                            New Client
-                        </h3>
 
-                        <section
-                            v-if="!checked"
-                            id="new-client-check"
-                        >
-                            <div class="row">
-                                <form role="form">
-                                    <div class="col-md-12">
-                                        <div class="box box-info">
-                                            <div class="box-header with-border">
-                                                <h3 class="box-title">
-                                                    <i class="icon fa fa-child fa-fw" />Client Info
-                                                </h3>
-                                            </div>
-                                            <!-- /.box-header -->
-                                            <div class="box-body">
-                                                <div
-                                                    id="client_info"
-                                                    class="row active"
-                                                >
-                                                    <div class="form-group">
-                                                        <div class="col-md-6">
-                                                            <label>First Name</label>
-                                                            <div :class="{ 'has-error': $v.client.firstName.$error }">
-                                                                <input
-                                                                    v-model="client.firstName"
-                                                                    type="text"
-                                                                    class="form-control"
-                                                                    placeholder="Enter first name"
-                                                                >
-                                                                <fielderror v-if="$v.client.firstName.$error">
-                                                                    First Name is required
-                                                                </fielderror>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <label>Last Name</label>
-                                                            <div :class="{ 'has-error': $v.client.lastName.$error }">
-                                                                <input
-                                                                    v-model="client.lastName"
-                                                                    type="text"
-                                                                    class="form-control"
-                                                                    placeholder="Enter last name"
-                                                                >
-                                                                <fielderror v-if="$v.client.lastName.$error">
-                                                                    Last Name is required
-                                                                </fielderror>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div :class="{ 'has-error': $v.client.birthdate.$error }">
-                                                            <DateField
-                                                                v-model="client.birthdate"
-                                                                label="Birthdate"
-                                                                format="YYYY-MM-DD"
-                                                            />
-                                                            <fielderror v-if="$v.client.birthdate.$error">
-                                                                Birthdate should be a date in the past
-                                                            </fielderror>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <AttributesEditForm
-                                                    id="profile_tab"
-                                                    v-model="client.attributes"
-                                                    :value="[]"
-                                                    :filter="attribute => attribute.isDuplicateReference"
-                                                />
-                                                <!-- text input -->
-                                            </div>
-                                            <!-- /.box-body -->
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12" />
-                            </div>
-                        </section>
-
-                        <section
-                            v-if="foundDuplicates"
-                            id="duplicates"
-                        >
-                            <div class="callout callout-warning no-background-color text-black">
-                                <h3>Duplicate Record Found</h3>
-                                Based on the information provided, it appears you may already be a client.  Our records
-                                show you may be associated with the following Partner, please contact them for more assistance.
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="box">
-                                        <div class="box-body">
-                                            <table class="table table-hover">
-                                                <thead>
-                                                    <th>Partner</th>
-                                                    <th>Partner Address</th>
-                                                </thead>
-                                                <tbody>
-                                                <tr
-                                                    v-for="duplicate in duplicates"
-                                                    :key="duplicate.id"
-                                                >
-                                                    <td v-text="duplicate.partner ? duplicate.partner.title : ''" />
-                                                    <td v-text="duplicate.partner ? duplicate.partner.fullAddress : ''" />
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                        <section
-                            v-if="noDuplicates"
-                            id="new-client"
-                        >
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="box">
-                                        <div class="box-body">
-                                            <ClientInfoForm
-                                                ref="clientInfoForm"
-                                                v-model="client"
-                                                :show-expirations="false"
-                                                :new="false"
-                                            />
-                                            <div class="row">
-                                                <AttributesEditForm
-                                                    v-model="client.attributes"
-                                                    :bootstrap-col-size="'col-md-6'"
-                                                    :only-public-attributes="true"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-
+                    <div v-if="checked && !foundDuplicates">
+                        <div class="callout callout-success no-background-color text-black">
+                            <h3>No Duplicates Found</h3>
+                            Based on the information provided, it appears you are not already a client.  Please fill
+                            out the form below to register.
+                        </div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div v-if="hospital==0 && checked && !foundDuplicates" class="panel panel-default">
+            <div class="panel-heading">
+                <h3>New Client Info</h3>
+            </div>
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <ClientInfoForm
+                        ref="clientInfoForm"
+                        v-model="client"
+                        :show-expirations="false"
+                        :new="false"
+                    />
+                    <AttributesEditForm
+                        v-model="client.attributes"
+                        :bootstrap-col-size="'col-md-6'"
+                        :only-public-attributes="true"
+                    />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <button
+                        v-if="noDuplicates"
+                        class="btn btn-success btn-flat pull-right"
+                        @click.prevent="save"
+                    >
+                        <i class="fa fa-save fa-fw" />
+                        Save Client
+                    </button>
                 </div>
             </div>
         </div>
@@ -204,6 +198,7 @@ export default {
                 attributes: [],
                 partner: {},
             },
+            hospital: 1,
             duplicates: [],
             checked: false,
             transferClient: {},
