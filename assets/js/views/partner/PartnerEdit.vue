@@ -71,11 +71,11 @@
                     v-model="partner.profile.attributes"
                     class="tab-pane"
                 />
-<!--                <PartnerUserListTab
+                <PartnerUserListTab
                     id="user_tab"
                     :partner="partner"
                     class="tab-pane"
-                />-->
+                />
             </div>
         </div>
         <modal
