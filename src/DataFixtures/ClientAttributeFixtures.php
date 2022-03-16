@@ -24,7 +24,11 @@ class ClientAttributeFixtures extends BaseFixture
             $definition->setType($field['type']);
             $definition->setDisplayInterface($field['interface']);
             $definition->setOrderIndex($field['order_index']);
-            $definition->setIsDisplayedPublicly($field['is_displayed_publicly']);
+
+            if (isset($field['is_displayed_publicly'])) {
+                $definition->setIsDisplayedPublicly($field['is_displayed_publicly']);
+            }
+
             if (isset($field['options'])) {
                 foreach ($field['options'] as $value => $name) {
                     $option = new AttributeOption();
@@ -51,7 +55,7 @@ class ClientAttributeFixtures extends BaseFixture
                 'type' => AttributeDefinition::TYPE_STRING,
                 'interface' => AttributeValue::UI_TEXT,
                 'order_index' => 0,
-                'is_displayed_publicly' => true,
+                //'is_displayed_publicly' => true,
             ],
             [
                 'name' => 'home_phone',

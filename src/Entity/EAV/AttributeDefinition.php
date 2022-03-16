@@ -117,7 +117,7 @@ abstract class AttributeDefinition extends CoreEntity
     /**
      * @var bool
      *
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(name="is_displayed_publicly", type="boolean", options={"default" : false})
      */
     private $isDisplayedPublicly = false;
 
