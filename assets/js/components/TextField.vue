@@ -25,7 +25,7 @@
         name: 'TextField',
         props: {
             label: { type: [String, Boolean], default: false },
-            value: { type: String, required: false },
+            value: { type: [String, Number], required: false },
             placeholder: { type: String, required: false, default: "" },
             helpText: { type: String, required: false, default: "" },
         }
