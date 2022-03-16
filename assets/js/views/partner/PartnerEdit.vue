@@ -113,8 +113,8 @@ export default {
         },
         props: {
             new: {
-                type: String,
-                default: '',
+                type: Boolean,
+                default: false,
                 required: false
             },
             hasTitle: {

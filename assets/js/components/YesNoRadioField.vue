@@ -39,7 +39,7 @@
     export default {
         name: 'YesNoRadioField',
         props: {
-            value: { type: Boolean, required: true },
+            value: { type: Boolean, required: false },
             label: { type: String, required: true },
             helpText: { type: String, required: false, default: "" },
         }
