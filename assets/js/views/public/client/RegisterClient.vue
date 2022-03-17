@@ -146,7 +146,6 @@
                     />
                     <AttributesEditForm
                         v-model="client.attributes"
-                        :bootstrap-col-size="'col-md-6'"
                         :only-public-attributes="true"
                     />
                 </div>
