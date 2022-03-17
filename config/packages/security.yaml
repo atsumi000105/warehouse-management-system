@@ -69,4 +69,5 @@ security:
         - { path: ^/public/*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/clients/*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/storage-locations, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/zip-county/*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, roles: ROLE_USER }

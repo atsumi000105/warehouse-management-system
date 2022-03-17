@@ -126,6 +126,16 @@ class ClientAttributeFixtures extends BaseFixture
                 'type' => AttributeDefinition::TYPE_ADDRESS,
                 'interface' => AttributeValue::UI_ADDRESS,
                 'order_index' => 6,
+                'is_displayed_publicly' => false,
+            ],
+            [
+                'name' => 'zip_code',
+                'label' => 'Parent/Guardian Zip Code',
+                'description' => '',
+                'required' => true,
+                'type' => AttributeDefinition::TYPE_ZIPCODE,
+                'interface' => AttributeValue::UI_ZIPCODE,
+                'order_index' => 6,
                 'is_displayed_publicly' => true,
             ],
             [

@@ -90,12 +90,6 @@
                                     Check for Duplicate
                                 </button>
                             </div>
-                            <AttributesEditForm
-                                id="profile_tab"
-                                v-model="client.attributes"
-                                :value="[]"
-                                :filter="attribute => attribute.isDuplicateReference"
-                            />
                         </div>
                     </form>
                 </div>
