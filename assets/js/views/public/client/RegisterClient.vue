@@ -104,17 +104,17 @@
                             <div class="col">
                                 <table class="table table-hover">
                                     <thead>
-                                    <th>Partner</th>
-                                    <th>Partner Address</th>
+                                        <th>Partner</th>
+                                        <th>Partner Address</th>
                                     </thead>
                                     <tbody>
-                                    <tr
-                                        v-for="duplicate in duplicates"
-                                        :key="duplicate.id"
-                                    >
-                                        <td v-text="duplicate.partner ? duplicate.partner.title : ''" />
-                                        <td v-text="duplicate.partner ? duplicate.partner.fullAddress : ''" />
-                                    </tr>
+                                        <tr
+                                            v-for="duplicate in duplicates"
+                                            :key="duplicate.id"
+                                        >
+                                            <td v-text="duplicate.partner ? duplicate.partner.title : ''" />
+                                            <td v-text="duplicate.partner ? duplicate.partner.fullAddress : ''" />
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -171,11 +171,9 @@ import {required} from "vuelidate/lib/validators";
 import {mustLessThanNow} from "../../../validators";
 import DateField from "../../../components/DateField";
 import {mapGetters} from "vuex";
-import ClientTransferModal from "../../client/ClientTransferModal";
 import ClientInfoForm from "../../client/ClientInfoForm";
 import AttributesEditForm from "../../../components/AttributesEditForm";
 import FieldError from "../../../components/FieldError";
-import ModalOrderInvalid from "../../../components/ModalOrderInvalid";
 
 export default {
     components: {

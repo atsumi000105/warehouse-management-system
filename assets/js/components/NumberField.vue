@@ -8,7 +8,7 @@
             class="attribute-help-text fa fa-question-circle"
         />
         <input
-            :value="value"
+            :value="selected_value"
             type="number"
             class="form-control"
             :placeholder="placeholder"
@@ -21,12 +21,47 @@
 <script>
 export default {
     name: "NumberField",
+
     props: {
-        value: { type: Number },
-        label: { type: String, required: true },
-        helpText: { type: String, requird: false, default: "" },
-        placeholder: { type: [String, Number] },
-        disabled: { type: Boolean, default: false }
-    }
+        value: {
+            type: [
+                Number,
+                String,
+            ],
+        },
+        label: {
+            type: String,
+            required: true
+        },
+        helpText: {
+            type: String,
+            requird: false,
+            default: ""
+        },
+        placeholder: {
+            type: [
+                String,
+                Number
+            ]
+        },
+        disabled: {
+            type: Boolean,
+            default: false
+        }
+    },
+
+    data() {
+        return {
+            selected_value: '',
+        }
+    },
+
+    watch: {
+        value(val) {
+            if (val) {
+                this.selected_value = val;
+            }
+        },
+    },
 };
 </script>

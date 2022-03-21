@@ -9,7 +9,7 @@
         />
         <select
             v-if="!groupProperty"
-            v-model="value"
+            v-model="selected_values"
             v-chosen
             class="form-control"
             :class="{'loaded': loaded}"
@@ -30,7 +30,7 @@
         </select>
         <select
             v-else
-            v-model="value"
+            v-model="selected_values"
             v-chosen
             class="form-control"
             :class="{'loaded': loaded}"
@@ -77,6 +77,7 @@
         data() {
             return {
                 listOptions: [],
+                selected_values: [],
             }
         },
         computed: {
@@ -130,6 +131,14 @@
                     this.$emit('input', $event.target.value);
                 }
             }
-        }
+        },
+
+        watch: {
+            value(vals) {
+                if (vals) {
+                    this.selected_values = vals;
+                }
+            },
+        },
     }
 </script>

@@ -14,7 +14,7 @@
         >
             <label>
                 <input
-                    v-model="value"
+                    v-model="selected_value"
                     type="radio"
                     :value="option.id"
                     @change="$emit('input', $event.target.value)"
@@ -29,23 +29,54 @@
     export default {
         name: 'RadioField',
         props: {
-            value: { type: String, required: false },
-            label: { type: String },
-            helpText: { type: String, requird: false, default: "" },
-            displayProperty: { type: String, default: 'name'},
-            displayTextFn: { type: Function },
-            preloadedOptions: { type: Array, default: function() {return []}},
-            alphabetize: { type: Boolean, default: true },
+            value: {
+                type: String,
+                required: false
+            },
+            label: {
+                type: String
+            },
+            helpText: {
+                type: String,
+                requird: false,
+                default: ""
+            },
+            displayProperty: {
+                type: String,
+                default: 'name'
+            },
+            displayTextFn: {
+                type: Function
+            },
+            preloadedOptions: {
+                type: Array,
+                default: function() {
+                    return []
+                }
+            },
+            alphabetize: {
+                type: Boolean,
+                default: true
+            },
         },
+
         data() {
             return {
                 listOptions: [],
+                selected_value: '',
             }
         },
+
         computed: {
-            loaded: function() { return this.options.length > 0 },
-            options: function() { return this.listOptions.length > 0 ? this.listOptions : this.preloadedOptions },
+            loaded: function() {
+                return this.options.length > 0
+            },
+
+            options: function() {
+                return this.listOptions.length > 0 ? this.listOptions : this.preloadedOptions
+            },
         },
+
         methods: {
             displayText: function(item) {
                 if (this.displayTextFn) {
@@ -56,5 +87,12 @@
             }
         },
 
+        watch: {
+            value(val) {
+                if (val) {
+                    this.selected_value = val;
+                }
+            },
+        },
     }
 </script>

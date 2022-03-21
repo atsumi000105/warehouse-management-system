@@ -14,7 +14,7 @@
         >
             <label>
                 <input
-                    v-model="value"
+                    v-model="selected_values"
                     type="checkbox"
                     :value="option.id"
                     :name="'chekbox-group-'+name"
@@ -30,24 +30,60 @@
     export default {
         name: 'CheckboxGroupField',
         props: {
-            value: { type: [String, Array], required: true },
-            name: { type: String, required: true },
-            label: { type: String },
-            helpText: { type: String, required: false, default: "" },
-            displayProperty: { type: String, default: 'name'},
-            displayTextFn: { type: Function },
-            preloadedOptions: { type: Array, default: function() {return []}},
-            alphabetize: { type: Boolean, default: true }
+            value: {
+                type: [
+                    String,
+                    Array
+                ],
+                required: true
+            },
+            name: {
+                type: String,
+                required: true
+            },
+            label: {
+                type: String
+            },
+            helpText: {
+                type: String,
+                required: false,
+                default: ""
+            },
+            displayProperty: {
+                type: String,
+                default: 'name'
+            },
+            displayTextFn: {
+                type: Function
+            },
+            preloadedOptions: {
+                type: Array,
+                default: function() {
+                    return []
+                }
+            },
+            alphabetize: {
+                type: Boolean,
+                default: true
+            }
         },
         data() {
             return {
                 listOptions: [],
+                selected_values: [],
             }
         },
+
         computed: {
-            loaded: function() { return this.options.length > 0 },
-            options: function() { return this.listOptions.length > 0 ? this.listOptions : this.preloadedOptions },
+            loaded: function() {
+                return this.options.length > 0
+            },
+
+            options: function() {
+                return this.listOptions.length > 0 ? this.listOptions : this.preloadedOptions
+            },
         },
+
         methods: {
             displayText: function(item) {
                 if (this.displayTextFn) {
@@ -56,6 +92,14 @@
                     return item[this.displayProperty];
                 }
             }
+        },
+
+        watch: {
+            value(vals) {
+                if (vals) {
+                    this.selected_values = vals;
+                }
+            },
         },
 
     }
