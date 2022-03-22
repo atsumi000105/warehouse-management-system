@@ -14,9 +14,9 @@
                         class="form-control"
                         placeholder="Enter first name"
                     >
-                    <fielderror v-if="$v.value.firstName.$error">
+                    <div v-if="$v.value.firstName.$error">
                         First Name is required
-                    </fielderror>
+                    </div>
                 </div>
             </div>
 
@@ -29,9 +29,9 @@
                         class="form-control"
                         placeholder="Enter last name"
                     >
-                    <fielderror v-if="$v.value.lastName.$error">
+                    <div v-if="$v.value.lastName.$error">
                         Last Name is required
-                    </fielderror>
+                    </div>
                 </div>
             </div>
         </div>
@@ -65,9 +65,9 @@
                     label="Birthdate"
                     format="YYYY-MM-DD"
                 />
-                <fielderror v-if="$v.value.birthdate.$error">
+                <div v-if="$v.value.birthdate.$error">
                     Birthdate should be a date in the past
-                </fielderror>
+                </div>
             </div>
         </div>
 
@@ -150,16 +150,26 @@ export default {
         new: {
             type: Boolean,
             default: false,
-            required: false
+            required: false,
         },
         showExpirations: {
             type: Boolean,
             default: true,
-            required: false
+            required: false,
         },
-        value: { required: true, type: [Object, Array] },
-        readOnlyExpiration: { type: Boolean, default: false }
+        value: {
+            required: true,
+            type: [
+                Object,
+                Array,
+            ],
+        },
+        readOnlyExpiration: {
+            type: Boolean,
+            default: false,
+        }
     },
+
     validations: {
         value: {
             firstName: {
@@ -174,7 +184,9 @@ export default {
             }
         }
     },
+
     computed: mapGetters(["allPartners"]),
+
     created() {
         let self = this;
 

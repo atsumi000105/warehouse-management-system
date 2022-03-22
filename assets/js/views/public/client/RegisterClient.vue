@@ -25,7 +25,7 @@
                 <h3>Duplicate Check</h3>
             </div>
             <div class="row">
-                <div class="col-md-6 col-md-offset-1">
+                <div v-if="!checked" class="col-md-6 col-md-offset-1">
                     <h4>Please enter your child's First Name, Last Name, and Birth Date to see if we already have a record for you.</h4>
                     <form>
                         <div class="form-row">
@@ -163,6 +163,7 @@
                 </div>
             </div>
         </div>
+        <modalinvalid />
     </div>
 </template>
 
@@ -174,6 +175,7 @@ import {mapGetters} from "vuex";
 import ClientInfoForm from "../../client/ClientInfoForm";
 import AttributesEditForm from "../../../components/AttributesEditForm";
 import FieldError from "../../../components/FieldError";
+import ModalOrderInvalid from "../../../components/ModalOrderInvalid";
 
 export default {
     components: {
@@ -181,6 +183,7 @@ export default {
         DateField,
         AttributesEditForm,
         fielderror: FieldError,
+        modalinvalid: ModalOrderInvalid
     },
 
     data() {
@@ -290,18 +293,6 @@ export default {
                     console.log("Save this.client error %o", error);
                 });
         },
-
-        onTransferClicked: function(client) {
-            this.transferClient = client;
-            $("#clientTransferModal").modal("show");
-        },
-
-        transferButtonTooltip: function(rowData) {
-            if (rowData.canPartnerTransfer) {
-                return "Transfer client to " + this.userActivePartner.title;
-            }
-            return "This client is not in a transferable status or you do not have access.";
-        }
     }
 };
 </script>
