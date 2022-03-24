@@ -1,6 +1,12 @@
 <template>
-    <div class="form-group">
-        <label v-text="label" />
+    <div :class="getFieldClass($v)">
+        <label v-if="label">
+            {{ label }}
+            <i
+                v-if="isRequired"
+                class="fas fa-asterisk fa-fw text-danger"/>
+        </label>
+
         <i
             v-if="helpText"
             v-tooltip
@@ -19,88 +25,118 @@
                     :value="option.id"
                     :name="'chekbox-group-'+name"
                     @change="$emit('input', value)"
+                    @blur="$v.$touch()"
                 >
                 {{ displayText(option) }}
             </label>
         </div>
+        <FieldError v-if="$v.value.$error">
+            <strong>Field is required</strong>
+        </FieldError>
     </div>
 </template>
 
 <script>
-    export default {
-        name: 'CheckboxGroupField',
-        props: {
-            value: {
-                type: [
-                    String,
-                    Array
-                ],
-                required: true
-            },
-            name: {
-                type: String,
-                required: true
-            },
-            label: {
-                type: String
-            },
-            helpText: {
-                type: String,
-                required: false,
-                default: ""
-            },
-            displayProperty: {
-                type: String,
-                default: 'name'
-            },
-            displayTextFn: {
-                type: Function
-            },
-            preloadedOptions: {
-                type: Array,
-                default: function() {
-                    return []
-                }
-            },
-            alphabetize: {
-                type: Boolean,
-                default: true
+import {required} from "vuelidate/lib/validators";
+import FieldError from "./FieldError";
+
+export default {
+    name: 'CheckboxGroupField',
+
+    components: {
+      FieldError
+    },
+
+    props: {
+        value: {
+            type: [
+                String,
+                Array
+            ],
+            required: true
+        },
+        isRequired: {
+          type: Boolean,
+          required: false,
+          default: false,
+        },
+        name: {
+            type: String,
+            required: true
+        },
+        label: {
+            type: String
+        },
+        helpText: {
+            type: String,
+            required: false,
+            default: ""
+        },
+        displayProperty: {
+            type: String,
+            default: 'name'
+        },
+        displayTextFn: {
+            type: Function
+        },
+        preloadedOptions: {
+            type: Array,
+            default: function() {
+                return []
             }
         },
-        data() {
-            return {
-                listOptions: [],
-                selected_values: [],
+        alphabetize: {
+            type: Boolean,
+            default: true
+        }
+    },
+
+    validations() {
+      return (this.isRequired) ? { value: { required } } : { value: {} };
+    },
+
+    data() {
+        return {
+            listOptions: [],
+            selected_values: [],
+        }
+    },
+
+    computed: {
+        loaded: function() {
+            return this.options.length > 0
+        },
+
+        options: function() {
+            return this.listOptions.length > 0 ? this.listOptions : this.preloadedOptions
+        },
+    },
+
+  methods: {
+        displayText: function(item) {
+            if (this.displayTextFn) {
+                return this.displayTextFn(item);
+            } else {
+                return item[this.displayProperty];
             }
         },
 
-        computed: {
-            loaded: function() {
-                return this.options.length > 0
-            },
+        getFieldClass: function(v) {
+            if (v.value.$error) {
+                return 'form-group has-error';
+            }
 
-            options: function() {
-                return this.listOptions.length > 0 ? this.listOptions : this.preloadedOptions
-            },
+            return 'form-group';
         },
+    },
 
-        methods: {
-            displayText: function(item) {
-                if (this.displayTextFn) {
-                    return this.displayTextFn(item);
-                } else {
-                    return item[this.displayProperty];
-                }
+    watch: {
+        value(vals) {
+            if (vals) {
+                this.selected_values = vals;
             }
         },
+    },
 
-        watch: {
-            value(vals) {
-                if (vals) {
-                    this.selected_values = vals;
-                }
-            },
-        },
-
-    }
+}
 </script>

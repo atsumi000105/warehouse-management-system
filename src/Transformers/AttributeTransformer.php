@@ -32,6 +32,7 @@ class AttributeTransformer extends TransformerAbstract
             'orderIndex' => $attribute->getDefinition()->getOrderIndex(),
             'hasOptions' => $attribute->hasOptions(),
             'isDisplayedPublicly' => $attribute->getDefinition()->getIsDisplayedPublicly(),
+            'isRequired' => $attribute->getDefinition()->getRequired(),
         ];
     }
 

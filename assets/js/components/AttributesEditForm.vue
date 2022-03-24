@@ -12,24 +12,28 @@
                         v-model="attribute.value"
                         :label="attribute.label"
                         :help-text="attribute.helpText"
+                        :is-required="attribute.isRequired"
                     />
                     <YesNoRadioField
                         v-else-if="attribute.displayInterface === 'YES_NO_RADIO'"
                         v-model="attribute.value"
                         :label="attribute.label"
                         :help-text="attribute.helpText"
+                        :is-required="attribute.isRequired"
                     />
                     <DateField
                         v-else-if="attribute.displayInterface === 'DATETIME'"
                         v-model="attribute.value"
                         :label="attribute.label"
                         :help-text="attribute.helpText"
+                        :is-required="attribute.isRequired"
                     />
                     <NumberField
                         v-else-if="attribute.displayInterface === 'NUMBER'"
                         v-model="attribute.value"
                         :label="attribute.label"
                         :help-text="attribute.helpText"
+                        :is-required="attribute.isRequired"
                     />
                     <OptionListApi
                         v-else-if="attribute.displayInterface === 'SELECT_SINGLE'"
@@ -37,6 +41,7 @@
                         :label="attribute.label"
                         :help-text="attribute.helpText"
                         :preloaded-options="attribute.options"
+                        :is-required="attribute.isRequired"
                     />
                     <OptionListApi
                         v-else-if="attribute.displayInterface === 'SELECT_MULTI'"
@@ -45,6 +50,7 @@
                         :help-text="attribute.helpText"
                         :preloaded-options="attribute.options"
                         :multiple="true"
+                        :is-required="attribute.isRequired"
                     />
                     <RadioField
                         v-else-if="attribute.displayInterface === 'RADIO'"
@@ -52,6 +58,7 @@
                         :label="attribute.label"
                         :help-text="attribute.helpText"
                         :preloaded-options="attribute.options"
+                        :is-required="attribute.isRequired"
                     />
                     <CheckboxGroupField
                         v-else-if="attribute.displayInterface === 'CHECKBOX_GROUP'"
@@ -60,36 +67,42 @@
                         :label="attribute.label"
                         :help-text="attribute.helpText"
                         :preloaded-options="attribute.options"
+                        :is-required="attribute.isRequired"
                     />
                     <TextareaField
                         v-else-if="attribute.displayInterface === 'TEXTAREA'"
                         v-model="attribute.value"
                         :label="attribute.label"
                         :help-text="attribute.helpText"
+                        :is-required="attribute.isRequired"
                     />
                     <AddressField
                         v-else-if="displayAddressFiled(attribute)"
                         v-model="attribute.value"
                         :label="attribute.label"
                         :help-text="attribute.helpText"
+                        :is-required="attribute.isRequired"
                     />
                     <ZipCountyField
                         v-else-if="attribute.displayInterface === 'ZIPCODE'"
                         v-model="attribute.value"
                         :label="attribute.label"
                         :help-text="attribute.helpText"
+                        :is-required="attribute.isRequired"
                     />
                     <FileUploadField
                         v-else-if="attribute.displayInterface === 'FILE_UPLOAD'"
                         v-model="attribute.value"
                         :label="attribute.label"
                         :help-text="attribute.helpText"
+                        :is-required="attribute.isRequired"
                     />
                     <TextField
                         v-else
                         v-model="attribute.value"
                         :label="attribute.label"
                         :help-text="attribute.helpText"
+                        :is-required="attribute.isRequired"
                     />
                 </template>
             </div>
@@ -111,9 +124,10 @@
     import AddressField from "./AddressField";
     import ZipCountyField from "./ZipCountyField";
     import FileUploadField from "./FileUploadField";
-    import attributeTypes from "../store/modules/attributeTypes";
+
     export default {
         name: 'AttributesEditForm',
+
         components: {
             FileUploadField,
             CheckboxGroupField,
@@ -167,10 +181,18 @@
                 }
 
                 return []
-            }
+            },
         },
 
         methods: {
+            checkIfAttributeIsRequired: function (attribute) {
+                if (this.showAttributeField(attribute) && attribute.isRequired) {
+                    return true;
+                }
+
+                return false;
+            },
+
             displayAddressFiled: function(attribute) {
                 if (attribute.displayInterface === 'ADDRESS' && this.showAddressComponent === true) {
                     return true;

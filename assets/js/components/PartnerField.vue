@@ -35,17 +35,37 @@
             OptionListEntity
         },
         props: {
-            value: { required: true, type: [Object, Array] },
-            label: { type: String, default: "Partner" },
-            multiple: { type: Boolean, default: false },
+            value: {
+                required: true,
+                type: [
+                    Object,
+                    Array
+                ]
+            },
+            label: {
+                type: String,
+                default: "Partner"
+            },
+            multiple: {
+                type: Boolean,
+                default: false
+            },
+            isRequired: {
+                type: Boolean,
+                required: false,
+                default: false,
+            },
         },
+
         computed: mapGetters([
             'allActivePartners'
         ]),
+
         mounted: function () {
             this.$store.dispatch('loadStorageLocations');
             this.$refs.partnerSelect.$on('change', eventData => this.onSelectionChange(eventData))
         },
+
         methods: {
             onSelectionChange: function ( values) {
                 this.$emit('input', values);

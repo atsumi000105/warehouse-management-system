@@ -1,6 +1,11 @@
 <template>
-    <div class="form-group">
-        <label v-text="label" />
+    <div :class="getFieldClass($v)">
+        <label v-if="label">
+            {{ label }}
+            <i
+                v-if="isRequired"
+                class="fas fa-asterisk fa-fw text-danger"/>
+        </label>
         <i
             v-if="helpText"
             v-tooltip
@@ -14,13 +19,24 @@
             :placeholder="placeholder"
             :disabled="disabled"
             @input="$emit('input', $event.target.value)"
+            @blur="$v.$touch()"
         >
+        <FieldError v-if="$v.value.$error">
+            Field is required
+        </FieldError>
     </div>
 </template>
 
 <script>
+import {required} from "vuelidate/lib/validators";
+import FieldError from "./FieldError";
+
 export default {
     name: "NumberField",
+
+    components: {
+        FieldError
+    },
 
     props: {
         value: {
@@ -47,13 +63,32 @@ export default {
         disabled: {
             type: Boolean,
             default: false
-        }
+        },
+        isRequired: {
+            type: Boolean,
+            required: false,
+            default: false,
+        },
+    },
+
+    validations() {
+        return (this.isRequired) ? { value: { required } } : { value: {} };
     },
 
     data() {
         return {
             selected_value: '',
         }
+    },
+
+    methods: {
+        getFieldClass: function(v) {
+            if (v.value.$error) {
+                return 'form-group has-error';
+            }
+
+            return 'form-group';
+        },
     },
 
     watch: {

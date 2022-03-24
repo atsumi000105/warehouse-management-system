@@ -145,6 +145,7 @@
                         :new="false"
                     />
                     <AttributesEditForm
+                        ref="attributesEditForm"
                         v-model="client.attributes"
                         :only-public-attributes="true"
                     />
@@ -260,8 +261,6 @@ export default {
                 return false;
             }
 
-            console.log(this.client);
-
             axios
                 .post("/api/clients/new-check", this.client, {
                     params: { include: ["partner", "lastDistribution", "lastDistribution.order"] }
@@ -275,16 +274,129 @@ export default {
                 });
         },
 
+        /*checkChildren: function(children) {
+            let hasError = false;
+            const self = this;
+
+            children.forEach(child => {
+
+                if (child.$children) {
+                    self.checkChildren(child.$children);
+                }
+
+                if (child.$v) {
+                    child.$v.touch();
+                    if (child.$v.$error) {
+                        hasError = true;
+                    }
+                }
+            });
+
+            return hasError;
+        },*/
+
         save: function() {
             let self = this;
+            let hasErrors = false;
 
-            if (this.$refs.clientInfoForm) {
+            /*if (this.$refs.clientInfoForm) {
                 this.$refs.clientInfoForm.$v.$touch();
                 if (this.$refs.clientInfoForm.$v.$invalid) {
                     $("#invalidModal").modal("show");
                     return false;
                 }
+            }*/
+
+            if (this.$refs.clientInfoForm) {
+
+                if (this.$refs.clientInfoForm.$children) {
+                    this.$refs.clientInfoForm.$children.forEach(child => {
+                        if (child.$children) {
+                            child.$children.forEach(grandChild => {
+
+                                if (grandChild.$children) {
+                                    grandChild.$children.forEach(x => {
+                                        if (x.$v) {
+                                            x.$v.$touch();
+
+                                            if (x.$v.$error) {
+                                                alert('has Error');
+                                            }
+                                        }
+                                    });
+                                }
+
+
+                                if (grandChild.$v) {
+                                    grandChild.$v.$touch();
+
+                                    if (grandChild.$v.$error) {
+                                        alert('has Error');
+                                    }
+                                }
+                            });
+                        }
+
+                        if (child.$v) {
+                            child.$v.$touch();
+
+                            if (child.$v.$error) {
+                                alert('has Error');
+                            }
+                        }
+
+                    });
+                }
+
+                this.$refs.clientInfoForm.$v.$touch();
+                if (this.$refs.clientInfoForm.$v.$error) {
+                    $("#invalidModal").modal("show");
+                    return false;
+                }
             }
+
+            /*if (hasErrors) {
+                $("#invalidModal").modal("show");
+                return false;
+            }*/
+
+            if (this.$refs.attributesEditForm && this.$refs.attributesEditForm.$children) {
+
+                let hasInvalidData2 = false;
+
+                this.$refs.attributesEditForm.$children.forEach(child => {
+
+                    if (child.$children) {
+
+                        child.$children.forEach(grandChild => {
+
+                            if (grandChild.$v) {
+                                grandChild.$v.$touch();
+
+                                if (grandChild.$v.$error) {
+                                    hasInvalidData2 = true;
+                                }
+                            }
+                        });
+                    }
+
+                    if (child.$v) {
+                        child.$v.$touch();
+
+                        if (child.$v.$error) {
+                            hasInvalidData2 = true;
+                        }
+                    }
+                });
+
+                if (hasInvalidData2) {
+                    $("#invalidModal").modal("show");
+
+                    return false;
+                }
+            }
+
+            //console.log('hello', this.$refs); return 0;
 
             axios
                 .post("/api/public/client", this.client)

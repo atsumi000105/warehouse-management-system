@@ -1,4 +1,6 @@
 // Make sure at least one line item has a non-zero quantity
+import {value} from "lodash/seq";
+
 export const linesRequired = (value) =>
     value.reduce(function (valid, line) {
         return valid ? valid : Boolean(Number(line.quantity ? line.quantity : 0));

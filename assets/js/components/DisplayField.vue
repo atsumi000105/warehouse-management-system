@@ -11,9 +11,26 @@
 <script>
     export default {
         name: 'DisplayField',
+
         props: {
-            label: { type: [String, Boolean], default: false },
-            value: { type: [String, Number] },
+            label: {
+                type: [
+                    String,
+                    Boolean
+                ],
+                default: false
+            },
+            value: {
+                type: [
+                    String,
+                    Number
+                ]
+            },
+            isRequired: {
+                type: Boolean,
+                required: false,
+                default: false
+            },
         }
     }
 </script>

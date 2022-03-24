@@ -6,7 +6,10 @@
 
         <div class="form-group">
             <div class="col-md-6">
-                <label>First Name</label>
+                <label>
+                    First Name
+                    <i class="fas fa-asterisk fa-fw text-danger"/>
+                </label>
                 <div :class="{ 'has-error': $v.value.firstName.$error }">
                     <input
                         v-model="value.firstName"
@@ -14,14 +17,17 @@
                         class="form-control"
                         placeholder="Enter first name"
                     >
-                    <div v-if="$v.value.firstName.$error">
+                    <FieldError v-if="$v.value.firstName.$error">
                         First Name is required
-                    </div>
+                    </FieldError>
                 </div>
             </div>
 
             <div class="col-md-6">
-                <label>Last Name</label>
+                <label>
+                    Last Name
+                    <i class="fas fa-asterisk fa-fw text-danger"/>
+                </label>
                 <div :class="{ 'has-error': $v.value.lastName.$error }">
                     <input
                         v-model="value.lastName"
@@ -29,32 +35,48 @@
                         class="form-control"
                         placeholder="Enter last name"
                     >
-                    <div v-if="$v.value.lastName.$error">
+                    <FieldError v-if="$v.value.lastName.$error">
                         Last Name is required
-                    </div>
+                    </FieldError>
                 </div>
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-6">
-                <label>Parent/Guardian First Name</label>
-                <input
-                    v-model="value.parentFirstName"
-                    type="text"
-                    class="form-control"
-                    placeholder="Enter parent or guardian first name"
-                >
+                <label>
+                    Parent/Guardian First Name
+                    <i class="fas fa-asterisk fa-fw text-danger"/>
+                </label>
+                <div :class="{ 'has-error': $v.value.parentFirstName.$error }">
+                    <input
+                        v-model="value.parentFirstName"
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter parent or guardian first name"
+                    >
+                    <FieldError v-if="$v.value.parentFirstName.$error">
+                        Last Name is required
+                    </FieldError>
+                </div>
             </div>
 
             <div class="col-md-6">
-                <label>Parent/Guardian Last Name</label>
-                <input
-                    v-model="value.parentLastName"
-                    type="text"
-                    class="form-control"
-                    placeholder="Enter parent or guardian last name"
-                >
+                <label>
+                    Parent/Guardian Last Name
+                    <i class="fas fa-asterisk fa-fw text-danger"/>
+                </label>
+                <div :class="{ 'has-error': $v.value.parentLastName.$error }">
+                    <input
+                        v-model="value.parentLastName"
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter parent or guardian last name"
+                    >
+                    <FieldError v-if="$v.value.parentLastName.$error">
+                        Last Name is required
+                    </FieldError>
+                </div>
             </div>
         </div>
 
@@ -65,9 +87,9 @@
                     label="Birthdate"
                     format="YYYY-MM-DD"
                 />
-                <div v-if="$v.value.birthdate.$error">
+                <FieldError v-if="$v.value.birthdate.$error">
                     Birthdate should be a date in the past
-                </div>
+                </FieldError>
             </div>
         </div>
 
@@ -77,6 +99,7 @@
                 label="Assigned Partner"
                 :options="allPartners"
                 :editable="!this.new"
+                :is-required="true"
             />
         </div>
 
@@ -136,16 +159,20 @@ import ClientDistributionHistory from "./ClientDistributionHistory";
 import { required } from "vuelidate/lib/validators";
 import { mustLessThanNow } from "../../validators";
 import { mapGetters } from "vuex";
+import FieldError from "../../components/FieldError";
 
 export default {
     name: "ClientInfoForm",
+
     components: {
         DisplayField,
         NumberField,
         BooleanField,
         DateField,
-        PartnerSelectionForm
+        PartnerSelectionForm,
+        FieldError,
     },
+
     props: {
         new: {
             type: Boolean,
@@ -173,10 +200,16 @@ export default {
     validations: {
         value: {
             firstName: {
-                required
+                required,
             },
             lastName: {
-                required
+                required,
+            },
+            parentFirstName: {
+                required,
+            },
+            parentLastName: {
+                required,
             },
             birthdate: {
                 required,
