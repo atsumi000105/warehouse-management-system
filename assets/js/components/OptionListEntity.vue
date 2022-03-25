@@ -121,11 +121,11 @@ export default {
     },
 
     validations () {
-        if (this.apiPath === 'zip-county') {
+        //if (this.apiPath === 'zip-county') {
             return (this.isRequired) ? { value: { id: {required} } } : { value: {} };
-        }
+        //}
 
-        return (this.isRequired) ? { value: { required } } : { value: {} };
+        //return (this.isRequired) ? { value: { required } } : { value: {} };
     },
 
     computed: {

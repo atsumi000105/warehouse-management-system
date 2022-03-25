@@ -274,7 +274,7 @@ export default {
                 });
         },
 
-        /*checkChildren: function(children) {
+        checkChildren: function(children) {
             let hasError = false;
             const self = this;
 
@@ -293,7 +293,7 @@ export default {
             });
 
             return hasError;
-        },*/
+        },
 
         save: function() {
             let self = this;
@@ -306,6 +306,9 @@ export default {
                     return false;
                 }
             }*/
+
+            let clientInfoFormHasError = false;
+            let attributesEditFormHasError = false;
 
             if (this.$refs.clientInfoForm) {
 
@@ -320,18 +323,17 @@ export default {
                                             x.$v.$touch();
 
                                             if (x.$v.$error) {
-                                                alert('has Error');
+                                                clientInfoFormHasError = true;
                                             }
                                         }
                                     });
                                 }
 
-
                                 if (grandChild.$v) {
                                     grandChild.$v.$touch();
 
                                     if (grandChild.$v.$error) {
-                                        alert('has Error');
+                                        clientInfoFormHasError = true;
                                     }
                                 }
                             });
@@ -341,7 +343,7 @@ export default {
                             child.$v.$touch();
 
                             if (child.$v.$error) {
-                                alert('has Error');
+                                clientInfoFormHasError = true;
                             }
                         }
 
@@ -350,8 +352,7 @@ export default {
 
                 this.$refs.clientInfoForm.$v.$touch();
                 if (this.$refs.clientInfoForm.$v.$error) {
-                    $("#invalidModal").modal("show");
-                    return false;
+                    clientInfoFormHasError = true;
                 }
             }
 
@@ -361,8 +362,6 @@ export default {
             }*/
 
             if (this.$refs.attributesEditForm && this.$refs.attributesEditForm.$children) {
-
-                let hasInvalidData2 = false;
 
                 this.$refs.attributesEditForm.$children.forEach(child => {
 
@@ -374,7 +373,7 @@ export default {
                                 grandChild.$v.$touch();
 
                                 if (grandChild.$v.$error) {
-                                    hasInvalidData2 = true;
+                                    attributesEditFormHasError = true;
                                 }
                             }
                         });
@@ -384,16 +383,15 @@ export default {
                         child.$v.$touch();
 
                         if (child.$v.$error) {
-                            hasInvalidData2 = true;
+                            attributesEditFormHasError = true;
                         }
                     }
                 });
+            }
 
-                if (hasInvalidData2) {
-                    $("#invalidModal").modal("show");
-
-                    return false;
-                }
+            if (clientInfoFormHasError || attributesEditFormHasError) {
+                $("#invalidModal").modal("show");
+                return false;
             }
 
             //console.log('hello', this.$refs); return 0;
