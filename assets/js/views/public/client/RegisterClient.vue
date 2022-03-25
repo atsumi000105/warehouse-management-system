@@ -297,15 +297,6 @@ export default {
 
         save: function() {
             let self = this;
-            let hasErrors = false;
-
-            /*if (this.$refs.clientInfoForm) {
-                this.$refs.clientInfoForm.$v.$touch();
-                if (this.$refs.clientInfoForm.$v.$invalid) {
-                    $("#invalidModal").modal("show");
-                    return false;
-                }
-            }*/
 
             let clientInfoFormHasError = false;
             let attributesEditFormHasError = false;
@@ -356,11 +347,6 @@ export default {
                 }
             }
 
-            /*if (hasErrors) {
-                $("#invalidModal").modal("show");
-                return false;
-            }*/
-
             if (this.$refs.attributesEditForm && this.$refs.attributesEditForm.$children) {
 
                 this.$refs.attributesEditForm.$children.forEach(child => {
@@ -389,12 +375,16 @@ export default {
                 });
             }
 
+            console.log('clientInfoFormHasError', clientInfoFormHasError);
+            console.log('attributesEditFormHasError', attributesEditFormHasError);
+            console.log('clientInfoFormHasError || attributesEditFormHasError', clientInfoFormHasError || attributesEditFormHasError);
+
+            console.log('this.client: ', this.client);
+
             if (clientInfoFormHasError || attributesEditFormHasError) {
                 $("#invalidModal").modal("show");
                 return false;
             }
-
-            //console.log('hello', this.$refs); return 0;
 
             axios
                 .post("/api/public/client", this.client)
