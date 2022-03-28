@@ -31,7 +31,7 @@
             v-model="value[property]"
             v-chosen
             class="form-control"
-            @change="onChange"
+            @change="onChange(e, $v)"
             @blur="$v.$touch()"
         >
             <option
@@ -175,17 +175,15 @@ export default {
     },
 
     methods: {
-        onChange: function(event) {
+        onChange: function(event, v) {
+            if (this.value.id) {
+                v.$reset();
+            }
+
             this.$emit('change', event);
         },
 
         getFieldClass: function(v) {
-
-            /*if (this.apiPath === 'zip-county') {
-                console.log('this.value: ', this.value.id);
-                console.log('v: ', v);
-            }*/
-
             if (v.value.$error) {
                 return 'form-group has-error';
             }
