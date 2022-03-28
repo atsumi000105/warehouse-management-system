@@ -12,6 +12,7 @@
                 empty-string="-- Select Partner --"
                 :label="label"
                 :is-required="isRequired"
+                @change="onSelectionChange"
             />
         </div>
         <div

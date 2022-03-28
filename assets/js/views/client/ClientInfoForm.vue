@@ -160,6 +160,7 @@ import { required } from "vuelidate/lib/validators";
 import { mustLessThanNow } from "../../validators";
 import { mapGetters } from "vuex";
 import FieldError from "../../components/FieldError";
+import axios from "axios";
 
 export default {
     name: "ClientInfoForm",
@@ -214,7 +215,7 @@ export default {
             birthdate: {
                 required,
                 mustLessThanNow
-            }
+            },
         }
     },
 
@@ -224,6 +225,6 @@ export default {
         let self = this;
 
         console.log("ClientEdit Component mounted.");
-    }
+    },
 };
 </script>
