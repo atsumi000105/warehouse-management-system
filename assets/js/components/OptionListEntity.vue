@@ -179,11 +179,7 @@ export default {
     },
 
     methods: {
-        onChange: function(event, v) {
-            if (this.value.id) {
-                v.$reset();
-            }
-
+        onChange: function(event) {
             this.$emit('change', event);
         },
 

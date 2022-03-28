@@ -24,7 +24,7 @@
                     type="checkbox"
                     :value="option.id"
                     :name="'chekbox-group-'+name"
-                    @change="$emit('input', value)"
+                    @change="$emit('input', selected_values)"
                     @blur="$v.$touch()"
                 >
                 {{ displayText(option) }}
