@@ -11,7 +11,7 @@
             v-model="value[property]"
             v-chosen
             class="form-control"
-            @change="onChange"
+            @change="onChange($event, $v)"
             @blur="$v.$touch()"
         >
             <option
@@ -31,7 +31,7 @@
             v-model="value[property]"
             v-chosen
             class="form-control"
-            @change="onChange(e, $v)"
+            @change="onChange($event, $v)"
             @blur="$v.$touch()"
         >
             <option
@@ -121,6 +121,10 @@ export default {
     },
 
     validations () {
+        if (this.property !== 'id') {
+            return (this.isRequired) ? { value: { property: {required} } } : { value: {} };
+        }
+
         return (this.isRequired) ? { value: { id: {required} } } : { value: {} };
     },
 
