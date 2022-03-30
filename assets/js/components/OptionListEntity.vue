@@ -73,6 +73,10 @@ export default {
         value: {
             type: Object
         },
+        validate: {
+            type: Boolean,
+            default: true,
+        },
         label: {
             type: [
                 String,
@@ -122,10 +126,10 @@ export default {
 
     validations () {
         if (this.property !== 'id') {
-            return (this.isRequired) ? { value: { property: {required} } } : { value: {} };
+            return (this.isRequired && this.validate) ? { value: { property: {required} } } : { value: {} };
         }
 
-        return (this.isRequired) ? { value: { id: {required} } } : { value: {} };
+        return (this.isRequired && this.validate) ? { value: { id: {required} } } : { value: {} };
     },
 
     computed: {

@@ -94,13 +94,20 @@
         </div>
 
         <div class="col-md-6">
-            <PartnerSelectionForm
-                v-model="value.partner"
-                label="Assigned Partner"
-                :options="allPartners"
-                :editable="!this.new"
-                :is-required="true"
-            />
+            <div :class="{ 'has-error': $v.partner.id.$error }">
+                <PartnerSelectionForm
+                    v-model="partner"
+                    label="Assigned Partner"
+                    :options="allPartners"
+                    :editable="!this.new"
+                    :is-required="true"
+                    :validate="false"
+                    @partner-change="updatePartner"
+                />
+                <FieldError v-if="$v.partner.id.$error">
+                    Partner is required
+                </FieldError>
+            </div>
         </div>
 
         <div class="col-md-6">
@@ -198,6 +205,14 @@ export default {
         }
     },
 
+    data() {
+        return {
+            partner: {
+                id: null,
+            }
+        }
+    },
+
     validations: {
         value: {
             firstName: {
@@ -216,7 +231,12 @@ export default {
                 required,
                 mustLessThanNow
             },
-        }
+        },
+        partner: {
+            id: {
+                required,
+            },
+        },
     },
 
     computed: mapGetters(["allPartners"]),
@@ -225,6 +245,22 @@ export default {
         let self = this;
 
         console.log("ClientEdit Component mounted.");
+    },
+
+    methods: {
+        updatePartner: function (partner) {
+            if (partner !== null && partner.id) {
+                this.value.partner.id = partner.id;
+            }
+        },
+
+        getFieldClass: function (v) {
+            if (v.value.partner.$error) {
+                return 'form-group has-error';
+            }
+
+            return 'form-group';
+        },
     },
 };
 </script>

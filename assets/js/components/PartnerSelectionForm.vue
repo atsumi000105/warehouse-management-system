@@ -13,6 +13,7 @@
                 :label="label"
                 :is-required="isRequired"
                 @change="onSelectionChange"
+                :validate="validate"
             />
         </div>
         <div
@@ -39,9 +40,14 @@ export default {
         "address-view": Address,
         optionlist: OptionListEntity
     },
+
     props: {
         value: {
             type: Object
+        },
+        validate: {
+            type: Boolean,
+            default: true,
         },
         editable: {
             type: Boolean,
