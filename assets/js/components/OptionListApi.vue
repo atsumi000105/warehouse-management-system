@@ -81,7 +81,7 @@ export default {
 
     props: {
         value: {
-            type: String,
+            type: [String, Number],
             default: () => ""
         },
         label: {
@@ -163,6 +163,14 @@ export default {
         emptyOption: function() { return this.emptyString ? this.emptyString : '-- Select Item --'}
     },
 
+    watch: {
+        value(vals) {
+            if (vals) {
+                this.selected_values = vals;
+            }
+        },
+    },
+
     created() {
         var self = this;
 
@@ -176,6 +184,8 @@ export default {
         } else {
             self.listOptions = self.preloadedOptions;
         }
+
+        self.selected_values = _.cloneDeep(self.value);
     },
 
     validations() {
@@ -198,14 +208,6 @@ export default {
             }
 
             return 'form-group';
-        },
-    },
-
-    watch: {
-        value(vals) {
-            if (vals) {
-                this.selected_values = vals;
-            }
         },
     },
 };

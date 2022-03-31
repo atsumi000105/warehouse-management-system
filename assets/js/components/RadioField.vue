@@ -47,7 +47,7 @@ import FieldError from "./FieldError";
 
         props: {
             value: {
-                type: String,
+                type: [String, Number],
                 required: false
             },
             label: {
@@ -89,10 +89,6 @@ import FieldError from "./FieldError";
             }
         },
 
-        validations() {
-            return (this.isRequired) ? { value: { required } } : { value: {} };
-        },
-
         computed: {
             loaded: function() {
                 return this.options.length > 0
@@ -101,6 +97,22 @@ import FieldError from "./FieldError";
             options: function() {
                 return this.listOptions.length > 0 ? this.listOptions : this.preloadedOptions
             },
+        },
+
+        watch: {
+            value(val) {
+                if (val) {
+                    this.selected_value = val;
+                }
+            },
+        },
+
+        created() {
+            this.selected_value = _.cloneDeep(this.value);
+        },
+
+        validations() {
+            return (this.isRequired) ? { value: { required } } : { value: {} };
         },
 
         methods: {
@@ -118,14 +130,6 @@ import FieldError from "./FieldError";
                 }
 
                 return 'form-group';
-            },
-        },
-
-        watch: {
-            value(val) {
-                if (val) {
-                    this.selected_value = val;
-                }
             },
         },
     }

@@ -91,8 +91,30 @@ export default {
         }
     },
 
+    computed: {
+        loaded: function() {
+          return this.options.length > 0
+        },
+
+        options: function() {
+          return this.listOptions.length > 0 ? this.listOptions : this.preloadedOptions
+        },
+    },
+
+    watch: {
+        value(vals) {
+            if (vals) {
+              this.selected_values = vals;
+            }
+        },
+    },
+
+    created() {
+        this.selected_values = _.cloneDeep(this.value);
+    },
+
     validations() {
-      return (this.isRequired) ? { value: { required } } : { value: {} };
+        return (this.isRequired) ? { value: { required } } : { value: {} };
     },
 
     data() {
@@ -102,17 +124,7 @@ export default {
         }
     },
 
-    computed: {
-        loaded: function() {
-            return this.options.length > 0
-        },
-
-        options: function() {
-            return this.listOptions.length > 0 ? this.listOptions : this.preloadedOptions
-        },
-    },
-
-  methods: {
+    methods: {
         displayText: function(item) {
             if (this.displayTextFn) {
                 return this.displayTextFn(item);
@@ -129,14 +141,5 @@ export default {
             return 'form-group';
         },
     },
-
-    watch: {
-        value(vals) {
-            if (vals) {
-                this.selected_values = vals;
-            }
-        },
-    },
-
 }
 </script>

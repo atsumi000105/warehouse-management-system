@@ -8,7 +8,7 @@
         </label>
         <select
             v-if="!groupProperty"
-            v-model="value[property]"
+            v-model="selected_value[property]"
             v-chosen
             class="form-control"
             @change="onChange($event, $v)"
@@ -21,14 +21,14 @@
             <option
                 v-for="item in options"
                 :key="item.id"
-                :selected="value.id === item.id"
+                :selected="selected_value.id === item.id"
                 :value="item.id"
                 v-text="item[displayProperty].title ? item[displayProperty].title : item[displayProperty]"
             />
         </select>
         <select
             v-else
-            v-model="value[property]"
+            v-model="selected_value[property]"
             v-chosen
             class="form-control"
             @change="onChange($event, $v)"
@@ -46,7 +46,7 @@
                 <option
                     v-for="item in group"
                     :key="item.id"
-                    :selected="value[property] === item.id"
+                    :selected="selected_value[property] === item.id"
                     :value="item.id"
                     v-text="item[displayProperty]"
                 />
@@ -121,6 +121,7 @@ export default {
         return {
             listOptions: [],
             loaded: false,
+            selected_value: '',
         }
     },
 
@@ -162,6 +163,14 @@ export default {
         }
     },
 
+    watch: {
+        value(val) {
+            if (val) {
+                this.selected_value = val;
+            }
+        },
+    },
+
     created() {
         var self = this;
 
@@ -180,6 +189,8 @@ export default {
             self.loaded = true;
             self.$emit('loaded');
         }
+
+        self.selected_value = _.cloneDeep(self.value);
     },
 
     methods: {

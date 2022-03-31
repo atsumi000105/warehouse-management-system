@@ -241,8 +241,18 @@ export default {
 
     computed: mapGetters(["allPartners"]),
 
+    watch: {
+        value(val) {
+            if (val) {
+                this.partner = val.partner;
+            }
+        },
+    },
+
     created() {
         let self = this;
+
+        this.partner = _.cloneDeep(this.value.partner);
 
         console.log("ClientEdit Component mounted.");
     },

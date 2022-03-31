@@ -83,13 +83,13 @@
                         :help-text="attribute.helpText"
                         :is-required="attribute.isRequired"
                     />
-                    <ZipCountyField
+<!--                    <ZipCountyField
                         v-else-if="attribute.displayInterface === 'ZIPCODE'"
                         v-model="attribute.value"
                         :label="attribute.label"
                         :help-text="attribute.helpText"
                         :is-required="attribute.isRequired"
-                    />
+                    />-->
                     <FileUploadField
                         v-else-if="attribute.displayInterface === 'FILE_UPLOAD'"
                         v-model="attribute.value"
