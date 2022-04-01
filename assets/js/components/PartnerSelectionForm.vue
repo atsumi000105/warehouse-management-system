@@ -11,6 +11,9 @@
                 display-property="title"
                 empty-string="-- Select Partner --"
                 :label="label"
+                :is-required="isRequired"
+                :validate="validate"
+                @change="onSelectionChange"
             />
         </div>
         <div
@@ -37,16 +40,42 @@ export default {
         "address-view": Address,
         optionlist: OptionListEntity
     },
+
     props: {
-        value: { type: Object },
-        editable: { type: Boolean, default: true },
-        label: { type: String, default: "Partner" },
-        options: { type: Array, default: () => [] }
+        value: {
+            type: Object
+        },
+        validate: {
+            type: Boolean,
+            default: true,
+        },
+        editable: {
+            type: Boolean,
+            default: true
+        },
+        label: {
+            type: String,
+            default: "Partner"
+        },
+        options: {
+            type: Array,
+            default: () => []
+        },
+        isRequired: {
+            type: Boolean,
+            required: false,
+            default: false,
+        },
     },
+
     mounted: function() {
         this.$store.dispatch("loadStorageLocations");
-        this.$refs.partnerSelect.$on("change", eventData => this.onSelectionChange(eventData));
+
+        if (this.$refs.partnerSelect) {
+            this.$refs.partnerSelect.$on("change", eventData => this.onSelectionChange(eventData));
+        }
     },
+
     methods: {
         onSelectionChange: function(eventData) {
             let currentPartner = this.$store.getters.getStorageLocationById(eventData.currentTarget.value);

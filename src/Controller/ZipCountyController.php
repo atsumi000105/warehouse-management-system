@@ -18,7 +18,7 @@ class ZipCountyController extends BaseController
      * Get a list of matching zip codes/counties
      *
      * @Route(path="/", methods={"GET"})
-     * @IsGranted({"ROLE_USER"})
+     * @IsGranted({"IS_AUTHENTICATED_ANONYMOUSLY", "ROLE_USER"})
      *
      * @return JsonResponse
      */

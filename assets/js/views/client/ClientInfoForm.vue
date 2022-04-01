@@ -3,9 +3,13 @@
         id="client_info"
         class="row tab-pane active"
     >
-        <div class="col-md-6">
-            <div class="form-group">
-                <label>First Name</label>
+
+        <div class="form-group">
+            <div class="col-md-6">
+                <label>
+                    First Name
+                    <i class="fas fa-asterisk fa-fw text-danger"/>
+                </label>
                 <div :class="{ 'has-error': $v.value.firstName.$error }">
                     <input
                         v-model="value.firstName"
@@ -13,12 +17,17 @@
                         class="form-control"
                         placeholder="Enter first name"
                     >
-                    <fielderror v-if="$v.value.firstName.$error">
+                    <FieldError v-if="$v.value.firstName.$error">
                         First Name is required
-                    </fielderror>
+                    </FieldError>
                 </div>
+            </div>
 
-                <label>Last Name</label>
+            <div class="col-md-6">
+                <label>
+                    Last Name
+                    <i class="fas fa-asterisk fa-fw text-danger"/>
+                </label>
                 <div :class="{ 'has-error': $v.value.lastName.$error }">
                     <input
                         v-model="value.lastName"
@@ -26,45 +35,81 @@
                         class="form-control"
                         placeholder="Enter last name"
                     >
-                    <fielderror v-if="$v.value.lastName.$error">
+                    <FieldError v-if="$v.value.lastName.$error">
                         Last Name is required
-                    </fielderror>
+                    </FieldError>
                 </div>
             </div>
-            <div class="form-group">
-                <label>Parent/Guardian First Name</label>
-                <input
-                    v-model="value.parentFirstName"
-                    type="text"
-                    class="form-control"
-                    placeholder="Enter parent or guardian first name"
-                >
+        </div>
 
-                <label>Parent/Guardian Last Name</label>
-                <input
-                    v-model="value.parentLastName"
-                    type="text"
-                    class="form-control"
-                    placeholder="Enter parent or guardian last name"
-                >
+        <div class="form-group">
+            <div class="col-md-6">
+                <label>
+                    Parent/Guardian First Name
+                    <i class="fas fa-asterisk fa-fw text-danger"/>
+                </label>
+                <div :class="{ 'has-error': $v.value.parentFirstName.$error }">
+                    <input
+                        v-model="value.parentFirstName"
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter parent or guardian first name"
+                    >
+                    <FieldError v-if="$v.value.parentFirstName.$error">
+                        Last Name is required
+                    </FieldError>
+                </div>
             </div>
+
+            <div class="col-md-6">
+                <label>
+                    Parent/Guardian Last Name
+                    <i class="fas fa-asterisk fa-fw text-danger"/>
+                </label>
+                <div :class="{ 'has-error': $v.value.parentLastName.$error }">
+                    <input
+                        v-model="value.parentLastName"
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter parent or guardian last name"
+                    >
+                    <FieldError v-if="$v.value.parentLastName.$error">
+                        Last Name is required
+                    </FieldError>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
             <div :class="{ 'has-error': $v.value.birthdate.$error }">
                 <DateField
                     v-model="value.birthdate"
                     label="Birthdate"
                     format="YYYY-MM-DD"
                 />
-                <fielderror v-if="$v.value.birthdate.$error">
+                <FieldError v-if="$v.value.birthdate.$error">
                     Birthdate should be a date in the past
-                </fielderror>
+                </FieldError>
             </div>
-            <PartnerSelectionForm
-                v-model="value.partner"
-                label="Assigned Partner"
-                :options="allPartners"
-                :editable="!this.new"
-            />
         </div>
+
+        <div class="col-md-6">
+            <div :class="{ 'has-error': $v.partner.id.$error }">
+                <PartnerSelectionForm
+                    v-model="partner"
+                    label="Assigned Partner"
+                    :options="allPartners"
+                    :editable="!this.new"
+                    :is-required="true"
+                    :validate="false"
+                    @partner-change="updatePartner"
+                />
+                <FieldError v-if="$v.partner.id.$error">
+                    Partner is required
+                </FieldError>
+            </div>
+        </div>
+
         <div class="col-md-6">
             <div
                 v-if="showExpirations"
@@ -121,49 +166,111 @@ import ClientDistributionHistory from "./ClientDistributionHistory";
 import { required } from "vuelidate/lib/validators";
 import { mustLessThanNow } from "../../validators";
 import { mapGetters } from "vuex";
+import FieldError from "../../components/FieldError";
+import axios from "axios";
 
 export default {
     name: "ClientInfoForm",
+
     components: {
         DisplayField,
         NumberField,
         BooleanField,
         DateField,
-        PartnerSelectionForm
+        PartnerSelectionForm,
+        FieldError,
     },
+
     props: {
         new: {
             type: Boolean,
             default: false,
-            required: false
+            required: false,
         },
         showExpirations: {
             type: Boolean,
             default: true,
-            required: false
+            required: false,
         },
-        value: { required: true, type: [Object, Array] },
-        readOnlyExpiration: { type: Boolean, default: false }
+        value: {
+            required: true,
+            type: [
+                Object,
+                Array,
+            ],
+        },
+        readOnlyExpiration: {
+            type: Boolean,
+            default: false,
+        }
     },
+
+    data() {
+        return {
+            partner: {
+                id: null,
+            }
+        }
+    },
+
     validations: {
         value: {
             firstName: {
-                required
+                required,
             },
             lastName: {
-                required
+                required,
+            },
+            parentFirstName: {
+                required,
+            },
+            parentLastName: {
+                required,
             },
             birthdate: {
                 required,
                 mustLessThanNow
-            }
-        }
+            },
+        },
+        partner: {
+            id: {
+                required,
+            },
+        },
     },
+
     computed: mapGetters(["allPartners"]),
+
+    watch: {
+        value(val) {
+            if (val) {
+                this.partner = val.partner;
+            }
+        },
+    },
+
     created() {
         let self = this;
 
+        this.partner = _.cloneDeep(this.value.partner);
+
         console.log("ClientEdit Component mounted.");
-    }
+    },
+
+    methods: {
+        updatePartner: function (partner) {
+            if (partner !== null && partner.id) {
+                this.value.partner.id = partner.id;
+            }
+        },
+
+        getFieldClass: function (v) {
+            if (v.value.partner.$error) {
+                return 'form-group has-error';
+            }
+
+            return 'form-group';
+        },
+    },
 };
 </script>

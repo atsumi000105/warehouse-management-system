@@ -1,6 +1,11 @@
 <template>
-    <div class="form-group">
-        <label v-text="label" />
+    <div :class="getFieldClass($v)">
+        <label v-if="label">
+            {{ label }}
+            <i
+                v-if="isRequired"
+                class="fas fa-asterisk fa-fw text-danger"/>
+        </label>
         <i
             v-if="helpText"
             v-tooltip
@@ -8,25 +13,94 @@
             class="attribute-help-text fa fa-question-circle"
         />
         <input
-            :value="value"
+            :value="selected_value"
             type="number"
             class="form-control"
             :placeholder="placeholder"
             :disabled="disabled"
             @input="$emit('input', $event.target.value)"
+            @blur="$v.$touch()"
         >
+        <FieldError v-if="$v.value.$error">
+            Field is required
+        </FieldError>
     </div>
 </template>
 
 <script>
+import {required} from "vuelidate/lib/validators";
+import FieldError from "./FieldError";
+
 export default {
     name: "NumberField",
+
+    components: {
+        FieldError
+    },
+
     props: {
-        value: { type: Number },
-        label: { type: String, required: true },
-        helpText: { type: String, requird: false, default: "" },
-        placeholder: { type: [String, Number] },
-        disabled: { type: Boolean, default: false }
-    }
+        value: {
+            type: [
+                Number,
+                String,
+            ],
+        },
+        label: {
+            type: String,
+            required: true
+        },
+        helpText: {
+            type: String,
+            requird: false,
+            default: ""
+        },
+        placeholder: {
+            type: [
+                String,
+                Number
+            ]
+        },
+        disabled: {
+            type: Boolean,
+            default: false
+        },
+        isRequired: {
+            type: Boolean,
+            required: false,
+            default: false,
+        },
+    },
+
+    data() {
+        return {
+            selected_value: '',
+        }
+    },
+
+    watch: {
+        value(val) {
+            if (val) {
+              this.selected_value = val;
+            }
+        },
+    },
+
+    created() {
+        this.selected_value = _.cloneDeep(this.value);
+    },
+
+    validations() {
+        return (this.isRequired) ? { value: { required } } : { value: {} };
+    },
+
+    methods: {
+        getFieldClass: function(v) {
+            if (v.value.$error) {
+                return 'form-group has-error';
+            }
+
+            return 'form-group';
+        },
+    },
 };
 </script>

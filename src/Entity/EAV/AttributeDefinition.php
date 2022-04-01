@@ -115,6 +115,13 @@ abstract class AttributeDefinition extends CoreEntity
     private $isMultivalued;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="is_displayed_publicly", type="boolean", options={"default" : false})
+     */
+    private $isDisplayedPublicly = false;
+
+    /**
      * @var AttributeOption[]|ArrayCollection
      *
      * @ORM\OneToMany(
@@ -287,6 +294,23 @@ abstract class AttributeDefinition extends CoreEntity
     public function getOrderIndex()
     {
         return $this->orderIndex;
+    }
+
+    /**
+     * @param boolean $orderIndex
+     *
+     * @return $this
+     */
+    public function setIsDisplayedPublicly(bool $isDisplayedPublicly)
+    {
+        $this->isDisplayedPublicly = $isDisplayedPublicly;
+
+        return $this;
+    }
+
+    public function getIsDisplayedPublicly()
+    {
+        return $this->isDisplayedPublicly;
     }
 
     public function isMultivalued(): bool

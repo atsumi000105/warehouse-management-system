@@ -1,6 +1,11 @@
 <template>
-    <div class="form-group">
-        <label v-text="label" />
+    <div  :class="getFieldClass($v)">
+        <label v-if="label">
+            {{ label }}
+            <i
+                v-if="isRequired"
+                class="fas fa-asterisk fa-fw text-danger"/>
+        </label>
         <i
             v-if="helpText"
             v-tooltip
@@ -9,12 +14,13 @@
         />
         <select
             v-if="!groupProperty"
-            v-model="value"
+            v-model="selected_values"
             v-chosen
             class="form-control"
             :class="{'loaded': loaded}"
             :multiple="multiple"
             @change="onChange"
+            @blur="$v.$touch()"
         >
             <option
                 value=""
@@ -30,12 +36,13 @@
         </select>
         <select
             v-else
-            v-model="value"
+            v-model="selected_values"
             v-chosen
             class="form-control"
             :class="{'loaded': loaded}"
             :multiple="multiple"
             @change="onChange"
+            @blur="$v.$touch()"
         >
             <option
                 value=""
@@ -55,81 +62,153 @@
                 />
             </optgroup>
         </select>
+        <FieldError v-if="$v.value.$error">
+            <strong>Field is required</strong>
+        </FieldError>
     </div>
 </template>
 
 <script>
-    export default {
-        name: "OptionListApi",
-        props: {
-            value: { type: String, default: () => "" },
-            label: { type: String },
-            helpText: { type: String, requird: false, default: "" },
-            apiPath: { type: String },
-            preloadedOptions: { type: Array, default: function() {return []}},
-            displayProperty: { type: String, default: 'name'},
-            property: { type: String, default: 'id' },
-            groupProperty: { type: String, default: null },
-            emptyString: { type: String },
-            alphabetize: { type: Boolean, default: true },
-            multiple: { type: Boolean, default: false },
+import {required} from "vuelidate/lib/validators";
+import FieldError from "./FieldError";
+
+export default {
+    name: "OptionListApi",
+
+    components: {
+        FieldError
+    },
+
+    props: {
+        value: {
+            type: [String, Number],
+            default: () => ""
         },
-        data() {
-            return {
-                listOptions: [],
-            }
+        label: {
+            type: String
         },
-        computed: {
-            loaded: function() { return this.options.length > 0 },
-            options: function() {
-                var self = this;
-                let list = self.listOptions.length > 0 ? self.listOptions : self.preloadedOptions;
-
-                if (this.alphabetize) {
-                    list = list.sort(function(a, b) {
-                        return a[self.displayProperty] > b[self.displayProperty] ? 1 : -1;
-                    })
-                }
-
-                if (this.groupProperty) {
-                    let groupings = {};
-                    list.forEach( function(item) {
-                        if (!groupings[item[self.groupProperty]]) {
-                            groupings[item[self.groupProperty]] = [];
-                        }
-                        groupings[item[self.groupProperty]].push(item);
-                    });
-                    list = groupings;
-                }
-                return list;
-            },
-            emptyOption: function() { return this.emptyString ? this.emptyString : '-- Select Item --'}
+        helpText: {
+            type: String,
+            requird: false,
+            default: ""
         },
-
-        created() {
-            var self = this;
-
-            if (this.apiPath) {
-                axios
-                    .get('/api/' + this.apiPath)
-                    .then(response => {
-                        self.listOptions = response.data.data;
-                        self.$emit('loaded');
-                });
-            } else {
-                self.listOptions = self.preloadedOptions;
-            }
+        apiPath: {
+            type: String
         },
+        preloadedOptions: {
+            type: Array,
+            default: function() {return []}
+        },
+        displayProperty: {
+            type: String,
+            default: 'name'
+        },
+        property: {
+            type: String,
+            default: 'id'
+        },
+        groupProperty: {
+            type: String,
+            default: null
+        },
+        emptyString: {
+            type: String
+        },
+        alphabetize: {
+            type: Boolean,
+            default: true
+        },
+        multiple: {
+            type: Boolean,
+            default: false
+        },
+        isRequired: {
+            type: Boolean,
+            required: false,
+            default: false,
+        },
+    },
 
-        methods: {
-            onChange($event) {
-                if(this.multiple) {
-                    this.$emit('input',[...$event.target.selectedOptions]
-                        .map(option => option.value));
-                } else {
-                    this.$emit('input', $event.target.value);
-                }
-            }
+    data() {
+        return {
+            listOptions: [],
+            selected_values: [],
         }
-    }
+    },
+
+    computed: {
+        loaded: function() { return this.options.length > 0 },
+        options: function() {
+            var self = this;
+            let list = self.listOptions.length > 0 ? self.listOptions : self.preloadedOptions;
+
+            if (this.alphabetize) {
+                list = list.sort(function(a, b) {
+                    return a[self.displayProperty] > b[self.displayProperty] ? 1 : -1;
+                })
+            }
+
+            if (this.groupProperty) {
+                let groupings = {};
+                list.forEach( function(item) {
+                    if (!groupings[item[self.groupProperty]]) {
+                        groupings[item[self.groupProperty]] = [];
+                    }
+                    groupings[item[self.groupProperty]].push(item);
+                });
+                list = groupings;
+            }
+            return list;
+        },
+        emptyOption: function() { return this.emptyString ? this.emptyString : '-- Select Item --'}
+    },
+
+    watch: {
+        value(vals) {
+            if (vals) {
+                this.selected_values = vals;
+            }
+        },
+    },
+
+    created() {
+        var self = this;
+
+        if (this.apiPath) {
+            axios
+                .get('/api/' + this.apiPath)
+                .then(response => {
+                    self.listOptions = response.data.data;
+                    self.$emit('loaded');
+            });
+        } else {
+            self.listOptions = self.preloadedOptions;
+        }
+
+        self.selected_values = _.cloneDeep(self.value);
+    },
+
+    validations() {
+        return (this.isRequired) ? { value: { required } } : { value: {} };
+    },
+
+    methods: {
+        onChange($event) {
+            if(this.multiple) {
+                this.$emit('input',[...$event.target.selectedOptions]
+                    .map(option => option.value));
+            } else {
+                this.$emit('input', $event.target.value);
+            }
+        },
+
+        getFieldClass: function(v) {
+            if (v.value.$error) {
+                return 'form-group has-error';
+            }
+
+            return 'form-group';
+        },
+    },
+};
 </script>
