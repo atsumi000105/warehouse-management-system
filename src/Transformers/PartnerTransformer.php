@@ -37,6 +37,7 @@ class PartnerTransformer extends StorageLocationTransformer
         return [
             'id' => (int) $partner->getId(),
             'title' => $partner->getTitle(),
+            'fullAddress' => $partner->getFullAddress(),
             'status' => $partner->getStatus(),
             'partnerType' => $partner->getPartnerType(),
             'legacyId' => $partner->getLegacyId(),

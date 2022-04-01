@@ -1,6 +1,9 @@
 <template>
-    <div class="form-group">
-        <label v-text="label" />
+    <div :class="getFieldClass($v)">
+        <label v-if="label">
+            {{ label }}
+            <i v-if="isRequired" class="fas fa-asterisk fa-fw text-danger" />
+        </label>
         <i
             v-if="helpText"
             v-tooltip
@@ -18,25 +21,70 @@
                 class="form-control pull-right"
                 :disabled="disabled"
                 @change="$emit('input', dateValue)"
+                @blur="$v.$touch()"
             >
         </div>
+        <FieldError v-if="$v.value.$error">
+            Field is required
+        </FieldError>
     </div>
 </template>
 
 <script>
+import {required} from 'vuelidate/lib/validators';
+import FieldError from "./FieldError";
+
 export default {
     name: "DateField",
+
+    components: {
+        FieldError
+    },
+
     props: {
-        value: { type: String, default: "" },
-        label: { type: String, required: false, default: "Date:" },
-        helpText: { type: String, required: false, default: "" },
-        format: { type: String, default: "MM/DD/YYYY" },
-        timezone: { type: String, required: false, default: "UTC" },
-        disabled: { type: Boolean, default: false }
+        value: {
+            type: String,
+            default: ""
+        },
+        label: {
+            type: String, required: false,
+            default: "Date:"
+        },
+        helpText: {
+            type: String,
+            required: false,
+            default: ""
+        },
+        format: {
+            type: String,
+            default: "MM/DD/YYYY"
+        },
+        timezone: {
+            type: String,
+            required: false,
+            default: "UTC"
+        },
+        disabled: {
+            type: Boolean,
+            default: false
+        },
+        isRequired: {
+            type: Boolean,
+            required: false,
+            default: false,
+        },
     },
+
     data() {
-        return { dateValue: null };
+        return {
+            dateValue: null
+        };
     },
+
+    validations() {
+        return (this.isRequired) ? { value: { required } } : { value: {} };
+    },
+
     computed: {
         humanReadable: {
             get: function() {
@@ -51,6 +99,16 @@ export default {
                 this.dateValue = val ? date.format() : null;
             }
         }
-    }
+    },
+
+    methods: {
+        getFieldClass: function(v) {
+            if (v.value.$error) {
+                return 'form-group has-error';
+            }
+
+            return 'form-group';
+        },
+    },
 };
 </script>

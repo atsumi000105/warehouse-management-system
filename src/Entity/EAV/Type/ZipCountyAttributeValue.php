@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use http\Exception\UnexpectedValueException;
 
 /**
- * Class ZipCOuntyAttribute
+ * Class ZipCountyAttribute
  *
  * @ORM\Entity()
  */

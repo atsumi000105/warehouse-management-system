@@ -3,7 +3,8 @@
         class="help-block"
         :class="classes"
     >
-        <i class="icon fa fa-warning fa-fw" /><slot /></span>
+        <i class="icon fa fa-exclamation-triangle fa-fw" /><slot />
+    </span>
 </template>
 
 <script>

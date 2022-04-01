@@ -145,7 +145,7 @@ class ClientController extends BaseController
      * @return JsonResponse
      *
      * @Route(path="/new-check", methods={"POST"})
-     * @IsGranted({"ROLE_CLIENT_EDIT_ALL","ROLE_CLIENT_MANAGE_OWN"})
+     * @IsGranted({"ROLE_CLIENT_EDIT_ALL","ROLE_CLIENT_MANAGE_OWN","IS_AUTHENTICATED_ANONYMOUSLY"})
      */
     public function newClientCheck(Request $request): JsonResponse
     {
@@ -187,7 +187,7 @@ class ClientController extends BaseController
      * Save a new Client
      *
      * @Route(path="", methods={"POST"})
-     * @IsGranted({"ROLE_CLIENT_EDIT_ALL","ROLE_CLIENT_MANAGE_OWN"})
+     * @IsGranted({"ROLE_CLIENT_EDIT_ALL","ROLE_CLIENT_MANAGE_OWN","IS_AUTHENTICATED_ANONYMOUSLY"})
      *
      * @throws \Exception
      */

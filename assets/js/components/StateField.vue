@@ -1,12 +1,18 @@
 <template>
-    <div class="form-group">
-        <label>State/Province</label>
+    <div :class="getFieldClass($v)">
+        <label>
+            State/Province
+            <i
+                v-if="isRequired"
+                class="fas fa-asterisk fa-fw text-danger"/>
+        </label>
         <select
             v-model="value"
             v-chosen
             class="form-control"
             :multiple="multiple ? true : undefined"
             @change="onChange"
+            @blur="$v.$touch()"
         >
             <option value="AL">
                 Alabama
@@ -162,25 +168,63 @@
                 Wyoming
             </option>
         </select>
+        <FieldError v-if="$v.value.$error">
+            <strong>Field is required</strong>
+        </FieldError>
     </div>
 </template>
 
 <script>
-    export default {
-        name: "StateField",
-        props: {
-            value: { type: [String, Array], required: false },
-            multiple: { type: Boolean, default: false }
+import {required} from "vuelidate/lib/validators";
+import FieldError from "./FieldError";
+
+export default {
+    name: "StateField",
+
+    components: {
+        FieldError
+    },
+
+    props: {
+        value: {
+            type: [
+                String,
+                Array
+            ],
+            required: false
         },
-        methods: {
-            onChange($event) {
-                if(this.multiple) {
-                    this.$emit('input',[...$event.target.selectedOptions]
-                        .map(option => option.value));
-                } else {
-                    this.$emit('input', $event.target.value);
-                }
+        multiple: {
+            type: Boolean,
+            default: false
+        },
+        isRequired: {
+            type: Boolean,
+            required: false,
+            default: false,
+        },
+    },
+
+    validations() {
+        return (this.isRequired) ? { value: { required } } : { value: {} };
+    },
+
+    methods: {
+        onChange($event) {
+            if(this.multiple) {
+                this.$emit('input',[...$event.target.selectedOptions]
+                    .map(option => option.value));
+            } else {
+                this.$emit('input', $event.target.value);
             }
-        }
+        },
+
+        getFieldClass: function(v) {
+            if (v.value.$error) {
+                return 'form-group has-error';
+            }
+
+            return 'form-group';
+        },
     }
+}
 </script>

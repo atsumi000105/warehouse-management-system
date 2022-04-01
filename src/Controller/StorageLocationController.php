@@ -29,7 +29,7 @@ class StorageLocationController extends BaseController
      * Get a list of Sub-classed storage locations
      *
      * @Route(path="", methods={"GET"})
-     * @IsGranted({"ROLE_ADMIN", "ROLE_PARTNER_MANAGE_OWN", "ROLE_PARTNER_VIEW_ALL"})
+     * @IsGranted({"IS_AUTHENTICATED_ANONYMOUSLY", "ROLE_ADMIN", "ROLE_PARTNER_MANAGE_OWN", "ROLE_PARTNER_VIEW_ALL"})
      *
      * @return JsonResponse
      */
@@ -38,11 +38,15 @@ class StorageLocationController extends BaseController
         /** @var User $user */
         $user = $this->getUser();
 
-        if ($user->hasRole(Partner::ROLE_VIEW_ALL)) {
-            $storageLocations = $this->getRepository()->findAll();
+        if ($user instanceof User) {
+            if ( $user->hasRole(Partner::ROLE_VIEW_ALL)) {
+                $storageLocations = $this->getRepository()->findAll();
+            } else {
+                $storageLocations = $this->getEm()->getRepository(Warehouse::class)->findAll();
+                array_push($storageLocations, ...($user->getPartners() ?? []));
+            }
         } else {
-            $storageLocations = $this->getEm()->getRepository(Warehouse::class)->findAll();
-            array_push($storageLocations, ...($user->getPartners() ?? []));
+            $storageLocations = $this->getRepository()->findAll();
         }
 
         return $this->serialize($request, $storageLocations);

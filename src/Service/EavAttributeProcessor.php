@@ -64,12 +64,12 @@ class EavAttributeProcessor
                         continue;
                     }
 
-                    $value = $attribute->createValue();
+                    $valueType = $attribute->getValueType();
 
                     /** @var CoreEntity|null $relatedEntity */
                     $relatedEntity = $this->em
-                        ->getRepository(get_class($value))
-                        ->findOneBy([$value::getPublicIdProperty() => $relationId]);
+                        ->getRepository($valueType)
+                        ->findOneBy([$valueType::getPublicIdProperty() => $relationId]);
 
                     if (!$relatedEntity) {
                         throw new \Exception(

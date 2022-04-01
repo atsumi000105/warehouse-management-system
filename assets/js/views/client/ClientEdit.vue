@@ -135,6 +135,7 @@ import { mapGetters } from "vuex";
 
 export default {
     name: "ClientEdit",
+
     components: {
         WorkflowButton,
         ClientInfoForm,
@@ -143,6 +144,7 @@ export default {
         modal: Modal,
         modalinvalid: ModalOrderInvalid
     },
+
     props: {
         new: {
             type: Boolean,
@@ -150,6 +152,7 @@ export default {
             required: false
         }
     },
+
     data() {
         return {
             client: {
@@ -161,7 +164,8 @@ export default {
             transition: ""
         };
     },
-    created() {
+
+    mounted() {
         let self = this;
 
         if (!this.new) {
@@ -170,6 +174,7 @@ export default {
                     params: { include: ["partner", "attributes", "attributes.options"] }
                 })
                 .then(response => {
+                    console.log('response: ', response);
                     self.client = response.data.data;
                     self.client.workflow = response.data.meta;
                 })
@@ -178,7 +183,9 @@ export default {
 
         console.log("ClientEdit Component mounted.");
     },
+
     computed: mapGetters(["userHasRole"]),
+
     methods: {
         save: function() {
             let self = this;
@@ -205,15 +212,18 @@ export default {
                     });
             }
         },
+
         askDelete: function() {
             $("#confirmModal").modal("show");
         },
+
         deleteClient: function() {
             let self = this;
             axios
                 .delete("/api/clients/" + this.$route.params.id)
                 .then(response => self.$router.push({ name: "clients" }));
         },
+
         review: function() {
             let self = this;
             axios
