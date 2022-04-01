@@ -42,8 +42,9 @@
                 required: false,
                 type: [
                     Object,
-                    Array
-                ]
+                    Array,
+                    Number,
+                ],
             },
             label: {
                 type: String,
@@ -71,7 +72,7 @@
 
         methods: {
             onSelectionChange: function (eventData) {
-                this.$emit('change', eventData);
+                this.$emit('change', eventData.currentTarget.value);
             },
 
             getFieldClass: function(v) {

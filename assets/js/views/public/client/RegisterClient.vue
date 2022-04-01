@@ -320,6 +320,8 @@ export default {
             let clientInfoFormHasError = false;
             let attributesEditFormHasError = false;
 
+            console.log('this.client: ', this.client);
+
             if (this.$refs.clientInfoForm) {
 
                 if (this.$refs.clientInfoForm.$children) {

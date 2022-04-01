@@ -57,11 +57,16 @@ class AttributeTransformer extends TransformerAbstract
         }
 
         if ($attribute->getDefinition()->getType() == AttributeDefinition::TYPE_ZIPCODE) {
-            $jsonValues = $attribute->getJsonValues();
 
+            /**
+             * @TODO! Need to consider the case where the ZipCountyField have multiple values. This is not currently considered in the ZipCountyTransformer
+             */
+            $transformer = new ZipCountyTransformer();
+
+            /*$jsonValues = $attribute->getJsonValues();
             return $attribute->isMultivalued() ?
                 $this->primitive($jsonValues) :
-                $this->primitive(reset($jsonValues));
+                $this->primitive(reset($jsonValues));*/
         }
 
         if ($transformer === null) {

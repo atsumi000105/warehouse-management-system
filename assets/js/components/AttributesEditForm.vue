@@ -83,13 +83,14 @@
                         :help-text="attribute.helpText"
                         :is-required="attribute.isRequired"
                     />
-<!--                    <ZipCountyField
+                    <ZipCountyField
                         v-else-if="attribute.displayInterface === 'ZIPCODE'"
                         v-model="attribute.value"
                         :label="attribute.label"
                         :help-text="attribute.helpText"
                         :is-required="attribute.isRequired"
-                    />-->
+                        @change="onChangeZip(attribute, $event)"
+                    />
                     <FileUploadField
                         v-else-if="attribute.displayInterface === 'FILE_UPLOAD'"
                         v-model="attribute.value"
@@ -185,6 +186,12 @@
         },
 
         methods: {
+            onChangeZip: function (attribute, data) {
+                if (attribute) {
+                    attribute.value.id = data;
+                }
+            },
+
             checkIfAttributeIsRequired: function (attribute) {
                 if (this.showAttributeField(attribute) && attribute.isRequired) {
                     return true;

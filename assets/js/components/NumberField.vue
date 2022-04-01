@@ -71,14 +71,26 @@ export default {
         },
     },
 
-    validations() {
-        return (this.isRequired) ? { value: { required } } : { value: {} };
-    },
-
     data() {
         return {
             selected_value: '',
         }
+    },
+
+    watch: {
+        value(val) {
+            if (val) {
+              this.selected_value = val;
+            }
+        },
+    },
+
+    created() {
+        this.selected_value = _.cloneDeep(this.value);
+    },
+
+    validations() {
+        return (this.isRequired) ? { value: { required } } : { value: {} };
     },
 
     methods: {
@@ -88,14 +100,6 @@ export default {
             }
 
             return 'form-group';
-        },
-    },
-
-    watch: {
-        value(val) {
-            if (val) {
-                this.selected_value = val;
-            }
         },
     },
 };
