@@ -38,46 +38,57 @@
             Edit Partner
         </h3>
 
-        <div class="nav-tabs-custom">
-            <ul class="nav nav-tabs">
-                <li class="active">
-                    <a
-                        href="#location_tab"
-                        data-toggle="tab"
-                        aria-expanded="true"
-                    >Location and Contacts</a>
-                </li>
-                <li>
-                    <a
-                        href="#profile_tab"
-                        data-toggle="tab"
-                    >Profile</a>
-                </li>
-                <li>
-                    <a
-                        href="#user_tab"
-                        data-toggle="tab"
-                    >Users</a>
-                </li>
-            </ul>
-            <div class="tab-content">
-                <PartnerLocationEditTab
-                    id="location_tab"
-                    v-model="partner"
-                    class="tab-pane active"
-                />
-                <AttributesEditForm
-                    id="profile_tab"
-                    v-model="partner.profile.attributes"
-                    class="tab-pane"
-                />
-                <PartnerUserListTab
-                    id="user_tab"
-                    :partner="partner"
-                    class="tab-pane"
-                />
-            </div>
+        <div class="row">
+            <form role="form">
+                <div class="col-md-12">
+                    <div class="box">
+                        <div class="box-body">
+                            <div class="nav-tabs-custom">
+                                <ul class="nav nav-tabs">
+                                    <li class="active">
+                                        <a
+                                            href="#location_tab"
+                                            data-toggle="tab"
+                                            aria-expanded="true"
+                                        >Location and Contacts</a>
+                                    </li>
+                                    <li>
+                                        <a
+                                            href="#profile_tab"
+                                            data-toggle="tab"
+                                        >Profile</a>
+                                    </li>
+                                    <li>
+                                        <a
+                                            href="#user_tab"
+                                            data-toggle="tab"
+                                        >Users</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <PartnerLocationEditTab
+                                        id="location_tab"
+                                        v-model="partner"
+                                        class="tab-pane active"
+                                    />
+                                    <AttributesEditForm
+                                        id="profile_tab"
+                                        v-model="partner.profile.attributes"
+                                        class="tab-pane"
+                                    />
+                                    <PartnerUserListTab
+                                        id="user_tab"
+                                        :partner="partner"
+                                        class="tab-pane"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
+
         <modal
             id="confirmModal"
             :confirm-action="deletePartner"

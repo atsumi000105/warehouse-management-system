@@ -19,7 +19,8 @@ class FileTransformer extends TransformerAbstract
         }
 
         return [
-            'id' => $file->getPublicId(),
+            //'id' => $file->getPublicId(),
+            'id' => $file->getId(),
             'filename' => $file->getFilename(),
             'filesize' => $file->getFilesize(),
             'mimeType' => $file->getMimeType(),

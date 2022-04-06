@@ -9,6 +9,7 @@ use App\Entity\EAV\AttributeDefinition;
 use App\Entity\EAV\AttributeValue;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\VarDumper\VarDumper;
 
 class EavAttributeProcessor
 {
