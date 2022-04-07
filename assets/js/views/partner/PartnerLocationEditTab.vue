@@ -14,14 +14,27 @@
                     <!-- /.box-header -->
                     <div class="box-body">
                         <!-- text input -->
-                        <div class="form-group">
-                            <label>Partner Name</label>
-                            <input
-                                v-model="value.title"
-                                type="text"
-                                class="form-control"
-                                placeholder="Enter partner name"
-                            >
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Partner Name</label>
+                                    <input
+                                        v-model="value.title"
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Enter partner name"
+                                    >
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <YesNoRadioField
+                                        v-model="value.isPublicDisplay"
+                                        :label="'Display Publicly'"
+                                        :help-text="'Do you want this partner to be seen in the public form?'"
+                                    />
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label>Type</label>
@@ -164,10 +177,12 @@
 import AddressFormFields from '../../components/AddressFormFields.vue';
 import ContactFormFields from '../../components/ContactFormFields.vue';
 import OptionListEntity from '../../components/OptionListEntity.vue';
+import YesNoRadioField from "../../components/YesNoRadioField";
 
 export default {
         name: 'PartnerLocationEditTab',
         components: {
+            YesNoRadioField,
             AddressFormFields,
             'contact' : ContactFormFields,
             'optionlist' : OptionListEntity

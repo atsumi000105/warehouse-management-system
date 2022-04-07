@@ -58,6 +58,7 @@ class PartnerFixtures extends BaseFixture
             $contact->setIsProgramContact(true);
             $partner->addContact($contact);
             $partner->setAddress($this->createAddress(StorageLocationAddress::class));
+            $partner->setIsPublicDisplay(false);
 
             $manager->persist($partner);
         }
@@ -76,6 +77,7 @@ class PartnerFixtures extends BaseFixture
             $contact->setIsProgramContact(true);
             $hospital->addContact($contact);
             $hospital->setAddress($this->createAddress(StorageLocationAddress::class));
+            $hospital->setIsPublicDisplay(false);
 
             $manager->persist($hospital);
         }

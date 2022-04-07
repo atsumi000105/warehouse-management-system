@@ -150,6 +150,7 @@ export default {
         },
         created() {
             var self = this;
+
             if (this.new) {
                 this.partner.contacts.push({ isDeleted: false });
                 axios
@@ -171,6 +172,7 @@ export default {
         methods: {
             save: function () {
                 let self = this;
+
                 if (this.new) {
                     axios
                         .post('/api/partners', this.partner)
@@ -187,9 +189,11 @@ export default {
                         });
                 }
             },
+
             askDelete: function() {
                 $('#confirmModal').modal('show');
             },
+
             deletePartner: function() {
                 let self = this;
                 axios

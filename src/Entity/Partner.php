@@ -120,6 +120,11 @@ class Partner extends StorageLocation
      */
     private $notes;
 
+    /**
+     * @ORM\Column(name="is_public_display", type="boolean", options={"default" : false})
+     */
+    private $isPublicDisplay;
+
     public function __construct($title, Registry $workflowRegistry)
     {
         parent::__construct($title);
@@ -296,6 +301,18 @@ class Partner extends StorageLocation
     public function setNotes(?string $notes): self
     {
         $this->notes = $notes;
+
+        return $this;
+    }
+
+    public function getIsPublicDisplay(): ?bool
+    {
+        return $this->isPublicDisplay;
+    }
+
+    public function setIsPublicDisplay(bool $isPublicDisplay): self
+    {
+        $this->isPublicDisplay = $isPublicDisplay;
 
         return $this;
     }
