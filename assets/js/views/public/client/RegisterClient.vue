@@ -143,6 +143,7 @@
                         v-model="client"
                         :show-expirations="false"
                         :new="false"
+                        :is-public="true"
                     />
                     <AttributesEditForm
                         ref="attributesEditForm"

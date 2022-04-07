@@ -98,7 +98,7 @@
                 <PartnerSelectionForm
                     v-model="partner"
                     label="Assigned Partner"
-                    :options="allPartners"
+                    :options="isPublic ? publicPartners : allPartners"
                     :editable="!this.new"
                     :is-required="true"
                     :validate="false"
@@ -187,6 +187,11 @@ export default {
             default: false,
             required: false,
         },
+        isPublic: {
+            type: Boolean,
+            default: false,
+            required: false,
+        },
         showExpirations: {
             type: Boolean,
             default: true,
@@ -209,7 +214,7 @@ export default {
         return {
             partner: {
                 id: null,
-            }
+            },
         }
     },
 
@@ -239,7 +244,7 @@ export default {
         },
     },
 
-    computed: mapGetters(["allPartners"]),
+    computed: mapGetters(["allPartners", "publicPartners"]),
 
     watch: {
         value(val) {

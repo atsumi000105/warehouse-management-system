@@ -13,30 +13,52 @@ const getters = {
         let partners = active.filter(storageLocation => storageLocation.type !== 'Warehouse').sort((a, b) => a.title.toLowerCase() < b.title.toLowerCase() ? -1 : 1);
         return [...warehouses, ...partners];
     },
+
     allActivePartners: state => {
         let active = [...state.all]
             .filter(storageLocation => storageLocation.status === "ACTIVE" && storageLocation.type !== 'Warehouse')
             .sort((a, b) => a.title.toLowerCase() < b.title.toLowerCase() ? -1 : 1);
         return active;
     },
+
     allPartners: state => {
         let active = [...state.all]
             .filter(storageLocation => storageLocation.type !== 'Warehouse')
             .sort((a, b) => a.title.toLowerCase() < b.title.toLowerCase() ? -1 : 1);
         return active;
     },
+
+    /**
+     * TODO! Need to filter by partner is public attribute once we decide the table - partners ot storage_locations
+     * @param state
+     * @returns {*[]}
+     */
+    publicPartners: state => {
+        console.log('hello');
+        let active = [...state.all]
+            .filter(storageLocation => storageLocation.type !== 'Warehouse')
+            .sort((a, b) => a.title.toLowerCase() < b.title.toLowerCase() ? -1 : 1);
+
+        console.log('...state.all: ', [...state.all]);
+
+        return active;
+    },
+
     allActiveWarehouses: state => {
         let active = [...state.all]
             .filter(storageLocation => storageLocation.status === "ACTIVE" && storageLocation.type === 'Warehouse')
             .sort((a, b) => a.title.toLowerCase() < b.title.toLowerCase() ? -1 : 1);
         return active;
     },
+
     allAgencies: state => {
         return state.all.filter(storageLocation => storageLocation.partnerType == "AGENCY")
     },
+
     allHospitals: state => {
         return state.all.filter(storageLocation => storageLocation.partnerType == "HOSPITAL")
     },
+
     getStorageLocationById: (state) => (id) => {
         return state.all.find(storageLocation => storageLocation.id == id);
     }
