@@ -372,7 +372,7 @@ class ClientAttributeFixtures extends BaseFixture
                     'Wayne Minder' => 'Wayne Minder Community Center',
                 ],
                 'order_index' => 20,
-                'is_displayed_publicly' => true,
+                'is_displayed_publicly' => false,
             ],
             [
                 'name' => 'transportation_mode',
