@@ -98,7 +98,7 @@
                 <PartnerSelectionForm
                     v-model="partner"
                     label="Assigned Partner"
-                    :options="isPublic ? publicPartners : allPartners"
+                    :options="allPartners"
                     :editable="!this.new"
                     :is-required="true"
                     :validate="false"
@@ -183,11 +183,6 @@ export default {
 
     props: {
         new: {
-            type: Boolean,
-            default: false,
-            required: false,
-        },
-        isPublic: {
             type: Boolean,
             default: false,
             required: false,

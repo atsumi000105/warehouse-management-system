@@ -46,7 +46,8 @@ class StorageLocationController extends BaseController
                 array_push($storageLocations, ...($user->getPartners() ?? []));
             }
         } else {
-            $storageLocations = $this->getRepository()->findAll();
+            $storageLocations = $this->getEm()->getRepository(Partner::class)
+                ->findBy(['isPublicDisplay' => true]);
         }
 
         return $this->serialize($request, $storageLocations);

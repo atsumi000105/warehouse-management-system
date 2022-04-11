@@ -28,22 +28,6 @@ const getters = {
         return active;
     },
 
-    /**
-     * TODO! Need to filter by partner is public attribute once we decide the table - partners ot storage_locations
-     * @param state
-     * @returns {*[]}
-     */
-    publicPartners: state => {
-        console.log('hello');
-        let active = [...state.all]
-            .filter(storageLocation => storageLocation.type !== 'Warehouse')
-            .sort((a, b) => a.title.toLowerCase() < b.title.toLowerCase() ? -1 : 1);
-
-        console.log('...state.all: ', [...state.all]);
-
-        return active;
-    },
-
     allActiveWarehouses: state => {
         let active = [...state.all]
             .filter(storageLocation => storageLocation.status === "ACTIVE" && storageLocation.type === 'Warehouse')
