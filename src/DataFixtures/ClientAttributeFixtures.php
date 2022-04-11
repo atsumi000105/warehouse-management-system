@@ -51,11 +51,11 @@ class ClientAttributeFixtures extends BaseFixture
                 'name' => 'email_address',
                 'label' => 'Email Address',
                 'description' => 'Enter parent Email Address',
-                'required' => true,
+                'required' => false,
                 'type' => AttributeDefinition::TYPE_STRING,
                 'interface' => AttributeValue::UI_TEXT,
                 'order_index' => 0,
-                //'is_displayed_publicly' => true,
+                'is_displayed_publicly' => true,
             ],
             [
                 'name' => 'home_phone',
