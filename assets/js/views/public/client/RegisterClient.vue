@@ -20,113 +20,158 @@
             </div>
         </div>
 
+        <div v-if="hospital == 1" class="panel panel-default">
+            <div class="panel-heading">
+                <h3>Hospital Signup Information</h3>
+            </div>
+            <div class="panel-body">
+                <p>
+                    There is no need to register, you have already received HappyBottoms diapers! For monthly diapers,
+                    just find an agency that works for you and go during their distribution days/times.
+                    Visit <a href="https://appyBottoms.org/get-diapers" target="_blank">HappyBottoms.org/get-diapers</a>
+                    for agency information.
+                </p>
+            </div>
+        </div>
+
         <div v-if="hospital ==0 && !savedAndFinished" class="panel panel-default">
             <div class="panel-heading">
                 <h3>Duplicate Check</h3>
             </div>
             <div class="panel-body">
-                <div v-if="!checked || (checked && foundDuplicates)" class="col-md-6 col-md-offset-1">
-                    <h4>Please enter your child's First Name, Last Name, and Birth Date to see if we already have a record for you.</h4>
-                    <form>
-                        <div class="form-row">
-                            <div
-                                class="form-group"
-                                :class="{ 'has-error': $v.client.firstName.$error }"
-                            >
-                                <label for="dup_first_name">First Name</label>
-                                <input
-                                    v-model="client.firstName"
-                                    id="dup_first_name"
-                                    type="text"
-                                    class="form-control"
-                                    placeholder="Enter first name"
+                <div class="row">
+                    <div v-if="!checked || (checked && foundDuplicates)" class="col-md-6 col-md-offset-1">
+                        <h4>Please enter your child's First Name, Last Name, and Birth Date to see if we already have a record for you.</h4>
+                        <form>
+                            <div class="form-row">
+                                <div
+                                    class="form-group"
+                                    :class="{ 'has-error': $v.client.firstName.$error }"
                                 >
-                                <fielderror v-if="$v.client.firstName.$error">
-                                    First Name is required
-                                </fielderror>
+                                    <label for="dup_first_name">First Name</label>
+                                    <input
+                                        v-model="client.firstName"
+                                        id="dup_first_name"
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Enter first name"
+                                    >
+                                    <fielderror v-if="$v.client.firstName.$error">
+                                        First Name is required
+                                    </fielderror>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-row">
-                            <div
-                                class="form-group"
-                                :class="{ 'has-error': $v.client.lastName.$error }"
-                            >
-                                <label for="dup_last_name">Last Name</label>
-                                <input
-                                    v-model="client.lastName"
-                                    id="dup_last_name"
-                                    type="text"
-                                    class="form-control"
-                                    placeholder="Enter last name"
+                            <div class="form-row">
+                                <div
+                                    class="form-group"
+                                    :class="{ 'has-error': $v.client.lastName.$error }"
                                 >
-                                <fielderror v-if="$v.client.lastName.$error">
-                                    Last Name is required
-                                </fielderror>
+                                    <label for="dup_last_name">Last Name</label>
+                                    <input
+                                        v-model="client.lastName"
+                                        id="dup_last_name"
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Enter last name"
+                                    >
+                                    <fielderror v-if="$v.client.lastName.$error">
+                                        Last Name is required
+                                    </fielderror>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-row">
-                            <div
-                                class="form-group"
-                                :class="{ 'has-error': $v.client.birthdate.$error }"
-                            >
-                                <DateField
-                                    id="dup_birth_date"
-                                    v-model="client.birthdate"
-                                    label="Birth Date"
-                                    format="YYYY-MM-DD"
-                                />
-                                <fielderror v-if="$v.client.birthdate.$error">
-                                    Birth Date should be a date in the past
-                                </fielderror>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <button
-                                    class="btn btn-primary btn-flat"
-                                    @click="check()"
+                            <div class="form-row">
+                                <div
+                                    class="form-group"
+                                    :class="{ 'has-error': $v.client.birthdate.$error }"
                                 >
-                                    <i class="fa fa-search fa-fw" />
-                                    Check for Duplicate
-                                </button>
+                                    <DateField
+                                        id="dup_birth_date"
+                                        v-model="client.birthdate"
+                                        label="Birth Date"
+                                        format="YYYY-MM-DD"
+                                    />
+                                    <fielderror v-if="$v.client.birthdate.$error">
+                                        Birth Date should be a date in the past
+                                    </fielderror>
+                                </div>
                             </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="col-md-4">
-                    <div v-if="checked && foundDuplicates">
-                        <div class="callout callout-warning no-background-color text-black">
-                            <h3>Duplicate Record Found</h3>
-                            Based on the information provided, it appears you may already be a client.  Our records
-                            show you may be associated with the following Partner, please contact them for more assistance.
-                            <div class="row">
-                                <div class="container-fluid">
-                                    <div class="col-12">
-                                        <table class="table table-hover">
-                                            <thead>
-                                                <th>Partner</th>
-                                                <th>Partner Address</th>
-                                            </thead>
-                                            <tbody>
-                                                <tr
-                                                    v-for="duplicate in duplicates"
-                                                    :key="duplicate.id"
-                                                >
-                                                    <td v-text="duplicate.partner ? duplicate.partner.title : ''" />
-                                                    <td v-text="duplicate.partner ? duplicate.partner.fullAddress : ''" />
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <button
+                                        class="btn btn-primary btn-flat"
+                                        @click="check()"
+                                    >
+                                        <i class="fa fa-search fa-fw" />
+                                        Check for Duplicate
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-4">
+                        <div v-if="checked && foundDuplicates">
+                            <div class="callout callout-warning no-background-color text-black">
+                                <h3>Duplicate Record Found</h3>
+                                Based on the information provided, it appears you may already be a client.  Our records
+                                show you may be associated with the following Partner, please contact them for more assistance.
+                                <div class="row">
+                                    <div class="container-fluid">
+                                        <div class="col-12">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <th>Partner</th>
+                                                    <th>Partner Address</th>
+                                                </thead>
+                                                <tbody>
+                                                    <tr
+                                                        v-for="duplicate in duplicates"
+                                                        :key="duplicate.id"
+                                                    >
+                                                        <td v-text="duplicate.partner ? duplicate.partner.title : ''" />
+                                                        <td v-text="duplicate.partner ? duplicate.partner.fullAddress : ''" />
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <div v-if="checked && !foundDuplicates" class="callout callout-success no-background-color text-black">
+                            <h3>No Duplicates Found</h3>
+                            Based on the information provided, it appears you are not already a client.  Please fill
+                            out the form below to register.
+                        </div>
                     </div>
-
-                    <div v-if="checked && !foundDuplicates" class="callout callout-success no-background-color text-black">
-                        <h3>No Duplicates Found</h3>
-                        Based on the information provided, it appears you are not already a client.  Please fill
-                        out the form below to register.
+                </div>
+                <div v-if="checked && foundDuplicates" class="row">
+                    <div class="container-fluid">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                FAQ
+                            </div>
+                            <div class="panel-body">
+                                <ul>
+                                    <li>
+                                        <strong>When can I pick up diapers?: </strong>
+                                        You can pick up diapers once a month during your agency’s pickup time
+                                        (see above). Even if you have not picked up for several months,
+                                        you do not need to create another application. Please contact your agency.
+                                    </li>
+                                    <li>
+                                        <strong>Can I go to a different agency?: </strong>
+                                        Yes, please contact the agency you are assigned to and ask them to
+                                        make you “inactive” in our system. Then you can go to the new agency
+                                        during their distribution days/times.
+                                    </li>
+                                    <li>
+                                        <strong>Have other questions?: </strong>
+                                        Please visit our website at <a href="https://HappyBottoms.org/Get-Diapers">HappyBottoms.org/Get-Diapers</a>
+                                        or email us at GetDiapers@HappyBottoms.org.
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -177,7 +222,8 @@
                             </svg>
                         </div>
                         <p style="font-size:18px" class="text-center mb-0 font-weight-light">
-                            <strong class="mr-1">Success!</strong> Form has been send successfully.</p>
+                            Thanks for submitting an application!
+                        </p>
                     </div>
                 </div>
             </div>
@@ -212,7 +258,7 @@ export default {
                 partner: {},
             },
             savedAndFinished: false,
-            hospital: 1,
+            hospital: null,
             duplicates: [],
             checked: false,
             transferClient: {},
