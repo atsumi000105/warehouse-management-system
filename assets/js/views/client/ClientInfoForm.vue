@@ -97,7 +97,7 @@
             <div :class="{ 'has-error': $v.partner.id.$error }">
                 <PartnerSelectionForm
                     v-model="partner"
-                    label="Assigned Partner"
+                    label="Where do you want to pick up diapers?"
                     :options="allPartners"
                     :editable="!this.new"
                     :is-required="true"
@@ -209,7 +209,7 @@ export default {
         return {
             partner: {
                 id: null,
-            }
+            },
         }
     },
 
@@ -239,7 +239,7 @@ export default {
         },
     },
 
-    computed: mapGetters(["allPartners"]),
+    computed: mapGetters(["allPartners", "publicPartners"]),
 
     watch: {
         value(val) {

@@ -115,6 +115,16 @@ class Partner extends StorageLocation
     /** @var Registry */
     protected $workflowRegistry;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $notes;
+
+    /**
+     * @ORM\Column(name="is_public_display", type="boolean", options={"default" : false})
+     */
+    private $isPublicDisplay;
+
     public function __construct($title, Registry $workflowRegistry)
     {
         parent::__construct($title);
@@ -281,5 +291,29 @@ class Partner extends StorageLocation
     protected function createNewContact(): StorageLocationContact
     {
         return new PartnerContact();
+    }
+
+    public function getNotes(): ?string
+    {
+        return $this->notes;
+    }
+
+    public function setNotes(?string $notes): self
+    {
+        $this->notes = $notes;
+
+        return $this;
+    }
+
+    public function getIsPublicDisplay(): ?bool
+    {
+        return $this->isPublicDisplay;
+    }
+
+    public function setIsPublicDisplay(bool $isPublicDisplay): self
+    {
+        $this->isPublicDisplay = $isPublicDisplay;
+
+        return $this;
     }
 }

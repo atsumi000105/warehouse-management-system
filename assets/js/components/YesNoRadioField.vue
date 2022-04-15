@@ -15,10 +15,10 @@
         <div class="radio-inline">
             <label>
                 <input
-                    v-model="value"
+                    v-model="selected_value"
                     type="radio"
                     :value="true"
-                    @change="$emit('input', true)"
+                    @change="$emit('input', selected_value)"
                     @blur="$v.$touch()"
                 >
                 Yes
@@ -27,10 +27,10 @@
         <div class="radio-inline">
             <label>
                 <input
-                    v-model="value"
+                    v-model="selected_value"
                     type="radio"
                     :value="false"
-                    @change="$emit('input', false)"
+                    @change="$emit('input', selected_value)"
                     @blur="$v.$touch()"
                 >
                 No
@@ -56,11 +56,11 @@ export default {
     props: {
         value: {
             type: Boolean,
-            required: true
+            required: false,
         },
         label: {
-            type: String
-            , required: true
+            type: String,
+            required: true
         },
         helpText: {
             type: String,
@@ -76,6 +76,24 @@ export default {
 
     validations() {
         return (this.isRequired) ? { value: { required } } : { value: {} };
+    },
+
+    watch: {
+        value(val) {
+            if (val) {
+                this.selected_value = val;
+            }
+        },
+    },
+
+    created() {
+        this.selected_value = _.cloneDeep(this.value);
+    },
+
+    data() {
+        return {
+            selected_value: false,
+        };
     },
 
     methods: {

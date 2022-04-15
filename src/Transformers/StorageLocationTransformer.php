@@ -12,8 +12,8 @@ class StorageLocationTransformer extends TransformerAbstract
     protected $defaultIncludes = [
         'address',
         'contacts',
+        'partner'
     ];
-
 
     public function transform(StorageLocation $storageLocation)
     {
@@ -28,8 +28,16 @@ class StorageLocationTransformer extends TransformerAbstract
             // For the record, I don't like this
             'canPlaceOrders' => $storageLocation instanceof Partner ? $storageLocation->canPlaceOrders() : null,
             'type' => end($classpath),
-
         ];
+    }
+
+    public function includePartner(StorageLocation $storageLocation)
+    {
+        if ($storageLocation instanceof Partner) {
+            // return here partner
+        }
+
+        return;
     }
 
     public function includeAddress(StorageLocation $storageLocation)

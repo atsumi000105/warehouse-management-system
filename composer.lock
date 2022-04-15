@@ -5229,24 +5229,25 @@
         },
         {
             "name": "symfony/mailer",
-            "version": "v4.4.21",
+            "version": "v4.4.40",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/mailer.git",
-                "reference": "76b64a4105634d89e1f7ee7f75851740fe8fe66b"
+                "reference": "e3304841fd41e1e59225919ed1a7e50986a4cb6f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/mailer/zipball/76b64a4105634d89e1f7ee7f75851740fe8fe66b",
-                "reference": "76b64a4105634d89e1f7ee7f75851740fe8fe66b",
+                "url": "https://api.github.com/repos/symfony/mailer/zipball/e3304841fd41e1e59225919ed1a7e50986a4cb6f",
+                "reference": "e3304841fd41e1e59225919ed1a7e50986a4cb6f",
                 "shasum": ""
             },
             "require": {
                 "egulias/email-validator": "^2.1.10|^3",
                 "php": ">=7.1.3",
-                "psr/log": "~1.0",
+                "psr/log": "^1|^2|^3",
                 "symfony/event-dispatcher": "^4.3",
                 "symfony/mime": "^4.4.21|^5.2.6",
+                "symfony/polyfill-php80": "^1.16",
                 "symfony/service-contracts": "^1.1|^2"
             },
             "conflict": {
@@ -5289,7 +5290,7 @@
             "description": "Helps sending emails",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/mailer/tree/v4.4.21"
+                "source": "https://github.com/symfony/mailer/tree/v4.4.40"
             },
             "funding": [
                 {
@@ -5305,7 +5306,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-03-12T11:23:44+00:00"
+            "time": "2022-03-18T08:12:19+00:00"
         },
         {
             "name": "symfony/messenger",
@@ -9608,5 +9609,5 @@
     "platform-overrides": {
         "php": "7.3.1"
     },
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.2.0"
 }

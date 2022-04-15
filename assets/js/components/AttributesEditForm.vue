@@ -150,7 +150,7 @@
             },
             value: {
                 type: Array,
-                required: true,
+                required: false,
             },
             filter: {
                 type: Function,

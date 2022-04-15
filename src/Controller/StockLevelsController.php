@@ -58,14 +58,15 @@ class StockLevelsController extends BaseController
             $available = array_filter($availableLevels, function ($item) use ($product) {
                 return $item['id'] == $product->getId();
             });
+
             $available = reset($available);
 
             return [
                 'id' => $product->getId(),
                 'name' => $product->getName(),
                 'category' => $product->getProductCategory()->getName(),
-                'balance' => (int) $level['balance'] ?: 0,
-                'availableBalance' => (int) $available['balance'] ?: 0
+                'balance' => (isset($level['balance'])) ? (int) $level['balance'] : 0,
+                'availableBalance' => (isset($available['balance'])) ? $available['balance'] : 0,
             ];
         }, $products);
 

@@ -1,0 +1,31 @@
+{% extends "emails/base-email.html.twig" %}
+
+{% block content %}
+    <row class="bg-white">
+        <columns>
+            <p class="fs-14 dark text-left mb-20">Hello {{ parentName }}!</p>
+        </columns>
+    </row>
+    <row class="bg-white">
+        <columns>
+            <h4>Signup Receipt</h4>
+            <callout class="secondary">
+                <row>
+                    <columns>
+                        <p>You are Receiving this email to confirm that we've received your signup and.</p>
+                        <p>We will contact you as soon as possible.</p>
+                    </columns>
+                </row>
+            </callout>
+        </columns>
+    </row>
+    <spacer class="bg-blue" size="5"></spacer>
+    <row class="bg-light-gray">
+        <columns>
+            <p class="fs-10 gray text-center mb-10">Morbi nec euismod sapien, vitae vulputate tellus. Mauris condimentum
+                orci ut metus ornare ultrices. Mauris ac lorem ut orci congue consequat. Nam auctor tortor ut faucibus
+                cursus. Fusce dapibus metus ut massa ultrices commodo. Maecenas a purus sapien. Ut ornare tristique ex,
+                nec pellentesque dolor vulputate ut.</p>
+        </columns>
+    </row>
+{% endblock %}
