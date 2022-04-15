@@ -95,6 +95,7 @@
                                         v-model="canEdit"
                                         type="checkbox"
                                         :value="systemGroup.id"
+                                        :checked="systemGroup.id === canEdit[systemGroup.id]"
                                     >
                                 </label>
                             </td>
@@ -105,6 +106,7 @@
                                         v-model="canView"
                                         type="checkbox"
                                         :value="systemGroup.id"
+                                        :checked="systemGroup.id === canView[systemGroup.id]"
                                     >
                                 </label>
                             </td>
@@ -186,11 +188,8 @@ export default {
 
         computed: {
             ...mapGetters([
-                'allTypes'
-            ]),
-
-            ...mapGetters([
-                'allSystemGroups'
+                'allTypes',
+                'allSystemGroups',
             ]),
 
             interfaceOptions: function () {
