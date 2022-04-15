@@ -73,6 +73,44 @@
                 </div>
             </form>
         </div>
+
+        <div class="panel">
+            <div class="panel-heading">
+                Group Types
+            </div>
+            <div class="panel-body">
+                <table>
+                    <thead>
+                        <th>Group Name</th>
+                        <th>Can Edit</th>
+                        <th>Can View</th>
+                    </thead>
+                    <tbody>
+                        <tr v-for="systemGroup in allSystemGroups">
+                            <td>{{ systemGroup.name }}</td>
+                            <td>
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        :value="canEdit[systemGroup.id]"
+                                        @change="helloWorld($event.target.value())"
+                                    >
+                                </label>
+                            </td>
+                            <td>
+                                Can View
+<!--                                <CheckboxGroupField
+                                    v-model="definition.canView[systemGroup.id]"
+                                    :name="systemGroup.name"
+                                >
+                                </CheckboxGroupField>-->
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
     </section>
 </template>
 
@@ -82,30 +120,58 @@ import KeyValueField from "../../../components/KeyValueField";
 import {mapGetters} from "vuex";
 import OptionListStatic from "../../../components/OptionListStatic";
 import BooleanField from "../../../components/ToggleField";
+import CheckboxGroupField from "../../../components/CheckboxGroupField";
 
 export default {
         name: 'AttributeDefinitionEdit',
+
         components: {
             BooleanField,
             OptionListStatic,
-            KeyValueField
+            KeyValueField,
+            CheckboxGroupField,
         },
+
         props: {
-            newForm: { type: Boolean, default: false },
-            hasDuplicateCheck: { type: Boolean, default: false },
-            getApi: { type: String, required: true },
-            postApi: { type: String, required: true },
-            patchApi: { type: String, required: true },
-            listRoute: { type: String, required: true },
-            definitionEntity: { type: String, required: true },
+            newForm: {
+                type: Boolean,
+                default: false,
+            },
+            hasDuplicateCheck: {
+                type: Boolean,
+                default: false,
+            },
+            getApi: {
+                type: String,
+                required: true,
+            },
+            postApi: {
+                type: String,
+                required: true,
+            },
+            patchApi: {
+                type: String,
+                required: true,
+            },
+            listRoute: {
+                type: String,
+                required: true,
+            },
+            definitionEntity: {
+                type: String,
+                required: true,
+            },
         },
+
         data() {
             return {
                 definition: {
-                    options: []
+                    options: [],
                 },
+                canEdit: [],
             };
         },
+
         created() {
             let self = this;
 
@@ -115,10 +181,16 @@ export default {
                     .then(response => self.definition = response.data.data);
             }
         },
+
         computed: {
             ...mapGetters([
                 'allTypes'
             ]),
+
+            ...mapGetters([
+                'allSystemGroups'
+            ]),
+
             interfaceOptions: function () {
                 let attributeType = this.$store.getters.getTypeById(this.definition.type);
                 if (attributeType) {
@@ -128,17 +200,25 @@ export default {
                 }
                 return [];
             },
+
             selectedTypeHasOptions: function () {
                 if (!this.definition.type) return false;
 
                 let attributeType = this.$store.getters.getTypeById(this.definition.type);
-                return !!attributeType.hasOptions;
-            }
+                return !!attributeType?.hasOptions;
+            },
         },
+
         mounted() {
             this.$store.dispatch('loadTypes');
+            this.$store.dispatch('loadSystemGroups');
         },
+
         methods: {
+            helloWorld: function (val) {
+                console.log("val: ", val);
+            },
+
             save: function () {
                 let self = this;
                 if (this.newForm) {
@@ -157,6 +237,7 @@ export default {
                         });
                 }
             },
+
             getInterfaceDisplayString: function (uiType) {
                 let map = {
                     TEXT: 'Single Line Text Input',
@@ -174,7 +255,7 @@ export default {
                 }
 
                 return map[uiType];
-            }
-        }
-    }
+            },
+        },
+    };
 </script>

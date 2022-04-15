@@ -6,9 +6,9 @@ import suppliers from './modules/suppliers';
 import clients from './modules/clients';
 import attributeTypes from "./modules/attributeTypes";
 import system from "./modules/system";
+import systemGroups from "./modules/systemGroups";
 
 Vue.use(Vuex);
-
 
 export default new Vuex.Store({
     modules: {
@@ -18,5 +18,6 @@ export default new Vuex.Store({
         clients,
         attributeTypes,
         system,
+        systemGroups,
     }
 });
