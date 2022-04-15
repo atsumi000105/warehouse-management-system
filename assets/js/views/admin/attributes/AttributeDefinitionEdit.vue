@@ -86,24 +86,27 @@
                         <th>Can View</th>
                     </thead>
                     <tbody>
-                        <tr v-for="systemGroup in allSystemGroups">
+                        <tr v-for="systemGroup in allSystemGroups" :key="systemGroup.id">
                             <td>{{ systemGroup.name }}</td>
                             <td>
                                 <label>
                                     <input
+                                        :id="'can_edit_group_name_' + systemGroup.id"
+                                        v-model="canEdit"
                                         type="checkbox"
-                                        :value="canEdit[systemGroup.id]"
-                                        @change="helloWorld($event.target.value())"
+                                        :value="systemGroup.id"
                                     >
                                 </label>
                             </td>
                             <td>
-                                Can View
-<!--                                <CheckboxGroupField
-                                    v-model="definition.canView[systemGroup.id]"
-                                    :name="systemGroup.name"
-                                >
-                                </CheckboxGroupField>-->
+                                <label>
+                                    <input
+                                        :id="'can_view_group_name_' + systemGroup.id"
+                                        v-model="canView"
+                                        type="checkbox"
+                                        :value="systemGroup.id"
+                                    >
+                                </label>
                             </td>
                         </tr>
                     </tbody>
@@ -120,7 +123,6 @@ import KeyValueField from "../../../components/KeyValueField";
 import {mapGetters} from "vuex";
 import OptionListStatic from "../../../components/OptionListStatic";
 import BooleanField from "../../../components/ToggleField";
-import CheckboxGroupField from "../../../components/CheckboxGroupField";
 
 export default {
         name: 'AttributeDefinitionEdit',
@@ -129,7 +131,6 @@ export default {
             BooleanField,
             OptionListStatic,
             KeyValueField,
-            CheckboxGroupField,
         },
 
         props: {
@@ -169,6 +170,7 @@ export default {
                     options: [],
                 },
                 canEdit: [],
+                canView: [],
             };
         },
 
@@ -215,12 +217,14 @@ export default {
         },
 
         methods: {
-            helloWorld: function (val) {
-                console.log("val: ", val);
-            },
-
             save: function () {
                 let self = this;
+
+                self.definition.canEdit = self.canEdit;
+                self.definition.canView = self.canView;
+
+                console.log(self.definition); return 0;
+
                 if (this.newForm) {
                     axios
                         .post(this.postApi, this.definition)
