@@ -79,7 +79,10 @@ abstract class BaseAttributeDefinitionController extends BaseController
         $definition->applyChangesFromArray($params);
 
         if (isset($params['canEdit']) && !empty($params['canEdit'])) {
+
             foreach ($params['canEdit'] as $groupId) {
+                print_r($groupId); die();
+
                 $permission = $this->getEm()
                     ->getRepository(AttributeDefinitionPermission::class)
                     ->findBy([

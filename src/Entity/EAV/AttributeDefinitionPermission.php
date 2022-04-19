@@ -2,6 +2,7 @@
 
 namespace App\Entity\EAV;
 
+use App\Entity\Group;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\CoreEntity;
 
@@ -22,14 +23,23 @@ class AttributeDefinitionPermission extends CoreEntity
     /**
      * @ORM\Column(type="integer")
      */
-    private $attribute_definition_id;
+    //private $attribute_definition_id;
 
     /**
-     * @var int
+     * @var AttributeDefinition
      *
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="AttributeDefinition", inversedBy="permissions")
+     * @ORM\JoinColumn(name="attribute_definition_id", referencedColumnName="id", nullable=false)
      */
-    private $group_id;
+    protected $definition;
+
+    /**
+     * @var Group
+     *
+     * @ORM\ManyToOne(targetEntity="App\Entity\Group", inversedBy="attributeFieldPermissions")
+     * @ORM\JoinColumn(name="group_id", referencedColumnName="id", nullable=false)
+     */
+    private $group;
 
     /**
      * @var boolean
@@ -54,20 +64,41 @@ class AttributeDefinitionPermission extends CoreEntity
     }
 
     /**
-     * @return int|null
+     * @return AttributeDefinition
      */
-    public function getAttributeDefinitionId(): ?int
+    public function getDefinition(): AttributeDefinition
     {
-        return $this->attribute_definition_id;
+        return $this->definition;
     }
 
     /**
-     * @param int $attribute_definition_id
+     * @param AttributeDefinition $definition
+     *
      * @return $this
      */
-    public function setAttributeDefinitionId(int $attribute_definition_id): self
+    public function setDefinition(AttributeDefinition $definition): self
     {
-        $this->attribute_definition_id = $attribute_definition_id;
+        $this->definition = $definition;
+
+        return $this;
+    }
+
+    /**
+     * @return Group
+     */
+    public function getGroup(): Group
+    {
+        return $this->group;
+    }
+
+    /**
+     * @param Group $group
+     *
+     * @return $this
+     */
+    public function setGroup(Group $group): self
+    {
+        $this->group = $group;
 
         return $this;
     }

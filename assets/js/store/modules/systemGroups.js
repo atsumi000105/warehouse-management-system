@@ -18,7 +18,11 @@ const actions = {
         state.loading = true;
 
         return new Promise((resolve, reject) => {
-            axios.get('/api/groups')
+            axios.get('/api/groups', {
+                params: {
+                    include: ['attributeFieldPermissions']
+                }
+            })
                 .then((response) => {
                     commit('setSystemGroups', {
                         list: response.data.data
@@ -30,7 +34,7 @@ const actions = {
                     reject(error);
                 });
         });
-    }
+    },
 };
 
 const mutations = {

@@ -87,16 +87,15 @@
                             <th>Can View</th>
                         </thead>
                         <tbody>
-                            <tr v-for="systemGroup in allSystemGroups" :key="systemGroup.id">
+                            <tr v-for="(systemGroup, index) in allSystemGroups" :key="systemGroup.id">
                                 <td>{{ systemGroup.name }}</td>
                                 <td>
                                     <label>
                                         <input
                                             :id="'can_edit_group_name_' + systemGroup.id"
-                                            v-model="canEdit"
+                                            v-model="canEdit[index][systemGroup.id]"
                                             type="checkbox"
                                             :value="systemGroup.id"
-                                            :checked="systemGroup.id === canEdit[systemGroup.id]"
                                             @change="updateCheckboxValue"
                                         >
                                     </label>
@@ -203,6 +202,12 @@ export default {
             },
         },
 
+        watch: {
+            allSystemGroups (newVal, oldVal) {
+                this.setCanEditValues();
+            }
+        },
+
         created() {
             let self = this;
 
@@ -216,39 +221,24 @@ export default {
         mounted() {
             this.$store.dispatch('loadTypes');
             this.$store.dispatch('loadSystemGroups');
-
-            this.setCanEditValues();
         },
 
         methods: {
             setCanEditValues: function () {
                 const self = this;
 
-                this.$store.dispatch('loadSystemGroups');
-
-
-                console.log("self.$store.getters.allSystemGroups: ", self.$store.getters.allSystemGroups); return 0;
-
-
-                //let allSystemGroups = self.$store.getters.allSystemGroups();
-
-                //console.log(allSystemGroups); return 0;
-
-                /*let allSystemGroups = this.$store.getters.allSystemGroups;
-
-                console.log("allSystemGroups: ", allSystemGroups);
-
                 self.allSystemGroups.forEach(group => {
+
+                    console.log('look at me: ', group);
+
                     self.canEdit = [
                         ...self.canEdit, {
-                            [group]: {
-                                canEdit: false,
-                            },
+                            [group.id]: true,
                         },
                     ]
                 });
 
-                console.log("initial self.canEdit: ", self.canEdit);*/
+                console.log("initial self.canEdit: ", self.canEdit);
             },
 
             updateCheckboxValue: function(event) {
