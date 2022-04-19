@@ -2,12 +2,11 @@
 
 namespace App\Entity\EAV;
 
-use App\Repository\AttributeDefinitionPermissionRepository;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\CoreEntity;
 
 /**
- * @ORM\Entity(repositoryClass=AttributeDefinitionPermissionRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\AttributeDefinitionPermissionRepository")
  */
 class AttributeDefinitionPermission extends CoreEntity
 {

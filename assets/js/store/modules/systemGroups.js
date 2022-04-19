@@ -6,7 +6,7 @@ const state = {
 };
 
 const getters = {
-    allSystemGroups: state => {
+    allSystemGroups: (state) => {
         return state.all;
     },
 };

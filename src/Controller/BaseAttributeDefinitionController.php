@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\EAV\AttributeDefinitionPermission;
 use App\Entity\EAV\AttributeValue;
 use App\Entity\EAV\AttributeDefinition;
+use App\Repository\AttributeDefinitionPermissionRepository;
+use App\Service\AttributePermissionProcessor;
 use App\Transformers\AttributeDefinitionTransformer;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,7 +29,6 @@ abstract class BaseAttributeDefinitionController extends BaseController
      */
     public function index(Request $request)
     {
-
         $definitions = $this->getRepository()->findAllSorted();
 
         return $this->serialize($request, $definitions);
@@ -75,6 +77,48 @@ abstract class BaseAttributeDefinitionController extends BaseController
 
         $definition = $this->getDefinition($id);
         $definition->applyChangesFromArray($params);
+
+        if (isset($params['canEdit']) && !empty($params['canEdit'])) {
+            foreach ($params['canEdit'] as $groupId) {
+                $permission = $this->getEm()
+                    ->getRepository(AttributeDefinitionPermission::class)
+                    ->findBy([
+                        'attribute_definition_id' => $id,
+                        'group_id' => $groupId
+                    ]);
+
+                if ($permission === null) {
+                    $permission = new AttributeDefinitionPermission();
+                }
+
+                $permission->setAttributeDefinitionId($id);
+                $permission->setCanEdit(true);
+                $permission->setGroupId($groupId);
+
+                $this->getEm()->persist($permission);
+            }
+        }
+
+        if (isset($params['canView']) && !empty($params['canView'])) {
+            foreach ($params['canView'] as $groupId) {
+                $permission = $this->getEm()
+                    ->getRepository(AttributeDefinitionPermission::class)
+                    ->findBy([
+                        'attribute_definition_id' => $id,
+                        'group_id' => $groupId
+                    ]);
+
+                if ($permission === null) {
+                    $permission = new AttributeDefinitionPermission();
+                }
+
+                $permission->setAttributeDefinitionId($id);
+                $permission->setCanView(true);
+                $permission->setGroupId($groupId);
+
+                $this->getEm()->persist($permission);
+            }
+        }
 
         $this->getEm()->flush();
 

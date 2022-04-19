@@ -79,40 +79,43 @@
                 Group Types
             </div>
             <div class="panel-body">
-                <table>
-                    <thead>
-                        <th>Group Name</th>
-                        <th>Can Edit</th>
-                        <th>Can View</th>
-                    </thead>
-                    <tbody>
-                        <tr v-for="systemGroup in allSystemGroups" :key="systemGroup.id">
-                            <td>{{ systemGroup.name }}</td>
-                            <td>
-                                <label>
-                                    <input
-                                        :id="'can_edit_group_name_' + systemGroup.id"
-                                        v-model="canEdit"
-                                        type="checkbox"
-                                        :value="systemGroup.id"
-                                        :checked="systemGroup.id === canEdit[systemGroup.id]"
-                                    >
-                                </label>
-                            </td>
-                            <td>
-                                <label>
-                                    <input
-                                        :id="'can_view_group_name_' + systemGroup.id"
-                                        v-model="canView"
-                                        type="checkbox"
-                                        :value="systemGroup.id"
-                                        :checked="systemGroup.id === canView[systemGroup.id]"
-                                    >
-                                </label>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <th>Group Name</th>
+                            <th>Can Edit</th>
+                            <th>Can View</th>
+                        </thead>
+                        <tbody>
+                            <tr v-for="systemGroup in allSystemGroups" :key="systemGroup.id">
+                                <td>{{ systemGroup.name }}</td>
+                                <td>
+                                    <label>
+                                        <input
+                                            :id="'can_edit_group_name_' + systemGroup.id"
+                                            v-model="canEdit"
+                                            type="checkbox"
+                                            :value="systemGroup.id"
+                                            :checked="systemGroup.id === canEdit[systemGroup.id]"
+                                            @change="updateCheckboxValue"
+                                        >
+                                    </label>
+                                </td>
+                                <td>
+                                    <label>
+                                        <input
+                                            :id="'can_view_group_name_' + systemGroup.id"
+                                            v-model="canView"
+                                            type="checkbox"
+                                            :value="systemGroup.id"
+                                            :checked="systemGroup.id === canView[systemGroup.id]"
+                                        >
+                                    </label>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
@@ -176,16 +179,6 @@ export default {
             };
         },
 
-        created() {
-            let self = this;
-
-            if (!this.newForm) {
-                axios
-                    .get(this.getApi + this.$route.params.id)
-                    .then(response => self.definition = response.data.data);
-            }
-        },
-
         computed: {
             ...mapGetters([
                 'allTypes',
@@ -210,31 +203,81 @@ export default {
             },
         },
 
+        created() {
+            let self = this;
+
+            if (!this.newForm) {
+                axios
+                    .get(this.getApi + this.$route.params.id)
+                    .then(response => self.definition = response.data.data);
+            }
+        },
+
         mounted() {
             this.$store.dispatch('loadTypes');
             this.$store.dispatch('loadSystemGroups');
+
+            this.setCanEditValues();
         },
 
         methods: {
+            setCanEditValues: function () {
+                const self = this;
+
+                this.$store.dispatch('loadSystemGroups');
+
+
+                console.log("self.$store.getters.allSystemGroups: ", self.$store.getters.allSystemGroups); return 0;
+
+
+                //let allSystemGroups = self.$store.getters.allSystemGroups();
+
+                //console.log(allSystemGroups); return 0;
+
+                /*let allSystemGroups = this.$store.getters.allSystemGroups;
+
+                console.log("allSystemGroups: ", allSystemGroups);
+
+                self.allSystemGroups.forEach(group => {
+                    self.canEdit = [
+                        ...self.canEdit, {
+                            [group]: {
+                                canEdit: false,
+                            },
+                        },
+                    ]
+                });
+
+                console.log("initial self.canEdit: ", self.canEdit);*/
+            },
+
+            updateCheckboxValue: function(event) {
+                this.canEdit[event.target.value]["canEdit"] = event.target.checked;
+            },
+
             save: function () {
                 let self = this;
 
                 self.definition.canEdit = self.canEdit;
                 self.definition.canView = self.canView;
 
-                console.log(self.definition); return 0;
+                console.log(self.definition);
 
                 if (this.newForm) {
                     axios
                         .post(this.postApi, this.definition)
-                        .then(response => self.$router.push({ name: this.listRoute }))
+                        .then((response) => {
+                            self.$router.push({ name: this.listRoute })
+                        })
                         .catch(function (error) {
                             console.log(error);
                         });
                 } else {
                     axios
                         .patch(this.patchApi + this.$route.params.id, this.definition)
-                        .then(response => self.$router.push({ name: this.listRoute }))
+                        .then((response) => {
+                            //self.$router.push({ name: this.listRoute })
+                        })
                         .catch(function (error) {
                             console.log(error);
                         });

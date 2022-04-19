@@ -12,6 +12,8 @@ use App\Entity\EAV\Type\OptionListAttributeValue;
 use App\Entity\EAV\Type\StringAttributeValue;
 use App\Entity\EAV\Type\TextAttributeValue;
 use App\Entity\EAV\Type\ZipCountyAttributeValue;
+use App\Repository\AttributeDefinitionPermissionRepository;
+use App\Service\AttributePermissionProcessor;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
