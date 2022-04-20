@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\AttributeDefinitionPermission;
+use App\Entity\EAV\AttributeDefinitionPermission;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -25,15 +25,14 @@ class AttributeDefinitionPermissionRepository extends BaseRepository
     }
     */
 
-    /*
-    public function findOneBySomeField($value): ?AttributeDefinitionPermission
+    public function findOneByGroupAndDefinition($groupId, $definitionId): ?AttributeDefinitionPermission
     {
         return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('a.definition = :definitionId')
+            ->andWhere('a.group = :groupId')
+            ->setParameters(['groupId' => $groupId, 'definitionId' => $definitionId])
             ->getQuery()
             ->getOneOrNullResult()
         ;
     }
-    */
 }

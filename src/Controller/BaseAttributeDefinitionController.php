@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\EAV\AttributeDefinitionPermission;
 use App\Entity\EAV\AttributeValue;
 use App\Entity\EAV\AttributeDefinition;
+use App\Entity\Group;
 use App\Repository\AttributeDefinitionPermissionRepository;
 use App\Service\AttributePermissionProcessor;
 use App\Transformers\AttributeDefinitionTransformer;
@@ -78,46 +79,32 @@ abstract class BaseAttributeDefinitionController extends BaseController
         $definition = $this->getDefinition($id);
         $definition->applyChangesFromArray($params);
 
-        if (isset($params['canEdit']) && !empty($params['canEdit'])) {
+        if (isset($params['canEdit']) && isset($params['canView'])) {
+            foreach ($params['canEdit'] as $key => $canEdit) {
 
-            foreach ($params['canEdit'] as $groupId) {
-                print_r($groupId); die();
+                $groupId = key($canEdit);
+
+                $group = $this->getEm()
+                    ->getRepository(Group::class)
+                    ->find($groupId);
+
+                $canEdit = (bool) $canEdit[$groupId];
+
+                $canViewRow = $params['canView'][$key];
+                $canView = (bool) $canViewRow[$groupId];
 
                 $permission = $this->getEm()
                     ->getRepository(AttributeDefinitionPermission::class)
-                    ->findBy([
-                        'attribute_definition_id' => $id,
-                        'group_id' => $groupId
-                    ]);
+                    ->findOneByGroupAndDefinition($groupId, $id);
 
                 if ($permission === null) {
                     $permission = new AttributeDefinitionPermission();
                 }
 
-                $permission->setAttributeDefinitionId($id);
-                $permission->setCanEdit(true);
-                $permission->setGroupId($groupId);
-
-                $this->getEm()->persist($permission);
-            }
-        }
-
-        if (isset($params['canView']) && !empty($params['canView'])) {
-            foreach ($params['canView'] as $groupId) {
-                $permission = $this->getEm()
-                    ->getRepository(AttributeDefinitionPermission::class)
-                    ->findBy([
-                        'attribute_definition_id' => $id,
-                        'group_id' => $groupId
-                    ]);
-
-                if ($permission === null) {
-                    $permission = new AttributeDefinitionPermission();
-                }
-
-                $permission->setAttributeDefinitionId($id);
-                $permission->setCanView(true);
-                $permission->setGroupId($groupId);
+                $permission->setDefinition($definition);
+                $permission->setCanEdit($canEdit);
+                $permission->setCanView($canView);
+                $permission->setGroup($group);
 
                 $this->getEm()->persist($permission);
             }

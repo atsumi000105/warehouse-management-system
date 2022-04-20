@@ -96,7 +96,6 @@
                                             v-model="canEdit[index][systemGroup.id]"
                                             type="checkbox"
                                             :value="systemGroup.id"
-                                            @change="updateCheckboxValue"
                                         >
                                     </label>
                                 </td>
@@ -104,10 +103,9 @@
                                     <label>
                                         <input
                                             :id="'can_view_group_name_' + systemGroup.id"
-                                            v-model="canView"
+                                            v-model="canView[index][systemGroup.id]"
                                             type="checkbox"
                                             :value="systemGroup.id"
-                                            :checked="systemGroup.id === canView[systemGroup.id]"
                                         >
                                     </label>
                                 </td>
@@ -166,6 +164,13 @@ export default {
                 type: String,
                 required: true,
             },
+            data_default: {
+                type: Object,
+                required: false,
+                default() {
+                    return {};
+                },
+            },
         },
 
         data() {
@@ -173,6 +178,7 @@ export default {
                 definition: {
                     options: [],
                 },
+                systemGroups: [],
                 canEdit: [],
                 canView: [],
             };
@@ -203,8 +209,9 @@ export default {
         },
 
         watch: {
-            allSystemGroups (newVal, oldVal) {
+            allSystemGroups (newVal) {
                 this.setCanEditValues();
+                this.setCanViewValues();
             }
         },
 
@@ -229,20 +236,49 @@ export default {
 
                 self.allSystemGroups.forEach(group => {
 
-                    console.log('look at me: ', group);
+                    let canEditFlag = false;
+
+                    if (self.definition && self.definition.id && group.attributeFieldPermissions) {
+                        group.attributeFieldPermissions.forEach(permission => {
+                            if (permission.definition_id === self.definition.id && permission.can_edit === true) {
+                                canEditFlag = true;
+
+                                return canEditFlag;
+                            }
+                        })
+                    }
 
                     self.canEdit = [
                         ...self.canEdit, {
-                            [group.id]: true,
+                            [group.id]: canEditFlag,
                         },
                     ]
                 });
-
-                console.log("initial self.canEdit: ", self.canEdit);
             },
 
-            updateCheckboxValue: function(event) {
-                this.canEdit[event.target.value]["canEdit"] = event.target.checked;
+            setCanViewValues: function () {
+                const self = this;
+
+                self.allSystemGroups.forEach(group => {
+
+                    let canViewFlag = false;
+
+                    if (self.definition && self.definition.id && group.attributeFieldPermissions) {
+                        group.attributeFieldPermissions.forEach(permission => {
+                            if (permission.definition_id === self.definition.id && permission.can_view === true) {
+                                canViewFlag = true;
+
+                                return canViewFlag;
+                            }
+                        })
+                    }
+
+                    self.canView = [
+                        ...self.canView, {
+                            [group.id]: canViewFlag,
+                        },
+                    ]
+                });
             },
 
             save: function () {
@@ -250,8 +286,6 @@ export default {
 
                 self.definition.canEdit = self.canEdit;
                 self.definition.canView = self.canView;
-
-                console.log(self.definition);
 
                 if (this.newForm) {
                     axios
@@ -266,7 +300,7 @@ export default {
                     axios
                         .patch(this.patchApi + this.$route.params.id, this.definition)
                         .then((response) => {
-                            //self.$router.push({ name: this.listRoute })
+                            self.$router.push({ name: this.listRoute })
                         })
                         .catch(function (error) {
                             console.log(error);

@@ -104,25 +104,6 @@ class AttributeDefinitionPermission extends CoreEntity
     }
 
     /**
-     * @return int|null
-     */
-    public function getGroupId(): ?int
-    {
-        return $this->group_id;
-    }
-
-    /**
-     * @param int $group_id
-     * @return $this
-     */
-    public function setGroupId(int $group_id): self
-    {
-        $this->group_id = $group_id;
-
-        return $this;
-    }
-
-    /**
      * @return bool|null
      */
     public function getCanView(): ?bool
