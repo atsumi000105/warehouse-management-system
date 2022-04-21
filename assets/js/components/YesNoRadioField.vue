@@ -12,33 +12,38 @@
             :title="helpText"
             class="attribute-help-text fa fa-question-circle"
         />
-        <div class="radio-inline">
-            <label>
-                <input
-                    v-model="selected_value"
-                    type="radio"
-                    :value="true"
-                    @change="$emit('input', selected_value)"
-                    @blur="$v.$touch()"
-                >
-                Yes
-            </label>
+        <div v-if="canEdit" class="radio-inline">
+            <div class="radio-inline">
+                <label>
+                    <input
+                        v-model="selected_value"
+                        type="radio"
+                        :value="true"
+                        @change="$emit('input', selected_value)"
+                        @blur="$v.$touch()"
+                    >
+                    Yes
+                </label>
+            </div>
+            <div class="radio-inline">
+                <label>
+                    <input
+                        v-model="selected_value"
+                        type="radio"
+                        :value="false"
+                        @change="$emit('input', selected_value)"
+                        @blur="$v.$touch()"
+                    >
+                    No
+                </label>
+            </div>
+            <FieldError v-if="$v.value.$error">
+                <strong>Field is required</strong>
+            </FieldError>
         </div>
-        <div class="radio-inline">
-            <label>
-                <input
-                    v-model="selected_value"
-                    type="radio"
-                    :value="false"
-                    @change="$emit('input', selected_value)"
-                    @blur="$v.$touch()"
-                >
-                No
-            </label>
+        <div v-else class="radio-inline">
+            {{ boolToStr(selected_value) }}
         </div>
-        <FieldError v-if="$v.value.$error">
-            <strong>Field is required</strong>
-        </FieldError>
     </div>
 </template>
 
@@ -72,6 +77,11 @@ export default {
             required: false,
             default: false,
         },
+        canEdit: {
+            type: Boolean,
+            required:false,
+            default: false,
+        },
     },
 
     validations() {
@@ -88,6 +98,10 @@ export default {
 
     created() {
         this.selected_value = _.cloneDeep(this.value);
+
+        if (this.canEdit === false) {
+            this.isRequired = false;
+        }
     },
 
     data() {
@@ -104,6 +118,10 @@ export default {
 
             return 'form-group';
         },
+
+        boolToStr(val) {
+            return (val) ? "Yes" : "No";
+        }
     },
 }
 </script>

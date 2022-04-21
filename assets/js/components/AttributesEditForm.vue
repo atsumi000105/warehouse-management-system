@@ -6,13 +6,14 @@
                 :key="attribute.definition_id"
                 :class="bootstrapColSize"
             >
-                <template v-if="showAttributeField(attribute)">
+                <template v-if="showAttributeField(attribute) && defineCanViewAttribute(attribute)">
                     <BooleanField
                         v-if="attribute.displayInterface === 'TOGGLE'"
                         v-model="attribute.value"
                         :label="attribute.label"
                         :help-text="attribute.helpText"
                         :is-required="attribute.isRequired"
+                        :can-edit="defineCanEditAttribute(attribute)"
                     />
                     <YesNoRadioField
                         v-else-if="attribute.displayInterface === 'YES_NO_RADIO'"
@@ -20,6 +21,7 @@
                         :label="attribute.label"
                         :help-text="attribute.helpText"
                         :is-required="attribute.isRequired"
+                        :can-edit="defineCanEditAttribute(attribute)"
                     />
                     <DateField
                         v-else-if="attribute.displayInterface === 'DATETIME'"
@@ -27,6 +29,7 @@
                         :label="attribute.label"
                         :help-text="attribute.helpText"
                         :is-required="attribute.isRequired"
+                        :can-edit="defineCanEditAttribute(attribute)"
                     />
                     <NumberField
                         v-else-if="attribute.displayInterface === 'NUMBER'"
@@ -34,6 +37,7 @@
                         :label="attribute.label"
                         :help-text="attribute.helpText"
                         :is-required="attribute.isRequired"
+                        :can-edit="defineCanEditAttribute(attribute)"
                     />
                     <OptionListApi
                         v-else-if="attribute.displayInterface === 'SELECT_SINGLE'"
@@ -42,6 +46,7 @@
                         :help-text="attribute.helpText"
                         :preloaded-options="attribute.options"
                         :is-required="attribute.isRequired"
+                        :can-edit="defineCanEditAttribute(attribute)"
                     />
                     <OptionListApi
                         v-else-if="attribute.displayInterface === 'SELECT_MULTI'"
@@ -51,6 +56,7 @@
                         :preloaded-options="attribute.options"
                         :multiple="true"
                         :is-required="attribute.isRequired"
+                        :can-edit="defineCanEditAttribute(attribute)"
                     />
                     <RadioField
                         v-else-if="attribute.displayInterface === 'RADIO'"
@@ -59,6 +65,7 @@
                         :help-text="attribute.helpText"
                         :preloaded-options="attribute.options"
                         :is-required="attribute.isRequired"
+                        :can-edit="defineCanEditAttribute(attribute)"
                     />
                     <CheckboxGroupField
                         v-else-if="attribute.displayInterface === 'CHECKBOX_GROUP'"
@@ -68,6 +75,7 @@
                         :help-text="attribute.helpText"
                         :preloaded-options="attribute.options"
                         :is-required="attribute.isRequired"
+                        :can-edit="defineCanEditAttribute(attribute)"
                     />
                     <TextareaField
                         v-else-if="attribute.displayInterface === 'TEXTAREA'"
@@ -75,6 +83,7 @@
                         :label="attribute.label"
                         :help-text="attribute.helpText"
                         :is-required="attribute.isRequired"
+                        :can-edit="defineCanEditAttribute(attribute)"
                     />
                     <AddressField
                         v-else-if="displayAddressFiled(attribute)"
@@ -82,6 +91,7 @@
                         :label="attribute.label"
                         :help-text="attribute.helpText"
                         :is-required="attribute.isRequired"
+                        :can-edit="defineCanEditAttribute(attribute)"
                     />
                     <ZipCountyField
                         v-else-if="attribute.displayInterface === 'ZIPCODE'"
@@ -89,6 +99,7 @@
                         :label="attribute.label"
                         :help-text="attribute.helpText"
                         :is-required="attribute.isRequired"
+                        :can-edit="defineCanEditAttribute(attribute)"
                         @change="onChangeZip(attribute, $event)"
                     />
                     <FileUploadField
@@ -97,6 +108,7 @@
                         :label="attribute.label"
                         :help-text="attribute.helpText"
                         :is-required="attribute.isRequired"
+                        :can-edit="defineCanEditAttribute(attribute)"
                     />
                     <TextField
                         v-else
@@ -104,6 +116,7 @@
                         :label="attribute.label"
                         :help-text="attribute.helpText"
                         :is-required="attribute.isRequired"
+                        :can-edit="defineCanEditAttribute(attribute)"
                     />
                 </template>
             </div>
@@ -203,6 +216,38 @@
             displayAddressFiled: function(attribute) {
                 if (attribute.displayInterface === 'ADDRESS' && this.showAddressComponent === true) {
                     return true;
+                }
+
+                return false;
+            },
+
+            defineCanViewAttribute(attribute) {
+                if (attribute.attributeFieldPermissions && attribute.attributeFieldPermissions.length) {
+                    const canEditFound = attribute.attributeFieldPermissions.filter(permission => {
+                        if (permission.definition_id === attribute.definition_id) {
+                            return attribute.user.includes(permission.group_id);
+                        }
+                    });
+
+                    return !!canEditFound.filter(canView => canView.can_view).length;
+                }
+
+                return false;
+            },
+
+            defineCanEditAttribute(attribute) {
+                if (this.onlyPublicAttributes) {
+                    return true;
+                }
+
+                if (attribute.attributeFieldPermissions && attribute.attributeFieldPermissions.length) {
+                    const canEditFound = attribute.attributeFieldPermissions.filter(permission => {
+                        if (permission.definition_id === attribute.definition_id) {
+                            return attribute.user.includes(permission.group_id);
+                        }
+                    });
+
+                    return !!canEditFound.filter(canEdit => canEdit.can_edit).length;
                 }
 
                 return false;

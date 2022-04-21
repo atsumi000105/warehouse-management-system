@@ -151,6 +151,16 @@ class User extends CoreEntity implements UserInterface
         return $this;
     }
 
+    public function getCurrentUserGroupIds(): array
+    {
+        $groupIds = [];
+        foreach ($this->groups as $group) {
+            $groupIds[] = $group->getId();
+        }
+
+        return array_unique($groupIds);
+    }
+
     /**
      * @see UserInterface
      */

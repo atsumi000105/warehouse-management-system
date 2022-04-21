@@ -474,7 +474,7 @@ class ClientController extends BaseController
 
     protected function getDefaultTransformer(): ClientTransformer
     {
-        return new ClientTransformer();
+        return new ClientTransformer($this->getUser());
     }
 
     protected function getClientById(string $id): Client

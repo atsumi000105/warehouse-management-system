@@ -261,7 +261,7 @@ class PartnerController extends BaseController
 
     protected function getDefaultTransformer()
     {
-        return new PartnerTransformer();
+        return new PartnerTransformer($this->getUser());
     }
 
     protected function getPartnerById($id): Partner

@@ -7,16 +7,25 @@ use App\Entity\EAV\AttributeDefinition;
 use App\Entity\EAV\AttributeValue;
 use App\Entity\EAV\Type\AddressAttributeValue;
 use App\Entity\EAV\Type\ZipCountyAttributeValue;
+use App\Entity\User;
 use League\Fractal\TransformerAbstract;
 
 class AttributeTransformer extends TransformerAbstract
 {
+    public $user;
+
+    public function __construct(User $user = null)
+    {
+        $this->user = $user;
+    }
+
     protected $availableIncludes = [
-        'options'
+        'options',
     ];
 
     protected $defaultIncludes = [
-        'value'
+        'value',
+        'attributeFieldPermissions',
     ];
 
     public function transform(Attribute $attribute): array
@@ -33,6 +42,7 @@ class AttributeTransformer extends TransformerAbstract
             'hasOptions' => $attribute->hasOptions(),
             'isDisplayedPublicly' => $attribute->getDefinition()->getIsDisplayedPublicly(),
             'isRequired' => $attribute->getDefinition()->getRequired(),
+            'user' => ($this->user instanceof User) ? $this->user->getCurrentUserGroupIds() : [],
         ];
     }
 
@@ -80,6 +90,13 @@ class AttributeTransformer extends TransformerAbstract
         return $attribute->isMultivalued() ?
             $this->collection($attribute->getValues(), $transformer) :
             $this->item($attribute->getValues()->first(), $transformer);
+    }
+
+    public function includeAttributeFieldPermissions(Attribute $attribute)
+    {
+        $attributeFieldPermissions = $attribute->getDefinition()->getPermissions();
+
+        return $this->collection($attributeFieldPermissions, new AttributeDefinitionPermissionTransformer);
     }
 
     public function includeOptions(Attribute $attribute)
