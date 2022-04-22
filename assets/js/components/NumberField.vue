@@ -17,7 +17,7 @@
             type="number"
             class="form-control"
             :placeholder="placeholder"
-            :disabled="disabled"
+            :disabled="getDisabledStatus"
             @input="$emit('input', $event.target.value)"
             @blur="$v.$touch()"
         >
@@ -69,11 +69,17 @@ export default {
             required: false,
             default: false,
         },
+        canEdit: {
+            type: Boolean,
+            required:false,
+            default: true,
+        },
     },
 
     data() {
         return {
             selected_value: '',
+            local_is_required: this.isRequired,
         }
     },
 
@@ -87,13 +93,27 @@ export default {
 
     created() {
         this.selected_value = _.cloneDeep(this.value);
+
+        if (this.canEdit === false) {
+            this.local_is_required = false;
+        }
     },
 
     validations() {
-        return (this.isRequired) ? { value: { required } } : { value: {} };
+        return (this.local_is_required) ? { value: { required } } : { value: {} };
     },
 
     methods: {
+        getDisabledStatus() {
+            if (this.disabled) {
+                return true;
+            }
+
+            if (!this.canEdit) {
+                return true;
+            }
+        },
+
         getFieldClass: function(v) {
             if (v.value.$error) {
                 return 'form-group has-error';

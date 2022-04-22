@@ -94,7 +94,7 @@
                         :can-edit="defineCanEditAttribute(attribute)"
                     />
                     <ZipCountyField
-                        v-else-if="attribute.displayInterface === 'ZIPCODE'"
+                        v-else-if="attribute.displayInterface === 'ZIPCODE' && defineCanEditAttribute(attribute)"
                         v-model="attribute.value"
                         :label="attribute.label"
                         :help-text="attribute.helpText"
@@ -103,7 +103,7 @@
                         @change="onChangeZip(attribute, $event)"
                     />
                     <FileUploadField
-                        v-else-if="attribute.displayInterface === 'FILE_UPLOAD'"
+                        v-else-if="attribute.displayInterface === 'FILE_UPLOAD' && defineCanEditAttribute(attribute)"
                         v-model="attribute.value"
                         :label="attribute.label"
                         :help-text="attribute.helpText"
@@ -222,6 +222,10 @@
             },
 
             defineCanViewAttribute(attribute) {
+                if (this.onlyPublicAttributes) {
+                    return true;
+                }
+
                 if (attribute.attributeFieldPermissions && attribute.attributeFieldPermissions.length) {
                     const canEditFound = attribute.attributeFieldPermissions.filter(permission => {
                         if (permission.definition_id === attribute.definition_id) {
@@ -232,7 +236,7 @@
                     return !!canEditFound.filter(canView => canView.can_view).length;
                 }
 
-                return false;
+                return true;
             },
 
             defineCanEditAttribute(attribute) {
@@ -250,7 +254,7 @@
                     return !!canEditFound.filter(canEdit => canEdit.can_edit).length;
                 }
 
-                return false;
+                return true;
             },
 
             showAttributeField: function(attribute) {

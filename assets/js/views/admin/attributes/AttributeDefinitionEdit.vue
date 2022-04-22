@@ -96,6 +96,7 @@
                                             v-model="canEdit[index][systemGroup.id]"
                                             type="checkbox"
                                             :value="systemGroup.id"
+                                            @change="setCanViewIfCanEdit(index, systemGroup.id)"
                                         >
                                     </label>
                                 </td>
@@ -231,6 +232,10 @@ export default {
         },
 
         methods: {
+            setCanViewIfCanEdit: function(index, groupId) {
+                this.canView[index][groupId] = true;
+            },
+
             setCanEditValues: function () {
                 const self = this;
 

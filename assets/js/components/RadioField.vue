@@ -3,7 +3,7 @@
         <label v-if="label">
             {{ label }}
             <i
-                v-if="isRequired"
+                v-if="local_is_required"
                 class="fas fa-asterisk fa-fw text-danger"/>
         </label>
         <i
@@ -20,6 +20,7 @@
             <label>
                 <input
                     v-model="selected_value"
+                    :disabled="!canEdit"
                     type="radio"
                     :value="option.id"
                     @change="$emit('input', $event.target.value)"
@@ -80,12 +81,18 @@ import FieldError from "./FieldError";
                 required: false,
                 default: false,
             },
+            canEdit: {
+                type: Boolean,
+                required:false,
+                default: false,
+            },
         },
 
         data() {
             return {
                 listOptions: [],
                 selected_value: '',
+                local_is_required: this.isRequired,
             }
         },
 
@@ -109,10 +116,14 @@ import FieldError from "./FieldError";
 
         created() {
             this.selected_value = _.cloneDeep(this.value);
+
+            if (this.canEdit === false) {
+                this.local_is_required = false;
+            }
         },
 
         validations() {
-            return (this.isRequired) ? { value: { required } } : { value: {} };
+            return (this.local_is_required) ? { value: { required } } : { value: {} };
         },
 
         methods: {

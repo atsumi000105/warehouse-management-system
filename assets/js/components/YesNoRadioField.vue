@@ -3,7 +3,7 @@
         <label v-if="label">
             {{ label }}
             <i
-                v-if="isRequired"
+                v-if="local_is_required"
                 class="fas fa-asterisk fa-fw text-danger"/>
         </label>
         <i
@@ -12,38 +12,35 @@
             :title="helpText"
             class="attribute-help-text fa fa-question-circle"
         />
-        <div v-if="canEdit" class="radio-inline">
-            <div class="radio-inline">
-                <label>
-                    <input
-                        v-model="selected_value"
-                        type="radio"
-                        :value="true"
-                        @change="$emit('input', selected_value)"
-                        @blur="$v.$touch()"
-                    >
-                    Yes
-                </label>
-            </div>
-            <div class="radio-inline">
-                <label>
-                    <input
-                        v-model="selected_value"
-                        type="radio"
-                        :value="false"
-                        @change="$emit('input', selected_value)"
-                        @blur="$v.$touch()"
-                    >
-                    No
-                </label>
-            </div>
-            <FieldError v-if="$v.value.$error">
-                <strong>Field is required</strong>
-            </FieldError>
+        <div class="radio-inline">
+            <label>
+                <input
+                    v-model="selected_value"
+                    type="radio"
+                    :disabled="!canEdit"
+                    :value="true"
+                    @change="$emit('input', selected_value)"
+                    @blur="$v.$touch()"
+                >
+                Yes
+            </label>
         </div>
-        <div v-else class="radio-inline">
-            {{ boolToStr(selected_value) }}
+        <div class="radio-inline">
+            <label>
+                <input
+                    v-model="selected_value"
+                    type="radio"
+                    :disabled="!canEdit"
+                    :value="false"
+                    @change="$emit('input', selected_value)"
+                    @blur="$v.$touch()"
+                >
+                No
+            </label>
         </div>
+        <FieldError v-if="$v.value.$error">
+            <strong>Field is required</strong>
+        </FieldError>
     </div>
 </template>
 
@@ -80,12 +77,12 @@ export default {
         canEdit: {
             type: Boolean,
             required:false,
-            default: false,
+            default: true,
         },
     },
 
     validations() {
-        return (this.isRequired) ? { value: { required } } : { value: {} };
+        return (this.local_is_required) ? { value: { required } } : { value: {} };
     },
 
     watch: {
@@ -96,18 +93,19 @@ export default {
         },
     },
 
+    data() {
+        return {
+            selected_value: false,
+            local_is_required: this.isRequired,
+        };
+    },
+
     created() {
         this.selected_value = _.cloneDeep(this.value);
 
         if (this.canEdit === false) {
-            this.isRequired = false;
+            this.local_is_required = false;
         }
-    },
-
-    data() {
-        return {
-            selected_value: false,
-        };
     },
 
     methods: {
