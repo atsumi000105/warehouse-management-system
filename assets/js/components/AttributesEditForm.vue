@@ -222,10 +222,6 @@
             },
 
             defineCanViewAttribute(attribute) {
-                if (this.onlyPublicAttributes) {
-                    return true;
-                }
-
                 if (attribute.attributeFieldPermissions && attribute.attributeFieldPermissions.length) {
                     const canEditFound = attribute.attributeFieldPermissions.filter(permission => {
                         if (permission.definition_id === attribute.definition_id) {
@@ -240,10 +236,6 @@
             },
 
             defineCanEditAttribute(attribute) {
-                if (this.onlyPublicAttributes) {
-                    return true;
-                }
-
                 if (attribute.attributeFieldPermissions && attribute.attributeFieldPermissions.length) {
                     const canEditFound = attribute.attributeFieldPermissions.filter(permission => {
                         if (permission.definition_id === attribute.definition_id) {
