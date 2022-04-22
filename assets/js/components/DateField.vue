@@ -20,7 +20,7 @@
                     v-datepicker="{ format: format, tz: timezone }"
                     type="text"
                     class="form-control pull-right"
-                    :disabled="getDisabledStatus"
+                    :disabled="getDisabledStatus()"
                     @change="$emit('input', dateValue)"
                     @blur="$v.$touch()"
                 >
@@ -117,14 +117,16 @@ export default {
     },
 
     methods: {
-        getDisabledStatus() {
+        getDisabledStatus: function() {
             if (this.disabled) {
                 return true;
             }
 
-            if (!this.canEdit) {
+            if (! this.canEdit) {
                 return true;
             }
+
+            return false;
         },
 
         getFieldClass: function(v) {

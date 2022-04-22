@@ -2,7 +2,7 @@
     <div :class="getFieldClass($v)">
         <label>
             <input
-                :disabled="getDisabledStatus"
+                :disabled="getDisabledStatus()"
                 :checked="value"
                 type="checkbox"
                 @change="$emit('input', $event.target.checked)"
@@ -82,7 +82,7 @@ export default {
     },
 
     methods: {
-        getDisabledStatus() {
+        getDisabledStatus: function() {
             if (this.disabled) {
                 return true;
             }

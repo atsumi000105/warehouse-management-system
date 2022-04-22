@@ -17,7 +17,7 @@
             type="number"
             class="form-control"
             :placeholder="placeholder"
-            :disabled="getDisabledStatus"
+            :disabled="getDisabledStatus()"
             @input="$emit('input', $event.target.value)"
             @blur="$v.$touch()"
         >
@@ -104,7 +104,7 @@ export default {
     },
 
     methods: {
-        getDisabledStatus() {
+        getDisabledStatus: function() {
             if (this.disabled) {
                 return true;
             }
