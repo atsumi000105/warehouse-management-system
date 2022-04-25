@@ -204,6 +204,11 @@ class Client extends CoreEntity implements AttributedEntityInterface
      */
     protected $isBlocked;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $family_id;
+
     public function __construct(Registry $workflowRegistry)
     {
         $this->attributes = new ArrayCollection();
@@ -558,6 +563,18 @@ class Client extends CoreEntity implements AttributedEntityInterface
     public function setIsBlocked(bool $isBlocked): self
     {
         $this->isBlocked = $isBlocked;
+
+        return $this;
+    }
+
+    public function getFamilyId(): ?string
+    {
+        return $this->family_id;
+    }
+
+    public function setFamilyId(): self
+    {
+        $this->family_id = preg_replace('/[^a-z0-9]/i', '-', $this->getParentFirstName() . '-' . $this->getParentLastName());
 
         return $this;
     }
