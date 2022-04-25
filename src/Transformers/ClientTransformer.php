@@ -43,6 +43,7 @@ class ClientTransformer extends TransformerAbstract
             'canReview' => $client->canReview(),
             'canPartnerTransfer' => $client->canPartnerTransfer(),
             'isActive' => $client->isActive(),
+            'familyId' => $client->getFamilyId(),
         ];
     }
 
