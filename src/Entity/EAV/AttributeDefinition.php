@@ -12,10 +12,13 @@ use App\Entity\EAV\Type\OptionListAttributeValue;
 use App\Entity\EAV\Type\StringAttributeValue;
 use App\Entity\EAV\Type\TextAttributeValue;
 use App\Entity\EAV\Type\ZipCountyAttributeValue;
+use App\Repository\AttributeDefinitionPermissionRepository;
+use App\Service\AttributePermissionProcessor;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Entity\EAV\AttributeDefinitionPermission;
 
 /**
  * Based on: https://github.com/Padam87/AttributeBundle
@@ -135,9 +138,24 @@ abstract class AttributeDefinition extends CoreEntity
      */
     private $options;
 
+    /**
+     * @var AttributeOption[]|ArrayCollection
+     *
+     * @ORM\OneToMany(
+     *     targetEntity="AttributeDefinitionPermission",
+     *     mappedBy="definition",
+     *     orphanRemoval=true,
+     *     cascade={"persist", "remove"},
+     *     fetch="EXTRA_LAZY"
+     * )
+     * @ORM\OrderBy({"id" = "ASC"})
+     */
+    private $permissions;
+
     public function __construct()
     {
         $this->options = new ArrayCollection();
+        $this->permissions = new ArrayCollection();
         $this->isMultivalued = false;
         $this->orderIndex = 0;
     }
@@ -325,6 +343,31 @@ abstract class AttributeDefinition extends CoreEntity
     public function setIsMultivalued(bool $isMultivalued): void
     {
         $this->isMultivalued = $isMultivalued;
+    }
+
+    public function addPermission(AttributeDefinitionPermission $permission)
+    {
+        $this->permissions[] = $permission;
+        $permission->setDefinition($this);
+
+        return $this;
+    }
+
+    public function removePermission(AttributeDefinitionPermission  $permission): void
+    {
+        $this->permissions->removeElement($permission);
+    }
+
+    public function getPermissions()
+    {
+        return $this->permissions;
+    }
+
+    public function getPermission(int $id): AttributeDefinitionPermission
+    {
+        return $this->permissions->filter(function (AttributeDefinitionPermission  $permission) use ($id) {
+            return $permission->getId() == $id;
+        })->first();
     }
 
     /**

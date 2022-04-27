@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\EAV\AttributeOption;
 use App\Entity\Orders\AdjustmentOrder;
 use App\Entity\Orders\BulkDistribution;
 use App\Entity\Orders\MerchandiseOrder;
@@ -99,6 +100,25 @@ class Group extends CoreEntity
      */
     protected $roles;
 
+    /**
+     * @var AttributeOption[]|ArrayCollection
+     *
+     * @ORM\OneToMany(
+     *     targetEntity="App\Entity\EAV\AttributeDefinitionPermission",
+     *     mappedBy="group",
+     *     orphanRemoval=true,
+     *     cascade={"persist", "remove"},
+     *     fetch="EXTRA_LAZY"
+     * )
+     * @ORM\OrderBy({"id" = "ASC"})
+     */
+    private $attributeFieldPermissions;
+
+    public function __construct()
+    {
+        $this->attributeFieldPermissions = new ArrayCollection();
+    }
+
     public function getId(): int
     {
         return $this->id;
@@ -138,5 +158,10 @@ class Group extends CoreEntity
         $roles = new ArrayCollection($this->roles);
         $roles->removeElement($role);
         $this->setRoles($roles->toArray());
+    }
+
+    public function getAttributeFieldPermissions()
+    {
+        return $this->attributeFieldPermissions;
     }
 }

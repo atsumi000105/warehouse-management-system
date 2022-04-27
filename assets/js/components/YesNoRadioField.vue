@@ -3,7 +3,7 @@
         <label v-if="label">
             {{ label }}
             <i
-                v-if="isRequired"
+                v-if="local_is_required"
                 class="fas fa-asterisk fa-fw text-danger"/>
         </label>
         <i
@@ -17,6 +17,7 @@
                 <input
                     v-model="selected_value"
                     type="radio"
+                    :disabled="!canEdit"
                     :value="true"
                     @change="$emit('input', selected_value)"
                     @blur="$v.$touch()"
@@ -29,6 +30,7 @@
                 <input
                     v-model="selected_value"
                     type="radio"
+                    :disabled="!canEdit"
                     :value="false"
                     @change="$emit('input', selected_value)"
                     @blur="$v.$touch()"
@@ -72,10 +74,15 @@ export default {
             required: false,
             default: false,
         },
+        canEdit: {
+            type: Boolean,
+            required:false,
+            default: true,
+        },
     },
 
     validations() {
-        return (this.isRequired) ? { value: { required } } : { value: {} };
+        return (this.local_is_required) ? { value: { required } } : { value: {} };
     },
 
     watch: {
@@ -86,14 +93,19 @@ export default {
         },
     },
 
-    created() {
-        this.selected_value = _.cloneDeep(this.value);
-    },
-
     data() {
         return {
             selected_value: false,
+            local_is_required: this.isRequired,
         };
+    },
+
+    created() {
+        this.selected_value = _.cloneDeep(this.value);
+
+        if (this.canEdit === false) {
+            this.local_is_required = false;
+        }
     },
 
     methods: {
@@ -104,6 +116,10 @@ export default {
 
             return 'form-group';
         },
+
+        boolToStr(val) {
+            return (val) ? "Yes" : "No";
+        }
     },
 }
 </script>

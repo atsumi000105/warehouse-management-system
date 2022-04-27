@@ -13,6 +13,7 @@
             class="attribute-help-text fa fa-question-circle"
         />
         <textarea
+            :disabled="!canEdit"
             :value="value"
             class="form-control"
             @input="$emit('input', $event.target.value)"
@@ -53,6 +54,11 @@ export default {
             type: Boolean,
             required: false,
             default: false,
+        },
+        canEdit: {
+            type: Boolean,
+            required:false,
+            default: true,
         },
     },
 
