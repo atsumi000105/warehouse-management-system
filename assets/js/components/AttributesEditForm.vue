@@ -10,35 +10,35 @@
                     <BooleanField
                         v-if="attribute.displayInterface === 'TOGGLE'"
                         v-model="attribute.value"
-                        :label="attribute.label"
+                        :label="getLabel(attribute)"
                         :help-text="attribute.helpText"
                         :is-required="attribute.isRequired"
                     />
                     <YesNoRadioField
                         v-else-if="attribute.displayInterface === 'YES_NO_RADIO'"
                         v-model="attribute.value"
-                        :label="attribute.label"
+                        :label="getLabel(attribute)"
                         :help-text="attribute.helpText"
                         :is-required="attribute.isRequired"
                     />
                     <DateField
                         v-else-if="attribute.displayInterface === 'DATETIME'"
                         v-model="attribute.value"
-                        :label="attribute.label"
+                        :label="getLabel(attribute)"
                         :help-text="attribute.helpText"
                         :is-required="attribute.isRequired"
                     />
                     <NumberField
                         v-else-if="attribute.displayInterface === 'NUMBER'"
                         v-model="attribute.value"
-                        :label="attribute.label"
+                        :label="getLabel(attribute)"
                         :help-text="attribute.helpText"
                         :is-required="attribute.isRequired"
                     />
                     <OptionListApi
                         v-else-if="attribute.displayInterface === 'SELECT_SINGLE'"
                         v-model="attribute.value"
-                        :label="attribute.label"
+                        :label="getLabel(attribute)"
                         :help-text="attribute.helpText"
                         :preloaded-options="attribute.options"
                         :is-required="attribute.isRequired"
@@ -46,7 +46,7 @@
                     <OptionListApi
                         v-else-if="attribute.displayInterface === 'SELECT_MULTI'"
                         v-model="attribute.value"
-                        :label="attribute.label"
+                        :label="getLabel(attribute)"
                         :help-text="attribute.helpText"
                         :preloaded-options="attribute.options"
                         :multiple="true"
@@ -55,7 +55,7 @@
                     <RadioField
                         v-else-if="attribute.displayInterface === 'RADIO'"
                         v-model="attribute.value"
-                        :label="attribute.label"
+                        :label="getLabel(attribute)"
                         :help-text="attribute.helpText"
                         :preloaded-options="attribute.options"
                         :is-required="attribute.isRequired"
@@ -64,7 +64,7 @@
                         v-else-if="attribute.displayInterface === 'CHECKBOX_GROUP'"
                         v-model="attribute.value"
                         :name="attribute.name"
-                        :label="attribute.label"
+                        :label="getLabel(attribute)"
                         :help-text="attribute.helpText"
                         :preloaded-options="attribute.options"
                         :is-required="attribute.isRequired"
@@ -72,21 +72,21 @@
                     <TextareaField
                         v-else-if="attribute.displayInterface === 'TEXTAREA'"
                         v-model="attribute.value"
-                        :label="attribute.label"
+                        :label="getLabel(attribute)"
                         :help-text="attribute.helpText"
                         :is-required="attribute.isRequired"
                     />
                     <AddressField
                         v-else-if="displayAddressFiled(attribute)"
                         v-model="attribute.value"
-                        :label="attribute.label"
+                        :label="getLabel(attribute)"
                         :help-text="attribute.helpText"
                         :is-required="attribute.isRequired"
                     />
                     <ZipCountyField
                         v-else-if="attribute.displayInterface === 'ZIPCODE'"
                         v-model="attribute.value"
-                        :label="attribute.label"
+                        :label="getLabel(attribute)"
                         :help-text="attribute.helpText"
                         :is-required="attribute.isRequired"
                         @change="onChangeZip(attribute, $event)"
@@ -94,14 +94,14 @@
                     <FileUploadField
                         v-else-if="attribute.displayInterface === 'FILE_UPLOAD'"
                         v-model="attribute.value"
-                        :label="attribute.label"
+                        :label="getLabel(attribute)"
                         :help-text="attribute.helpText"
                         :is-required="attribute.isRequired"
                     />
                     <TextField
                         v-else
                         v-model="attribute.value"
-                        :label="attribute.label"
+                        :label="getLabel(attribute)"
                         :help-text="attribute.helpText"
                         :is-required="attribute.isRequired"
                     />
@@ -172,6 +172,11 @@
                 required: false,
                 default: false,
             },
+            language: {
+                type: String,
+                default: 'en',
+                required: false,
+            },
         },
 
         computed: {
@@ -186,6 +191,14 @@
         },
 
         methods: {
+            getLabel: function (attribute) {
+                if (this.language === 'es') {
+                    return attribute.labelEs;
+                }
+
+                return attribute.label;
+            },
+
             onChangeZip: function (attribute, data) {
                 if (attribute) {
                     attribute.value.id = data;
@@ -209,6 +222,8 @@
             },
 
             showAttributeField: function(attribute) {
+                console.log('attribute: ', attribute);
+
                 if (this.onlyPublicAttributes) {
                     return attribute.isDisplayedPublicly;
                 }

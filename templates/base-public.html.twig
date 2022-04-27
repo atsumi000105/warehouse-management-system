@@ -61,6 +61,16 @@
                                 </form>
                             </ul>
                         {% else %}
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-language"></i> Language
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="?lang=en">English</a></li>
+                                    <li><a href="?lang=es">Spanish</a></li>
+                                </ul>
+                            </li>
                             <li><a href="{{ url('app_login_login') }}">Login</a></li>
                             <!--<li><a href="{{ url('app_login_register') }}">Register</a></li>!-->
                         {% endif %}

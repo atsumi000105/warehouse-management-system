@@ -26,6 +26,8 @@ Vue.component('arraytableform', require('./components/ArrayTableForm.vue').defau
 /*****/
 
 Vue.component('register-client', require('./views/public/client/RegisterClient').default);
+Vue.component('register-client-es', require('./views/public/client/RegisterClientEs').default);
+Vue.component('register-client-en', require('./views/public/client/RegisterClientEn').default);
 
 Vue.filter('dateFormat', require('./filters/dateFormat'));
 Vue.filter('dateTimeFormat', require('./filters/dateTimeFormat'));

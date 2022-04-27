@@ -143,6 +143,7 @@ class ClientController extends BaseController
     /**
      * @param Request $request
      * @return JsonResponse
+     * @throws \Exception
      *
      * @Route(path="/new-check", methods={"POST"})
      * @IsGranted({"ROLE_CLIENT_EDIT_ALL","ROLE_CLIENT_MANAGE_OWN","IS_AUTHENTICATED_ANONYMOUSLY"})
