@@ -14,6 +14,7 @@
                         :help-text="attribute.helpText"
                         :is-required="attribute.isRequired"
                         :can-edit="defineCanEditAttribute(attribute)"
+                        :language="language"
                     />
                     <YesNoRadioField
                         v-else-if="attribute.displayInterface === 'YES_NO_RADIO'"
@@ -22,6 +23,7 @@
                         :help-text="attribute.helpText"
                         :is-required="attribute.isRequired"
                         :can-edit="defineCanEditAttribute(attribute)"
+                        :language="language"
                     />
                     <DateField
                         v-else-if="attribute.displayInterface === 'DATETIME'"
@@ -30,6 +32,7 @@
                         :help-text="attribute.helpText"
                         :is-required="attribute.isRequired"
                         :can-edit="defineCanEditAttribute(attribute)"
+                        :language="language"
                     />
                     <NumberField
                         v-else-if="attribute.displayInterface === 'NUMBER'"
@@ -38,6 +41,7 @@
                         :help-text="attribute.helpText"
                         :is-required="attribute.isRequired"
                         :can-edit="defineCanEditAttribute(attribute)"
+                        :language="language"
                     />
                     <OptionListApi
                         v-else-if="attribute.displayInterface === 'SELECT_SINGLE'"
@@ -47,6 +51,8 @@
                         :preloaded-options="attribute.options"
                         :is-required="attribute.isRequired"
                         :can-edit="defineCanEditAttribute(attribute)"
+                        :display-property="language === 'es' ? 'nameEs' : 'name'"
+                        :language="language"
                     />
                     <OptionListApi
                         v-else-if="attribute.displayInterface === 'SELECT_MULTI'"
@@ -57,6 +63,8 @@
                         :multiple="true"
                         :is-required="attribute.isRequired"
                         :can-edit="defineCanEditAttribute(attribute)"
+                        :display-property="language === 'es' ? 'nameEs' : 'name'"
+                        :language="language"
                     />
                     <RadioField
                         v-else-if="attribute.displayInterface === 'RADIO'"
@@ -66,6 +74,8 @@
                         :preloaded-options="attribute.options"
                         :is-required="attribute.isRequired"
                         :can-edit="defineCanEditAttribute(attribute)"
+                        :display-property="language === 'es' ? 'nameEs' : 'name'"
+                        :language="language"
                     />
                     <CheckboxGroupField
                         v-else-if="attribute.displayInterface === 'CHECKBOX_GROUP'"
@@ -76,6 +86,8 @@
                         :preloaded-options="attribute.options"
                         :is-required="attribute.isRequired"
                         :can-edit="defineCanEditAttribute(attribute)"
+                        :display-property="language === 'es' ? 'nameEs' : 'name'"
+                        :language="language"
                     />
                     <TextareaField
                         v-else-if="attribute.displayInterface === 'TEXTAREA'"
@@ -84,6 +96,7 @@
                         :help-text="attribute.helpText"
                         :is-required="attribute.isRequired"
                         :can-edit="defineCanEditAttribute(attribute)"
+                        :language="language"
                     />
                     <AddressField
                         v-else-if="displayAddressFiled(attribute)"
@@ -101,6 +114,7 @@
                         :is-required="attribute.isRequired"
                         :can-edit="defineCanEditAttribute(attribute)"
                         @change="onChangeZip(attribute, $event)"
+                        :language="language"
                     />
                     <FileUploadField
                         v-else-if="attribute.displayInterface === 'FILE_UPLOAD' && defineCanEditAttribute(attribute)"
@@ -263,8 +277,6 @@
             },
 
             showAttributeField: function(attribute) {
-                console.log('attribute: ', attribute);
-
                 if (this.onlyPublicAttributes) {
                     return attribute.isDisplayedPublicly;
                 }

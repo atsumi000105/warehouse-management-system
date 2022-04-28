@@ -26,7 +26,8 @@
                 >
             </div>
             <FieldError v-if="$v.value.$error">
-                Field is required
+                <strong v-if="language === 'en'">Field is required</strong>
+                <strong v-else>Campo es requerido</strong>
             </FieldError>
         </div>
     </div>
@@ -80,6 +81,11 @@ export default {
             type: Boolean,
             required:false,
             default: true,
+        },
+        language: {
+            type: String,
+            default: 'en',
+            required: false,
         },
     },
 

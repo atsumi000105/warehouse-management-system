@@ -227,7 +227,8 @@
                 </div>
             </div>
         </div>
-        <modalinvalid />
+
+        <modalinvalidEs />
     </div>
 </template>
 
@@ -239,7 +240,7 @@ import {mapGetters} from "vuex";
 import ClientInfoForm from "../../client/ClientInfoForm";
 import AttributesEditForm from "../../../components/AttributesEditForm";
 import FieldError from "../../../components/FieldError";
-import ModalOrderInvalid from "../../../components/ModalOrderInvalid";
+import ModalOrderInvalidEs from "../../../components/ModalOrderInvalidEs";
 
 export default {
     components: {
@@ -247,7 +248,7 @@ export default {
         DateField,
         AttributesEditForm,
         fielderror: FieldError,
-        modalinvalid: ModalOrderInvalid
+        modalinvalidEs: ModalOrderInvalidEs,
     },
 
     data() {

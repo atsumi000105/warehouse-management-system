@@ -20,7 +20,8 @@
             class="attribute-help-text fa fa-question-circle"
         />
         <FieldError v-if="$v.value.$error">
-            <strong>Field is required</strong>
+            <strong v-if="language === 'en'">Field is required</strong>
+            <strong v-else>Campo es requerido</strong>
         </FieldError>
     </div>
 </template>
@@ -62,6 +63,11 @@ export default {
             type: Boolean,
             required:false,
             default: true,
+        },
+        language: {
+            type: String,
+            default: 'en',
+            required: false,
         },
     },
 

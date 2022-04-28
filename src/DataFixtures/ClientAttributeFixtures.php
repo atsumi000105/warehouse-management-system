@@ -217,7 +217,7 @@ class ClientAttributeFixtures extends BaseFixture
                 'options' => [
                     'black/african_american' => [
                         'en' => 'Black/African American',
-                        'es' => '',
+                        'es' => 'Negro(a)/Afroamericano(a)',
                     ],
                     'hispanic/latino' => [
                         'en' => 'Hispanic/Latino',
@@ -368,7 +368,7 @@ class ClientAttributeFixtures extends BaseFixture
             [
                 'name' => 'parent_employed_if_yes',
                 'label' => 'If Yes',
-                'label_es' => 'Si posee empleo',
+                'label_es' => 'De poseer empleo, indique',
                 'description' => '',
                 'required' => true,
                 'type' => AttributeDefinition::TYPE_OPTION_LIST,

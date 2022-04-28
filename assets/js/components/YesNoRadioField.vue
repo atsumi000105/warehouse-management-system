@@ -22,7 +22,12 @@
                     @change="$emit('input', selected_value)"
                     @blur="$v.$touch()"
                 >
-                Yes
+                <span v-if="language === 'es'">
+                    Si
+                </span>
+                <span v-else>
+                    Yes
+                </span>
             </label>
         </div>
         <div class="radio-inline">
@@ -39,7 +44,8 @@
             </label>
         </div>
         <FieldError v-if="$v.value.$error">
-            <strong>Field is required</strong>
+            <strong v-if="language === 'en'">Field is required</strong>
+            <strong v-else>Campo es requerido</strong>
         </FieldError>
     </div>
 </template>
@@ -78,6 +84,11 @@ export default {
             type: Boolean,
             required:false,
             default: true,
+        },
+        language: {
+            type: String,
+            default: 'en',
+            required: false,
         },
     },
 
