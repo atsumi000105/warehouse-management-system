@@ -3,7 +3,7 @@
 
         <div v-if="!savedAndFinished" class="panel panel-default">
             <div class="panel-heading">
-                <h3>New To Us?</h3>
+                <h3>Cuenta Nueva?</h3>
             </div>
             <div class="row">
                 <div class="col-md-6 col-md-offset-1">
