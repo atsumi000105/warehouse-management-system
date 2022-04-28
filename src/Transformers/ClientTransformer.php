@@ -3,11 +3,19 @@
 namespace App\Transformers;
 
 use App\Entity\Client;
+use App\Entity\User;
 use League\Fractal\Resource\Item;
 use League\Fractal\TransformerAbstract;
 
 class ClientTransformer extends TransformerAbstract
 {
+    protected $user;
+
+    public function __construct(User $user = null)
+    {
+        $this->user = $user;
+    }
+
     protected $availableIncludes = [
         'partner',
         'attributes',
@@ -43,12 +51,13 @@ class ClientTransformer extends TransformerAbstract
             'canReview' => $client->canReview(),
             'canPartnerTransfer' => $client->canPartnerTransfer(),
             'isActive' => $client->isActive(),
+            'familyId' => $client->getFamilyId(),
         ];
     }
 
     public function includeAttributes(Client $client)
     {
-        return $this->collection($client->getAttributes()->toArray(), new AttributeTransformer());
+        return $this->collection($client->getAttributes()->toArray(), new AttributeTransformer($this->user));
     }
 
     public function includePartner(Client $client)

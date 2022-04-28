@@ -2,14 +2,14 @@
     <div :class="getFieldClass($v)">
         <label>
             <input
-                :disabled="disabled"
+                :disabled="getDisabledStatus()"
                 :checked="value"
                 type="checkbox"
                 @change="$emit('input', $event.target.checked)"
                 @blur="$v.$touch()"
             >
             <i
-                v-if="isRequired"
+                v-if="local_is_required"
                 class="fas fa-asterisk fa-fw text-danger"/>
             {{ label }}
         </label>
@@ -58,13 +58,40 @@ export default {
             required: false,
             default: false,
         },
+        canEdit: {
+            type: Boolean,
+            required:false,
+            default: true,
+        },
+    },
+
+    created() {
+        if (this.canEdit === false) {
+            this.local_is_required = false
+        }
+    },
+
+    data() {
+        return {
+            local_is_required: this.isRequired,
+        };
     },
 
     validations() {
-        return (this.isRequired) ? { value: { required } } : { value: {} };
+        return (this.local_is_required) ? { value: { required } } : { value: {} };
     },
 
     methods: {
+        getDisabledStatus: function() {
+            if (this.disabled) {
+                return true;
+            }
+
+            if (!this.canEdit) {
+                return true;
+            }
+        },
+
         getFieldClass: function(v) {
             if (v.value.$error) {
                 return 'form-group has-error';

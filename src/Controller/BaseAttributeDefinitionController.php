@@ -2,8 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\EAV\AttributeDefinitionPermission;
 use App\Entity\EAV\AttributeValue;
 use App\Entity\EAV\AttributeDefinition;
+use App\Entity\Group;
+use App\Repository\AttributeDefinitionPermissionRepository;
+use App\Service\AttributePermissionProcessor;
 use App\Transformers\AttributeDefinitionTransformer;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,7 +30,6 @@ abstract class BaseAttributeDefinitionController extends BaseController
      */
     public function index(Request $request)
     {
-
         $definitions = $this->getRepository()->findAllSorted();
 
         return $this->serialize($request, $definitions);
@@ -75,6 +78,37 @@ abstract class BaseAttributeDefinitionController extends BaseController
 
         $definition = $this->getDefinition($id);
         $definition->applyChangesFromArray($params);
+
+        if (isset($params['canEdit']) && isset($params['canView'])) {
+            foreach ($params['canEdit'] as $key => $canEdit) {
+
+                $groupId = key($canEdit);
+
+                $group = $this->getEm()
+                    ->getRepository(Group::class)
+                    ->find($groupId);
+
+                $canEdit = (bool) $canEdit[$groupId];
+
+                $canViewRow = $params['canView'][$key];
+                $canView = (bool) $canViewRow[$groupId];
+
+                $permission = $this->getEm()
+                    ->getRepository(AttributeDefinitionPermission::class)
+                    ->findOneByGroupAndDefinition($groupId, $id);
+
+                if ($permission === null) {
+                    $permission = new AttributeDefinitionPermission();
+                }
+
+                $permission->setDefinition($definition);
+                $permission->setCanEdit($canEdit);
+                $permission->setCanView($canView);
+                $permission->setGroup($group);
+
+                $this->getEm()->persist($permission);
+            }
+        }
 
         $this->getEm()->flush();
 

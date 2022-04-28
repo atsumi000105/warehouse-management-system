@@ -3,10 +3,18 @@
 namespace App\Transformers;
 
 use App\Entity\PartnerProfile;
+use App\Entity\User;
 use League\Fractal\TransformerAbstract;
 
 class PartnerProfileTransformer extends TransformerAbstract
 {
+    public $user;
+
+    public function __construct(User $user = null)
+    {
+        $this->user = $user;
+    }
+
     public function getDefaultIncludes()
     {
         $defaultIncludes = parent::getDefaultIncludes();
@@ -29,6 +37,6 @@ class PartnerProfileTransformer extends TransformerAbstract
 
     public function includeAttributes(PartnerProfile $profile)
     {
-        return $this->collection($profile->getAttributes()->toArray(), new AttributeTransformer());
+        return $this->collection($profile->getAttributes()->toArray(), new AttributeTransformer($this->user));
     }
 }

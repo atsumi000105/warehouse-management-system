@@ -3,7 +3,7 @@
         <label v-if="label">
             {{ label }}
             <i
-                v-if="isRequired"
+                v-if="local_is_required"
                 class="fas fa-asterisk fa-fw text-danger"/>
         </label>
         <i
@@ -14,6 +14,7 @@
         />
         <input
             :value="value"
+            :disabled="!canEdit"
             type="text"
             class="form-control"
             :placeholder="placeholder"
@@ -31,7 +32,7 @@ export default {
     name: 'TextField',
 
     components: {
-        FieldError
+        FieldError,
     },
 
     props: {
@@ -61,10 +62,27 @@ export default {
             required: false,
             default: ""
         },
+        canEdit: {
+            type: Boolean,
+            required:false,
+            default: true,
+        },
+    },
+
+    data() {
+        return {
+            local_is_required: this.isRequired,
+        };
+    },
+
+    created() {
+        if (this.canEdit === false) {
+            this.local_is_required = false;
+        }
     },
 
     validations() {
-        return (this.isRequired) ? { value: { required } } : { value: {} };
+        return (this.local_is_required) ? { value: { required } } : { value: {} };
     },
 
     methods: {

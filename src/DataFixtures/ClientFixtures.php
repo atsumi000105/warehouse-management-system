@@ -59,6 +59,7 @@ class ClientFixtures extends BaseFixture implements DependentFixtureInterface
             $client->setPartner($clientArr['partner']);
             $client->setPublicId($this->gen->generate());
             $client->setBirthdate($this->faker->dateTimeBetween('-5 years', 'now'));
+            $client->setFamilyId();
 
             foreach ($definitions as $definition) {
                 $attribute = new Attribute($definition);

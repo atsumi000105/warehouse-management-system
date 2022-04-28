@@ -9,6 +9,7 @@ class GroupTransformer extends TransformerAbstract
 {
 
     protected $availableIncludes = [
+        'attributeFieldPermissions'
     ];
 
 
@@ -21,5 +22,12 @@ class GroupTransformer extends TransformerAbstract
             'createdAt' => $group->getCreatedAt()->format('c'),
             'updatedAt' => $group->getUpdatedAt()->format('c'),
         ];
+    }
+
+    public function includeAttributeFieldPermissions(Group $group)
+    {
+        $attributeFieldPermissions = $group->getAttributeFieldPermissions();
+
+        return $this->collection($attributeFieldPermissions, new AttributeDefinitionPermissionTransformer);
     }
 }

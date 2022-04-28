@@ -63,6 +63,7 @@ class PublicClientController extends BaseController
         $eavProcessor->processAttributeChanges($client, $params);
 
         $client->applyChangesFromArray($params);
+        $client->setFamilyId();
 
         $this->validate($client, $validator);
 

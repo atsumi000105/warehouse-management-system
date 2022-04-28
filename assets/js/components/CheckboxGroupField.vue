@@ -3,7 +3,7 @@
         <label v-if="label">
             {{ label }}
             <i
-                v-if="isRequired"
+                v-if="local_is_required"
                 class="fas fa-asterisk fa-fw text-danger"/>
         </label>
 
@@ -21,6 +21,7 @@
             <label>
                 <input
                     v-model="selected_values"
+                    :disabled="!canEdit"
                     type="checkbox"
                     :value="option.id"
                     :name="'chekbox-group-'+name"
@@ -88,7 +89,12 @@ export default {
         alphabetize: {
             type: Boolean,
             default: true
-        }
+        },
+        canEdit: {
+            type: Boolean,
+            required:false,
+            default: true,
+        },
     },
 
     computed: {
@@ -111,16 +117,21 @@ export default {
 
     created() {
         this.selected_values = _.cloneDeep(this.value);
+
+        if (this.canEdit === false) {
+            this.local_is_required = false;
+        }
     },
 
     validations() {
-        return (this.isRequired) ? { value: { required } } : { value: {} };
+        return (this.local_is_required) ? { value: { required } } : { value: {} };
     },
 
     data() {
         return {
             listOptions: [],
             selected_values: [],
+            local_is_required: this.isRequired,
         }
     },
 

@@ -1,32 +1,34 @@
 <template>
-    <div :class="getFieldClass($v)">
-        <label v-if="label">
-            {{ label }}
-            <i v-if="isRequired" class="fas fa-asterisk fa-fw text-danger" />
-        </label>
-        <i
-            v-if="helpText"
-            v-tooltip
-            :title="helpText"
-            class="attribute-help-text fa fa-question-circle"
-        />
-        <div class="input-group date">
-            <div class="input-group-addon">
-                <i class="far fa-calendar-alt" />
+    <div>
+        <div :class="getFieldClass($v)">
+            <label v-if="label">
+                {{ label }}
+                <i v-if="local_is_required" class="fas fa-asterisk fa-fw text-danger" />
+            </label>
+            <i
+                v-if="helpText"
+                v-tooltip
+                :title="helpText"
+                class="attribute-help-text fa fa-question-circle"
+            />
+            <div class="input-group date">
+                <div class="input-group-addon">
+                    <i class="far fa-calendar-alt" />
+                </div>
+                <input
+                    v-model.lazy="humanReadable"
+                    v-datepicker="{ format: format, tz: timezone }"
+                    type="text"
+                    class="form-control pull-right"
+                    :disabled="getDisabledStatus()"
+                    @change="$emit('input', dateValue)"
+                    @blur="$v.$touch()"
+                >
             </div>
-            <input
-                v-model.lazy="humanReadable"
-                v-datepicker="{ format: format, tz: timezone }"
-                type="text"
-                class="form-control pull-right"
-                :disabled="disabled"
-                @change="$emit('input', dateValue)"
-                @blur="$v.$touch()"
-            >
+            <FieldError v-if="$v.value.$error">
+                Field is required
+            </FieldError>
         </div>
-        <FieldError v-if="$v.value.$error">
-            Field is required
-        </FieldError>
     </div>
 </template>
 
@@ -47,8 +49,9 @@ export default {
             default: ""
         },
         label: {
-            type: String, required: false,
-            default: "Date:"
+            type: String,
+            required: false,
+            default: "Date:",
         },
         helpText: {
             type: String,
@@ -73,16 +76,28 @@ export default {
             required: false,
             default: false,
         },
+        canEdit: {
+            type: Boolean,
+            required:false,
+            default: true,
+        },
+    },
+
+    created() {
+        if (this.canEdit === false) {
+            this.local_is_required = false;
+        }
     },
 
     data() {
         return {
-            dateValue: null
+            dateValue: null,
+            local_is_required: this.isRequired,
         };
     },
 
     validations() {
-        return (this.isRequired) ? { value: { required } } : { value: {} };
+        return (this.local_is_required) ? { value: { required } } : { value: {} };
     },
 
     computed: {
@@ -102,6 +117,18 @@ export default {
     },
 
     methods: {
+        getDisabledStatus: function() {
+            if (this.disabled) {
+                return true;
+            }
+
+            if (! this.canEdit) {
+                return true;
+            }
+
+            return false;
+        },
+
         getFieldClass: function(v) {
             if (v.value.$error) {
                 return 'form-group has-error';
@@ -109,6 +136,10 @@ export default {
 
             return 'form-group';
         },
+
+        boolToStr(val) {
+            return (val) ? "Yes" : "No";
+        }
     },
 };
 </script>

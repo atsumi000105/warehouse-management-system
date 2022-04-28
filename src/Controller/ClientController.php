@@ -214,6 +214,7 @@ class ClientController extends BaseController
         $eavProcessor->processAttributeChanges($client, $params);
 
         $client->applyChangesFromArray($params);
+        $client->setFamilyId();
 
         $this->denyAccessUnlessGranted(ClientVoter::EDIT, $client);
 
@@ -262,6 +263,7 @@ class ClientController extends BaseController
         if ($params['firstName'] && $params['lastName']) {
             $name = new Name($params['firstName'], $params['lastName']);
             $client->setName($name);
+            $client->setFamilyId();
             unset($params['firstName'], $params['lastName']);
         }
 
@@ -475,7 +477,7 @@ class ClientController extends BaseController
 
     protected function getDefaultTransformer(): ClientTransformer
     {
-        return new ClientTransformer();
+        return new ClientTransformer($this->getUser());
     }
 
     protected function getClientById(string $id): Client
