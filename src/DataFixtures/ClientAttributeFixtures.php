@@ -10,6 +10,7 @@ use App\Entity\EAV\PartnerProfileAttributeDefinition;
 use App\Entity\PartnerProfile;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\Partner;
+use Symfony\Component\VarDumper\VarDumper;
 
 class ClientAttributeFixtures extends BaseFixture
 {
@@ -34,9 +35,10 @@ class ClientAttributeFixtures extends BaseFixture
             }
 
             if (isset($field['options'])) {
-                foreach ($field['options'] as $value => $name) {
+                foreach ($field['options'] as $value => $optionName) {
                     $option = new AttributeOption();
-                    $option->setName($name);
+                    $option->setName($optionName['en'] ?? $optionName);
+                    $option->setNameEs($optionName['es'] ?? null);
                     $option->setValue($value);
                     $definition->addOption($option);
                 }
@@ -159,8 +161,14 @@ class ClientAttributeFixtures extends BaseFixture
                 'type' => AttributeDefinition::TYPE_OPTION_LIST,
                 'interface' => AttributeValue::UI_RADIO,
                 'options' => [
-                    'male' => 'Male',
-                    'female' => 'Female',
+                    'male' => [
+                        'en' => 'Male',
+                        'es' => 'Masculino',
+                    ],
+                    'female' => [
+                        'en' => 'Female',
+                        'es' => 'Femenino',
+                    ],
                 ],
                 'order_index' => 7,
                 'is_displayed_publicly' => true,
@@ -174,11 +182,26 @@ class ClientAttributeFixtures extends BaseFixture
                 'type' => AttributeDefinition::TYPE_OPTION_LIST,
                 'interface' => AttributeValue::UI_CHECKBOX_GROUP,
                 'options' => [
-                    'mother' => 'Mother',
-                    'father' => 'Father',
-                    'grandparent' => 'Grandparent',
-                    'foster_parent' => 'Foster Parent',
-                    'other' => 'Other Parent/Relative',
+                    'mother' => [
+                        'en' => 'Mother',
+                        'es' => 'Madre',
+                    ],
+                    'father' => [
+                        'en' => 'Father',
+                        'es' => 'Padre',
+                    ],
+                    'grandparent' => [
+                        'en' => 'Grandparent',
+                        'es' => 'Abuelos',
+                    ],
+                    'foster_parent' => [
+                        'en' => 'Foster Parent',
+                        'es' => 'Padre/Madre Adoptivo(a)',
+                    ],
+                    'other' => [
+                        'en' => 'Other Parent/Relative',
+                        'es' => 'Otro(a) Familiar',
+                    ],
                 ],
                 'order_index' => 7,
                 'is_displayed_publicly' => true,
@@ -192,13 +215,34 @@ class ClientAttributeFixtures extends BaseFixture
                 'type' => AttributeDefinition::TYPE_OPTION_LIST,
                 'interface' => AttributeValue::UI_CHECKBOX_GROUP,
                 'options' => [
-                    'black/african_american' => 'Black/African American',
-                    'hispanic/latino' => 'Hispanic/Latino',
-                    'white/caucasian' => 'White/Caucasian',
-                    'asian' => 'Asian',
-                    'native_pacific/other_native_island' => 'Native Pacific/Other Native Island',
-                    'american_indian' => 'American Indian',
-                    'other' => 'Other',
+                    'black/african_american' => [
+                        'en' => 'Black/African American',
+                        'es' => '',
+                    ],
+                    'hispanic/latino' => [
+                        'en' => 'Hispanic/Latino',
+                        'es' => 'Hispano/Latino',
+                    ],
+                    'white/caucasian' => [
+                        'en' => 'White/Caucasian',
+                        'es' => 'Blanco(a)/Caucásico(a)',
+                    ],
+                    'asian' => [
+                        'en' => 'Asian',
+                        'es' => 'Asiático',
+                    ],
+                    'native_pacific/other_native_island' => [
+                        'en' => 'Native Pacific/Other Native Island',
+                        'es' => 'Nativo de las Islas del Pacífico/Otras Islas',
+                    ],
+                    'american_indian' => [
+                        'en' => 'American Indian',
+                        'es' => 'Nativo Americano',
+                    ],
+                    'other' => [
+                        'en' => 'Other',
+                        'es' => 'Otro(a)',
+                    ],
                 ],
                 'order_index' => 8,
                 'is_displayed_publicly' => true,
@@ -268,13 +312,34 @@ class ClientAttributeFixtures extends BaseFixture
                 'type' => AttributeDefinition::TYPE_OPTION_LIST,
                 'interface' => AttributeValue::UI_CHECKBOX_GROUP,
                 'options' => [
-                    'ssi' => 'SSI',
-                    'snap/food_stamps' => 'SNAP/Food Stamps',
-                    'tanf' => 'TANF',
-                    'housing/subsidized' => 'Housing/subsidized',
-                    'housing/unsubsudized' => 'Housing/unsubsudized',
-                    'WIC' => 'WIC',
-                    'none' => 'None of the above',
+                    'ssi' => [
+                        'en' => 'SSI',
+                        'es' => 'SSI',
+                    ],
+                    'snap/food_stamps' => [
+                        'en' => 'SNAP/Food Stamps',
+                        'es' => 'SNAP/Estampillas de Comida',
+                    ],
+                    'tanf' => [
+                        'en' => 'TANF',
+                        'es' => 'TANF',
+                    ],
+                    'housing/subsidized' => [
+                        'en' => 'Housing/subsidized',
+                        'es' => 'Casa/Subsudiada',
+                    ],
+                    'housing/unsubsudized' => [
+                        'en' => 'Housing/unsubsudized',
+                        'es' => 'Casa/no Subsidiada',
+                    ],
+                    'WIC' => [
+                        'en' => 'WIC',
+                        'es' => 'WIC',
+                    ],
+                    'none' => [
+                        'en' => 'None of the above',
+                        'es' => 'Ninguna de las anteriores',
+                    ],
                 ],
                 'order_index' => 14,
                 'is_displayed_publicly' => true,
@@ -288,8 +353,14 @@ class ClientAttributeFixtures extends BaseFixture
                 'type' => AttributeDefinition::TYPE_OPTION_LIST,
                 'interface' => AttributeValue::UI_RADIO,
                 'options' => [
-                    'yes' => 'Yes',
-                    'no' => 'No',
+                    'yes' => [
+                        'en' => 'Yes',
+                        'es' => 'Si',
+                    ],
+                    'no' => [
+                        'en' => 'No',
+                        'es' => 'No',
+                    ],
                 ],
                 'order_index' => 15,
                 'is_displayed_publicly' => true,
@@ -303,9 +374,18 @@ class ClientAttributeFixtures extends BaseFixture
                 'type' => AttributeDefinition::TYPE_OPTION_LIST,
                 'interface' => AttributeValue::UI_RADIO,
                 'options' => [
-                    'n/a' => 'N/A',
-                    'ft' => 'Full Time (FT)',
-                    'pt' => 'Part Time (PT)',
+                    'n/a' => [
+                        'en' => 'N/A',
+                        'es' => 'N/A',
+                    ],
+                    'ft' => [
+                        'en' => 'Full Time (FT)',
+                        'es' => 'Tiempo Completo',
+                    ],
+                    'pt' => [
+                        'en' => 'Part Time (PT)',
+                        'es' => 'Tiempo Partial',
+                    ],
                 ],
                 'order_index' => 16,
                 'is_displayed_publicly' => true,
@@ -330,9 +410,18 @@ class ClientAttributeFixtures extends BaseFixture
                 'type' => AttributeDefinition::TYPE_OPTION_LIST,
                 'interface' => AttributeValue::UI_SELECT_SINGLE,
                 'options' => [
-                    'private_insurance' => 'Private Insurance',
-                    'medicaid' => 'Medicaid',
-                    'uninsured' => 'Uninsured',
+                    'private_insurance' => [
+                        'en' => 'Private Insurance',
+                        'es' => 'Seguro Privado',
+                    ],
+                    'medicaid' => [
+                        'en' => 'Medicaid',
+                        'es' => 'Medicaid',
+                    ],
+                    'uninsured' => [
+                        'en' => 'Uninsured',
+                        'es' => 'No Asegurado',
+                    ],
                 ],
                 'order_index' => 18,
                 'is_displayed_publicly' => true,
@@ -346,9 +435,18 @@ class ClientAttributeFixtures extends BaseFixture
                 'type' => AttributeDefinition::TYPE_OPTION_LIST,
                 'interface' => AttributeValue::UI_SELECT_SINGLE,
                 'options' => [
-                    'private_insurance' => 'Private Insurance',
-                    'medicaid' => 'Medicaid',
-                    'uninsured' => 'Uninsured',
+                    'private_insurance' => [
+                        'en' => 'Private Insurance',
+                        'es' => 'Seguro Privado',
+                    ],
+                    'medicaid' => [
+                        'en' => 'Medicaid',
+                        'es' => 'Medicaid',
+                    ],
+                    'uninsured' => [
+                        'en' => 'Uninsured',
+                        'es' => 'No Asegurado',
+                    ],
                 ],
                 'order_index' => 19,
                 'is_displayed_publicly' => true,
@@ -411,10 +509,22 @@ class ClientAttributeFixtures extends BaseFixture
                 'type' => AttributeDefinition::TYPE_OPTION_LIST,
                 'interface' => AttributeValue::UI_SELECT_SINGLE,
                 'options' => [
-                    'Personal Vehicle' => 'Personal Vehicle',
-                    'Ride Share' => 'Ride Share',
-                    'Public Transportation' => 'Public Transportation',
-                    'No Transportation' => 'No Transportation',
+                    'Personal Vehicle' => [
+                        'en' => 'Personal Vehicle',
+                        'es' => 'Vehículo Propio',
+                    ],
+                    'Ride Share' => [
+                        'en' => 'Ride Share',
+                        'es' => 'Vehículo Compartido',
+                    ],
+                    'Public Transportation' => [
+                        'en' => 'Public Transportation',
+                        'es' => 'Transporte Público',
+                    ],
+                    'No Transportation' => [
+                        'en' => 'No Transportation',
+                        'es' => 'No usa método de transporte',
+                    ],
                 ],
                 'order_index' => 21,
                 'is_displayed_publicly' => true,
@@ -481,12 +591,30 @@ class ClientAttributeFixtures extends BaseFixture
                 'type' => AttributeDefinition::TYPE_OPTION_LIST,
                 'interface' => AttributeValue::UI_SELECT_SINGLE,
                 'options' => [
-                    'mother' => 'Mother',
-                    'father' => 'Father',
-                    'grandparent' => 'Grandparent',
-                    'foster _prent' => 'Foster Parent',
-                    'guardian' => 'Guardian',
-                    'other' => 'Other',
+                    'mother' => [
+                        'en' => 'Mother',
+                        'es' => 'Madre',
+                    ],
+                    'father' => [
+                        'en' => 'Father',
+                        'es' => 'Padre',
+                    ],
+                    'grandparent' => [
+                        'en' => 'Grandparent',
+                        'es' => 'Abuelos',
+                    ],
+                    'foster_parent' => [
+                        'en' => 'Foster Parent',
+                        'es' => 'Padre/Madre Adoptivo(a)',
+                    ],
+                    'guardian' => [
+                        'en' => 'Guardian',
+                        'es' => 'Guardián',
+                    ],
+                    'other' => [
+                        'en' => 'Other Parent/Relative',
+                        'es' => 'Otro(a) Familiar',
+                    ],
                 ],
                 'order_index' => 27,
                 'is_displayed_publicly' => true,
