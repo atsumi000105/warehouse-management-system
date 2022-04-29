@@ -17,13 +17,17 @@ class AttributeDefinitionTransformer extends TransformerAbstract
             'id' => (int) $definition->getId(),
             'name' => $definition->getName(),
             'label' => $definition->getLabel(),
+            'labelEs' => $definition->getLabelEs(),
             'type' => $definition->getType(),
             'helpText' => $definition->getHelpText(),
+            'helpTextEs' => $definition->getHelpTextEs(),
             'displayInterface' => $definition->getDisplayInterface(),
             'description' => $definition->getDescription(),
+            'descriptionEs' => $definition->getDescriptionEs(),
             'required' => $definition->getRequired(),
             'options' => $definition->getOptions()->getValues(),
             'orderIndex' => $definition->getOrderIndex(),
+            'isDisplayedPublicly' => $definition->getIsDisplayedPublicly(),
         ];
     }
 
