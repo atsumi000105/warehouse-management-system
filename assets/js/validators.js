@@ -20,7 +20,7 @@ export const linesRequired = (value) =>
         }
 
         if (line.quantity === 0) {
-            valid = true;
+            return true;
         }
 
         return valid ? valid : Boolean(line.quantity % defaultPackSize == 0);
