@@ -20,7 +20,7 @@
                     :disabled="!order.isEditable"
                     @click.prevent="saveVerify"
                 >
-                    <i class="fa fa-save fa-fw" />Save Order {{ order.id }}
+                    <i class="fa fa-save fa-fw" />Save Order
                 </button>
             </div>
             <div class="btn-group">

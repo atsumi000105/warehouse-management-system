@@ -7,7 +7,7 @@
                     title="Show/Hide Transactions"
                     @click="showTransactions = !showTransactions"
                 />
-                {{ lineItem.product.name }} - {{ lineItem.product.id }}
+                {{ lineItem.product.name }}
                 <small
                     v-if="lineItem.product.status == 'OUTOFSTOCK'"
                     class="label bg-red"
