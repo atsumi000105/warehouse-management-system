@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Client;
 use App\Entity\LineItem;
+use App\Entity\Order;
 use App\Entity\Orders\PartnerOrder;
 use App\Entity\Orders\PartnerOrderLineItem;
 use App\Entity\Partner;
+use App\Entity\Product;
 use App\Entity\User;
 use App\Entity\Warehouse;
 use App\Exception\UserInterfaceException;
@@ -131,6 +133,42 @@ class PartnerOrderController extends BaseOrderController
         $this->getEm()->flush();
 
         return $this->serialize($request, $order);
+    }
+
+    protected function processLineItems(Order $order, array $lineItemsArray): void
+    {
+        foreach ($lineItemsArray as $lineItemArray) {
+            if (!isset($lineItemArray['id']) && (!$lineItemArray['product']['id'] || !$lineItemArray['quantity'])) {
+                continue;
+            }
+
+            if (isset($lineItemArray['id']) && $lineItemArray['id'] !== 0) {
+                /** @var LineItem $line */
+                $line = $order->getLineItem($lineItemArray['id']);
+            } else {
+                $line = $this->createLineItem();
+                $order->addLineItem($line);
+            }
+
+            $this->extraLineItemProcessing($line, $lineItemArray);
+
+            if (!$lineItemArray['product']['id']) {
+                $order->removeLineItem($line);
+                continue;
+            }
+
+            if ($line->getProduct()->getId() !== $lineItemArray['product']['id']) {
+                $product = $this->getEm()->getReference(Product::class, $lineItemArray['product']['id']);
+                $line->setProduct($product);
+            }
+
+            $line->applyChangesFromArray($lineItemArray);
+
+            /*if (!$line->getQuantity()) {
+                $order->removeLineItem($line);
+                continue;
+            }*/
+        }
     }
 
     /**

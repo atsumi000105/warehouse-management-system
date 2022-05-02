@@ -69,73 +69,82 @@
 </template>
 
 <script>
-    import LineItemTransactionTable from "../LineItemTransactionTable";
-    import OptionListStatic from "../OptionListStatic";
-    import { mapGetters } from 'vuex'
-    import ProductSelectionField from "../ProductSelectionField";
+import LineItemTransactionTable from "../LineItemTransactionTable";
+import OptionListStatic from "../OptionListStatic";
+import { mapGetters } from 'vuex'
+import ProductSelectionField from "../ProductSelectionField";
 
-    export default {
-        name: "LineItemByClientFormRow",
-        components: {
-            OptionListStatic,
-            ProductSelectionField,
-            'lineitemtransactions' : LineItemTransactionTable
-        },
-        props: {
-            value: { type: Object, required: true },
-            editable: { type: Boolean, default: true },
-            showCost: { type: Boolean, default: false },
-            showPacks: { type: Boolean, default: false },
-            partnerType: { type: String, default: 'AGENCY' },
-        },
-        data() {
-            return {
-                showTransactions: false,
-            };
-        },
-        computed: {
-            ...mapGetters([
-                'allActiveProducts',
-            ]),
-            packSize: function () {
-                if (!this.selectedProduct) return 0;
+export default {
+    name: "LineItemByClientFormRow",
 
-                if (this.partnerType === 'HOSPITAL' && this.selectedProduct.hospitalPackSize) {
-                    return this.selectedProduct.hospitalPackSize;
-                }
+    components: {
+        OptionListStatic,
+        ProductSelectionField,
+        'lineitemtransactions' : LineItemTransactionTable
+    },
 
-                return this.selectedProduct.agencyPackSize;
-            },
-            maxPacks: function() {
-                if (!this.selectedProduct) return 0;
+    props: {
+        value: { type: Object, required: true },
+        editable: { type: Boolean, default: true },
+        showCost: { type: Boolean, default: false },
+        showPacks: { type: Boolean, default: false },
+        partnerType: { type: String, default: 'AGENCY' },
+    },
 
-                if (this.partnerType === 'HOSPITAL' && this.selectedProduct.hospitalPackSize) {
-                    return this.selectedProduct.hospitalMaxPacks;
-                }
+    data() {
+        return {
+            showTransactions: false,
+        };
+    },
 
-                return this.selectedProduct.agencyMaxPacks;
-            },
-            quantityOptions: function () {
-                let options = [];
+    computed: {
+        ...mapGetters([
+            'allActiveProducts',
+        ]),
 
-                if (this.selectedProduct) {
-                    for (let i=1; i <= this.maxPacks; i++) {
-                        options.push({
-                            name: this.packSize * i,
-                            id: this.packSize * i
-                        })
-                    }
-                }
+        packSize: function () {
+            if (!this.selectedProduct) return 0;
 
-                return options;
-            },
-            packs: function () {
-                return this.value.quantity / this.packSize;
-            },
-            selectedProduct: function () {
-                if (this.value.product.id == null) return null;
-                return this.$store.getters.getProductById(this.value.product.id);
+            if (this.partnerType === 'HOSPITAL' && this.selectedProduct.hospitalPackSize) {
+                return this.selectedProduct.hospitalPackSize;
             }
+
+            return this.selectedProduct.agencyPackSize;
         },
-    }
+
+        maxPacks: function() {
+            if (!this.selectedProduct) return 0;
+
+            if (this.partnerType === 'HOSPITAL' && this.selectedProduct.hospitalPackSize) {
+                return this.selectedProduct.hospitalMaxPacks;
+            }
+
+            return this.selectedProduct.agencyMaxPacks;
+        },
+
+        quantityOptions: function () {
+            let options = [];
+
+            if (this.selectedProduct) {
+                for (let i=1; i <= this.maxPacks; i++) {
+                    options.push({
+                        name: this.packSize * i,
+                        id: this.packSize * i
+                    })
+                }
+            }
+
+            return options;
+        },
+
+        packs: function () {
+            return this.value.quantity / this.packSize;
+        },
+
+        selectedProduct: function () {
+            if (this.value.product.id == null) return null;
+            return this.$store.getters.getProductById(this.value.product.id);
+        },
+    },
+};
 </script>

@@ -7,13 +7,11 @@ use League\Fractal\TransformerAbstract;
 
 class LineItemTransformer extends TransformerAbstract
 {
-
     protected $availableIncludes = [
         'transactions',
         'product',
         'order',
     ];
-
 
     public function transform(LineItem $lineItem)
     {

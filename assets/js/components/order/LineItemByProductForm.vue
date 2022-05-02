@@ -41,37 +41,59 @@
 </template>
 
 <script>
-    import LineItemFormRow from './LineItemByProductFormRow.vue';
-    export default {
-        name: 'LineItemByProductForm',
-        components: {
-            'lineitemformrow' : LineItemFormRow
-        },
-        props: {
-            products: { type: Array, required: true },
-            lineItems: { type: Array, required: true },
-            editable: { type: Boolean, default: true },
-            showCost: { type: Boolean, default: false },
-            showPacks: { type: Boolean, default: false },
-            partnerType: { type: String, default: 'AGENCY' }
-        },
-        methods: {
-            findLineItem: function(product) {
-                let self = this;
-                let lineItem = this.lineItems.filter(function(line) {
-                    return line.product.id === product.id && !line.client;
-                }).pop();
+import LineItemFormRow from './LineItemByProductFormRow.vue';
 
-                if (!lineItem) {
-                    lineItem = self.lineItems.push({
-                        product: product,
-                        cost: product.defaultCost,
-                        quantity: null,
-                    });
-                }
+export default {
+    name: 'LineItemByProductForm',
 
-                return lineItem;
+    components: {
+        'lineitemformrow' : LineItemFormRow
+    },
+
+    props: {
+        products: {
+            type: Array,
+            required: true,
+        },
+        lineItems: {
+            type: Array,
+            required: true,
+        },
+        editable: {
+            type: Boolean,
+            default: true,
+        },
+        showCost: {
+            type: Boolean,
+            default: false,
+        },
+        showPacks: {
+            type: Boolean,
+            default: false,
+        },
+        partnerType: {
+            type: String,
+            default: 'AGENCY',
+        },
+    },
+
+    methods: {
+        findLineItem: function(product) {
+            let self = this;
+            let lineItem = this.lineItems.filter(function(line) {
+                return line.product.id === product.id && !line.client;
+            }).pop();
+
+            if (!lineItem) {
+                lineItem = self.lineItems.push({
+                    product: product,
+                    cost: product.defaultCost,
+                    quantity: null,
+                });
             }
-        }
-    }
+
+            return lineItem;
+        },
+    },
+};
 </script>
