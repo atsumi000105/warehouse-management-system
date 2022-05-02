@@ -23,7 +23,6 @@
                 class="col-xs-2"
                 :class="{'has-error': showPacks && lineItem.quantity % packSize != 0 && lineItem.quantity != 0}"
             >
-                qty: {{ lineItem.quantity }}
                 <input
                     v-if="editable"
                     v-model="lineItem.quantity"
