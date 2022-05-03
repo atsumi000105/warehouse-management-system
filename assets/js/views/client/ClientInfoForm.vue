@@ -6,7 +6,11 @@
 
         <div class="form-group">
             <div class="col-md-6">
-                <label>
+                <label v-if="language === 'es'">
+                    Primer Nombre
+                    <i class="fas fa-asterisk fa-fw text-danger"/>
+                </label>
+                <label v-else>
                     First Name
                     <i class="fas fa-asterisk fa-fw text-danger"/>
                 </label>
@@ -18,13 +22,22 @@
                         placeholder="Enter first name"
                     >
                     <FieldError v-if="$v.value.firstName.$error">
-                        First Name is required
+                        <span v-if="language === 'es'">
+                            Primer Nombre es requerido
+                        </span>
+                        <span v-else>
+                            First Name is required
+                        </span>
                     </FieldError>
                 </div>
             </div>
 
             <div class="col-md-6">
-                <label>
+                <label v-if="language === 'es'">
+                    Apellido
+                    <i class="fas fa-asterisk fa-fw text-danger"/>
+                </label>
+                <label v-else>
                     Last Name
                     <i class="fas fa-asterisk fa-fw text-danger"/>
                 </label>
@@ -36,7 +49,12 @@
                         placeholder="Enter last name"
                     >
                     <FieldError v-if="$v.value.lastName.$error">
-                        Last Name is required
+                        <span v-if="language === 'es'">
+                            Apellido es requerido
+                        </span>
+                        <span v-else>
+                            Last Name is required
+                        </span>
                     </FieldError>
                 </div>
             </div>
@@ -44,7 +62,11 @@
 
         <div class="form-group">
             <div class="col-md-6">
-                <label>
+                <label v-if="language === 'es'">
+                    Primer Nombre del Padre o Giardián
+                    <i class="fas fa-asterisk fa-fw text-danger"/>
+                </label>
+                <label v-else>
                     Parent/Guardian First Name
                     <i class="fas fa-asterisk fa-fw text-danger"/>
                 </label>
@@ -56,13 +78,22 @@
                         placeholder="Enter parent or guardian first name"
                     >
                     <FieldError v-if="$v.value.parentFirstName.$error">
-                        Last Name is required
+                        <span v-if="language === 'es'">
+                            Primer Nombre del Padre o Guardián es requerido
+                        </span>
+                        <span v-else>
+                            Parent/Guardian First Name is required
+                        </span>
                     </FieldError>
                 </div>
             </div>
 
             <div class="col-md-6">
-                <label>
+                <label v-if="language === 'es'">
+                    Apellido del Padre o Guardián
+                    <i class="fas fa-asterisk fa-fw text-danger"/>
+                </label>
+                <label v-else>
                     Parent/Guardian Last Name
                     <i class="fas fa-asterisk fa-fw text-danger"/>
                 </label>
@@ -74,7 +105,12 @@
                         placeholder="Enter parent or guardian last name"
                     >
                     <FieldError v-if="$v.value.parentLastName.$error">
-                        Last Name is required
+                        <span v-if="language === 'es'">
+                            Apellido del Padre o Guardián es requerido
+                        </span>
+                        <span v-else>
+                            Parent/Guardián Last Name is required
+                        </span>
                     </FieldError>
                 </div>
             </div>
@@ -84,11 +120,16 @@
             <div :class="{ 'has-error': $v.value.birthdate.$error }">
                 <DateField
                     v-model="value.birthdate"
-                    label="Birthdate"
+                    :label="language === 'es' ? 'Fecha de Nacimiento' : 'Birthdate'"
                     format="YYYY-MM-DD"
                 />
                 <FieldError v-if="$v.value.birthdate.$error">
-                    Birthdate should be a date in the past
+                    <span v-if="language === 'es'">
+                        Fecha de nacimiento debe ser una fecha del pasado.
+                    </span>
+                    <span v-else>
+                        Birthdate should be a date in the past
+                    </span>
                 </FieldError>
             </div>
         </div>
@@ -97,7 +138,7 @@
             <div :class="{ 'has-error': $v.partner.id.$error }">
                 <PartnerSelectionForm
                     v-model="partner"
-                    label="Where do you want to pick up diapers?"
+                    :label="language === 'es' ? 'Dónde quieres recoger los pañales?' : 'Where do you want to pick up diapers?'"
                     :options="allPartners"
                     :editable="!this.new"
                     :is-required="true"
@@ -105,7 +146,12 @@
                     @partner-change="updatePartner"
                 />
                 <FieldError v-if="$v.partner.id.$error">
-                    Partner is required
+                    <span v-if="language === 'es'">
+                        Agencia es Requerido
+                    </span>
+                    <span v-else>
+                        Partner is required
+                    </span>
                 </FieldError>
             </div>
         </div>
@@ -202,7 +248,12 @@ export default {
         readOnlyExpiration: {
             type: Boolean,
             default: false,
-        }
+        },
+        language: {
+            type: String,
+            default: 'en',
+            required: false,
+        },
     },
 
     data() {

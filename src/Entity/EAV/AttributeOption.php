@@ -32,6 +32,13 @@ class AttributeOption extends CoreEntity
     /**
      * @var string
      *
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $nameEs;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(type="string", length=255)
      */
     protected $value;
@@ -75,6 +82,26 @@ class AttributeOption extends CoreEntity
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * @param string $nameEs
+     *
+     * @return $this
+     */
+    public function setNameEs($nameEs)
+    {
+        $this->nameEs = $nameEs;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNameEs()
+    {
+        return $this->nameEs;
     }
 
     /**

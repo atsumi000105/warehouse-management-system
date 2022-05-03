@@ -64,9 +64,16 @@ abstract class AttributeDefinition extends CoreEntity
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $label;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $labelEs;
 
     /**
      * @var string|null
@@ -74,6 +81,13 @@ abstract class AttributeDefinition extends CoreEntity
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $descriptionEs;
 
     /**
      * @var string
@@ -88,6 +102,13 @@ abstract class AttributeDefinition extends CoreEntity
      * @ORM\Column(type="text", nullable=true)
      */
     private $helpText;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $helpTextEs;
 
     /**
      * @var string
@@ -213,6 +234,22 @@ abstract class AttributeDefinition extends CoreEntity
     }
 
     /**
+     * @return string
+     */
+    public function getLabelEs(): ?string
+    {
+        return $this->labelEs;
+    }
+
+    /**
+     * @param string $labelEs
+     */
+    public function setLabelEs(?string $labelEs): void
+    {
+        $this->labelEs = $labelEs;
+    }
+
+    /**
      * @param string $description
      *
      * @return $this
@@ -230,6 +267,26 @@ abstract class AttributeDefinition extends CoreEntity
     public function getDescription(): ?string
     {
         return $this->description;
+    }
+
+    /**
+     * @param string $description
+     *
+     * @return $this
+     */
+    public function setDescriptionEs($descriptionEs)
+    {
+        $this->descriptionEs = $descriptionEs;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDescriptionEs(): ?string
+    {
+        return $this->descriptionEs;
     }
 
     public function setType(string $type): AttributeDefinition
@@ -260,6 +317,21 @@ abstract class AttributeDefinition extends CoreEntity
     public function setHelpText(?string $helpText): AttributeDefinition
     {
         $this->helpText = $helpText;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getHelpTextEs(): ?string
+    {
+        return $this->helpTextEs;
+    }
+
+    public function setHelpTextEs(?string $helpTextEs): AttributeDefinition
+    {
+        $this->helpTextEs = $helpTextEs;
 
         return $this;
     }

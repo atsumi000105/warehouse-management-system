@@ -20,14 +20,51 @@
                         <!-- /.box-header -->
                         <div class="box-body">
                             <!-- text input -->
-                            <div class="form-group">
-                                <label>Attribute Label</label>
-                                <input
-                                    v-model="definition.label"
-                                    type="text"
-                                    class="form-control"
-                                    placeholder="Enter attribute name"
-                                >
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Attribute Label</label>
+                                        <input
+                                            v-model="definition.label"
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="Enter attribute name"
+                                        >
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Attribute Label Spanish</label>
+                                        <input
+                                            v-model="definition.labelEs"
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="Enter attribute name Spanish"
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Help Text</label>
+                                        <textarea
+                                            v-model="definition.helpText"
+                                            class="form-control"
+                                            placeholder="Enter help text"
+                                        />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Help Text Spanish</label>
+                                        <textarea
+                                            v-model="definition.helpTextEs"
+                                            class="form-control"
+                                            placeholder="Enter help text"
+                                        />
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label>Attribute Machine Name</label>
@@ -38,18 +75,17 @@
                                     placeholder="Enter attribute name"
                                 >
                             </div>
-                            <div class="form-group">
-                                <label>Help Text</label>
-                                <textarea
-                                    v-model="definition.helpText"
-                                    class="form-control"
-                                    placeholder="Enter help text"
-                                />
-                            </div>
+
                             <BooleanField
                                 v-if="hasDuplicateCheck"
                                 v-model="definition.isDuplicateReference"
                                 label="Used when checking for duplicate records"
+                            />
+
+                            <BooleanField
+                                v-if="hasDuplicateCheck"
+                                v-model="definition.isDisplayedPublicly"
+                                label="Used to decide to display in public registration form"
                             />
                             <OptionListStatic
                                 v-model="definition.type"

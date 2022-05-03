@@ -9,6 +9,7 @@
             :empty-string="'-- Select Zip Code --'"
             :label="label"
             :is-required="isRequired"
+            :language="language"
             @input="onSelectionChange"
         />
         <MultiOptionListEntity
@@ -63,6 +64,11 @@
                 type: Boolean,
                 required: false,
                 default: false,
+            },
+            language: {
+              type: String,
+              default: 'en',
+              required: false,
             },
         },
 

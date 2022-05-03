@@ -12,6 +12,7 @@ class AttributeDefinitionOptionTransformer extends TransformerAbstract
         return [
             'id' => (int) $option->getId(),
             'name' => $option->getName(),
+            'nameEs' => $option->getNameEs(),
             'value' => $option->getValue(),
         ];
     }

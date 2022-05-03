@@ -10,85 +10,98 @@
                     <BooleanField
                         v-if="attribute.displayInterface === 'TOGGLE'"
                         v-model="attribute.value"
-                        :label="attribute.label"
+                        :label="getLabel(attribute)"
                         :help-text="attribute.helpText"
                         :is-required="attribute.isRequired"
                         :can-edit="defineCanEditAttribute(attribute)"
+                        :language="language"
                     />
                     <YesNoRadioField
                         v-else-if="attribute.displayInterface === 'YES_NO_RADIO'"
                         v-model="attribute.value"
-                        :label="attribute.label"
+                        :label="getLabel(attribute)"
                         :help-text="attribute.helpText"
                         :is-required="attribute.isRequired"
                         :can-edit="defineCanEditAttribute(attribute)"
+                        :language="language"
                     />
                     <DateField
                         v-else-if="attribute.displayInterface === 'DATETIME'"
                         v-model="attribute.value"
-                        :label="attribute.label"
+                        :label="getLabel(attribute)"
                         :help-text="attribute.helpText"
                         :is-required="attribute.isRequired"
                         :can-edit="defineCanEditAttribute(attribute)"
+                        :language="language"
                     />
                     <NumberField
                         v-else-if="attribute.displayInterface === 'NUMBER'"
                         v-model="attribute.value"
-                        :label="attribute.label"
+                        :label="getLabel(attribute)"
                         :help-text="attribute.helpText"
                         :is-required="attribute.isRequired"
                         :can-edit="defineCanEditAttribute(attribute)"
+                        :language="language"
                     />
                     <OptionListApi
                         v-else-if="attribute.displayInterface === 'SELECT_SINGLE'"
                         v-model="attribute.value"
-                        :label="attribute.label"
+                        :label="getLabel(attribute)"
                         :help-text="attribute.helpText"
                         :preloaded-options="attribute.options"
                         :is-required="attribute.isRequired"
                         :can-edit="defineCanEditAttribute(attribute)"
+                        :display-property="language === 'es' ? 'nameEs' : 'name'"
+                        :language="language"
                     />
                     <OptionListApi
                         v-else-if="attribute.displayInterface === 'SELECT_MULTI'"
                         v-model="attribute.value"
-                        :label="attribute.label"
+                        :label="getLabel(attribute)"
                         :help-text="attribute.helpText"
                         :preloaded-options="attribute.options"
                         :multiple="true"
                         :is-required="attribute.isRequired"
                         :can-edit="defineCanEditAttribute(attribute)"
+                        :display-property="language === 'es' ? 'nameEs' : 'name'"
+                        :language="language"
                     />
                     <RadioField
                         v-else-if="attribute.displayInterface === 'RADIO'"
                         v-model="attribute.value"
-                        :label="attribute.label"
+                        :label="getLabel(attribute)"
                         :help-text="attribute.helpText"
                         :preloaded-options="attribute.options"
                         :is-required="attribute.isRequired"
                         :can-edit="defineCanEditAttribute(attribute)"
+                        :display-property="language === 'es' ? 'nameEs' : 'name'"
+                        :language="language"
                     />
                     <CheckboxGroupField
                         v-else-if="attribute.displayInterface === 'CHECKBOX_GROUP'"
                         v-model="attribute.value"
                         :name="attribute.name"
-                        :label="attribute.label"
+                        :label="getLabel(attribute)"
                         :help-text="attribute.helpText"
                         :preloaded-options="attribute.options"
                         :is-required="attribute.isRequired"
                         :can-edit="defineCanEditAttribute(attribute)"
+                        :display-property="language === 'es' ? 'nameEs' : 'name'"
+                        :language="language"
                     />
                     <TextareaField
                         v-else-if="attribute.displayInterface === 'TEXTAREA'"
                         v-model="attribute.value"
-                        :label="attribute.label"
+                        :label="getLabel(attribute)"
                         :help-text="attribute.helpText"
                         :is-required="attribute.isRequired"
                         :can-edit="defineCanEditAttribute(attribute)"
+                        :language="language"
                     />
                     <AddressField
                         v-else-if="displayAddressFiled(attribute)"
                         v-model="attribute.value"
-                        :label="attribute.label"
+                        :label="getLabel(attribute)"
                         :help-text="attribute.helpText"
                         :is-required="attribute.isRequired"
                         :can-edit="defineCanEditAttribute(attribute)"
@@ -96,16 +109,17 @@
                     <ZipCountyField
                         v-else-if="attribute.displayInterface === 'ZIPCODE' && defineCanEditAttribute(attribute)"
                         v-model="attribute.value"
-                        :label="attribute.label"
+                        :label="getLabel(attribute)"
                         :help-text="attribute.helpText"
                         :is-required="attribute.isRequired"
                         :can-edit="defineCanEditAttribute(attribute)"
                         @change="onChangeZip(attribute, $event)"
+                        :language="language"
                     />
                     <FileUploadField
                         v-else-if="attribute.displayInterface === 'FILE_UPLOAD' && defineCanEditAttribute(attribute)"
                         v-model="attribute.value"
-                        :label="attribute.label"
+                        :label="getLabel(attribute)"
                         :help-text="attribute.helpText"
                         :is-required="attribute.isRequired"
                         :can-edit="defineCanEditAttribute(attribute)"
@@ -113,7 +127,7 @@
                     <TextField
                         v-else
                         v-model="attribute.value"
-                        :label="attribute.label"
+                        :label="getLabel(attribute)"
                         :help-text="attribute.helpText"
                         :is-required="attribute.isRequired"
                         :can-edit="defineCanEditAttribute(attribute)"
@@ -185,6 +199,11 @@
                 required: false,
                 default: false,
             },
+            language: {
+                type: String,
+                default: 'en',
+                required: false,
+            },
         },
 
         computed: {
@@ -199,6 +218,14 @@
         },
 
         methods: {
+            getLabel: function (attribute) {
+                if (this.language === 'es') {
+                    return attribute.labelEs;
+                }
+
+                return attribute.label;
+            },
+
             onChangeZip: function (attribute, data) {
                 if (attribute) {
                     attribute.value.id = data;
