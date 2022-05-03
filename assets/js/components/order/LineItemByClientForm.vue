@@ -29,16 +29,34 @@ import LineItemByClientFormRow from "./LineItemByClientFormRow";
 
 export default {
     name: "LineItemByClientForm",
+
     components: {
-        'lineitemformrow' : LineItemByClientFormRow
+        'lineitemformrow' : LineItemByClientFormRow,
     },
+
     props: {
-        products: { type: Array, required: true },
-        lineItems: { type: Array, required: true },
-        editable: { type: Boolean, default: true },
-        partnerType: { type: String, default: 'AGENCY' },
-        filterText: { type: String, default: '' }
+        products: {
+          type: Array,
+          required: true,
+        },
+        lineItems: {
+          type: Array,
+          required: true,
+        },
+        editable: {
+          type: Boolean,
+          default: true,
+        },
+        partnerType: {
+          type: String,
+          default: 'AGENCY',
+        },
+        filterText: {
+          type: String,
+          default: '',
+        },
     },
+
     computed: {
         filterResults: function() {
             let self = this;
@@ -48,8 +66,9 @@ export default {
                     return testString.toLowerCase().includes(self.filterText.replace(/\s/g, '').toLowerCase());
                 })
                 .map((item) => item.client.id);
-        }
+        },
     },
+
     methods: {
         findLineItem: function(product) {
             let self = this;
@@ -66,7 +85,7 @@ export default {
             }
 
             return lineItem;
-        }
-    }
-}
+        },
+    },
+};
 </script>

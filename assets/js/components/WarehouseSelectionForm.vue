@@ -35,18 +35,36 @@
             'address-view' : Address,
             OptionListEntity
         },
+
         props: {
-            value: { required: true, type: Object },
-            editable: { type: Boolean, default: true },
-            v: { type: Object },
+            value: {
+                required: true,
+                type: Object,
+            },
+            editable: {
+                type: Boolean,
+                default: true,
+            },
+            v: {
+                type: Object,
+            },
             label: String,
         },
+
         computed: mapGetters([
-            'allActiveWarehouses'
+            'allActiveWarehouses',
         ]),
+
         mounted: function () {
             this.$store.dispatch('loadStorageLocations');
             this.$refs.warehouseSelect.$on('change', eventData => this.onSelectionChange(eventData))
-        }
+        },
+
+        methods: {
+            onSelectionChange: function(eventData) {
+                let currentWarehouse = this.$store.getters.getStorageLocationById(eventData.currentTarget.value);
+                this.$emit("change", currentWarehouse);
+            }
+        },
     }
 </script>

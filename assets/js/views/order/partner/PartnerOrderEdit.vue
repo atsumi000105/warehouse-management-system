@@ -74,7 +74,6 @@
                                 <partnerselectionform
                                     ref="partnerSelection"
                                     v-model="order.partner"
-                                    :label="false"
                                     :editable="order.isEditable"
                                     :options="isAdmin ? allPartners : isPartner ? allActivePartners : []"
                                     @change="$v.order.partner.$touch()"
@@ -224,9 +223,14 @@ export default {
         lineitemform: LineItemForm,
         partnerselectionform: PartnerSelectionForm
     },
+
     props: {
-        new: { type: Boolean, default: false }
+        new: {
+            type: Boolean,
+            default: false
+        },
     },
+
     data() {
         return {
             order: {
@@ -241,9 +245,11 @@ export default {
             },
             products: [],
             partnerType: "AGENCY",
-            partnerCanOrder: true
+            partnerCanOrder: true,
+            filterText: '',
         };
     },
+
     validations: {
         order: {
             partner: {
@@ -262,23 +268,34 @@ export default {
             lineItems: { linesRequired }
         }
     },
+
     computed: {
         statusIsCompleted: function() {
             var self = this;
-            var status = this.statuses.filter(function(item) {
+
+            console.log('this.statuses: ', this.statuses);
+
+            var status = this.statuses?.filter(function(item) {
                 return self.order.status === item.id;
             });
-            return status[0].commit === true;
+
+            if (status && status[0]) {
+                return status[0].commit === true;
+            }
+
+            return false;
         },
+
         ...mapGetters([
             "allOrderableProducts",
             "allPartners",
             "allActivePartners",
             "isAdmin",
             "isPartner",
-            "userActivePartner"
-        ])
+            "userActivePartner",
+        ]),
     },
+
     watch: {
         "order.partner": {
             handler(val) {
@@ -314,8 +331,10 @@ export default {
             }
         }
     },
+
     created() {
         var self = this;
+
         if (this.new) {
             self.order.orderPeriod = moment()
                 .add(1, "M")
@@ -339,6 +358,7 @@ export default {
                 });
         }
     },
+
     mounted() {
         this.$refs.partnerSelection.$on("partner-change", eventData => this.onPartnerChange(eventData));
         this.$store.dispatch("loadProducts");
@@ -346,19 +366,25 @@ export default {
             this.order.partner.id = this.userActivePartner.id;
         }
     },
+
     methods: {
         saveVerify: function() {
+            this.order.lineItems.partnerType = this.partnerType;
+
             this.$v.$touch();
+
             if (this.$v.$invalid) {
                 $("#invalidModal").modal("show");
                 return false;
             }
+
             if (this.statusIsCompleted) {
                 $("#confirmCommitModal").modal("show");
             } else {
                 this.save();
             }
         },
+
         save: function() {
             var self = this;
             if (this.new) {
@@ -377,13 +403,16 @@ export default {
                     });
             }
         },
+
         askDelete: function() {
             $("#confirmModal").modal("show");
         },
+
         deleteOrder: function() {
             var self = this;
             axios.delete("/api/orders/partner/" + this.$route.params.id).then(self.$router.push("/orders/partner"));
         },
+
         onPartnerChange: function(partner) {
             let self = this;
             this.$v.order.partner.$touch();
@@ -406,7 +435,7 @@ export default {
                         // reject(err);
                     }
                 );
-        }
-    }
+        },
+    },
 };
 </script>

@@ -3,10 +3,31 @@ import {value} from "lodash/seq";
 
 export const linesRequired = (value) =>
     value.reduce(function (valid, line) {
-        return valid ? valid : Boolean(Number(line.quantity ? line.quantity : 0));
+
+        let defaultPackSize = 25;
+
+        let skipCondition = false;
+
+        if (value.partnerType &&
+            value.partnerType === 'HOSPITAL' &&
+            line.product.hospitalPackSize) {
+            defaultPackSize = line.product.hospitalPackSize;
+            skipCondition = true;
+        }
+
+        if (skipCondition && line.product.agencyPackSize) {
+            defaultPackSize = line.product.agencyPackSize;
+        }
+
+        if (line.quantity === 0) {
+            return true;
+        }
+
+        return valid ? valid : Boolean(line.quantity % defaultPackSize == 0);
     }, false);
 
 import {withParams} from 'vuelidate/lib/validators';
+
 export const mod = divisor => withParams(
     { type: 'mod', d: divisor },
     value => value.quantity % d == 0
