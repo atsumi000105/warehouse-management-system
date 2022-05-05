@@ -33,6 +33,17 @@ class PartnerController extends BaseController
     protected $defaultEntityName = Partner::class;
 
     /**
+     * @Route("/order-pickup-report", methods={"GET"})
+     * @IsGranted({"ROLE_PARTNER_VIEW_ALL","ROLE_PARTNER_MANAGE_OWN"})
+     */
+    public function orderPickUpReport(Request $request): JsonResponse
+    {
+        $partners = $this->getRepository(Partner::class)->findAll();
+
+        return $this->serialize($request, $partners);
+    }
+
+    /**
      *
      * @Route("/", methods={"GET"})
      * @IsGranted({"ROLE_PARTNER_VIEW_ALL","ROLE_PARTNER_MANAGE_OWN"})

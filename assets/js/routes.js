@@ -209,6 +209,16 @@ let routes = [
     },
 
     {
+        path: '/partners/order-pickup-report',
+        name: 'order-pickup-report',
+        component: require('./views/partner/OrderPickupReport.vue').default,
+        props: {
+            name: 'Order Pickup Report',
+            apiPath: 'partners/order-pickup-report',
+        },
+        meta: {roles: ['ROLE_PARTNER_ORDER_VIEW','ROLE_PARTNER_ORDER_EDIT', 'ROLE_ORDER_MANAGE_OWN']}
+    },
+    {
         path: '/orders/partner',
         name: 'orders-partner',
         component: require('./views/order/partner/PartnerOrderList.vue').default,

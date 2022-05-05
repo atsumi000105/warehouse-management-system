@@ -87,6 +87,7 @@ export default {
                             { title: "Partner Order Totals Report", route: { name: 'reports-partner-order-totals' }, icon: "print" },
                             { title: "Partner Inventory Report", route: { name: 'reports-partner-inventory' }, icon: "print" },
                             { title: "Distribution Totals Report", route: { name: 'reports-distribution-totals' }, icon: "print" },
+                            { title: "Order Pickup Report", route: { name: 'order-pickup-report' }, icon: "print" },
                         ]
                     },
                     {
