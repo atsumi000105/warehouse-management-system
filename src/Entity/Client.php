@@ -269,6 +269,11 @@ class Client extends CoreEntity implements AttributedEntityInterface
         $this->name->setLastname($lastName);
     }
 
+    public function getFullName(): string
+    {
+        return $this->getName()->getFirstName() . ' ' . $this->getName()->getLastName();
+    }
+
     /**
      * @return \DateTime
      */
@@ -425,6 +430,52 @@ class Client extends CoreEntity implements AttributedEntityInterface
 
         $expiration = Moment::fromDateTime($this->getBirthdate());
         $this->ageExpiresAt = $expiration->addYears(4)->addMonths(1)->startOf('month');
+    }
+
+    /**
+     * @return string
+     * @TODO! Need to verify this after the imports of the clients with real data have been completed
+     */
+    public function getWarning(): string
+    {
+        $messages = [];
+
+        $messages[] = $this->buildAgeWarning();
+
+        /**
+         *
+         * @TODO! Need to verify this is correct - Jose: 05/06/2022
+         * In Drupal they're using `getPullUpRemaining()` which is at the same time calling a method
+         * named `getPullUpDistributions()` which calculates the max items per `line_item`. The table
+         * exists in this system but it doesn't seem to have the same information.
+         */
+        $pullUpRemaining = $this->getPullupDistributionMax() - $this->getPullupDistributionCount();
+
+        if ($pullUpRemaining <= 3 && $pullUpRemaining > 0) {
+            $messages[] = "Client has only {$pullUpRemaining} Pull-Up of {$this->getPullupDistributionMax()} total.";
+        } elseif ($pullUpRemaining == 0) {
+            $messages[] = "Client has received {$this->getPullupDistributionCount()} of max";
+        }
+
+        $messages = array_filter($messages, function($message) {
+            return !empty($message);
+        });
+
+        return implode("\n", $messages);
+    }
+
+
+    public function buildAgeWarning(): string
+    {
+        $now = new \DateTime();
+        $warningPeriod = new \DateTime('+6 months');
+        $ageExp = $this->getAgeExpiresAt();
+
+        if ($ageExp > $now && $ageExp < $warningPeriod) {
+            return 'Client is nearing the AGE expiration: ' . $ageExp->format('m/d/Y');
+        }
+
+        return '';
     }
 
     public function calculateDistributionExpiration()

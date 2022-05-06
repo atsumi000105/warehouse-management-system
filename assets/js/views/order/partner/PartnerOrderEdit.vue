@@ -43,6 +43,11 @@
                             <i class="fa fa-print fa-fw" />Print Fill Sheet
                         </router-link>
                     </li>
+                    <li>
+                        <router-link :to="'/orders/partner/' + order.id + '/order-pickup-report/' + order.partner.id">
+                            <i class="fa fa-print fa-fw" />Pickup Report
+                        </router-link>
+                    </li>
                 </ul>
             </div>
         </div>
