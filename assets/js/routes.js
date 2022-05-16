@@ -347,6 +347,11 @@ let routes = [
         name: 'reports-partner-inventory',
         component: require('./views/reports/PartnerInventoryReport.vue').default
     },
+    {
+        path: '/reports/clients-report',
+        name: 'clients-report',
+        component: require('./views/reports/ClientsReport.vue').default
+    }
 ];
 
 let router = new VueRouter({

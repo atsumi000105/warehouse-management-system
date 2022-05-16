@@ -269,6 +269,11 @@ class Client extends CoreEntity implements AttributedEntityInterface
         $this->name->setLastname($lastName);
     }
 
+    public function getFullName(): string
+    {
+        return $this->getName()->getFirstName() . ' ' . $this->getName()->getLastName();
+    }
+
     /**
      * @return \DateTime
      */

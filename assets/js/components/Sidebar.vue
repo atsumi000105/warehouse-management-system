@@ -115,6 +115,13 @@ export default {
                             { title: "Product Categories", route: { name: 'product-categories' }, icon: "folder-open" }
                         ]
                     },
+                    {
+                        header: "Reports",
+                        icon: "shopping-cart",
+                        links: [
+                            { title: "Clients Report", route: { name: 'clients-report' }, icon: "child" },
+                        ]
+                    },
                 ]
             }
         },
