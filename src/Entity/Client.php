@@ -483,7 +483,7 @@ class Client extends CoreEntity implements AttributedEntityInterface
         $this->mergedTo = $mergedTo;
     }
 
-    public function getMergedTo(): string
+    public function getMergedTo(): ?string
     {
         return $this->mergedTo;
     }

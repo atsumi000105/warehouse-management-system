@@ -4,6 +4,7 @@ namespace App\Transformers\Report;
 
 use App\Entity\Client;
 use App\Entity\EAV\Attribute;
+use App\Entity\EAV\AttributeDefinition;
 use App\Entity\User;
 use App\Transformers\AttributeTransformer;
 use App\Transformers\BulkDistributionLineItemTransformer;
@@ -31,30 +32,82 @@ class ClientsReportTransformer extends TransformerAbstract
     {
         $attributes = $client->getAttributes();
 
-        $authorizedPersons = [];
-
-        $authorizedPersonFirstName = $this->getAttributeValueByName($attributes, 'alternative_pickup_first_name');
-        $authorizedPersonLastName = $this->getAttributeValueByName($attributes, 'alternative_pickup_last_name');
-
-        $parentFullName = $client->getParentFirstName() . ' ' . $client->getParentLastName();
-
-        $authorizedPersons = [
-            $parentFullName,
-            $authorizedPersonFirstName . ' ' . $authorizedPersonLastName,
-        ];
+        $adults = $this->getAttributeValueByName($attributes, AttributeDefinition::ADULTS_IN_HOME);
+        $childGender = $this->getAttributeValueByName($attributes, AttributeDefinition::CLIENT_GENDER);
+        $childLivesWith = $this->getAttributeValueByName($attributes, AttributeDefinition::CLIENT_LIVES_WITH);
+        $childRace = $this->getAttributeValueByName($attributes, AttributeDefinition::CLIENT_RACE);
+        $childrenFiveToSeventeen = $this->getAttributeValueByName($attributes, AttributeDefinition::OLDER_CHILDREN_IN_HOME);
+        $childrenUnderFive = $this->getAttributeValueByName($attributes, AttributeDefinition::YOUNG_CHILDREN_IN_HOME);
+        $childHealthInsurance = $this->getAttributeValueByName($attributes, AttributeDefinition::CLIENT_HEALTH_INSURANCE);
+        $parentHealthInsurance = $this->getAttributeValueByName($attributes, AttributeDefinition::PARENT_HEALTH_INSURANCE);
+        $childHaveHealthInsurance = $childHealthInsurance ? 'YES' : 'NO';
+        $childHaveMedicaid = 'MISSING';
+        $firstDistribution = 'MISSING';
+        $isTheChildInDaycare = 'MISSING';
+        $nameOfDaycareProvider = 'MISSING';
+        $isParentEmployed = $this->getAttributeValueByName($attributes, AttributeDefinition::GUARDIAN_EMPLOYMENT);
+        $parentEmploymentStatus = $isParentEmployed ? 'EMPLOYED' : 'NOT EMPLOYED';
+        $otherAdultsInHouseholdEmployed = $this->getAttributeValueByName($attributes, AttributeDefinition::OTHER_EMPLOYMENT);
+        $otherAdultEmploymentStatus = $otherAdultsInHouseholdEmployed ? 'EMPLOYED' : 'NOT EMPLOYED';
+        $monthlyTakeHomePay = $this->getAttributeValueByName($attributes, AttributeDefinition::MONTHLY_TAKE_HOME_PAY);
+        $sourcesOfIncome = $this->getAttributeValueByName($attributes, AttributeDefinition::SOURCES_OF_INCOME);
+        $zipCode = $this->getAttributeValueByName($attributes, AttributeDefinition::GUARDIAN_ZIP);
+        $county = 'MISSING';
+        $diaperMobileRoute = $this->getAttributeValueByName($attributes, AttributeDefinition::DIAPER_MOBILE_ROUTE);
+        $diaperEvent = 'MISSING';
+        $referredByHospital = $this->getAttributeValueByName($attributes, AttributeDefinition::PROGRAM_REFERRAL_HOSPITAL);
+        $transportationMethod = $this->getAttributeValueByName($attributes, AttributeDefinition::CLIENT_TRANSPORTATION);
+        $diaperSizeNeed = $this->getAttributeValueByName($attributes, AttributeDefinition::CLIENT_DIAPER_SIZE);
+        $pickUpLocation = $this->getAttributeValueByName($attributes, AttributeDefinition::PICKUP_METHOD);
+        $emailAddress = $this->getAttributeValueByName($attributes, AttributeDefinition::GUARDIAN_EMAIL_ADDRESS);
+        $homePhone = $this->getAttributeValueByName($attributes, AttributeDefinition::GUARDIAN_HOME_PHONE);
+        $mobilePhone = $this->getAttributeValueByName($attributes, AttributeDefinition::GUARDIAN_MOBILE_PHONE);
 
         return [
-            'id' => $client->getPublicId(),
             'clientId' => $client->getId(),
-            'childFullName' => $client->getFullName(),
-            'authorizedPersons' => implode(', ', $authorizedPersons),
-            'sizeOrdered' => '',
-            'sizeGiven' => '',
-            'sizeNextMonth' => '',
-            'pickupSignature' => '',
-            'dateReceived' => '',
-            'expirations' => $client->calculateDistributionExpiration(),
-            'notes' => '',
+            'id' => $client->getPublicId(),
+            'clientType' => ($client->getPartner() && $client->getPartner()->getPartnerType()) ? $client->getPartner()->getPartnerType() : 'Not Set',
+            'assignedAgency' => $client->getPartner() ? $client->getPartner()->getTitle() : 'Not Set',
+            'adults' => $adults,
+            'childDateOfBirth' => $client->getBirthdate()->format('Y-m-d'),
+            'childGender' => $childGender,
+            'childLivesWith' => $childLivesWith,
+            'childRace' => $childRace,
+            'childrenFiveToSeventeen' => $childrenFiveToSeventeen,
+            'childrenUnderFive' => $childrenUnderFive,
+            'childHealthInsurance' => $childHealthInsurance,
+            'parentHealthInsurance' => $parentHealthInsurance,
+            'childHaveHealthInsurance' => $childHaveHealthInsurance,
+            'childHaveMedicaid' => $childHaveMedicaid,
+            'familyId' => $client->getFamilyId(),
+            'firstDistribution' => $firstDistribution,
+            'ageExpiration' => $client->getAgeExpiresAt() ? $client->getAgeExpiresAt()->format('Y-m-d') : '',
+            'distributionExpiration' => $client->getDistributionExpiresAt() ? $client->getDistributionExpiresAt()->format('Y-m-d') : '',
+            'isTheChildInDaycare' => $isTheChildInDaycare,
+            'nameOfDaycareProvider' => $nameOfDaycareProvider,
+            'childName' => $client->getName(),
+            'parentFirstName' => $client->getParentFirstName(),
+            'parentLastName' => $client->getParentLastName(),
+            'isParentEmployed' => $isParentEmployed,
+            'parentEmploymentStatus' => $parentEmploymentStatus,
+            'otherAdultsInHouseholdEmployed' => $otherAdultsInHouseholdEmployed,
+            'otherAdultEmploymentStatus' => $otherAdultEmploymentStatus,
+            'monthlyTakeHomePay' => $monthlyTakeHomePay,
+            'sourcesOfIncome' => $sourcesOfIncome,
+            'zipCode' => $zipCode,
+            'county' => $county,
+            'diaperMobileRoute' => $diaperMobileRoute,
+            'diaperEvent' => $diaperEvent, //If you are signing up for Direct Distribution at the HappyBottoms Warehouse, how did you find out about this event?
+            'referredByHospital' => $referredByHospital, //If you were referred by a hospital, which one?
+            'transportationMethod' => $transportationMethod,
+            'diaperSizeNeed' => $diaperSizeNeed, //What size diaper does this child need?
+            'pickUpLocation' => $pickUpLocation, //Where would you like to pick up diapers?
+            'emailAddress' => $emailAddress,
+            'homePhone' => $homePhone,
+            'mobilePhone' => $mobilePhone,
+            'mergedTo' => $client->getMergedTo(),
+            'mergedDate' => $client->getUpdatedAt()->format('Y-m-d'),
+            'creationDate' => $client->getCreatedAt()->format('Y-m-d'),
         ];
     }
 
