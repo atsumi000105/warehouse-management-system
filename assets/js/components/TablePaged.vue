@@ -99,6 +99,7 @@
         data () {
             return {
                 loading: false,
+                localParams: {},
             }
         },
         mounted() {
@@ -154,7 +155,7 @@
             },
             onFilterSet (filters) {
                 console.log('onFilterSet');
-                this.params = filters;
+                this.localParams = filters;
                 this.clearSelected();
                 this.refresh();
             },

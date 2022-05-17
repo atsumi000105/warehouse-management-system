@@ -85,7 +85,8 @@ class ClientsReportTransformer extends TransformerAbstract
             'distributionExpiration' => $client->getDistributionExpiresAt() ? $client->getDistributionExpiresAt()->format('Y-m-d') : '',
             'isTheChildInDaycare' => $isTheChildInDaycare,
             'nameOfDaycareProvider' => $nameOfDaycareProvider,
-            'childName' => $client->getName(),
+            'childFirstName' => $client->getName()->getFirstname(),
+            'childLastName' => $client->getName()->getLastname(),
             'parentFirstName' => $client->getParentFirstName(),
             'parentLastName' => $client->getParentLastName(),
             'isParentEmployed' => $isParentEmployed,
@@ -105,7 +106,7 @@ class ClientsReportTransformer extends TransformerAbstract
             'emailAddress' => $emailAddress,
             'homePhone' => $homePhone,
             'mobilePhone' => $mobilePhone,
-            'mergedTo' => $client->getMergedTo(),
+            'mergedTo' => $client->getMergedToClient() ? $client->getMergedToClient()->getId() : '',
             'mergedDate' => $client->getUpdatedAt()->format('Y-m-d'),
             'creationDate' => $client->getCreatedAt()->format('Y-m-d'),
         ];

@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Client;
 use App\Entity\EAV\Attribute;
 use App\Entity\EAV\ClientAttributeDefinition;
+use App\Entity\Partner;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
 use Monolog\Logger;
@@ -13,6 +14,11 @@ use Symfony\Component\VarDumper\VarDumper;
 
 class ClientRepository extends BaseRepository
 {
+    const ARRAY_MIXED_OPERANDS = [
+        'between',
+        'not between',
+    ];
+
     public function findOneByPublicId(string $id): ?Client
     {
         /** @var Client|null $client */
@@ -176,6 +182,65 @@ class ClientRepository extends BaseRepository
         if ($params->has('partner')) {
             $qb->andWhere('c.partner = :partner')
                 ->setParameter('partner', $params->get('partner'));
+        }
+
+        if ($params->has('partnerType')) {
+            $qb->leftJoin('c.partner', 'p');
+
+            $qb->andWhere('p.partnerType = :partnerType');
+
+            if ($params->get('partnerType') == Partner::TYPE_AGENCY) {
+                $qb->setParameter('partnerType', Partner::TYPE_AGENCY);
+            }
+
+            if ($params->get('partnerType') == Partner::TYPE_HOSPITAL) {
+                $qb->setParameter('partnerType', Partner::TYPE_HOSPITAL);
+            }
+        }
+
+        if ($params->has('ageExpirationValue') && $params->has('ageExpirationOperand')) {
+            $operand = $params->get('ageExpirationOperand');
+
+            if (! in_array($operand, self::ARRAY_MIXED_OPERANDS)) {
+                $qb->andWhere('c.ageExpiresAt' . $operand . ':ageExpiresAtValue');
+            } else if (in_array($operand, self::ARRAY_MIXED_OPERANDS) && ($params->has('ageExpiresAtValueTwo'))) {
+                $qb->andWhere('c.ageExpiresAt ' . $operand . ' :ageExpiresAtValue AND :ageExpiresAtValueTwo');
+
+                $qb->setParameter('ageExpiresAtValue', $params->get('ageExpiresAtValueTwo'));
+            }
+
+            $qb->setParameter('ageExpiresAtValue', $params->get('ageExpirationValue'));
+        }
+
+        if ($params->has('distributionExpirationValue') && $params->has('distributionExpirationOperand')) {
+            $operand = $params->get('distributionExpirationOperand');
+
+            if (! in_array($operand, self::ARRAY_MIXED_OPERANDS)) {
+                $qb->andWhere('c.distributionExpiresAt' . $operand . ':distributionExpiresAtValue');
+            } else if (in_array($operand, self::ARRAY_MIXED_OPERANDS) && ($params->has('distributionExpiresAtValueTwo'))) {
+                $qb->andWhere('c.distributionExpiresAt ' . $operand . ' :distributionExpiresAtValue AND :distributionExpiresAtValueTwo');
+
+                $qb->setParameter('distributionExpiresAtValue', $params->get('distributionExpiresAtValueTwo'));
+            }
+
+            $qb->setParameter('distributionExpiresAtValue', $params->get('distributionExpirationValue'));
+        }
+
+        if ($params->has('mergedTo')) {
+            $qb->andWhere('c.mergedToClient = :mergedTo');
+            $qb->orWhere('c.name LIKE :mergedTo');
+            $qb->setParameter('mergedTo', $params->get('mergedTo'));
+        }
+
+        if ($params->has('zipcode')) {
+            /*$qb->leftJoin('c.attributes', 'ca');
+            $qb->leftJoin('ca.definition', 'ad');
+            $qb->leftJoin('ca.values', 'av');
+
+            $qb->andWhere('ad.name = :zipcodeAttributeField AND av.');
+            $qb->setParameter('zipcodeAttributeField', 'guardian_zip');
+
+            $qb->*/
         }
     }
 
