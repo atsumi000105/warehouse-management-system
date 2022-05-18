@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Client;
 use App\Entity\EAV\Attribute;
 use App\Entity\EAV\ClientAttributeDefinition;
+use App\Entity\EAV\Type\ZipCountyAttributeValue;
 use App\Entity\Partner;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
@@ -232,18 +233,20 @@ class ClientRepository extends BaseRepository
             $qb->setParameter('mergedTo', $params->get('mergedTo'));
         }
 
-        /*if ($params->has('zipcode')) {
+        if ($params->has('zipcode')) {
             $qb->leftJoin('c.attributes', 'ca');
             $qb->leftJoin('ca.definition', 'ad');
-            $qb->leftJoin('ca.values', 'av');
-            $qb->leftJoin('av.ZipCounty', 'zc');
 
             $qb->andWhere('ad.name = :zipcodeAttributeField');
             $qb->setParameter('zipcodeAttributeField', 'guardian_zip');
 
-            $qb->andWhere('av.zipCountyId = :value');
+            $qb->leftJoin(ZipCountyAttributeValue::class, 'zca', 'WITH', 'ca.id = zca.attribute');
+
+            $qb->leftJoin('zca.value', 'zc');
+
+            $qb->andWhere('zc.zipCode = :value');
             $qb->setParameter('value', $params->get('zipcode'));
-        }*/
+        }
     }
 
     protected function joinRelatedTables(QueryBuilder $qb)

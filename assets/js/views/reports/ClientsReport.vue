@@ -204,14 +204,14 @@
                     />
                 </div>
             </div>
-<!--            <div class="col-xs-2">
+            <div class="col-xs-2">
                 <div class="form-group">
                     <TextField
                         v-model="filters.zipcode"
                         label="Zip Code"
                     />
                 </div>
-            </div>-->
+            </div>
         </div>
 
         <div class="row">

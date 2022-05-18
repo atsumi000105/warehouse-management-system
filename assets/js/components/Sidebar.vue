@@ -120,6 +120,7 @@ export default {
                         icon: "shopping-cart",
                         links: [
                             { title: "Clients Report", route: { name: 'clients-report' }, icon: "child" },
+                            { title: "Clients Served", route: { name: 'clients-served' }, icon: "child" },
                         ]
                     },
                 ]
