@@ -33,6 +33,17 @@
         <div class="row">
             <div class="col-xs-2">
                 <div class="form-group">
+                    <datefield
+                        v-model="filters.monthAndYear"
+                        label="Month & Year"
+                        format="YYYY-MM"
+                        timezone="Etc/UTC"
+                    />
+                </div>
+            </div>
+
+            <div class="col-xs-2">
+                <div class="form-group">
                     <TextField
                         v-model="filters.zipcode"
                         label="Zip Code"
@@ -88,6 +99,7 @@
 <script>
 import TablePaged from "../../components/TablePaged";
 import TextField from "../../components/TextField";
+import DateField from "../../components/DateField.vue";
 
 export default {
     name: "ClientsServedReport",
@@ -95,6 +107,7 @@ export default {
     components: {
         TextField,
         TablePaged,
+        datefield: DateField,
     },
 
     data() {
@@ -115,6 +128,7 @@ export default {
                 zipcode: null,
                 county: null,
                 state: null,
+                monthAndYear: null,
             },
         };
     },
@@ -126,6 +140,7 @@ export default {
                 zipcode: this.filters.zipcode || null,
                 county: this.filters.county || null,
                 state: this.filters.state || null,
+                monthAndYear: this.filters.monthAndYear || null,
             };
         },
 

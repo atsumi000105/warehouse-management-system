@@ -74,6 +74,13 @@ class PartnerRepository extends BaseRepository
                 ->setParameter('distributionMethod', $params->get('distributionMethod'));
         }
 
+        /**
+         * @TODO! Filter by month as in drupal report - need to clarify from where we take this info
+         */
+        if ($params->has('monthAndYear')) {
+
+        }
+
         if ($params->has('zipcode') || $params->has('county') || $params->has('state')) {
             $qb->join('p.clients', 'c');
             $qb->join('c.attributes', 'ca');
