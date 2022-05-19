@@ -256,6 +256,12 @@ class ClientRepository extends BaseRepository
             $qb->andWhere('zc.zipCode = :value');
             $qb->setParameter('value', $params->get('zipcode'));
         }
+
+        if ($params->has('clientsServed')) {
+            $qb->join('c.distributionLineItems', 'dli');
+
+            $qb->andWhere('c.id = dli.client');
+        }
     }
 
     protected function joinRelatedTables(QueryBuilder $qb)

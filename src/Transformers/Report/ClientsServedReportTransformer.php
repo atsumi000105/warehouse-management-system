@@ -56,6 +56,7 @@ class ClientsServedReportTransformer extends TransformerAbstract
     {
         $parameterBag = new ParameterBag();
         $parameterBag->set('partner', $partner);
+        $parameterBag->set('clientsServed', 'true');
 
         return $this->om->getRepository(Client::class)
             ->findAllCount($parameterBag);
@@ -66,6 +67,7 @@ class ClientsServedReportTransformer extends TransformerAbstract
         $parameterBag = new ParameterBag();
         $parameterBag->set('partner', $partner);
         $parameterBag->set('status', Client::STATUS_ACTIVE);
+        $parameterBag->set('clientsServed', 'true');
 
         return $this->om->getRepository(Client::class)
             ->findAllCount($parameterBag);

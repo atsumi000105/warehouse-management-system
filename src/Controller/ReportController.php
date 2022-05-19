@@ -46,6 +46,17 @@ use Symfony\Component\Routing\Annotation\Route;
 class ReportController extends BaseController
 {
     /**
+     * @Route(path="/clients-demographics")
+     * @IsGranted({"ROLE_ADMIN"})
+     *
+     * @param Request $request
+     */
+    public function clientDemographicsReport(Request $request)
+    {
+        return $this->serialize($request, ['hello']);
+    }
+
+    /**
      * @Route(path="/clients-served")
      * @IsGranted({"ROLE_ADMIN"})
      *

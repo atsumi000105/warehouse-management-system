@@ -121,6 +121,7 @@ export default {
                         links: [
                             { title: "Clients Report", route: { name: 'clients-report' }, icon: "child" },
                             { title: "Clients Served", route: { name: 'clients-served' }, icon: "child" },
+                            { title: "Clients Demographics", route: { name: 'clients-demographics' }, icon: "child" },
                         ]
                     },
                 ]

@@ -357,6 +357,11 @@ let routes = [
         name: 'clients-served',
         component: require('./views/reports/ClientsServedReport.vue').default
     },
+    {
+        path: '/reports/clients-demographics',
+        name: 'clients-demographics',
+        component: require('./views/reports/UniqueDemographicsReport.vue').default
+    },
 ];
 
 let router = new VueRouter({
