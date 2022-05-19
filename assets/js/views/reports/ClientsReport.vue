@@ -345,7 +345,6 @@ export default {
                 distributionExpirationOperand: this.filters.distributionExpirationOperand || null,
                 mergedTo: this.filters.mergedTo || null,
                 zipcode: this.filters.zipcode || null,
-                include: ["partner"],
             };
         },
 

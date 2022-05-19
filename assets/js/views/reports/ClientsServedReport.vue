@@ -126,7 +126,6 @@ export default {
                 zipcode: this.filters.zipcode || null,
                 county: this.filters.county || null,
                 state: this.filters.state || null,
-                include: ["clients"],
             };
         },
 

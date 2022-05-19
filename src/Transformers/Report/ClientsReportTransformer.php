@@ -52,7 +52,31 @@ class ClientsReportTransformer extends TransformerAbstract
         $monthlyTakeHomePay = $this->getAttributeValueByName($attributes, AttributeDefinition::MONTHLY_TAKE_HOME_PAY);
         $sourcesOfIncome = $this->getAttributeValueByName($attributes, AttributeDefinition::SOURCES_OF_INCOME);
         $zipCode = $this->getAttributeValueByName($attributes, AttributeDefinition::GUARDIAN_ZIP);
-        $county = 'MISSING';
+
+        $county = '';
+        $state = '';
+
+        if ($zipCode) {
+            $explodedZip = explode('-', $zipCode);
+
+            $zipCode = $explodedZip[0];
+
+            if (isset($explodedZip[1])) {
+                $explodedZip = explode(',', $explodedZip[1]);
+
+                if (isset($explodedZip[0])) {
+                    $county = $explodedZip[0];
+                }
+
+                if (isset($explodedZip[1])) {
+                    $state = $explodedZip[1];
+                }
+            }
+        }
+
+        //print_r($zipCode);
+
+        //$county = 'MISSING';
         $diaperMobileRoute = $this->getAttributeValueByName($attributes, AttributeDefinition::DIAPER_MOBILE_ROUTE);
         $diaperEvent = 'MISSING';
         $referredByHospital = $this->getAttributeValueByName($attributes, AttributeDefinition::PROGRAM_REFERRAL_HOSPITAL);
