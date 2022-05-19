@@ -2,7 +2,9 @@
 
 namespace App\Repository;
 
+use App\Entity\EAV\Type\ZipCountyAttributeValue;
 use Doctrine\ORM\QueryBuilder;
+use PhpParser\Node\Param;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
 class PartnerRepository extends BaseRepository
@@ -70,6 +72,34 @@ class PartnerRepository extends BaseRepository
         if ($params->has('distributionMethod') && $params->get('distributionMethod')) {
             $qb->andWhere('p.distributionMethod = :distributionMethod')
                 ->setParameter('distributionMethod', $params->get('distributionMethod'));
+        }
+
+        if ($params->has('zipcode') || $params->has('county') || $params->has('state')) {
+            $qb->join('p.clients', 'c');
+            $qb->join('c.attributes', 'ca');
+            $qb->join('ca.definition', 'ad');
+
+            $qb->andWhere('ad.name = :zipcodeAttributeField');
+            $qb->setParameter('zipcodeAttributeField', 'guardian_zip');
+
+            $qb->join(ZipCountyAttributeValue::class, 'zca', 'WITH', 'ca.id = zca.attribute');
+
+            $qb->join('zca.value', 'zc');
+
+            if ($params->has('zipcode')) {
+                $qb->andWhere('zc.zipCode = :zipcode');
+                $qb->setParameter('zipcode', $params->get('zipcode'));
+            }
+
+            if ($params->has('county')) {
+                $qb->andWhere('zc.countyName LIKE :county');
+                $qb->setParameter('county', '%' . $params->get('county') . '%');
+            }
+
+            if ($params->has('state')) {
+                $qb->andWhere('zc.stateCode LIKE :state');
+                $qb->setParameter('state', '%' . $params->get('state') . '%');
+            }
         }
     }
 }

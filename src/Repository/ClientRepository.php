@@ -122,6 +122,16 @@ class ClientRepository extends BaseRepository
         return $results;
     }
 
+    public function findFamiliesCount(ParameterBag $params): int
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->select('count(DISTINCT(c.family_id))');
+
+        $this->addCriteria($qb, $params);
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
     public function findAllCount(ParameterBag $params): int
     {
         $qb = $this->createQueryBuilder('c')
@@ -229,20 +239,19 @@ class ClientRepository extends BaseRepository
 
         if ($params->has('mergedTo')) {
             $qb->andWhere('c.mergedToClient = :mergedTo');
-            $qb->orWhere('c.name LIKE :mergedTo');
             $qb->setParameter('mergedTo', $params->get('mergedTo'));
         }
 
         if ($params->has('zipcode')) {
-            $qb->leftJoin('c.attributes', 'ca');
-            $qb->leftJoin('ca.definition', 'ad');
+            $qb->join('c.attributes', 'ca');
+            $qb->join('ca.definition', 'ad');
 
             $qb->andWhere('ad.name = :zipcodeAttributeField');
             $qb->setParameter('zipcodeAttributeField', 'guardian_zip');
 
-            $qb->leftJoin(ZipCountyAttributeValue::class, 'zca', 'WITH', 'ca.id = zca.attribute');
+            $qb->join(ZipCountyAttributeValue::class, 'zca', 'WITH', 'ca.id = zca.attribute');
 
-            $qb->leftJoin('zca.value', 'zc');
+            $qb->join('zca.value', 'zc');
 
             $qb->andWhere('zc.zipCode = :value');
             $qb->setParameter('value', $params->get('zipcode'));

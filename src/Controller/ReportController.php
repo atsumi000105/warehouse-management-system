@@ -86,7 +86,7 @@ class ReportController extends BaseController
             ]
         ];
 
-        return $this->serialize($request, $partners, new ClientsServedReportTransformer(), $meta);
+        return $this->serialize($request, $partners, new ClientsServedReportTransformer($this->getEm()), $meta);
     }
 
     /**
