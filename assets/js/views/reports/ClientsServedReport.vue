@@ -2,7 +2,7 @@
     <section class="content">
         <div class="row">
             <h3 class="box-title col-lg-10">
-                Clients Report
+                Clients Served Report
             </h3>
             <div class="col-lg-2 text-right">
                 <div class="btn-group">
