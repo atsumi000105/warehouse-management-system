@@ -262,6 +262,28 @@ class ClientRepository extends BaseRepository
 
             $qb->andWhere('c.id = dli.client');
         }
+
+        if ($params->has('parent')) {
+            $qb->andWhere('c.parentFirstName LIKE :parent OR c.parentLastName LIKE :parent')
+                ->setParameter(':parent', '%' . $params->get('parent') . '%');
+
+        }
+
+        if ($params->has('monthAndYearStart') && $params->has('monthAndYearEnd')) {
+            $qb->join('c.distributionLineItems', 'bdli');
+
+            $timeStart = new \DateTime($params->get('monthAndYearStart'));
+            $timeStart = $timeStart->format('Y-m-d H:m:i');
+
+            $timeEnd = new \DateTime($params->get('monthAndYearEnd'));
+            $timeEnd = $timeEnd->format('Y-m-d H:m:i');
+
+            $qb->andWhere('bdli.createdAt >= :monthAndYearStart')
+                ->setParameter('monthAndYearStart', $timeStart);
+
+            $qb->andWhere('bdli.createdAt <= :monthAndYearEnd')
+                ->setParameter('monthAndYearEnd', $timeEnd);
+        }
     }
 
     protected function joinRelatedTables(QueryBuilder $qb)
