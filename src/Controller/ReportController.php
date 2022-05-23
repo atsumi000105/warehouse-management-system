@@ -25,6 +25,7 @@ use App\Reports\PartnerOrderTotalsReport;
 use App\Reports\SupplierTotalsExcel;
 use App\Reports\SupplierTotalsReport;
 use App\Reports\TransactionExcel;
+use App\Transformers\Report\ClientPickupReportTransformer;
 use App\Transformers\Report\ClientsDemographicsReportTransformer;
 use App\Transformers\Report\ClientsReportTransformer;
 use App\Transformers\Report\ClientsServedReportTransformer;
@@ -46,6 +47,54 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ReportController extends BaseController
 {
+    /**
+     * @Route(path="/pickup-report", methods={"GET"})
+     * @IsGranted({"ROLE_CLIENT_VIEW_ALL","ROLE_CLIENT_MANAGE_OWN"})
+     */
+    public function pickupReport(Request $request): JsonResponse
+    {
+        $page = 1;
+        $limit = 10;
+
+        $params = new ParameterBag($this->getParams($request));
+
+        if ($request->get('partnerId')) {
+            $params->set('partner', $this->getRepository(Partner::class)->find($request->get('partnerId')));
+        }
+
+        $repo = $this->getRepository(Client::class);
+
+        $transactions = $repo->findAllPaged(
+            $page,
+            $limit,
+            null, //$sort[0],
+            null, //$sort[1],
+            $params,
+        );
+
+        $total = $repo->findAllCount($params);
+
+        $meta = [
+            'pagination' => [
+                'total' => (int) $total,
+                'per_page' => (int) $limit,
+                'current_page' => (int) $page,
+                'last_page' => ceil($total / $limit),
+                "next_page_url" => null,
+                "prev_page_url" => null,
+                'from' => (($page - 1) * $limit) + 1,
+                'to' => ($page * $limit),
+            ]
+        ];
+
+        return $this->serialize(
+            $request,
+            $transactions,
+            new ClientPickupReportTransformer(),
+            $meta,
+        );
+    }
+
     /**
      * @Route(path="/clients-demographics")
      * @IsGranted({"ROLE_ADMIN"})
