@@ -209,6 +209,20 @@ class Client extends CoreEntity implements AttributedEntityInterface
      */
     private $family_id;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer", nullable=true);
+     */
+    protected $legacyId;
+
+    /**
+     * @var Client|null
+     * @ORM\ManyToOne(targetEntity="App\Entity\Client")
+     * @Gedmo\Versioned
+     */
+    protected $mergedToClient;
+
     public function __construct(Registry $workflowRegistry)
     {
         $this->attributes = new ArrayCollection();
@@ -229,6 +243,13 @@ class Client extends CoreEntity implements AttributedEntityInterface
         return sprintf('%s (%s)', $this->name, $this->getId());
     }
 
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
 
     public function getId()
     {
@@ -521,17 +542,27 @@ class Client extends CoreEntity implements AttributedEntityInterface
         return $this->status;
     }
 
+    public function getLegacyId(): ?int
+    {
+        return $this->legacyId;
+    }
+
+    public function setLegacyId(int $legacyId = null): void
+    {
+        $this->legacyId = $legacyId;
+    }
+
     /**
      * Merged To client id
      */
-    public function setMergedTo(string $mergedTo): void
+    public function setMergedToClient(?Client $mergedToClient): void
     {
-        $this->mergedTo = $mergedTo;
+        $this->mergedToClient = $mergedToClient;
     }
 
-    public function getMergedTo(): string
+    public function getMergedToClient(): ?Client
     {
-        return $this->mergedTo;
+        return $this->mergedToClient;
     }
 
     public function canReview(): bool

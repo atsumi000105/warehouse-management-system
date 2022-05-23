@@ -26,6 +26,9 @@ use App\Reports\SupplierTotalsExcel;
 use App\Reports\SupplierTotalsReport;
 use App\Reports\TransactionExcel;
 use App\Transformers\Report\ClientPickupReportTransformer;
+use App\Transformers\Report\ClientsDemographicsReportTransformer;
+use App\Transformers\Report\ClientsReportTransformer;
+use App\Transformers\Report\ClientsServedReportTransformer;
 use App\Transformers\Report\DistributionTotalsReportTransformer;
 use App\Transformers\Report\InventoryTransactionReportTransformer;
 use App\Transformers\Report\PartnerInventoryReportTransformer;
@@ -90,6 +93,138 @@ class ReportController extends BaseController
             new ClientPickupReportTransformer(),
             $meta,
         );
+    }
+
+    /**
+     * @Route(path="/clients-demographics")
+     * @IsGranted({"ROLE_ADMIN"})
+     *
+     * @param Request $request
+     */
+    public function clientDemographicsReport(Request $request)
+    {
+        $sort = $request->get('sort') ? explode('|', $request->get('sort')) : null;
+        $page = $request->get('download') ? null : $request->get('page', 1);
+        $limit = $request->get('download') ? null : $request->get('per_page', 10);
+
+        $params = new ParameterBag($this->getParams($request));
+
+        $total = (int) $this->getRepository(Client::class)->findAllCount($params);
+
+        if ($limit === -1) {
+            $limit = $total ?: 1;
+        }
+
+        $partners = $this->getRepository(Client::class)->findAllPaged(
+            $page,
+            $limit,
+            $sort ? $sort[0] : null,
+            $sort ? $sort[1] : null,
+            $params
+        );
+
+        $meta = [
+            'pagination' => [
+                'total' => (int) $total,
+                'per_page' => (int) $limit,
+                'current_page' => (int) $page,
+                'last_page' => ceil($total / $limit),
+                'next_page_url' => null,
+                'prev_page_url' => null,
+                'from' => (($page - 1) * $limit) + 1,
+                'to' => min($page * $limit, $total),
+            ]
+        ];
+
+        return $this->serialize($request, $partners, new ClientsDemographicsReportTransformer($this->getEm()), $meta);
+    }
+
+    /**
+     * @Route(path="/clients-served")
+     * @IsGranted({"ROLE_ADMIN"})
+     *
+     * @param Request $request
+     */
+    public function clientsServedReport(Request $request): JsonResponse
+    {
+        $sort = $request->get('sort') ? explode('|', $request->get('sort')) : null;
+        $page = $request->get('download') ? null : $request->get('page', 1);
+        $limit = $request->get('download') ? null : $request->get('per_page', 10);
+
+        $params = new ParameterBag($this->getParams($request));
+
+        $total = (int) $this->getRepository(Partner::class)->findAllCount($params);
+
+        if ($limit === -1) {
+            $limit = $total ?: 1;
+        }
+
+        $partners = $this->getRepository(Partner::class)->findAllPaged(
+            $page,
+            $limit,
+            $sort ? $sort[0] : null,
+            $sort ? $sort[1] : null,
+            $params
+        );
+
+        $meta = [
+            'pagination' => [
+                'total' => (int) $total,
+                'per_page' => (int) $limit,
+                'current_page' => (int) $page,
+                'last_page' => ceil($total / $limit),
+                'next_page_url' => null,
+                'prev_page_url' => null,
+                'from' => (($page - 1) * $limit) + 1,
+                'to' => min($page * $limit, $total),
+            ]
+        ];
+
+        return $this->serialize($request, $partners, new ClientsServedReportTransformer($this->getEm()), $meta);
+    }
+
+    /**
+     * @Route(path="/clients-report")
+     * @IsGranted({"ROLE_ADMIN"})
+     *
+     * @param Request $request
+     */
+    public function clientsReport(Request $request): JsonResponse
+    {
+        $sort = $request->get('sort') ? explode('|', $request->get('sort')) : null;
+        $page = $request->get('download') ? null : $request->get('page', 1);
+        $limit = $request->get('download') ? null : $request->get('per_page', 10);
+
+        $params = new ParameterBag($this->getParams($request));
+
+        $total = (int) $this->getRepository(Client::class)->findAllCount($params);
+
+        if ($limit === -1) {
+            $limit = $total ?: 1;
+        }
+
+        $clients = $this->getRepository(Client::class)->findAllPaged(
+            $page,
+            $limit,
+            $sort ? $sort[0] : null,
+            $sort ? $sort[1] : null,
+            $params
+        );
+
+        $meta = [
+            'pagination' => [
+                'total' => (int) $total,
+                'per_page' => (int) $limit,
+                'current_page' => (int) $page,
+                'last_page' => ceil($total / $limit),
+                'next_page_url' => null,
+                'prev_page_url' => null,
+                'from' => (($page - 1) * $limit) + 1,
+                'to' => min($page * $limit, $total),
+            ]
+        ];
+
+        return $this->serialize($request, $clients, new ClientsReportTransformer(), $meta);
     }
 
     /**

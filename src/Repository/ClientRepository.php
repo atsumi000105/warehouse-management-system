@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\Client;
 use App\Entity\EAV\Attribute;
 use App\Entity\EAV\ClientAttributeDefinition;
+use App\Entity\EAV\Type\ZipCountyAttributeValue;
+use App\Entity\Partner;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
 use Monolog\Logger;
@@ -13,6 +15,11 @@ use Symfony\Component\VarDumper\VarDumper;
 
 class ClientRepository extends BaseRepository
 {
+    const ARRAY_MIXED_OPERANDS = [
+        'between',
+        'not between',
+    ];
+
     public function findOneByPublicId(string $id): ?Client
     {
         /** @var Client|null $client */
@@ -115,6 +122,16 @@ class ClientRepository extends BaseRepository
         return $results;
     }
 
+    public function findFamiliesCount(ParameterBag $params): int
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->select('count(DISTINCT(c.family_id))');
+
+        $this->addCriteria($qb, $params);
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
     public function findAllCount(ParameterBag $params): int
     {
         $qb = $this->createQueryBuilder('c')
@@ -176,6 +193,96 @@ class ClientRepository extends BaseRepository
         if ($params->has('partner')) {
             $qb->andWhere('c.partner = :partner')
                 ->setParameter('partner', $params->get('partner'));
+        }
+
+        if ($params->has('partnerType')) {
+            $qb->leftJoin('c.partner', 'p');
+
+            $qb->andWhere('p.partnerType = :partnerType');
+
+            if ($params->get('partnerType') == Partner::TYPE_AGENCY) {
+                $qb->setParameter('partnerType', Partner::TYPE_AGENCY);
+            }
+
+            if ($params->get('partnerType') == Partner::TYPE_HOSPITAL) {
+                $qb->setParameter('partnerType', Partner::TYPE_HOSPITAL);
+            }
+        }
+
+        if ($params->has('ageExpirationValue') && $params->has('ageExpirationOperand')) {
+            $operand = $params->get('ageExpirationOperand');
+
+            if (! in_array($operand, self::ARRAY_MIXED_OPERANDS)) {
+                $qb->andWhere('c.ageExpiresAt' . $operand . ':ageExpiresAtValue');
+            } else if (in_array($operand, self::ARRAY_MIXED_OPERANDS) && ($params->has('ageExpiresAtValueTwo'))) {
+                $qb->andWhere('c.ageExpiresAt ' . $operand . ' :ageExpiresAtValue AND :ageExpiresAtValueTwo');
+
+                $qb->setParameter('ageExpiresAtValue', $params->get('ageExpiresAtValueTwo'));
+            }
+
+            $qb->setParameter('ageExpiresAtValue', $params->get('ageExpirationValue'));
+        }
+
+        if ($params->has('distributionExpirationValue') && $params->has('distributionExpirationOperand')) {
+            $operand = $params->get('distributionExpirationOperand');
+
+            if (! in_array($operand, self::ARRAY_MIXED_OPERANDS)) {
+                $qb->andWhere('c.distributionExpiresAt' . $operand . ':distributionExpiresAtValue');
+            } else if (in_array($operand, self::ARRAY_MIXED_OPERANDS) && ($params->has('distributionExpiresAtValueTwo'))) {
+                $qb->andWhere('c.distributionExpiresAt ' . $operand . ' :distributionExpiresAtValue AND :distributionExpiresAtValueTwo');
+
+                $qb->setParameter('distributionExpiresAtValue', $params->get('distributionExpiresAtValueTwo'));
+            }
+
+            $qb->setParameter('distributionExpiresAtValue', $params->get('distributionExpirationValue'));
+        }
+
+        if ($params->has('mergedTo')) {
+            $qb->andWhere('c.mergedToClient = :mergedTo');
+            $qb->setParameter('mergedTo', $params->get('mergedTo'));
+        }
+
+        if ($params->has('zipcode')) {
+            $qb->join('c.attributes', 'ca');
+            $qb->join('ca.definition', 'ad');
+
+            $qb->andWhere('ad.name = :zipcodeAttributeField');
+            $qb->setParameter('zipcodeAttributeField', 'guardian_zip');
+
+            $qb->join(ZipCountyAttributeValue::class, 'zca', 'WITH', 'ca.id = zca.attribute');
+
+            $qb->join('zca.value', 'zc');
+
+            $qb->andWhere('zc.zipCode = :value');
+            $qb->setParameter('value', $params->get('zipcode'));
+        }
+
+        if ($params->has('clientsServed')) {
+            $qb->join('c.distributionLineItems', 'dli');
+
+            $qb->andWhere('c.id = dli.client');
+        }
+
+        if ($params->has('parent')) {
+            $qb->andWhere('c.parentFirstName LIKE :parent OR c.parentLastName LIKE :parent')
+                ->setParameter(':parent', '%' . $params->get('parent') . '%');
+
+        }
+
+        if ($params->has('monthAndYearStart') && $params->has('monthAndYearEnd')) {
+            $qb->join('c.distributionLineItems', 'bdli');
+
+            $timeStart = new \DateTime($params->get('monthAndYearStart'));
+            $timeStart = $timeStart->format('Y-m-d H:m:i');
+
+            $timeEnd = new \DateTime($params->get('monthAndYearEnd'));
+            $timeEnd = $timeEnd->format('Y-m-d H:m:i');
+
+            $qb->andWhere('bdli.createdAt >= :monthAndYearStart')
+                ->setParameter('monthAndYearStart', $timeStart);
+
+            $qb->andWhere('bdli.createdAt <= :monthAndYearEnd')
+                ->setParameter('monthAndYearEnd', $timeEnd);
         }
     }
 
