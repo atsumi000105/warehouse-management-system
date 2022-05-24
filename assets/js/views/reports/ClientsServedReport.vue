@@ -113,11 +113,9 @@ export default {
     data() {
         let columns = [
             { name: "id", title: "Partner ID", sortField: "p.id" },
-            { name: "title", title: "Partner Name", sortField: "p.title" },
-            { name: "activeChildren", title: "Children" },
-            //{ name: "children", title: "Children (All Statuses)" },
-            { name: "activeFamilies", title: "Families" },
-            //{ name: "families", title: "Families (all statuses)" },
+            { name: "title", title: "Partner Name", sortField: "p.id" },
+            { name: "clients", title: "Clients", sortField: "p.id" },
+            { name: "families", title: "Families", sortField: "p.id" },
         ];
 
         return {

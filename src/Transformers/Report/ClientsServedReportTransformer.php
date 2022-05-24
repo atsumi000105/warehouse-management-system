@@ -3,6 +3,8 @@
 namespace App\Transformers\Report;
 
 use App\Entity\Client;
+use App\Entity\LineItem;
+use App\Entity\Orders\BulkDistributionLineItem;
 use App\Entity\Partner;
 use App\Entity\User;
 use Doctrine\Persistence\ObjectManager;
@@ -21,55 +23,13 @@ class ClientsServedReportTransformer extends TransformerAbstract
         $this->user = $user;
     }
 
-    public function transform(Partner $partner): array
+    public function transform($arrayResults): array
     {
         return [
-            'id' => $partner->getId(),
-            'title' => $partner->getTitle(),
-            'activeChildren' => $this->getActiveChildrenCount($partner),
-            'children' => $this->getChildrenCount($partner),
-            'activeFamilies' => $this->getActiveFamiliesCount($partner),
-            'families' => $this->getFamiliesCount($partner),
+            'id' => $arrayResults['id'],
+            'title' => $arrayResults['title'],
+            'clients' => $arrayResults['clients'],
+            'families' => $arrayResults['families'],
         ];
-    }
-
-    public function getActiveFamiliesCount(Partner $partner): int
-    {
-        $parameterBag = new ParameterBag();
-        $parameterBag->set('partner', $partner);
-        $parameterBag->set('status', Client::STATUS_ACTIVE);
-
-        return $this->om->getRepository(Client::class)
-            ->findFamiliesCount($parameterBag);
-    }
-
-    public function getFamiliesCount(Partner $partner): int
-    {
-        $parameterBag = new ParameterBag();
-        $parameterBag->set('partner', $partner);
-
-        return $this->om->getRepository(Client::class)
-            ->findFamiliesCount($parameterBag);
-    }
-
-    public function getChildrenCount(Partner $partner): int
-    {
-        $parameterBag = new ParameterBag();
-        $parameterBag->set('partner', $partner);
-        $parameterBag->set('clientsServed', 'true');
-
-        return $this->om->getRepository(Client::class)
-            ->findAllCount($parameterBag);
-    }
-
-    public function getActiveChildrenCount(Partner $partner): int
-    {
-        $parameterBag = new ParameterBag();
-        $parameterBag->set('partner', $partner);
-        $parameterBag->set('status', Client::STATUS_ACTIVE);
-        $parameterBag->set('clientsServed', 'true');
-
-        return $this->om->getRepository(Client::class)
-            ->findAllCount($parameterBag);
     }
 }

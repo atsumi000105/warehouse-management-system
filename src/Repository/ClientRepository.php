@@ -257,12 +257,6 @@ class ClientRepository extends BaseRepository
             $qb->setParameter('value', $params->get('zipcode'));
         }
 
-        if ($params->has('clientsServed')) {
-            $qb->join('c.distributionLineItems', 'dli');
-
-            $qb->andWhere('c.id = dli.client');
-        }
-
         if ($params->has('parent')) {
             $qb->andWhere('c.parentFirstName LIKE :parent OR c.parentLastName LIKE :parent')
                 ->setParameter(':parent', '%' . $params->get('parent') . '%');
