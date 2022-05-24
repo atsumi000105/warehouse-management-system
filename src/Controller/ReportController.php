@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Client;
 use App\Entity\InventoryTransaction;
+use App\Entity\Orders\BulkDistributionLineItem;
 use App\Repository\InventoryTransactionRepository;
 use App\Entity\Orders\BulkDistribution;
 use App\Repository\Orders\BulkDistributionOrderRepository;
@@ -38,7 +39,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\EventListener\ValidateRequestListener;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\VarDumper\VarDumper;
 
 /**
  * Class ReportController
@@ -148,31 +151,25 @@ class ReportController extends BaseController
     public function clientsServedReport(Request $request): JsonResponse
     {
         $sort = $request->get('sort') ? explode('|', $request->get('sort')) : null;
-        $page = $request->get('download') ? null : $request->get('page', 1);
-        $limit = $request->get('download') ? null : $request->get('per_page', 10);
+        $page = null;
+        $limit = null;
 
         $params = new ParameterBag($this->getParams($request));
 
-        $total = (int) $this->getRepository(Partner::class)->findAllCount($params);
+        $total = (int) $this->getRepository(BulkDistributionLineItem::class)->getServedTotalCount($params);
 
         if ($limit === -1) {
             $limit = $total ?: 1;
         }
 
-        $partners = $this->getRepository(Partner::class)->findAllPaged(
-            $page,
-            $limit,
-            $sort ? $sort[0] : null,
-            $sort ? $sort[1] : null,
-            $params
-        );
+        $result = $this->getRepository(BulkDistributionLineItem::class)->getClientsServed($params);
 
         $meta = [
             'pagination' => [
                 'total' => (int) $total,
                 'per_page' => (int) $limit,
                 'current_page' => (int) $page,
-                'last_page' => ceil($total / $limit),
+                'last_page' => ($limit > 0) ? ceil($total / $limit) : 1,
                 'next_page_url' => null,
                 'prev_page_url' => null,
                 'from' => (($page - 1) * $limit) + 1,
@@ -180,7 +177,7 @@ class ReportController extends BaseController
             ]
         ];
 
-        return $this->serialize($request, $partners, new ClientsServedReportTransformer($this->getEm()), $meta);
+        return $this->serialize($request, $result, new ClientsServedReportTransformer($this->getEm()), $meta);
     }
 
     /**
