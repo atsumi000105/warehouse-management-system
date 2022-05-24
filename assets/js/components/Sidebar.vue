@@ -122,6 +122,7 @@ export default {
                             { title: "Clients Report", route: { name: 'clients-report' }, icon: "child" },
                             { title: "Clients Served", route: { name: 'clients-served' }, icon: "child" },
                             { title: "Clients Demographics", route: { name: 'clients-demographics' }, icon: "child" },
+                            { title: "Clients Multiple Lines per Month", route: { name: 'clients-multiple-lines' }, icon: "child" },
                         ]
                     },
                 ]

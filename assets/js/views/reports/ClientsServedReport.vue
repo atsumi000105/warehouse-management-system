@@ -114,10 +114,10 @@ export default {
         let columns = [
             { name: "id", title: "Partner ID", sortField: "p.id" },
             { name: "title", title: "Partner Name", sortField: "p.title" },
-            { name: "activeChildren", title: "Active Children (Client)" },
-            { name: "children", title: "Children (All Statuses)" },
-            { name: "activeFamilies", title: "Active Families" },
-            { name: "families", title: "Families (all statuses)" },
+            { name: "activeChildren", title: "Children" },
+            //{ name: "children", title: "Children (All Statuses)" },
+            { name: "activeFamilies", title: "Families" },
+            //{ name: "families", title: "Families (all statuses)" },
         ];
 
         return {
