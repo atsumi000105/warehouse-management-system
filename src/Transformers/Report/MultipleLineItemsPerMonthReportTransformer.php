@@ -18,17 +18,15 @@ class MultipleLineItemsPerMonthReportTransformer extends TransformerAbstract
         $this->om = $om;
     }
 
-    public function transform(BulkDistributionLineItem $lineItem): array
+    public function transform(array $lineItem): array
     {
         return [
-            'id' => $lineItem->getId(),
-            'clientId' => $lineItem->getClient()->getId(),
-            'childFirstName' => $lineItem->getClient()->getName()->getFirstname(),
-            'childLastName' => $lineItem->getClient()->getName()->getLastname(),
-            'parentFirstName' => $lineItem->getClient()->getParentFirstName(),
-            'parentLastName' => $lineItem->getClient()->getParentLastName(),
-            'distributedAt' => $lineItem->getCreatedAt()->format('Y-m-d'),
-            'isDuplicate' => $this->findDuplicateRecords($lineItem),
+            'distributedAt' => $lineItem['distributedAt']->format('Y-m-d'),
+            'parentFirstName' => $lineItem['parentFirstName'],
+            'parentLastName' => $lineItem['parentLastName'],
+            'duplicatedDistributionCount' => $lineItem['duplicatedDistributionCount'],
+            'firstname' => $lineItem['firstname'],
+            'lastname' => $lineItem['lastname'],
         ];
     }
 

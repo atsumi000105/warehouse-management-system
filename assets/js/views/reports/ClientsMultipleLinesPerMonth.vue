@@ -1,6 +1,36 @@
 <template>
     <section class="content">
         <div class="row">
+            <h3 class="box-title col-lg-10">
+                Multiple Client Orders per Month
+            </h3>
+            <div class="col-lg-2 text-right">
+                <div class="btn-group">
+                    <button
+                        type="button"
+                        class="btn btn-info btn-flat dropdown-toggle"
+                        data-toggle="dropdown"
+                    >
+                        <i class="fa fa-fw fa-download" />Export
+                        <span class="caret" />
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul
+                        class="dropdown-menu"
+                        role="menu"
+                    >
+                        <li>
+                            <a @click.prevent="downloadExcel">
+                                <i class="fa fa-fw fa-file-excel" />
+                                Excel
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
             <div class="col-xs-2">
                 <div class="form-group">
                     <datefield
@@ -41,6 +71,7 @@
 <script>
 import TablePaged from "../../components/TablePaged";
 import DateField from "../../components/DateField.vue";
+import moment from "moment";
 
 export default {
     name: "ClientsMultipleLinesPerMonth",
@@ -52,20 +83,19 @@ export default {
 
     data() {
         let columns = [
-            { name: "id", title: "Line Item ID", sortField: "li.id" },
-            { name: "clientId", title: "Client ID", sortField: "li.id" },
-            { name: "childFirstName", title: "Children First Name", sortField: "li.id" },
-            { name: "childLastName", title: "Children Last Name", sortField: "li.id" },
-            { name: "parentFirstName", title: "Parent First Name", sortField: "li.id" },
-            { name: "parentLastName", title: "Parent Last Name", sortField: "li.id" },
-            { name: "distributedAt", title: "Distributed At", sortField: "li.id" },
+            { name: "firstname", title: "Client First Name" },
+            { name: "lastname", title: "Client Last Name" },
+            { name: "duplicatedDistributionCount", title: "Duplicated Count" },
+            { name: "parentFirstName", title: "Parent First Name" },
+            { name: "parentLastName", title: "Parent Last Name" },
+            { name: "distributedAt", title: "Distributed At" },
         ];
 
         return {
             columns: columns,
             lineItem: {},
             filters: {
-                monthAndYear: null,
+                monthAndYear: moment().format('YYYY-MM'),
             },
         };
     },
@@ -74,7 +104,21 @@ export default {
         requestParams: function () {
             return {
                 monthAndYear: this.filters.monthAndYear || null,
+                multipleDistributionReport: true,
             };
+        },
+
+        downloadExcel: function () {
+            let params = this.requestParams();
+            params.download = 'xlsx';
+
+            axios.get('/api/reports/clients-multiple-lines', {
+                params: params,
+                responseType: 'blob'
+            }).then(response => {
+                let fileName = response.header['content-disposition'].match(/filename="(.*)"/)[1];
+                fileDownload(response.data, fileName, response.headers['content-type'])
+            })
         },
 
         doFilter () {

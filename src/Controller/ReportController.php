@@ -63,13 +63,13 @@ class ReportController extends BaseController
 
         $params = new ParameterBag($this->getParams($request));
 
-        $total = (int) $this->getRepository(BulkDistributionLineItem::class)->findAllCount($params);
+        $total = (int) $this->getRepository(BulkDistributionLineItem::class)->getServedClientsInSameMonthCount($params);
 
         if ($limit === -1) {
             $limit = $total ?: 1;
         }
 
-        $partners = $this->getRepository(BulkDistributionLineItem::class)->findAllPaged(
+        $result = $this->getRepository(BulkDistributionLineItem::class)->getServedClientsInSameMonth(
             $page,
             $limit,
             $sort ? $sort[0] : null,
@@ -82,7 +82,7 @@ class ReportController extends BaseController
                 'total' => (int) $total,
                 'per_page' => (int) $limit,
                 'current_page' => (int) $page,
-                'last_page' => ceil($total / $limit),
+                'last_page' => ($limit > 0) ? ceil($total / $limit) : null,
                 'next_page_url' => null,
                 'prev_page_url' => null,
                 'from' => (($page - 1) * $limit) + 1,
@@ -90,7 +90,7 @@ class ReportController extends BaseController
             ]
         ];
 
-        return $this->serialize($request, $partners, new MultipleLineItemsPerMonthReportTransformer($this->getEm()), $meta);
+        return $this->serialize($request, $result, new MultipleLineItemsPerMonthReportTransformer($this->getEm()), $meta);
     }
 
     /**
