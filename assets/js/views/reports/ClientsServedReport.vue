@@ -34,8 +34,19 @@
             <div class="col-xs-2">
                 <div class="form-group">
                     <datefield
-                        v-model="filters.monthAndYear"
-                        label="Month & Year"
+                        v-model="filters.dateFrom"
+                        label="From Date"
+                        format="YYYY-MM"
+                        timezone="Etc/UTC"
+                    />
+                </div>
+            </div>
+
+            <div class="col-xs-2">
+                <div class="form-group">
+                    <datefield
+                        v-model="filters.dateTo"
+                        label="To Date"
                         format="YYYY-MM"
                         timezone="Etc/UTC"
                     />
@@ -126,7 +137,8 @@ export default {
                 zipcode: null,
                 county: null,
                 state: null,
-                monthAndYear: null,
+                dateFrom: null,
+                dateTo: null,
             },
         };
     },
@@ -138,7 +150,8 @@ export default {
                 zipcode: this.filters.zipcode || null,
                 county: this.filters.county || null,
                 state: this.filters.state || null,
-                monthAndYear: this.filters.monthAndYear || null,
+                dateFrom: this.filters.dateFrom || null,
+                dateTo: this.filters.dateTo || null,
             };
         },
 
