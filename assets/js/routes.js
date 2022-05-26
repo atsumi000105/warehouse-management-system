@@ -368,6 +368,11 @@ let routes = [
         name: 'clients-demographics',
         component: require('./views/reports/UniqueDemographicsReport.vue').default
     },
+    {
+        path: '/reports/clients-multiple-lines',
+        name: 'clients-multiple-lines',
+        component: require('./views/reports/ClientsMultipleLinesPerMonth.vue').default
+    },
 ];
 
 let router = new VueRouter({
