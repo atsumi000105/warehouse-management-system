@@ -394,8 +394,8 @@ class ReportController extends BaseController
     public function distributionTotalsReport(Request $request)
     {
         $sort = $request->get('sort') ? explode('|', $request->get('sort')) : null;
-        $page = $request->get('page', 1);
-        $limit = $request->get('per_page', 10);
+        $page = $request->get('download') ? null : $request->get('page', 1);
+        $limit = $request->get('download') ? null : $request->get('per_page', 10);
 
         /** @var ProductRepository $productRepo */
         $productRepo = $this->getRepository(Product::class);
@@ -415,6 +415,8 @@ class ReportController extends BaseController
 
         /** @var BulkDistribution[] $orders */
         $orders = $repo->distributionTotals(
+            $page,
+            $limit,
             $sort ? $sort[0] : null,
             $sort ? $sort[1] : null,
             $params
@@ -459,7 +461,7 @@ class ReportController extends BaseController
 
         return $this->serialize(
             $request,
-            $results->getRows()->slice(($page - 1) * $limit, $limit),
+            $results->getRows(),
             new DistributionTotalsReportTransformer(),
             $meta
         );
@@ -478,8 +480,8 @@ class ReportController extends BaseController
     public function partnerOrderTotalsReport(Request $request)
     {
         $sort = $request->get('sort') ? explode('|', $request->get('sort')) : null;
-        $page = $request->get('page', 1);
-        $limit = $request->get('per_page', 10);
+        $page = $request->get('download') ? null : $request->get('page', 1);
+        $limit = $request->get('download') ? null : $request->get('per_page', 10);
 
         /** @var ProductRepository $productRepo */
         $productRepo = $this->getRepository(Product::class);
@@ -499,6 +501,8 @@ class ReportController extends BaseController
 
         /** @var PartnerOrder[] $orders */
         $orders = $repo->partnerOrderTotals(
+            $page,
+            $limit,
             $sort ? $sort[0] : null,
             $sort ? $sort[1] : null,
             $params
@@ -543,7 +547,7 @@ class ReportController extends BaseController
 
         return $this->serialize(
             $request,
-            $results->getRows()->slice(($page - 1) * $limit, $limit),
+            $results->getRows(),
             new PartnerOrderTotalsReportTransformer(),
             $meta
         );

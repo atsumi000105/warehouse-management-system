@@ -16,11 +16,21 @@ class BulkDistributionOrderRepository extends OrderRepository
         $qb->leftJoin('o.partner', 'partner');
     }
 
-    public function distributionTotals($sortField = null, $sortDirection = 'ASC', ParameterBag $params = null)
+    public function distributionTotals(
+        $page = null,
+        $limit = null,
+        $sortField = null,
+        $sortDirection = 'ASC', ParameterBag $params = null
+    )
     {
         $qb = $this->createQueryBuilder('o')
             ->leftJoin('o.lineItems', 'l')
             ->join('o.partner', 'p');
+
+        if ($page && $limit) {
+            $qb->setFirstResult(($page - 1) * $limit)
+                ->setMaxResults($limit);
+        }
 
         if ($sortField && $sortField != 'total') {
             if (strstr($sortField, '.') === false) {
@@ -31,8 +41,9 @@ class BulkDistributionOrderRepository extends OrderRepository
 
         $this->addCriteria($qb, $params);
 
-        $results = $qb->getQuery()->execute();
-        return $results;
+        $qb->groupBy('p.id');
+
+        return $qb->getQuery()->execute();
     }
 
     public function findDistributionTotalsCount(ParameterBag $params)

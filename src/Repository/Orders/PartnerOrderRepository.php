@@ -23,6 +23,8 @@ class PartnerOrderRepository extends OrderRepository
      * @return PartnerOrder[]
      */
     public function partnerOrderTotals(
+        $page = null,
+        $limit = null,
         ?string $sortField = null,
         ?string $sortDirection = 'ASC',
         ParameterBag $params = null
@@ -30,6 +32,11 @@ class PartnerOrderRepository extends OrderRepository
         $qb = $this->createQueryBuilder('o')
             ->leftJoin('o.lineItems', 'l')
             ->join('o.partner', 'p');
+
+        if ($page && $limit) {
+            $qb->setFirstResult(($page - 1) * $limit)
+                ->setMaxResults($limit);
+        }
 
         if ($sortField && $sortField != 'total') {
             if (strstr($sortField, '.') === false) {
@@ -40,18 +47,21 @@ class PartnerOrderRepository extends OrderRepository
 
         $this->addCriteria($qb, $params);
 
+        $qb->groupBy('p.id');
+
         return $qb->getQuery()->execute();
     }
 
     public function findPartnerOrderTotalsCount(ParameterBag $params): int
     {
-
         $qb = $this->createQueryBuilder('o')
             ->select('p.id')
             ->join('o.partner', 'p')
             ->groupBy('p.id');
 
         $this->addCriteria($qb, $params);
+
+        $qb->groupBy('p.id');
 
         $paginator = new Paginator($qb->getQuery());
         return $paginator->count();
