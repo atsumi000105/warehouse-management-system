@@ -44,7 +44,7 @@
 
             <div class="col-xs-2">
                 <div class="form-group">
-                    <datefield
+                   <datefield
                         v-model="filters.dateTo"
                         label="To Date"
                         format="YYYY-MM"
@@ -111,6 +111,7 @@
 import TablePaged from "../../components/TablePaged";
 import TextField from "../../components/TextField";
 import DateField from "../../components/DateField.vue";
+import moment from "moment";
 
 export default {
     name: "ClientsServedReport",
@@ -122,16 +123,10 @@ export default {
     },
 
     data() {
-        let columns = [
-            { name: "id", title: "Partner ID", sortField: "p.id" },
-            { name: "title", title: "Partner Name", sortField: "p.id" },
-            { name: "clients", title: "Clients", sortField: "p.id" },
-            { name: "families", title: "Families", sortField: "p.id" },
-        ];
-
         return {
-            columns: columns,
+            //columns: getColumns,
             partners: {},
+            columns: [],
             filters: {
                 title: null,
                 zipcode: null,
@@ -143,7 +138,43 @@ export default {
         };
     },
 
+    created() {
+        this.columns = this.getColumns();
+    },
+
     methods: {
+        getColumns: function() {
+            let columns = [
+                { name: "id", title: "Partner ID", sortField: "p.id" },
+                { name: "title", title: "Partner Name", sortField: "p.id" },
+                { name: "clients", title: "Clients", sortField: "p.id" },
+                { name: "families", title: "Families", sortField: "p.id" },
+            ];
+
+            if (this.filters && this.filters.dateFrom && this.filters.dateTo) {
+                let startDate = moment(this.filters.dateFrom, 'YYYY-MM');
+                let endDate = moment(this.filters.dateTo, 'YYYY-MM');
+
+                let monthsDiff = endDate.diff(startDate, 'months');
+
+                for (var i = 0; i <= monthsDiff; i++) {
+                    if (startDate <= endDate) {
+                        const localColumn = {
+                            name: 'clientsMonth-' + startDate.format('YYYY-MM'),
+                            title: 'Period ' + startDate.format('YYYY-MM'),
+                            sortField: '',
+                        };
+
+                        columns.push(localColumn);
+
+                        startDate.add(1, 'M').format('YYYY-MM');
+                    }
+                }
+            }
+
+            return columns;
+        },
+
         requestParams: function() {
             return {
                 title: this.filters.title || null,
@@ -156,7 +187,7 @@ export default {
         },
 
         doFilter () {
-            console.log("doFilter:", this.requestParams());
+            this.columns = this.getColumns();
             this.$events.fire('filter-set', this.requestParams());
         },
 

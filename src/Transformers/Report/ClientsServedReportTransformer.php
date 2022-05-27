@@ -25,11 +25,12 @@ class ClientsServedReportTransformer extends TransformerAbstract
 
     public function transform($arrayResults): array
     {
-        return [
-            'id' => $arrayResults['id'],
-            'title' => $arrayResults['title'],
-            'clients' => $arrayResults['clients'],
-            'families' => $arrayResults['families'],
-        ];
+        $result = [];
+
+        foreach ($arrayResults as $key => $value) {
+            $result[$key] = $value;
+        }
+
+        return $result;
     }
 }

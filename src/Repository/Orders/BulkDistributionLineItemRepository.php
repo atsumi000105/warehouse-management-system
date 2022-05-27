@@ -43,7 +43,7 @@ class BulkDistributionLineItemRepository extends BaseRepository
             ->getSingleScalarResult();
     }
 
-    public function getClientsServed(ParameterBag $params = null)
+    public function getClientsServedByMonth(ParameterBag $params = null)
     {
         $qb = $this->createQueryBuilder('l')
             ->select(['p.id', 'p.title', 'COUNT(DISTINCT(c.id)) as clients', 'COUNT(DISTINCT(c.family_id)) as families'])
@@ -56,6 +56,59 @@ class BulkDistributionLineItemRepository extends BaseRepository
         $qb->groupBy('p.id');
 
         return $qb->getQuery()->getArrayResult();
+    }
+
+    public function getClientsServed(ParameterBag $params = null)
+    {
+        $qb = $this->createQueryBuilder('l')
+            ->select(['p.id', 'p.title', 'COUNT(DISTINCT(c.id)) as clients', 'COUNT(DISTINCT(c.family_id)) as families'])
+            ->join(BulkDistribution::class, 'o', Join::WITH, 'l.order = o.id')
+            ->join('o.partner', 'p')
+            ->join('l.client', 'c');
+
+        $this->addCriteria($qb, $params);
+
+        $qb->groupBy('p.id');
+
+        $mainQuery = $qb->getQuery()->getArrayResult();
+
+        if ($params->has('dateFrom') && $params->has('dateTo')) {
+            $dateFrom = new \DateTime($params->get('dateFrom'));
+            $dateTo = new \DateTime($params->get('dateTo'));
+
+            $diff = $dateFrom->diff($dateTo);
+
+            $yearsInMonth = $diff->format('%r%y') * 12;
+            $months = $diff->format('%r%m');
+            $totalMonths = $yearsInMonth + $months;
+
+            for ($i = 0; $i <= $totalMonths; $i++) {
+                if ($dateFrom <= $dateTo) {
+                    if ($params->has('monthAndYear')) {
+                        $params->remove('monthAndYear');
+                    }
+
+                    $params->set('monthAndYear', $dateFrom->format('Y-m'));
+                    $localMonth = $this->getClientsServedByMonth($params);
+
+                    foreach ($mainQuery as $key => $mainResult) {
+                        $mainQuery[$key]['clientsMonth ' . $dateFrom->format('Y-m')] = 0;
+                        $mainQuery[$key]['familiesMonth ' . $dateFrom->format('Y-m')] = 0;
+
+                        foreach ($localMonth as $localResult) {
+                            if ($mainResult['id'] === $localResult['id']) {
+                                $mainQuery[$key]['clientsMonth-' . $dateFrom->format('Y-m')] = $localResult['clients'];
+                                $mainQuery[$key]['familiesMonth-' . $dateFrom->format('Y-m')] = $localResult['families'];
+                            }
+                        }
+                    }
+
+                    $dateFrom = $dateFrom->modify('next month');
+                }
+            }
+        }
+
+        return $mainQuery;
     }
 
     protected function addCriteria(QueryBuilder $qb, ParameterBag $params)

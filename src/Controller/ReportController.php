@@ -164,8 +164,6 @@ class ReportController extends BaseController
 
         $result = $this->getRepository(BulkDistributionLineItem::class)->getClientsServed($params);
 
-        print_r($result); die();
-
         $meta = [
             'pagination' => [
                 'total' => (int) $total,

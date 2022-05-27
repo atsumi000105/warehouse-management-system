@@ -33,4 +33,6 @@ export const mod = divisor => withParams(
     value => value.quantity % d == 0
 );
 
-export const mustLessThanNow = (value) => (value ? moment(value) < new Date() : false)
+export const mussLessThanNowNullable = (value) => (value ? moment(value) < new Date() : true);
+
+export const mustLessThanNow = (value) => (value ? moment(value) < new Date() : false);
