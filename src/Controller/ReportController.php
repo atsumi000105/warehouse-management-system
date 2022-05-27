@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Client;
 use App\Entity\InventoryTransaction;
 use App\Entity\Orders\BulkDistributionLineItem;
+use App\Reports\ClientsReportExcel;
 use App\Repository\InventoryTransactionRepository;
 use App\Entity\Orders\BulkDistribution;
 use App\Repository\Orders\BulkDistributionOrderRepository;
@@ -207,6 +208,19 @@ class ReportController extends BaseController
             $sort ? $sort[1] : null,
             $params
         );
+
+        if ($request->get('download')) {
+            $excelReport = new ClientsReportExcel($clients);
+
+            $writer = $excelReport->buildExcel();
+            // redirect output to client browser
+            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+            header('Content-Disposition: attachment;filename="DistributionTotals.' . date('c') . '.xlsx"');
+            header('Cache-Control: max-age=0');
+
+            $writer->save('php://output');
+            exit();
+        }
 
         $meta = [
             'pagination' => [
