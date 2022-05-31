@@ -154,27 +154,5 @@ class BulkDistributionLineItemRepository extends BaseRepository
 
             $qb->orderBy('l.createdAt');
         }
-
-        /*if ($params->has('dateFrom') && $params->has('dateTo')) {
-            $dateFrom = new \DateTime($params->get('dateFrom'));
-            $dateTo = new \DateTime($params->get('dateTo'));
-
-            $diff = $dateFrom->diff($dateTo);
-
-            $yearsInMonth = $diff->format('%r%y') * 12;
-            $months = $diff->format('%r%m');
-            $totalMonths = $yearsInMonth + $months;
-
-            for ($i = 0; $i <= $totalMonths; $i++) {
-                if ($dateFrom <= $dateTo) {
-                    if ($params->has('monthAndYear')) {
-                        $params->remove('monthAndYear');
-                    }
-
-                    $params->set('monthAndYear', $dateFrom->format('Y-m'));
-                    $this->getClientsServed($params);
-                }
-            }
-        }*/
     }
 }
