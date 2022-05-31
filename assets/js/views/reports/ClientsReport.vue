@@ -4,7 +4,7 @@
             <h3 class="box-title col-lg-10">
                 Clients Report
             </h3>
-            <div class="col-lg-2 text-right">
+<!--            <div class="col-lg-2 text-right">
                 <div class="btn-group">
                     <button
                         type="button"
@@ -27,7 +27,7 @@
                         </li>
                     </ul>
                 </div>
-            </div>
+            </div>-->
         </div>
 
         <div class="row">
