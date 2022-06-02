@@ -33,6 +33,7 @@ use App\Transformers\Report\ClientsReportTransformer;
 use App\Transformers\Report\ClientsServedReportTransformer;
 use App\Transformers\Report\DistributionTotalsReportTransformer;
 use App\Transformers\Report\InventoryTransactionReportTransformer;
+use App\Transformers\Report\MultipleLineItemsPerMonthReportTransformer;
 use App\Transformers\Report\PartnerInventoryReportTransformer;
 use App\Transformers\Report\PartnerOrderTotalsReportTransformer;
 use App\Transformers\Report\SupplierTotalsReportTransformer;
@@ -51,6 +52,48 @@ use Symfony\Component\VarDumper\VarDumper;
  */
 class ReportController extends BaseController
 {
+    /**
+     * @Route(path="/clients-multiple-lines", methods={"GET"})
+     * @IsGranted({"ROLE_CLIENT_VIEW_ALL","ROLE_CLIENT_MANAGE_OWN"})
+     */
+    public function clientMultipleLineItemsPerMonth(Request $request): JsonResponse
+    {
+        $sort = $request->get('sort') ? explode('|', $request->get('sort')) : null;
+        $page = $request->get('download') ? null : $request->get('page', 1);
+        $limit = $request->get('download') ? null : $request->get('per_page', 10);
+
+        $params = new ParameterBag($this->getParams($request));
+
+        $total = (int) $this->getRepository(BulkDistributionLineItem::class)->getServedClientsInSameMonthCount($params);
+
+        if ($limit === -1) {
+            $limit = $total ?: 1;
+        }
+
+        $result = $this->getRepository(BulkDistributionLineItem::class)->getServedClientsInSameMonth(
+            $page,
+            $limit,
+            $sort ? $sort[0] : null,
+            $sort ? $sort[1] : null,
+            $params
+        );
+
+        $meta = [
+            'pagination' => [
+                'total' => (int) $total,
+                'per_page' => (int) $limit,
+                'current_page' => (int) $page,
+                'last_page' => ($limit > 0) ? ceil($total / $limit) : null,
+                'next_page_url' => null,
+                'prev_page_url' => null,
+                'from' => (($page - 1) * $limit) + 1,
+                'to' => min($page * $limit, $total),
+            ]
+        ];
+
+        return $this->serialize($request, $result, new MultipleLineItemsPerMonthReportTransformer($this->getEm()), $meta);
+    }
+
     /**
      * @Route(path="/pickup-report", methods={"GET"})
      * @IsGranted({"ROLE_CLIENT_VIEW_ALL","ROLE_CLIENT_MANAGE_OWN"})

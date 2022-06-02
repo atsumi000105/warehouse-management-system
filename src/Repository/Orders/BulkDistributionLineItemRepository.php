@@ -6,12 +6,13 @@ use App\Entity\Client;
 use App\Entity\EAV\Type\ZipCountyAttributeValue;
 use App\Entity\Orders\BulkDistribution;
 use App\Entity\Orders\BulkDistributionLineItem;
+use App\Entity\ValueObjects\Name;
 use App\Repository\BaseRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
-use PhpParser\Node\Param;
 use Symfony\Component\HttpFoundation\ParameterBag;
+use PhpParser\Node\Param;
 
 class BulkDistributionLineItemRepository extends BaseRepository
 {
@@ -28,6 +29,34 @@ class BulkDistributionLineItemRepository extends BaseRepository
             ->orderBy('o.distributionPeriod', 'ASC');
 
         return $qb->getQuery()->execute();
+    }
+
+    public function findAllPaged(
+        $page = null,
+        $limit = null,
+        $sortField = null,
+        $sortDirection = 'ASC',
+        ParameterBag $params = null
+    ) {
+        $qb = $this->createQueryBuilder('l');
+
+        $this->joinRelatedTables($qb);
+
+        if ($page && $limit) {
+            $qb->setFirstResult(($page - 1) * $limit)
+                ->setMaxResults($limit);
+        }
+
+        if ($sortField) {
+            if (!strstr($sortField, '.')) {
+                $sortField = 'l.' . $sortField;
+            }
+        }
+
+        $this->addCriteria($qb, $params);
+
+        $results = $qb->getQuery()->execute();
+        return $results;
     }
 
     public function getServedTotalCount(ParameterBag $params)
@@ -111,7 +140,7 @@ class BulkDistributionLineItemRepository extends BaseRepository
         return $mainQuery;
     }
 
-    protected function addCriteria(QueryBuilder $qb, ParameterBag $params)
+    public function addCriteria(QueryBuilder $qb, ParameterBag $params)
     {
         if ($params->has('zipcode') || $params->has('county') || $params->has('state')) {
             $qb->join('c.attributes', 'ca');
@@ -154,5 +183,78 @@ class BulkDistributionLineItemRepository extends BaseRepository
 
             $qb->orderBy('l.createdAt');
         }
+    }
+
+    public function findAllCount(ParameterBag $params): int
+    {
+        $qb = $this->createQueryBuilder('l')
+            ->select('count(l)');
+
+        $this->addCriteria($qb, $params);
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    protected function joinRelatedTables(QueryBuilder $qb)
+    {
+        $qb->leftJoin('l.client', 'client');
+    }
+
+    public function getServedClientsInSameMonthCount(ParameterBag $params): int
+    {
+        $qb = $this->createQueryBuilder('l')
+            ->select('l.id')
+            ->leftJoin(BulkDistribution::class, 'o', Join::WITH, 'l.order = o.id')
+            ->leftJoin('o.partner', 'p')
+            ->leftJoin('l.client', 'c');
+
+        $this->addCriteria($qb, $params);
+
+        $qb->groupBy('l.client');
+        $qb->having('COUNT(l.client) > 1');
+
+        return count($qb->getQuery()->getArrayResult());
+    }
+
+    public function getServedClientsInSameMonth(
+        $page = null,
+        $limit = null,
+        $sortField = null,
+        $sortDirection = 'ASC',
+        ParameterBag $params = null
+    )
+    {
+        $qb = $this->createQueryBuilder('l');
+
+        $qb->select([
+            'l.id',
+            'l.createdAt as distributedAt',
+            'c.parentFirstName',
+            'c.parentLastName',
+            'COUNT(l.client) as duplicatedDistributionCount',
+            'c.name.firstname as firstname',
+            'c.name.lastname as lastname',
+        ])
+            ->leftJoin(BulkDistribution::class, 'o', Join::WITH, 'l.order = o.id')
+            ->leftJoin('o.partner', 'p')
+            ->leftJoin('l.client', 'c');
+
+        if ($page && $limit) {
+            $qb->setFirstResult(($page-1) * $limit)
+                ->setMaxResults($limit);
+        }
+
+        if ($sortField) {
+            if (!strstr($sortField, '.')) {
+                $sortField = 'l.' . $sortField;
+            }
+        }
+
+        $this->addCriteria($qb, $params);
+
+        $qb->groupBy('l.client');
+        $qb->having('COUNT(l.client) > 1');
+
+        return $qb->getQuery()->getArrayResult();
     }
 }
