@@ -9,10 +9,10 @@ use League\Fractal\TransformerAbstract;
 class DistributionTotalsReportTransformer extends TransformerAbstract
 {
 
-    public function transform(DistributionTotalsRow $partnerTotal)
+    public function transform($arrayResults)
     {
         /** @var Partner $partner */
-        $partner = $partnerTotal->getPartner();
+        /*$partner = $partnerTotal->getPartner();
         $total = $partnerTotal->getTotal();
 
         $result = [
@@ -23,6 +23,14 @@ class DistributionTotalsReportTransformer extends TransformerAbstract
         ];
 
         $result = $result + $partnerTotal->getProductTotals();
+
+        return $result;*/
+
+        $result = [];
+
+        foreach ($arrayResults as $key => $value) {
+            $result[$key] = $value;
+        }
 
         return $result;
     }

@@ -106,31 +106,31 @@ import DateField from "../../components/DateField";
 import PartnerSelectionForm from "../../components/PartnerSelectionForm.vue";
 import TablePaged from "../../components/TablePaged.vue";
 import { mapGetters } from "vuex";
+import products from "../../store/modules/products";
+import moment from "moment";
 export default {
     components: {
         datefield: DateField,
         partnerselectionform: PartnerSelectionForm,
         tablepaged: TablePaged
     },
-    props: [],
-    data() {
-        let columns = [
-            { name: "id", title: "Partner ID", sortField: "p.id" },
-            { name: "name", title: "Partner", sortField: "p.title" },
-            { name: "type", title: "Partner Type", sortField: "p.partnerType" },
-            {
-                name: "total",
-                title: "Total Distributed",
-                sortField: "total",
-                dataClass: "text-right",
-                titleClass: "text-right"
-            }
-        ];
 
+    props: [],
+
+    watch: {
+        productColumns(val) {
+            this.productColumns = _.cloneDeep(val);
+            Vue.nextTick( () => this.$refs.vuetable.normalizeFields() );
+        },
+    },
+
+
+    data() {
         return {
             transactions: {},
             locations: [],
-            columns: columns,
+            columns: [],
+            productColumns: [],
             filters: {
                 partner: {},
                 partnerType: null,
@@ -139,9 +139,20 @@ export default {
             }
         };
     },
-    computed: mapGetters(["allPartners"]),
+
+    //computed: mapGetters(["allPartners"]),
+
+    computed: {
+        ...mapGetters([
+            'allPartners'
+        ])
+    },
+
     mounted() {
         let me = this;
+
+        this.getColumns();
+
         this.$store.dispatch("loadProducts").then(response => {
             let newColumns = [];
             me.$store.getters.allOrderableProducts.forEach(function(product) {
@@ -154,11 +165,61 @@ export default {
                 });
             });
             me.columns.splice(-1, 0, ...newColumns);
-            me.$refs.hbtable.reinitializeFields();
         });
+
         console.log("Component mounted.");
     },
+
     methods: {
+        getColumns() {
+            const me = this;
+
+            let columns = [
+                { name: "id", title: "Partner ID", sortField: "p.id" },
+                { name: "name", title: "Partner", sortField: "p.title" },
+                { name: "type", title: "Partner Type", sortField: "p.partnerType" },
+                {
+                    name: "totals",
+                    title: "Total Distributed",
+                    sortField: "total",
+                    dataClass: "text-right",
+                    titleClass: "text-right"
+                }
+            ];
+
+            console.log('me.productColumns: ', me.productColumns);
+
+            if (this.filters && this.filters.startingAt && this.filters.endingAt) {
+                let startDate = moment(this.filters.startingAt, 'YYYY-MM');
+                let endDate = moment(this.filters.endingAt, 'YYYY-MM');
+
+                let monthsDiff = endDate.diff(startDate, 'months');
+
+                for (var i = 0; i <= monthsDiff; i++) {
+                    if (startDate <= endDate) {
+                        console.log('entering here');
+
+                        this.$store.dispatch("loadProducts").then(response => {
+                            let newColumns = [];
+                            me.$store.getters.allOrderableProducts.forEach(function(product) {
+                                newColumns.push({
+                                    name: product.sku + '-' + startDate.format('YYYY-MM'),
+                                    title: product.name + '(' + startDate.format('YYYY-MM') + ')',
+                                    sortField: "total" + product.id,
+                                    dataClass: "text-right",
+                                    titleClass: "text-right"
+                                });
+                            });
+                            me.columns.splice(-1, 0, ...newColumns);
+                            startDate.add(1, 'M').format('YYYY-MM');
+                        });
+                    }
+                }
+            }
+
+            me.columns = columns;
+        },
+
         requestParams: function() {
             return {
                 partner: this.filters.partner.id || null,
@@ -177,9 +238,12 @@ export default {
                     : null
             };
         },
+
         doFilter() {
+            this.getColumns();
             this.$events.fire("filter-set", this.requestParams());
         },
+
         downloadExcel() {
             let params = this.requestParams();
             params.download = "xlsx";
@@ -187,7 +251,7 @@ export default {
                 let filename = response.headers["content-disposition"].match(/filename="(.*)"/)[1];
                 fileDownload(response.data, filename, response.headers["content-type"]);
             });
-        }
-    }
+        },
+    },
 };
 </script>

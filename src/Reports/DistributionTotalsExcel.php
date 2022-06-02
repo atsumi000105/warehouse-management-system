@@ -21,12 +21,14 @@ class DistributionTotalsExcel
      */
     protected $products;
 
+    private $manualKeys = ['id', 'name', 'type'];
+
     /**
      * PartnerTotalsExcel constructor.
-     * @param DistributionTotalsReport $reportData
+     * @param array $reportData
      * @param Product[]|ArrayCollection $products
      */
-    public function __construct(DistributionTotalsReport $reportData, $products)
+    public function __construct(array $reportData, $products)
     {
         $this->reportData = $reportData;
         $this->products = $products;
@@ -45,7 +47,7 @@ class DistributionTotalsExcel
         $sheet->fromArray($this->buildHeaders());
 
         $dataArr = [];
-        foreach ($this->reportData->getRows() as $rowData) {
+        /*foreach ($this->reportData->getRows() as $rowData) {
             $rowArr = [];
             $rowArr[] = $rowData->getPartner()->getId();
             $rowArr[] = $rowData->getPartner()->getTitle();
@@ -58,7 +60,28 @@ class DistributionTotalsExcel
             $rowArr[] = $rowData->getTotal();
 
             $dataArr[] = $rowArr;
+        }*/
+
+
+        //print_r($this->reportData);die();
+
+
+        foreach ($this->reportData as $values) {
+            $rowArr = [];
+
+            foreach ($this->manualKeys as $key) {
+                $rowArr[] = $values[$key];
+            }
+
+            foreach ($values as $key => $value) {
+                if (! in_array($key, $this->manualKeys)) {
+                    $rowArr[] = $value;
+                }
+            }
+
+            $dataArr[] = $rowArr;
         }
+
         $sheet->fromArray($dataArr, null, 'A2');
 
         return IOFactory::createWriter($spreadsheet, 'Xlsx');
@@ -72,11 +95,14 @@ class DistributionTotalsExcel
             'Partner Type',
         ];
 
-        foreach ($this->products as $product) {
-            $headers[] = $product->getName();
-        }
+        foreach ($this->reportData as $values) {
+            foreach ($values as $key => $data) {
+                if (! in_array($key, $headers) && !in_array($key, $this->manualKeys)) {
+                    $headers[] = $key;
+                }
+            }
 
-        $headers[] = 'Total Distributed';
+        }
 
         return $headers;
     }
