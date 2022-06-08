@@ -256,7 +256,6 @@ class ReportController extends BaseController
             $excelReport = new ClientsReportExcel($clients);
 
             $writer = $excelReport->buildExcel();
-            // redirect output to client browser
             header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
             header('Content-Disposition: attachment;filename="DistributionTotals.' . date('c') . '.xlsx"');
             header('Cache-Control: max-age=0');
@@ -480,18 +479,6 @@ class ReportController extends BaseController
         );
 
         $total = count($orders);
-
-        /**
-         * @Deprecated - Changed to use a query to build all result instead.
-         */
-        /*$results = new DistributionTotalsReport();
-
-        foreach ($orders as $order) {
-            $row = $results->getRow($order->getPartner());
-            foreach ($order->getLineItems() as $lineItem) {
-                $row->addProductTotal($lineItem->getProduct(), $lineItem->getQuantity());
-            }
-        }*/
 
         if ($request->get('download')) {
             $excelReport = new DistributionTotalsExcel($orders, $productRepo->findByPartnerOrderable(true));

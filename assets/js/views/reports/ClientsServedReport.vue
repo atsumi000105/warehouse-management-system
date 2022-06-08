@@ -4,30 +4,6 @@
             <h3 class="box-title col-lg-10">
                 Clients Served Report
             </h3>
-<!--            <div class="col-lg-2 text-right">
-                <div class="btn-group">
-                    <button
-                        type="button"
-                        class="btn btn-info btn-flat dropdown-toggle"
-                        data-toggle="dropdown"
-                    >
-                        <i class="fa fa-fw fa-download" />Export
-                        <span class="caret" />
-                        <span class="sr-only">Toggle Dropdown</span>
-                    </button>
-                    <ul
-                        class="dropdown-menu"
-                        role="menu"
-                    >
-                        <li>
-                            <a @click.prevent="downloadExcel">
-                                <i class="fa fa-fw fa-file-excel" />
-                                Excel
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>-->
         </div>
 
         <div class="row">

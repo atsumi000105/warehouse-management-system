@@ -140,8 +140,6 @@ export default {
         };
     },
 
-    //computed: mapGetters(["allPartners"]),
-
     computed: {
         ...mapGetters([
             'allPartners'
@@ -187,8 +185,6 @@ export default {
                 }
             ];
 
-            console.log('me.productColumns: ', me.productColumns);
-
             if (this.filters && this.filters.startingAt && this.filters.endingAt) {
                 let startDate = moment(this.filters.startingAt, 'YYYY-MM');
                 let endDate = moment(this.filters.endingAt, 'YYYY-MM');
@@ -197,7 +193,6 @@ export default {
 
                 for (var i = 0; i <= monthsDiff; i++) {
                     if (startDate <= endDate) {
-                        console.log('entering here');
 
                         this.$store.dispatch("loadProducts").then(response => {
                             let newColumns = [];

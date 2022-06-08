@@ -43,28 +43,9 @@ class DistributionTotalsExcel
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
-        // Headers
         $sheet->fromArray($this->buildHeaders());
 
         $dataArr = [];
-        /*foreach ($this->reportData->getRows() as $rowData) {
-            $rowArr = [];
-            $rowArr[] = $rowData->getPartner()->getId();
-            $rowArr[] = $rowData->getPartner()->getTitle();
-            $rowArr[] = $rowData->getPartner()->getPartnerType();
-
-            foreach ($this->products as $product) {
-                $rowArr[] = $rowData->getProductTotal($product);
-            }
-
-            $rowArr[] = $rowData->getTotal();
-
-            $dataArr[] = $rowArr;
-        }*/
-
-
-        //print_r($this->reportData);die();
-
 
         foreach ($this->reportData as $values) {
             $rowArr = [];

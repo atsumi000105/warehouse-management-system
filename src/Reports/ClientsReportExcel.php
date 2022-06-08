@@ -23,7 +23,6 @@ class ClientsReportExcel
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
-        // Headers
         $sheet->fromArray($this->buildHeaders());
 
         $dataArr = [];
