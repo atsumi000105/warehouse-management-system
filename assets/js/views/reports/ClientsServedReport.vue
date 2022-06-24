@@ -4,38 +4,25 @@
             <h3 class="box-title col-lg-10">
                 Clients Served Report
             </h3>
-            <div class="col-lg-2 text-right">
-                <div class="btn-group">
-                    <button
-                        type="button"
-                        class="btn btn-info btn-flat dropdown-toggle"
-                        data-toggle="dropdown"
-                    >
-                        <i class="fa fa-fw fa-download" />Export
-                        <span class="caret" />
-                        <span class="sr-only">Toggle Dropdown</span>
-                    </button>
-                    <ul
-                        class="dropdown-menu"
-                        role="menu"
-                    >
-                        <li>
-                            <a @click.prevent="downloadExcel">
-                                <i class="fa fa-fw fa-file-excel" />
-                                Excel
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
         </div>
 
         <div class="row">
             <div class="col-xs-2">
                 <div class="form-group">
                     <datefield
-                        v-model="filters.monthAndYear"
-                        label="Month & Year"
+                        v-model="filters.dateFrom"
+                        label="From Date"
+                        format="YYYY-MM"
+                        timezone="Etc/UTC"
+                    />
+                </div>
+            </div>
+
+            <div class="col-xs-2">
+                <div class="form-group">
+                   <datefield
+                        v-model="filters.dateTo"
+                        label="To Date"
                         format="YYYY-MM"
                         timezone="Etc/UTC"
                     />
@@ -100,6 +87,7 @@
 import TablePaged from "../../components/TablePaged";
 import TextField from "../../components/TextField";
 import DateField from "../../components/DateField.vue";
+import moment from "moment";
 
 export default {
     name: "ClientsServedReport",
@@ -111,39 +99,71 @@ export default {
     },
 
     data() {
-        let columns = [
-            { name: "id", title: "Partner ID", sortField: "p.id" },
-            { name: "title", title: "Partner Name", sortField: "p.id" },
-            { name: "clients", title: "Clients", sortField: "p.id" },
-            { name: "families", title: "Families", sortField: "p.id" },
-        ];
-
         return {
-            columns: columns,
+            //columns: getColumns,
             partners: {},
+            columns: [],
             filters: {
                 title: null,
                 zipcode: null,
                 county: null,
                 state: null,
-                monthAndYear: null,
+                dateFrom: null,
+                dateTo: null,
             },
         };
     },
 
+    created() {
+        this.columns = this.getColumns();
+    },
+
     methods: {
+        getColumns: function() {
+            let columns = [
+                { name: "id", title: "Partner ID", sortField: "p.id" },
+                { name: "title", title: "Partner Name", sortField: "p.id" },
+                { name: "clients", title: "Clients", sortField: "p.id" },
+                { name: "families", title: "Families", sortField: "p.id" },
+            ];
+
+            if (this.filters && this.filters.dateFrom && this.filters.dateTo) {
+                let startDate = moment(this.filters.dateFrom, 'YYYY-MM');
+                let endDate = moment(this.filters.dateTo, 'YYYY-MM');
+
+                let monthsDiff = endDate.diff(startDate, 'months');
+
+                for (var i = 0; i <= monthsDiff; i++) {
+                    if (startDate <= endDate) {
+                        const localColumn = {
+                            name: 'clientsMonth-' + startDate.format('YYYY-MM'),
+                            title: 'Period ' + startDate.format('YYYY-MM'),
+                            sortField: '',
+                        };
+
+                        columns.push(localColumn);
+
+                        startDate.add(1, 'M').format('YYYY-MM');
+                    }
+                }
+            }
+
+            return columns;
+        },
+
         requestParams: function() {
             return {
                 title: this.filters.title || null,
                 zipcode: this.filters.zipcode || null,
                 county: this.filters.county || null,
                 state: this.filters.state || null,
-                monthAndYear: this.filters.monthAndYear || null,
+                dateFrom: this.filters.dateFrom || null,
+                dateTo: this.filters.dateTo || null,
             };
         },
 
         doFilter () {
-            console.log("doFilter:", this.requestParams());
+            this.columns = this.getColumns();
             this.$events.fire('filter-set', this.requestParams());
         },
 

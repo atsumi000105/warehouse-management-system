@@ -38,7 +38,7 @@ class ProductController extends BaseController
         $repo = $this->getRepository();
 
         if (!$request->get('page')) {
-            $products = $repo->findAll();
+            $products = $repo->findAllSorted();
             return $this->serialize($request, $products);
         }
 

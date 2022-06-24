@@ -59,6 +59,87 @@ class BulkDistributionLineItemRepository extends BaseRepository
         return $results;
     }
 
+    public function getServedTotalCount(ParameterBag $params)
+    {
+        $dql = "SELECT COUNT(DISTINCT p.id)
+            FROM App\Entity\Orders\BulkDistributionLineItem l
+            JOIN App\Entity\Orders\BulkDistribution o with l.order = o.id 
+            JOIN o.partner p
+            JOIN l.client c
+            ";
+
+        return $this->getEntityManager()->createQuery($dql)
+            ->getSingleScalarResult();
+    }
+
+    public function getClientsServedByMonth(ParameterBag $params = null)
+    {
+        $qb = $this->createQueryBuilder('l')
+            ->select(['p.id', 'p.title', 'COUNT(DISTINCT(c.id)) as clients', 'COUNT(DISTINCT(c.family_id)) as families'])
+            ->join(BulkDistribution::class, 'o', Join::WITH, 'l.order = o.id')
+            ->join('o.partner', 'p')
+            ->join('l.client', 'c');
+
+        $this->addCriteria($qb, $params);
+
+        $qb->groupBy('p.id');
+
+        return $qb->getQuery()->getArrayResult();
+    }
+
+    public function getClientsServed(ParameterBag $params = null)
+    {
+        $qb = $this->createQueryBuilder('l')
+            ->select(['p.id', 'p.title', 'COUNT(DISTINCT(c.id)) as clients', 'COUNT(DISTINCT(c.family_id)) as families'])
+            ->join(BulkDistribution::class, 'o', Join::WITH, 'l.order = o.id')
+            ->join('o.partner', 'p')
+            ->join('l.client', 'c');
+
+        $this->addCriteria($qb, $params);
+
+        $qb->groupBy('p.id');
+
+        $mainQuery = $qb->getQuery()->getArrayResult();
+
+        if ($params->has('dateFrom') && $params->has('dateTo')) {
+            $dateFrom = new \DateTime($params->get('dateFrom'));
+            $dateTo = new \DateTime($params->get('dateTo'));
+
+            $diff = $dateFrom->diff($dateTo);
+
+            $yearsInMonth = $diff->format('%r%y') * 12;
+            $months = $diff->format('%r%m');
+            $totalMonths = $yearsInMonth + $months;
+
+            for ($i = 0; $i <= $totalMonths; $i++) {
+                if ($dateFrom <= $dateTo) {
+                    if ($params->has('monthAndYear')) {
+                        $params->remove('monthAndYear');
+                    }
+
+                    $params->set('monthAndYear', $dateFrom->format('Y-m'));
+                    $localMonth = $this->getClientsServedByMonth($params);
+
+                    foreach ($mainQuery as $key => $mainResult) {
+                        $mainQuery[$key]['clientsMonth ' . $dateFrom->format('Y-m')] = 0;
+                        $mainQuery[$key]['familiesMonth ' . $dateFrom->format('Y-m')] = 0;
+
+                        foreach ($localMonth as $localResult) {
+                            if ($mainResult['id'] === $localResult['id']) {
+                                $mainQuery[$key]['clientsMonth-' . $dateFrom->format('Y-m')] = $localResult['clients'];
+                                $mainQuery[$key]['familiesMonth-' . $dateFrom->format('Y-m')] = $localResult['families'];
+                            }
+                        }
+                    }
+
+                    $dateFrom = $dateFrom->modify('next month');
+                }
+            }
+        }
+
+        return $mainQuery;
+    }
+
     public function addCriteria(QueryBuilder $qb, ParameterBag $params)
     {
         if ($params->has('zipcode') || $params->has('county') || $params->has('state')) {
@@ -173,34 +254,6 @@ class BulkDistributionLineItemRepository extends BaseRepository
 
         $qb->groupBy('l.client');
         $qb->having('COUNT(l.client) > 1');
-
-        return $qb->getQuery()->getArrayResult();
-    }
-
-    public function getServedTotalCount(ParameterBag $params)
-    {
-        $dql = "SELECT COUNT(DISTINCT p.id)
-            FROM App\Entity\Orders\BulkDistributionLineItem l
-            JOIN App\Entity\Orders\BulkDistribution o with l.order = o.id 
-            JOIN o.partner p
-            JOIN l.client c
-            ";
-
-        return $this->getEntityManager()->createQuery($dql)
-            ->getSingleScalarResult();
-    }
-
-    public function getClientsServed(ParameterBag $params = null)
-    {
-        $qb = $this->createQueryBuilder('l')
-            ->select(['p.id', 'p.title', 'COUNT(DISTINCT(c.id)) as clients', 'COUNT(DISTINCT(c.family_id)) as families'])
-            ->join(BulkDistribution::class, 'o', Join::WITH, 'l.order = o.id')
-            ->join('o.partner', 'p')
-            ->join('l.client', 'c');
-
-        $this->addCriteria($qb, $params);
-
-        $qb->groupBy('p.id');
 
         return $qb->getQuery()->getArrayResult();
     }

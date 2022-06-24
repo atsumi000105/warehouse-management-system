@@ -15,7 +15,7 @@
                 :api-url="apiUrl"
                 data-path="data"
                 pagination-path="meta.pagination"
-                :fields="columns"
+                :fields="localColumns"
                 :per-page="perPage"
                 :css="{
                     tableClass: 'table table-hover',
@@ -86,6 +86,7 @@
             VuetablePagination,
             VuetablePaginationInfo,
         },
+
         props:{
             columns: { type: Array, required: true },
             apiUrl: { type: String, required: true },
@@ -96,12 +97,27 @@
             linkDisplayProperty: { type: String, default: 'id' },
             linkIdProperty: { type: String, default: 'id' }
         },
+
         data () {
             return {
+                normalizeFields: false,
+                localColumns: [],
                 loading: false,
                 localParams: {},
             }
         },
+
+        watch: {
+            columns(val) {
+                this.localColumns = _.cloneDeep(val);
+                Vue.nextTick( () => this.$refs.vuetable.normalizeFields() );
+            },
+        },
+
+        created() {
+            this.localColumns = _.cloneDeep(this.columns);
+        },
+
         mounted() {
             this.$events.$on('filter-set', eventData => this.onFilterSet(eventData));
         },

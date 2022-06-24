@@ -9,6 +9,17 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 
 class ProductRepository extends BaseRepository
 {
+    public function findAllProducts()
+    {
+        $qb = $this->createQueryBuilder('p')
+            ->select(['p.name as name', 'p.sku as sku', 'p.orderIndex as order'])
+            ->andWhere('p.status = :status')
+            ->setParameter('status', Product::STATUS_ACTIVE)
+            ->orderBy('p.orderIndex', 'ASC');
+
+        return $qb->getQuery()->getArrayResult();
+    }
+
     public function findAllPaged(
         ?int $page = null,
         ?int $limit = null,

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Client;
 use App\Entity\InventoryTransaction;
 use App\Entity\Orders\BulkDistributionLineItem;
+use App\Reports\ClientsReportExcel;
 use App\Repository\InventoryTransactionRepository;
 use App\Entity\Orders\BulkDistribution;
 use App\Repository\Orders\BulkDistributionOrderRepository;
@@ -251,6 +252,18 @@ class ReportController extends BaseController
             $params
         );
 
+        if ($request->get('download')) {
+            $excelReport = new ClientsReportExcel($clients);
+
+            $writer = $excelReport->buildExcel();
+            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+            header('Content-Disposition: attachment;filename="DistributionTotals.' . date('c') . '.xlsx"');
+            header('Cache-Control: max-age=0');
+
+            $writer->save('php://output');
+            exit();
+        }
+
         $meta = [
             'pagination' => [
                 'total' => (int) $total,
@@ -437,8 +450,8 @@ class ReportController extends BaseController
     public function distributionTotalsReport(Request $request)
     {
         $sort = $request->get('sort') ? explode('|', $request->get('sort')) : null;
-        $page = $request->get('page', 1);
-        $limit = $request->get('per_page', 10);
+        $page = null;
+        $limit = null;
 
         /** @var ProductRepository $productRepo */
         $productRepo = $this->getRepository(Product::class);
@@ -458,24 +471,17 @@ class ReportController extends BaseController
 
         /** @var BulkDistribution[] $orders */
         $orders = $repo->distributionTotals(
+            $page,
+            $limit,
             $sort ? $sort[0] : null,
             $sort ? $sort[1] : null,
             $params
         );
 
-        $total = $repo->findDistributionTotalsCount($params);
-
-        $results = new DistributionTotalsReport();
-
-        foreach ($orders as $order) {
-            $row = $results->getRow($order->getPartner());
-            foreach ($order->getLineItems() as $lineItem) {
-                $row->addProductTotal($lineItem->getProduct(), $lineItem->getQuantity());
-            }
-        }
+        $total = count($orders);
 
         if ($request->get('download')) {
-            $excelReport = new DistributionTotalsExcel($results, $productRepo->findByPartnerOrderable(true));
+            $excelReport = new DistributionTotalsExcel($orders, $productRepo->findByPartnerOrderable(true));
 
             $writer = $excelReport->buildExcel();
             // redirect output to client browser
@@ -492,7 +498,7 @@ class ReportController extends BaseController
                 'total' => (int) $total,
                 'per_page' => (int) $limit,
                 'current_page' => (int) $page,
-                'last_page' => ceil($total / $limit),
+                'last_page' => $limit ? ceil($total / $limit) : null,
                 "next_page_url" => null,
                 "prev_page_url" => null,
                 'from' => (($page - 1) * $limit) + 1,
@@ -502,7 +508,7 @@ class ReportController extends BaseController
 
         return $this->serialize(
             $request,
-            $results->getRows()->slice(($page - 1) * $limit, $limit),
+            $orders,
             new DistributionTotalsReportTransformer(),
             $meta
         );
@@ -521,8 +527,8 @@ class ReportController extends BaseController
     public function partnerOrderTotalsReport(Request $request)
     {
         $sort = $request->get('sort') ? explode('|', $request->get('sort')) : null;
-        $page = $request->get('page', 1);
-        $limit = $request->get('per_page', 10);
+        $page = $request->get('download') ? null : $request->get('page', 1);
+        $limit = $request->get('download') ? null : $request->get('per_page', 10);
 
         /** @var ProductRepository $productRepo */
         $productRepo = $this->getRepository(Product::class);
@@ -542,6 +548,8 @@ class ReportController extends BaseController
 
         /** @var PartnerOrder[] $orders */
         $orders = $repo->partnerOrderTotals(
+            $page,
+            $limit,
             $sort ? $sort[0] : null,
             $sort ? $sort[1] : null,
             $params
@@ -586,7 +594,7 @@ class ReportController extends BaseController
 
         return $this->serialize(
             $request,
-            $results->getRows()->slice(($page - 1) * $limit, $limit),
+            $results->getRows(),
             new PartnerOrderTotalsReportTransformer(),
             $meta
         );

@@ -4,6 +4,7 @@ namespace App\Repository\Orders;
 
 use App\Entity\Orders\BulkDistribution;
 use App\Entity\Partner;
+use App\Entity\Product;
 use App\Repository\OrderRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -16,11 +17,100 @@ class BulkDistributionOrderRepository extends OrderRepository
         $qb->leftJoin('o.partner', 'partner');
     }
 
-    public function distributionTotals($sortField = null, $sortDirection = 'ASC', ParameterBag $params = null)
+    public function getProducts(): array
+    {
+        $productRepo = $this->getEntityManager()->getRepository(Product::class);
+
+        return $productRepo->findAllProducts();
+    }
+
+    private function getReadyToDisplayData(array $data, ?\DateTime $date = null): array
+    {
+        $availableProducts = $this->getProducts();
+
+        $skuPlusDate = '';
+        if ($date) {
+            $skuPlusDate = '-'. $date->format('Y-m');
+        }
+
+        $finalResult = [];
+
+        foreach ($data as $key => $result) {
+            $finalResult[$result['id']]['totals'] = 0;
+
+            foreach ($availableProducts as $product) {
+                $finalResult[$result['id']]["{$product['sku']}$skuPlusDate"] = 0;
+                $finalResult[$result['id']]['totals' . $skuPlusDate] = 0;
+            }
+        }
+
+        foreach ($data as $result) {
+            $finalResult[$result['id']]['id'] = $result['id'];
+            $finalResult[$result['id']]['name'] = $result['name'];
+            $finalResult[$result['id']]['type'] = $result['type'];
+
+            foreach ($availableProducts as $product) {
+                if ($product['sku'] == $result['sku']) {
+                    $finalResult[$result['id']]["{$product['sku']}$skuPlusDate"] = $result['productTotal'];
+                    $finalResult[$result['id']]['totals' . $skuPlusDate] = $finalResult[$result['id']]['totals' . $skuPlusDate] + $result['productTotal'];
+                }
+            }
+        }
+
+        return array_values($finalResult);
+    }
+
+    public function distributionTotalsPerMonth(ParameterBag $params = null)
     {
         $qb = $this->createQueryBuilder('o')
+            ->select([
+                'p.id as id',
+                'p.title as name',
+                'p.partnerType as type',
+                'product.sku',
+                'product.name as productName',
+                'COUNT(l.quantity) as productTotal'
+            ])
             ->leftJoin('o.lineItems', 'l')
-            ->join('o.partner', 'p');
+            ->join('o.partner', 'p')
+            ->join('l.product', 'product');
+
+        $params->remove('startingAt');
+        $params->remove('endingAt');
+
+        $this->addCriteria($qb, $params);
+
+        $qb->groupBy('p.id, product.id');
+
+        return $qb->getQuery()->getArrayResult();
+    }
+
+    public function distributionTotals(
+        $page = null,
+        $limit = null,
+        $sortField = null,
+        $sortDirection = 'ASC', ParameterBag $params = null
+    )
+    {
+        $availableProducts = $this->getProducts();
+
+        $qb = $this->createQueryBuilder('o')
+            ->select([
+                'p.id as id',
+                'p.title as name',
+                'p.partnerType as type',
+                'product.sku',
+                'product.name as productName',
+                'COUNT(l.quantity) as productTotal'
+            ])
+            ->leftJoin('o.lineItems', 'l')
+            ->join('o.partner', 'p')
+            ->join('l.product', 'product');
+
+        if ($page && $limit) {
+            $qb->setFirstResult(($page - 1) * $limit)
+                ->setMaxResults($limit);
+        }
 
         if ($sortField && $sortField != 'total') {
             if (strstr($sortField, '.') === false) {
@@ -31,8 +121,48 @@ class BulkDistributionOrderRepository extends OrderRepository
 
         $this->addCriteria($qb, $params);
 
-        $results = $qb->getQuery()->execute();
-        return $results;
+        $qb->groupBy('p.id, l.product');
+
+        $mainQuery = $qb->getQuery()->getArrayResult();
+        $mainQuery = $this->getReadyToDisplayData($mainQuery);
+
+        if ($params->has('startingAt') && $params->has('endingAt')) {
+            $dateFrom = new \DateTime($params->get('startingAt'));
+            $dateTo = new \DateTime($params->get('endingAt'));
+
+            $diff = $dateFrom->diff($dateTo);
+
+            $yearsInMonth = $diff->format('%r%y') * 12;
+            $months = $diff->format('%r%m');
+            $totalMonths = $yearsInMonth + $months;
+
+            for ($i = 0; $i <= $totalMonths; $i++) {
+                if ($dateFrom <= $dateTo) {
+                    if ($params->has('monthAndYear')) {
+                        $params->remove('monthAndYear');
+                    }
+
+                    $params->set('monthAndYear', $dateFrom->format('Y-m'));
+                    $localMonth = $this->distributionTotalsPerMonth($params);
+                    $localMonth = $this->getReadyToDisplayData($localMonth, $dateFrom);
+
+                    foreach ($mainQuery as $key => $mainResult) {
+                        foreach ($localMonth as $localResult) {
+                            if ($mainResult['id'] === $localResult['id']) {
+                                foreach ($availableProducts as $product) {
+                                    $mainQuery[$key][$product['sku'] .'-'. $dateFrom->format('Y-m')] = $localResult[$product['sku'] .'-'. $dateFrom->format('Y-m')];
+                                }
+                            }
+                        }
+                    }
+
+                    $dateFrom = $dateFrom->modify('next month');
+
+                }
+            }
+        }
+
+        return $mainQuery;
     }
 
     public function findDistributionTotalsCount(ParameterBag $params)
@@ -99,6 +229,21 @@ class BulkDistributionOrderRepository extends OrderRepository
         if ($params->has('endingAt')) {
             $qb->andWhere('o.distributionPeriod <= :endingAt')
                 ->setParameter('endingAt', new \DateTime($params->get('endingAt')));
+        }
+
+        if ($params->has('monthAndYear')) {
+            $fromTime = new \DateTime($params->get('monthAndYear') . '-01');
+            $fromTime = $fromTime->format('Y-m-d H:m:i');
+
+            $toTime = new \DateTime($fromTime . '  first day of next month');
+            $toTime = $toTime->format('Y-m-d H:m:i');
+
+            $qb->andWhere('o.distributionPeriod >= :fromTime')
+                ->andWhere('o.distributionPeriod <= :toTime')
+                ->setParameter('fromTime', $fromTime)
+                ->setParameter('toTime', $toTime);
+
+            $qb->orderBy('o.distributionPeriod');
         }
     }
 }
