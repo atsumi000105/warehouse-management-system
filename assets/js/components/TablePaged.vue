@@ -71,7 +71,7 @@
                     @vuetable-pagination:change-page="onChangePage"
                 />
             </div>
-        </div>        
+        </div>
     </div>
 </template>
 
@@ -121,6 +121,7 @@
         mounted() {
             this.$events.$on('filter-set', eventData => this.onFilterSet(eventData));
         },
+
         methods: {
             showLoader () {
                 this.loading = true;
@@ -131,7 +132,9 @@
             refresh() {
                 console.log('refresh');
 
-                Vue.nextTick( () => this.$refs.vuetable.refresh() );
+                if (this.$refs.vuetable) {
+                    Vue.nextTick( () => this.$refs.vuetable.refresh() );
+                }
             },
             reinitializeFields() {
                 this.$nextTick(() => {
@@ -183,8 +186,10 @@
                 );
             },
             clearSelected () {
-                this.$refs.vuetable.selectedTo = [];
-                this.$events.fire("selection-change", this.$refs.vuetable.selectedTo);
+                if (this.$refs.vuetable) {
+                    this.$refs.vuetable.selectedTo = [];
+                    this.$events.fire("selection-change", this.$refs.vuetable.selectedTo);
+                }
             },
         }
     };

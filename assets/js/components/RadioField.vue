@@ -50,14 +50,17 @@ import FieldError from "./FieldError";
         props: {
             value: {
                 type: [String, Number],
-                required: false
+                required: false,
+                default: "",
             },
             label: {
-                type: String
+                type: String,
+                required: false,
+                default: "",
             },
             helpText: {
                 type: String,
-                requird: false,
+                required: false,
                 default: ""
             },
             displayProperty: {
