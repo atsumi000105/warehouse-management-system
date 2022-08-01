@@ -282,6 +282,7 @@ export default {
             filters: {
                 keyword: null,
                 partner: { id: null },
+                partnerId: null,
                 status: null,
                 partnerType: null,
                 ageExpirationValue: null,
@@ -311,7 +312,7 @@ export default {
             return {
                 status: this.filters.status || null,
                 keyword: this.filters.keyword || null,
-                partner: this.filters.partner.id || null,
+                partner: this.filters.partnerId || null,
                 partnerType: this.filters.partnerType || null,
                 ageExpirationValue: this.filters.ageExpirationValue || null,
                 ageExpirationValueTwo: this.filters.ageExpirationValueTwo || null,
@@ -332,8 +333,12 @@ export default {
             return false;
         },
 
-        setPartner(selection) {
-            this.filters.partner = selection;
+        setPartner(partner) {
+            this.filters.partnerId = null;
+
+            if (partner) {
+                this.filters.partnerId = partner.id;
+            }
         },
 
         downloadExcel: function () {
