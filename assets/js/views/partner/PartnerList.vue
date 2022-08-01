@@ -36,22 +36,24 @@
             </div>
             <div class="col-xs-2">
                 <option-list
-                    v-model="filters"
+                    v-model="filters.fulfillmentPeriod"
                     label="Partner Fulfillment Period"
                     api-path="partners/fulfillment-periods"
                     property="fulfillmentPeriod"
                     display-property="name"
                     empty-string="-- All Periods --"
+                    @change="updateFulfillmentPeriod"
                 />
             </div>
             <div class="col-xs-2">
                 <option-list
-                    v-model="filters"
+                    v-model="filters.distributionMethod"
                     label="Distribution Method"
                     api-path="partners/distribution-methods"
                     property="distributionMethod"
                     display-property="name"
                     empty-string="-- All Methods --"
+                    @change="updateDistributionMethod"
                 />
             </div>
             <div class="col-xs-2">
@@ -112,8 +114,10 @@ export default {
                 status: null,
                 id: null,
                 partnerType: null,
-                fulfillmentPeriod: null,
-                distributionMethod: null,
+                fulfillmentPeriod: {},
+                fulfillmentPeriodId: null,
+                distributionMethod: {},
+                distributionMethodId: null,
                 partner: {},
             },
             statuses: [
@@ -133,11 +137,17 @@ export default {
 
     methods: {
         updatePartner(partner) {
-            this.filters.partnerId = null;
+            this.filters.id = null;
 
             if (partner) {
-                this.filters.partnerId = partner.id;
+                this.filters.id = partner.id;
             }
+        },
+        updateFulfillmentPeriod(eventData) {
+            this.filters.fulfillmentPeriodId = eventData.currentTarget.value;
+        },
+        updateDistributionMethod(eventData) {
+            this.filters.distributionMethodId = eventData.currentTarget.value;
         },
         doFilter () {
             console.log('doFilter:', this.requestParams(), this.filters);
@@ -148,8 +158,8 @@ export default {
                 status: this.filters.status || null,
                 id: this.filters.id || null,
                 partnerType: this.filters.partnerType || null,
-                fulfillmentPeriod: this.filters.fulfillmentPeriod || null,
-                distributionMethod: this.filters.distributionMethod || null,
+                fulfillmentPeriod: this.filters.fulfillmentPeriodId || null,
+                distributionMethod: this.filters.distributionMethodId || null,
             }
         },
     }
