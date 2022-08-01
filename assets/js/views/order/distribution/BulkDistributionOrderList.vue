@@ -25,6 +25,7 @@
                     v-model="filters.partner"
                     label="Partner"
                     :options="allPartners"
+                    @partner-change="updatePartner"
                 />
             </div>
             <div class="col-xs-2">
@@ -121,7 +122,7 @@
     import { mapGetters } from "vuex";
 
     export default {
-        components: { 
+        components: {
             'modalbulkchange' : ModalConfirmBulkChange,
             'modalbulkdelete' : ModalConfirmBulkDelete,
             'tablepaged' : TablePaged,
@@ -163,6 +164,9 @@
         },
         computed: mapGetters(["allPartners"]),
         methods: {
+            updatePartner(partner) {
+                this.filters.partner = partner;
+            },
             onSelectionChange (selection) {
                 this.selection = selection;
             },
