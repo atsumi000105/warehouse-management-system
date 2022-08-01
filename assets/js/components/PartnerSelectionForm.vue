@@ -79,7 +79,6 @@ export default {
     methods: {
         onSelectionChange: function(eventData) {
             let currentPartner = this.$store.getters.getStorageLocationById(eventData.currentTarget.value);
-            console.log('hello world: ', currentPartner);
 
             this.$emit("partner-change", currentPartner);
         }

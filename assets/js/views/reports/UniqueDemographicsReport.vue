@@ -133,6 +133,7 @@ export default {
                 monthAndYearStart: null,
                 monthAndYearEnd: null,
                 partner: { id: null },
+                partnerId: null,
                 zipcode: null,
                 parent: null,
             },
@@ -150,7 +151,7 @@ export default {
             return {
                 monthAndYearStart: this.filters.monthAndYearStart || null,
                 monthAndYearEnd: this.filters.monthAndYearEnd || null,
-                partner: this.filters.partner.id || null,
+                partner: this.filters.partnerId || null,
                 zipcode: this.filters.zipcode || null,
                 parent: this.filters.parent || null,
             };
@@ -174,8 +175,12 @@ export default {
             })
         },
 
-        setPartner(selection) {
-            this.filters.partner = selection;
+        setPartner(partner) {
+            this.filters.partnerId = null;
+
+            if (partner) {
+                this.filters.partnerId = partner.id;
+            }
         },
     },
 }
