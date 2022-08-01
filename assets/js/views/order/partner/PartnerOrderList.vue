@@ -26,6 +26,7 @@
                     v-model="filters.partner"
                     label="Partner"
                     :options="allPartners"
+                    @partner-change="updatePartner"
                 />
             </div>
             <div class="col-xs-2">
@@ -183,6 +184,9 @@ export default {
         this.$events.$on("selection-change", eventData => this.onSelectionChange(eventData));
     },
     methods: {
+        updatePartner(partner) {
+            this.filters.partner = partner;
+        },
         routerLink: function(id) {
             return (
                 "<router-link to=" +
