@@ -154,7 +154,8 @@
                 filters: {
                     status: null,
                     distributionPeriod: null,
-                    partner: {}
+                    partner: {},
+                    partnerId: null,
                 },
 
             };
@@ -165,7 +166,11 @@
         computed: mapGetters(["allPartners"]),
         methods: {
             updatePartner(partner) {
-                this.filters.partner = partner;
+                this.filters.partnerId = null;
+
+                if (partner) {
+                    this.filters.partnerId = partner.id;
+                }
             },
             onSelectionChange (selection) {
                 this.selection = selection;
@@ -217,7 +222,7 @@
                 return {
                     status: this.filters.status || null,
                     distributionPeriod: this.filters.distributionPeriod || null,
-                    partner: this.filters.partner.id || null
+                    partner: this.filters.partnerId || null
                 };
             }
         },

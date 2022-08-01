@@ -167,7 +167,8 @@ export default {
                 status: null,
                 fulfillmentPeriod: {},
                 orderPeriod: null,
-                partner: {}
+                partner: {},
+                partnerId: null,
             },
             selection: [],
             bulkChange: {}
@@ -186,7 +187,11 @@ export default {
     },
     methods: {
         updatePartner(partner) {
-            this.filters.partner = partner;
+            this.filters.partnerId = null;
+
+            if (partner) {
+                this.filters.partnerId = partner.id;
+            }
         },
         updateFulfillmentPeriod(eventData) {
             this.filters.fulfillmentPeriod.id = eventData.currentTarget.value;
@@ -235,7 +240,7 @@ export default {
                 status: this.filters.status || null,
                 fulfillmentPeriod: this.filters.fulfillmentPeriod.id || null,
                 orderPeriod: this.filters.orderPeriod || null,
-                partner: this.filters.partner.id || null
+                partner: this.filters.partnerId || null
             };
         }
     }

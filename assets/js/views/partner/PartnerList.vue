@@ -133,7 +133,11 @@ export default {
 
     methods: {
         updatePartner(partner) {
-            this.filters.id = partner.id;
+            this.filters.partnerId = null;
+
+            if (partner) {
+                this.filters.partnerId = partner.id;
+            }
         },
         doFilter () {
             console.log('doFilter:', this.requestParams(), this.filters);
