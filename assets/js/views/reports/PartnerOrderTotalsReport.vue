@@ -53,6 +53,7 @@
                     v-model="filters.partner"
                     label="Partner"
                     :options="allPartners"
+                    @partner-change="updatePartner"
                 />
             </div>
 
@@ -133,6 +134,7 @@ export default {
             columns: columns,
             filters: {
                 partner: {},
+                partnerId: null,
                 partnerType: null,
                 endingAt: null,
                 startingAt: null
@@ -161,7 +163,7 @@ export default {
     methods: {
         requestParams: function() {
             return {
-                partner: this.filters.partner.id || null,
+                partner: this.filters.partnerId || null,
                 partnerType: this.filters.partnerType || null,
                 startingAt: this.filters.startingAt
                     ? moment
@@ -176,6 +178,13 @@ export default {
                           .toISOString()
                     : null
             };
+        },
+        updatePartner(partner) {
+            this.filters.partnerId = null;
+
+            if (partner) {
+                this.filters.partnerId = partner.id;
+            }
         },
         doFilter() {
             this.$events.fire("filter-set", this.requestParams());
