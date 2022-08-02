@@ -29,9 +29,4 @@ class MultipleLineItemsPerMonthReportTransformer extends TransformerAbstract
             'lastname' => $lineItem['lastname'],
         ];
     }
-
-    public function findDuplicateRecords(LineItem $lineItem)
-    {
-        return 'hello world';
-    }
 }

@@ -26,16 +26,18 @@
                     v-model="filters.partner"
                     label="Partner"
                     :options="allPartners"
+                    @partner-change="updatePartner"
                 />
             </div>
             <div class="col-xs-2">
                 <optionlist
-                    v-model="filters"
+                    v-model="filters.fulfillmentPeriod"
                     label="Partner Fulfillment Period"
                     api-path="partners/fulfillment-periods"
                     property="fulfillmentPeriod"
                     display-property="name"
                     empty-string="-- All Periods --"
+                    @change="updateFulfillmentPeriod"
                 />
             </div>
 
@@ -163,9 +165,10 @@ export default {
             ],
             filters: {
                 status: null,
-                fulfillmentPeriod: null,
+                fulfillmentPeriod: {},
                 orderPeriod: null,
-                partner: {}
+                partner: {},
+                partnerId: null,
             },
             selection: [],
             bulkChange: {}
@@ -183,6 +186,16 @@ export default {
         this.$events.$on("selection-change", eventData => this.onSelectionChange(eventData));
     },
     methods: {
+        updatePartner(partner) {
+            this.filters.partnerId = null;
+
+            if (partner) {
+                this.filters.partnerId = partner.id;
+            }
+        },
+        updateFulfillmentPeriod(eventData) {
+            this.filters.fulfillmentPeriod.id = eventData.currentTarget.value;
+        },
         routerLink: function(id) {
             return (
                 "<router-link to=" +
@@ -225,9 +238,9 @@ export default {
         requestParams: function() {
             return {
                 status: this.filters.status || null,
-                fulfillmentPeriod: this.filters.fulfillmentPeriod || null,
+                fulfillmentPeriod: this.filters.fulfillmentPeriod.id || null,
                 orderPeriod: this.filters.orderPeriod || null,
-                partner: this.filters.partner.id || null
+                partner: this.filters.partnerId || null
             };
         }
     }

@@ -50,6 +50,7 @@ class PartnerController extends BaseController
             /** @var PartnerRepository $repo */
             $repo = $this->getRepository(Partner::class);
             $total = $repo->findAllCount($params);
+
             $partners = $repo->findAllPaged(
                 $page,
                 $limit,
@@ -73,7 +74,6 @@ class PartnerController extends BaseController
         } else {
             $partners = [$this->getUser()->getActivePartner()];
         }
-
 
         return $this->serialize($request, $partners, null, $meta);
     }

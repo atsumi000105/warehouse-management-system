@@ -53,6 +53,7 @@
                     v-model="filters.partner"
                     label="Partner"
                     :options="allPartners"
+                    @partner-change="updatePartner"
                 />
             </div>
 
@@ -133,6 +134,7 @@ export default {
             productColumns: [],
             filters: {
                 partner: {},
+                partnerId: null,
                 partnerType: null,
                 endingAt: null,
                 startingAt: null
@@ -169,6 +171,13 @@ export default {
     },
 
     methods: {
+        updatePartner(partner) {
+            this.filters.partnerId = null;
+
+            if (partner) {
+                this.filters.partnerId = partner.id;
+            }
+        },
         getColumns() {
             const me = this;
 
@@ -217,7 +226,7 @@ export default {
 
         requestParams: function() {
             return {
-                partner: this.filters.partner.id || null,
+                partner: this.filters.partnerId || null,
                 partnerType: this.filters.partnerType || null,
                 startingAt: this.filters.startingAt
                     ? moment
