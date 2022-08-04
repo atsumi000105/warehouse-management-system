@@ -3,11 +3,11 @@ doctrine:
         # configure these for your database server
 #        driver: '%env(resolve:DATABASE_DRIVER)%'
         server_version: '%env(resolve:DATABASE_VERSION)%'
-        host: '%env(resolve:DATABASE_HOST)%'
         dbname: '%env(resolve:DATABASE_NAME)%'
         port: '%env(resolve:DATABASE_PORT)%'
         user: '%env(resolve:DATABASE_USERNAME)%'
         password: '%env(resolve:DATABASE_PASSWORD)%'
+        host: '%env(resolve:DATABASE_HOST)%'
 
         charset: utf8
 #        url: '%env(resolve:DATABASE_URL)%'
