@@ -1,7 +1,7 @@
 doctrine:
     dbal:
         # configure these for your database server
-        driver: '%env(resolve:DATABASE_DRIVER)%'
+#        driver: '%env(resolve:DATABASE_DRIVER)%'
         server_version: '%env(resolve:DATABASE_VERSION)%'
         charset: utf8
         url: '%env(resolve:DATABASE_URL)%'
