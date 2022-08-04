@@ -37,7 +37,7 @@ mounts:
 
 
 relationships:
-    database: "database:mariadb"
+    database: "mariadb:app"
 
 hooks:
     build: |
