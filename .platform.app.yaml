@@ -46,9 +46,8 @@ relationships:
 hooks:
     build: |
         set -x -e
-        curl -fs https://get.symfony.com/cloud/configurator | bash
-        
-        symfony-build
+        yarn install
+        yarn build
     deploy: |
         set -x -e
         symfony-deploy
