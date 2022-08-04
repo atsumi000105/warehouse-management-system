@@ -47,6 +47,7 @@ hooks:
     deploy: |
         set -x -e
         symfony-deploy
+
 crons:
     security-check:
         # Check that no security issues have been found for PHP packages deployed in production
