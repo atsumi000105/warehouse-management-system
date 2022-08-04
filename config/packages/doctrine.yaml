@@ -2,9 +2,9 @@ doctrine:
     dbal:
         # configure these for your database server
 #        driver: '%env(resolve:DATABASE_DRIVER)%'
-        server_version: '%env(resolve:DATABASE_VERSION)%'
+        server_version: '%env(resolve:MARIADB_VERSION)%'
         charset: utf8
-        url: '%env(resolve:DATABASE_URL)%'
+        url: '%env(resolve:MARIADB_URL)%'
     orm:
         auto_generate_proxy_classes: true
         naming_strategy: doctrine.orm.naming_strategy.underscore
