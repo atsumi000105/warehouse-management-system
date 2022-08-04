@@ -5,9 +5,6 @@ type: php:7.3
 dependencies:
     php:
         composer/composer: "^2"
-    nodejs:
-        gulp-cli: "*"
-        yarn: "*"
 
 runtime:
     extensions:
