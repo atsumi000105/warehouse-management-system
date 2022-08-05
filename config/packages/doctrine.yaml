@@ -1,16 +1,16 @@
 doctrine:
     dbal:
         # configure these for your database server
-#        driver: '%env(resolve:DATABASE_DRIVER)%'
-        server_version: '%env(resolve:DATABASE_VERSION)%'
-        dbname: '%env(resolve:DATABASE_NAME)%'
-        port: '%env(resolve:DATABASE_PORT)%'
-        user: '%env(resolve:DATABASE_USERNAME)%'
-        password: '%env(resolve:DATABASE_PASSWORD)%'
-        host: '%env(resolve:DATABASE_HOST)%'
+        url: '%env(resolve:DATABASE_URL)%'
+        #driver: '%env(resolve:DATABASE_DRIVER)%'
+        #server_version: '%env(resolve:DATABASE_VERSION)%'
+        #dbname: '%env(resolve:DATABASE_NAME)%'
+        #port: '%env(resolve:DATABASE_PORT)%'
+        #user: '%env(resolve:DATABASE_USERNAME)%'
+        #password: '%env(resolve:DATABASE_PASSWORD)%'
+        #host: '%env(resolve:DATABASE_HOST)%'
 
-        charset: utf8
-#        url: '%env(resolve:DATABASE_URL)%'
+        #charset: utf8
     orm:
         auto_generate_proxy_classes: true
         naming_strategy: doctrine.orm.naming_strategy.underscore
