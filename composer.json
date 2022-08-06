@@ -23,6 +23,7 @@
         "nelmio/cors-bundle": "^1.5",
         "phpdocumentor/reflection-docblock": "^5.2",
         "phpoffice/phpspreadsheet": "^1.6",
+        "platformsh/symfonyflex-bridge": "^2.7",
         "samj/fractal-bundle": "^2.1",
         "sensio/framework-extra-bundle": "^5.2",
         "stof/doctrine-extensions-bundle": "^1.3",

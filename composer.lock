@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3f4046915321ce376484ac1c31dd6665",
+    "content-hash": "f7157afb2f6863537f0abbf2b2ce155c",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -2997,6 +2997,98 @@
                 "source": "https://github.com/PHPOffice/PhpSpreadsheet/tree/1.17.1"
             },
             "time": "2021-03-02T17:54:11+00:00"
+        },
+        {
+            "name": "platformsh/config-reader",
+            "version": "2.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/platformsh/config-reader-php.git",
+                "reference": "5511abfdb673ccfcf0eac9eaf65204f73edd90fd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/platformsh/config-reader-php/zipball/5511abfdb673ccfcf0eac9eaf65204f73edd90fd",
+                "reference": "5511abfdb673ccfcf0eac9eaf65204f73edd90fd",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Platformsh\\ConfigReader\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Larry Garfield",
+                    "email": "larry@platform.sh"
+                }
+            ],
+            "description": "Small helper to access Platform.sh environment variables",
+            "support": {
+                "issues": "https://github.com/platformsh/config-reader-php/issues",
+                "source": "https://github.com/platformsh/config-reader-php/tree/2.4.0"
+            },
+            "time": "2020-12-10T20:50:12+00:00"
+        },
+        {
+            "name": "platformsh/symfonyflex-bridge",
+            "version": "2.7.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/platformsh/symfonyflex-bridge.git",
+                "reference": "222c243ea1b16e28648bcd59b227e70ba1347b99"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/platformsh/symfonyflex-bridge/zipball/222c243ea1b16e28648bcd59b227e70ba1347b99",
+                "reference": "222c243ea1b16e28648bcd59b227e70ba1347b99",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2",
+                "platformsh/config-reader": "^2.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "platformsh-flex-env.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Larry Garfield",
+                    "email": "larry@platform.sh"
+                }
+            ],
+            "description": "Bridge library for running Symfony Flex on Platform.sh",
+            "support": {
+                "issues": "https://github.com/platformsh/symfonyflex-bridge/issues",
+                "source": "https://github.com/platformsh/symfonyflex-bridge/tree/2.7.1"
+            },
+            "time": "2021-04-20T13:31:25+00:00"
         },
         {
             "name": "psr/cache",
@@ -9609,5 +9701,5 @@
     "platform-overrides": {
         "php": "7.3.1"
     },
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.1.0"
 }
